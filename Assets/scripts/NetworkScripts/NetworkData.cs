@@ -6,13 +6,14 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class NetworkData : NetworkBehaviour
+public class NetworkData : NetworkBehaviour, IDataPersistance
 {
 
     public List<playerData> players = new List<playerData>();
     [SerializeField] public List<GameObject> playerSticks = new List<GameObject>();
     [SerializeField] private GameObject characterEditor;
 
+    public List<List<InventoryObject>> playerInventories = new List<List<InventoryObject>>();
     [SerializeField] private List<InventoryObject> player1Inventories = new List<InventoryObject>();
     [SerializeField] private List<InventoryObject> player2Inventories = new List<InventoryObject>();
     [SerializeField] private List<InventoryObject> player3Inventories = new List<InventoryObject>();
@@ -33,10 +34,23 @@ public class NetworkData : NetworkBehaviour
         readyPlayers.Add(false);
         readyPlayers.Add(false);
         readyPlayers.Add(false);
-       // players.OnListChanged += SyncSticks;
-        
+        playerInventories.Add(player1Inventories);
+        playerInventories.Add(player2Inventories);
+        playerInventories.Add(player3Inventories);
+        playerInventories.Add(player4Inventories);
+        // players.OnListChanged += SyncSticks;
+
     }
- 
+    public void LoadData(GameData data)
+    {
+        players = data.players;
+    }
+    public void SaveData(ref GameData data)
+    {
+        
+        data.players = players;
+       
+    }
     public override void OnNetworkSpawn()
     {   
         
@@ -45,11 +59,7 @@ public class NetworkData : NetworkBehaviour
             players.Add(new playerData());
             players.Add(new playerData());
             players.Add(new playerData());
-            players[0].Inventories = player1Inventories;
             
-            players[1].Inventories = player2Inventories;
-            players[2].Inventories = player3Inventories;
-            players[3].Inventories = player4Inventories;
 
             NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
@@ -96,6 +106,7 @@ public class NetworkData : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void fillPlayerServerRpc(int index)
     {
+        Debug.Log(index);
         readyPlayers[index] = true;
         playerCount++;
         Debug.Log(playerCount);
@@ -113,10 +124,7 @@ public class NetworkData : NetworkBehaviour
         players[playerId].playerFace = playerFace;
         players[playerId].playerClass = playerClass;
         players[playerId].playerHair = playerHair;
-        players[0].Inventories = player1Inventories;
-        players[1].Inventories = player2Inventories;
-        players[2].Inventories = player3Inventories;
-        players[3].Inventories = player4Inventories;
+        
 
         characterEditor curStickEdit = playerSticks[playerId].GetComponent<characterEditor>();
         curStickEdit.setClass(players[playerId].playerClass);

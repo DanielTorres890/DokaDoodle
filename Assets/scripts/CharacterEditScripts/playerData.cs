@@ -12,7 +12,7 @@ public class playerData
     public FixedString32Bytes playerName;
     public int playerFace;
     public int playerHair;
-    public List<InventoryObject> Inventories = new List<InventoryObject>();
+    
     public int curTileId;
    
     public playerData()

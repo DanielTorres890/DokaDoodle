@@ -65,10 +65,10 @@ public class DisplayInventory : MonoBehaviour
     }
     private void SetInventory(int inventoryType, int playerNum)
     {
-        
-        Debug.Log(NetworkData.Instance.players[playerNum].Inventories.Count);
 
-        inventory = NetworkData.Instance.players[playerNum].Inventories[inventoryType];
+        Debug.Log(NetworkData.Instance.playerInventories[playerNum].Count);
+
+        inventory = NetworkData.Instance.playerInventories[playerNum][inventoryType];
         foreach (GameObject item in itemsDisplayed.Values)
         {
             Destroy(item);
