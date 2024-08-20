@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4033,7 +4033,6 @@ GameObject:
   - component: {fileID: 710211346}
   - component: {fileID: 710211345}
   - component: {fileID: 710211344}
-  - component: {fileID: 710211347}
   m_Layer: 5
   m_Name: addPlayerButManager
   m_TagString: Untagged
@@ -4102,20 +4101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Button: {fileID: 1688357204}
   playerNum: 1
---- !u!114 &710211347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 710211342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adba8b92bc1161243a7474c65de5a320, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Button: {fileID: 1798678137}
-  playerNum: 9
 --- !u!1 &722646322
 GameObject:
   m_ObjectHideFlags: 0
@@ -8783,6 +8768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1559975334}
   - component: {fileID: 1559975333}
+  - component: {fileID: 1559975335}
   m_Layer: 0
   m_Name: SaveDataManager
   m_TagString: Untagged
@@ -8802,7 +8788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca2291617ffc58e43accf9dc98cfcf81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: Test
+  fileName: Test.json
 --- !u!4 &1559975334
 Transform:
   m_ObjectHideFlags: 0
@@ -8818,6 +8804,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1559975335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559975332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313fc1e4e37c4cc43875dc416e5442e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1584339396
 GameObject:
   m_ObjectHideFlags: 0
@@ -9164,7 +9162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1798678136
 RectTransform:
   m_ObjectHideFlags: 0
