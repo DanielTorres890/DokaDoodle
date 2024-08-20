@@ -27,6 +27,15 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
     {
         
     }
+    public List<int> serializeInventory ()
+    {
+        List<int> result = new List<int>();
+        for(int i = 0;i < container.Count;i++)
+        {
+            result.Add(container[i].Id);
+        }
+        return result;
+    }
 }
 
 [System.Serializable]

@@ -44,12 +44,45 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public void LoadData(GameData data)
     {
         players = data.players;
+        InventoriesToDeserialize(data);
     }
     public void SaveData(ref GameData data)
     {
         
         data.players = players;
+        InventoriesToSerialize(ref data);
+        
        
+    }
+
+    private void InventoriesToSerialize(ref GameData data)
+    {
+        for (int i = 0; i < playerInventories.Count; i++)
+        {
+            data.inventoryObjects.Add(new List<List<int>>());
+            for (int j = 0; j < playerInventories[i].Count; j++)
+            {
+                data.inventoryObjects[i].Add(playerInventories[i][j].serializeInventory());
+            }
+
+        }
+    }
+    private void InventoriesToDeserialize(GameData data)
+    {
+        for (int i = 0; i < data.inventoryObjects.Count; i++)
+        {
+            
+            for (int j = 0; j < data.inventoryObjects[i].Count; j++)
+            {
+
+                for (int k = 0; k < data.inventoryObjects[i][j].Count; k++)
+                {
+                    playerInventories[i][j].AddItem(playerInventories[i][j].database.GetItem[data.inventoryObjects[i][j][k]]);
+                }
+                    
+            }
+
+        }
     }
     public override void OnNetworkSpawn()
     {   

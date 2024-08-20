@@ -27,6 +27,7 @@ public class DataPersistenceManager : MonoBehaviour
     {
         this.dataHandler = new FileDatahandler(Application.persistentDataPath,fileName);
         this.dataPersistances = FindAllDataPersistanceObjects();
+        //LoadGame();
     }
 
     public void NewGame()
@@ -59,6 +60,7 @@ public class DataPersistenceManager : MonoBehaviour
             persistance.SaveData(ref gameData);
 
         }
+
         dataHandler.Save(gameData);
     }
 
