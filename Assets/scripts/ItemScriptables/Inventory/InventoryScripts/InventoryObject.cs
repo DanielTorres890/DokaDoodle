@@ -13,7 +13,16 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
         container.Add(new InventorySlot(database.GetId[_item], _item));
 
     }
-
+    public void RemoveItem(ItemBase _item)
+    {
+        foreach (InventorySlot slot in container)
+        {
+            if (slot.item == _item)
+            {
+                container.Remove(slot);
+            }
+        }
+    }
     public void OnAfterDeserialize()
     {
         for (int i  = 0; i < container.Count; i++)

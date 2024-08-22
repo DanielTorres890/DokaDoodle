@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "New Default Object", menuName = "Inventory System/Items/Default")]
-public class DefaultItem : ItemBase
+[CreateAssetMenu(fileName = "New Weapon Object", menuName = "Inventory System/Items/Weapon")]
+public class WeaponItem : ItemBase
 {
     public void Awake()
     {
-        type = ItemType.Default;
+        type = ItemType.Equipment;
     }
 
     public override void PerformItemEffect(int player, ref InventoryObject inventory)

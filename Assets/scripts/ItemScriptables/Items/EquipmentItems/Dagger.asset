@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c2c5eb9652caa49827813a16569c5a, type: 3}
   m_Name: Dagger
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  type: 0
+  itemSprite: {fileID: 6874559867087444188, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+  type: 1
+  itemValue: 0
   description: A basic dagger a good starting weapon to use
-  atkBonus: 3
-  defenceBonus: 0
-  magicBonus: 0
-  mDefenseBonus: 0
-  dexterityBonus: 0
-  healthBonus: 0
+  buffs:
+  - attribute: 1
+    value: 5
