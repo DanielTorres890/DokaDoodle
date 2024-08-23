@@ -46,7 +46,7 @@ public class DisplayInventory : MonoBehaviour
                 obj.transform.GetComponent<Image>().sprite = inventory.container[i].item.itemSprite;
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
 
-                obj.GetComponent<Button>().onClick.AddListener(delegate { inventory.container[i].item.PerformItemEffect(NetworkData.Instance.currentPlayer,ref inventory); });
+                obj.GetComponent<Button>().onClick.AddListener(delegate { inventory.container[i].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[i].Id); });
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
                 itemsDisplayed.Add(inventory.container[i], obj);
             }

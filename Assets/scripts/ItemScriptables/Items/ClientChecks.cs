@@ -16,7 +16,7 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void ConfirmBuffRpc(int player, int itemId) 
     {
-        if(NetworkData.Instance.IsAllowed(player, NetworkManager.Singleton.LocalClientId)) { return; }
+        
 
         _itemData.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][0]);
     }
