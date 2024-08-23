@@ -11,7 +11,12 @@ public class FoodItem : ItemBase
         type = ItemType.Food;
     }
 
-    public override void PerformItemEffect(int player, ref InventoryObject inventory)
+    public override void ItemInfoCheck(int player, int itemId)
+    {
+       
+    }
+
+    public override void PerformItemEffect(int player, InventoryObject inventory)
     {
         foreach (var attrib in base.buffs)
         {

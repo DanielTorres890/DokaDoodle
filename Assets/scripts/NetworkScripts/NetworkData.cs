@@ -175,4 +175,10 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         }
         SceneChanger.Instance.loadClientScenesServerRpc("PregameCutScene");
     }
+    public bool IsAllowed(int playerNum, ulong playerId)
+    {
+        if (playerNum != Convert.ToInt32(playerId) && !IsHost) { return false; }
+
+        return true;
+    }
 }

@@ -32,7 +32,8 @@ public abstract class ItemBase : ScriptableObject
     public string description;
     public ItemBuff[] buffs;
 
-    public abstract void PerformItemEffect(int player, ref InventoryObject inventory);
+    public abstract void ItemInfoCheck(int player, int itemId);
+    public abstract void PerformItemEffect(int player, InventoryObject inventory);
 
 }
 [System.Serializable]
