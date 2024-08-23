@@ -15,13 +15,29 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
     }
     public void RemoveItem(ItemBase _item)
     {
-        foreach (InventorySlot slot in container)
+        for (int i = container.Count - 1; i >= 0; i--)
+        {
+            if (container[i].item == _item)
+            {
+                container.RemoveAt(i);
+
+                return;
+            }
+        }
+
+       // List<InventorySlot> slotsToRemove = new List<InventorySlot>();
+       
+        /* foreach (InventorySlot slot in container)
         {
             if (slot.item == _item)
             {
-                container.Remove(slot);
+                slotsToRemove.Add(slot);
             }
         }
+        foreach (InventorySlot slot in slotsToRemove)
+        {
+            container.Remove(slot);
+        } */
     }
     public void OnAfterDeserialize()
     {

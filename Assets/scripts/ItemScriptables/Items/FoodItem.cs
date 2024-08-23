@@ -21,6 +21,7 @@ public class FoodItem : ItemBase
 
     public override void PerformItemEffect(int player, InventoryObject inventory)
     {
+        
         foreach (var attrib in base.buffs)
         {
             NetworkData.Instance.players[player].stats[attrib.attribute] += attrib.value;

@@ -45,8 +45,8 @@ public class DisplayInventory : MonoBehaviour
                 var obj = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
                 obj.transform.GetComponent<Image>().sprite = inventory.container[i].item.itemSprite;
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-
-                obj.GetComponent<Button>().onClick.AddListener(delegate { inventory.container[i].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[i].Id); });
+  
+                
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
                 itemsDisplayed.Add(inventory.container[i], obj);
             }
@@ -61,10 +61,12 @@ public class DisplayInventory : MonoBehaviour
 
         for (int i = 0; i < inventory.container.Count; i++)
         {
+            var tempId = i; //WHY IS THIS A THING THAT HAS TO BE DONE
             var obj = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
             obj.transform.GetComponent<Image>().sprite = inventory.container[i].item.itemSprite;
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
             
+            obj.GetComponent<Button>().onClick.AddListener(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
             obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
 
             

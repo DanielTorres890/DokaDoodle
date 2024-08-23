@@ -1318,7 +1318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &612028879
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1621,6 +1621,7 @@ GameObject:
   - component: {fileID: 840043629}
   - component: {fileID: 840043628}
   - component: {fileID: 840043627}
+  - component: {fileID: 840043630}
   m_Layer: 5
   m_Name: InventoryNetManager
   m_TagString: Untagged
@@ -1681,6 +1682,19 @@ RectTransform:
   m_AnchoredPosition: {x: 1095.8562, y: 559.5805}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &840043630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840043626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 990f5edd8afde4b47a0714d8fddfebb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemData: {fileID: 11400000, guid: 48cbb324c0f8b644993d19bd02c5c46f, type: 2}
 --- !u!1 &871236223
 GameObject:
   m_ObjectHideFlags: 0
