@@ -6,7 +6,7 @@ using UnityEngine;
 public class InventoryChangeScript : NetworkBehaviour
 {
     private int currentInventory = 0;
-    [SerializeField] DisplayInventory inventoryDisplay;
+    [SerializeField] public DisplayInventory inventoryDisplay;
 
     [Rpc( SendTo.ClientsAndHost,RequireOwnership = false)]
     public void InventoryForwardRpc()
@@ -15,7 +15,7 @@ public class InventoryChangeScript : NetworkBehaviour
         if (currentInventory >= 2) { return; }
 
         currentInventory += 1;
-        Debug.Log(currentInventory);
+
         inventoryDisplay.CreateDisplay(currentInventory, NetworkData.Instance.currentPlayer);
     }
    /* [ClientRpc( RequireOwnership = false)]

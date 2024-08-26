@@ -38,6 +38,9 @@ public class playerData
         playerFace = 0;
         playerHair = 0;
         curTileId = 0;
+        equipWeaponId = -1;
+        equipMagicId = -1;
+        equipEquipmentId = -1;
     }
     public playerData(int PlayerClass, FixedString32Bytes PlayerName, int PlayerFace, int PlayerHair)
     {
@@ -45,6 +48,9 @@ public class playerData
         playerName = PlayerName;
         playerFace = PlayerFace;
         playerHair = PlayerHair;
+        equipWeaponId = -1;
+        equipMagicId = -1;
+        equipEquipmentId = -1;
     } 
     
     

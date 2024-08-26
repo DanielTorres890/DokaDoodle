@@ -30,7 +30,9 @@ public abstract class ItemBase : ScriptableObject
 
     [TextArea(15,20)]
     public string description;
+    public string itemName;
     public ItemBuff[] buffs;
+    
 
     public abstract void ItemInfoCheck(int player, int itemId);
     public abstract void PerformItemEffect(int player, InventoryObject inventory);

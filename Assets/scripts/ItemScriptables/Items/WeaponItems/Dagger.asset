@@ -9,13 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45c2c5eb9652caa49827813a16569c5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
   m_Name: Dagger
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 6874559867087444188, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
-  type: 1
-  itemValue: 0
-  description: A basic dagger a good starting weapon to use
+  itemSprite: {fileID: -7651382692361409720, guid: 1e834e05bdb73514682dab921ed10df7, type: 3}
+  type: 2
+  itemValue: 25
+  description: A rusty dagger, a weapon you recieved from your family to get you
+    started
+  itemName: Rusty Dagger
   buffs:
-  - attribute: 1
+  - attribute: 2
     value: 5

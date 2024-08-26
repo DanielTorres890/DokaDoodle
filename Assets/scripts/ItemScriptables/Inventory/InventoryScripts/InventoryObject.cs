@@ -17,8 +17,11 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
     {
         for (int i = container.Count - 1; i >= 0; i--)
         {
+            Debug.Log(container[i].item.itemName);
+            Debug.Log(_item.itemName);
             if (container[i].item == _item)
             {
+                Debug.Log("Removed!");
                 container.RemoveAt(i);
 
                 return;

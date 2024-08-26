@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Events;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -13,6 +16,7 @@ public class DisplayInventory : MonoBehaviour
     public InventoryObject inventory;
 
     [SerializeField] private GameObject itemPrefab;
+    [SerializeField] private TextMeshProUGUI displayText;
     public int X_Start;
     public int Y_Start;
     public int X_SPACE_BETWEEN_ITEM;
@@ -65,8 +69,13 @@ public class DisplayInventory : MonoBehaviour
             var obj = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
             obj.transform.GetComponent<Image>().sprite = inventory.container[i].item.itemSprite;
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-            
+
             obj.GetComponent<Button>().onClick.AddListener(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
+            AddEvent(obj, EventTriggerType.Select, delegate { displayText.SetText(inventory.container[tempId].item.description); });
+            AddEvent(obj, EventTriggerType.PointerEnter, delegate { displayText.SetText(inventory.container[tempId].item.description); });
+
+            //UnityAction<GameObject> action = new UnityAction<GameObject>(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
+            //UnityEventTools.AddObjectPersistentListener<GameObject>(obj.GetComponent<Button>().onClick, action, obj);
             obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
 
             

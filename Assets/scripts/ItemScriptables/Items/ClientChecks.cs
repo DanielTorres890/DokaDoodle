@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class ClientChecks : NetworkBehaviour
 {
-    [SerializeField] private ItemDataBase _itemData;
+    [SerializeField] private DisplayInventory display;
+
+
     public static ClientChecks Instance { get; private set; }
 
     private void Awake()
@@ -14,10 +16,13 @@ public class ClientChecks : NetworkBehaviour
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    public void ConfirmBuffRpc(int player, int itemId) 
+    public void ConfirmBuffRpc(int player, int itemId, int inventoryNum) 
     {
-        
 
-        _itemData.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][0]);
+
+        NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
+
+        display.CreateDisplay(inventoryNum, player);
+
     }
 }
