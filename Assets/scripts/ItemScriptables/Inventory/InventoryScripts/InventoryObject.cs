@@ -8,6 +8,7 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
 {
     public ItemDataBase database;
     public List<InventorySlot> container = new List<InventorySlot>();
+
     public void AddItem(ItemBase _item)
     {
         container.Add(new InventorySlot(database.GetId[_item], _item));

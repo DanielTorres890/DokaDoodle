@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-public class TileScript : MonoBehaviour
+public abstract class TileScript : MonoBehaviour 
 {
     public GameObject upTile;
     public GameObject downTile;
@@ -11,8 +11,9 @@ public class TileScript : MonoBehaviour
     public GameObject leftTile;
 
     public int tileId;
+    public List<bool> playersOnTile = new List<bool> { false,false,false,false};
 
-
+    public abstract void TileEvent();
     
     /*
     public void Move(GameObject player, FixedString32Bytes direction)

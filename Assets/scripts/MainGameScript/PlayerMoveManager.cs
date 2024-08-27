@@ -58,7 +58,7 @@ public class PlayerMoveManager : NetworkBehaviour
         if (NetworkData.Instance.currentPlayer != Convert.ToInt32(NetworkManager.Singleton.LocalClientId) && !IsHost) { return; }
         int randomNum = UnityEngine.Random.Range(0, 100);
 
-        if (randomNum <= 5) { diceRoll = 0; }
+        if (randomNum <= 3) { diceRoll = 0; }
 
         else { diceRoll = Convert.ToInt32(Math.Ceiling(randomNum / 19f));  }
 
@@ -137,14 +137,16 @@ public class PlayerMoveManager : NetworkBehaviour
         if (!canMove) { return; }
         
         var curTile = mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
+
         
         if (action.action.ReadValue<Vector2>() == Vector2.up && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].upTile != null)
         {
 
 
-
+          
             if (((takenPath.Count <= 1 && diceRoll > 0) || (takenPath[takenPath.Count - 2] != curTile.upTile)) && diceRoll > 0)
             {
+                
                 diceRoll--;
                 takenPath.Add(curTile.upTile);
 
@@ -156,6 +158,7 @@ public class PlayerMoveManager : NetworkBehaviour
             }
             else { return; }
             SyncPlayerTileServerRpc(curTile.upTile.GetComponent<TileScript>().tileId);
+          
         }
         if (action.action.ReadValue<Vector2>() == Vector2.down && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].downTile != null)
         {
@@ -253,6 +256,7 @@ public class PlayerMoveManager : NetworkBehaviour
     [ClientRpc(RequireOwnership =false)]
     private void SetNextTurnClientRpc(int playerNum)
     {
+        mapTiles[NetworkData.Instance.players[playerNum].curTileId].TileEvent();
         NetworkData.Instance.currentPlayer = playerNum;
         gameMenu.SetActive(true);
     }

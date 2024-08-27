@@ -116,9 +116,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3735387054086767184}
-  - component: {fileID: 852472361060705930}
+  - component: {fileID: 6079159642424071106}
   m_Layer: 0
-  m_Name: Tile
+  m_Name: DefaultTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ Transform:
   - {fileID: 5532635932098808053}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &852472361060705930
+--- !u!114 &6079159642424071106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,11 +149,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4275375762089989838}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 457a2bcffc4215e4ab04c4fcae0e8798, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f8689756fc52dd44b9fdb163035e2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   upTile: {fileID: 0}
   downTile: {fileID: 0}
   rightTile: {fileID: 0}
   leftTile: {fileID: 0}
-  tiltId: 0
+  tileId: 0
+  playersOnTile: 00000000
