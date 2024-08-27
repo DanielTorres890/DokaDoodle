@@ -21,20 +21,20 @@ public class playerData
 
     public Dictionary<Attributes, int> stats = new Dictionary<Attributes, int>
     {
-        {Attributes.MaxHealth, 10 },
-        {Attributes.Health, 10 },
-        {Attributes.Attack, 10 },
-        {Attributes.Defense, 10 },
-        {Attributes.Magic, 10 },
-        {Attributes.MDefense, 10 },
-        {Attributes.Dexterity, 10 }
+        {Attributes.MaxHealth, 0 },
+        {Attributes.Health, 0 },
+        {Attributes.Attack, 0 },
+        {Attributes.Defense, 0 },
+        {Attributes.Magic, 0 },
+        {Attributes.MDefense, 0 },
+        {Attributes.Dexterity, 0 }
 
 
     };
     public playerData()
     {
         playerClass = 0;
-        playerName = "";
+        playerName = "Player";
         playerFace = 0;
         playerHair = 0;
         curTileId = 0;
@@ -53,6 +53,9 @@ public class playerData
         equipEquipmentId = -1;
     } 
     
-    
+    public FixedString32Bytes getName()
+    {
+        return playerName;
+    }
     
 }

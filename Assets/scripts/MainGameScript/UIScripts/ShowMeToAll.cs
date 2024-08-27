@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShowMeToAll : NetworkBehaviour
 {
@@ -28,6 +29,7 @@ public class ShowMeToAll : NetworkBehaviour
     public void ShowUIToAllClientRpc()
     {
         menuUI.SetActive(true);
+        
     }
 
     public void HideUIFromAll()

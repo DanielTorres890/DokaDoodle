@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Netcode;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class NetworkData : NetworkBehaviour, IDataPersistance
@@ -12,6 +13,8 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public List<playerData> players = new List<playerData>();
     [SerializeField] public List<GameObject> playerSticks = new List<GameObject>();
     [SerializeField] private GameObject characterEditor;
+    [SerializeField] private ClassDataBase classDataBase;
+
 
     public List<List<InventoryObject>> playerInventories = new List<List<InventoryObject>>();
     [SerializeField] private List<InventoryObject> player1Inventories = new List<InventoryObject>();
@@ -142,6 +145,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         Debug.Log(index);
         readyPlayers[index] = true;
         playerCount++;
+ 
         Debug.Log(playerCount);
     }
     [ServerRpc(RequireOwnership = false)]
@@ -157,7 +161,10 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         players[playerId].playerFace = playerFace;
         players[playerId].playerClass = playerClass;
         players[playerId].playerHair = playerHair;
-        
+        foreach(var stat in classDataBase.Classes[playerClass].stats)
+        {
+            players[playerId].stats[stat.attribute] += stat.value;
+        }
 
         characterEditor curStickEdit = playerSticks[playerId].GetComponent<characterEditor>();
         curStickEdit.setClass(players[playerId].playerClass);
