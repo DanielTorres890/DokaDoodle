@@ -8,6 +8,6 @@ public class DefaultTile : TileScript
 
     public override void TileEvent()
     {
-       
+        PlayerMoveManager.Instance.NextTurnRpc();
     }
 }

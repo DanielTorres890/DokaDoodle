@@ -23,12 +23,17 @@ public class PlayerMoveManager : NetworkBehaviour
 
     public bool canMove = false;
     public NetworkVariable<bool> cameraMove = new NetworkVariable<bool>();
+
     int diceRoll = 0;
 
     [SerializeField] private float cameraSpeed = 5f;
+    [SerializeField] private float moveSpeed = 500f;
     private Vector3 cameraMoveDirection;
+
+    public static PlayerMoveManager Instance;
     private void Awake()
     {
+        Instance = this;
         playerSticks = GameObject.FindGameObjectWithTag("Data").GetComponent<NetworkData>().playerSticks;
 
         int xoffset = 0;
@@ -58,13 +63,14 @@ public class PlayerMoveManager : NetworkBehaviour
         if (NetworkData.Instance.currentPlayer != Convert.ToInt32(NetworkManager.Singleton.LocalClientId) && !IsHost) { return; }
         int randomNum = UnityEngine.Random.Range(0, 100);
 
-        if (randomNum <= 3) { diceRoll = 0; }
+        if (randomNum <= 3) { diceRoll = 1; }
 
-        else { diceRoll = Convert.ToInt32(Math.Ceiling(randomNum / 19f));  }
+        else { diceRoll = Convert.ToInt32(Math.Ceiling(randomNum / 14f));  }
 
 
         canMove = true;
         SyncDiceRollServerRpc(diceRoll);
+        takenPath.Clear();
         takenPath.Add(mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].gameObject);
         
     }
@@ -81,6 +87,7 @@ public class PlayerMoveManager : NetworkBehaviour
         
         diceRoll = num;
         rollNum.text = diceRoll.ToString();
+        
     }
 
     public void confirmMove(InputAction.CallbackContext action)
@@ -216,7 +223,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
         SyncDiceRollServerRpc(diceRoll);
         rollNum.text = diceRoll.ToString();
-        PlayerMoverServerRpc(300f);
+        PlayerMoverServerRpc(moveSpeed);
     }
 
 
@@ -245,23 +252,28 @@ public class PlayerMoveManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void SetNextTurnServerRpc()
     {
-        if (NetworkData.Instance.currentPlayer < 3) { NetworkData.Instance.currentPlayer += 1; }
-
-        else { NetworkData.Instance.currentPlayer = 0; }
-        SetNextTurnClientRpc(NetworkData.Instance.currentPlayer);
+        
+        SetNextTurnClientRpc();
     }
 
 
 
     [ClientRpc(RequireOwnership =false)]
-    private void SetNextTurnClientRpc(int playerNum)
+    private void SetNextTurnClientRpc()
     {
-        mapTiles[NetworkData.Instance.players[playerNum].curTileId].TileEvent();
-        NetworkData.Instance.currentPlayer = playerNum;
-        gameMenu.SetActive(true);
+        mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].TileEvent();
+        
+        
     }
 
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void NextTurnRpc()
+    {
+        if (NetworkData.Instance.currentPlayer < 3) { NetworkData.Instance.currentPlayer += 1; }
 
+        else { NetworkData.Instance.currentPlayer = 0; }
+        gameMenu.SetActive(true);
+    }
 
     private IEnumerator playerMover(float speed)
     {

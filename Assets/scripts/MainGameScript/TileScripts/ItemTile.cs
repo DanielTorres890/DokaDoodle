@@ -15,7 +15,7 @@ public class ItemTile : TileScript
     {
         Debug.Log("Happened");
        
-        if (Convert.ToInt32(NetworkManager.Singleton.LocalClientId) != NetworkData.Instance.currentPlayer) { return; }
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer,NetworkManager.Singleton.LocalClientId)) { return; }
         int rando = UnityEngine.Random.Range(0,items.Length);
         ClientChecks.Instance.ConfirmItemPickupRpc(NetworkData.Instance.currentPlayer, rando, itemType);
         
