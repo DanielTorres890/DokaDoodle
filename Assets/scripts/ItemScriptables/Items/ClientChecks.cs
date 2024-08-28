@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -11,9 +10,6 @@ public class ClientChecks : NetworkBehaviour
 
     public static ClientChecks Instance { get; private set; }
 
-    public GameObject displayText;
-
-  
     private void Awake()
     {
         Instance = this;
@@ -27,29 +23,6 @@ public class ClientChecks : NetworkBehaviour
         NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
 
         display.CreateDisplay(inventoryNum, player);
-
-    }
-
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    public void ConfirmItemPickupRpc(int player, int itemId, int inventoryNum)
-    {
-        NetworkData.Instance.playerInventories[player][inventoryNum].AddItem(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId]);
-        displayText.SetActive(true);
-        displayText = ItemPickupDisplay.Instance.gameObject;
-        displayText.GetComponentInChildren<TextMeshProUGUI>().text = "Obtained a" + NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].name;
-        StartCoroutine(displayItem());
-    }
-
-
-
-    private IEnumerator displayItem()
-    {
-        displayText.SetActive(true);
-        while (displayText.activeSelf)
-        {
-
-            yield return null;
-        }
 
     }
 }

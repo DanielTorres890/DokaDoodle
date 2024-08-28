@@ -1,14 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Events;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DisplayInventory : MonoBehaviour
 {
     
     public InventoryObject inventory;
 
+    [SerializeField] private GameObject itemPrefab;
+    [SerializeField] private TextMeshProUGUI displayText;
     public int X_Start;
     public int Y_Start;
     public int X_SPACE_BETWEEN_ITEM;
@@ -24,7 +32,7 @@ public class DisplayInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateDisplay();
+        
     }
 
     public void UpdateDisplay()
@@ -38,8 +46,11 @@ public class DisplayInventory : MonoBehaviour
             }
             else
             {
-                var obj = Instantiate(inventory.container[i].item.prefab, Vector3.zero, Quaternion.identity, transform);
+                var obj = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
+                obj.transform.GetComponent<Image>().sprite = inventory.container[i].item.itemSprite;
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+  
+                
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
                 itemsDisplayed.Add(inventory.container[i], obj);
             }
@@ -54,27 +65,50 @@ public class DisplayInventory : MonoBehaviour
 
         for (int i = 0; i < inventory.container.Count; i++)
         {
-            var obj = Instantiate(inventory.container[i].item.prefab, Vector3.zero, Quaternion.identity, transform);
+            var tempId = i; //WHY IS THIS A THING THAT HAS TO BE DONE
+            var obj = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
+            obj.transform.GetComponent<Image>().sprite = inventory.container[i].item.itemSprite;
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+
+            obj.GetComponent<Button>().onClick.AddListener(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
+            AddEvent(obj, EventTriggerType.Select, delegate { displayText.SetText(inventory.container[tempId].item.description); });
+            AddEvent(obj, EventTriggerType.PointerEnter, delegate { displayText.SetText(inventory.container[tempId].item.description); });
+
+            //UnityAction<GameObject> action = new UnityAction<GameObject>(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
+            //UnityEventTools.AddObjectPersistentListener<GameObject>(obj.GetComponent<Button>().onClick, action, obj);
             obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
+
             
+
             itemsDisplayed.Add(inventory.container[i], obj);  
             
             
         }
     }
+
+    private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action )
+    {
+        EventTrigger trigger = obj.GetComponent<EventTrigger>();
+        var eventTrigger = new EventTrigger.Entry();
+        eventTrigger.eventID = type;
+        eventTrigger.callback.AddListener(action);
+        trigger.triggers.Add(eventTrigger);
+
+    }
     private void SetInventory(int inventoryType, int playerNum)
     {
-        
-        Debug.Log(NetworkData.Instance.players[playerNum].Inventories.Count);
 
-        inventory = NetworkData.Instance.players[playerNum].Inventories[inventoryType];
+        
+
+        inventory = NetworkData.Instance.playerInventories[playerNum][inventoryType];
         foreach (GameObject item in itemsDisplayed.Values)
         {
             Destroy(item);
         }
         itemsDisplayed.Clear();
     }
+
+    
     public Vector3 GetPosition(int i)
     {
         return new Vector3(X_Start +( X_SPACE_BETWEEN_ITEM * (i % NUMBER_OF_COLUMN)),Y_Start + (-Y_SPACE_BETWEEN_ITEMS * (i / NUMBER_OF_COLUMN)), 0f);

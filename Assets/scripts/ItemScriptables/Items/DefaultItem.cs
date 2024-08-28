@@ -11,4 +11,12 @@ public class DefaultItem : ItemBase
         type = ItemType.Default;
     }
 
+    public override void ItemInfoCheck(int player, int itemId)
+    {
+
+    }
+    public override void PerformItemEffect(int player, InventoryObject inventory)
+    {
+        
+    }
 }

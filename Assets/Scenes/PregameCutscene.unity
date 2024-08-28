@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -931,6 +931,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f127e0fd-9414-452d-826d-281f61d07ec1
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5f304cee-ff02-4fc6-a47c-3446c3f38663
+    m_ActionName: UI/FreeCamera[/Keyboard/i]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 606652c6-ec19-47a5-b8ee-dc5108048dc6
+    m_ActionName: UI/MovingCamera[/Keyboard/w,/Keyboard/upArrow,/Keyboard/d,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 87b5cf85-265f-4fe7-b017-cdb1913d07b5
+    m_ActionName: UI/UndoCamera[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
@@ -1060,6 +1072,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TheKing
       objectReference: {fileID: 0}
+    - target: {fileID: 2186925812523082192, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2186925812523082192, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2203711166172719999, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3884357812
@@ -1090,15 +1110,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4495797557382092867, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.92301124
+      value: 0.8926265
       objectReference: {fileID: 0}
     - target: {fileID: 4495797557382092867, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.3847731
+      value: 0.450797
       objectReference: {fileID: 0}
     - target: {fileID: 4495797557382092867, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 45.259
+      value: 53.59
       objectReference: {fileID: 0}
     - target: {fileID: 5132552985253031004, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_BoneTransforms.Array.size
@@ -1123,6 +1143,10 @@ PrefabInstance:
     - target: {fileID: 5148412544705711635, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -53.777
+      objectReference: {fileID: 0}
+    - target: {fileID: 5880074889071621600, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+      propertyPath: m_BoneTransforms.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6540103307456405240, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_Size.x

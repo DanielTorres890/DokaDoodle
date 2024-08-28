@@ -4,15 +4,19 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Netcode;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-public class NetworkData : NetworkBehaviour
+public class NetworkData : NetworkBehaviour, IDataPersistance
 {
 
     public List<playerData> players = new List<playerData>();
     [SerializeField] public List<GameObject> playerSticks = new List<GameObject>();
     [SerializeField] private GameObject characterEditor;
+    [SerializeField] private ClassDataBase classDataBase;
 
+
+    public List<List<InventoryObject>> playerInventories = new List<List<InventoryObject>>();
     [SerializeField] private List<InventoryObject> player1Inventories = new List<InventoryObject>();
     [SerializeField] private List<InventoryObject> player2Inventories = new List<InventoryObject>();
     [SerializeField] private List<InventoryObject> player3Inventories = new List<InventoryObject>();
@@ -33,10 +37,56 @@ public class NetworkData : NetworkBehaviour
         readyPlayers.Add(false);
         readyPlayers.Add(false);
         readyPlayers.Add(false);
-       // players.OnListChanged += SyncSticks;
-        
+        playerInventories.Add(player1Inventories);
+        playerInventories.Add(player2Inventories);
+        playerInventories.Add(player3Inventories);
+        playerInventories.Add(player4Inventories);
+        // players.OnListChanged += SyncSticks;
+
     }
- 
+    public void LoadData(GameData data)
+    {
+        players = data.players;
+        InventoriesToDeserialize(data);
+    }
+    public void SaveData(ref GameData data)
+    {
+        
+        data.players = players;
+        InventoriesToSerialize(ref data);
+        
+       
+    }
+
+    private void InventoriesToSerialize(ref GameData data)
+    {
+        for (int i = 0; i < playerInventories.Count; i++)
+        {
+            data.inventoryObjects.Add(new List<List<int>>());
+            for (int j = 0; j < playerInventories[i].Count; j++)
+            {
+                data.inventoryObjects[i].Add(playerInventories[i][j].serializeInventory());
+            }
+
+        }
+    }
+    private void InventoriesToDeserialize(GameData data)
+    {
+        for (int i = 0; i < data.inventoryObjects.Count; i++)
+        {
+            
+            for (int j = 0; j < data.inventoryObjects[i].Count; j++)
+            {
+
+                for (int k = 0; k < data.inventoryObjects[i][j].Count; k++)
+                {
+                    playerInventories[i][j].AddItem(playerInventories[i][j].database.GetItem[data.inventoryObjects[i][j][k]]);
+                }
+                    
+            }
+
+        }
+    }
     public override void OnNetworkSpawn()
     {   
         
@@ -45,11 +95,7 @@ public class NetworkData : NetworkBehaviour
             players.Add(new playerData());
             players.Add(new playerData());
             players.Add(new playerData());
-            players[0].Inventories = player1Inventories;
             
-            players[1].Inventories = player2Inventories;
-            players[2].Inventories = player3Inventories;
-            players[3].Inventories = player4Inventories;
 
             NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
@@ -96,8 +142,10 @@ public class NetworkData : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void fillPlayerServerRpc(int index)
     {
+        Debug.Log(index);
         readyPlayers[index] = true;
         playerCount++;
+ 
         Debug.Log(playerCount);
     }
     [ServerRpc(RequireOwnership = false)]
@@ -113,10 +161,10 @@ public class NetworkData : NetworkBehaviour
         players[playerId].playerFace = playerFace;
         players[playerId].playerClass = playerClass;
         players[playerId].playerHair = playerHair;
-        players[0].Inventories = player1Inventories;
-        players[1].Inventories = player2Inventories;
-        players[2].Inventories = player3Inventories;
-        players[3].Inventories = player4Inventories;
+        foreach(var stat in classDataBase.Classes[playerClass].stats)
+        {
+            players[playerId].stats[stat.attribute] += stat.value;
+        }
 
         characterEditor curStickEdit = playerSticks[playerId].GetComponent<characterEditor>();
         curStickEdit.setClass(players[playerId].playerClass);
@@ -133,5 +181,11 @@ public class NetworkData : NetworkBehaviour
 
         }
         SceneChanger.Instance.loadClientScenesServerRpc("PregameCutScene");
+    }
+    public bool IsAllowed(int playerNum, ulong playerId)
+    {
+        if (playerNum != Convert.ToInt32(playerId) && !IsHost) { return false; }
+
+        return true;
     }
 }

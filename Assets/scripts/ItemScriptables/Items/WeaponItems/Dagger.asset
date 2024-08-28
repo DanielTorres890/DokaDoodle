@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
+  m_Name: Dagger
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: -7651382692361409720, guid: 1e834e05bdb73514682dab921ed10df7, type: 3}
+  type: 2
+  itemValue: 25
+  description: A rusty dagger, a weapon you recieved from your family to get you
+    started
+  itemName: Rusty Dagger
+  buffs:
+  - attribute: 2
+    value: 5

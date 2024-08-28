@@ -9,15 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45c2c5eb9652caa49827813a16569c5a, type: 3}
-  m_Name: Dagger
+  m_Script: {fileID: 11500000, guid: 013e7d7ebade1d7418949d4ecc12def2, type: 3}
+  m_Name: Warrior
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  type: 0
-  description: A basic dagger a good starting weapon to use
-  atkBonus: 3
-  defenceBonus: 0
-  magicBonus: 0
-  mDefenseBonus: 0
-  dexterityBonus: 0
-  healthBonus: 0
+  stats:
+  - attribute: 0
+    value: 50
+  - attribute: 2
+    value: 10
+  - attribute: 3
+    value: 10
+  - attribute: 4
+    value: 1
+  - attribute: 5
+    value: 4
+  - attribute: 6
+    value: 2

@@ -14,7 +14,35 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
         container.Add(new InventorySlot(database.GetId[_item], _item));
 
     }
+    public void RemoveItem(ItemBase _item)
+    {
+        for (int i = container.Count - 1; i >= 0; i--)
+        {
+            Debug.Log(container[i].item.itemName);
+            Debug.Log(_item.itemName);
+            if (container[i].item == _item)
+            {
+                Debug.Log("Removed!");
+                container.RemoveAt(i);
 
+                return;
+            }
+        }
+
+       // List<InventorySlot> slotsToRemove = new List<InventorySlot>();
+       
+        /* foreach (InventorySlot slot in container)
+        {
+            if (slot.item == _item)
+            {
+                slotsToRemove.Add(slot);
+            }
+        }
+        foreach (InventorySlot slot in slotsToRemove)
+        {
+            container.Remove(slot);
+        } */
+    }
     public void OnAfterDeserialize()
     {
         for (int i  = 0; i < container.Count; i++)
@@ -27,6 +55,15 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
     public void OnBeforeSerialize()
     {
         
+    }
+    public List<int> serializeInventory ()
+    {
+        List<int> result = new List<int>();
+        for(int i = 0;i < container.Count;i++)
+        {
+            result.Add(container[i].Id);
+        }
+        return result;
     }
 }
 
