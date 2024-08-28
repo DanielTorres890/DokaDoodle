@@ -157,14 +157,19 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     [ClientRpc (RequireOwnership = false)]
     public void SyncSticksClientRpc(int playerId, FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair)
     {
+        if (playerName.Equals(""))
+        {
+            foreach (var stat in classDataBase.Classes[playerClass].stats)
+            {
+                players[playerId].stats[stat.attribute] += stat.value;
+            }
+        }
         players[playerId].playerName = playerName;
         players[playerId].playerFace = playerFace;
         players[playerId].playerClass = playerClass;
         players[playerId].playerHair = playerHair;
-        foreach(var stat in classDataBase.Classes[playerClass].stats)
-        {
-            players[playerId].stats[stat.attribute] += stat.value;
-        }
+        
+        
 
         characterEditor curStickEdit = playerSticks[playerId].GetComponent<characterEditor>();
         curStickEdit.setClass(players[playerId].playerClass);
