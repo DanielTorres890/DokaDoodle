@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Weapon Object", menuName = "Inventory System/Items/Weapon")]
 public class WeaponItem : ItemBase
 {
+    public AttackBase attack;
     public void Awake()
     {
         type = ItemType.Weapon;

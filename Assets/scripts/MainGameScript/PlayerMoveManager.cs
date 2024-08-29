@@ -71,6 +71,7 @@ public class PlayerMoveManager : NetworkBehaviour
         canMove = true;
         SyncDiceRollServerRpc(diceRoll);
         takenPath.Clear();
+        mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].playersOnTile[NetworkData.Instance.currentPlayer] = false;
         takenPath.Add(mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].gameObject);
         
     }
@@ -261,6 +262,7 @@ public class PlayerMoveManager : NetworkBehaviour
     [ClientRpc(RequireOwnership =false)]
     private void SetNextTurnClientRpc()
     {
+        mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].playersOnTile[NetworkData.Instance.currentPlayer] = true;
         mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].TileEvent();
         
         
