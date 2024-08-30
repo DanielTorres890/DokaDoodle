@@ -157,13 +157,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     [ClientRpc (RequireOwnership = false)]
     public void SyncSticksClientRpc(int playerId, FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair)
     {
-        if (playerName.Equals(""))
-        {
-            foreach (var stat in classDataBase.Classes[playerClass].stats)
-            {
-                players[playerId].stats[stat.attribute] += stat.value;
-            }
-        }
+       
         players[playerId].playerName = playerName;
         players[playerId].playerFace = playerFace;
         players[playerId].playerClass = playerClass;
@@ -180,11 +174,13 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
     public void startGame()
     {
+        
         foreach(var ready in readyPlayers)
         {
             if (!ready) { return; }
 
         }
+        PlayerClassStatsRpc();
         SceneChanger.Instance.loadClientScenesServerRpc("PregameCutScene");
     }
     public bool IsAllowed(int playerNum, ulong playerId)
@@ -192,5 +188,18 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         if (playerNum != Convert.ToInt32(playerId) && !IsHost) { return false; }
 
         return true;
+    }
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void PlayerClassStatsRpc()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            foreach (var stat in classDataBase.Classes[players[i].playerClass].stats)
+            {
+                players[i].stats[stat.attribute] += stat.value;
+            }
+
+        }
     }
 }

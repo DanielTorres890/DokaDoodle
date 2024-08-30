@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
+  m_Name: Hide Shield
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: -7493233965603510204, guid: 3cea656da20611144b1c89c025626911, type: 3}
+  type: 3
+  itemValue: 0
+  description: A basic shield that offers decent protection
+  useText: 
+  itemName: Hide Shield
+  buffs:
+  - attribute: 3
+    value: 8
+  attack: {fileID: 11400000, guid: 86ea76f96bf2591429f91fc8632a4ee2, type: 2}

@@ -7,7 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Food Object", menuName = "Inventory System/Items/Food")]
 public class FoodItem : ItemBase
 {
-
+   
     public void Awake()
     {
         type = ItemType.Food;
@@ -25,7 +25,12 @@ public class FoodItem : ItemBase
         
         foreach (var attrib in base.buffs)
         {
-            NetworkData.Instance.players[player].stats[attrib.attribute] += attrib.value;
+            if (attrib.attribute == Attributes.Health && NetworkData.Instance.players[player].stats[attrib.attribute] + attrib.value > NetworkData.Instance.players[player].stats[Attributes.MaxHealth])
+            {
+                NetworkData.Instance.players[player].stats[attrib.attribute] = NetworkData.Instance.players[player].stats[Attributes.MaxHealth];
+            }
+            else { NetworkData.Instance.players[player].stats[attrib.attribute] += attrib.value;  }
+            
             
         }
 

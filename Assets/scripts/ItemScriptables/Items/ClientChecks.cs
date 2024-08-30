@@ -13,10 +13,12 @@ public class ClientChecks : NetworkBehaviour
 
     public GameObject displayText;
 
+    public TextMeshProUGUI displayTxt;
 
     private void Awake()
     {
         Instance = this;
+        displayTxt = displayText.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -26,8 +28,12 @@ public class ClientChecks : NetworkBehaviour
 
         NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
 
+        
         display.CreateDisplay(inventoryNum, player);
+        display.gameObject.SetActive(false);
 
+        displayTxt.text = NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].useText;
+        StartCoroutine(usedItem());
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -36,7 +42,7 @@ public class ClientChecks : NetworkBehaviour
         NetworkData.Instance.playerInventories[player][inventoryNum].AddItem(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId]);
         displayText.SetActive(true);
         displayText = ItemPickupDisplay.Instance.gameObject;
-        displayText.GetComponentInChildren<TextMeshProUGUI>().text = "Obtained a <color=blue>" + NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].name + "</color>";
+        displayTxt.text = "Obtained a <color=blue>" + NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].name + "</color>";
         StartCoroutine(displayItem());
     }
 
@@ -53,5 +59,15 @@ public class ClientChecks : NetworkBehaviour
         }
         PlayerMoveManager.Instance.NextTurnRpc();
 
+    }
+    private IEnumerator usedItem()
+    {
+        displayText.SetActive(true);
+        while (displayText.activeSelf)
+        {
+
+            yield return null;
+        }
+        display.gameObject.SetActive(true);
     }
 }

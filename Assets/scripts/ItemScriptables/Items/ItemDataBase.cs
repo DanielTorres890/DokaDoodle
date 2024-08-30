@@ -11,7 +11,7 @@ public class ItemDataBase : ScriptableObject, ISerializationCallbackReceiver
     public Dictionary<ItemBase, int> GetId = new Dictionary<ItemBase, int>();
     public Dictionary<int, ItemBase> GetItem = new Dictionary<int, ItemBase>();
 
-
+    //
 
     public void OnAfterDeserialize()
     {

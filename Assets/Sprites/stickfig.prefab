@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stickfig
       objectReference: {fileID: 0}
+    - target: {fileID: -8081462308217092480, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_LocalScale.x
       value: 100
@@ -104,6 +108,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 7043084984298293652, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+    - target: {fileID: -1592287177966329176, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2708613195247864430, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9828543
@@ -255,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1149209733
+  GlobalObjectIdHash: 433631929
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -349,6 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108a33a2ca9da644d9d677bf3cd862a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Timer: 10
   m_Animator: {fileID: -3724752830415329040}
 --- !u!1 &2315748149311290288 stripped
 GameObject:

@@ -8,6 +8,7 @@ public enum ItemType
     Food,
     Equipment,
     Weapon,
+    Shield,
     Magic,
     Default
 
@@ -30,6 +31,8 @@ public abstract class ItemBase : ScriptableObject
 
     [TextArea(15,20)]
     public string description;
+    [TextArea(15, 10)]
+    public string useText;
     public string itemName;
     public ItemBuff[] buffs;
     

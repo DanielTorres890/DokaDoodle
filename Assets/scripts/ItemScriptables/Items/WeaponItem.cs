@@ -16,30 +16,36 @@ public class WeaponItem : ItemBase
     {
 
          if (!NetworkData.Instance.IsAllowed(player, NetworkManager.Singleton.LocalClientId)) { return; }
-      
-        ClientChecks.Instance.ConfirmBuffRpc(player, itemId, 1);
+
+        var tmp = 1;
+       
+        if ( this.type == ItemType.Magic)
+        {
+            tmp = 2;
+        }
+        ClientChecks.Instance.ConfirmBuffRpc(player, itemId, tmp);
     }
     public override void PerformItemEffect(int player, InventoryObject inventory)
     {
 
-        if (NetworkData.Instance.players[player].equipWeaponId < 0)
+        if (NetworkData.Instance.players[player].equipItems[this.type] < 0)
         {
 
-            NetworkData.Instance.players[player].equipWeaponId = inventory.database.GetId[this];
+            NetworkData.Instance.players[player].equipItems[this.type] = inventory.database.GetId[this];
             foreach (var attrib in base.buffs)
             {
                 NetworkData.Instance.players[player].stats[attrib.attribute] += attrib.value;
                
             }
-            Debug.Log(inventory.container.Count);
+            
             inventory.RemoveItem(this);
-            Debug.Log(inventory.container.Count);
+           
         }
         else
         {
     
-            var temp = NetworkData.Instance.players[player].equipWeaponId;
-            NetworkData.Instance.players[player].equipWeaponId = inventory.database.GetId[this];
+            var temp = NetworkData.Instance.players[player].equipItems[this.type];
+            NetworkData.Instance.players[player].equipItems[this.type] = inventory.database.GetId[this];
             inventory.AddItem(inventory.database.GetItem[temp]);
             foreach (var attrib in inventory.database.GetItem[temp].buffs)
             {
@@ -52,6 +58,19 @@ public class WeaponItem : ItemBase
               
             }
             inventory.RemoveItem(this);
+        }
+
+        if(this.type == ItemType.Weapon)
+        {
+            var tmp = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform.GetChild(0);
+            tmp.gameObject.SetActive(true);
+            tmp.GetComponent<SpriteRenderer>().sprite = this.itemSprite;
+        }
+        if(this.type == ItemType.Shield)
+        {
+            var tmp = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform.GetChild(1);
+            tmp.gameObject.SetActive(true);
+            tmp.GetComponent<SpriteRenderer>().sprite = this.itemSprite;
         }
         
     }

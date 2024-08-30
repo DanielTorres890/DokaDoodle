@@ -15,10 +15,16 @@ public class playerData
 
     public int curTileId;
 
-    public int equipWeaponId;
-    public int equipMagicId;
-    public int equipEquipmentId;
 
+    public Dictionary<ItemType, int> equipItems = new Dictionary<ItemType, int>
+    {
+        { ItemType.Equipment , -1 },
+        { ItemType.Weapon,  -1},
+        { ItemType.Magic , -1 },
+        { ItemType.Shield, -1 }
+
+
+    };
     public Dictionary<Attributes, int> stats = new Dictionary<Attributes, int>
     {
         {Attributes.MaxHealth, 0 },
@@ -34,13 +40,11 @@ public class playerData
     public playerData()
     {
         playerClass = 0;
-        playerName = "Player";
+        playerName = "";
         playerFace = 0;
         playerHair = 0;
         curTileId = 0;
-        equipWeaponId = -1;
-        equipMagicId = -1;
-        equipEquipmentId = -1;
+     
     }
     public playerData(int PlayerClass, FixedString32Bytes PlayerName, int PlayerFace, int PlayerHair)
     {
@@ -48,9 +52,7 @@ public class playerData
         playerName = PlayerName;
         playerFace = PlayerFace;
         playerHair = PlayerHair;
-        equipWeaponId = -1;
-        equipMagicId = -1;
-        equipEquipmentId = -1;
+   
     } 
     
     public FixedString32Bytes getName()
