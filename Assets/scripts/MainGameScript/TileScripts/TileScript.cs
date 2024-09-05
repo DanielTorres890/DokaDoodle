@@ -10,6 +10,7 @@ public abstract class TileScript : MonoBehaviour
     public GameObject rightTile;
     public GameObject leftTile;
 
+    public EnemyCombat tileEnemy;
     public int tileId;
     public List<bool> playersOnTile = new List<bool> { false,false,false,false};
 

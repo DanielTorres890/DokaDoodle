@@ -4073,7 +4073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Button: {fileID: 226943722}
-  playerNum: 2
+  playerNum: 1
 --- !u!114 &710211345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4087,7 +4087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Button: {fileID: 518806804}
-  playerNum: 3
+  playerNum: 2
 --- !u!114 &710211346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4101,7 +4101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Button: {fileID: 1688357204}
-  playerNum: 1
+  playerNum: 0
 --- !u!1 &722646322
 GameObject:
   m_ObjectHideFlags: 0
@@ -8376,6 +8376,7 @@ GameObject:
   - component: {fileID: 1492627001}
   - component: {fileID: 1492627002}
   - component: {fileID: 1492627000}
+  - component: {fileID: 1492627003}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -8431,6 +8432,18 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &1492627003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492626999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313fc1e4e37c4cc43875dc416e5442e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1548630868
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class UIUpdate : MonoBehaviour
     {
         if (timer > 0)
         {
-            if (NetworkData.Instance.players[playerNum].playerName.ToString() != text.text)
+            if (NetworkData.Instance.players[playerNum].name.ToString() != text.text)
             {
                 setTextToName(playerNum);
                 timer = 60f;
@@ -23,7 +23,7 @@ public class UIUpdate : MonoBehaviour
     }
     public void setTextToName(int playerNum)
     {
-        text.text = NetworkData.Instance.players[playerNum].playerName.ToString();
+        text.text = NetworkData.Instance.players[playerNum].name.ToString();
     }
     
 }

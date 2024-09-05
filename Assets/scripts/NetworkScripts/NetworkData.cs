@@ -112,7 +112,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         characterEditor.SetActive(true);
         for (int i = 0; i < players.Count; i++)
         {
-            SyncSticksClientRpc(i, players[i].playerName, players[i].playerClass, players[i].playerFace, players[i].playerHair);
+            SyncSticksClientRpc(i, players[i].name, players[i].playerClass, players[i].playerFace, players[i].playerHair);
         }
 
     }
@@ -135,7 +135,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         players[playerId] = 
             new playerData(playerClass,playerName,playerFace,playerHair);
         readyPlayers[playerId] = true;
-        SyncSticksClientRpc(playerId, players[playerId].playerName, players[playerId].playerClass, players[playerId].playerFace, players[playerId].playerHair);
+        SyncSticksClientRpc(playerId, players[playerId].name, players[playerId].playerClass, players[playerId].playerFace, players[playerId].playerHair);
 
         
     }
@@ -158,7 +158,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public void SyncSticksClientRpc(int playerId, FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair)
     {
        
-        players[playerId].playerName = playerName;
+        players[playerId].name = playerName.ToString();
         players[playerId].playerFace = playerFace;
         players[playerId].playerClass = playerClass;
         players[playerId].playerHair = playerHair;
@@ -198,6 +198,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             foreach (var stat in classDataBase.Classes[players[i].playerClass].stats)
             {
                 players[i].stats[stat.attribute] += stat.value;
+                players[i].playerNumber = i;
             }
 
         }

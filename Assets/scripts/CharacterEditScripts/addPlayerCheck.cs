@@ -11,7 +11,7 @@ public class addPlayerCheck : MonoBehaviour
    
     private void Start()
     {
-        Button.onClick.AddListener(() => NetworkData.Instance.fillPlayerServerRpc(playerNum));
+        Button.onClick.AddListener(() => NetworkData.Instance.fillPlayerServerRpc(playerNum+1));
         
     }
 
@@ -22,12 +22,12 @@ public class addPlayerCheck : MonoBehaviour
         if(!NetworkData.Instance.IsHost) { return; }
 
       
-            if( NetworkData.Instance.playerCount < playerNum && (!Button.gameObject.activeSelf))
+            if( NetworkData.Instance.playerCount == playerNum && (!Button.gameObject.activeSelf))
             {
                 Button.gameObject.SetActive(true);
              
             }
-            else if (NetworkData.Instance.playerCount >= playerNum && Button.gameObject.activeSelf)
+            else if (NetworkData.Instance.playerCount != playerNum && Button.gameObject.activeSelf)
             {
                 Button.gameObject.SetActive(false);
                

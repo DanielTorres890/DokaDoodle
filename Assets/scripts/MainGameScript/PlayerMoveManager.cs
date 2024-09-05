@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMoveManager : NetworkBehaviour
 {
-    [SerializeField] private List<TileScript> mapTiles = new List<TileScript>();
+    [SerializeField] public List<TileScript> mapTiles = new List<TileScript>();
 
     [SerializeField] private TMP_Text rollNum;
 

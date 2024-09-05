@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42e542e6897b1b49a5085f063ea70bd, type: 3}
+  m_Name: Bunga
+  m_EditorClassIdentifier: 
+  enemyName: Bunga
+  enemyPrefab: {fileID: -8653719598885068355, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
+  Stats:
+  - attribute: 0
+    value: 30
+  - attribute: 1
+    value: 30
+  - attribute: 2
+    value: 5
+  - attribute: 3
+    value: 3
+  - attribute: 4
+    value: 1
+  - attribute: 5
+    value: 1
+  - attribute: 6
+    value: 2
+  Attacks:
+  - {fileID: 11400000, guid: 624f23ed2bf8f504eb4aa48a590b999f, type: 2}
+  Defend: {fileID: 11400000, guid: 86ea76f96bf2591429f91fc8632a4ee2, type: 2}

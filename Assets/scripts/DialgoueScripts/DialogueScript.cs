@@ -12,7 +12,7 @@ public class DialogueScript : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI textComponent;
     [SerializeField] private Image background;
     [SerializeField] public List<string> lines;
-    [SerializeField] private SceneChanger changer;
+
     [SerializeField] private InputAction submit;
     public string nextScene = "Fake";
 
@@ -77,7 +77,7 @@ public class DialogueScript : NetworkBehaviour
         {
             gameObject.SetActive(false);
             background.gameObject.SetActive(false);
-            changer.loadClientScenesServerRpc(nextScene);
+            SceneChanger.Instance.loadClientScenesServerRpc(nextScene);
         }
     }
 }

@@ -5,14 +5,14 @@ using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class playerData
+public class playerData : EntityStats
 {
 
     public int playerClass;
-    public FixedString32Bytes playerName;
+
     public int playerFace;
     public int playerHair;
-
+    public int playerNumber;
     public int curTileId;
 
 
@@ -25,22 +25,11 @@ public class playerData
 
 
     };
-    public Dictionary<Attributes, int> stats = new Dictionary<Attributes, int>
-    {
-        {Attributes.MaxHealth, 0 },
-        {Attributes.Health, 0 },
-        {Attributes.Attack, 0 },
-        {Attributes.Defense, 0 },
-        {Attributes.Magic, 0 },
-        {Attributes.MDefense, 0 },
-        {Attributes.Dexterity, 0 }
-
-
-    };
+    
     public playerData()
     {
         playerClass = 0;
-        playerName = "";
+        name = "";
         playerFace = 0;
         playerHair = 0;
         curTileId = 0;
@@ -49,7 +38,7 @@ public class playerData
     public playerData(int PlayerClass, FixedString32Bytes PlayerName, int PlayerFace, int PlayerHair)
     {
         playerClass = PlayerClass;
-        playerName = PlayerName;
+        name = PlayerName.ToString();
         playerFace = PlayerFace;
         playerHair = PlayerHair;
    
@@ -57,7 +46,7 @@ public class playerData
     
     public FixedString32Bytes getName()
     {
-        return playerName;
+        return name;
     }
     
 }
