@@ -10,6 +10,7 @@ public enum ItemType
     Weapon,
     Shield,
     Magic,
+    MagicGuard,
     Default
 
 }

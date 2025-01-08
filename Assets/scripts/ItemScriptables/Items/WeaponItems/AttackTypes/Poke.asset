@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b47e846fecebc48b8df7bd633dae51, type: 3}
   m_Name: Poke
   m_EditorClassIdentifier: 
-  description: A lsmall stab
+  description: A small stab
   attackName: Poke
   multipliers:
   - attribute: 0
@@ -29,3 +29,18 @@ MonoBehaviour:
     mult: 0
   - attribute: 6
     mult: 0.2
+  antiGuardMultipliers:
+  - attribute: 0
+    mult: 1
+  - attribute: 1
+    mult: 1
+  - attribute: 2
+    mult: 1
+  - attribute: 3
+    mult: 1
+  - attribute: 4
+    mult: 1
+  - attribute: 5
+    mult: 1
+  - attribute: 6
+    mult: 1

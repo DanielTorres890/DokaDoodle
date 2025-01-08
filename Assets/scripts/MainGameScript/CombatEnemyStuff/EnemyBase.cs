@@ -11,8 +11,10 @@ public class EnemyBase : ScriptableObject
     public GameObject enemyPrefab;
     public ItemBuff[] Stats = new ItemBuff[7];
     public AttackBase[] Attacks;
-    public DefenseBase Defend;
-    
+    public DefenseBase[] Defend;
+    public ItemBase[] DroppedItems;
+    public int[] probability;
+    public int droppedXp;
 
 }
     

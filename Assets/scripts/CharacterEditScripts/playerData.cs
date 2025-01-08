@@ -14,14 +14,16 @@ public class playerData : EntityStats
     public int playerHair;
     public int playerNumber;
     public int curTileId;
+    public int totalXp;
 
 
     public Dictionary<ItemType, int> equipItems = new Dictionary<ItemType, int>
     {
-        { ItemType.Equipment , -1 },
-        { ItemType.Weapon,  -1},
-        { ItemType.Magic , -1 },
-        { ItemType.Shield, -1 }
+        { ItemType.Equipment , 0 },
+        { ItemType.Weapon,  0},
+        { ItemType.Magic , 0 },
+        { ItemType.Shield, 1 },
+        { ItemType.MagicGuard, 1 }
 
 
     };

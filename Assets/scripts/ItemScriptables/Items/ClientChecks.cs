@@ -52,10 +52,20 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void SyncEnemyRpc(int enemyId)
     {
-        var enemy = new EnemyCombat(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemyId]);   
+        EnemyCombat enemy;
+        
+        if ( MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy == null )
+        {
+            enemy = new EnemyCombat(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemyId]);
+        }
+        else
+        {
+            enemy = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy;
+        }
         PlayerCombatManager.Instance.combatant1 = NetworkData.Instance.players[NetworkData.Instance.currentPlayer];
         PlayerCombatManager.Instance.combatant2 = enemy;
-        PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.currentPlayer].tileEnemy = enemy;
+        //PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.currentPlayer].tileEnemy = enemy;
+        
 
 
         combatPreview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();
@@ -67,6 +77,7 @@ public class ClientChecks : NetworkBehaviour
         {
             Debug.Log(PlayerCombatManager.Instance.combatant2.name.ToString());
             combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.name.ToString();
+            MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy = enemy;
         }
         Debug.Log(combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text);
 

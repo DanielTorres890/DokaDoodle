@@ -142,7 +142,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     [ServerRpc(RequireOwnership = false)]
     public void fillPlayerServerRpc(int index)
     {
-        Debug.Log(index);
+        
         readyPlayers[index] = true;
         playerCount++;
  
@@ -202,5 +202,12 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             }
 
         }
+    }
+
+    public void setNextTurnNum()
+    {
+        if (NetworkData.Instance.currentPlayer < 3) { NetworkData.Instance.currentPlayer += 1; }
+
+        else { NetworkData.Instance.currentPlayer = 0; }
     }
 }

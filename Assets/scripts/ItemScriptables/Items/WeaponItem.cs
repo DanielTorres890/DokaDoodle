@@ -28,7 +28,7 @@ public class WeaponItem : ItemBase
     public override void PerformItemEffect(int player, InventoryObject inventory)
     {
 
-        if (NetworkData.Instance.players[player].equipItems[this.type] < 0)
+        if (NetworkData.Instance.players[player].equipItems[this.type] <= 1)
         {
 
             NetworkData.Instance.players[player].equipItems[this.type] = inventory.database.GetId[this];

@@ -6,6 +6,7 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class PlayerMoveManager : NetworkBehaviour
 {
@@ -17,7 +18,7 @@ public class PlayerMoveManager : NetworkBehaviour
     private List<GameObject> playerSticks = new List<GameObject>();
     private List<Animator> stickAnimators = new List<Animator>();
 
-
+    public int mapNumber;
     public GameObject playerCam;
     public GameObject gameMenu;
 
@@ -33,7 +34,10 @@ public class PlayerMoveManager : NetworkBehaviour
     public static PlayerMoveManager Instance;
     private void Awake()
     {
+        
         Instance = this;
+
+        setUpTileEnemies();
         playerSticks = GameObject.FindGameObjectWithTag("Data").GetComponent<NetworkData>().playerSticks;
 
         int xoffset = 0;
@@ -271,10 +275,16 @@ public class PlayerMoveManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void NextTurnRpc()
     {
-        if (NetworkData.Instance.currentPlayer < 3) { NetworkData.Instance.currentPlayer += 1; }
-
-        else { NetworkData.Instance.currentPlayer = 0; }
+        NetworkData.Instance.setNextTurnNum();
+        if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy == null)
         gameMenu.SetActive(true);
+        else
+        {
+            gameMenu.SetActive(false);
+            SetNextTurnClientRpc();
+        }
+        
+
     }
 
     private IEnumerator playerMover(float speed)
@@ -289,5 +299,35 @@ public class PlayerMoveManager : NetworkBehaviour
         
     }
 
+    private void setUpTileEnemies()
+    {
+        
 
+        if (MapTileSpecialEvents.Instance.mapTiles[mapNumber] == null)
+        {
+            MapTileSpecialEvents.Instance.mapTiles[mapNumber] = new SpecialTileEventHold[mapTiles.Count];
+            for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[mapNumber].Length; i++)
+            {
+                MapTileSpecialEvents.Instance.mapTiles[mapNumber][i] = new SpecialTileEventHold();
+            }
+        }
+        else
+        {
+
+            for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[mapNumber].Length; i++)
+            {
+                if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy != null)
+                {
+                    var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy.enemyId].enemyPrefab);
+                    enemy.transform.position = mapTiles[i].transform.position;
+                    enemy.transform.position = new Vector3(enemy.transform.position.x - 120, enemy.transform.position.y, enemy.transform.position.z + 60);
+                    enemy.transform.localScale = new Vector3(50, 50, 1);
+                    Debug.Log("OVERWORLD ENEMY SPAWNED");
+                }
+
+            }
+
+        }
+
+    }
 }

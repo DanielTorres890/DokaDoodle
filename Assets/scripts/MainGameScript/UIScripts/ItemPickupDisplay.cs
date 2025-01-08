@@ -17,7 +17,8 @@ public class ItemPickupDisplay : MonoBehaviour
     }
     public void HideMe()
     {
-        if (NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
 
         gameObject.SetActive(false);
     }

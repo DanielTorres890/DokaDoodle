@@ -23,7 +23,7 @@ public class ItemTile : TileScript
         if (items[rando].type == ItemType.Weapon || items[rando].type == ItemType.Shield) {  itemType = 1; }
 
         if (items[rando].type == ItemType.Magic || items[rando].type == ItemType.Equipment) { itemType = 2; }
-        ClientChecks.Instance.ConfirmItemPickupRpc(NetworkData.Instance.currentPlayer, rando, itemType);
+        ClientChecks.Instance.ConfirmItemPickupRpc(NetworkData.Instance.currentPlayer, NetworkData.Instance.playerInventories[0][itemType].database.GetId[items[rando]], itemType);
         
     }
 
