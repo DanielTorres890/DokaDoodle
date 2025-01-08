@@ -40,6 +40,15 @@ public abstract class ItemBase : ScriptableObject
 
     public abstract void ItemInfoCheck(int player, int itemId);
     public abstract void PerformItemEffect(int player, InventoryObject inventory);
+    public int determineType ()
+    {
+        if (this.type == ItemType.Food) {return 0; }
+
+        if (this.type == ItemType.Weapon || this.type == ItemType.Shield) { return 1; }
+
+        if (this.type == ItemType.Magic || this.type == ItemType.Equipment) { return 2; }
+        return -1;
+    }
 
 }
 [System.Serializable]

@@ -18,11 +18,7 @@ public class ItemTile : TileScript
        
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer,NetworkManager.Singleton.LocalClientId)) { return; }
         int rando = UnityEngine.Random.Range(0,items.Length);
-        if (items[rando].type == ItemType.Food) { itemType = 0; }
-
-        if (items[rando].type == ItemType.Weapon || items[rando].type == ItemType.Shield) {  itemType = 1; }
-
-        if (items[rando].type == ItemType.Magic || items[rando].type == ItemType.Equipment) { itemType = 2; }
+        itemType = items[rando].determineType();
         ClientChecks.Instance.ConfirmItemPickupRpc(NetworkData.Instance.currentPlayer, NetworkData.Instance.playerInventories[0][itemType].database.GetId[items[rando]], itemType);
         
     }
