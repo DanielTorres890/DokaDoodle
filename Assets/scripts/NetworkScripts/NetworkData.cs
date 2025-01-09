@@ -203,7 +203,11 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
         }
     }
-
+    public void AddItemToInventory(int playerId, ItemBase item)
+    {
+        int type = item.determineType();
+        playerInventories[playerId][type].AddItem(item);
+    }
     public void setNextTurnNum()
     {
         if (NetworkData.Instance.currentPlayer < 3) { NetworkData.Instance.currentPlayer += 1; }

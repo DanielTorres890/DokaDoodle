@@ -6,6 +6,7 @@ using Unity.Netcode;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class BattleUIManager : NetworkBehaviour
 {
@@ -35,8 +36,14 @@ public class BattleUIManager : NetworkBehaviour
     private int totalTurnsTaken;
     private int fighter1Choice;
     private int fighter2Choice;
+
+
+    private bool displayDrop;
+    private bool displayXp;
     public override void OnNetworkSpawn()
     {
+        displayDrop = true;
+        displayXp = true;
         totalAllowedTurns = 2;
         totalTurnsTaken = 0;
         fighter1 = NetworkData.Instance.playerSticks[(PlayerCombatManager.Instance.combatant1 as playerData).playerNumber];
@@ -271,10 +278,11 @@ public class BattleUIManager : NetworkBehaviour
 
         var finaldmgdealt = zeroMinimum(Mathf.RoundToInt(damageDealt));
         damageText.text = "Dealt" + finaldmgdealt + "damage";
-
+        damageText.transform.parent.gameObject.SetActive(true);
+        CheckDeath();
 
         
-        StartCoroutine(NextTurn());
+        
 
 
     }
@@ -349,7 +357,7 @@ public class BattleUIManager : NetworkBehaviour
 
     private IEnumerator NextTurn()
     {
-        damageText.transform.parent.gameObject.SetActive(true);
+        
         
         
         
@@ -362,13 +370,13 @@ public class BattleUIManager : NetworkBehaviour
         if (turnOrder == 0) 
         { 
             turnOrder = 1;
-            print("TURN CHANGED to 0");
+         
         }
         
         else 
         { 
             turnOrder = 0;
-            print("TURN CHANGED to 1");
+          
         }
 
         if (totalTurnsTaken >= totalAllowedTurns)
@@ -386,17 +394,88 @@ public class BattleUIManager : NetworkBehaviour
     }
     private void CheckDeath()
     {
+        Debug.Log("Checking Death");
         if (PlayerCombatManager.Instance.combatant2.stats[Attributes.Health] <= 0)
         {
+            
+            var player = PlayerCombatManager.Instance.combatant1 as playerData;          
+            var enemy = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId];
 
-            (PlayerCombatManager.Instance.combatant1 as playerData).totalXp += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedXp;
-            MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy = null;
+            int droppedItem = enemy.rollItem();
+            if (droppedItem != -1 && NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
+            {
+                AddEnemyDropRpc(droppedItem);
+            }
+            displayXp = true;
+            player.totalXp += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedXp;
+          
+            StartCoroutine(rewardsDisplay(droppedItem));
+            
         }
-        if (PlayerCombatManager.Instance.combatant1.stats[Attributes.Health] <= 0)
+        else if (PlayerCombatManager.Instance.combatant1.stats[Attributes.Health] <= 0)
         {
 
         }
+        else
+        {
+            StartCoroutine(NextTurn());
+        }
         
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void AddEnemyDropRpc(int dropNumber)
+    {
+        var player = PlayerCombatManager.Instance.combatant1 as playerData;
+        var enemy = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId];
+
+        NetworkData.Instance.playerInventories[player.playerNumber][enemy.DroppedItems[dropNumber].determineType()].AddItem(enemy.DroppedItems[dropNumber]);
+        displayDrop = true;
+
+    }
+    private IEnumerator rewardsDisplay(int dropNumber)
+    {
+
+        while (damageText.transform.parent.gameObject.activeSelf)
+        {
+           
+            yield return null;
+        }
+
+        var player = PlayerCombatManager.Instance.combatant1 as playerData;
+        var enemy = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId];
+        
+        if (displayDrop)
+        {
+            displayDrop = false;
+            damageText.transform.parent.gameObject.SetActive(true);
+            damageText.text = "Obtained a <color=blue>" + NetworkData.Instance.playerInventories[player.playerNumber][enemy.DroppedItems[dropNumber].determineType()].database.GetItem[dropNumber].name + "</color>";
+        }
+      
+        while (damageText.transform.parent.gameObject.activeSelf)
+        {
+           
+            yield return null;
+        }
+        if (displayXp)
+        {
+            displayXp = false;
+            damageText.transform.parent.gameObject.SetActive(true);
+            damageText.text = "Gained <color=green>" + enemy.droppedXp + "</color> xp";
+
+        }
+
+        while (damageText.transform.parent.gameObject.activeSelf)
+        {
+            yield return null;
+        }
+        fighter1.transform.localScale = new Vector3(100, 100, 1);
+        
+
+        MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy = null;
+
+        NetworkData.Instance.setNextTurnNum();
+
+        SceneChanger.Instance.loadClientScenesServerRpc("MainGameScene");
     }
     private int zeroMinimum(int numToCheck)
     {

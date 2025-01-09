@@ -15,6 +15,7 @@ public class playerData : EntityStats
     public int playerNumber;
     public int curTileId;
     public int totalXp;
+    public int curMap;
 
 
     public Dictionary<ItemType, int> equipItems = new Dictionary<ItemType, int>
@@ -35,6 +36,7 @@ public class playerData : EntityStats
         playerFace = 0;
         playerHair = 0;
         curTileId = 0;
+        curMap = 0;
      
     }
     public playerData(int PlayerClass, FixedString32Bytes PlayerName, int PlayerFace, int PlayerHair)

@@ -21,7 +21,12 @@ public class ClientChecks : NetworkBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        
+
         displayTxt = displayText.GetComponentInChildren<TextMeshProUGUI>();
     }
 
@@ -78,6 +83,8 @@ public class ClientChecks : NetworkBehaviour
             Debug.Log(PlayerCombatManager.Instance.combatant2.name.ToString());
             combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.name.ToString();
             MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy = enemy;
+            Debug.Log(PlayerMoveManager.Instance.mapNumber);
+            Debug.Log(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
         }
         Debug.Log(combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text);
 
