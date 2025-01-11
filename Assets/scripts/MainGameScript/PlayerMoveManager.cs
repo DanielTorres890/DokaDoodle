@@ -51,6 +51,26 @@ public class PlayerMoveManager : NetworkBehaviour
             stagger *= -1;
             playerCam.transform.position = playerSticks[i].transform.position + new Vector3(95,797,-1054);
         }
+
+        bool rumble = false;
+        Debug.Log(MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId]);
+        foreach(var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
+        {
+            if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
+            {
+                rumble = true;
+            }
+        }
+        if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy == null || !rumble)
+            gameMenu.SetActive(true);
+        else
+        {
+            
+            gameMenu.SetActive(false);
+
+            SetNextTurnClientRpc();
+        }
+
     }
     private void Update()
     {
@@ -266,7 +286,7 @@ public class PlayerMoveManager : NetworkBehaviour
     [ClientRpc(RequireOwnership =false)]
     private void SetNextTurnClientRpc()
     {
-        mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].playersOnTile[NetworkData.Instance.currentPlayer] = true;
+        MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Add(NetworkData.Instance.currentPlayer);
         Debug.Log("Something should happen?");
         mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].TileEvent();
         
@@ -282,6 +302,7 @@ public class PlayerMoveManager : NetworkBehaviour
         else
         {
             gameMenu.SetActive(false);
+
             SetNextTurnClientRpc();
         }
         

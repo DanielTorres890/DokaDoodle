@@ -69,8 +69,23 @@ public class ClientChecks : NetworkBehaviour
         }
         PlayerCombatManager.Instance.combatant1 = NetworkData.Instance.players[NetworkData.Instance.currentPlayer];
         PlayerCombatManager.Instance.combatant2 = enemy;
+        bool rumble = false;
+        int counter = 0;
+        foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
+        {
+            if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
+            {
+                rumble = true;
+                break;
+            }
+            counter++;
+        }
+        if (rumble)
+        {
+            PlayerCombatManager.Instance.combatant2 = NetworkData.Instance.players[counter];
+        }
         //PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.currentPlayer].tileEnemy = enemy;
-        
+
 
 
         combatPreview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();

@@ -353,7 +353,7 @@ public class BattleUIManager : NetworkBehaviour
     private void CheckDeath()
     {
         Debug.Log("Checking Death");
-        if (PlayerCombatManager.Instance.combatant2.stats[Attributes.Health] <= 0)
+        if (PlayerCombatManager.Instance.combatant2.stats[Attributes.Health] <= 0 && PlayerCombatManager.Instance.combatant2 is EnemyCombat)
         {
             
             var player = PlayerCombatManager.Instance.combatant1 as playerData;          
@@ -372,6 +372,8 @@ public class BattleUIManager : NetworkBehaviour
         }
         else if (PlayerCombatManager.Instance.combatant1.stats[Attributes.Health] <= 0)
         {
+            //Just for now until i figure out how i wanna handle player death
+            StartCoroutine(NextTurn());
 
         }
         else

@@ -3042,6 +3042,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyDataBase: {fileID: 11400000, guid: 7ac05ac4e40d1414e9fa8ff079f27b8a, type: 2}
+  combatant1:
+    name: 
+    attacks:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    defenses:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  combatant2:
+    name: 
+    attacks:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    defenses:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
 --- !u!4 &674227508
 Transform:
   m_ObjectHideFlags: 0
@@ -7778,6 +7802,10 @@ PrefabInstance:
       propertyPath: upTile
       value: 
       objectReference: {fileID: 213064704}
+    - target: {fileID: 6079159642424071106, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: canFight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6079159642424071106, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 3
