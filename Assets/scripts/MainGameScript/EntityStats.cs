@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
+[Serializable]
 public class EntityStats 
 {
     public string name;
@@ -19,6 +21,8 @@ public class EntityStats
 
 
     };
+    [SerializeField] public AttackBase[] attacks = new AttackBase[4];
+    [SerializeField] public DefenseBase[] defenses = new DefenseBase[4];
 
 
 }

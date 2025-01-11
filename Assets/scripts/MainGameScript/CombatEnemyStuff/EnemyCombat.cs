@@ -14,6 +14,9 @@ public class EnemyCombat : EntityStats
             enemyId = PlayerCombatManager.Instance.EnemyDataBase.GetId[EnemyInfo];
             base.name = EnemyInfo.enemyName;
         }
+        base.attacks = EnemyInfo.Attackss;
+    
+        base.defenses = EnemyInfo.Defendss;
     
     }
 }

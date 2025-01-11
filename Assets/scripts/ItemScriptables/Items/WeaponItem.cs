@@ -72,6 +72,6 @@ public class WeaponItem : ItemBase
             tmp.gameObject.SetActive(true);
             tmp.GetComponent<SpriteRenderer>().sprite = this.itemSprite;
         }
-        
+        NetworkData.Instance.players[player].setCombatActions();
     }
 }

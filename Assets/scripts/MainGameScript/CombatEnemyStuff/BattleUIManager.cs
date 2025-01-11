@@ -188,63 +188,40 @@ public class BattleUIManager : NetworkBehaviour
         float damageDealt = 0f;
         
        
-
+        //this is kinda butt rn but could change entity class to hold attacks/defenses array and can populate the array on item equip might as well
        
         if (turnOrder == 0 )
         {
-            playerData offense = PlayerCombatManager.Instance.combatant1 as playerData;
-            if (PlayerCombatManager.Instance.combatant2 is playerData) 
-            {
-                playerData defense = PlayerCombatManager.Instance.combatant2 as playerData;
-
-                
-            }
-            else
-            {
-                EnemyCombat defense = PlayerCombatManager.Instance.combatant2 as EnemyCombat;
-
-                
+            
                     //foreach (var multipliers in (NetworkData.Instance.playerInventories[0][1].database.GetItem[offense.equipItems[ItemType.Weapon]] as WeaponItem).attack.multipliers)
-                for (int i = 0; i < (NetworkData.Instance.playerInventories[0][1].database.GetItem[offense.equipItems[ItemType.Weapon]] as WeaponItem).attack.multipliers.Length; i++ )    
+                for (int i = 0; i < PlayerCombatManager.Instance.combatant1.attacks[fighter1Choice].multipliers.Length; i++ )    
                 {
-                    var multipliers = (NetworkData.Instance.playerInventories[0][1].database.GetItem[offense.equipItems[ItemType.Weapon]] as WeaponItem).attack.multipliers[i];
-                    var antiguardMultipliers = (NetworkData.Instance.playerInventories[0][1].database.GetItem[offense.equipItems[ItemType.Weapon]] as WeaponItem).attack.antiGuardMultipliers[i];
+ 
+                    var multipliers = PlayerCombatManager.Instance.combatant1.attacks[fighter1Choice].multipliers[i];
+                    var antiguardMultipliers = PlayerCombatManager.Instance.combatant1.attacks[fighter1Choice].antiGuardMultipliers[i];
                     
                     //Key terms off = attacking entity, defr = defending entity, 
                     // (offatk.multiplier * offstat) - (defstat * defguardmult * offstatpierce)
-                    damageDealt += multipliers.mult * offense.stats[multipliers.attribute] - defense.stats[multipliers.attribute] * PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[defense.enemyId].Defend[fighter2Choice].multipliers[i].mult * antiguardMultipliers.mult;
+                    damageDealt += multipliers.mult * PlayerCombatManager.Instance.combatant1.stats[multipliers.attribute] - PlayerCombatManager.Instance.combatant2.stats[multipliers.attribute] * PlayerCombatManager.Instance.combatant2.defenses[fighter2Choice].multipliers[i].mult * antiguardMultipliers.mult;
                 }
 
                 if (fighter1Choice == fighter2Choice)
                 {
-                    damageDealt *= 1 -  (PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[defense.enemyId].Defend[fighter2Choice].defendPercentage/100);
+                    damageDealt *= 1 -  (PlayerCombatManager.Instance.combatant2.defenses[fighter2Choice].defendPercentage/100);
                 }
-                else { damageDealt *= 1 - (PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[defense.enemyId].Defend[fighter2Choice].defendPercentage / 100) * 0.5f; }
+                else { damageDealt *= 1 - (PlayerCombatManager.Instance.combatant2.defenses[fighter2Choice].defendPercentage / 100) * 0.5f; }
 
 
-            }
+            
             PlayerCombatManager.Instance.combatant2.stats[Attributes.Health] -=  Mathf.RoundToInt(damageDealt);
         }
         else
         {
-            playerData defense = PlayerCombatManager.Instance.combatant1 as playerData;
-
-            if (PlayerCombatManager.Instance.combatant2 is playerData)
-            {
-                playerData offense = PlayerCombatManager.Instance.combatant2 as playerData;
-
-
-            }
-            else
-            {
-                EnemyCombat offense = PlayerCombatManager.Instance.combatant2 as EnemyCombat;
-
-
                 //foreach (var multipliers in (NetworkData.Instance.playerInventories[0][1].database.GetItem[offense.equipItems[ItemType.Weapon]] as WeaponItem).attack.multipliers)
-                for (int i = 0; i < PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[offense.enemyId].Defend[fighter2Choice].multipliers.Length; i++)
+                for (int i = 0; i < PlayerCombatManager.Instance.combatant2.defenses[fighter2Choice].multipliers.Length; i++)
                 {
-                    var multipliers = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[offense.enemyId].Defend[fighter2Choice].multipliers[i];
-                    var antiguardMultipliers = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[offense.enemyId].Defend[fighter2Choice].antiGuardMultipliers[i];
+                    var multipliers = PlayerCombatManager.Instance.combatant2.attacks[fighter2Choice].multipliers[i];
+                    var antiguardMultipliers = PlayerCombatManager.Instance.combatant2.attacks[fighter2Choice].antiGuardMultipliers[i];
 
                     
                     //defending attribute is what stat is used as the defending stat since it won't always be one stat against another
@@ -261,17 +238,17 @@ public class BattleUIManager : NetworkBehaviour
 
                     //Key terms off = attacking entity, defr = defending entity,
                     // (offatk.multiplier * offstat) - (defstat * defguardmult * offstatpierce)
-                    damageDealt += multipliers.mult * offense.stats[multipliers.attribute] - defense.stats[defendingAttribute] * (NetworkData.Instance.playerInventories[0][1].database.GetItem[defense.equipItems[ItemType.Shield]] as WeaponItem).attack.multipliers[i].mult * antiguardMultipliers.mult;
+                    damageDealt += multipliers.mult * PlayerCombatManager.Instance.combatant2.stats[multipliers.attribute] - PlayerCombatManager.Instance.combatant1.stats[defendingAttribute] * PlayerCombatManager.Instance.combatant1.attacks[fighter1Choice].multipliers[i].mult * antiguardMultipliers.mult;
                 }
 
                 if (fighter1Choice == fighter2Choice)
                 {
-                    damageDealt *= 1 - (((NetworkData.Instance.playerInventories[0][1].database.GetItem[defense.equipItems[ItemType.Shield]] as WeaponItem).attack as DefenseBase).defendPercentage / 100 );
+                    damageDealt *= 1 - (PlayerCombatManager.Instance.combatant1.defenses[fighter1Choice].defendPercentage / 100 );
                 }
-                else { damageDealt *= 1 - ((NetworkData.Instance.playerInventories[0][1].database.GetItem[defense.equipItems[ItemType.Shield]] as WeaponItem).attack as DefenseBase).defendPercentage * 0.5f; }
+                else { damageDealt *= 1 - PlayerCombatManager.Instance.combatant1.defenses[fighter1Choice] .defendPercentage / 100 * 0.5f; }
 
 
-            }
+            
 
             PlayerCombatManager.Instance.combatant1.stats[Attributes.Health] -= zeroMinimum(Mathf.RoundToInt(damageDealt));
         }
@@ -289,42 +266,23 @@ public class BattleUIManager : NetworkBehaviour
     
     private void SetButtonNames()
     {
-        var player1 = (PlayerCombatManager.Instance.combatant1 as playerData);
+        
         if (turnOrder == 0)
         {
-            order1Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = (NetworkData.Instance.playerInventories[0][1].database.GetItem[player1.equipItems[ItemType.Weapon]] as WeaponItem).attack.attackName;
-            order1Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = (NetworkData.Instance.playerInventories[0][2].database.GetItem[player1.equipItems[ItemType.Magic]] as WeaponItem).attack.attackName;
+            order1Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant1.attacks[0].name;
+            order1Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant1.attacks[1].name;
 
-            if (PlayerCombatManager.Instance.combatant2 is playerData)
-            {
-                var player2 = (PlayerCombatManager.Instance.combatant2 as playerData);
-                order2Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = (NetworkData.Instance.playerInventories[0][1].database.GetItem[player2.equipItems[ItemType.Shield]] as WeaponItem).attack.attackName;
-                order2Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = (NetworkData.Instance.playerInventories[0][2].database.GetItem[player2.equipItems[ItemType.MagicGuard]] as WeaponItem).attack.attackName;
-            }
-            else
-            {
-                var player2 = (PlayerCombatManager.Instance.combatant2 as EnemyCombat);
-                order2Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[player2.enemyId].Defend[0].attackName;
-                order2Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[player2.enemyId].Defend[1].attackName;
-            }
+            order2Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.defenses[0].name;
+            order2Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.defenses[1].name;
         }
+        
         else
         {
-            order2Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = (NetworkData.Instance.playerInventories[0][1].database.GetItem[player1.equipItems[ItemType.Weapon]] as WeaponItem).attack.attackName;
-            order2Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = (NetworkData.Instance.playerInventories[0][2].database.GetItem[player1.equipItems[ItemType.Magic]] as WeaponItem).attack.attackName;
+            order1Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant1.defenses[0].name;
+            order1Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant1.defenses[0].name;
 
-            if (PlayerCombatManager.Instance.combatant2 is playerData)
-            {
-                var player2 = (PlayerCombatManager.Instance.combatant2 as playerData);
-                order1Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = (NetworkData.Instance.playerInventories[0][1].database.GetItem[player2.equipItems[ItemType.Shield]] as WeaponItem).attack.attackName;
-                order1Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = (NetworkData.Instance.playerInventories[0][2].database.GetItem[player2.equipItems[ItemType.MagicGuard]] as WeaponItem).attack.attackName;
-            }
-            else
-            {
-                var player2 = (PlayerCombatManager.Instance.combatant2 as EnemyCombat);
-                order1Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[player2.enemyId].Defend[0].attackName;
-                order1Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[player2.enemyId].Defend[1].attackName;
-            }
+            order2Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.attacks[0].name;
+            order2Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.attacks[1].name;
 
         }
       
@@ -336,7 +294,7 @@ public class BattleUIManager : NetworkBehaviour
 
         if (preset == -1)
         {
-            setTurnUIRpc(Random.Range(0, 2));
+            setTurnUIRpc(Random.Range(1, 2));
             return;
         }
         setTurnUIRpc(turnOrder);

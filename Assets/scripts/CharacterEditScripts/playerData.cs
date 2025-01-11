@@ -37,7 +37,7 @@ public class playerData : EntityStats
         playerHair = 0;
         curTileId = 0;
         curMap = 0;
-     
+        setCombatActions();
     }
     public playerData(int PlayerClass, FixedString32Bytes PlayerName, int PlayerFace, int PlayerHair)
     {
@@ -45,9 +45,18 @@ public class playerData : EntityStats
         name = PlayerName.ToString();
         playerFace = PlayerFace;
         playerHair = PlayerHair;
-   
+        curTileId = 0;
+        curMap = 0;
+        setCombatActions();
     } 
     
+    public void setCombatActions()
+    {
+        this.attacks[0] = (NetworkData.Instance.playerInventories[0][1].database.GetItem[this.equipItems[ItemType.Weapon]] as WeaponItem).attack;
+        this.attacks[1] = (NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.Magic]] as WeaponItem).attack;
+        this.defenses[0] = (NetworkData.Instance.playerInventories[0][1].database.GetItem[this.equipItems[ItemType.Shield]] as WeaponItem).attack as DefenseBase;
+        this.defenses[1] = (NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.MagicGuard]] as WeaponItem).attack as DefenseBase;
+    }
     public FixedString32Bytes getName()
     {
         return name;
