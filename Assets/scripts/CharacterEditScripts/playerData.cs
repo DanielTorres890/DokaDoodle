@@ -1,9 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class playerData : EntityStats
 {
@@ -17,6 +17,8 @@ public class playerData : EntityStats
     public int totalXp;
     public int curMap;
 
+    public bool isDead;
+    public int tillRevive;
 
     public Dictionary<ItemType, int> equipItems = new Dictionary<ItemType, int>
     {
@@ -61,5 +63,49 @@ public class playerData : EntityStats
     {
         return name;
     }
-    
+   
+    public string LoseSomething()
+    {
+        string whatwaslost = "nothing was lost u lucky son of a gun";
+        int whattolose = Random.Range(0, 100);
+        if (whattolose > 0 && whattolose < 50)
+        {
+
+            for (int k = 0; k < NetworkData.Instance.playerInventories[this.playerNumber].Count; k++)
+            {
+
+                if (NetworkData.Instance.playerInventories[this.playerNumber][k].container.Count > 0)
+                {
+                    int itemLost = Random.Range(0, NetworkData.Instance.playerInventories[this.playerNumber][k].container.Count);
+                    whatwaslost = "Lost <color=red>" + NetworkData.Instance.playerInventories[this.playerNumber][k].container[whattolose].item.name + "</color>";
+                    NetworkData.Instance.playerInventories[this.playerNumber][k].container.RemoveAt(itemLost);
+
+                    break;
+                }
+            }
+
+
+        }
+       
+        return whatwaslost;
+    }
+    public void death(int turnsDead = -1)
+    {
+        isDead = true;
+        tillRevive = turnsDead;
+        if (turnsDead == -1)
+        {
+            tillRevive = Random.Range(1, 3);
+        }
+
+    }
+    public void progressDeath()
+    {
+        tillRevive--;
+        if (tillRevive <= 0)
+        {
+            isDead = false;
+            tillRevive = 0;
+        }
+    }
 }

@@ -10,7 +10,7 @@ using static UnityEditor.Progress;
 
 public class BattleUIManager : NetworkBehaviour
 {
-    // Start is called before the first frame update
+    // Prettty much everything and anything to do with the stuff that happens during a fight which relies a lot on the PlayerCombat manager singleton (that tracks who is fighting)
     private GameObject fighter1;
     private GameObject fighter2;
 
@@ -256,6 +256,7 @@ public class BattleUIManager : NetworkBehaviour
         var finaldmgdealt = zeroMinimum(Mathf.RoundToInt(damageDealt));
         damageText.text = "Dealt" + finaldmgdealt + "damage";
         damageText.transform.parent.gameObject.SetActive(true);
+        SetStatUI();
         CheckDeath();
 
         
@@ -353,28 +354,61 @@ public class BattleUIManager : NetworkBehaviour
     private void CheckDeath()
     {
         Debug.Log("Checking Death");
-        if (PlayerCombatManager.Instance.combatant2.stats[Attributes.Health] <= 0 && PlayerCombatManager.Instance.combatant2 is EnemyCombat)
+        if (PlayerCombatManager.Instance.combatant2.stats[Attributes.Health] <= 0)
         {
-            
-            var player = PlayerCombatManager.Instance.combatant1 as playerData;          
-            var enemy = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId];
-
-            int droppedItem = enemy.rollItem();
-            if (droppedItem != -1 && NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
+            if (PlayerCombatManager.Instance.combatant2 is EnemyCombat)
             {
-                AddEnemyDropRpc(droppedItem);
+                var player = PlayerCombatManager.Instance.combatant1 as playerData;
+                var enemy = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId];
+
+                int droppedItem = enemy.rollItem();
+                if (droppedItem != -1 && NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
+                {
+                    AddEnemyDropRpc(droppedItem);
+                }
+                displayXp = true;
+                player.totalXp += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedXp;
+
+                StartCoroutine(rewardsDisplay(droppedItem));
             }
-            displayXp = true;
-            player.totalXp += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedXp;
-          
-            StartCoroutine(rewardsDisplay(droppedItem));
-            
+            else
+            {
+                var player = PlayerCombatManager.Instance.combatant1 as playerData;
+                var player2 = PlayerCombatManager.Instance.combatant2 as playerData;
+                int gainedxp = zeroMinimum(player2.totalXp - player.totalXp);
+                player.totalXp += gainedxp;
+                StartCoroutine(playerDefeatDisplay(0, gainedxp));
+
+            }
+
         }
         else if (PlayerCombatManager.Instance.combatant1.stats[Attributes.Health] <= 0)
         {
-            //Just for now until i figure out how i wanna handle player death
-            StartCoroutine(NextTurn());
+            if (PlayerCombatManager.Instance.combatant1 is EnemyCombat)
+            {
+                var player = PlayerCombatManager.Instance.combatant1 as playerData;
+                var enemy = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId];
 
+                int droppedItem = enemy.rollItem();
+                if (droppedItem != -1 && NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
+                {
+                    AddEnemyDropRpc(droppedItem);
+                }
+                displayXp = true;
+                player.totalXp += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedXp;
+
+                StartCoroutine(rewardsDisplay(droppedItem));
+            }
+            else
+            {
+                var player = PlayerCombatManager.Instance.combatant2 as playerData;
+                var player2 = PlayerCombatManager.Instance.combatant1 as playerData;
+                int gainedxp = zeroMinimum(player2.totalXp - player.totalXp);
+                player.totalXp += gainedxp;
+                StartCoroutine(playerDefeatDisplay(1,gainedxp));
+
+
+            }
         }
         else
         {
@@ -392,7 +426,7 @@ public class BattleUIManager : NetworkBehaviour
         displayDrop = true;
 
     }
-    private IEnumerator rewardsDisplay(int dropNumber)
+    private IEnumerator rewardsDisplay(int dropNumber = -1)
     {
 
         while (damageText.transform.parent.gameObject.activeSelf)
@@ -430,6 +464,50 @@ public class BattleUIManager : NetworkBehaviour
         }
         fighter1.transform.localScale = new Vector3(100, 100, 1);
         
+
+        MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy = null;
+
+        NetworkData.Instance.setNextTurnNum();
+
+        SceneChanger.Instance.loadClientScenesServerRpc("MainGameScene");
+    }
+    private IEnumerator playerDefeatDisplay(int winner, int gainedxp)
+    {
+        playerData win;
+        playerData loser;
+        if (winner == 0 )
+        {
+            win = PlayerCombatManager.Instance.combatant1 as playerData;
+            loser = PlayerCombatManager.Instance.combatant2 as playerData;
+        }
+        else
+        {
+            loser = PlayerCombatManager.Instance.combatant1 as playerData;
+            win = PlayerCombatManager.Instance.combatant2 as playerData;
+        }
+        damageText.text = loser.LoseSomething();
+
+        while (damageText.transform.parent.gameObject.activeSelf)
+        {
+
+            yield return null;
+        }
+
+        
+        if (displayXp)
+        {
+            displayXp = false;
+            damageText.transform.parent.gameObject.SetActive(true);
+            damageText.text = "Gained <color=green>" + gainedxp + "</color> xp";
+
+        }
+
+        while (damageText.transform.parent.gameObject.activeSelf)
+        {
+            yield return null;
+        }
+        fighter1.transform.localScale = new Vector3(100, 100, 1);
+
 
         MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy = null;
 
