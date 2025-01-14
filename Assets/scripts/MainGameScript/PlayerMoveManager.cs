@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using TMPro;
 using Unity.Netcode;
 using Unity.VisualScripting;
@@ -10,6 +11,7 @@ using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class PlayerMoveManager : NetworkBehaviour
 {
+
     [SerializeField] public List<TileScript> mapTiles = new List<TileScript>();
 
     [SerializeField] private TMP_Text rollNum;
@@ -36,6 +38,8 @@ public class PlayerMoveManager : NetworkBehaviour
     {
         
         Instance = this;
+        
+
 
         setUpTileEnemies();
         playerSticks = GameObject.FindGameObjectWithTag("Data").GetComponent<NetworkData>().playerSticks;
@@ -44,6 +48,8 @@ public class PlayerMoveManager : NetworkBehaviour
         int stagger = 1;
         for(int i = 0; i < playerSticks.Count; i++)
         {
+           
+
             stickAnimators.Add(playerSticks[i].GetComponent<Animator>());
             playerSticks[i].transform.position = mapTiles[NetworkData.Instance.players[i].curTileId].transform.position;
             playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + xoffset, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z + 60 * stagger);
@@ -52,24 +58,7 @@ public class PlayerMoveManager : NetworkBehaviour
             playerCam.transform.position = playerSticks[i].transform.position + new Vector3(95,797,-1054);
         }
 
-        bool rumble = false;
-        Debug.Log(MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId]);
-        foreach(var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
-        {
-            if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
-            {
-                rumble = true;
-            }
-        }
-        if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy == null || !rumble)
-            gameMenu.SetActive(true);
-        else
-        {
-            
-            gameMenu.SetActive(false);
-
-            SetNextTurnClientRpc();
-        }
+        FightOrNot();
 
     }
     private void Update()
@@ -297,14 +286,7 @@ public class PlayerMoveManager : NetworkBehaviour
     public void NextTurnRpc()
     {
         NetworkData.Instance.setNextTurnNum();
-        if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy == null)
-        gameMenu.SetActive(true);
-        else
-        {
-            gameMenu.SetActive(false);
-
-            SetNextTurnClientRpc();
-        }
+        FightOrNot();
         
 
     }
@@ -351,5 +333,33 @@ public class PlayerMoveManager : NetworkBehaviour
 
         }
 
+    }
+    private void FightOrNot()
+    {
+        bool rumble = false;
+        foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
+        {
+            if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
+            {
+                rumble = true;
+            }
+        }
+
+        if ((MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy == null || !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
+            gameMenu.SetActive(true);
+        else
+        {
+
+            if (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
+            {
+                gameMenu.SetActive(false);
+                ClientChecks.Instance.DisplayDeadRpc();
+                return;
+            }
+
+            gameMenu.SetActive(false);
+
+            NextTurnRpc();
+        }
     }
 }

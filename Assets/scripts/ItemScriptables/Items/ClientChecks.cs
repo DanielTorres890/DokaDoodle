@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -106,24 +105,31 @@ public class ClientChecks : NetworkBehaviour
         StartCoroutine(previewFight());
     }
 
-   /* [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    public void InitiateFightRpc()
+    /* [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+     public void InitiateFightRpc()
+     {
+         combatPreview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();
+         if (PlayerCombatManager.Instance.combatant2 is playerData)
+         {
+             combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[(PlayerCombatManager.Instance.combatant2 as playerData).playerNumber].name.ToString();
+         }
+         else
+         {
+             Debug.Log(PlayerCombatManager.Instance.combatant2.name.ToString());
+             combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.name.ToString();
+         }
+         Debug.Log(combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text);
+
+         StartCoroutine(previewFight());
+     } */
+
+    [Rpc(SendTo.ClientsAndHost,RequireOwnership = false)]
+    public void DisplayDeadRpc()
     {
-        combatPreview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();
-        if (PlayerCombatManager.Instance.combatant2 is playerData)
-        {
-            combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[(PlayerCombatManager.Instance.combatant2 as playerData).playerNumber].name.ToString();
-        }
-        else
-        {
-            Debug.Log(PlayerCombatManager.Instance.combatant2.name.ToString());
-            combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.name.ToString();
-        }
-        Debug.Log(combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text);
-
-        StartCoroutine(previewFight());
-    } */
-
+        displayTxt.text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name + " is dead for <color=red>" + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].tillRevive + "</color> turns";
+        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
+        StartCoroutine(displayItem());
+    }
     private IEnumerator previewFight()
     {
 

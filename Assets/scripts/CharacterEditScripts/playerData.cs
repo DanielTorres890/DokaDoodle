@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
-using static UnityEditor.Progress;
+
 
 public class playerData : EntityStats
 {
@@ -19,6 +19,8 @@ public class playerData : EntityStats
 
     public bool isDead;
     public int tillRevive;
+
+    public int playerSpawnTile;
 
     public Dictionary<ItemType, int> equipItems = new Dictionary<ItemType, int>
     {
@@ -39,6 +41,7 @@ public class playerData : EntityStats
         playerHair = 0;
         curTileId = 0;
         curMap = 0;
+        playerSpawnTile = 0;
         setCombatActions();
     }
     public playerData(int PlayerClass, FixedString32Bytes PlayerName, int PlayerFace, int PlayerHair)
@@ -49,6 +52,7 @@ public class playerData : EntityStats
         playerHair = PlayerHair;
         curTileId = 0;
         curMap = 0;
+        playerSpawnTile = 0;
         setCombatActions();
     } 
     
@@ -91,11 +95,13 @@ public class playerData : EntityStats
     }
     public void death(int turnsDead = -1)
     {
-        isDead = true;
-        tillRevive = turnsDead;
+        this.isDead = true;
+        this.tillRevive = turnsDead;
+        Debug.Log(this.name + "man i should reallllyy be dead " + this.isDead); ;
+        this.curTileId = this.playerSpawnTile;
         if (turnsDead == -1)
         {
-            tillRevive = Random.Range(1, 3);
+            this.tillRevive = Random.Range(3, 3);
         }
 
     }
@@ -104,8 +110,10 @@ public class playerData : EntityStats
         tillRevive--;
         if (tillRevive <= 0)
         {
+            Debug.Log("somehow this happened?");
             isDead = false;
             tillRevive = 0;
+            this.stats[Attributes.Health] = this.stats[Attributes.MaxHealth];
         }
     }
 }

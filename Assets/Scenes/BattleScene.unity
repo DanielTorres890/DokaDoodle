@@ -3159,9 +3159,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1618958955}
-        m_TargetAssemblyTypeName: ItemPickupDisplay, Assembly-CSharp
-        m_MethodName: HideMe
+      - m_Target: {fileID: 1678158953}
+        m_TargetAssemblyTypeName: ShowMeToAll, Assembly-CSharp
+        m_MethodName: HideUIFromAll
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3386,6 +3386,7 @@ GameObject:
   - component: {fileID: 1678158950}
   - component: {fileID: 1678158951}
   - component: {fileID: 1678158952}
+  - component: {fileID: 1678158953}
   m_Layer: 0
   m_Name: BattleUIManager
   m_TagString: Untagged
@@ -3458,8 +3459,19 @@ MonoBehaviour:
   - {fileID: 764180030}
   - {fileID: 405464481}
   - {fileID: 743859105}
-  display: {fileID: 0}
-  displayText: {fileID: 0}
+--- !u!114 &1678158953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678158949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c7d90fd15a200b4ba7f29653024d169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuUI: {fileID: 1618958953}
 --- !u!1 &1679688305
 GameObject:
   m_ObjectHideFlags: 0

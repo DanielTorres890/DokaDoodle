@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.Netcode;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class BattleUIManager : NetworkBehaviour
 {
@@ -45,7 +43,7 @@ public class BattleUIManager : NetworkBehaviour
         displayDrop = true;
         displayXp = true;
         totalAllowedTurns = 2;
-        totalTurnsTaken = 0;
+        totalTurnsTaken = -1;
         fighter1 = NetworkData.Instance.playerSticks[(PlayerCombatManager.Instance.combatant1 as playerData).playerNumber];
         fighter1.transform.position = new Vector3(-150 ,-80,200);
         fighter1.transform.localScale = new Vector3(10, 10, 1);
@@ -66,7 +64,7 @@ public class BattleUIManager : NetworkBehaviour
         fighter2.transform.localScale = new Vector3(10, 10, 1);
         SetStatUI();
         PickOrder();
-        SetButtonNames();
+   
     }
 
     
@@ -115,7 +113,7 @@ public class BattleUIManager : NetworkBehaviour
                 var tmp = i;
                 order1Buttons[tmp].onClick.AddListener(delegate { setCombatantAction(0, tmp); });
                 order2Buttons[tmp].onClick.AddListener(delegate { setCombatantAction(1, tmp); });
-                Debug.Log("Button1 Event Set");
+   
             }
 
            
@@ -131,9 +129,12 @@ public class BattleUIManager : NetworkBehaviour
                 var tmp = i;
                 order1Buttons[tmp].onClick.AddListener(delegate { setCombatantAction(0, tmp); });
                 order2Buttons[tmp].onClick.AddListener(delegate { setCombatantAction(1, tmp); });
-                Debug.Log("Button2 Event Set");
+           
             }
         }
+        SetButtonNames();
+        totalTurnsTaken += 1;
+        Debug.Log("Total Turns taken" + totalTurnsTaken);
         StartCoroutine(Delay(5f));
     }
 
@@ -162,7 +163,7 @@ public class BattleUIManager : NetworkBehaviour
         {
             fighter2Choice = action;
             order2Buttons[0].gameObject.transform.parent.gameObject.SetActive(false);
-            Debug.Log("Did Attempt to do something");
+        
             Attack();
         }
 
@@ -267,6 +268,8 @@ public class BattleUIManager : NetworkBehaviour
     
     private void SetButtonNames()
     {
+        Debug.Log(PlayerCombatManager.Instance.combatant1.name);
+        Debug.Log(turnOrder);
         
         if (turnOrder == 0)
         {
@@ -291,7 +294,7 @@ public class BattleUIManager : NetworkBehaviour
     }
     private void PickOrder(int preset = -1)
     {
-        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId) && !NetworkManager.Singleton.IsHost) { return; }
 
         if (preset == -1)
         {
@@ -303,10 +306,13 @@ public class BattleUIManager : NetworkBehaviour
     }
     private IEnumerator Delay(float time)
     {
+       
+        if (totalTurnsTaken == 0)
         yield return new WaitForSecondsRealtime(time);
+
         turnOrder1Text.gameObject.SetActive(false);
         turnOrder2Text.gameObject.SetActive(false);
-
+        Debug.Log("Delay Turn Order " + turnOrder);
         if (turnOrder == 0 )
         order1Buttons[0].gameObject.transform.parent.gameObject.SetActive(true);
         else
@@ -325,35 +331,41 @@ public class BattleUIManager : NetworkBehaviour
            
             yield return null;
         }
-         Debug.Log(damageText.transform.parent.gameObject.activeSelf);
-        if (turnOrder == 0) 
-        { 
-            turnOrder = 1;
-         
+         Debug.Log("Turn Order: " + turnOrder);
+        if(NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
+        {
+            if (turnOrder == 0)
+            {
+                turnOrder = 1;
+
+            }
+
+            else
+            {
+                turnOrder = 0;
+            }
         }
-        
-        else 
-        { 
-            turnOrder = 0;
-          
-        }
+       
 
         if (totalTurnsTaken >= totalAllowedTurns)
         {
             fighter1.transform.localScale = new Vector3(100, 100, 1);
+            if (PlayerCombatManager.Instance.combatant2 is playerData) fighter2.transform.localScale = new Vector3(100, 100, 1);
+
             NetworkData.Instance.setNextTurnNum();
 
             SceneChanger.Instance.loadClientScenesServerRpc("MainGameScene");
         }
-        totalTurnsTaken += 1;
+       
+        
         SetStatUI();
         PickOrder(turnOrder);
-        SetButtonNames();
+       
 
     }
     private void CheckDeath()
     {
-        Debug.Log("Checking Death");
+
         if (PlayerCombatManager.Instance.combatant2.stats[Attributes.Health] <= 0)
         {
             if (PlayerCombatManager.Instance.combatant2 is EnemyCombat)
@@ -401,11 +413,17 @@ public class BattleUIManager : NetworkBehaviour
             }
             else
             {
-                var player = PlayerCombatManager.Instance.combatant2 as playerData;
-                var player2 = PlayerCombatManager.Instance.combatant1 as playerData;
-                int gainedxp = zeroMinimum(player2.totalXp - player.totalXp);
-                player.totalXp += gainedxp;
-                StartCoroutine(playerDefeatDisplay(1,gainedxp));
+                playerData player = PlayerCombatManager.Instance.combatant2 as playerData;
+                
+                if(PlayerCombatManager.Instance.combatant2 is playerData)
+                {
+                    var player2 = PlayerCombatManager.Instance.combatant1 as playerData;
+                    int gainedxp = zeroMinimum(player2.totalXp - player.totalXp);
+                    player.totalXp += gainedxp;
+                    StartCoroutine(playerDefeatDisplay(1, gainedxp));
+                    return;
+                }
+                StartCoroutine(playerDefeatDisplay(1, -1));
 
 
             }
@@ -473,19 +491,29 @@ public class BattleUIManager : NetworkBehaviour
     }
     private IEnumerator playerDefeatDisplay(int winner, int gainedxp)
     {
-        playerData win;
+        playerData win = null;
         playerData loser;
         if (winner == 0 )
         {
             win = PlayerCombatManager.Instance.combatant1 as playerData;
             loser = PlayerCombatManager.Instance.combatant2 as playerData;
+        
         }
         else
         {
             loser = PlayerCombatManager.Instance.combatant1 as playerData;
-            win = PlayerCombatManager.Instance.combatant2 as playerData;
+            if (PlayerCombatManager.Instance.combatant2 is playerData)
+            {
+                win = PlayerCombatManager.Instance.combatant2 as playerData;
+            }
+                
+            else
+                displayXp = false;
         }
         damageText.text = loser.LoseSomething();
+        loser.death();
+        Debug.Log(loser.name + " should be dead");
+
 
         while (damageText.transform.parent.gameObject.activeSelf)
         {
@@ -494,11 +522,11 @@ public class BattleUIManager : NetworkBehaviour
         }
 
         
-        if (displayXp)
+        if (displayXp && win != null)
         {
             displayXp = false;
             damageText.transform.parent.gameObject.SetActive(true);
-            damageText.text = "Gained <color=green>" + gainedxp + "</color> xp";
+            damageText.text = win.name + " Gained <color=green>" + gainedxp + "</color> xp";
 
         }
 
@@ -507,6 +535,7 @@ public class BattleUIManager : NetworkBehaviour
             yield return null;
         }
         fighter1.transform.localScale = new Vector3(100, 100, 1);
+        if (PlayerCombatManager.Instance.combatant2 is playerData) fighter2.transform.localScale = new Vector3(100, 100, 1);
 
 
         MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy = null;

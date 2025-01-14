@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
-using static UnityEditor.Progress;
+
 
 [CreateAssetMenu(fileName = "New Default Object", menuName = "PlayerClass/DataBase")]
 public class ClassDataBase : ScriptableObject, ISerializationCallbackReceiver
