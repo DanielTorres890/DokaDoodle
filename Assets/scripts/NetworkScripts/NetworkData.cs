@@ -24,6 +24,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
     public static NetworkData Instance { get; private set;}
     public int playerCount = -1;
+    public int maxPlayers = 4;
     public int currentPlayer = 0;
     private List<bool> readyPlayers = new List<bool>();
 
@@ -142,9 +143,9 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     [ServerRpc(RequireOwnership = false)]
     public void fillPlayerServerRpc(int index)
     {
-        
-        readyPlayers[index] = true;
-        playerCount++;
+        players.RemoveAt(players.Count - 1);
+        readyPlayers.RemoveAt(readyPlayers.Count - 1);
+        maxPlayers--;
  
         Debug.Log(playerCount);
     }
@@ -210,7 +211,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     }
     public void setNextTurnNum()
     {
-        if (NetworkData.Instance.currentPlayer < 3) { NetworkData.Instance.currentPlayer += 1; }
+        if (NetworkData.Instance.currentPlayer < NetworkData.Instance.maxPlayers) { NetworkData.Instance.currentPlayer += 1; }
 
         else { NetworkData.Instance.currentPlayer = 0; }
     }

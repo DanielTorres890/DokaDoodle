@@ -46,7 +46,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
         int xoffset = 0;
         int stagger = 1;
-        for(int i = 0; i < playerSticks.Count; i++)
+        for(int i = 0; i < NetworkData.Instance.players.Count; i++)
         {
            
 

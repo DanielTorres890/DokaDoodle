@@ -21,17 +21,14 @@ public class addPlayerCheck : MonoBehaviour
         
         if(!NetworkData.Instance.IsHost) { return; }
 
-      
-            if( NetworkData.Instance.playerCount == playerNum && (!Button.gameObject.activeSelf))
-            {
-                Button.gameObject.SetActive(true);
-             
-            }
-            else if (NetworkData.Instance.playerCount != playerNum && Button.gameObject.activeSelf)
-            {
-                Button.gameObject.SetActive(false);
-               
-            }
+        if (NetworkData.Instance.maxPlayers - (NetworkData.Instance.playerCount + 1) == playerNum && (!Button.gameObject.activeSelf))
+        {
+            Button.gameObject.SetActive(true);
+        }
+        else if (NetworkData.Instance.maxPlayers - (NetworkData.Instance.playerCount + 1) != playerNum && Button.gameObject.activeSelf)
+        {
+            Button.gameObject.SetActive(false);  
+        }
        
     }
 }

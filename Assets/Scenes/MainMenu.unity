@@ -214,6 +214,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2a085a481f879034f8ef1ea1d01142de, type: 2}
   - {fileID: 11400000, guid: 480c3a656e5cb1f4a94c8b7645e0d49f, type: 2}
   playerCount: -1
+  maxPlayers: 4
   currentPlayer: 0
 --- !u!114 &42359529
 MonoBehaviour:
@@ -4073,7 +4074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Button: {fileID: 226943722}
-  playerNum: 1
+  playerNum: 2
 --- !u!114 &710211345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4087,7 +4088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Button: {fileID: 518806804}
-  playerNum: 2
+  playerNum: 1
 --- !u!114 &710211346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4101,7 +4102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Button: {fileID: 1688357204}
-  playerNum: 0
+  playerNum: 3
 --- !u!1 &722646322
 GameObject:
   m_ObjectHideFlags: 0

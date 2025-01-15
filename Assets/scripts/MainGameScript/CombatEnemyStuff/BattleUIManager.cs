@@ -134,7 +134,7 @@ public class BattleUIManager : NetworkBehaviour
         }
         SetButtonNames();
         totalTurnsTaken += 1;
-        Debug.Log("Total Turns taken" + totalTurnsTaken);
+
         StartCoroutine(Delay(5f));
     }
 
@@ -268,9 +268,7 @@ public class BattleUIManager : NetworkBehaviour
     
     private void SetButtonNames()
     {
-        Debug.Log(PlayerCombatManager.Instance.combatant1.name);
-        Debug.Log(turnOrder);
-        
+       
         if (turnOrder == 0)
         {
             order1Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant1.attacks[0].name;
@@ -430,6 +428,7 @@ public class BattleUIManager : NetworkBehaviour
         }
         else
         {
+            Debug.Log("If I died should not be here");
             StartCoroutine(NextTurn());
         }
         
