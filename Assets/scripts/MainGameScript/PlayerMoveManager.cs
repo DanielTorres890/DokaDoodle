@@ -101,6 +101,7 @@ public class PlayerMoveManager : NetworkBehaviour
         
         diceRoll = num;
         rollNum.text = diceRoll.ToString();
+        rollNum.transform.parent.gameObject.SetActive(true);
         
     }
 
@@ -111,6 +112,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
         if (diceRoll <= 0)
         {
+
             stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", false);
             canMove = false;
             SetNextTurnServerRpc();
@@ -275,6 +277,7 @@ public class PlayerMoveManager : NetworkBehaviour
     [ClientRpc(RequireOwnership =false)]
     private void SetNextTurnClientRpc()
     {
+        rollNum.transform.parent.gameObject.SetActive(true);
         MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Add(NetworkData.Instance.currentPlayer);
         Debug.Log("Something should happen?");
         mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].TileEvent();

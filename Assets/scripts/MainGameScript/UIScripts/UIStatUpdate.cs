@@ -22,5 +22,9 @@ public class UIStatUpdate : MonoBehaviour
     private void StatUpdate()
     {
         textMeshProUGUI.text = statName + " "+NetworkData.Instance.players[NetworkData.Instance.currentPlayer].stats[attribute];
+        if(statName.Equals("LVL"))
+        {
+            textMeshProUGUI.text = statName + " " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].level;
+        }
     }
 }

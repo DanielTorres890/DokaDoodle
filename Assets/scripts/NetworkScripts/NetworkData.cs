@@ -13,7 +13,8 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public List<playerData> players = new List<playerData>();
     [SerializeField] public List<GameObject> playerSticks = new List<GameObject>();
     [SerializeField] private GameObject characterEditor;
-    [SerializeField] private ClassDataBase classDataBase;
+
+    [SerializeField] public ClassDataBase classDataBase;
 
 
     public List<List<InventoryObject>> playerInventories = new List<List<InventoryObject>>();
@@ -140,6 +141,8 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
         
     }
+
+//This function actually removes players if i wanted to readd players/add ai i gotta do somethin diffy but until then
     [ServerRpc(RequireOwnership = false)]
     public void fillPlayerServerRpc(int index)
     {
@@ -211,8 +214,10 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     }
     public void setNextTurnNum()
     {
-        if (NetworkData.Instance.currentPlayer < NetworkData.Instance.maxPlayers) { NetworkData.Instance.currentPlayer += 1; }
+        if (NetworkData.Instance.currentPlayer < NetworkData.Instance.maxPlayers - 1) { NetworkData.Instance.currentPlayer += 1; }
 
         else { NetworkData.Instance.currentPlayer = 0; }
+        Debug.Log("Whos turn is it " + NetworkData.Instance.currentPlayer);
+        Debug.Log("Maximum Players " + NetworkData.Instance.maxPlayers);
     }
 }

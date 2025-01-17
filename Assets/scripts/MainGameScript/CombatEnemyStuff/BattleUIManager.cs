@@ -386,7 +386,7 @@ public class BattleUIManager : NetworkBehaviour
                 var player = PlayerCombatManager.Instance.combatant1 as playerData;
                 var player2 = PlayerCombatManager.Instance.combatant2 as playerData;
                 int gainedxp = zeroMinimum(player2.totalXp - player.totalXp);
-                player.totalXp += gainedxp;
+                
                 StartCoroutine(playerDefeatDisplay(0, gainedxp));
 
             }
@@ -405,7 +405,7 @@ public class BattleUIManager : NetworkBehaviour
                     AddEnemyDropRpc(droppedItem);
                 }
                 displayXp = true;
-                player.totalXp += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedXp;
+             
 
                 StartCoroutine(rewardsDisplay(droppedItem));
             }
@@ -471,7 +471,12 @@ public class BattleUIManager : NetworkBehaviour
         {
             displayXp = false;
             damageText.transform.parent.gameObject.SetActive(true);
+            bool leveled = player.gainXp(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedXp);
             damageText.text = "Gained <color=green>" + enemy.droppedXp + "</color> xp";
+            if (leveled)
+            {
+                damageText.text += " ALSO u leveld up (this is not a permanent message)";
+            }
 
         }
 
@@ -525,7 +530,12 @@ public class BattleUIManager : NetworkBehaviour
         {
             displayXp = false;
             damageText.transform.parent.gameObject.SetActive(true);
+            bool leveled = win.gainXp(gainedxp);
             damageText.text = win.name + " Gained <color=green>" + gainedxp + "</color> xp";
+            if( leveled )
+            {
+                damageText.text += " ALSO u leveld up (this is not a permanent message)";
+            }
 
         }
 
