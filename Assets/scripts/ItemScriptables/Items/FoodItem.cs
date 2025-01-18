@@ -25,9 +25,9 @@ public class FoodItem : ItemBase
         
         foreach (var attrib in base.buffs)
         {
-            if (attrib.attribute == Attributes.Health && NetworkData.Instance.players[player].stats[attrib.attribute] + attrib.value > NetworkData.Instance.players[player].stats[Attributes.MaxHealth])
+            if (attrib.attribute == Attributes.Health)
             {
-                NetworkData.Instance.players[player].stats[attrib.attribute] = NetworkData.Instance.players[player].stats[Attributes.MaxHealth];
+                NetworkData.Instance.players[player].healHp(attrib.value);
             }
             else { NetworkData.Instance.players[player].stats[attrib.attribute] += attrib.value;  }
             

@@ -193,6 +193,30 @@ public class BattleUIManager : NetworkBehaviour
        
         if (turnOrder == 0 )
         {
+                if (fighter2Choice == 2) 
+                {
+
+                    if (PlayerCombatManager.Instance.combatant2 is playerData)
+                    {
+                        (PlayerCombatManager.Instance.combatant2 as playerData).death(turnsDead: 2, backToBase: false);
+                        StartCoroutine(playerDefeatDisplay(0, -1));
+                    }
+                    else
+                    {
+                    
+                        var enemy = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId];
+
+                        int droppedItem = enemy.rollItem();
+                        if (droppedItem != -1 && NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
+                        {
+                            AddEnemyDropRpc(droppedItem);
+                        }
+
+                        StartCoroutine(rewardsDisplay(droppedItem));
+                }
+                
+                return;
+                }
             
                     //foreach (var multipliers in (NetworkData.Instance.playerInventories[0][1].database.GetItem[offense.equipItems[ItemType.Weapon]] as WeaponItem).attack.multipliers)
                 for (int i = 0; i < PlayerCombatManager.Instance.combatant1.attacks[fighter1Choice].multipliers.Length; i++ )    
@@ -218,8 +242,14 @@ public class BattleUIManager : NetworkBehaviour
         }
         else
         {
-                //foreach (var multipliers in (NetworkData.Instance.playerInventories[0][1].database.GetItem[offense.equipItems[ItemType.Weapon]] as WeaponItem).attack.multipliers)
-                for (int i = 0; i < PlayerCombatManager.Instance.combatant2.defenses[fighter2Choice].multipliers.Length; i++)
+            if (fighter1Choice == 2)
+            {
+                (PlayerCombatManager.Instance.combatant1 as playerData).death(turnsDead: 2, backToBase: false);
+                StartCoroutine(playerDefeatDisplay(1, -1));
+                return;
+            }
+            //foreach (var multipliers in (NetworkData.Instance.playerInventories[0][1].database.GetItem[offense.equipItems[ItemType.Weapon]] as WeaponItem).attack.multipliers)
+            for (int i = 0; i < PlayerCombatManager.Instance.combatant2.defenses[fighter2Choice].multipliers.Length; i++)
                 {
                     var multipliers = PlayerCombatManager.Instance.combatant2.attacks[fighter2Choice].multipliers[i];
                     var antiguardMultipliers = PlayerCombatManager.Instance.combatant2.attacks[fighter2Choice].antiGuardMultipliers[i];
@@ -276,12 +306,14 @@ public class BattleUIManager : NetworkBehaviour
 
             order2Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.defenses[0].name;
             order2Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.defenses[1].name;
+            order2Buttons[2].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "CONCEDE";
         }
         
         else
         {
             order1Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant1.defenses[0].name;
-            order1Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant1.defenses[0].name;
+            order1Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant1.defenses[1].name;
+            order1Buttons[2].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "CONCEDE";
 
             order2Buttons[0].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.attacks[0].name;
             order2Buttons[1].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.attacks[1].name;

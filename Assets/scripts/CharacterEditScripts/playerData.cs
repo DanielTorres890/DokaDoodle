@@ -97,12 +97,16 @@ public class playerData : EntityStats
        
         return whatwaslost;
     }
-    public void death(int turnsDead = -1)
+    public void death(int turnsDead = -1, bool backToBase = true)
     {
         this.isDead = true;
         this.tillRevive = turnsDead;
-        Debug.Log(this.name + "man i should reallllyy be dead " + this.isDead); ;
-        this.curTileId = this.playerSpawnTile;
+        Debug.Log(this.name + "man i should reallllyy be dead " + this.isDead); 
+        if (backToBase)
+        {
+            this.curTileId = this.playerSpawnTile;
+        }
+        
         if (turnsDead == -1)
         {
             this.tillRevive = Random.Range(3, 3);
@@ -139,4 +143,16 @@ public class playerData : EntityStats
         return leveled;
 
     }
+    public void healHp(int hp)
+    {
+        if (this.stats[Attributes.Health] +  hp > this.stats[Attributes.MaxHealth]) 
+        {
+            this.stats[Attributes.Health] = this.stats[Attributes.MaxHealth];
+        }
+        else
+        {
+            this.stats[Attributes.Health] += hp;
+        }
+    }
+
 }
