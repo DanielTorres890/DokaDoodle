@@ -104,6 +104,12 @@ public class ClientChecks : NetworkBehaviour
 
         StartCoroutine(previewFight());
     }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void SyncEventRpc(int eventNum)
+    {
+        NetworkData.Instance.currentEvent = (PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId] as DefaultTile).events[eventNum];
+        SceneChanger.Instance.loadClientScenesServerRpc("EventScreen");
+    }
 
     /* [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
      public void InitiateFightRpc()

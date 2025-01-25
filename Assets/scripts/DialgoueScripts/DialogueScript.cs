@@ -13,14 +13,13 @@ public class DialogueScript : NetworkBehaviour
     [SerializeField] private Image background;
     [SerializeField] public List<string> lines;
 
-    [SerializeField] private InputAction submit;
     public string nextScene = "Fake";
 
     [SerializeField] float textSpeed;
     private int index;
-    void Awake()
+    public void Awake()
     {
-        textComponent.text = string.Empty;
+        
         startDialogue();
     }
 
@@ -39,6 +38,7 @@ public class DialogueScript : NetworkBehaviour
     [ClientRpc]
     private void contCutsceneClientRpc()
     {
+        Debug.Log("Am I happening twice");
         if (textComponent.text == lines[index])
         {
             NextLine();
@@ -52,6 +52,9 @@ public class DialogueScript : NetworkBehaviour
     }
     void startDialogue ()
     {
+        StopAllCoroutines();
+        textComponent.text = string.Empty;
+
         index = 0;
         StartCoroutine(TypeLine());
     }
@@ -77,7 +80,15 @@ public class DialogueScript : NetworkBehaviour
         {
             gameObject.SetActive(false);
             background.gameObject.SetActive(false);
-            SceneChanger.Instance.loadClientScenesServerRpc(nextScene);
+            if (!nextScene.Equals("Fake"))
+            {
+                SceneChanger.Instance.loadClientScenesServerRpc(nextScene);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+            
         }
     }
 }

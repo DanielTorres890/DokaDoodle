@@ -16,7 +16,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
     [SerializeField] public ClassDataBase classDataBase;
 
-
+    //BEFORE U @ ME FOR THIS ITS BC UNITY DOESNT ALLOW U TO SERIALIZE 2D LIST SO THIS IS MY WORK AROUND SO I CAN ADD THEM IN THE INSPECTOR
     public List<List<InventoryObject>> playerInventories = new List<List<InventoryObject>>();
     [SerializeField] private List<InventoryObject> player1Inventories = new List<InventoryObject>();
     [SerializeField] private List<InventoryObject> player2Inventories = new List<InventoryObject>();
@@ -29,7 +29,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public int currentPlayer = 0;
     private List<bool> readyPlayers = new List<bool>();
 
-
+    public EventBase currentEvent;
   
 
     public void Awake()

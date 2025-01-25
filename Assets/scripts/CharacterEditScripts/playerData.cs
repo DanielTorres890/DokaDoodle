@@ -17,7 +17,8 @@ public class playerData : EntityStats
     public int totalXp;
     public int level;
     public int curMap;
-   
+
+    public int money;
 
     public bool isDead;
     public int tillRevive;
