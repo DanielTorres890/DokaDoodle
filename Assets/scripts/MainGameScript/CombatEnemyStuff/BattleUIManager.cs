@@ -409,6 +409,8 @@ public class BattleUIManager : NetworkBehaviour
                     AddEnemyDropRpc(droppedItem);
                 }
                 displayXp = true;
+                player.money += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedMoney;
+
                 player.totalXp += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedXp;
 
                 StartCoroutine(rewardsDisplay(droppedItem));

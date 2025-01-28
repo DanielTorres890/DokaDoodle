@@ -16,7 +16,7 @@ public class EnemyBase : ScriptableObject
     public ItemBase[] DroppedItems;
     public int[] probability;
     public int droppedXp;
-    
+    public int droppedMoney;
     
     
     public int rollItem()

@@ -8,7 +8,7 @@ public class TileEventManager : NetworkBehaviour
     public static TileEventManager Instance;
     [SerializeField] private GameObject dialogue;
 
-    private DialogueScript DialogueScript;
+    public DialogueScript dialogueScript;
     // Start is called before the first frame update
     public void Awake()
     {
@@ -16,10 +16,10 @@ public class TileEventManager : NetworkBehaviour
         if (Instance == null)
             Instance = this;
 
-        DialogueScript = dialogue.GetComponent<DialogueScript>();
+        dialogueScript = dialogue.GetComponent<DialogueScript>();
         dialogue.SetActive(true);
-        DialogueScript.lines = NetworkData.Instance.currentEvent.dialouge;
-        DialogueScript.Awake();
+        dialogueScript.lines = new List<string>(NetworkData.Instance.currentEvent.dialouge);
+        dialogueScript.Awake();
         StartCoroutine(completeEvent());
     }
 
@@ -36,6 +36,32 @@ public class TileEventManager : NetworkBehaviour
             yield return null;
         }
 
+
         NetworkData.Instance.currentEvent.FireEvent();
+    }
+
+   public void EndEvent()
+    {
+        dialogue.SetActive(true);
+        dialogueScript.Awake();
+        StartCoroutine(additionalDialogue());
+    }
+    private IEnumerator additionalDialogue()
+    {
+        while (dialogue.activeSelf)
+        {
+            yield return null;
+        }
+        SceneChanger.Instance.loadClientScenesServerRpc("MainGameScene");
+    }
+
+    public List<GameObject> createOptions(GameObject button, int num = 2)
+    {
+        var options = new List<GameObject>();
+        for (int i = 0; i < num; i++)
+        {
+            options.Add(Instantiate(button));
+        }
+        return options;
     }
 }

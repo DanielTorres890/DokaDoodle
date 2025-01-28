@@ -30,8 +30,18 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     private List<bool> readyPlayers = new List<bool>();
 
     public EventBase currentEvent;
-  
 
+    public Dictionary<Attributes, string> attributeStrings = new Dictionary<Attributes, string>
+    {
+        { Attributes.MaxHealth, "MaxHP" },
+        { Attributes.Health, "HP" },
+        { Attributes.Attack, "ATK" },
+        { Attributes.Defense, "DEF" },
+        { Attributes.Magic, "MAG" },
+        { Attributes.MDefense, "MDEF" },
+        { Attributes.Dexterity, "DEX" }
+
+    };
     public void Awake()
     {
         Instance = this;

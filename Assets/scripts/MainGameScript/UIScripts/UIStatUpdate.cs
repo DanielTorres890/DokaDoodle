@@ -26,5 +26,9 @@ public class UIStatUpdate : MonoBehaviour
         {
             textMeshProUGUI.text = statName + " " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].level;
         }
+        if(statName.Equals("Money"))
+        {
+            textMeshProUGUI.text = "G:" + " " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].money;
+        }
     }
 }

@@ -14,8 +14,10 @@ public enum ItemType
     Default
 
 }
+
 public enum Attributes
 {
+    
     MaxHealth,
     Health,
     Attack,
