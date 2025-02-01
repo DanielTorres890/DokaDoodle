@@ -14,12 +14,14 @@ public class playerData : EntityStats
     public int playerHair;
     public int playerNumber;
     public int curTileId;
-    public int totalXp;
-    public int level;
     public int curMap;
 
-    public int money;
-
+    public Dictionary<string, int> playerInfo = new Dictionary<string, int>
+    {
+        {"xp", 0 },
+        {"level", 1 },
+        {"money", 0 }
+    };
     public bool isDead;
     public int tillRevive;
 
@@ -45,7 +47,7 @@ public class playerData : EntityStats
         curTileId = 0;
         curMap = 0;
         playerSpawnTile = 0;
-        level = 1;
+        
     setCombatActions();
     }
     public playerData(int PlayerClass, FixedString32Bytes PlayerName, int PlayerFace, int PlayerHair)
@@ -57,7 +59,7 @@ public class playerData : EntityStats
         curTileId = 0;
         curMap = 0;
         playerSpawnTile = 0;
-        level = 1;
+
         setCombatActions();
     } 
     
@@ -129,10 +131,10 @@ public class playerData : EntityStats
     public bool gainXp(int xp)
     {
         bool leveled = false;
-        this.totalXp += xp;
-        if ( this.totalXp > 24 * Mathf.Pow(1.5f, (float)this.level) )
+        this.playerInfo["xp"] += xp;
+        if ( this.playerInfo["xp"] > 24 * Mathf.Pow(1.5f, (float)this.playerInfo["level"]) )
         {
-            this.level += 1;
+            this.playerInfo["xp"] += 1;
             foreach( var stat in NetworkData.Instance.classDataBase.Classes[this.playerClass].levelUpStats)
             {
                 this.stats[stat.attribute] += stat.value;

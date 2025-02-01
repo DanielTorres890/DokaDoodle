@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1443084e5cde351458368b590aa74767, type: 3}
+  m_Name: MightGetShot
+  m_EditorClassIdentifier: 
+  dialouge:
+  - imagine u see and old dude with a gun and he asks yes or no
+  button: {fileID: 8054927217907982966, guid: 04e5df3f5ab69cf4c886cc80a441dce1, type: 3}
+  buttons: []
+  DoDialogue:
+  - Okay Get Money
+  DoNotDialogue:
+  - U are coward
+  MoneyToChange: 0
+  failDoDialogue:
+  - HAHA U GET EXPLODE

@@ -409,9 +409,9 @@ public class BattleUIManager : NetworkBehaviour
                     AddEnemyDropRpc(droppedItem);
                 }
                 displayXp = true;
-                player.money += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedMoney;
+                player.playerInfo["money"] += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedMoney;
 
-                player.totalXp += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedXp;
+                player.playerInfo["xp"] += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedXp;
 
                 StartCoroutine(rewardsDisplay(droppedItem));
             }
@@ -419,7 +419,7 @@ public class BattleUIManager : NetworkBehaviour
             {
                 var player = PlayerCombatManager.Instance.combatant1 as playerData;
                 var player2 = PlayerCombatManager.Instance.combatant2 as playerData;
-                int gainedxp = zeroMinimum(player2.totalXp - player.totalXp);
+                int gainedxp = zeroMinimum(player2.playerInfo["xp"] - player.playerInfo["xp"]);
                 
                 StartCoroutine(playerDefeatDisplay(0, gainedxp));
 
@@ -450,8 +450,8 @@ public class BattleUIManager : NetworkBehaviour
                 if(PlayerCombatManager.Instance.combatant2 is playerData)
                 {
                     var player2 = PlayerCombatManager.Instance.combatant1 as playerData;
-                    int gainedxp = zeroMinimum(player2.totalXp - player.totalXp);
-                    player.totalXp += gainedxp;
+                    int gainedxp = zeroMinimum(player2.playerInfo["xp"] - player.playerInfo["xp"]);
+                    player.playerInfo["xp"] += gainedxp;
                     StartCoroutine(playerDefeatDisplay(1, gainedxp));
                     return;
                 }

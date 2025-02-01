@@ -19,6 +19,7 @@ public class SceneChanger : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void loadClientScenesServerRpc(string sceneName)
     {
+        
         if (sceneName == "Fake") { return;  }
        
         loadedPlayers.Value = 0;

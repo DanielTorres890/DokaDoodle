@@ -42,4 +42,8 @@ public class StatBuffEvent : EventBase
         TileEventManager.Instance.EndEvent();
     }
 
+    public override void RandomPassBack()
+    {
+        
+    }
 }

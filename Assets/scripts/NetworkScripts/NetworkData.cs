@@ -199,6 +199,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     }
     public bool IsAllowed(int playerNum, ulong playerId)
     {
+        
         if (playerNum != Convert.ToInt32(playerId) && !IsHost) { return false; }
 
         return true;
