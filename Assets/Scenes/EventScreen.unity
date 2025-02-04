@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -200,7 +200,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -357,8 +357,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 166.61682}
-  m_SizeDelta: {x: 800, y: 138.84729}
+  m_AnchoredPosition: {x: -0.0024923, y: 69.0065}
+  m_SizeDelta: {x: 333.34, y: 57.5054}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1253501849
 MonoBehaviour:
@@ -527,8 +527,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000061035, y: 0.000083923}
-  m_SizeDelta: {x: 800, y: 138.71}
+  m_AnchoredPosition: {x: 0.0025101, y: 0.000045776}
+  m_SizeDelta: {x: 333.34, y: 58.017}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1291570747
 MonoBehaviour:
@@ -945,6 +945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue: {fileID: 1253501847}
   rando: 0
+  buttons: []
   dialogueScript: {fileID: 0}
   spaceBetweenButtons: 90
   startButtonY: 500

@@ -20,7 +20,7 @@ public class playerData : EntityStats
     {
         {"xp", 0 },
         {"level", 1 },
-        {"money", 0 }
+        {"money", 2000 }
     };
     public bool isDead;
     public int tillRevive;
