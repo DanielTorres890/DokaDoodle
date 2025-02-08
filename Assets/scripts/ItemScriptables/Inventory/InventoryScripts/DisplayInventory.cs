@@ -21,11 +21,12 @@ public class DisplayInventory : MonoBehaviour
     public int X_SPACE_BETWEEN_ITEM;
     public int NUMBER_OF_COLUMN;
     public int Y_SPACE_BETWEEN_ITEMS;
+    public int displayType = 0;
     public Dictionary<InventorySlot,GameObject> itemsDisplayed = new Dictionary<InventorySlot, GameObject>();
     // Start is called before the first frame update
     void Start()
     {
-        CreateDisplay(0,NetworkData.Instance.currentPlayer);
+        CreateDisplay(NetworkData.Instance.currentPlayer);
     }
 
     // Update is called once per frame
@@ -33,6 +34,7 @@ public class DisplayInventory : MonoBehaviour
     {
         
     }
+   
 
     public void UpdateDisplay()
     {
@@ -58,7 +60,7 @@ public class DisplayInventory : MonoBehaviour
     }
 
 
-    public void CreateDisplay(int inventoryType, int playerNum)
+    public void CreateDisplay( int playerNum ,int inventoryType = 0)
     {
         SetInventory(inventoryType, playerNum);
 
@@ -68,14 +70,34 @@ public class DisplayInventory : MonoBehaviour
             var obj = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
             obj.transform.GetComponent<Image>().sprite = inventory.container[i].item.itemSprite;
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+            if (displayType == 0)
+            {
+                obj.GetComponent<Button>().onClick.AddListener(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
+                obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
+            }
+            else if (displayType == 1)
+            {
+                obj.GetComponent<Button>().onClick.AddListener(delegate { ShopUISync.instance.setUpSell(tempId, inventoryType); });
+                if (inventory.container[tempId].item.itemValue <= NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo["money"])
+                {
 
-            obj.GetComponent<Button>().onClick.AddListener(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
+                    obj.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0, -13} {1}", inventory.container[tempId].item.name, inventory.container[tempId].item.itemValue);
+                }
+
+                else
+                {
+
+                    obj.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("<color=red>{0, -13} {1} </color>", inventory.container[tempId].item.name, inventory.container[tempId].item.itemValue);
+                    obj.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
+
+                }
+            }
             AddEvent(obj, EventTriggerType.Select, delegate { displayText.SetText(inventory.container[tempId].item.description); });
             AddEvent(obj, EventTriggerType.PointerEnter, delegate { displayText.SetText(inventory.container[tempId].item.description); });
 
             //UnityAction<GameObject> action = new UnityAction<GameObject>(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
             //UnityEventTools.AddObjectPersistentListener<GameObject>(obj.GetComponent<Button>().onClick, action, obj);
-            obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
+            
 
             
 

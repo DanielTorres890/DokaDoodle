@@ -43,6 +43,14 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
             container.Remove(slot);
         } */
     }
+    public void RemoveItem(int index)
+    {
+        container.RemoveAt(index);
+    }
+    public ItemBase getItem(int index)
+    {
+        return container[index].item;
+    }
     public void OnAfterDeserialize()
     {
         for (int i  = 0; i < container.Count; i++)
