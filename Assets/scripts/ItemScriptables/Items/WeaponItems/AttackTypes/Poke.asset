@@ -14,6 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: A small stab
   attackName: Poke
+  startUp: 0.2
+  endLag: 0
+  cooldown: 0
+  stateToBe: 1
+  chargeable: 0
+  attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
+  offset: {x: 0, y: 2, z: 0}
   multipliers:
   - attribute: 0
     mult: 0
