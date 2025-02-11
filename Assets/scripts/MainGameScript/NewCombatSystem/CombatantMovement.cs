@@ -57,6 +57,7 @@ public class CombatantMovement : MonoBehaviour
             return;
         }    
         body.constraints = RigidbodyConstraints.FreezeRotation;
+
         Vector3 currentVelocity = body.velocity;
         Vector3 targetVeloctiy = new Vector3(move.x, 0, move.y);
         targetVeloctiy *= speed;

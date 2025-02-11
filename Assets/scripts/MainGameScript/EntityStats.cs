@@ -11,13 +11,13 @@ public class EntityStats
 
     public Dictionary<Attributes, int> stats = new Dictionary<Attributes, int>
     {
-        {Attributes.MaxHealth, 0 },
-        {Attributes.Health, 0 },
-        {Attributes.Attack, 0 },
-        {Attributes.Defense, 0 },
-        {Attributes.Magic, 0 },
-        {Attributes.MDefense, 0 },
-        {Attributes.Dexterity, 0 }
+        {Attributes.MaxHealth, 5 },
+        {Attributes.Health, 5 },
+        {Attributes.Attack, 5 },
+        {Attributes.Defense, 5 },
+        {Attributes.Magic, 5 },
+        {Attributes.MDefense, 5 },
+        {Attributes.Dexterity, 5}
 
 
     };

@@ -23,6 +23,23 @@ public abstract class AbilityBase : MonoBehaviour
 
     }
 
-   
+   public int DamageCalculator(EntityStats attacker, EntityStats defender)
+    {
+        float totalDamge = 0;
+        foreach (var offense in attackInfo.multipliers)
+        {
+            totalDamge += offense.mult * attacker.stats[offense.attribute];
+        }
+        foreach (var defense in attackInfo.defenseMult)
+        {
+            totalDamge -= defense.mult * defender.stats[defense.attribute];
+        }
+
+        if (totalDamge < 0)
+            return 0;
+        else
+            return Mathf.RoundToInt(totalDamge);
+
+    }
 
 }

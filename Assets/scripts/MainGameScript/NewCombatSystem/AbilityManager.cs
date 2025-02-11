@@ -20,13 +20,23 @@ public class AbilityManager : MonoBehaviour
     void Awake()
     {
         combatantstate = combatantStates.Free;
-
-        
         actions.SwitchCurrentActionMap("Player");
-
         actions.actions["M1Attack"].performed += M1Attack;
         actions.actions["M1Attack"].canceled += M1AttackReleased;
         stateManager.Add(testAttack, new AbilityStates());
+        
+        for (int i = 1; i < 10; i++)
+        {
+            if (i >= stats.attacks.Length) { break; }
+
+            actions.actions["Ability" + i.ToString()].performed += Ability1;
+            actions.actions["Ability" + i.ToString()].canceled += Ability1Released;
+            stateManager.Add(stats.attacks[i], new AbilityStates());
+
+        }
+
+        
+        
     }
 
     // Update is called once per frame
@@ -86,6 +96,18 @@ public class AbilityManager : MonoBehaviour
     private void M1AttackReleased(InputAction.CallbackContext action)
     {
         stateManager[testAttack].pressed = false;
+
+    }
+    private void Ability1(InputAction.CallbackContext action)
+    {
+        if(stats.attacks.Length <= 1) { return;  }
+        stateManager[stats.attacks[1]].pressed = true;
+
+    }
+    private void Ability1Released(InputAction.CallbackContext action)
+    {
+        if (stats.attacks.Length <= 1) { return; }
+        stateManager[stats.attacks[1]].pressed = false;
 
     }
 }

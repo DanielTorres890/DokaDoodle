@@ -8,6 +8,12 @@ public class MDefault : AttackBase
 {
     public override void WeaponEffect(GameObject caster)
     {
+        var attack = Instantiate(attackPrefab);
+        attack.transform.rotation = caster.transform.rotation;
+        var info = attack.GetComponent<AbilityBase>();
+        info.owner = caster;
+        info.attackInfo = this;
+        attack.transform.position = caster.transform.position + offset;
 
     }
 }
