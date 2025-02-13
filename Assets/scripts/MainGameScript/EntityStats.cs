@@ -21,7 +21,7 @@ public class EntityStats
 
 
     };
-    [SerializeField] public AttackBase[] attacks = new AttackBase[4];
+    [SerializeField] public List<AttackBase> attacks = new List<AttackBase>();
     [SerializeField] public DefenseBase[] defenses = new DefenseBase[4];
 
 

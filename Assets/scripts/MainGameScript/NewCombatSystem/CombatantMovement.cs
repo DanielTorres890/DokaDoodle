@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CombatantMovement : MonoBehaviour
+public class CombatantMovement : NetworkBehaviour
 {
     [SerializeField] private Rigidbody body;
 
@@ -13,12 +15,14 @@ public class CombatantMovement : MonoBehaviour
     private Vector2 move, look;
     private float lookRotation;
 
+    private Camera camcomponent;
 
     //All of my states.. hopefully?
     [SerializeField] private bool grounded;
 
     public void moveForward(InputAction.CallbackContext action)
     {
+        
         move = action.action.ReadValue<Vector2>();
 
     }
@@ -39,6 +43,7 @@ public class CombatantMovement : MonoBehaviour
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        camcomponent = playerCam.GetComponent<Camera>();
     }
     private void FixedUpdate()
     {
@@ -47,7 +52,7 @@ public class CombatantMovement : MonoBehaviour
 
 
     private void Move()
-    {
+    {   
         if (!CanMove()) 
         {
             Debug.Log(playerCam.transform.parent.localEulerAngles.x);
@@ -70,7 +75,9 @@ public class CombatantMovement : MonoBehaviour
         Vector3.ClampMagnitude(velocityChange, maxForce);
 
         body.AddForce(velocityChange, ForceMode.VelocityChange);
+        
         playerCam.transform.parent.transform.Rotate(new Vector3(transform.eulerAngles.x, 0, 0),Space.Self);
+        camcomponent.transparencySortAxis = new Vector3(math.sin(math.radians(playerCam.transform.parent.transform.eulerAngles.y)),0, math.cos( math.radians(playerCam.transform.parent.transform.eulerAngles.x)));
         transform.eulerAngles = new Vector3(0,transform.eulerAngles.y,0);
 
         
@@ -79,6 +86,7 @@ public class CombatantMovement : MonoBehaviour
 
     private void LateUpdate()
     {
+        
         if (!CanMove())
         {
             transform.Rotate(new Vector3(-look.y * sensitivy, look.x * sensitivy, 0));

@@ -64,11 +64,11 @@ public class playerData : EntityStats
     } 
     
     public void setCombatActions()
-    {
-        this.attacks[0] = (NetworkData.Instance.playerInventories[0][1].database.GetItem[this.equipItems[ItemType.Weapon]] as WeaponItem).attack;
-        this.attacks[1] = (NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.Magic]] as WeaponItem).attack;
+    {   
+        this.attacks.Add ((NetworkData.Instance.playerInventories[0][1].database.GetItem[this.equipItems[ItemType.Weapon]] as WeaponItem).attack);
+        this.attacks.Add ((NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.Magic]] as WeaponItem).attack);
         this.defenses[0] = (NetworkData.Instance.playerInventories[0][1].database.GetItem[this.equipItems[ItemType.Shield]] as WeaponItem).attack as DefenseBase;
-        this.defenses[1] = (NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.MagicGuard]] as WeaponItem).attack as DefenseBase;
+        this.defenses[1] = (NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.MagicGuard]] as WeaponItem).attack as DefenseBase; 
     }
     public FixedString32Bytes getName()
     {

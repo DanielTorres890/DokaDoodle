@@ -57,7 +57,11 @@ public class ClientChecks : NetworkBehaviour
     public void SyncEnemyRpc(int enemyId)
     {
         EnemyCombat enemy;
-        
+
+        //Pretty much everything that isn't these two is stuff from the old system
+        PlayerCombatManager.Instance.combatants.Clear();
+        PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
+
         if ( MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy == null )
         {
             enemy = new EnemyCombat(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemyId]);
@@ -66,8 +70,11 @@ public class ClientChecks : NetworkBehaviour
         {
             enemy = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy;
         }
+        
         PlayerCombatManager.Instance.combatant1 = NetworkData.Instance.players[NetworkData.Instance.currentPlayer];
         PlayerCombatManager.Instance.combatant2 = enemy;
+        PlayerCombatManager.Instance.combatants.Add(enemy);
+
         bool rumble = false;
         int counter = 0;
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
@@ -100,7 +107,7 @@ public class ClientChecks : NetworkBehaviour
             Debug.Log(PlayerMoveManager.Instance.mapNumber);
             Debug.Log(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
         }
-        Debug.Log(combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text);
+      
 
         StartCoroutine(previewFight());
     }
@@ -141,7 +148,7 @@ public class ClientChecks : NetworkBehaviour
 
         combatPreview.SetActive(true);
         yield return new WaitForSecondsRealtime(5f);
-        SceneChanger.Instance.loadClientScenesServerRpc("BattleScene");
+        SceneChanger.Instance.loadClientScenesServerRpc("NewBattleArea");
 
     }
     private IEnumerator displayItem()

@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AbilityManager : MonoBehaviour
+public class AbilityManager : NetworkBehaviour
 {
     [SerializeField] private PlayerInput actions;
 
@@ -13,27 +14,12 @@ public class AbilityManager : MonoBehaviour
     [SerializeField] private AttackBase testAttack;
 
     public EntityStats stats;
-    public combatantStates combatantstate;
+    public combatantStates combatantstate = combatantStates.Free;
     public float stateDuration;
 
     private AttackBase currentAttack = null;
     void Awake()
     {
-        combatantstate = combatantStates.Free;
-        actions.SwitchCurrentActionMap("Player");
-        actions.actions["M1Attack"].performed += M1Attack;
-        actions.actions["M1Attack"].canceled += M1AttackReleased;
-        stateManager.Add(testAttack, new AbilityStates());
-        
-        for (int i = 1; i < 10; i++)
-        {
-            if (i >= stats.attacks.Length) { break; }
-
-            actions.actions["Ability" + i.ToString()].performed += Ability1;
-            actions.actions["Ability" + i.ToString()].canceled += Ability1Released;
-            stateManager.Add(stats.attacks[i], new AbilityStates());
-
-        }
 
         
         
@@ -88,6 +74,24 @@ public class AbilityManager : MonoBehaviour
 
     }
 
+    public void AssignAbilities()
+    {
+        actions.SwitchCurrentActionMap("Player");
+        actions.actions["M1Attack"].performed += M1Attack;
+        actions.actions["M1Attack"].canceled += M1AttackReleased;
+        stateManager.Add(testAttack, new AbilityStates());
+
+        Debug.Log(stats.name);
+        for (int i = 1; i < 10; i++)
+        {
+            if (i >= stats.attacks.Count) { break; }
+
+            actions.actions["Ability" + i.ToString()].performed += Ability1;
+            actions.actions["Ability" + i.ToString()].canceled += Ability1Released;
+            stateManager.Add(stats.attacks[i], new AbilityStates());
+
+        }
+    }
     private void M1Attack(InputAction.CallbackContext action)
     {
         stateManager[testAttack].pressed = true;
@@ -100,13 +104,13 @@ public class AbilityManager : MonoBehaviour
     }
     private void Ability1(InputAction.CallbackContext action)
     {
-        if(stats.attacks.Length <= 1) { return;  }
+        if(stats.attacks.Count <= 1) { return;  }
         stateManager[stats.attacks[1]].pressed = true;
 
     }
     private void Ability1Released(InputAction.CallbackContext action)
     {
-        if (stats.attacks.Length <= 1) { return; }
+        if (stats.attacks.Count <= 1) { return; }
         stateManager[stats.attacks[1]].pressed = false;
 
     }
