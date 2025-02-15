@@ -14,7 +14,7 @@ public class DefaultTile : TileScript
         Debug.Log("Who am I " + NetworkManager.Singleton.LocalClientId);
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         //PlayerMoveManager.Instance.NextTurnRpc();
-        if (Random.Range(1,2) == 1)  
+        if (Random.Range(1,2) == 3)  
         {
             int eventToSet = Random.Range(0,events.Length);
             ClientChecks.Instance.SyncEventRpc(eventToSet);

@@ -10,8 +10,11 @@ public class PlayerCombatManager : MonoBehaviour
     public static PlayerCombatManager Instance;
     public EnemyDataBase EnemyDataBase;
 
-    public EntityStats combatant1;
+    public List<EntityStats> combatants = new List<EntityStats>();
+    
+    public EntityStats combatant1;//LEGACY STUFF RIGHT HERE
     public EntityStats combatant2;
+    
     private void Awake()
     {
         if (Instance != null) { return; }

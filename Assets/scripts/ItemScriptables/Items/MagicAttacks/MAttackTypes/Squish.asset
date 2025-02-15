@@ -15,21 +15,19 @@ MonoBehaviour:
   description: Squish someone with your imagination (because you don't know any actual
     magic)
   attackName: Squish
+  startUp: 0.3
+  endLag: 0.1
+  cooldown: 3
+  stateToBe: 0
+  chargeable: 1
+  attackPrefab: {fileID: 4958144232811764369, guid: b291f8a5d740c1948bc1edc46c5e3b6f, type: 3}
+  offset: {x: 0, y: 0, z: 0}
   multipliers:
-  - attribute: 0
-    mult: 0
-  - attribute: 1
-    mult: 0
-  - attribute: 2
-    mult: 0
-  - attribute: 3
-    mult: 0
   - attribute: 4
     mult: 1.8
+  defenseMult:
   - attribute: 5
-    mult: 0
-  - attribute: 6
-    mult: 0
+    mult: 1
   antiGuardMultipliers:
   - attribute: 0
     mult: 1

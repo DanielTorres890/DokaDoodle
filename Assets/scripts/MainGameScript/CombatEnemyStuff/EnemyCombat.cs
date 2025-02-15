@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyCombat : EntityStats
@@ -14,7 +15,15 @@ public class EnemyCombat : EntityStats
             enemyId = PlayerCombatManager.Instance.EnemyDataBase.GetId[EnemyInfo];
             base.name = EnemyInfo.enemyName;
         }
-        base.attacks = EnemyInfo.Attackss;
+
+        List<AttackBase> attacks = new List<AttackBase>();
+        foreach ( var attack in EnemyInfo.Attackss)
+        {
+            attacks.Add(attack);
+        }
+
+        base.attacks = new List<AttackBase>(attacks);
+       
     
         base.defenses = EnemyInfo.Defendss;
     

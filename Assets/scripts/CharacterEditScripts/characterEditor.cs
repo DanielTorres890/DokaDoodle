@@ -11,6 +11,8 @@ using UnityEngine.U2D.Animation;
 
 public class characterEditor : MonoBehaviour
 {
+    public RenderTexture myTexture;
+    public Material myMaterial;
     private List<FixedString32Bytes> defaultNames= new List<FixedString32Bytes>()
     {
         "Nicky", "Daniel", "Poopyhead", "Anthony", "Pat", "Ethan", "Vero"
@@ -25,8 +27,14 @@ public class characterEditor : MonoBehaviour
     [HideInInspector] public int playerFace = 0;
     [HideInInspector] public int playerHair = 0;
 
+    public void UpdateMaterial()
+    {
+        myMaterial.mainTexture = myTexture;
+
+    }
     public void setSprite(string spriteCat, string spriteName)
     {
+        
         characterPrefab.transform.Find(spriteCat).GetComponent<SpriteRenderer>().sprite = library.GetSprite(spriteCat, spriteName);
     }
     public void setClass (int classNum)
