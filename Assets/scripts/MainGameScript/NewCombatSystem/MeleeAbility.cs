@@ -10,7 +10,7 @@ public class MeleeAbility : AbilityBase
         base.Update();
     }
 
-    public void OnTriggerEnter(Collider other)
+    /*public void OnTriggerEnter(Collider other)
     {
         if (!(other.gameObject.CompareTag("damageable") && other.gameObject != base.owner)) 
         {
@@ -18,10 +18,10 @@ public class MeleeAbility : AbilityBase
 
         }
         var info = other.gameObject.GetComponent<AbilityManager>();
-        Debug.Log("I HIT SOMEONE FOR " + DamageCalculator(owner.GetComponent<AbilityManager>().stats, info.stats));
-        info.stats.stats[Attributes.Health] -= DamageCalculator(owner.GetComponent<AbilityManager>().stats, info.stats);
+        Debug.Log("I HIT SOMEONE FOR " + DamageCalculator( info.stats));
+        info.stats.stats[Attributes.Health] -= DamageCalculator(info.stats);
 
         //This would deal damage (hopefully)
         //info.stats.stats[Attributes.Health] -= 1;
-    }
+    }*/
 }

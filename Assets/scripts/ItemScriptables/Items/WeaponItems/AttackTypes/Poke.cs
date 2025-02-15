@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,9 +14,11 @@ public class Poke : AttackBase
     {
         Debug.Log("I SHOULD HAPPEN?");
         var attack = Instantiate(attackPrefab);
+        attack.GetComponent<NetworkObject>().Spawn();
         attack.transform.rotation = caster.transform.rotation;
         var info = attack.GetComponent<AbilityBase>();
         info.owner = caster;
+        info.ownerStats = caster.GetComponent<AbilityManager>().stats;
         info.attackInfo = this;
         attack.transform.position = caster.transform.position + offset;
 

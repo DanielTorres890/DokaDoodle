@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class playerData : EntityStats
 {
-
+    
     public int playerClass;
 
     public int playerFace;

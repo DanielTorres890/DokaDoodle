@@ -22,13 +22,12 @@ public class AbilityManager : NetworkBehaviour
     {
 
         
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(!IsOwner) { return; }
         foreach (var state in  stateManager.Keys) 
         {
             stateManager[state].cooldown -= Time.deltaTime;
@@ -73,15 +72,21 @@ public class AbilityManager : NetworkBehaviour
         
 
     }
+    
 
     public void AssignAbilities()
     {
+        Debug.Log("Who owns" + OwnerClientId);
+        Debug.Log("Who am i" + NetworkManager.Singleton.LocalClientId);
+        Debug.Log("So im the owner?" + IsOwner);
+        Debug.Log("And the server owns me? " + IsOwnedByServer);
+        if (!IsOwner) { return; }
+      
         actions.SwitchCurrentActionMap("Player");
         actions.actions["M1Attack"].performed += M1Attack;
         actions.actions["M1Attack"].canceled += M1AttackReleased;
         stateManager.Add(testAttack, new AbilityStates());
 
-        Debug.Log(stats.name);
         for (int i = 1; i < 10; i++)
         {
             if (i >= stats.attacks.Count) { break; }
@@ -94,25 +99,45 @@ public class AbilityManager : NetworkBehaviour
     }
     private void M1Attack(InputAction.CallbackContext action)
     {
+        if (!IsOwner) { return; }
         stateManager[testAttack].pressed = true;
         
     }
     private void M1AttackReleased(InputAction.CallbackContext action)
     {
+
+        if (!IsOwner) { return; }
         stateManager[testAttack].pressed = false;
 
     }
     private void Ability1(InputAction.CallbackContext action)
     {
-        if(stats.attacks.Count <= 1) { return;  }
+        if (!IsOwner) { return; }
+        if (stats.attacks.Count <= 1) { return;  }
         stateManager[stats.attacks[1]].pressed = true;
 
     }
     private void Ability1Released(InputAction.CallbackContext action)
     {
+        if (!IsOwner) { return; }
         if (stats.attacks.Count <= 1) { return; }
         stateManager[stats.attacks[1]].pressed = false;
 
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!IsOwner) { return; }
+        if (collision.gameObject.TryGetComponent(out AbilityBase hitby))
+        {
+            ImHitRpc(hitby.DamageCalculator(stats));
+        }
+
+    }
+    [Rpc(SendTo.Everyone, RequireOwnership = true)]
+    private void ImHitRpc(int damageAmt)
+    {
+        stats.stats[Attributes.Health] -= damageAmt;
+        Debug.Log(stats.name + " got hit for " +  damageAmt + " ouchy");
     }
 }
 public class AbilityStates

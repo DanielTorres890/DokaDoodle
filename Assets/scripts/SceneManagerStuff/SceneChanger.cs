@@ -32,11 +32,16 @@ public class SceneChanger : NetworkBehaviour
     {
         base.OnNetworkSpawn();
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         loadedPlayers.Value += 1;
     }
-   
+   private bool everyoneLoaded()
+    {
+        return loadedPlayers.Value >= NetworkData.Instance.playerCount;
+    }
 }

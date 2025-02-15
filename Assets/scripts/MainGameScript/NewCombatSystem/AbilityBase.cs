@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public abstract class AbilityBase : MonoBehaviour
+public abstract class AbilityBase : NetworkBehaviour
 {
     public GameObject owner;
     public AttackBase attackInfo;
 
+    public EntityStats ownerStats;
 
     public float lifespan;
     private float lifetimer;
 
 
+    private void Awake()
+    {
+        
+    }
     public void Update()
     {
        if (lifespan < lifetimer)
@@ -23,12 +29,12 @@ public abstract class AbilityBase : MonoBehaviour
 
     }
 
-   public int DamageCalculator(EntityStats attacker, EntityStats defender)
+   public int DamageCalculator( EntityStats defender)
     {
         float totalDamge = 0;
         foreach (var offense in attackInfo.multipliers)
         {
-            totalDamge += offense.mult * attacker.stats[offense.attribute];
+            totalDamge += offense.mult * ownerStats.stats[offense.attribute];
         }
         foreach (var defense in attackInfo.defenseMult)
         {

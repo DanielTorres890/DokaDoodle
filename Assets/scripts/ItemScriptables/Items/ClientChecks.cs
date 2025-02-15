@@ -104,11 +104,10 @@ public class ClientChecks : NetworkBehaviour
             Debug.Log(PlayerCombatManager.Instance.combatant2.name.ToString());
             combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.name.ToString();
             MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy = enemy;
-            Debug.Log(PlayerMoveManager.Instance.mapNumber);
-            Debug.Log(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
+            
         }
       
-
+        
         StartCoroutine(previewFight());
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
