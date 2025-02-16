@@ -124,11 +124,14 @@ public class AbilityManager : NetworkBehaviour
         stateManager[stats.attacks[1]].pressed = false;
 
     }
-    private void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider other)
     {
+        
         if (!IsOwner) { return; }
-        if (collision.gameObject.TryGetComponent(out AbilityBase hitby))
+        
+        if (other.gameObject.TryGetComponent(out AbilityBase hitby))
         {
+            if (gameObject == hitby.owner) { return; }
             ImHitRpc(hitby.DamageCalculator(stats));
         }
 

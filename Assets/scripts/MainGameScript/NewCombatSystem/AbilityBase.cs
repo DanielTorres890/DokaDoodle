@@ -16,11 +16,11 @@ public abstract class AbilityBase : NetworkBehaviour
 
     private void Awake()
     {
-        
+
     }
     public void Update()
     {
-       if (lifespan < lifetimer)
+        if (lifespan < lifetimer)
         {
             Destroy(gameObject);
 
@@ -29,7 +29,7 @@ public abstract class AbilityBase : NetworkBehaviour
 
     }
 
-   public int DamageCalculator( EntityStats defender)
+    public int DamageCalculator(EntityStats defender)
     {
         float totalDamge = 0;
         foreach (var offense in attackInfo.multipliers)
@@ -47,5 +47,20 @@ public abstract class AbilityBase : NetworkBehaviour
             return Mathf.RoundToInt(totalDamge);
 
     }
+    /*public void OnTriggerEnter(Collider other)
+    {
+
+        if (!(other.gameObject.CompareTag("damageable") && other.gameObject != owner))
+        {
+            return;
+
+        }
+        Debug.Log(other.gameObject);
+        Debug.Log(owner);
+        other.gameObject.GetComponent<AbilityManager>().OnTriggerEnter(GetComponent<Collider>());
+
+
+    }*/
+
 
 }
