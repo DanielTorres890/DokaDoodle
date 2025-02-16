@@ -142,6 +142,13 @@ public class AbilityManager : NetworkBehaviour
         stats.stats[Attributes.Health] -= damageAmt;
         Debug.Log(stats.name + " got hit for " +  damageAmt + " ouchy");
     }
+
+    [Rpc(SendTo.Everyone, RequireOwnership = true)]
+    public void UpdateMaterialRpc(int playerNum)
+    {
+        var render = GetComponentInChildren<MeshRenderer>();
+        render.material = NetworkData.Instance.playerSticks[playerNum].GetComponent<characterEditor>().myMaterial;
+    }
 }
 public class AbilityStates
 {

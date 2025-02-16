@@ -23,8 +23,13 @@ public class CombatantMovement : NetworkBehaviour
     public void moveForward(InputAction.CallbackContext action)
     {
         
-        move = action.action.ReadValue<Vector2>();
+        UpdateMoveRpc (action.action.ReadValue<Vector2>());
 
+    }
+    [Rpc(SendTo.Everyone, RequireOwnership = true)]
+    private void UpdateMoveRpc(Vector2 move2)
+    {
+        move = move2;
     }
     public void LookAround(InputAction.CallbackContext action)
     {
@@ -109,5 +114,7 @@ public class CombatantMovement : NetworkBehaviour
     {
         return (abilityManager.combatantstate == combatantStates.Free || abilityManager.combatantstate == combatantStates.StartUpFree);
     }
+
+    
 }
 

@@ -59,11 +59,12 @@ public class NewCombatManager : NetworkBehaviour
                 var player = entity as playerData;
                 var playerfab = Instantiate(playerPrefab);
                 playerfab.GetComponent<NetworkObject>().SpawnWithOwnership((ulong)player.playerNumber);
-                var editor = NetworkData.Instance.playerSticks[player.playerNumber].GetComponent<characterEditor>();
+                //var editor = NetworkData.Instance.playerSticks[player.playerNumber].GetComponent<characterEditor>();
                 //editor.UpdateMaterial();
-                playerfab.GetComponentInChildren<MeshRenderer>().material = editor.myMaterial;
+                /*playerfab.GetComponentInChildren<MeshRenderer>().material = editor.myMaterial;*/
                
                 var abilitiyManage = playerfab.GetComponent<AbilityManager>();
+                abilitiyManage.UpdateMaterialRpc(player.playerNumber);
                 fricku.Add(playerfab);
                 abilitiyManage.stats = player;
 
@@ -85,5 +86,9 @@ public class NewCombatManager : NetworkBehaviour
             }
         }
         base.OnNetworkSpawn();
+    }
+    private void UpdatePlayerLook()
+    {
+
     }
 }

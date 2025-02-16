@@ -20,6 +20,7 @@ public abstract class AbilityBase : NetworkBehaviour
     }
     public void Update()
     {
+        if (!IsServer) { return; }
         if (lifespan < lifetimer)
         {
             Destroy(gameObject);
