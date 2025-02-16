@@ -15,7 +15,7 @@ public class CombatantMovement : NetworkBehaviour
     private Vector2 move, look;
     private float lookRotation;
 
-    private Camera camcomponent;
+    //private Camera camcomponent;
 
     //All of my states.. hopefully?
     [SerializeField] private bool grounded;
@@ -23,14 +23,10 @@ public class CombatantMovement : NetworkBehaviour
     public void moveForward(InputAction.CallbackContext action)
     {
         
-        UpdateMoveRpc (action.action.ReadValue<Vector2>());
+        move = action.action.ReadValue<Vector2>();
 
     }
-    [Rpc(SendTo.Everyone, RequireOwnership = true)]
-    private void UpdateMoveRpc(Vector2 move2)
-    {
-        move = move2;
-    }
+    
     public void LookAround(InputAction.CallbackContext action)
     {
         look = action.action.ReadValue<Vector2>();
@@ -48,7 +44,7 @@ public class CombatantMovement : NetworkBehaviour
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        camcomponent = playerCam.GetComponent<Camera>();
+        //camcomponent = playerCam.GetComponent<Camera>();
     }
     private void FixedUpdate()
     {
@@ -82,7 +78,7 @@ public class CombatantMovement : NetworkBehaviour
         body.AddForce(velocityChange, ForceMode.VelocityChange);
         
         playerCam.transform.parent.transform.Rotate(new Vector3(transform.eulerAngles.x, 0, 0),Space.Self);
-        camcomponent.transparencySortAxis = new Vector3(math.sin(math.radians(playerCam.transform.parent.transform.eulerAngles.y)),0, math.cos( math.radians(playerCam.transform.parent.transform.eulerAngles.x)));
+        //camcomponent.transparencySortAxis = new Vector3(math.sin(math.radians(playerCam.transform.parent.transform.eulerAngles.y)),0, math.cos( math.radians(playerCam.transform.parent.transform.eulerAngles.x)));
         transform.eulerAngles = new Vector3(0,transform.eulerAngles.y,0);
 
         
