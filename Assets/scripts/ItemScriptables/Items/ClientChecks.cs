@@ -159,6 +159,7 @@ public class ClientChecks : NetworkBehaviour
 
             yield return null;
         }
+        if (IsServer)
         PlayerMoveManager.Instance.NextTurnRpc();
 
     }

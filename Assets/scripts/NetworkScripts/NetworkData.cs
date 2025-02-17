@@ -118,13 +118,13 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     {
         Debug.Log(playerCount);
         playerCount++;
-        if (clientId != NetworkManager.Singleton.LocalClientId) { return;  } 
+        if (clientId == NetworkManager.Singleton.LocalClientId) { characterEditor.SetActive(true); } 
         
-       
-        characterEditor.SetActive(true);
+        if (!IsServer) { return; }
+        
         for (int i = 0; i < players.Count; i++)
         {
-            SyncSticksClientRpc(i, players[i].name, players[i].playerClass, players[i].playerFace, players[i].playerHair);
+            SyncSticksClientRpc(i, players[i].name, players[i].playerClass, players[i].playerFace, players[i].playerHair, maxPlayers);
         }
 
     }
@@ -147,13 +147,13 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         players[playerId] = 
             new playerData(playerClass,playerName,playerFace,playerHair);
         readyPlayers[playerId] = true;
-        SyncSticksClientRpc(playerId, players[playerId].name, players[playerId].playerClass, players[playerId].playerFace, players[playerId].playerHair);
-
+        SyncSticksClientRpc(playerId, players[playerId].name, players[playerId].playerClass, players[playerId].playerFace, players[playerId].playerHair, maxPlayers);
+      
         
     }
 
-//This function actually removes players if i wanted to readd players/add ai i gotta do somethin diffy but until then
-    [ServerRpc(RequireOwnership = false)]
+    //This function actually removes players if i wanted to readd players/add ai i gotta do somethin diffy but until then
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void fillPlayerServerRpc(int index)
     {
         players.RemoveAt(players.Count - 1);
@@ -169,14 +169,14 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         playerCount--;
     }
     [ClientRpc (RequireOwnership = false)]
-    public void SyncSticksClientRpc(int playerId, FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair)
+    public void SyncSticksClientRpc(int playerId, FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair, int playerCountin)
     {
        
         players[playerId].name = playerName.ToString();
         players[playerId].playerFace = playerFace;
         players[playerId].playerClass = playerClass;
         players[playerId].playerHair = playerHair;
-        
+        maxPlayers = playerCountin;
         
 
         characterEditor curStickEdit = playerSticks[playerId].GetComponent<characterEditor>();
@@ -213,9 +213,10 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             foreach (var stat in classDataBase.Classes[players[i].playerClass].stats)
             {
                 players[i].stats[stat.attribute] += stat.value;
-                players[i].playerNumber = i;
+                
             }
-
+            players[i].playerNumber = i;
+            players[i].loyaltyTags.Add("Player" + players[i].playerNumber); 
         }
     }
     public void AddItemToInventory(int playerId, ItemBase item)
@@ -225,6 +226,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     }
     public void setNextTurnNum()
     {
+        Debug.Log("Whos turn was it before " + NetworkData.Instance.currentPlayer);
         if (NetworkData.Instance.currentPlayer < NetworkData.Instance.maxPlayers - 1) { NetworkData.Instance.currentPlayer += 1; }
 
         else { NetworkData.Instance.currentPlayer = 0; }

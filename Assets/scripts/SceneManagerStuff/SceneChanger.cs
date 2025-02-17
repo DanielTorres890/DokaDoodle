@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -6,13 +7,13 @@ using UnityEngine.SceneManagement;
 public class SceneChanger : NetworkBehaviour
 {
    
-    private NetworkVariable<int> loadedPlayers = new NetworkVariable<int>();
+    private int loadedPlayers = 0;
 
     public static SceneChanger Instance { get; set; }
     private void Awake()
     {
         Instance = this;
-        loadedPlayers = new NetworkVariable<int>(0,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
+        
         
     }
 
@@ -22,7 +23,7 @@ public class SceneChanger : NetworkBehaviour
         
         if (sceneName == "Fake") { return;  }
        
-        loadedPlayers.Value = 0;
+        loadedPlayers = 0;
         NetworkManager.Singleton.SceneManager.LoadScene(sceneName,LoadSceneMode.Single);
     }
     
@@ -31,17 +32,19 @@ public class SceneChanger : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
 
         
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
     {
-        loadedPlayers.Value += 1;
+        loadedPlayers += 1;
+        Debug.Log("Loaded PLayers " + loadedPlayers);
     }
-   private bool everyoneLoaded()
+
+   public bool everyoneLoaded()
     {
-        return loadedPlayers.Value >= NetworkData.Instance.playerCount;
+        return loadedPlayers >= NetworkData.Instance.playerCount;
     }
 }

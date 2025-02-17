@@ -9,6 +9,9 @@ public class EntityStats
 {
     public string name;
 
+    public bool isDead = false;
+    public List<string> loyaltyTags = new List<string>();
+
     public Dictionary<Attributes, int> stats = new Dictionary<Attributes, int>
     {
         {Attributes.MaxHealth, 5 },

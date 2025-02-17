@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +19,17 @@ public class AbilityManager : NetworkBehaviour
     public float stateDuration;
 
     private AttackBase currentAttack = null;
-    void Awake()
+    public override void OnNetworkSpawn()
     {
-
+        NewCombatManager.instance.fricku.Add(gameObject);
+        NewCombatManager.instance.allCombatants.Add(this);
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!IsOwner) { return; }
+        if(!IsOwner || NewCombatManager.instance.fightOver) { return; }
         foreach (var state in  stateManager.Keys) 
         {
             stateManager[state].cooldown -= Time.deltaTime;
@@ -76,10 +78,7 @@ public class AbilityManager : NetworkBehaviour
 
     public void AssignAbilities()
     {
-        Debug.Log("Who owns" + OwnerClientId);
-        Debug.Log("Who am i" + NetworkManager.Singleton.LocalClientId);
-        Debug.Log("So im the owner?" + IsOwner);
-        Debug.Log("And the server owns me? " + IsOwnedByServer);
+       
         if (!IsOwner) { return; }
       
         actions.SwitchCurrentActionMap("Player");
@@ -140,15 +139,32 @@ public class AbilityManager : NetworkBehaviour
     private void ImHitRpc(int damageAmt)
     {
         stats.stats[Attributes.Health] -= damageAmt;
-        Debug.Log(stats.name + " got hit for " +  damageAmt + " ouchy");
+   
+        if (stats.stats[Attributes.Health] <= 0 && !stats.isDead)
+        {
+            stats.isDead = true;
+            NewCombatManager.instance.KILL(this);
+        }
+        
+        
     }
 
-    [Rpc(SendTo.Everyone, RequireOwnership = true)]
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void UpdateMaterialRpc(int playerNum)
     {
         var render = GetComponentInChildren<MeshRenderer>();
         render.material = NetworkData.Instance.playerSticks[playerNum].GetComponent<characterEditor>().myMaterial;
+      
+     
+        NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineVirtualCamera>());
+       
     }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void UpdateStatsRpc(int combatantNum)
+    {
+        stats = PlayerCombatManager.Instance.combatants[combatantNum];
+    }
+
 }
 public class AbilityStates
 {

@@ -1458,7 +1458,7 @@ MonoBehaviour:
   cameraMove:
     m_InternalValue: 0
   cameraSpeed: 100
-  moveSpeed: 750
+  moveSpeed: 3000
 --- !u!4 &361615209
 Transform:
   m_ObjectHideFlags: 0
@@ -1528,10 +1528,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: cb3f38a8-8943-4c45-9b18-09332d04398c
     m_ActionName: Player/Look[/Mouse/delta]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 23e40436-3941-4a16-88e9-a0c90cfc2df3
-    m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 361615208}
@@ -1644,6 +1640,34 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 87b5cf85-265f-4fe7-b017-cdb1913d07b5
     m_ActionName: UI/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7fba05cf-dcd0-45c3-8ccf-9e3b467f75b4
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d46545e6-1d57-4c7c-82cb-705cd58c3373
+    m_ActionName: Player/M1Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2a393684-4563-4438-baf9-134db626f02e
+    m_ActionName: Player/Ability1[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 972f2ff3-98c7-47eb-be10-5a3d72d224db
+    m_ActionName: Player/Ability2[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 72e43198-b9e2-4802-b9c6-72743baa5d95
+    m_ActionName: Player/Ability3[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6b1ba3de-c960-4157-bc8e-770d759d23af
+    m_ActionName: Spectating/LeftCameraSwitch[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 38fc7505-bee1-478b-9efa-bedf6ebd76e0
+    m_ActionName: Spectating/RightCameraSwitch[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI

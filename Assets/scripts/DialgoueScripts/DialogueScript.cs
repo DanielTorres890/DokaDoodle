@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class DialogueScript : NetworkBehaviour
 {
@@ -14,24 +15,34 @@ public class DialogueScript : NetworkBehaviour
     [SerializeField] public List<string> lines;
 
     public string nextScene = "Fake";
+    [DoNotSerialize]public int whoInControl = 0;
 
     [SerializeField] float textSpeed;
+    [SerializeField] bool startShown;
+
     private int index;
     public void Awake()
     {
-        
+        whoInControl = NetworkData.Instance.currentPlayer;
         startDialogue();
+    }
+    public override void OnNetworkSpawn()
+    {
+        if(!startShown)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
-    
- 
-    [ServerRpc(RequireOwnership = false)]
+
+
+    [Rpc(SendTo.Server, RequireOwnership = false)]
     public void contCutsceneServerRpc()
     {
-        Debug.Log("I see u");
-        if (!NetworkManager.Singleton.IsHost) { return; }
-        Debug.Log("Only see host");
+
+        if (!NetworkData.Instance.IsAllowed(whoInControl,NetworkManager.Singleton.LocalClientId)) { return; }
+
         contCutsceneClientRpc();
     }
 

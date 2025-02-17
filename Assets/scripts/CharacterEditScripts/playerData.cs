@@ -22,7 +22,7 @@ public class playerData : EntityStats
         {"level", 1 },
         {"money", 2000 }
     };
-    public bool isDead;
+    
     public int tillRevive;
 
     public int playerSpawnTile;
@@ -128,22 +128,23 @@ public class playerData : EntityStats
         }
     }
 
-    public bool gainXp(int xp)
+    public int gainXp(int xp)
     {
-        bool leveled = false;
+        int levelsGained = 0;
         this.playerInfo["xp"] += xp;
-        if ( this.playerInfo["xp"] > 24 * Mathf.Pow(1.5f, (float)this.playerInfo["level"]) )
+        while (this.playerInfo["xp"] > 24 * Mathf.Pow((float)this.playerInfo["level"], 1.2f) + 20) 
         {
-            this.playerInfo["xp"] += 1;
+            this.playerInfo["level"] += 1;
+            levelsGained++;
             foreach( var stat in NetworkData.Instance.classDataBase.Classes[this.playerClass].levelUpStats)
             {
                 this.stats[stat.attribute] += stat.value;
             }
 
-            leveled = true;
+            
         }
 
-        return leveled;
+        return levelsGained;
 
     }
     public void healHp(int hp)

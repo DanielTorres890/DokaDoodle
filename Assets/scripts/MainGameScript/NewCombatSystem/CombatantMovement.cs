@@ -43,11 +43,12 @@ public class CombatantMovement : NetworkBehaviour
 
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        
         //camcomponent = playerCam.GetComponent<Camera>();
     }
     private void FixedUpdate()
     {
+        if (NewCombatManager.instance.fightOver) { return; }
         Move();   
     }
 
@@ -56,7 +57,7 @@ public class CombatantMovement : NetworkBehaviour
     {   
         if (!CanMove()) 
         {
-            Debug.Log(playerCam.transform.parent.localEulerAngles.x);
+          
             transform.Rotate(new Vector3(playerCam.transform.parent.localEulerAngles.x,0,0));
             playerCam.transform.parent.transform.localRotation = Quaternion.identity;
             body.constraints = RigidbodyConstraints.FreezePosition;
@@ -87,7 +88,7 @@ public class CombatantMovement : NetworkBehaviour
 
     private void LateUpdate()
     {
-        
+        if (NewCombatManager.instance.fightOver) { return; }
         if (!CanMove())
         {
             transform.Rotate(new Vector3(-look.y * sensitivy, look.x * sensitivy, 0));

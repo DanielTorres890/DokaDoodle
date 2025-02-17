@@ -505,9 +505,9 @@ public class BattleUIManager : NetworkBehaviour
         {
             displayXp = false;
             damageText.transform.parent.gameObject.SetActive(true);
-            bool leveled = player.gainXp(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedXp);
+            int leveled = player.gainXp(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.currentPlayer][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.enemyId].droppedXp);
             damageText.text = "Gained <color=green>" + enemy.droppedXp + "</color> xp";
-            if (leveled)
+            if (leveled > 0)
             {
                 damageText.text += " ALSO u leveld up (this is not a permanent message)";
             }
@@ -564,9 +564,9 @@ public class BattleUIManager : NetworkBehaviour
         {
             displayXp = false;
             damageText.transform.parent.gameObject.SetActive(true);
-            bool leveled = win.gainXp(gainedxp);
+            int leveled = win.gainXp(gainedxp);
             damageText.text = win.name + " Gained <color=green>" + gainedxp + "</color> xp";
-            if( leveled )
+            if( leveled > 0 )
             {
                 damageText.text += " ALSO u leveld up (this is not a permanent message)";
             }

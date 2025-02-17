@@ -1142,6 +1142,54 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Spectating"",
+            ""id"": ""a87147de-bcb3-4056-bcb1-baaf69ecefa6"",
+            ""actions"": [
+                {
+                    ""name"": ""LeftCameraSwitch"",
+                    ""type"": ""Button"",
+                    ""id"": ""6b1ba3de-c960-4157-bc8e-770d759d23af"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightCameraSwitch"",
+                    ""type"": ""Button"",
+                    ""id"": ""38fc7505-bee1-478b-9efa-bedf6ebd76e0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""33f57745-696f-4fd4-9ee8-a13f38351fd2"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""LeftCameraSwitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""73f71a3d-6ae4-4957-aa4a-4abf18b09139"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""RightCameraSwitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1231,6 +1279,10 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         m_UI_FreeCamera = m_UI.FindAction("FreeCamera", throwIfNotFound: true);
         m_UI_MovingCamera = m_UI.FindAction("MovingCamera", throwIfNotFound: true);
         m_UI_UndoCamera = m_UI.FindAction("UndoCamera", throwIfNotFound: true);
+        // Spectating
+        m_Spectating = asset.FindActionMap("Spectating", throwIfNotFound: true);
+        m_Spectating_LeftCameraSwitch = m_Spectating.FindAction("LeftCameraSwitch", throwIfNotFound: true);
+        m_Spectating_RightCameraSwitch = m_Spectating.FindAction("RightCameraSwitch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1524,6 +1576,60 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // Spectating
+    private readonly InputActionMap m_Spectating;
+    private List<ISpectatingActions> m_SpectatingActionsCallbackInterfaces = new List<ISpectatingActions>();
+    private readonly InputAction m_Spectating_LeftCameraSwitch;
+    private readonly InputAction m_Spectating_RightCameraSwitch;
+    public struct SpectatingActions
+    {
+        private @CustomInput m_Wrapper;
+        public SpectatingActions(@CustomInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @LeftCameraSwitch => m_Wrapper.m_Spectating_LeftCameraSwitch;
+        public InputAction @RightCameraSwitch => m_Wrapper.m_Spectating_RightCameraSwitch;
+        public InputActionMap Get() { return m_Wrapper.m_Spectating; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SpectatingActions set) { return set.Get(); }
+        public void AddCallbacks(ISpectatingActions instance)
+        {
+            if (instance == null || m_Wrapper.m_SpectatingActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_SpectatingActionsCallbackInterfaces.Add(instance);
+            @LeftCameraSwitch.started += instance.OnLeftCameraSwitch;
+            @LeftCameraSwitch.performed += instance.OnLeftCameraSwitch;
+            @LeftCameraSwitch.canceled += instance.OnLeftCameraSwitch;
+            @RightCameraSwitch.started += instance.OnRightCameraSwitch;
+            @RightCameraSwitch.performed += instance.OnRightCameraSwitch;
+            @RightCameraSwitch.canceled += instance.OnRightCameraSwitch;
+        }
+
+        private void UnregisterCallbacks(ISpectatingActions instance)
+        {
+            @LeftCameraSwitch.started -= instance.OnLeftCameraSwitch;
+            @LeftCameraSwitch.performed -= instance.OnLeftCameraSwitch;
+            @LeftCameraSwitch.canceled -= instance.OnLeftCameraSwitch;
+            @RightCameraSwitch.started -= instance.OnRightCameraSwitch;
+            @RightCameraSwitch.performed -= instance.OnRightCameraSwitch;
+            @RightCameraSwitch.canceled -= instance.OnRightCameraSwitch;
+        }
+
+        public void RemoveCallbacks(ISpectatingActions instance)
+        {
+            if (m_Wrapper.m_SpectatingActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ISpectatingActions instance)
+        {
+            foreach (var item in m_Wrapper.m_SpectatingActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_SpectatingActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public SpectatingActions @Spectating => new SpectatingActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1594,5 +1700,10 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         void OnFreeCamera(InputAction.CallbackContext context);
         void OnMovingCamera(InputAction.CallbackContext context);
         void OnUndoCamera(InputAction.CallbackContext context);
+    }
+    public interface ISpectatingActions
+    {
+        void OnLeftCameraSwitch(InputAction.CallbackContext context);
+        void OnRightCameraSwitch(InputAction.CallbackContext context);
     }
 }

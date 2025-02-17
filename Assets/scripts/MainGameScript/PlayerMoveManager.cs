@@ -34,33 +34,35 @@ public class PlayerMoveManager : NetworkBehaviour
     private Vector3 cameraMoveDirection;
 
     public static PlayerMoveManager Instance;
-    private void Awake()
+    public override void OnNetworkSpawn()
     {
         
         Instance = this;
-        
 
-
+        Debug.Log("Setting up player " + NetworkData.Instance.currentPlayer);
         setUpTileEnemies();
         playerSticks = GameObject.FindGameObjectWithTag("Data").GetComponent<NetworkData>().playerSticks;
 
         int xoffset = 0;
         int stagger = 1;
-        for(int i = 0; i < NetworkData.Instance.players.Count; i++)
+        for (int i = 0; i < NetworkData.Instance.players.Count; i++)
         {
-           
+
 
             stickAnimators.Add(playerSticks[i].GetComponent<Animator>());
             playerSticks[i].transform.position = mapTiles[NetworkData.Instance.players[i].curTileId].transform.position;
             playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + xoffset, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z + 60 * stagger);
             xoffset += 120;
             stagger *= -1;
-            playerCam.transform.position = playerSticks[i].transform.position + new Vector3(95,797,-1054);
+            playerCam.transform.position = playerSticks[i].transform.position + new Vector3(95, 797, -1054);
         }
 
         FightOrNot();
 
+
+
     }
+    
     private void Update()
     {
         if (!cameraMove.Value) { playerCam.transform.position = playerSticks[NetworkData.Instance.currentPlayer].transform.position + new Vector3(95, 797, -1054);  }
@@ -88,22 +90,17 @@ public class PlayerMoveManager : NetworkBehaviour
         takenPath.Add(mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].gameObject);
         
     }
-    [ServerRpc (RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SyncDiceRollServerRpc(int num)
     {
         stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", true);
         diceRoll = num;
-        SyncDiceRollClientRpc(num);
-    }
-    [ClientRpc (RequireOwnership = false)]
-    private void SyncDiceRollClientRpc(int num)
-    {
-        
+
         diceRoll = num;
         rollNum.text = diceRoll.ToString();
         rollNum.transform.parent.gameObject.SetActive(true);
-        
     }
+   
 
     public void confirmMove(InputAction.CallbackContext action)
     {
@@ -115,6 +112,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
             stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", false);
             canMove = false;
+            SyncPlayerTileServerRpc(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
             SetNextTurnServerRpc();
 
         }
@@ -180,8 +178,8 @@ public class PlayerMoveManager : NetworkBehaviour
                 takenPath.RemoveAt(takenPath.Count - 1);
             }
             else { return; }
-            SyncPlayerTileServerRpc(curTile.upTile.GetComponent<TileScript>().tileId);
-          
+            NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.upTile.GetComponent<TileScript>().tileId;
+
         }
         if (action.action.ReadValue<Vector2>() == Vector2.down && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].downTile != null)
         {
@@ -198,7 +196,7 @@ public class PlayerMoveManager : NetworkBehaviour
                 takenPath.RemoveAt(takenPath.Count - 1);
             }
             else { return; }
-            SyncPlayerTileServerRpc(curTile.downTile.GetComponent<TileScript>().tileId);
+            NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.downTile.GetComponent<TileScript>().tileId;
         }
 
         if (action.action.ReadValue<Vector2>() == Vector2.right && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].rightTile != null)
@@ -216,7 +214,7 @@ public class PlayerMoveManager : NetworkBehaviour
                 takenPath.RemoveAt(takenPath.Count - 1);
             }
             else { return; }
-            SyncPlayerTileServerRpc(curTile.rightTile.GetComponent<TileScript>().tileId);
+            NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.rightTile.GetComponent<TileScript>().tileId;
         }
 
         if (action.action.ReadValue<Vector2>() == Vector2.left && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].leftTile != null)
@@ -234,55 +232,41 @@ public class PlayerMoveManager : NetworkBehaviour
                 takenPath.RemoveAt(takenPath.Count - 1);
             }
             else { return; };
-            SyncPlayerTileServerRpc(curTile.leftTile.GetComponent<TileScript>().tileId);
+            NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.leftTile.GetComponent<TileScript>().tileId;
         }
 
         SyncDiceRollServerRpc(diceRoll);
         rollNum.text = diceRoll.ToString();
-        PlayerMoverServerRpc(moveSpeed);
+        PlayerMoverServerRpc(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
     }
 
 
 
-    [ServerRpc(RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SyncPlayerTileServerRpc (int id)
     {
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = id;
-        SyncPlayerTileClientRpc(id);
+  
     }
-    [ClientRpc(RequireOwnership = false)]
-    private void SyncPlayerTileClientRpc(int id)
+
+
+
+    [Rpc(SendTo.Server, RequireOwnership = false)]
+    private void PlayerMoverServerRpc(float speed, int tildid)
     {
-        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = id;
+        StopAllCoroutines();
+        Debug.Log("IM TRYING TO MOVE TOWAREDS THIS" + tildid);
+        StartCoroutine(playerMover(speed, tildid));
     }
 
-
-
-    [ServerRpc (RequireOwnership = false)]
-    private void PlayerMoverServerRpc(float speed)
-    {
-        
-        StartCoroutine(playerMover(speed));
-    }
-
-    [ServerRpc(RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SetNextTurnServerRpc()
     {
-        
-        SetNextTurnClientRpc();
-    }
 
-
-
-    [ClientRpc(RequireOwnership =false)]
-    private void SetNextTurnClientRpc()
-    {
         rollNum.transform.parent.gameObject.SetActive(true);
         MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Add(NetworkData.Instance.currentPlayer);
         Debug.Log("Something should happen?");
         mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].TileEvent();
-        
-        
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -294,13 +278,13 @@ public class PlayerMoveManager : NetworkBehaviour
 
     }
 
-    private IEnumerator playerMover(float speed)
+    private IEnumerator playerMover(float speed, int tildId)
     {
 
-        while (Vector3.Distance(playerSticks[NetworkData.Instance.currentPlayer].transform.position, mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].gameObject.transform.position) > 0.01f )
+        while (Vector3.Distance(playerSticks[NetworkData.Instance.currentPlayer].transform.position, mapTiles[tildId].gameObject.transform.position) > 0.01f )
         {
             playerSticks[NetworkData.Instance.currentPlayer].transform.position =
-        Vector3.MoveTowards(playerSticks[NetworkData.Instance.currentPlayer].transform.position, mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].gameObject.transform.position, speed * Time.deltaTime);
+        Vector3.MoveTowards(playerSticks[NetworkData.Instance.currentPlayer].transform.position, mapTiles[tildId].gameObject.transform.position, speed * Time.deltaTime);
             yield return null;
         }
         
@@ -349,7 +333,11 @@ public class PlayerMoveManager : NetworkBehaviour
         }
 
         if ((MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy == null || !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
+        {
             gameMenu.SetActive(true);
+            rollNum.gameObject.transform.parent.gameObject.SetActive(false);
+        }
+            
         else
         {
 
