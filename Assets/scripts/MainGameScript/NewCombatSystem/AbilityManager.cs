@@ -11,7 +11,7 @@ public class AbilityManager : NetworkBehaviour
     [SerializeField] private PlayerInput actions;
 
 
-    private Dictionary<AttackBase, AbilityStates> stateManager = new Dictionary<AttackBase, AbilityStates>();
+    public Dictionary<AttackBase, AbilityStates> stateManager = new Dictionary<AttackBase, AbilityStates>();
     [SerializeField] private AttackBase testAttack;
 
     public EntityStats stats;
@@ -81,10 +81,11 @@ public class AbilityManager : NetworkBehaviour
        
         if (!IsOwner) { return; }
       
+
         actions.SwitchCurrentActionMap("Player");
         actions.actions["M1Attack"].performed += M1Attack;
         actions.actions["M1Attack"].canceled += M1AttackReleased;
-        stateManager.Add(testAttack, new AbilityStates());
+        stateManager.Add(stats.attacks[0], new AbilityStates());
 
         for (int i = 1; i < 10; i++)
         {
@@ -96,17 +97,27 @@ public class AbilityManager : NetworkBehaviour
 
         }
     }
+
+    public void AssignStateManager()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            if (i >= stats.attacks.Count) { break; }
+            stateManager.Add(stats.attacks[i], new AbilityStates());
+
+        }
+    }
     private void M1Attack(InputAction.CallbackContext action)
     {
         if (!IsOwner) { return; }
-        stateManager[testAttack].pressed = true;
+        stateManager[stats.attacks[0]].pressed = true;
         
     }
     private void M1AttackReleased(InputAction.CallbackContext action)
     {
 
         if (!IsOwner) { return; }
-        stateManager[testAttack].pressed = false;
+        stateManager[stats.attacks[0]].pressed = false;
 
     }
     private void Ability1(InputAction.CallbackContext action)
@@ -163,6 +174,19 @@ public class AbilityManager : NetworkBehaviour
     public void UpdateStatsRpc(int combatantNum)
     {
         stats = PlayerCombatManager.Instance.combatants[combatantNum];
+        if(IsOwner) 
+        { 
+            if (gameObject.TryGetComponent(out BaseEnemyBehavior ai))
+            {
+                Debug.Log("BUNGA ASSIGN");
+                AssignStateManager();
+            }
+            else
+            {
+                AssignAbilities();
+            }
+           
+        }
     }
 
 }

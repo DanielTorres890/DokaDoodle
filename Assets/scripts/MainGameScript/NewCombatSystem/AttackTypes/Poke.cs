@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "New Attack Object", menuName = "WeaponAttacks/Poke")]
 public class Poke : AttackBase
@@ -20,7 +21,7 @@ public class Poke : AttackBase
         info.owner = caster;
         info.ownerStats = caster.GetComponent<AbilityManager>().stats;
         info.attackInfo = this;
-        attack.transform.position = caster.transform.position + offset;
+        attack.transform.position = caster.transform.position + caster.transform.TransformDirection(offset);
 
 
 

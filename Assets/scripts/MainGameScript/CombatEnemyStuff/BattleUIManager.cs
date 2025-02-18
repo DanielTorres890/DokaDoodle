@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class BattleUIManager : NetworkBehaviour
 {
+    /*
     // Prettty much everything and anything to do with the stuff that happens during a fight which relies a lot on the PlayerCombat manager singleton (that tracks who is fighting)
     private GameObject fighter1;
     private GameObject fighter2;
@@ -594,4 +595,5 @@ public class BattleUIManager : NetworkBehaviour
         else 
             return numToCheck;
     }
+    */
 }

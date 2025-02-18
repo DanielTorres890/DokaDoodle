@@ -1,6 +1,4 @@
 using Cinemachine;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
@@ -25,11 +23,15 @@ public class NewCombatManager : NetworkBehaviour
     private int moneyHarvested;
     private List<ItemBase> itemsPicked = new List<ItemBase>();
 
+    
 
     [DoNotSerialize] public bool fightOver = false;
 
     public List<CinemachineVirtualCamera> cameras = new List<CinemachineVirtualCamera>();
     private int currentSpec = 0;
+
+    [SerializeField] private Vector3 spawnPoint;
+    [SerializeField] private float zDistanceBetween;
 
     public DialogueScript endBattleInfo;
 
@@ -73,9 +75,10 @@ public class NewCombatManager : NetworkBehaviour
         
         
         int countbcisuck = 1;
+        int sideMult = -1;
         for (int i = 0; i < PlayerCombatManager.Instance.combatants.Count; i ++)
         {
-
+            sideMult *= -1;
             var entity = PlayerCombatManager.Instance.combatants[i];
            
             if (entity is playerData)
@@ -83,7 +86,7 @@ public class NewCombatManager : NetworkBehaviour
                 
                 var player = entity as playerData;
                 var playerfab = NetworkManager.SpawnManager.InstantiateAndSpawn(playerPrefab, (ulong)player.playerNumber, true);
-           
+                playerfab.gameObject.transform.position = new Vector3(spawnPoint.x * sideMult, spawnPoint.y, sideMult * spawnPoint.z + i * zDistanceBetween * -sideMult);
 
                 //var editor = NetworkData.Instance.playerSticks[player.playerNumber].GetComponent<characterEditor>();
                 //editor.UpdateMaterial();
@@ -96,8 +99,7 @@ public class NewCombatManager : NetworkBehaviour
                 SetNotSpectateRpc(countbcisuck,RpcTarget.Single((ulong)player.playerNumber, RpcTargetUse.Temp));
                 Debug.Log("Number of cameras(in loop)" + cameras.Count);
 
-               
-                abilitiyManage.AssignAbilities();
+            
                 Debug.Log("PlayerSpawn: " + playerfab.GetComponent<NetworkObject>().NetworkObjectId);
                 countbcisuck++;
             }
@@ -107,6 +109,7 @@ public class NewCombatManager : NetworkBehaviour
                 var npcfab = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[npc.enemyId].enemyPrefab);
                 npcfab.GetComponent<NetworkObject>().Spawn(true);
 
+                npcfab.transform.position = new Vector3(spawnPoint.x * sideMult, spawnPoint.y, sideMult * spawnPoint.z + i * zDistanceBetween * -sideMult);
                 var abilitiyManage = npcfab.GetComponent<AbilityManager>();
                 abilitiyManage.UpdateStatsRpc(i);
                 
@@ -132,7 +135,6 @@ public class NewCombatManager : NetworkBehaviour
     public void KILL(AbilityManager whoded)
     {
         fricku.Remove(whoded.gameObject);
-        allCombatants.Remove(whoded);
         Debug.Log("wHO IS dead " + whoded.gameObject.name);
         if(whoded.stats is EnemyCombat)
         {
@@ -152,6 +154,7 @@ public class NewCombatManager : NetworkBehaviour
           
             
         }
+        
         if (IsServer && CheckWin())
         {
             SetUpVictorRpc();
@@ -168,11 +171,17 @@ public class NewCombatManager : NetworkBehaviour
 
         for(int i = 0 ; i < allCombatants.Count; i++)
         {
+            if (allCombatants[i].stats.isDead) { continue; }
 
             for (int j = 0 ; j < allCombatants.Count ; j++)
             {
+                if (allCombatants[j].stats.isDead) { continue; }
+
                 if (!allCombatants[i].stats.loyaltyTags.Intersect(allCombatants[j].stats.loyaltyTags).Any())
                 {
+                    Debug.Log(allCombatants[i].stats.name);
+                    Debug.Log("excuse me tf " + allCombatants[i].stats.loyaltyTags.Count);
+                    Debug.Log("nah u lying " + allCombatants[j].stats.loyaltyTags[0]);
                     didWin = false;
                     return didWin;
                 }
@@ -190,10 +199,11 @@ public class NewCombatManager : NetworkBehaviour
 
         for(int i = 0; i < allCombatants.Count; i++)
         {
-            enemy = allCombatants[i];
-            if (enemy.stats is playerData)
+
+            if (enemy.stats.isDead) { enemy = allCombatants[i]; }
+            if (!(enemy.stats is playerData) && !enemy.stats.isDead)
             {
-                return enemy;
+                enemy = allCombatants[i];
             }
             
         }
@@ -260,6 +270,28 @@ public class NewCombatManager : NetworkBehaviour
             
 
         }
+        else
+        {
+            endBattleInfo.lines.Clear();
+            endBattleInfo.lines.Add("Every player has been defeated");
+            foreach(var combat in allCombatants)
+            {
+                if (combat.stats is playerData)
+                {
+                    var current = combat.stats as playerData;
+                    
+                    
+       
+                    if (IsServer) { LinesToSyncRpc((current.name + " dropped " + current.playerInfo["money"] / 2 + " moneys"), current.LoseSomething(), Random.Range(1,3), current.playerNumber); }
+                    
+                    current.playerInfo["money"] /= 2;
+                }
+            }
+            endBattleInfo.gameObject.SetActive(true);
+            endBattleInfo.Awake();
+            endBattleInfo.whoInControl = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber;
+
+        }
         NetworkData.Instance.setNextTurnNum();
         endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
       
@@ -267,6 +299,14 @@ public class NewCombatManager : NetworkBehaviour
 
 
 
+    }
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void LinesToSyncRpc(string lostmoney, string lostitem, int turnsDead, int playerNumber)
+    {
+        endBattleInfo.lines.Add(lostmoney);
+        endBattleInfo.lines.Add(lostitem);
+        NetworkData.Instance.players[playerNumber].death(turnsDead);
     }
     public void RightSpec()
     {

@@ -38,7 +38,7 @@ public class WeaponItem : ItemBase
                
             }
             
-            inventory.RemoveItem(this);
+           
            
         }
         else
@@ -46,7 +46,7 @@ public class WeaponItem : ItemBase
     
             var temp = NetworkData.Instance.players[player].equipItems[this.type];
             NetworkData.Instance.players[player].equipItems[this.type] = inventory.database.GetId[this];
-            inventory.AddItem(inventory.database.GetItem[temp]);
+           
             foreach (var attrib in inventory.database.GetItem[temp].buffs)
             {
                 NetworkData.Instance.players[player].stats[attrib.attribute] -= attrib.value;
@@ -57,9 +57,9 @@ public class WeaponItem : ItemBase
                 NetworkData.Instance.players[player].stats[attrib.attribute] += attrib.value;
               
             }
-            inventory.RemoveItem(this);
+     
         }
-
+        inventory.ToFront(this);
         if(this.type == ItemType.Weapon)
         {
             var tmp = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform.GetChild(0);

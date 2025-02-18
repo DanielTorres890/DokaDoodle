@@ -48,7 +48,7 @@ public class CombatantMovement : NetworkBehaviour
     }
     private void FixedUpdate()
     {
-        if (NewCombatManager.instance.fightOver) { return; }
+        if (NewCombatManager.instance.fightOver || !IsOwner) { return; }
         Move();   
     }
 
@@ -88,7 +88,7 @@ public class CombatantMovement : NetworkBehaviour
 
     private void LateUpdate()
     {
-        if (NewCombatManager.instance.fightOver) { return; }
+        if (NewCombatManager.instance.fightOver || !IsOwner) { return; }
         if (!CanMove())
         {
             transform.Rotate(new Vector3(-look.y * sensitivy, look.x * sensitivy, 0));

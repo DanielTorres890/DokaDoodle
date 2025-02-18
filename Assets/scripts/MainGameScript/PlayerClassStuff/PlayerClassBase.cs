@@ -8,6 +8,6 @@ public abstract class PlayerClassBase : ScriptableObject
 
     public ItemBuff[] levelUpStats;
 
-    
+    public int[] inventorySizes;
     public abstract void ClassAction();
 }

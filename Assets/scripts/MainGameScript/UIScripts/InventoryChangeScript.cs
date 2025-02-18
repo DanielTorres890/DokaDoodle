@@ -16,7 +16,7 @@ public class InventoryChangeScript : NetworkBehaviour
 
         currentInventory += 1;
 
-        inventoryDisplay.CreateDisplay(currentInventory, NetworkData.Instance.currentPlayer);
+        inventoryDisplay.CreateDisplay( NetworkData.Instance.currentPlayer, currentInventory);
     }
    /* [ClientRpc( RequireOwnership = false)]
     private void InventoryForwardClientRpc(int inv)
@@ -31,7 +31,7 @@ public class InventoryChangeScript : NetworkBehaviour
         if (currentInventory <= 0) { return;  }
 
         currentInventory -= 1;
-        inventoryDisplay.CreateDisplay(currentInventory,NetworkData.Instance.currentPlayer);
+        inventoryDisplay.CreateDisplay(NetworkData.Instance.currentPlayer, currentInventory);
     }
 
     

@@ -10,6 +10,7 @@ public class EnemyBase : ScriptableObject
 
     public string enemyName;
     public GameObject enemyPrefab;
+    public GameObject enemyNonCombatPrefab;
     public ItemBuff[] Stats = new ItemBuff[7];
     public List<string> loyaltyTags;
     public AttackBase[] Attackss;

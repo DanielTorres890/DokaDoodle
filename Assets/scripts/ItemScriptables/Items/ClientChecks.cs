@@ -37,7 +37,7 @@ public class ClientChecks : NetworkBehaviour
         NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
 
         
-        display.CreateDisplay(inventoryNum, player);
+        display.CreateDisplay( player, inventoryNum);
         display.gameObject.SetActive(false);
 
         displayTxt.text = NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].useText;
@@ -47,33 +47,28 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void ConfirmItemPickupRpc(int player, int itemId, int inventoryNum)
     {
-        NetworkData.Instance.playerInventories[player][inventoryNum].AddItem(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId]);
         displayText.SetActive(true);
         displayText = ItemPickupDisplay.Instance.gameObject;
-        displayTxt.text = "Obtained a <color=blue>" + NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].name + "</color>";
-        StartCoroutine(displayItem());
+        if (NetworkData.Instance.playerInventories[player][inventoryNum].AddItem(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId]))
+        {
+            
+            
+            displayTxt.text = "Obtained a <color=blue>" + NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].name + "</color>";
+            StartCoroutine(displayItem());
+        }
+        else
+        {
+            displayTxt.text = "You've got NO ROOM for that ish stoopid (hopefully in the future u can pick what u want)";
+            StartCoroutine(displayItem());
+
+        }
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void SyncEnemyRpc(int enemyId)
     {
-        EnemyCombat enemy;
-
-        //Pretty much everything that isn't these two is stuff from the old system
         PlayerCombatManager.Instance.combatants.Clear();
         PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
 
-        if ( MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy == null )
-        {
-            enemy = new EnemyCombat(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemyId]);
-        }
-        else
-        {
-            enemy = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy;
-        }
-        
-        PlayerCombatManager.Instance.combatant1 = NetworkData.Instance.players[NetworkData.Instance.currentPlayer];
-        PlayerCombatManager.Instance.combatant2 = enemy;
-        PlayerCombatManager.Instance.combatants.Add(enemy);
 
         bool rumble = false;
         int counter = 0;
@@ -88,24 +83,35 @@ public class ClientChecks : NetworkBehaviour
         }
         if (rumble)
         {
-            PlayerCombatManager.Instance.combatant2 = NetworkData.Instance.players[counter];
+            PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[counter]);
         }
-        //PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.currentPlayer].tileEnemy = enemy;
+        //Pretty much everything that isn't these two is stuff from the old system
+        if (!rumble)
+        {
+            if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0)
+            {
+                var temp = new EnemyCombat(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemyId]);
+                PlayerCombatManager.Instance.combatants.Add(temp);
+                MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Add(temp);
+            }
+            else
+            {
+                foreach (var enemyy in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy)
+                {
+                    PlayerCombatManager.Instance.combatants.Add(enemyy);
+                }
 
-
+            }
+        }
+      
 
         combatPreview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();
-        if (PlayerCombatManager.Instance.combatant2 is playerData)
-        {
-            combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[(PlayerCombatManager.Instance.combatant2 as playerData).playerNumber].name.ToString();
-        }
-        else
-        {
-            Debug.Log(PlayerCombatManager.Instance.combatant2.name.ToString());
-            combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.name.ToString();
-            MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy = enemy;
+       
+        Debug.Log(PlayerCombatManager.Instance.combatant2.name.ToString());
+        combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatants[1].name.ToString();
+           
             
-        }
+        
       
         
         StartCoroutine(previewFight());

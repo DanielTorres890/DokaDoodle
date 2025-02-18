@@ -16,6 +16,8 @@ public class playerData : EntityStats
     public int curTileId;
     public int curMap;
 
+    public int[] maxInventorySizes = new int[3];
+
     public Dictionary<string, int> playerInfo = new Dictionary<string, int>
     {
         {"xp", 0 },
@@ -64,11 +66,17 @@ public class playerData : EntityStats
     } 
     
     public void setCombatActions()
-    {   
-        this.attacks.Add ((NetworkData.Instance.playerInventories[0][1].database.GetItem[this.equipItems[ItemType.Weapon]] as WeaponItem).attack);
-        this.attacks.Add ((NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.Magic]] as WeaponItem).attack);
-        this.defenses[0] = (NetworkData.Instance.playerInventories[0][1].database.GetItem[this.equipItems[ItemType.Shield]] as WeaponItem).attack as DefenseBase;
-        this.defenses[1] = (NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.MagicGuard]] as WeaponItem).attack as DefenseBase; 
+    {
+        this.attacks.Clear();
+        for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
+        {
+            this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem).attack);
+        }
+
+
+
+       // this.defenses[0] = (NetworkData.Instance.playerInventories[0][1].database.GetItem[this.equipItems[ItemType.Shield]] as WeaponItem).attack as DefenseBase;
+       // this.defenses[1] = (NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.MagicGuard]] as WeaponItem).attack as DefenseBase; 
     }
     public FixedString32Bytes getName()
     {
@@ -77,8 +85,8 @@ public class playerData : EntityStats
    
     public string LoseSomething()
     {
-        string whatwaslost = "nothing was lost u lucky son of a gun";
-        int whattolose = Random.Range(0, 100);
+        string whatwaslost = "nothing was lost u (" + name + ") lucky son of a gun";
+        int whattolose = Random.Range(1, 30);
         if (whattolose > 0 && whattolose < 50)
         {
 
@@ -87,11 +95,13 @@ public class playerData : EntityStats
 
                 if (NetworkData.Instance.playerInventories[this.playerNumber][k].container.Count > 0)
                 {
-                    int itemLost = Random.Range(0, NetworkData.Instance.playerInventories[this.playerNumber][k].container.Count);
-                    whatwaslost = "Lost <color=red>" + NetworkData.Instance.playerInventories[this.playerNumber][k].container[whattolose].item.name + "</color>";
-                    NetworkData.Instance.playerInventories[this.playerNumber][k].container.RemoveAt(itemLost);
 
-                    break;
+                    int itemLost = Random.Range(0, NetworkData.Instance.playerInventories[this.playerNumber][k].container.Count);
+
+                    whatwaslost = "Lost <color=red>" + NetworkData.Instance.playerInventories[playerNumber][k].container[itemLost].item.name + "</color>";
+                    NetworkData.Instance.LoseItemRpc(playerNumber,itemLost,k);
+                    ;
+
                 }
             }
 
@@ -112,7 +122,7 @@ public class playerData : EntityStats
         
         if (turnsDead == -1)
         {
-            this.tillRevive = Random.Range(3, 3);
+            this.tillRevive = Random.Range(2, 2);
         }
 
     }

@@ -307,13 +307,17 @@ public class PlayerMoveManager : NetworkBehaviour
 
             for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[mapNumber].Length; i++)
             {
-                if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy != null)
+                if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy.Count != 0)
                 {
-                    var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy.enemyId].enemyPrefab);
-                    enemy.transform.position = mapTiles[i].transform.position;
-                    enemy.transform.position = new Vector3(enemy.transform.position.x - 120, enemy.transform.position.y, enemy.transform.position.z + 60);
-                    enemy.transform.localScale = new Vector3(50, 50, 1);
-                    Debug.Log("OVERWORLD ENEMY SPAWNED");
+                    foreach (var enemies in MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy)
+                    {
+                        var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemies.enemyId].enemyNonCombatPrefab);
+                        enemy.transform.position = mapTiles[i].transform.position;
+                        enemy.transform.position = new Vector3(enemy.transform.position.x - 120, enemy.transform.position.y, enemy.transform.position.z + 60);
+                        enemy.transform.localScale = new Vector3(50, 50, 1);
+                        Debug.Log("OVERWORLD ENEMY SPAWNED");
+                    }
+                    
                 }
 
             }
@@ -344,7 +348,8 @@ public class PlayerMoveManager : NetworkBehaviour
             if (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
             {
                 gameMenu.SetActive(false);
-                ClientChecks.Instance.DisplayDeadRpc();
+
+                if (IsServer) StartCoroutine(waitTillSpawn());
                 return;
             }
 
@@ -352,5 +357,14 @@ public class PlayerMoveManager : NetworkBehaviour
 
             NextTurnRpc();
         }
+    }
+
+    private IEnumerator waitTillSpawn()
+    {
+        while (!ClientChecks.Instance.IsSpawned)
+        {
+            yield return null;
+        }
+        ClientChecks.Instance.DisplayDeadRpc();
     }
 }

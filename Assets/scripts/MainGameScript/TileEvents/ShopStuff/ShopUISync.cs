@@ -23,7 +23,7 @@ public class ShopUISync : NetworkBehaviour
     }
     public void BuyButton()
     {
-        if(!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer,NetworkManager.Singleton.LocalClientId)) { return;  }
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         ShowShopRpc();
 
     }
@@ -65,7 +65,7 @@ public class ShopUISync : NetworkBehaviour
             go.SetActive(hide);
         }
     }
-    
+
     public void setUpBuy(int itemNum)
     {
         if ((!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) || NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo["money"] < curEvent.itemsSold[itemNum].itemValue) { return; }
@@ -75,7 +75,7 @@ public class ShopUISync : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void setUpBuyRpc(int itemNum)
     {
-       
+
         buyDontButtons[0].SetActive(true);
         buyDontButtons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Sell";
         var button = buyDontButtons[0].GetComponent<Button>();
@@ -129,6 +129,7 @@ public class ShopUISync : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void setUpSellRpc(int itemNum, int inventoryNum)
     {
+
         Debug.Log("SELLING BUTTONS SHOULD BE ACTIVE");
         sellShop.SetActive(false);
         sellDontButtons[0].SetActive(true);
@@ -136,7 +137,7 @@ public class ShopUISync : NetworkBehaviour
         var button = sellDontButtons[0].GetComponent<Button>();
         button.Select();
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(delegate { sellItem(itemNum, inventoryNum);  });
+        button.onClick.AddListener(delegate { sellItem(itemNum, inventoryNum); });
 
         sellDontButtons[1].SetActive(true);
         var button2 = sellDontButtons[1].GetComponent<Button>();
@@ -155,7 +156,14 @@ public class ShopUISync : NetworkBehaviour
     {
         hideMenuButtons(sellDontButtons);
         sellShop.SetActive(true);
-        
+        ItemBase whoToSell = NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][inventoryNum].getItem(itemNum);
+        if (inventoryNum != 0)
+        {
+            if (NetworkData.Instance.playerInventories[0][inventoryNum].database.GetId[whoToSell] == NetworkData.Instance.players[NetworkData.Instance.currentPlayer].equipItems[whoToSell.type] ) 
+            {
+                NetworkData.Instance.players[NetworkData.Instance.currentPlayer].equipItems[whoToSell.type] = 0;
+            }
+        }
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo["money"] += NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][inventoryNum].getItem(itemNum).itemValue / 2;
         NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][inventoryNum].RemoveItem(itemNum);
         sellUIManager.CreateDisplay(NetworkData.Instance.currentPlayer, inventoryNum);

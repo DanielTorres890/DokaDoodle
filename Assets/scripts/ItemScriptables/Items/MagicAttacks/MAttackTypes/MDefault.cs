@@ -16,7 +16,7 @@ public class MDefault : AttackBase
         info.owner = caster;
         info.ownerStats = caster.GetComponent<AbilityManager>().stats;
         info.attackInfo = this;
-        attack.transform.position = caster.transform.position + offset;
+        attack.transform.position = caster.transform.position + caster.transform.TransformDirection(offset);
 
     }
 }
