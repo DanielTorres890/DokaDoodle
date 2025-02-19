@@ -168,5 +168,25 @@ public class playerData : EntityStats
             this.stats[Attributes.Health] += hp;
         }
     }
+    public void UnequipItem(ItemType type)
+    {
+        var temp = NetworkData.Instance.players[playerNumber].equipItems[type];
+        NetworkData.Instance.players[playerNumber].equipItems[type] = 0;
 
+        InventoryObject temp2;
+        if (type == ItemType.Magic || type == ItemType.MagicGuard)
+        {
+            temp2 = NetworkData.Instance.playerInventories[playerNumber][2];
+        }
+        else
+        {
+            temp2 = NetworkData.Instance.playerInventories[playerNumber][1];
+        }
+
+        foreach (var attrib in temp2.database.GetItem[temp].buffs)
+        {
+            NetworkData.Instance.players[playerNumber].stats[attrib.attribute] -= attrib.value;
+
+        }
+    }
 }

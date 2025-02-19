@@ -161,7 +161,11 @@ public class ShopUISync : NetworkBehaviour
         {
             if (NetworkData.Instance.playerInventories[0][inventoryNum].database.GetId[whoToSell] == NetworkData.Instance.players[NetworkData.Instance.currentPlayer].equipItems[whoToSell.type] ) 
             {
-                NetworkData.Instance.players[NetworkData.Instance.currentPlayer].equipItems[whoToSell.type] = 0;
+
+                NetworkData.Instance.players[NetworkData.Instance.currentPlayer].UnequipItem(whoToSell.type);
+                var tmp = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform.GetChild(0);
+                tmp.gameObject.SetActive(false);
+                
             }
         }
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo["money"] += NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][inventoryNum].getItem(itemNum).itemValue / 2;
