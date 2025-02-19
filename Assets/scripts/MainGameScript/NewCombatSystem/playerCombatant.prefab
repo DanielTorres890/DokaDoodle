@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4129097630598078157}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: XZRotationPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,50 +32,6 @@ Transform:
   - {fileID: 7428282915531971386}
   m_Father: {fileID: 204523565734630779}
   m_LocalEulerAnglesHint: {x: 0, y: 0.03, z: 0}
---- !u!1 &4467258676348874432
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3908072224278655820}
-  - component: {fileID: 2785411387459323548}
-  m_Layer: 0
-  m_Name: cm
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3908072224278655820
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4467258676348874432}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.18060492, y: -0.00025747562, z: 0.000047278827, w: 0.98355573}
-  m_LocalPosition: {x: -0.000022232533, y: -5.574307, z: 10.187576}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7428282915531971386}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2785411387459323548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4467258676348874432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5822154377096031416
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +44,7 @@ GameObject:
   - component: {fileID: 4925326797861411903}
   - component: {fileID: 2514896212440536522}
   - component: {fileID: 4320193319412417215}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FAKE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,6 +91,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -192,7 +151,7 @@ GameObject:
   - component: {fileID: 7589214929643569201}
   - component: {fileID: 1234951069238071348}
   - component: {fileID: 3401290857889936220}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,8 +217,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7428282915531971386}
   - component: {fileID: 8002848286982255893}
-  - component: {fileID: 3936000965685228242}
-  m_Layer: 0
+  - component: {fileID: 2001172000135971245}
+  m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -278,8 +237,7 @@ Transform:
   m_LocalPosition: {x: 0.42999858, y: 5.3599997, z: -10.669061}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3908072224278655820}
+  m_Children: []
   m_Father: {fileID: 4129097630598078157}
   m_LocalEulerAnglesHint: {x: 20.81, y: 0, z: 0}
 --- !u!81 &8002848286982255893
@@ -290,7 +248,7 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8303488937943890119}
   m_Enabled: 0
---- !u!114 &3936000965685228242
+--- !u!114 &2001172000135971245
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -299,36 +257,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 8303488937943890119}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ExcludedPropertiesInInspector:
-  - m_Script
-  m_LockStageInInspector: 
-  m_StreamingVersion: 20170927
-  m_Priority: 1
-  m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 7428282915531971386}
-  m_Lens:
+  Priority:
+    Enabled: 1
+    m_Value: 1
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
     FieldOfView: 40
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
     ModeOverride: 0
-    LensShift: {x: 0, y: 0}
-    GateFit: 2
-    FocusDistance: 10
-    m_SensorSize: {x: 1, y: 1}
-  m_Transitions:
-    m_BlendHint: 0
-    m_InheritPosition: 0
-    m_OnCameraLive:
-      m_PersistentCalls:
-        m_Calls: []
-  m_LegacyBlendHint: 0
-  m_ComponentOwner: {fileID: 3908072224278655820}
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
 --- !u!1001 &1583379286521998501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -344,6 +306,10 @@ PrefabInstance:
     - target: {fileID: -8653719598885068355, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Name
       value: playerCombatant
+      objectReference: {fileID: 0}
+    - target: {fileID: -8653719598885068355, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -8653719598885068355, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_TagString
@@ -549,8 +515,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1130427200
+  GlobalObjectIdHash: 2529110161
   InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -558,6 +526,8 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &3018395302920932811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,7 +568,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 353da6d3-30d4-43f2-af73-f08953c36f48
-    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+    m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4780723487593672358}
@@ -614,39 +584,39 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: cb3f38a8-8943-4c45-9b18-09332d04398c
-    m_ActionName: Player/Look[/Mouse/delta]
+    m_ActionName: 'Player/Look[/Mouse/delta]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 7235e5e8-a571-43ee-a93f-3fa23eb8fbd2
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+    m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: d490882d-b1a6-4067-b438-0bd1dc35afec
-    m_ActionName: UI/Submit[/Keyboard/enter]
+    m_ActionName: 'UI/Submit[/Keyboard/enter]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 9d91ee1b-af16-42f7-9e97-89c96797c3e4
-    m_ActionName: UI/Cancel[/Keyboard/escape]
+    m_ActionName: 'UI/Cancel[/Keyboard/escape]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 8c11fbee-68ce-4273-8f20-2ee5d4b8cad6
-    m_ActionName: UI/Point[/Mouse/position]
+    m_ActionName: 'UI/Point[/Mouse/position]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 9570de3e-f5ab-45d3-aa47-768d5fba1eaf
-    m_ActionName: UI/Click[/Mouse/leftButton]
+    m_ActionName: 'UI/Click[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: e381b490-24ad-47e0-b9c0-1fef0eeeb526
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 37d75e35-f0a9-4312-a708-a641b494884b
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 36295915-3468-4375-83ca-c8cf16d67c65
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
+    m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 4793a30f-8082-466a-b975-7394d2020862
@@ -658,15 +628,15 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 5f304cee-ff02-4fc6-a47c-3446c3f38663
-    m_ActionName: UI/FreeCamera[/Keyboard/i]
+    m_ActionName: 'UI/FreeCamera[/Keyboard/i]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 606652c6-ec19-47a5-b8ee-dc5108048dc6
-    m_ActionName: UI/MovingCamera[/Keyboard/w,/Keyboard/upArrow,/Keyboard/d,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow]
+    m_ActionName: 'UI/MovingCamera[/Keyboard/w,/Keyboard/upArrow,/Keyboard/d,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 87b5cf85-265f-4fe7-b017-cdb1913d07b5
-    m_ActionName: UI/UndoCamera[/Keyboard/escape]
+    m_ActionName: 'UI/UndoCamera[/Keyboard/escape]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4780723487593672358}
@@ -682,7 +652,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 7fba05cf-dcd0-45c3-8ccf-9e3b467f75b4
-    m_ActionName: Player/Jump[/Keyboard/space]
+    m_ActionName: 'Player/Jump[/Keyboard/space]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 992508209932742035}
@@ -698,27 +668,27 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: d46545e6-1d57-4c7c-82cb-705cd58c3373
-    m_ActionName: Player/M1Attack[/Mouse/leftButton]
+    m_ActionName: 'Player/M1Attack[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 2a393684-4563-4438-baf9-134db626f02e
-    m_ActionName: Player/Ability1[/Keyboard/q]
+    m_ActionName: 'Player/Ability1[/Keyboard/q]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 972f2ff3-98c7-47eb-be10-5a3d72d224db
-    m_ActionName: Player/Ability2[/Keyboard/e]
+    m_ActionName: 'Player/Ability2[/Keyboard/e]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 72e43198-b9e2-4802-b9c6-72743baa5d95
-    m_ActionName: Player/Ability3[/Keyboard/r]
+    m_ActionName: 'Player/Ability3[/Keyboard/r]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 6b1ba3de-c960-4157-bc8e-770d759d23af
-    m_ActionName: Spectating/LeftCameraSwitch[/Keyboard/q]
+    m_ActionName: 'Spectating/LeftCameraSwitch[/Keyboard/q]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 38fc7505-bee1-478b-9efa-bedf6ebd76e0
-    m_ActionName: Spectating/RightCameraSwitch[/Keyboard/e]
+    m_ActionName: 'Spectating/RightCameraSwitch[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -736,6 +706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74836b19f79aa9d42bcadcc73cb19537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   body: {fileID: 8427098110787265065}
   abilityManager: {fileID: 992508209932742035}
   playerCam: {fileID: 8303488937943890119}
@@ -756,6 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecbee98e215ad3940be61e7878e7cf93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   actions: {fileID: 3018395302920932811}
   testAttack: {fileID: 11400000, guid: a8819df41b6cfc64f8cafc3fdacf27be, type: 2}
   stats:
@@ -836,6 +808,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkTransformExpanded: 0
+  AuthorityMode: 0
+  TickSyncChildren: 0
   UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
@@ -853,6 +829,7 @@ MonoBehaviour:
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
+  SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
 --- !u!210 &9087332756911938693

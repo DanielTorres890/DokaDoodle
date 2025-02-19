@@ -9,7 +9,7 @@ public class RangedAbility : AbilityBase
     // Update is called once per frame
     private void Start()
     {
-        gameObject.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * speed);
+        gameObject.GetComponent<Rigidbody>().linearVelocity = transform.TransformDirection(Vector3.forward * speed);
     }
 
     private new void Update()

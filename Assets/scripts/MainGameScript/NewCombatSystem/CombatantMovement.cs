@@ -65,7 +65,7 @@ public class CombatantMovement : NetworkBehaviour
         }    
         body.constraints = RigidbodyConstraints.FreezeRotation;
 
-        Vector3 currentVelocity = body.velocity;
+        Vector3 currentVelocity = body.linearVelocity;
         Vector3 targetVeloctiy = new Vector3(move.x, 0, move.y);
         targetVeloctiy *= speed;
 

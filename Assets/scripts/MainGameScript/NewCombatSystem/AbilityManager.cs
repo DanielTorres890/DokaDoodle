@@ -1,7 +1,7 @@
-using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -167,7 +167,7 @@ public class AbilityManager : NetworkBehaviour
         render.material = NetworkData.Instance.playerSticks[playerNum].GetComponent<characterEditor>().myMaterial;
       
      
-        NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineVirtualCamera>());
+        NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineCamera>());
        
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]

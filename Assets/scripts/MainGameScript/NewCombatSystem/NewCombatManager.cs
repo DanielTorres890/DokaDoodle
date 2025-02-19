@@ -1,6 +1,6 @@
-using Cinemachine;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Cinemachine;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -26,8 +26,9 @@ public class NewCombatManager : NetworkBehaviour
     
 
     [DoNotSerialize] public bool fightOver = false;
+    
 
-    public List<CinemachineVirtualCamera> cameras = new List<CinemachineVirtualCamera>();
+    public List<CinemachineCamera> cameras = new List<CinemachineCamera>();
     private int currentSpec = 0;
 
     [SerializeField] private Vector3 spawnPoint;

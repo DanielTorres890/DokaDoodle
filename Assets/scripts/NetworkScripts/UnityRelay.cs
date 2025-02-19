@@ -47,7 +47,8 @@ public class UnityRelay : MonoBehaviour
             joinCodeText.text = joinCode;
 
 
-            RelayServerData relayServerData = new RelayServerData(allocation,"dtls");
+            RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "dtls");
+
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
             NetworkManager.Singleton.StartHost();
@@ -68,7 +69,7 @@ public class UnityRelay : MonoBehaviour
             JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 
 
-            RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
+            RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
             NetworkManager.Singleton.StartClient(); 
