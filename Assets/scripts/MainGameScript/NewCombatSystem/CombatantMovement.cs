@@ -22,7 +22,7 @@ public class CombatantMovement : NetworkBehaviour
 
     public void moveForward(InputAction.CallbackContext action)
     {
-        
+
         move = action.action.ReadValue<Vector2>();
 
     }
@@ -41,7 +41,7 @@ public class CombatantMovement : NetworkBehaviour
         }
     }
 
-    private void Awake()
+    public override void OnNetworkSpawn()
     {
         
         //camcomponent = playerCam.GetComponent<Camera>();
@@ -49,6 +49,7 @@ public class CombatantMovement : NetworkBehaviour
     private void FixedUpdate()
     {
         if (NewCombatManager.instance.fightOver || !IsOwner) { return; }
+  
         Move();   
     }
 

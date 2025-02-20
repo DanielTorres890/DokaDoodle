@@ -13,15 +13,12 @@ public class Poke : AttackBase
 
     public override void WeaponEffect(GameObject caster)
     {
-        Debug.Log("I SHOULD HAPPEN?");
-        var attack = Instantiate(attackPrefab);
-        attack.GetComponent<NetworkObject>().Spawn();
-        attack.transform.rotation = caster.transform.rotation;
-        var info = attack.GetComponent<AbilityBase>();
-        info.owner = caster;
-        info.ownerStats = caster.GetComponent<AbilityManager>().stats;
-        info.attackInfo = this;
-        attack.transform.position = caster.transform.position + caster.transform.TransformDirection(offset);
+        
+     base.WeaponEffect(caster);
+        
+        
+       
+        
 
 
 

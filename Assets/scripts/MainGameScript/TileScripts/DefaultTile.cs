@@ -12,7 +12,7 @@ public class DefaultTile : TileScript
     {
         Debug.Log("WHO ARE U " + NetworkData.Instance.currentPlayer);
         Debug.Log("Who am I " + NetworkManager.Singleton.LocalClientId);
-        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        if (!NetworkManager.Singleton.IsServer) { return; }
         //PlayerMoveManager.Instance.NextTurnRpc();
         if (Random.Range(1,2) == 3)  
         {

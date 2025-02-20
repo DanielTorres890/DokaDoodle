@@ -18,6 +18,46 @@ public class ClientChecks : NetworkBehaviour
 
     public GameObject combatPreview;
 
+    public override void OnNetworkSpawn()
+    {
+        bool rumble = false;
+        foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
+        {
+            
+            if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && !NetworkData.Instance.players[players].isDead && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
+            {
+                Debug.Log("we tried to fight even tho we can't");
+                rumble = true;
+            }
+        }
+
+        if ((MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0 || !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
+        {
+            
+            MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Remove(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber);
+            PlayerMoveManager.Instance.playerCam.Follow = PlayerMoveManager.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
+            PlayerMoveManager.Instance.gameMenu.SetActive(true);
+            PlayerMoveManager.Instance.rollNum.gameObject.transform.parent.gameObject.SetActive(false);
+        }
+
+        else
+        {
+
+            if (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
+            {
+                PlayerMoveManager.Instance.gameMenu.SetActive(false);
+           
+                if(IsServer) { ClientChecks.Instance.DisplayDeadRpc(); }
+                return;
+            }
+
+        
+            PlayerMoveManager.Instance.gameMenu.SetActive(false);
+            if (IsServer) { SyncEnemyRpc(0); }
+            
+        }
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -68,6 +108,7 @@ public class ClientChecks : NetworkBehaviour
     {
         PlayerCombatManager.Instance.combatants.Clear();
         PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
+        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].setCombatActions();
 
 
         bool rumble = false;
@@ -76,15 +117,14 @@ public class ClientChecks : NetworkBehaviour
         {
             if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
             {
+                PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[counter]);
+                NetworkData.Instance.players[counter].setCombatActions();
                 rumble = true;
-                break;
+                
             }
             counter++;
         }
-        if (rumble)
-        {
-            PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[counter]);
-        }
+        
         //Pretty much everything that isn't these two is stuff from the old system
         if (!rumble)
         {
@@ -145,8 +185,11 @@ public class ClientChecks : NetworkBehaviour
     public void DisplayDeadRpc()
     {
         displayTxt.text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name + " is dead for <color=red>" + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].tillRevive + "</color> turns";
+        Debug.Log("does progressing death break u");
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
+        Debug.Log("displaying def shouldn't");
         StartCoroutine(displayItem());
+        
     }
     private IEnumerator previewFight()
     {

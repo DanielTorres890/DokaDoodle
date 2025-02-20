@@ -55,6 +55,8 @@ public class BaseEnemyBehavior : NetworkBehaviour
     }
     private void Update()
     {
+        if (!IsServer) { return; }
+        
         InAttackRange = Vector3.Distance(gameObject.transform.position, target.transform.position) < attackRange ;
         
         if(!InAttackRange) { ChasePlayer();  }

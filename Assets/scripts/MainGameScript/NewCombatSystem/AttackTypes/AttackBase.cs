@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +13,8 @@ public abstract class AttackBase : ScriptableObject
     public float startUp;
     public float endLag;
     public float cooldown;
+    public float lifespan;
+
     public combatantStates stateToBe;
     public bool chargeable;
 
@@ -22,7 +25,21 @@ public abstract class AttackBase : ScriptableObject
     public AttackMult[] defenseMult;
     public AttackMult[] antiGuardMultipliers = new AttackMult[7] { new AttackMult(Attributes.MaxHealth, 1), new AttackMult(Attributes.Health, 1), new AttackMult(Attributes.Attack, 1), new AttackMult(Attributes.Defense, 1), new AttackMult(Attributes.Magic, 1), new AttackMult(Attributes.MDefense, 1), new AttackMult(Attributes.Dexterity, 1) };
     //^ Saves me the annoyance of setting them everytime i create a scriptable
-    public abstract void WeaponEffect(GameObject caster);
+    public virtual void WeaponEffect(GameObject caster)
+    {
+        Debug.Log("I SHOULD HAPPEN?");
+        var attack = Instantiate(attackPrefab);
+        attack.transform.position = caster.transform.position + caster.transform.TransformDirection(offset);
+        
+        attack.transform.rotation = caster.transform.rotation;
+        attack.GetComponent<NetworkObject>().Spawn(true);
+        var info = attack.GetComponent<AbilityBase>();
+        info.owner = caster;
+        info.lifespan = lifespan;
+        info.ownerStats = caster.GetComponent<AbilityManager>().stats;
+        info.attackInfo = this;
+
+    }
 }
 
 [System.Serializable]

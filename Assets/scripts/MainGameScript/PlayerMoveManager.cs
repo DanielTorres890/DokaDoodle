@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using TMPro;
+using Unity.Cinemachine;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,14 +15,14 @@ public class PlayerMoveManager : NetworkBehaviour
 
     [SerializeField] public List<TileScript> mapTiles = new List<TileScript>();
 
-    [SerializeField] private TMP_Text rollNum;
+    public TMP_Text rollNum;
 
     private List<GameObject> takenPath = new List<GameObject>();
-    private List<GameObject> playerSticks = new List<GameObject>();
+    public List<GameObject> playerSticks = new List<GameObject>();
     private List<Animator> stickAnimators = new List<Animator>();
 
     public int mapNumber;
-    public GameObject playerCam;
+    public CinemachineCamera playerCam;
     public GameObject gameMenu;
 
     public bool canMove = false;
@@ -34,7 +35,7 @@ public class PlayerMoveManager : NetworkBehaviour
     private Vector3 cameraMoveDirection;
 
     public static PlayerMoveManager Instance;
-    public override void OnNetworkSpawn()
+    public void Awake()
     {
         
         Instance = this;
@@ -42,22 +43,22 @@ public class PlayerMoveManager : NetworkBehaviour
         Debug.Log("Setting up player " + NetworkData.Instance.currentPlayer);
         setUpTileEnemies();
         playerSticks = GameObject.FindGameObjectWithTag("Data").GetComponent<NetworkData>().playerSticks;
-
-        int xoffset = 0;
+        
+        float xoffset = 0;
         int stagger = 1;
         for (int i = 0; i < NetworkData.Instance.players.Count; i++)
         {
 
-
+           
             stickAnimators.Add(playerSticks[i].GetComponent<Animator>());
             playerSticks[i].transform.position = mapTiles[NetworkData.Instance.players[i].curTileId].transform.position;
-            playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + xoffset, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z + 60 * stagger);
-            xoffset += 120;
+            playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + xoffset, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z - 2 + .3f * stagger);
+            xoffset += 1;
             stagger *= -1;
-            playerCam.transform.position = playerSticks[i].transform.position + new Vector3(95, 797, -1054);
+          
         }
-
-        FightOrNot();
+        playerCam.Follow = playerSticks[NetworkData.Instance.currentPlayer].transform;
+  
 
 
 
@@ -65,7 +66,7 @@ public class PlayerMoveManager : NetworkBehaviour
     
     private void Update()
     {
-        if (!cameraMove.Value) { playerCam.transform.position = playerSticks[NetworkData.Instance.currentPlayer].transform.position + new Vector3(95, 797, -1054);  }
+        if (!cameraMove.Value) {  }
         
         else {  playerCam.transform.position += cameraMoveDirection * cameraSpeed * Time.deltaTime; }
     }
@@ -273,7 +274,7 @@ public class PlayerMoveManager : NetworkBehaviour
     public void NextTurnRpc()
     {
         NetworkData.Instance.setNextTurnNum();
-        FightOrNot();
+        ClientChecks.Instance.OnNetworkSpawn();
         
 
     }
@@ -338,6 +339,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
         if ((MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy == null || !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
         {
+            playerCam.Follow = playerSticks[NetworkData.Instance.currentPlayer].transform;
             gameMenu.SetActive(true);
             rollNum.gameObject.transform.parent.gameObject.SetActive(false);
         }
@@ -349,7 +351,7 @@ public class PlayerMoveManager : NetworkBehaviour
             {
                 gameMenu.SetActive(false);
 
-                if (IsServer) StartCoroutine(waitTillSpawn());
+                ClientChecks.Instance.DisplayDeadRpc();
                 return;
             }
 
@@ -359,12 +361,5 @@ public class PlayerMoveManager : NetworkBehaviour
         }
     }
 
-    private IEnumerator waitTillSpawn()
-    {
-        while (!ClientChecks.Instance.IsSpawned)
-        {
-            yield return null;
-        }
-        ClientChecks.Instance.DisplayDeadRpc();
-    }
+    
 }

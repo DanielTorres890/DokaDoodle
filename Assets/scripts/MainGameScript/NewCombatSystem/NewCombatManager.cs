@@ -41,7 +41,12 @@ public class NewCombatManager : NetworkBehaviour
     
     public override void OnNetworkSpawn()
     {
-        
+        //bc im dumb and didnt handle things earlier
+        for (int i = 0; i < NetworkData.Instance.playerSticks.Count; i++)
+        {
+            NetworkData.Instance.playerSticks[i].transform.position = new Vector3(-1000 + i * 1000, -1000, -1000);
+        }
+
 
         if (instance != null) { return;  }
             
@@ -86,9 +91,9 @@ public class NewCombatManager : NetworkBehaviour
             {
                 
                 var player = entity as playerData;
-                var playerfab = NetworkManager.SpawnManager.InstantiateAndSpawn(playerPrefab, (ulong)player.playerNumber, true);
+                var playerfab = Instantiate(playerPrefab);
                 playerfab.gameObject.transform.position = new Vector3(spawnPoint.x * sideMult, spawnPoint.y, sideMult * spawnPoint.z + i * zDistanceBetween * -sideMult);
-
+                playerfab.GetComponent<NetworkObject>().SpawnWithOwnership( (ulong)player.playerNumber, true);
                 //var editor = NetworkData.Instance.playerSticks[player.playerNumber].GetComponent<characterEditor>();
                 //editor.UpdateMaterial();
                 /*playerfab.GetComponentInChildren<MeshRenderer>().material = editor.myMaterial;*/
@@ -126,6 +131,7 @@ public class NewCombatManager : NetworkBehaviour
     [Rpc(SendTo.SpecifiedInParams, RequireOwnership = false)]
     private void SetNotSpectateRpc(int whichone,RpcParams rpcStuff)
     {
+        //fricku[whichone].GetComponent<PlayerInput>();
         Cursor.lockState = CursorLockMode.Locked;
         playercontrol.SwitchCurrentActionMap("Player");
         cameras[0].Priority = 1;
@@ -200,7 +206,7 @@ public class NewCombatManager : NetworkBehaviour
 
         for(int i = 0; i < allCombatants.Count; i++)
         {
-
+            
             if (enemy.stats.isDead) { enemy = allCombatants[i]; }
             if (!(enemy.stats is playerData) && !enemy.stats.isDead)
             {
@@ -283,7 +289,7 @@ public class NewCombatManager : NetworkBehaviour
                     
                     
        
-                    if (IsServer) { LinesToSyncRpc((current.name + " dropped " + current.playerInfo["money"] / 2 + " moneys"), current.LoseSomething(), Random.Range(1,3), current.playerNumber); }
+                    if (IsServer) { LinesToSyncRpc((current.name + " dropped " + current.playerInfo["money"] / 2 + " moneys"), current.LoseSomething(), 3, current.playerNumber); }
                     
                     current.playerInfo["money"] /= 2;
                 }
@@ -293,6 +299,7 @@ public class NewCombatManager : NetworkBehaviour
             endBattleInfo.whoInControl = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber;
 
         }
+        MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Clear();
         NetworkData.Instance.setNextTurnNum();
         endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
       

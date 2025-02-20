@@ -49,8 +49,7 @@ public class playerData : EntityStats
         curTileId = 0;
         curMap = 0;
         playerSpawnTile = 0;
-        
-    setCombatActions();
+   
     }
     public playerData(int PlayerClass, FixedString32Bytes PlayerName, int PlayerFace, int PlayerHair)
     {
@@ -62,7 +61,7 @@ public class playerData : EntityStats
         curMap = 0;
         playerSpawnTile = 0;
 
-        setCombatActions();
+        
     } 
     
     public void setCombatActions()
@@ -118,8 +117,10 @@ public class playerData : EntityStats
         if (backToBase)
         {
             this.curTileId = this.playerSpawnTile;
+            MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Remove(playerNumber);
+
         }
-        
+
         if (turnsDead == -1)
         {
             this.tillRevive = Random.Range(2, 2);
@@ -131,7 +132,7 @@ public class playerData : EntityStats
         tillRevive--;
         if (tillRevive <= 0)
         {
-            Debug.Log("somehow this happened?");
+
             isDead = false;
             tillRevive = 0;
             this.stats[Attributes.Health] = this.stats[Attributes.MaxHealth];

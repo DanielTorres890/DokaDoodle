@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ public class AbilityManager : NetworkBehaviour
     {
         NewCombatManager.instance.fricku.Add(gameObject);
         NewCombatManager.instance.allCombatants.Add(this);
+      
         
     }
 
@@ -54,7 +56,13 @@ public class AbilityManager : NetworkBehaviour
         {
             if (currentAttack != null)
             {
-                currentAttack.WeaponEffect(gameObject);
+                int foundu = 0;
+                
+                for(int i = 0; i < stats.attacks.Count; i++ )
+                {
+                    if (stats.attacks[i] == currentAttack) {  foundu = i; break; }
+                }
+                PerformAttackRpc(foundu);
 
                 stateDuration = currentAttack.endLag;
                 combatantstate = combatantStates.Endlag;
@@ -74,8 +82,15 @@ public class AbilityManager : NetworkBehaviour
         
 
     }
-    
 
+    [Rpc(SendTo.Server, RequireOwnership = false)]
+    private void PerformAttackRpc(int whom)
+    {
+        currentAttack = stats.attacks[whom];
+       
+        currentAttack.WeaponEffect(gameObject);
+
+    }
     public void AssignAbilities()
     {
        
@@ -91,6 +106,7 @@ public class AbilityManager : NetworkBehaviour
         {
             if (i >= stats.attacks.Count) { break; }
 
+            if (stateManager.ContainsKey(stats.attacks[i])) { continue; }
             actions.actions["Ability" + i.ToString()].performed += Ability1;
             actions.actions["Ability" + i.ToString()].canceled += Ability1Released;
             stateManager.Add(stats.attacks[i], new AbilityStates());
@@ -137,7 +153,7 @@ public class AbilityManager : NetworkBehaviour
     public void OnTriggerEnter(Collider other)
     {
         
-        if (!IsOwner) { return; }
+        if (!IsServer) { return; }
         
         if (other.gameObject.TryGetComponent(out AbilityBase hitby))
         {
@@ -146,7 +162,7 @@ public class AbilityManager : NetworkBehaviour
         }
 
     }
-    [Rpc(SendTo.Everyone, RequireOwnership = true)]
+    [Rpc(SendTo.Everyone, RequireOwnership = false)]
     private void ImHitRpc(int damageAmt)
     {
         stats.stats[Attributes.Health] -= damageAmt;
@@ -173,6 +189,7 @@ public class AbilityManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void UpdateStatsRpc(int combatantNum)
     {
+
         stats = PlayerCombatManager.Instance.combatants[combatantNum];
         if(IsOwner) 
         { 
