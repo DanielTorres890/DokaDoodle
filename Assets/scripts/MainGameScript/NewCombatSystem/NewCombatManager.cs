@@ -113,9 +113,10 @@ public class NewCombatManager : NetworkBehaviour
             {
                 var npc = entity as EnemyCombat;
                 var npcfab = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[npc.enemyId].enemyPrefab);
+                npcfab.transform.position = new Vector3(spawnPoint.x * sideMult, spawnPoint.y, sideMult * spawnPoint.z + i * zDistanceBetween * -sideMult);
+
                 npcfab.GetComponent<NetworkObject>().Spawn(true);
 
-                npcfab.transform.position = new Vector3(spawnPoint.x * sideMult, spawnPoint.y, sideMult * spawnPoint.z + i * zDistanceBetween * -sideMult);
                 var abilitiyManage = npcfab.GetComponent<AbilityManager>();
                 abilitiyManage.UpdateStatsRpc(i);
                 
@@ -207,6 +208,7 @@ public class NewCombatManager : NetworkBehaviour
         for(int i = 0; i < allCombatants.Count; i++)
         {
             
+            
             if (enemy.stats.isDead) { enemy = allCombatants[i]; }
             if (!(enemy.stats is playerData) && !enemy.stats.isDead)
             {
@@ -268,7 +270,21 @@ public class NewCombatManager : NetworkBehaviour
                         if (i != itemsPicked.Count - 1) { itemString += ", "; }
                     }
                 }
+                
                 endBattleInfo.lines.Add(itemString);
+            }
+            foreach (var combat in allCombatants)
+            {
+                if (combat.stats is playerData && combat.stats.isDead)
+                {
+                    var current = combat.stats as playerData;
+
+
+
+                    if (IsServer) { LinesToSyncRpc((current.name + " dropped " + current.playerInfo["money"] / 2 + " moneys"), current.LoseSomething(), 3, current.playerNumber); }
+
+                    current.playerInfo["money"] /= 2;
+                }
             }
             Debug.Log("SHOULD BE ACTIVE");
             endBattleInfo.gameObject.SetActive(true);
@@ -314,6 +330,7 @@ public class NewCombatManager : NetworkBehaviour
     {
         endBattleInfo.lines.Add(lostmoney);
         endBattleInfo.lines.Add(lostitem);
+        Debug.Log("did u died?");
         NetworkData.Instance.players[playerNumber].death(turnsDead);
     }
     public void RightSpec()

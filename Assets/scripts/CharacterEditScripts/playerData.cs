@@ -67,15 +67,23 @@ public class playerData : EntityStats
     public void setCombatActions()
     {
         this.attacks.Clear();
+        if(NetworkData.Instance.playerInventories[playerNumber][1].container.Count == 0  && NetworkData.Instance.playerInventories[playerNumber][2].container.Count == 0)
+        {
+            this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][1].database.GetItem[0] as WeaponItem).attack);
+        }
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
         {
             this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem).attack);
         }
 
+        for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][2].container.Count; i++)
+        {
+            this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack);
+        }
 
 
-       // this.defenses[0] = (NetworkData.Instance.playerInventories[0][1].database.GetItem[this.equipItems[ItemType.Shield]] as WeaponItem).attack as DefenseBase;
-       // this.defenses[1] = (NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.MagicGuard]] as WeaponItem).attack as DefenseBase; 
+        // this.defenses[0] = (NetworkData.Instance.playerInventories[0][1].database.GetItem[this.equipItems[ItemType.Shield]] as WeaponItem).attack as DefenseBase;
+        // this.defenses[1] = (NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.MagicGuard]] as WeaponItem).attack as DefenseBase; 
     }
     public FixedString32Bytes getName()
     {
@@ -113,6 +121,7 @@ public class playerData : EntityStats
     {
         this.isDead = true;
         this.tillRevive = turnsDead;
+
         Debug.Log(this.name + "man i should reallllyy be dead " + this.isDead); 
         if (backToBase)
         {
@@ -129,7 +138,7 @@ public class playerData : EntityStats
     }
     public void progressDeath()
     {
-        tillRevive--;
+        this.tillRevive--;
         if (tillRevive <= 0)
         {
 
