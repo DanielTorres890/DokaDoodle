@@ -184,9 +184,10 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost,RequireOwnership = false)]
     public void DisplayDeadRpc()
     {
-        displayTxt.text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name + " is dead for <color=red>" + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].tillRevive + "</color> turns";
-        Debug.Log("does progressing death break u");
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
+        displayTxt.text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name + " is dead for <color=red>" + (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].tillRevive + 1) + "</color> turns";
+        Debug.Log("does progressing death break u");
+        
         Debug.Log("displaying def shouldn't");
         StartCoroutine(displayItem());
         

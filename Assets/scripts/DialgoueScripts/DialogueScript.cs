@@ -23,12 +23,14 @@ public class DialogueScript : NetworkBehaviour
     private int index;
     public void Awake()
     {
-        whoInControl = NetworkData.Instance.currentPlayer;
+        
         startDialogue();
     }
     public override void OnNetworkSpawn()
     {
-        if(!startShown)
+        var button = GetComponentInChildren<Button>();
+        button.onClick.AddListener(delegate { contCutsceneServerRpc(); });
+        if (!startShown)
         {
             gameObject.SetActive(false);
         }
@@ -38,10 +40,12 @@ public class DialogueScript : NetworkBehaviour
 
 
     [Rpc(SendTo.Server, RequireOwnership = false)]
-    public void contCutsceneServerRpc()
+    public void contCutsceneServerRpc(RpcParams rpcstuff = default)
     {
-
-        if (!NetworkData.Instance.IsAllowed(whoInControl,NetworkManager.Singleton.LocalClientId)) { return; }
+        Debug.Log("Who is in control " + whoInControl);
+        Debug.Log("WHO SENT THIS " + rpcstuff.Receive.SenderClientId);
+        
+        if (!NetworkData.Instance.IsAllowed(whoInControl,rpcstuff.Receive.SenderClientId)) { return; }
 
         contCutsceneClientRpc();
     }

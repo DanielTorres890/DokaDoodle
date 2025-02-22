@@ -240,6 +240,7 @@ public class PlayerMoveManager : NetworkBehaviour
         rollNum.text = diceRoll.ToString();
         StopAllCoroutines();
         StartCoroutine(playerMover(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId));
+        PlayerMoverRpc(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
     }
 
 
@@ -253,9 +254,11 @@ public class PlayerMoveManager : NetworkBehaviour
 
 
 
-    [Rpc(SendTo.Server, RequireOwnership = false)]
-    private void PlayerMoverServerRpc(float speed, int tildid)
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void PlayerMoverRpc(float speed, int tildid, RpcParams rpcstuff = default)
     {
+        if (rpcstuff.Receive.SenderClientId == NetworkManager.Singleton.LocalClientId) { return; }
+
         StopAllCoroutines();
         Debug.Log("IM TRYING TO MOVE TOWAREDS THIS" + tildid);
         StartCoroutine(playerMover(speed, tildid));
