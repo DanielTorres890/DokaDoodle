@@ -20,6 +20,7 @@ public class AbilityManager : NetworkBehaviour
     public float stateDuration;
 
     private AttackBase currentAttack = null;
+    private GameObject spawnedAttack;
     public override void OnNetworkSpawn()
     {
         NewCombatManager.instance.fricku.Add(gameObject);
@@ -62,7 +63,8 @@ public class AbilityManager : NetworkBehaviour
                 {
                     if (stats.attacks[i] == currentAttack) {  foundu = i; break; }
                 }
-                PerformAttackRpc(foundu);
+                spawnedAttack = currentAttack.WeaponEffect(gameObject);
+                PerformAttackRpc(foundu, NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,gameObject.transform.eulerAngles);
 
                 stateDuration = currentAttack.endLag;
                 combatantstate = combatantStates.Endlag;
@@ -84,12 +86,18 @@ public class AbilityManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server, RequireOwnership = false)]
-    private void PerformAttackRpc(int whom)
+    private void PerformAttackRpc(int whom, float time, Vector3 wherewasyou, Vector3 whereyoulookin)
     {
         currentAttack = stats.attacks[whom];
        
-        currentAttack.WeaponEffect(gameObject);
+        currentAttack.WeaponEffect(gameObject,time, wherewasyou, whereyoulookin);
 
+    }
+    [Rpc(SendTo.SpecifiedInParams, RequireOwnership = false)]
+    public void RealAttackRpc(RpcParams rpcStuff)
+    {
+        if (spawnedAttack == null) { return ; }
+        Destroy(spawnedAttack);
     }
     public void AssignAbilities()
     {

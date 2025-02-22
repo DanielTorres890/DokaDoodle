@@ -93,10 +93,9 @@ public class NewCombatManager : NetworkBehaviour
                 var player = entity as playerData;
                 var playerfab = Instantiate(playerPrefab);
                 playerfab.gameObject.transform.position = new Vector3(spawnPoint.x * sideMult, spawnPoint.y, sideMult * spawnPoint.z + i * zDistanceBetween * -sideMult);
+
                 playerfab.GetComponent<NetworkObject>().SpawnWithOwnership( (ulong)player.playerNumber, true);
-                //var editor = NetworkData.Instance.playerSticks[player.playerNumber].GetComponent<characterEditor>();
-                //editor.UpdateMaterial();
-                /*playerfab.GetComponentInChildren<MeshRenderer>().material = editor.myMaterial;*/
+                
                
                 var abilitiyManage = playerfab.GetComponent<AbilityManager>();
                 abilitiyManage.UpdateMaterialRpc(player.playerNumber);

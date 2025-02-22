@@ -16,7 +16,7 @@ public abstract class AbilityBase : NetworkBehaviour
 
     private void Awake()
     {
-
+        lifetimer = 0f;
     }
     public void Update()
     {

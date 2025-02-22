@@ -8,7 +8,7 @@ public class FireAttack : AttackBase
 {
   
 
-    public override void WeaponEffect(GameObject caster)
+    public override GameObject WeaponEffect(GameObject caster)
     {
         throw new System.NotImplementedException();
     }

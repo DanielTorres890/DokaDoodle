@@ -6,8 +6,5 @@ public class BasicDefend : DefenseBase
 {
     
 
-    public override void WeaponEffect(GameObject c)
-    {
-        
-    }
+   
 }

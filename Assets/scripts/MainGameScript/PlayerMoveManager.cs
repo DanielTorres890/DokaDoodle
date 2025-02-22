@@ -238,7 +238,8 @@ public class PlayerMoveManager : NetworkBehaviour
 
         SyncDiceRollServerRpc(diceRoll);
         rollNum.text = diceRoll.ToString();
-        PlayerMoverServerRpc(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
+        StopAllCoroutines();
+        StartCoroutine(playerMover(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId));
     }
 
 

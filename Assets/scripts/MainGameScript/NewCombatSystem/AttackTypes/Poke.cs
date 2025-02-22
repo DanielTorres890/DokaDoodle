@@ -11,15 +11,13 @@ public class Poke : AttackBase
     
 
 
-    public override void WeaponEffect(GameObject caster)
+    public override GameObject WeaponEffect(GameObject caster)
     {
         
-     base.WeaponEffect(caster);
+     return base.WeaponEffect(caster);
         
         
        
-        
-
 
 
     }

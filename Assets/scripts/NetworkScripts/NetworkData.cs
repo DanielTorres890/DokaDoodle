@@ -224,6 +224,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             }
             players[i].playerNumber = i;
             players[i].loyaltyTags.Add("Player" + players[i].playerNumber);
+            if(IsServer) { playerSticks[i].GetComponent<NetworkObject>().ChangeOwnership((ulong)i);  }
         }
     }
     public void AddItemToInventory(int playerId, ItemBase item)
