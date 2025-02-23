@@ -9,7 +9,10 @@ public class MeleeAbility : AbilityBase
     {
         base.Update();
     }
-
+    public override void OnHit()
+    {
+        
+    }
     /*public void OnTriggerEnter(Collider other)
     {
         if (!(other.gameObject.CompareTag("damageable") && other.gameObject != base.owner)) 

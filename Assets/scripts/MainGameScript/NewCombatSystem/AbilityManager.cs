@@ -21,6 +21,9 @@ public class AbilityManager : NetworkBehaviour
 
     private AttackBase currentAttack = null;
     private GameObject spawnedAttack;
+
+    [SerializeField] private EntityUIUpdate nameText;
+    [SerializeField] private EntityUIUpdate hpText;
     public override void OnNetworkSpawn()
     {
         NewCombatManager.instance.fricku.Add(gameObject);
@@ -62,6 +65,10 @@ public class AbilityManager : NetworkBehaviour
                 for(int i = 0; i < stats.attacks.Count; i++ )
                 {
                     if (stats.attacks[i] == currentAttack) {  foundu = i; break; }
+                }
+                if(stats is EnemyCombat)
+                {
+                    Debug.Log(" IM WALLOPPING A BIT TOO FAST I THINKS");
                 }
                 spawnedAttack = currentAttack.WeaponEffect(gameObject);
                 PerformAttackRpc(foundu, NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,gameObject.transform.eulerAngles);
@@ -166,15 +173,19 @@ public class AbilityManager : NetworkBehaviour
         if (other.gameObject.TryGetComponent(out AbilityBase hitby))
         {
             if (gameObject == hitby.owner) { return; }
+            hitby.OnHit();
+            Debug.Log("ERRRR" + other.GetType());
+            
             ImHitRpc(hitby.DamageCalculator(stats));
         }
 
     }
-    [Rpc(SendTo.Everyone, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void ImHitRpc(int damageAmt)
     {
         stats.stats[Attributes.Health] -= damageAmt;
-   
+        Debug.Log("did i get hit twice or did that just hurt alot " + damageAmt);
+        hpText.UpdateText();
         if (stats.stats[Attributes.Health] <= 0 && !stats.isDead)
         {
             stats.isDead = true;
@@ -199,6 +210,10 @@ public class AbilityManager : NetworkBehaviour
     {
 
         stats = PlayerCombatManager.Instance.combatants[combatantNum];
+        nameText.AbilityManager = this;
+        hpText.AbilityManager = this;
+        nameText.UpdateText();
+        hpText.UpdateText();
         if(IsOwner) 
         { 
             if (gameObject.TryGetComponent(out BaseEnemyBehavior ai))

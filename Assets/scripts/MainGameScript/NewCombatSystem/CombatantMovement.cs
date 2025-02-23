@@ -37,7 +37,7 @@ public class CombatantMovement : NetworkBehaviour
         if (grounded) 
         {
       
-            body.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+            body.AddForce(Vector3.up * (jumpForce + abilityManager.stats.speedFormula()), ForceMode.VelocityChange);
         }
     }
 
@@ -68,7 +68,7 @@ public class CombatantMovement : NetworkBehaviour
 
         Vector3 currentVelocity = body.linearVelocity;
         Vector3 targetVeloctiy = new Vector3(move.x, 0, move.y);
-        targetVeloctiy *= speed;
+        targetVeloctiy *= speed + abilityManager.stats.speedFormula();
 
         targetVeloctiy = transform.TransformDirection(targetVeloctiy);
 

@@ -29,7 +29,10 @@ public abstract class AbilityBase : NetworkBehaviour
         lifetimer += Time.deltaTime;
 
     }
-
+    public virtual void OnHit()
+    {
+        Destroy(gameObject);
+    }
     public int DamageCalculator(EntityStats defender)
     {
         float totalDamge = 0;

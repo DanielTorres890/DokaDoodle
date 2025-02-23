@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using UnityEngine.Events;
 
 public class DialogueScript : NetworkBehaviour
 {
@@ -19,12 +20,21 @@ public class DialogueScript : NetworkBehaviour
 
     [SerializeField] float textSpeed;
     [SerializeField] bool startShown;
+    public UnityEvent endEvent;
 
     private int index;
     public void Awake()
     {
-        
+        endEvent = new UnityEvent();
         startDialogue();
+        if(nextScene != "Fake")
+        {
+            endEvent.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc(nextScene); });
+        }
+        else
+        {
+            endEvent.AddListener(delegate { gameObject.SetActive(false); });
+        }
     }
     public override void OnNetworkSpawn()
     {
@@ -65,7 +75,7 @@ public class DialogueScript : NetworkBehaviour
             textComponent.text = lines[index];
         }
     }
-    void startDialogue ()
+    public void startDialogue ()
     {
         StopAllCoroutines();
         textComponent.text = string.Empty;
@@ -95,14 +105,7 @@ public class DialogueScript : NetworkBehaviour
         {
             gameObject.SetActive(false);
             background.gameObject.SetActive(false);
-            if (!nextScene.Equals("Fake"))
-            {
-                SceneChanger.Instance.loadClientScenesServerRpc(nextScene);
-            }
-            else
-            {
-                gameObject.SetActive(false);
-            }
+            endEvent.Invoke();
             
         }
     }

@@ -28,4 +28,9 @@ public class EntityStats
     [SerializeField] public DefenseBase[] defenses = new DefenseBase[4];
 
 
+
+    public float speedFormula()
+    {
+        return Mathf.Sqrt(stats[Attributes.Dexterity])/2;
+    }
 }

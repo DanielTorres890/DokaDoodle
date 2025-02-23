@@ -13,11 +13,13 @@ public class NewCombatManager : NetworkBehaviour
     [SerializeField] private NetworkObject playerPrefab;
 
 
-    public List<GameObject> fricku = new List<GameObject>();
-    public List<AbilityManager> allCombatants = new List<AbilityManager>();
+    [DoNotSerialize] public List<GameObject> fricku = new List<GameObject>();
+    [DoNotSerialize] public List<AbilityManager> allCombatants = new List<AbilityManager>();
+
+    public playerLevelUpMnger levelUpUI;
     // Start is called before the first frame update
 
-    public static NewCombatManager instance;
+    [DoNotSerialize] public static NewCombatManager instance;
 
     private int xpHarvested;
     private int moneyHarvested;
@@ -29,7 +31,7 @@ public class NewCombatManager : NetworkBehaviour
     
 
     public List<CinemachineCamera> cameras = new List<CinemachineCamera>();
-    private int currentSpec = 0;
+    [DoNotSerialize]  public int currentSpec = 0;
 
     [SerializeField] private Vector3 spawnPoint;
     [SerializeField] private float zDistanceBetween;
@@ -135,6 +137,7 @@ public class NewCombatManager : NetworkBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         playercontrol.SwitchCurrentActionMap("Player");
         cameras[0].Priority = 1;
+        currentSpec = whichone;
         cameras[whichone].Priority = 10;
 
     }
@@ -249,6 +252,11 @@ public class NewCombatManager : NetworkBehaviour
             if(levels >  0)
             {
                 endBattleInfo.lines[0] += " and they've leveled up " + levels + " times";
+                endBattleInfo.endEvent.RemoveAllListeners();
+                levelUpUI.statsToAllocate += levels * 3;
+                levelUpUI.playerWhoLevel = player;
+                endBattleInfo.endEvent.AddListener(delegate { levelUpUI.Setup(); });
+                
             }
 
             endBattleInfo.lines.Add(player.name + " has gained " + player.playerInfo["money"] + " money");
@@ -287,7 +295,7 @@ public class NewCombatManager : NetworkBehaviour
             }
             Debug.Log("SHOULD BE ACTIVE");
             endBattleInfo.gameObject.SetActive(true);
-            endBattleInfo.Awake();
+            endBattleInfo.startDialogue();
             endBattleInfo.whoInControl = player.playerNumber;
             
 
