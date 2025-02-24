@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 
 public class AbilityManager : NetworkBehaviour
 {
-    [SerializeField] private PlayerInput actions;
+    [SerializeField] public PlayerInput actions;
 
 
     public Dictionary<AttackBase, AbilityStates> stateManager = new Dictionary<AttackBase, AbilityStates>();
@@ -22,12 +22,15 @@ public class AbilityManager : NetworkBehaviour
     private AttackBase currentAttack = null;
     private GameObject spawnedAttack;
 
+    private Dictionary<InputControl,int> inputToInt = new Dictionary<InputControl,int>();
+
     [SerializeField] private EntityUIUpdate nameText;
     [SerializeField] private EntityUIUpdate hpText;
     public override void OnNetworkSpawn()
     {
         NewCombatManager.instance.fricku.Add(gameObject);
         NewCombatManager.instance.allCombatants.Add(this);
+        
       
         
     }
@@ -70,6 +73,7 @@ public class AbilityManager : NetworkBehaviour
                 {
                     Debug.Log(" IM WALLOPPING A BIT TOO FAST I THINKS");
                 }
+                
                 spawnedAttack = currentAttack.WeaponEffect(gameObject);
                 PerformAttackRpc(foundu, NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,gameObject.transform.eulerAngles);
 
@@ -115,18 +119,23 @@ public class AbilityManager : NetworkBehaviour
         actions.SwitchCurrentActionMap("Player");
         actions.actions["M1Attack"].performed += M1Attack;
         actions.actions["M1Attack"].canceled += M1AttackReleased;
+        inputToInt.Add(actions.actions["M1Attack"].controls[0], 0);
         stateManager.Add(stats.attacks[0], new AbilityStates());
 
-        for (int i = 1; i < 10; i++)
+        for (int i = 1; i < 6; i++)
         {
             if (i >= stats.attacks.Count) { break; }
 
             if (stateManager.ContainsKey(stats.attacks[i])) { continue; }
-            actions.actions["Ability" + i.ToString()].performed += Ability1;
-            actions.actions["Ability" + i.ToString()].canceled += Ability1Released;
+
+          
+            actions.actions["Ability" + i.ToString()].performed += M1Attack;
+            actions.actions["Ability" + i.ToString()].canceled += M1AttackReleased;
+            inputToInt.Add(actions.actions["Ability" + i.ToString()].controls[0], i);
             stateManager.Add(stats.attacks[i], new AbilityStates());
 
         }
+        
     }
 
     public void AssignStateManager()
@@ -138,33 +147,7 @@ public class AbilityManager : NetworkBehaviour
 
         }
     }
-    private void M1Attack(InputAction.CallbackContext action)
-    {
-        if (!IsOwner) { return; }
-        stateManager[stats.attacks[0]].pressed = true;
-        
-    }
-    private void M1AttackReleased(InputAction.CallbackContext action)
-    {
-
-        if (!IsOwner) { return; }
-        stateManager[stats.attacks[0]].pressed = false;
-
-    }
-    private void Ability1(InputAction.CallbackContext action)
-    {
-        if (!IsOwner) { return; }
-        if (stats.attacks.Count <= 1) { return;  }
-        stateManager[stats.attacks[1]].pressed = true;
-
-    }
-    private void Ability1Released(InputAction.CallbackContext action)
-    {
-        if (!IsOwner) { return; }
-        if (stats.attacks.Count <= 1) { return; }
-        stateManager[stats.attacks[1]].pressed = false;
-
-    }
+    
     public void OnTriggerEnter(Collider other)
     {
         
@@ -228,6 +211,37 @@ public class AbilityManager : NetworkBehaviour
            
         }
     }
+    private void M1Attack(InputAction.CallbackContext action)
+    {
+        if (!IsOwner) { return; }
+
+        stateManager[stats.attacks[inputToInt[action.control]]].pressed = true;
+        
+
+    }
+    private void M1AttackReleased(InputAction.CallbackContext action)
+    {
+
+        if (!IsOwner) { return; }
+        stateManager[stats.attacks[inputToInt[action.control]]].pressed = false;
+
+    }
+
+   /* private void Ability1(InputAction.CallbackContext action)
+    {
+        if (!IsOwner) { return; }
+        if (stats.attacks.Count <= 1) { return; }
+        stateManager[stats.attacks[1]].pressed = true;
+
+    } //I hate this and my life but i really don't know how else to go about this bc how else would you assign these
+    private void Ability1Released(InputAction.CallbackContext action)
+    {
+        if (!IsOwner) { return; }
+        if (stats.attacks.Count <= 1) { return; }
+        stateManager[stats.attacks[1]].pressed = false;
+
+    }
+    */
 
 }
 public class AbilityStates
@@ -245,3 +259,23 @@ public enum combatantStates
     Free
 
 }
+
+public class abilityField
+{
+    private int abilityNumber;
+
+    private InputAction AbilityInputAction;
+
+    public event System.Action<int> OnAbilityPress;
+
+    public void Enable()
+    {
+        AbilityInputAction.performed += AbilityPress;
+    }
+
+    private void AbilityPress(InputAction.CallbackContext ctx)
+    {
+
+    }
+}
+

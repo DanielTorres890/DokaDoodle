@@ -25,7 +25,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (!IsServer) { return; }
+        
         
         agent = GetComponent<NavMeshAgent>();
         FindEnemy();
@@ -56,7 +56,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     }
     private void Update()
     {
-        if (!IsServer) { return; }
+       
         
         InAttackRange = Vector3.Distance(gameObject.transform.position, target.transform.position) < attackRange ;
         
@@ -72,14 +72,18 @@ public class BaseEnemyBehavior : NetworkBehaviour
     
     private void ChasePlayer()
     {
-        myManager.stateManager[myManager.stats.attacks[0]].pressed = false;
+        
 
         if (myManager.combatantstate == combatantStates.Free ||  myManager.combatantstate == combatantStates.StartUpFree)
         agent.SetDestination(target.transform.position);
+
+        if (!IsServer) { return; }
+        myManager.stateManager[myManager.stats.attacks[0]].pressed = false;
     }
     private void AttackPlayer()
     {
         transform.LookAt(new Vector3(target.transform.position.x, transform.position.y ,target.transform.position.z));
+        if(!IsServer) { return; }
         myManager.stateManager[myManager.stats.attacks[0]].pressed = true;
 
         if (myManager.combatantstate != combatantStates.Free || myManager.combatantstate != combatantStates.StartUpFree)

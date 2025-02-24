@@ -45,7 +45,7 @@
                     "name": "Ability1",
                     "type": "Button",
                     "id": "2a393684-4563-4438-baf9-134db626f02e",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -54,7 +54,7 @@
                     "name": "Ability2",
                     "type": "Button",
                     "id": "972f2ff3-98c7-47eb-be10-5a3d72d224db",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -63,7 +63,25 @@
                     "name": "Ability3",
                     "type": "Button",
                     "id": "72e43198-b9e2-4802-b9c6-72743baa5d95",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability4",
+                    "type": "Button",
+                    "id": "d98da1e2-b171-4f58-8934-4892c8acd1e2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability5",
+                    "type": "Button",
+                    "id": "db4a5c9c-47d2-45f5-8128-095f6b040a06",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -298,6 +316,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Ability3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0acaa503-6251-45dc-927b-9c896a2559f1",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Ability4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3cbdf489-05e5-45bf-9a00-1ec71b29c390",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Ability5",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

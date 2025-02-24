@@ -21,6 +21,8 @@ public class NewCombatManager : NetworkBehaviour
 
     [DoNotSerialize] public static NewCombatManager instance;
 
+    [SerializeField] private PlayerUIManager playerUI;
+
     private int xpHarvested;
     private int moneyHarvested;
     private List<ItemBase> itemsPicked = new List<ItemBase>();
@@ -104,10 +106,7 @@ public class NewCombatManager : NetworkBehaviour
 
                 abilitiyManage.UpdateStatsRpc(i);
                 SetNotSpectateRpc(countbcisuck,RpcTarget.Single((ulong)player.playerNumber, RpcTargetUse.Temp));
-                Debug.Log("Number of cameras(in loop)" + cameras.Count);
-
-            
-                Debug.Log("PlayerSpawn: " + playerfab.GetComponent<NetworkObject>().NetworkObjectId);
+               
                 countbcisuck++;
             }
             else
@@ -139,6 +138,9 @@ public class NewCombatManager : NetworkBehaviour
         cameras[0].Priority = 1;
         currentSpec = whichone;
         cameras[whichone].Priority = 10;
+        
+        playerUI.abilityManager = allCombatants[whichone-1]; //keep in mind that theres already a camera in the scene by default so its off by 1
+        playerUI.SetUp();
 
     }
 
