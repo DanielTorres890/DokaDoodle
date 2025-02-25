@@ -256,6 +256,7 @@ public class NewCombatManager : NetworkBehaviour
                 endBattleInfo.lines[0] += " and they've leveled up " + levels + " times";
                 endBattleInfo.endEvent.RemoveAllListeners();
                 levelUpUI.statsToAllocate += levels * 3;
+                levelUpUI.inControl = player.playerNumber;
                 levelUpUI.playerWhoLevel = player;
                 endBattleInfo.endEvent.AddListener(delegate { levelUpUI.Setup(); });
                 
