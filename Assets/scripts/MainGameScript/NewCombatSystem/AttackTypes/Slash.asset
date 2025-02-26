@@ -17,27 +17,17 @@ MonoBehaviour:
   startUp: 0.2
   endLag: 0
   cooldown: 0
-  lifespan: 1
-  stateToBe: 3
+  lifespan: 0.3
+  stateToBe: 0
   chargeable: 0
-  attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
+  attackPrefab: {fileID: 2566779757777240371, guid: b4fd0f87d4129aa4681b4392e0d9a122, type: 3}
   offset: {x: 0, y: 2, z: 1}
   multipliers:
-  - attribute: 0
-    mult: 0
-  - attribute: 1
-    mult: 0
   - attribute: 2
     mult: 1.7
+  defenseMult:
   - attribute: 3
-    mult: 0
-  - attribute: 4
-    mult: 0
-  - attribute: 5
-    mult: 0
-  - attribute: 6
-    mult: 0
-  defenseMult: []
+    mult: 1
   antiGuardMultipliers:
   - attribute: 0
     mult: 1

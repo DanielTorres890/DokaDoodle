@@ -260,22 +260,5 @@ public enum combatantStates
 
 }
 
-public class abilityField
-{
-    private int abilityNumber;
 
-    private InputAction AbilityInputAction;
-
-    public event System.Action<int> OnAbilityPress;
-
-    public void Enable()
-    {
-        AbilityInputAction.performed += AbilityPress;
-    }
-
-    private void AbilityPress(InputAction.CallbackContext ctx)
-    {
-
-    }
-}
 

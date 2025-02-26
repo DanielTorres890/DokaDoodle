@@ -38,9 +38,19 @@ public class PlayerMoveManager : NetworkBehaviour
     public void Awake()
     {
         
+        for(int i = 0; i < mapTiles.Count; i++)
+        {
+            mapTiles[i].tileId = i;
+        }
         Instance = this;
 
         Debug.Log("Setting up player " + NetworkData.Instance.currentPlayer);
+
+        foreach (var status in NetworkData.Instance.players[NetworkData.Instance.currentPlayer].statuses)
+        {
+            status.ProgressStatus();
+        }
+        
         setUpTileEnemies();
         playerSticks = GameObject.FindGameObjectWithTag("Data").GetComponent<NetworkData>().playerSticks;
         

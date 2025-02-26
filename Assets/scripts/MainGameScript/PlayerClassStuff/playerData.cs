@@ -22,7 +22,8 @@ public class playerData : EntityStats
     {
         {"xp", 0 },
         {"level", 1 },
-        {"money", 2000 }
+        {"money", 2000 },
+        {"fame", 0 }
     };
     
     public int tillRevive;
@@ -160,10 +161,11 @@ public class playerData : EntityStats
             levelsGained++;
             foreach( var stat in NetworkData.Instance.classDataBase.Classes[this.playerClass].levelUpStats)
             {
-                this.stats[stat.attribute] += stat.value;
-            }
+                this.ChangeBaseStat(stat.attribute, stat.value);
 
-            
+            }
+            PostStatusStatCalc();
+
         }
 
         return levelsGained;

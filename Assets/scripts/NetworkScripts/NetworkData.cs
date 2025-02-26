@@ -15,6 +15,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     [SerializeField] private GameObject characterEditor;
 
     [SerializeField] public ClassDataBase classDataBase;
+    public BuffDataBase buffDataBase;
 
     //BEFORE U @ ME FOR THIS ITS BC UNITY DOESNT ALLOW U TO SERIALIZE 2D LIST SO THIS IS MY WORK AROUND SO I CAN ADD THEM IN THE INSPECTOR
     public List<List<InventoryObject>> playerInventories = new List<List<InventoryObject>>();
@@ -224,8 +225,10 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             }
             players[i].playerNumber = i;
             players[i].loyaltyTags.Add("Player" + players[i].playerNumber);
+            players[i].PostStatusStatCalc();
             if(IsServer) { playerSticks[i].GetComponent<NetworkObject>().ChangeOwnership((ulong)i);  }
         }
+
     }
     public void AddItemToInventory(int playerId, ItemBase item)
     {

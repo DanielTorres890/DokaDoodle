@@ -38,11 +38,11 @@ public abstract class AbilityBase : NetworkBehaviour
         float totalDamge = 0;
         foreach (var offense in attackInfo.multipliers)
         {
-            totalDamge += offense.mult * ownerStats.stats[offense.attribute];
+            totalDamge += offense.mult * ownerStats.postStatusStats[offense.attribute];
         }
         foreach (var defense in attackInfo.defenseMult)
         {
-            totalDamge -= defense.mult * defender.stats[defense.attribute];
+            totalDamge -= defense.mult * defender.postStatusStats[defense.attribute];
         }
 
         if (totalDamge < 0)
