@@ -73,7 +73,7 @@ public class EntityStats
             {
                 foreach (var buff in (NetworkData.Instance.buffDataBase.GetBuff[status.buffId] as StatStatusEffect).stats) 
                 {
-                    StatusMultipliers[buff.attribute] += buff.value / 10f;
+                    StatusMultipliers[buff.attribute] += buff.value / 100f;
                 }
             }
         }

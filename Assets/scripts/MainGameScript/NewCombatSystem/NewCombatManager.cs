@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.Cinemachine;
 using Unity.Netcode;
 using Unity.VisualScripting;
@@ -27,7 +28,8 @@ public class NewCombatManager : NetworkBehaviour
     private int moneyHarvested;
     private List<ItemBase> itemsPicked = new List<ItemBase>();
 
-    
+    public float combatTimer = 30;
+    [SerializeField] private TextMeshProUGUI timerText;
 
     [DoNotSerialize] public bool fightOver = false;
     
@@ -42,7 +44,18 @@ public class NewCombatManager : NetworkBehaviour
 
     public PlayerInput playercontrol;
 
-    
+
+    private void Update()
+    {
+        combatTimer -= Time.deltaTime;
+        timerText.text = Mathf.RoundToInt(combatTimer).ToString();
+
+        if (IsServer && !fightOver && combatTimer <= 0)
+        {
+            EarlyEndCombatRpc();
+        }
+    }
+
     public override void OnNetworkSpawn()
     {
         //bc im dumb and didnt handle things earlier
@@ -321,7 +334,7 @@ public class NewCombatManager : NetworkBehaviour
                 }
             }
             endBattleInfo.gameObject.SetActive(true);
-            endBattleInfo.Awake();
+            endBattleInfo.startDialogue();
             endBattleInfo.whoInControl = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber;
 
         }
@@ -333,6 +346,21 @@ public class NewCombatManager : NetworkBehaviour
 
 
 
+    }
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void EarlyEndCombatRpc()
+    {
+        playercontrol.SwitchCurrentActionMap("UI");
+        fightOver = true;
+        Cursor.lockState = CursorLockMode.None;
+        endBattleInfo.lines.Clear();
+
+        endBattleInfo.lines.Add("NEXT TIME ON DRAGON BALL Z");
+        endBattleInfo.gameObject.SetActive(true);
+        endBattleInfo.startDialogue();
+        NetworkData.Instance.setNextTurnNum();
+        endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]

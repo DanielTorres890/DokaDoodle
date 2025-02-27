@@ -255,4 +255,17 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         Debug.Log("Whos turn is it " + NetworkData.Instance.currentPlayer);
         Debug.Log("Maximum Players " + NetworkData.Instance.maxPlayers);
     }
+    public void ProgressStatus(int player)
+    {
+        for (int i = 0; i < NetworkData.Instance.players[player].statuses.Count; i++)
+        {
+            if (NetworkData.Instance.players[player].statuses[i].ProgressStatus())
+            {
+                NetworkData.Instance.players[player].statuses.RemoveAt(i);
+                
+                i--;
+            }
+        }
+        NetworkData.Instance.players[player].PostStatusStatCalc();
+    }
 }

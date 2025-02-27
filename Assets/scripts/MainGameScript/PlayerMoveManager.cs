@@ -46,10 +46,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
         Debug.Log("Setting up player " + NetworkData.Instance.currentPlayer);
 
-        foreach (var status in NetworkData.Instance.players[NetworkData.Instance.currentPlayer].statuses)
-        {
-            status.ProgressStatus();
-        }
+       
         
         setUpTileEnemies();
         playerSticks = GameObject.FindGameObjectWithTag("Data").GetComponent<NetworkData>().playerSticks;
@@ -121,7 +118,7 @@ public class PlayerMoveManager : NetworkBehaviour
         if (diceRoll <= 0)
         {
 
-            stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", false);
+            
             canMove = false;
             SyncPlayerTileServerRpc(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
             SetNextTurnServerRpc();
@@ -270,17 +267,17 @@ public class PlayerMoveManager : NetworkBehaviour
         if (rpcstuff.Receive.SenderClientId == NetworkManager.Singleton.LocalClientId) { return; }
 
         StopAllCoroutines();
-        Debug.Log("IM TRYING TO MOVE TOWAREDS THIS" + tildid);
+       
         StartCoroutine(playerMover(speed, tildid));
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SetNextTurnServerRpc()
     {
-
+        stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", false);
         rollNum.transform.parent.gameObject.SetActive(true);
         MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Add(NetworkData.Instance.currentPlayer);
-        Debug.Log("Something should happen?");
+  
         mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].TileEvent();
     }
 
@@ -328,8 +325,8 @@ public class PlayerMoveManager : NetworkBehaviour
                     {
                         var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemies.enemyId].enemyNonCombatPrefab);
                         enemy.transform.position = mapTiles[i].transform.position;
-                        enemy.transform.position = new Vector3(enemy.transform.position.x - 120, enemy.transform.position.y, enemy.transform.position.z + 60);
-                        enemy.transform.localScale = new Vector3(50, 50, 1);
+                        enemy.transform.position = new Vector3(enemy.transform.position.x - 0, enemy.transform.position.y, enemy.transform.position.z + 0);
+                        enemy.transform.localScale = new Vector3(1, 1, 1);
                         Debug.Log("OVERWORLD ENEMY SPAWNED");
                     }
                     

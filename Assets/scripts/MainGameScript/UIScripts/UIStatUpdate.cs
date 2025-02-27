@@ -21,7 +21,14 @@ public class UIStatUpdate : MonoBehaviour
 
     private void StatUpdate()
     {
-        textMeshProUGUI.text = statName + " "+NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attribute];
+        string color = "<color=black>";
+        if (attribute != Attributes.Health && attribute != Attributes.MaxHealth && NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attribute] > NetworkData.Instance.players[NetworkData.Instance.currentPlayer].stats[attribute])
+            color = "<color=#1abf3a>";
+        if (attribute != Attributes.Health && attribute != Attributes.MaxHealth && NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attribute] < NetworkData.Instance.players[NetworkData.Instance.currentPlayer].stats[attribute])
+            color = "<color=red";
+
+
+            textMeshProUGUI.text = statName + " "+color+NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attribute]+"</color>";
         if(statName.Equals("LVL"))
         {
             textMeshProUGUI.text = statName + " " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo["level"];

@@ -20,6 +20,7 @@ public class ClientChecks : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
         bool rumble = false;
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
         {
@@ -31,7 +32,7 @@ public class ClientChecks : NetworkBehaviour
             }
         }
 
-        if ((MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0 || !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
+        if ((MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0 && !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
         {
             
             MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Remove(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber);
@@ -51,7 +52,7 @@ public class ClientChecks : NetworkBehaviour
                 return;
             }
 
-        
+            
             PlayerMoveManager.Instance.gameMenu.SetActive(false);
             if (IsServer) { SyncEnemyRpc(0); }
             
@@ -126,10 +127,11 @@ public class ClientChecks : NetworkBehaviour
         }
         
         //Pretty much everything that isn't these two is stuff from the old system
-        if (!rumble)
-        {
+        
             if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0)
             {
+                if (rumble) { return; }
+            
                 var temp = new EnemyCombat(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemyId]);
                 PlayerCombatManager.Instance.combatants.Add(temp);
                 MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Add(temp);
@@ -142,7 +144,7 @@ public class ClientChecks : NetworkBehaviour
                 }
 
             }
-        }
+        
       
 
         combatPreview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();
