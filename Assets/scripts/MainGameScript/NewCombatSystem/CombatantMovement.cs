@@ -34,7 +34,7 @@ public class CombatantMovement : NetworkBehaviour
     public void NormalJump(InputAction.CallbackContext action)
     {
 
-        if (grounded) 
+        if (grounded && IsOwner) 
         {
       
             body.AddForce(Vector3.up * (jumpForce + abilityManager.stats.speedFormula()), ForceMode.VelocityChange);
@@ -110,7 +110,7 @@ public class CombatantMovement : NetworkBehaviour
 
     private bool CanMove()
     {
-        return (abilityManager.combatantstate == combatantStates.Free || abilityManager.combatantstate == combatantStates.StartUpFree);
+        return (abilityManager.combatantstate == combatantStates.Free || abilityManager.combatantstate == combatantStates.StartUpFree) && !abilityManager.stats.isDead;
     }
 
     

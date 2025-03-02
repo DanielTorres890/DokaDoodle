@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public abstract class AbilityBase : NetworkBehaviour
@@ -51,20 +52,26 @@ public abstract class AbilityBase : NetworkBehaviour
             return Mathf.RoundToInt(totalDamge);
 
     }
-    /*public void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Did i enter their hitbox");
+        if(!IsServer || other.gameObject == owner) { return; }
+        
+        OnHit();
 
-        if (!(other.gameObject.CompareTag("damageable") && other.gameObject != owner))
-        {
-            return;
-
-        }
         Debug.Log(other.gameObject);
         Debug.Log(owner);
-        other.gameObject.GetComponent<AbilityManager>().OnTriggerEnter(GetComponent<Collider>());
 
+        if (other.gameObject.TryGetComponent(out AbilityManager hitby))
+        {
+            
+         
+            Debug.Log("ERRRR" + other.GetType());
 
-    }*/
+            hitby.ImHitRpc(DamageCalculator(hitby.stats));
+        }
+
+    }
 
 
 }

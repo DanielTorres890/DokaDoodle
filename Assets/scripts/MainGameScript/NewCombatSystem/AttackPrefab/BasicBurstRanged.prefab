@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 4514793446284670993}
   - component: {fileID: 6448711870588041357}
   - component: {fileID: -1555188018097761370}
-  - component: {fileID: 261276089783544002}
+  - component: {fileID: 6329192147158506808}
   m_Layer: 0
-  m_Name: BasicRanged
+  m_Name: BasicBurstRanged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 760902949
+  GlobalObjectIdHash: 3872555190
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -200,7 +200,7 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &261276089783544002
+--- !u!114 &6329192147158506808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4958144232811764369}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc17d31ebc964f846b3432bdab79b215, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f90dae59f8064c418cacbea0518d534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
@@ -225,5 +225,6 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
-  lifespan: 5
+  lifespan: 12
   speed: 5
+  burstHitbox: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}

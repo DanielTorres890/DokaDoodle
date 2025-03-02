@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Food Object", menuName = "Inventory System/Items/BuffItem")]
 public class StatusItem : ItemBase
 {
-    public BuffBase Buff;
+    public BuffBase[] StatusEffects;
     public override void ItemInfoCheck(int player, int itemId)
     {
         if (!NetworkData.Instance.IsAllowed(player, NetworkManager.Singleton.LocalClientId)) { return; }
@@ -14,8 +14,11 @@ public class StatusItem : ItemBase
 
     public override void PerformItemEffect(int player, InventoryObject inventory)
     {
-
-        Buff.BuffEffect(NetworkData.Instance.players[player]);
+        foreach(var buff in StatusEffects)
+        {
+            buff.BuffEffect(NetworkData.Instance.players[player]);
+        }
+        
         inventory.RemoveItem(this);
     }
 }

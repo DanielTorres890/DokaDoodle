@@ -38,7 +38,7 @@ public class AbilityManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!IsOwner || NewCombatManager.instance.fightOver) { return; }
+        if(!IsOwner || NewCombatManager.instance.fightOver || stats.isDead) { return; }
         foreach (var state in  stateManager.Keys) 
         {
             stateManager[state].cooldown -= Time.deltaTime;
@@ -147,7 +147,7 @@ public class AbilityManager : NetworkBehaviour
 
         }
     }
-    
+   /* 
     public void OnTriggerEnter(Collider other)
     {
         
@@ -163,8 +163,10 @@ public class AbilityManager : NetworkBehaviour
         }
 
     }
+   */
+
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    private void ImHitRpc(int damageAmt)
+    public void ImHitRpc(int damageAmt)
     {
         stats.stats[Attributes.Health] -= damageAmt;
         Debug.Log("did i get hit twice or did that just hurt alot " + damageAmt);

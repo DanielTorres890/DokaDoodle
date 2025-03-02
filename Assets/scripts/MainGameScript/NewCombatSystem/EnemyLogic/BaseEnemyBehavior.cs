@@ -9,13 +9,15 @@ using UnityEngine.AI;
 
 public class BaseEnemyBehavior : NetworkBehaviour
 {
-    public GameObject target;
+    public AbilityManager targetManager;
+
 
     public NavMeshAgent agent;
 
     public LayerMask whatIsGround, whatIsPLayer;
 
     public AbilityManager myManager;
+
 
     public float attackRange;
     public bool InAttackRange;
@@ -36,20 +38,20 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
     private void FindEnemy()
     {
-        if (target == null) { target = NewCombatManager.instance.allCombatants[0].gameObject;  }
-
+        
+        if (targetManager == null || targetManager.stats.isDead) { targetManager = NewCombatManager.instance.allCombatants[0];  }
         
         foreach (var entity in NewCombatManager.instance.allCombatants)
         {
             
-            if (gameObject == entity.gameObject) { continue; }
+            if (gameObject == entity.gameObject || entity.stats.isDead) { continue; }
 
-            if (target == gameObject) { target = entity.gameObject; }
+            if (targetManager.gameObject == gameObject || targetManager.stats.isDead) { targetManager = entity; }
             
 
-            if (!entity.stats.loyaltyTags.Intersect(myManager.stats.loyaltyTags).Any() && Vector3.Distance(gameObject.transform.position, entity.gameObject.transform.position) < Vector3.Distance(gameObject.transform.position, target.transform.position))
+            if (!entity.stats.loyaltyTags.Intersect(myManager.stats.loyaltyTags).Any() && Vector3.Distance(gameObject.transform.position, entity.gameObject.transform.position) < Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position))
             {
-                target = entity.gameObject;
+                targetManager = entity;
             }
 
         }
@@ -57,14 +59,19 @@ public class BaseEnemyBehavior : NetworkBehaviour
     private void Update()
     {
        
-        
-        InAttackRange = Vector3.Distance(gameObject.transform.position, target.transform.position) < attackRange ;
+        if(NewCombatManager.instance.fightOver) { return; }
+
+        InAttackRange = Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position) < attackRange ;
         
         if(!InAttackRange) { ChasePlayer();  }
+
+
+        if (targetManager == null || targetManager.gameObject.gameObject == gameObject || targetManager.stats.isDead) { FindEnemy(); }
+
+
+        if (InAttackRange) { AttackPlayer(); }
         
-        if(InAttackRange) { AttackPlayer(); }
         
-        if(target == null || target.gameObject == gameObject) { FindEnemy(); }
         
     }
 
@@ -75,15 +82,16 @@ public class BaseEnemyBehavior : NetworkBehaviour
         
 
         if (myManager.combatantstate == combatantStates.Free ||  myManager.combatantstate == combatantStates.StartUpFree)
-        agent.SetDestination(target.transform.position);
+        agent.SetDestination(targetManager.gameObject.transform.position);
 
         if (!IsServer) { return; }
         myManager.stateManager[myManager.stats.attacks[0]].pressed = false;
     }
     private void AttackPlayer()
     {
-        transform.LookAt(new Vector3(target.transform.position.x, transform.position.y ,target.transform.position.z));
+        transform.LookAt(new Vector3(targetManager.gameObject.transform.position.x, transform.position.y , targetManager.gameObject.transform.position.z));
         if(!IsServer) { return; }
+
         myManager.stateManager[myManager.stats.attacks[0]].pressed = true;
 
         if (myManager.combatantstate != combatantStates.Free || myManager.combatantstate != combatantStates.StartUpFree)

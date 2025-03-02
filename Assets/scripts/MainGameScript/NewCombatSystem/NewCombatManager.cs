@@ -174,12 +174,20 @@ public class NewCombatManager : NetworkBehaviour
                 if (dropnum >= 0) { ItemDroppedRpc(dropnum, info.enemyId); }
                 
                 Destroy(whoded.gameObject);
+            }           
+        }
+        if (whoded.stats is playerData)
+        {
+            playerData info = (playerData)whoded.stats;
+            info.death(3);
+            Debug.Log(info.name + " did i die: " +info.isDead);
+            if(whoded.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) 
+            {
+                
             }
 
-          
-            
         }
-        
+
         if (IsServer && CheckWin())
         {
             SetUpVictorRpc();

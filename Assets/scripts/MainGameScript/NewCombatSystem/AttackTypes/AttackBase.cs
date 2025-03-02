@@ -21,7 +21,7 @@ public abstract class AttackBase : ScriptableObject
 
     public GameObject attackPrefab;
     public Vector3 offset;
-
+    public Vector3 ablitySize;
 
     public AttackMult[] multipliers = new AttackMult[7] {new AttackMult(Attributes.MaxHealth), new AttackMult(Attributes.Health) , new AttackMult(Attributes.Attack) , new AttackMult(Attributes.Defense) , new AttackMult(Attributes.Magic) , new AttackMult(Attributes.MDefense) , new AttackMult(Attributes.Dexterity)};
     public AttackMult[] defenseMult;
@@ -33,7 +33,7 @@ public abstract class AttackBase : ScriptableObject
         var attack = Instantiate(attackPrefab);
         attack.transform.position = caster.transform.position + caster.transform.TransformDirection(offset);
         attack.transform.rotation = caster.transform.rotation;
-
+        attack.transform.localScale = ablitySize;
         var info = attack.GetComponent<AbilityBase>();
 
         info.owner = caster;
