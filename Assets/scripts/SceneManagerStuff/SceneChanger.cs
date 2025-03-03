@@ -17,17 +17,22 @@ public class SceneChanger : NetworkBehaviour
         
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [Rpc(SendTo.Server, RequireOwnership = false)]
     public void loadClientScenesServerRpc(string sceneName)
     {
         
         if (sceneName == "Fake") { return;  }
        
-        loadedPlayers = 0;
+        ResetYoStuffRpc();
         NetworkManager.Singleton.SceneManager.LoadScene(sceneName,LoadSceneMode.Single);
     }
-    
 
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void ResetYoStuffRpc()
+    {
+        loadedPlayers = 0;
+        Debug.Log("ResetLoaded ");
+    }
    
     public override void OnNetworkSpawn()
     {

@@ -27,7 +27,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "7fba05cf-dcd0-45c3-8ccf-9e3b467f75b4",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -36,7 +36,16 @@
                     "name": "M1Attack",
                     "type": "Value",
                     "id": "d46545e6-1d57-4c7c-82cb-705cd58c3373",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ClassAbility",
+                    "type": "Value",
+                    "id": "e6e9170c-7107-46f3-8902-a82550979934",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -84,6 +93,42 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DashRight",
+                    "type": "Button",
+                    "id": "df6b6081-55b5-4299-bd2d-efcc80596bcc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "MultiTap",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DashLeft",
+                    "type": "Button",
+                    "id": "1edf29a3-ef5f-49c6-9c85-3ebc76c9ffdb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "MultiTap",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DashFwd",
+                    "type": "Button",
+                    "id": "618003e8-7724-415d-9da8-1e6e363fbbe3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "MultiTap",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DashBack",
+                    "type": "Button",
+                    "id": "b8dda105-e600-4892-92d7-499654de4eb3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "MultiTap",
                     "initialStateCheck": false
                 }
             ],
@@ -288,6 +333,17 @@
                 },
                 {
                     "name": "",
+                    "id": "9d2afdcd-99b6-40b8-b903-4af5e8de79f2",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ClassAbility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4bfcfc5f-7421-4a00-910a-4055a2a42ad2",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -338,6 +394,50 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Ability5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69d4089a-c991-4610-a4c5-31c9913d27f8",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DashRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8d27367d-39c6-4ce8-99b2-d41e34cdd591",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DashLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99c076b6-d2e6-4cd8-ab5c-235d8bf47377",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DashFwd",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "638bbd98-231e-4220-beca-5cc684b20220",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DashBack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

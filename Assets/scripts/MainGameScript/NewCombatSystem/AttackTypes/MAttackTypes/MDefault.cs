@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-[CreateAssetMenu(fileName = "New Attack Object", menuName = "MagicAttacks/MagDefault")]
+[CreateAssetMenu(fileName = "New Attack Object", menuName = "Abilities/MagicAttacks/MagDefault")]
 public class MDefault : AttackBase
 {
     public override GameObject WeaponEffect(GameObject caster)

@@ -1,9 +1,9 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class EventTIle : TileScript
+public class EventTIle : DefaultTile
 {
-    public EventBase[] tileEvent;
+    
     public override void TileEvent()
     {
 

@@ -1453,6 +1453,7 @@ MonoBehaviour:
   - {fileID: 1015846874}
   - {fileID: 304341836}
   - {fileID: 2044499868}
+  - {fileID: 911236206}
   rollNum: {fileID: 576978339}
   playerSticks: []
   mapNumber: 0
@@ -1684,6 +1685,26 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: db4a5c9c-47d2-45f5-8128-095f6b040a06
     m_ActionName: 'Player/Ability5[/Keyboard/c]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e6e9170c-7107-46f3-8902-a82550979934
+    m_ActionName: 'Player/ClassAbility[/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: df6b6081-55b5-4299-bd2d-efcc80596bcc
+    m_ActionName: 'Player/DashRight[/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1edf29a3-ef5f-49c6-9c85-3ebc76c9ffdb
+    m_ActionName: 'Player/DashLeft[/Keyboard/a]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 618003e8-7724-415d-9da8-1e6e363fbbe3
+    m_ActionName: 'Player/DashFwd[/Keyboard/w]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b8dda105-e600-4892-92d7-499654de4eb3
+    m_ActionName: 'Player/DashBack[/Keyboard/s]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
@@ -3721,6 +3742,14 @@ PrefabInstance:
       propertyPath: rightTile
       value: 
       objectReference: {fileID: 304341835}
+    - target: {fileID: 1525862722101387219, guid: 4da2bb3c55af5684382d09cb0cefc8d5, type: 3}
+      propertyPath: events.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1525862722101387219, guid: 4da2bb3c55af5684382d09cb0cefc8d5, type: 3}
+      propertyPath: 'events.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 0a0cf92a146435e49baa995a79760ae9, type: 2}
     - target: {fileID: 3735387054086767184, guid: 4da2bb3c55af5684382d09cb0cefc8d5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2
@@ -3780,6 +3809,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4275375762089989838, guid: 4da2bb3c55af5684382d09cb0cefc8d5, type: 3}
   m_PrefabInstance: {fileID: 911236203}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &911236206 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1525862722101387219, guid: 4da2bb3c55af5684382d09cb0cefc8d5, type: 3}
+  m_PrefabInstance: {fileID: 911236203}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911236205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4522dce7348f88d4dbc2d9ff24586b41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &926617836
 PrefabInstance:
   m_ObjectHideFlags: 0

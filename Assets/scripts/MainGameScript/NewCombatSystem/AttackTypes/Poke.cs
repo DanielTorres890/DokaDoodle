@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-[CreateAssetMenu(fileName = "New Attack Object", menuName = "WeaponAttacks/Poke")]
+[CreateAssetMenu(fileName = "New Attack Object", menuName = "Abilities/WeaponAttacks/Poke")]
 public class Poke : AttackBase
 {
     

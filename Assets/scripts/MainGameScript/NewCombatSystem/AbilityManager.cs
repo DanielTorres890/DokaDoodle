@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class AbilityManager : NetworkBehaviour
@@ -13,6 +14,8 @@ public class AbilityManager : NetworkBehaviour
 
 
     public Dictionary<AttackBase, AbilityStates> stateManager = new Dictionary<AttackBase, AbilityStates>();
+    public List<AttackBase> orderedAttacks = new List<AttackBase>();
+
     [SerializeField] private AttackBase testAttack;
 
     public EntityStats stats;
@@ -26,6 +29,8 @@ public class AbilityManager : NetworkBehaviour
 
     [SerializeField] private EntityUIUpdate nameText;
     [SerializeField] private EntityUIUpdate hpText;
+
+    public UnityEvent onStatus;
     public override void OnNetworkSpawn()
     {
         NewCombatManager.instance.fricku.Add(gameObject);
@@ -38,6 +43,7 @@ public class AbilityManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if(!IsOwner || NewCombatManager.instance.fightOver || stats.isDead) { return; }
         foreach (var state in  stateManager.Keys) 
         {
@@ -79,7 +85,7 @@ public class AbilityManager : NetworkBehaviour
 
                 stateDuration = currentAttack.endLag;
                 combatantstate = combatantStates.Endlag;
-                if (stateDuration >= 0)
+                if (stateDuration <= 0)
                 {
                     combatantstate = combatantStates.Free;
                 }
@@ -117,12 +123,16 @@ public class AbilityManager : NetworkBehaviour
       
 
         actions.SwitchCurrentActionMap("Player");
+        onStatus = new UnityEvent();
+
+
         actions.actions["M1Attack"].performed += M1Attack;
         actions.actions["M1Attack"].canceled += M1AttackReleased;
         inputToInt.Add(actions.actions["M1Attack"].controls[0], 0);
         stateManager.Add(stats.attacks[0], new AbilityStates());
+        orderedAttacks.Add(stats.attacks[0]);
 
-        for (int i = 1; i < 6; i++)
+        for (int i = 1; i < stats.attacks.Count-1; i++)
         {
             if (i >= stats.attacks.Count) { break; }
 
@@ -133,9 +143,14 @@ public class AbilityManager : NetworkBehaviour
             actions.actions["Ability" + i.ToString()].canceled += M1AttackReleased;
             inputToInt.Add(actions.actions["Ability" + i.ToString()].controls[0], i);
             stateManager.Add(stats.attacks[i], new AbilityStates());
-
+            orderedAttacks.Add(stats.attacks[i]);
         }
-        
+
+        actions.actions["ClassAbility"].performed += M1Attack;
+        actions.actions["ClassAbility"].canceled += M1AttackReleased;
+        inputToInt.Add(actions.actions["ClassAbility"].controls[0], stats.attacks.Count-1);
+        stateManager.Add(stats.attacks[stats.attacks.Count - 1], new AbilityStates());
+        orderedAttacks.Add(stats.attacks[stats.attacks.Count - 1]);
     }
 
     public void AssignStateManager()
@@ -170,6 +185,7 @@ public class AbilityManager : NetworkBehaviour
     {
         stats.stats[Attributes.Health] -= damageAmt;
         Debug.Log("did i get hit twice or did that just hurt alot " + damageAmt);
+        stats.PostStatusStatCalc();
         hpText.UpdateText();
         if (stats.stats[Attributes.Health] <= 0 && !stats.isDead)
         {
@@ -178,6 +194,18 @@ public class AbilityManager : NetworkBehaviour
         }
         
         
+        
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void IGainedBuffRpc(int[] buffId)
+    {
+        foreach(int i in buffId)
+        {
+            stats.GainStatus(NetworkData.Instance.buffDataBase.GetBuff[i]);
+        }
+        Debug.Log("I gained buffs i think");
+        stats.PostStatusStatCalc();
+        onStatus.Invoke();
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -197,8 +225,10 @@ public class AbilityManager : NetworkBehaviour
         stats = PlayerCombatManager.Instance.combatants[combatantNum];
         nameText.AbilityManager = this;
         hpText.AbilityManager = this;
+        stats.PostStatusStatCalc();
         nameText.UpdateText();
         hpText.UpdateText();
+        
         if(IsOwner) 
         { 
             if (gameObject.TryGetComponent(out BaseEnemyBehavior ai))
@@ -258,6 +288,7 @@ public enum combatantStates
     StartUp,
     StartUpFree,
     Endlag,
+    Dashing,
     Free
 
 }

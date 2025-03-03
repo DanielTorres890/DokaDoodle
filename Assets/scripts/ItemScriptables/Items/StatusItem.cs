@@ -16,7 +16,7 @@ public class StatusItem : ItemBase
     {
         foreach(var buff in StatusEffects)
         {
-            buff.BuffEffect(NetworkData.Instance.players[player]);
+            buff.OnApply(NetworkData.Instance.players[player]);
         }
         
         inventory.RemoveItem(this);

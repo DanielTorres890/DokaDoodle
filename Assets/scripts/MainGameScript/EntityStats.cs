@@ -48,12 +48,47 @@ public class EntityStats
     {
         return Mathf.Sqrt(stats[Attributes.Dexterity])/2;
     }
+    public float dashFormula()
+    {
+        return Mathf.Sqrt(stats[Attributes.Dexterity]) * 20;
+    }
 
     public void ChangeBaseStat(Attributes attr, int amt)
     {
         stats[attr] += amt;
         
     }
+    public void GainStatus(BuffBase status)
+    {
+        bool alreadyAfflicted = false;
+        foreach (var stati in statuses)
+        {
+            if(stati.buffId == NetworkData.Instance.buffDataBase.GetId[status])
+            {
+                stati.timeRemaining += status.duration;
+                alreadyAfflicted = true;
+                break;
+            }
+
+        }
+        if(!alreadyAfflicted)
+        {
+            statuses.Add(new BuffHolder(status.duration, NetworkData.Instance.buffDataBase.GetId[status]));
+        }
+    }
+    public void ProgressStatuses()
+    {
+        for(int i = statuses.Count - 1; i >= 0; i--) 
+        {
+            if (statuses[i].ProgressStatus())
+            {
+                statuses.RemoveAt(i);
+                
+            }
+        }
+        PostStatusStatCalc();
+    }
+
     public void PostStatusStatCalc()
     {
         Dictionary<Attributes, float> StatusMultipliers = new Dictionary<Attributes, float>

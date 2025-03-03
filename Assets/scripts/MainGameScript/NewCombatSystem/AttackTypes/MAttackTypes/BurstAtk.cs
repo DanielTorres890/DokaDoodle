@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Attack Object", menuName = "MagicAttacks/BurstAtk")]
+[CreateAssetMenu(fileName = "New Attack Object", menuName = "Abilities/MagicAttacks/BurstAtk")]
 public class BurstAtk : MDefault
 {
     public float burstLifespan;

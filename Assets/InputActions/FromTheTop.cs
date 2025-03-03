@@ -49,7 +49,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""7fba05cf-dcd0-45c3-8ccf-9e3b467f75b4"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -58,7 +58,16 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""name"": ""M1Attack"",
                     ""type"": ""Value"",
                     ""id"": ""d46545e6-1d57-4c7c-82cb-705cd58c3373"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ClassAbility"",
+                    ""type"": ""Value"",
+                    ""id"": ""e6e9170c-7107-46f3-8902-a82550979934"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -106,6 +115,42 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DashRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""df6b6081-55b5-4299-bd2d-efcc80596bcc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""MultiTap"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DashLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""1edf29a3-ef5f-49c6-9c85-3ebc76c9ffdb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""MultiTap"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DashFwd"",
+                    ""type"": ""Button"",
+                    ""id"": ""618003e8-7724-415d-9da8-1e6e363fbbe3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""MultiTap"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DashBack"",
+                    ""type"": ""Button"",
+                    ""id"": ""b8dda105-e600-4892-92d7-499654de4eb3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""MultiTap"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -310,6 +355,17 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""9d2afdcd-99b6-40b8-b903-4af5e8de79f2"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ClassAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""4bfcfc5f-7421-4a00-910a-4055a2a42ad2"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
@@ -360,6 +416,50 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Ability5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69d4089a-c991-4610-a4c5-31c9913d27f8"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DashRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d27367d-39c6-4ce8-99b2-d41e34cdd591"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DashLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""99c076b6-d2e6-4cd8-ab5c-235d8bf47377"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DashFwd"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""638bbd98-231e-4220-beca-5cc684b20220"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DashBack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1301,11 +1401,16 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_M1Attack = m_Player.FindAction("M1Attack", throwIfNotFound: true);
+        m_Player_ClassAbility = m_Player.FindAction("ClassAbility", throwIfNotFound: true);
         m_Player_Ability1 = m_Player.FindAction("Ability1", throwIfNotFound: true);
         m_Player_Ability2 = m_Player.FindAction("Ability2", throwIfNotFound: true);
         m_Player_Ability3 = m_Player.FindAction("Ability3", throwIfNotFound: true);
         m_Player_Ability4 = m_Player.FindAction("Ability4", throwIfNotFound: true);
         m_Player_Ability5 = m_Player.FindAction("Ability5", throwIfNotFound: true);
+        m_Player_DashRight = m_Player.FindAction("DashRight", throwIfNotFound: true);
+        m_Player_DashLeft = m_Player.FindAction("DashLeft", throwIfNotFound: true);
+        m_Player_DashFwd = m_Player.FindAction("DashFwd", throwIfNotFound: true);
+        m_Player_DashBack = m_Player.FindAction("DashBack", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1397,11 +1502,16 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_M1Attack;
+    private readonly InputAction m_Player_ClassAbility;
     private readonly InputAction m_Player_Ability1;
     private readonly InputAction m_Player_Ability2;
     private readonly InputAction m_Player_Ability3;
     private readonly InputAction m_Player_Ability4;
     private readonly InputAction m_Player_Ability5;
+    private readonly InputAction m_Player_DashRight;
+    private readonly InputAction m_Player_DashLeft;
+    private readonly InputAction m_Player_DashFwd;
+    private readonly InputAction m_Player_DashBack;
     public struct PlayerActions
     {
         private @CustomInput m_Wrapper;
@@ -1410,11 +1520,16 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @M1Attack => m_Wrapper.m_Player_M1Attack;
+        public InputAction @ClassAbility => m_Wrapper.m_Player_ClassAbility;
         public InputAction @Ability1 => m_Wrapper.m_Player_Ability1;
         public InputAction @Ability2 => m_Wrapper.m_Player_Ability2;
         public InputAction @Ability3 => m_Wrapper.m_Player_Ability3;
         public InputAction @Ability4 => m_Wrapper.m_Player_Ability4;
         public InputAction @Ability5 => m_Wrapper.m_Player_Ability5;
+        public InputAction @DashRight => m_Wrapper.m_Player_DashRight;
+        public InputAction @DashLeft => m_Wrapper.m_Player_DashLeft;
+        public InputAction @DashFwd => m_Wrapper.m_Player_DashFwd;
+        public InputAction @DashBack => m_Wrapper.m_Player_DashBack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1436,6 +1551,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @M1Attack.started += instance.OnM1Attack;
             @M1Attack.performed += instance.OnM1Attack;
             @M1Attack.canceled += instance.OnM1Attack;
+            @ClassAbility.started += instance.OnClassAbility;
+            @ClassAbility.performed += instance.OnClassAbility;
+            @ClassAbility.canceled += instance.OnClassAbility;
             @Ability1.started += instance.OnAbility1;
             @Ability1.performed += instance.OnAbility1;
             @Ability1.canceled += instance.OnAbility1;
@@ -1451,6 +1569,18 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @Ability5.started += instance.OnAbility5;
             @Ability5.performed += instance.OnAbility5;
             @Ability5.canceled += instance.OnAbility5;
+            @DashRight.started += instance.OnDashRight;
+            @DashRight.performed += instance.OnDashRight;
+            @DashRight.canceled += instance.OnDashRight;
+            @DashLeft.started += instance.OnDashLeft;
+            @DashLeft.performed += instance.OnDashLeft;
+            @DashLeft.canceled += instance.OnDashLeft;
+            @DashFwd.started += instance.OnDashFwd;
+            @DashFwd.performed += instance.OnDashFwd;
+            @DashFwd.canceled += instance.OnDashFwd;
+            @DashBack.started += instance.OnDashBack;
+            @DashBack.performed += instance.OnDashBack;
+            @DashBack.canceled += instance.OnDashBack;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1467,6 +1597,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @M1Attack.started -= instance.OnM1Attack;
             @M1Attack.performed -= instance.OnM1Attack;
             @M1Attack.canceled -= instance.OnM1Attack;
+            @ClassAbility.started -= instance.OnClassAbility;
+            @ClassAbility.performed -= instance.OnClassAbility;
+            @ClassAbility.canceled -= instance.OnClassAbility;
             @Ability1.started -= instance.OnAbility1;
             @Ability1.performed -= instance.OnAbility1;
             @Ability1.canceled -= instance.OnAbility1;
@@ -1482,6 +1615,18 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @Ability5.started -= instance.OnAbility5;
             @Ability5.performed -= instance.OnAbility5;
             @Ability5.canceled -= instance.OnAbility5;
+            @DashRight.started -= instance.OnDashRight;
+            @DashRight.performed -= instance.OnDashRight;
+            @DashRight.canceled -= instance.OnDashRight;
+            @DashLeft.started -= instance.OnDashLeft;
+            @DashLeft.performed -= instance.OnDashLeft;
+            @DashLeft.canceled -= instance.OnDashLeft;
+            @DashFwd.started -= instance.OnDashFwd;
+            @DashFwd.performed -= instance.OnDashFwd;
+            @DashFwd.canceled -= instance.OnDashFwd;
+            @DashBack.started -= instance.OnDashBack;
+            @DashBack.performed -= instance.OnDashBack;
+            @DashBack.canceled -= instance.OnDashBack;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1746,11 +1891,16 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnM1Attack(InputAction.CallbackContext context);
+        void OnClassAbility(InputAction.CallbackContext context);
         void OnAbility1(InputAction.CallbackContext context);
         void OnAbility2(InputAction.CallbackContext context);
         void OnAbility3(InputAction.CallbackContext context);
         void OnAbility4(InputAction.CallbackContext context);
         void OnAbility5(InputAction.CallbackContext context);
+        void OnDashRight(InputAction.CallbackContext context);
+        void OnDashLeft(InputAction.CallbackContext context);
+        void OnDashFwd(InputAction.CallbackContext context);
+        void OnDashBack(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

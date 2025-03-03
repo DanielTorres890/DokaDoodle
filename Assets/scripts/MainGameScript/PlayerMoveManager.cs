@@ -327,7 +327,7 @@ public class PlayerMoveManager : NetworkBehaviour
                         enemy.transform.position = mapTiles[i].transform.position;
                         enemy.transform.position = new Vector3(enemy.transform.position.x - 0, enemy.transform.position.y, enemy.transform.position.z + 0);
                         enemy.transform.localScale = new Vector3(1, 1, 1);
-                        Debug.Log("OVERWORLD ENEMY SPAWNED");
+                        Debug.Log("OVERWORLD ENEMY SPAWNED AT " + i);
                     }
                     
                 }

@@ -68,6 +68,7 @@ public class playerData : EntityStats
     public void setCombatActions()
     {
         this.attacks.Clear();
+        
         if(NetworkData.Instance.playerInventories[playerNumber][1].container.Count == 0  && NetworkData.Instance.playerInventories[playerNumber][2].container.Count == 0)
         {
             this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][1].database.GetItem[0] as WeaponItem).attack);
@@ -84,7 +85,7 @@ public class playerData : EntityStats
             this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack);
         }
 
-
+        this.attacks.Add(NetworkData.Instance.classDataBase.GetClass[playerClass].combatAbility);
         // this.defenses[0] = (NetworkData.Instance.playerInventories[0][1].database.GetItem[this.equipItems[ItemType.Shield]] as WeaponItem).attack as DefenseBase;
         // this.defenses[1] = (NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.MagicGuard]] as WeaponItem).attack as DefenseBase; 
     }

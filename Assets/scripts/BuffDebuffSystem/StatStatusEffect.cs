@@ -6,8 +6,18 @@ public class StatStatusEffect : BuffBase
     public ItemBuff[] stats;
     public override void BuffEffect(EntityStats whoWon)
     {
+        
+    }
+
+    public override void OnApply(EntityStats stats)
+    {
         Debug.Log("Is there something in here " + NetworkData.Instance.buffDataBase.GetId.Count);
-        whoWon.statuses.Add(new BuffHolder(duration, NetworkData.Instance.buffDataBase.GetId[this]));
-        whoWon.PostStatusStatCalc();
+        stats.GainStatus(this);
+        stats.PostStatusStatCalc();
+    }
+
+    public override void OnRemove(EntityStats stats)
+    {
+
     }
 }

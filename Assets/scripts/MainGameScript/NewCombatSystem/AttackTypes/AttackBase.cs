@@ -20,8 +20,8 @@ public abstract class AttackBase : ScriptableObject
     public bool chargeable;
 
     public GameObject attackPrefab;
-    public Vector3 offset;
-    public Vector3 ablitySize;
+    public Vector3 offset = Vector3.zero;
+    public Vector3 ablitySize = Vector3.one;
 
     public AttackMult[] multipliers = new AttackMult[7] {new AttackMult(Attributes.MaxHealth), new AttackMult(Attributes.Health) , new AttackMult(Attributes.Attack) , new AttackMult(Attributes.Defense) , new AttackMult(Attributes.Magic) , new AttackMult(Attributes.MDefense) , new AttackMult(Attributes.Dexterity)};
     public AttackMult[] defenseMult;

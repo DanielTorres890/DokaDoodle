@@ -5,6 +5,7 @@ using Unity.Cinemachine;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -23,6 +24,7 @@ public class NewCombatManager : NetworkBehaviour
     [DoNotSerialize] public static NewCombatManager instance;
 
     [SerializeField] private PlayerUIManager playerUI;
+    [SerializeField] private StatUIDisplay statUI;
 
     private int xpHarvested;
     private int moneyHarvested;
@@ -40,6 +42,9 @@ public class NewCombatManager : NetworkBehaviour
     [SerializeField] private Vector3 spawnPoint;
     [SerializeField] private float zDistanceBetween;
 
+    private bool alreadyDone = false;
+    private float statusTick = 0;
+
     public DialogueScript endBattleInfo;
 
     public PlayerInput playercontrol;
@@ -47,10 +52,20 @@ public class NewCombatManager : NetworkBehaviour
 
     private void Update()
     {
+        
         combatTimer -= Time.deltaTime;
-        timerText.text = Mathf.RoundToInt(combatTimer).ToString();
 
-        if (IsServer && !fightOver && combatTimer <= 0)
+        statusTick += Time.deltaTime;
+
+        timerText.text = Mathf.RoundToInt(combatTimer).ToString();
+        if (!IsServer) { return; }
+
+        if (!fightOver && statusTick >= 10)//Progress status effects every 10 seconds
+        {
+            TickCombatantStatusRpc();
+            statusTick = 0;
+        }
+        if (!fightOver && combatTimer <= 0)//end fight
         {
             EarlyEndCombatRpc();
         }
@@ -95,8 +110,9 @@ public class NewCombatManager : NetworkBehaviour
     [Rpc(SendTo.Server, RequireOwnership = false)]
     private void SetUpRpc()
     {
-        
-        
+        if(alreadyDone) { return; }
+        alreadyDone = true;
+        Debug.Log("Please explain how this makes any sense " + Time.time);
         int countbcisuck = 1;
         int sideMult = -1;
         for (int i = 0; i < PlayerCombatManager.Instance.combatants.Count; i ++)
@@ -139,7 +155,7 @@ public class NewCombatManager : NetworkBehaviour
             }
             
         }
-        Debug.Log("Number of cameras When done" + cameras.Count);
+        
       
     }
     [Rpc(SendTo.SpecifiedInParams, RequireOwnership = false)]
@@ -155,6 +171,20 @@ public class NewCombatManager : NetworkBehaviour
         playerUI.abilityManager = allCombatants[whichone-1]; //keep in mind that theres already a camera in the scene by default so its off by 1
         playerUI.SetUp();
 
+        statUI.abilityManager = allCombatants[whichone - 1];
+        statUI.SetUp();
+
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void TickCombatantStatusRpc()
+    {
+        foreach(var combat in allCombatants)
+        {
+            combat.stats.ProgressStatuses();
+            combat.onStatus.Invoke();
+            
+        }
+
     }
 
     public void KILL(AbilityManager whoded)
@@ -164,7 +194,7 @@ public class NewCombatManager : NetworkBehaviour
         if(whoded.stats is EnemyCombat)
         {
             EnemyCombat info = (EnemyCombat)whoded.stats;
-
+            info.isDead = true;
             xpHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[info.enemyId].droppedXp;
             moneyHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[info.enemyId].droppedMoney;
 
@@ -179,7 +209,7 @@ public class NewCombatManager : NetworkBehaviour
         if (whoded.stats is playerData)
         {
             playerData info = (playerData)whoded.stats;
-            info.death(3);
+            info.isDead = true;
             Debug.Log(info.name + " did i die: " +info.isDead);
             if(whoded.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) 
             {
@@ -260,7 +290,9 @@ public class NewCombatManager : NetworkBehaviour
         playercontrol.SwitchCurrentActionMap("UI");
         fightOver = true;
         Cursor.lockState = CursorLockMode.None;
-       
+        MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Clear();
+        RemoveDeadEntities();
+
         if (victor.stats is playerData)
         {
             playerData player = (playerData)victor.stats;
@@ -344,9 +376,13 @@ public class NewCombatManager : NetworkBehaviour
             endBattleInfo.gameObject.SetActive(true);
             endBattleInfo.startDialogue();
             endBattleInfo.whoInControl = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber;
+            
+            MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Clear();
 
         }
-        MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Clear();
+        
+        PlayerCombatManager.Instance.combatants.Clear();
+        
         NetworkData.Instance.setNextTurnNum();
         endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
       
@@ -367,7 +403,9 @@ public class NewCombatManager : NetworkBehaviour
         endBattleInfo.lines.Add("NEXT TIME ON DRAGON BALL Z");
         endBattleInfo.gameObject.SetActive(true);
         endBattleInfo.startDialogue();
+        RemoveDeadEntities();
         NetworkData.Instance.setNextTurnNum();
+        
         endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
     }
 
@@ -378,6 +416,32 @@ public class NewCombatManager : NetworkBehaviour
         endBattleInfo.lines.Add(lostitem);
         Debug.Log("did u died?");
         NetworkData.Instance.players[playerNumber].death(turnsDead);
+    }
+
+    private void RemoveDeadEntities() //Removes them from the database that stores all enemy info (it probably shouldn't be accessible all the time but fml
+    {
+        var tilereadCache = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
+        
+        Debug.Log("At which Tile " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
+        Debug.Log("Enemies before " + tilereadCache.tileEnemy.Count);
+        for(int i = tilereadCache.tileEnemy.Count - 1; i >= 0; i--)
+        {
+            Debug.Log("Okay ur telling me nothing happened" + tilereadCache.tileEnemy[i].name);
+            if (tilereadCache.tileEnemy[i].isDead)
+            {
+                tilereadCache.tileEnemy.RemoveAt(i);
+            }
+        }
+
+        for (int i = tilereadCache.players.Count - 1; i >= 0; i--)
+        {
+            if (NetworkData.Instance.players[tilereadCache.players[i]].isDead)
+            {
+                NetworkData.Instance.players[tilereadCache.players[i]].death(3);
+                tilereadCache.players.RemoveAt(i);
+            }
+        }
+        Debug.Log("Enemies after " + tilereadCache.tileEnemy.Count);
     }
     public void RightSpec()
     {

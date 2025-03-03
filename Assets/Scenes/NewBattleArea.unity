@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 45866338}
   - component: {fileID: 45866337}
   - component: {fileID: 45866341}
+  - component: {fileID: 45866342}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -241,6 +242,27 @@ MonoBehaviour:
   X_SPACE_BETWEEN_ITEM: 0
   NUMBER_OF_COLUMN: 1
   Y_SPACE_BETWEEN_ITEMS: 45
+  X_Start_stat: 0
+  Y_Start_stat: 0
+--- !u!114 &45866342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45866336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4dda822ea71c74a838dc770c70cc88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityManager: {fileID: 0}
+  statDisplayPrefab: {fileID: 3051747439926665142, guid: 22319cfd80ea9d14a96071b39f163c6d, type: 3}
+  X_Start: -300
+  Y_Start: -100
+  X_SPACE_BETWEEN_ITEM: 1
+  NUMBER_OF_COLUMN: 1
+  Y_SPACE_BETWEEN_ITEMS: 30
 --- !u!1 &82409518
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +340,8 @@ MonoBehaviour:
   allCombatants: []
   levelUpUI: {fileID: 370028353}
   playerUI: {fileID: 45866341}
-  combatTimer: 30
+  statUI: {fileID: 45866342}
+  combatTimer: 60
   timerText: {fileID: 1601029652}
   fightOver: 0
   cameras:
