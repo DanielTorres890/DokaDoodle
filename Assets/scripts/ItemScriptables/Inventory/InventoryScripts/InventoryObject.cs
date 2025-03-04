@@ -20,7 +20,7 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
         }
         else
         {
-            Debug.Log(" U DONT HAVE SPACE FOR THAT ");
+           
         }
         return success;
 

@@ -129,8 +129,19 @@ public class playerData : EntityStats
         Debug.Log(this.name + "man i should reallllyy be dead " + this.isDead); 
         if (backToBase)
         {
+            Debug.Log("Who did I remove? " + NetworkData.Instance.players[playerNumber].name);
+            foreach(var num in MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players)
+            {
+                Debug.Log("Each number before " + num);
+            }
+            bool success = MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Remove(playerNumber);
+            Debug.Log("Was it successful "+ success);
+            foreach (var num in MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players)
+            {
+                Debug.Log("Each number after " + num);
+            }
             this.curTileId = this.playerSpawnTile;
-            MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Remove(playerNumber);
+            
 
         }
 

@@ -15,7 +15,7 @@ public class EntityUIUpdate : MonoBehaviour
     public bool faceTowards = false;
     public void UpdateText()
     {
-        Debug.Log("I should've updated");
+    
         if (whomToUpdate.ToLower() == "name")
         {
             textMeshProUGUI.text = AbilityManager.stats.name;

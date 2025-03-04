@@ -45,7 +45,7 @@ public class CombatantMovement : NetworkBehaviour
     }
     public void DashRight(InputAction.CallbackContext action)
     {
-        Debug.Log("Dash");
+        if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
         if (grounded && IsOwner)
         {
             abilityManager.combatantstate = combatantStates.Dashing;
@@ -55,6 +55,7 @@ public class CombatantMovement : NetworkBehaviour
     }
     public void DashLeft(InputAction.CallbackContext action)
     {
+        if(abilityManager.combatantstate == combatantStates.Dashing) { return; }
         if (grounded && IsOwner)
         {
             abilityManager.combatantstate = combatantStates.Dashing;
@@ -65,6 +66,7 @@ public class CombatantMovement : NetworkBehaviour
 
     public void DashFwd(InputAction.CallbackContext action)
     {
+        if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
         if (grounded && IsOwner)
         {
             abilityManager.combatantstate = combatantStates.Dashing;
@@ -74,6 +76,7 @@ public class CombatantMovement : NetworkBehaviour
     }
     public void DashBack(InputAction.CallbackContext action)
     {
+        if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
         if (grounded && IsOwner)
         {
             abilityManager.combatantstate = combatantStates.Dashing;

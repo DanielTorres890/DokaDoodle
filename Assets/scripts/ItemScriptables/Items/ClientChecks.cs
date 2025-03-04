@@ -20,6 +20,7 @@ public class ClientChecks : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        
         NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
         bool rumble = false;
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
@@ -35,7 +36,7 @@ public class ClientChecks : NetworkBehaviour
         if ((MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0 && !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
         {
             
-            MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Remove(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber);
+            MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Remove(NetworkData.Instance.currentPlayer);
             PlayerMoveManager.Instance.playerCam.Follow = PlayerMoveManager.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
             PlayerMoveManager.Instance.gameMenu.SetActive(true);
             PlayerMoveManager.Instance.rollNum.gameObject.transform.parent.gameObject.SetActive(false);
@@ -113,17 +114,17 @@ public class ClientChecks : NetworkBehaviour
 
 
         bool rumble = false;
-        int counter = 0;
+        
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
         {
             if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
             {
-                PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[counter]);
-                NetworkData.Instance.players[counter].setCombatActions();
+                PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[players]);
+                NetworkData.Instance.players[players].setCombatActions();
                 rumble = true;
                 
             }
-            counter++;
+            
         }
         
         //Pretty much everything that isn't these two is stuff from the old system
@@ -152,7 +153,7 @@ public class ClientChecks : NetworkBehaviour
 
         combatPreview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();
        
-        Debug.Log(PlayerCombatManager.Instance.combatant2.name.ToString());
+        
         combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatants[1].name.ToString();
            
             

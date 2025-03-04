@@ -78,7 +78,7 @@ public class NewCombatManager : NetworkBehaviour
         {
             NetworkData.Instance.playerSticks[i].transform.position = new Vector3(-1000 + i * 1000, -1000, -1000);
         }
-
+        endBattleInfo.lines.Clear();
 
         if (instance != null) { return;  }
             
@@ -112,7 +112,7 @@ public class NewCombatManager : NetworkBehaviour
     {
         if(alreadyDone) { return; }
         alreadyDone = true;
-        Debug.Log("Please explain how this makes any sense " + Time.time);
+    
         int countbcisuck = 1;
         int sideMult = -1;
         for (int i = 0; i < PlayerCombatManager.Instance.combatants.Count; i ++)
@@ -211,10 +211,25 @@ public class NewCombatManager : NetworkBehaviour
             playerData info = (playerData)whoded.stats;
             info.isDead = true;
             Debug.Log(info.name + " did i die: " +info.isDead);
+            
             if(whoded.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) 
             {
+                playercontrol.SwitchCurrentActionMap("Spectating");
+                cameras[currentSpec].Priority = 1;
+                cameras[0].Priority = 10;
+                currentSpec = 0;
                 
             }
+          
+                
+
+
+            if (IsServer) { LinesToSyncRpc((info.name + " dropped " + info.playerInfo["money"] / 2 + " moneys"), info.LoseSomething(), 3, info.playerNumber); }
+
+            moneyHarvested = info.playerInfo["money"] /= 2; 
+            info.playerInfo["money"] /= 2;
+                
+            
 
         }
 
@@ -242,9 +257,7 @@ public class NewCombatManager : NetworkBehaviour
 
                 if (!allCombatants[i].stats.loyaltyTags.Intersect(allCombatants[j].stats.loyaltyTags).Any())
                 {
-                    Debug.Log(allCombatants[i].stats.name);
-                    Debug.Log("excuse me tf " + allCombatants[i].stats.loyaltyTags.Count);
-                    Debug.Log("nah u lying " + allCombatants[j].stats.loyaltyTags[0]);
+                    
                     didWin = false;
                     return didWin;
                 }
@@ -252,7 +265,7 @@ public class NewCombatManager : NetworkBehaviour
        
             }
         }
-        Debug.Log("THIS FIGHT IS OVER");
+        
         return didWin;
     }
 
@@ -290,23 +303,25 @@ public class NewCombatManager : NetworkBehaviour
         playercontrol.SwitchCurrentActionMap("UI");
         fightOver = true;
         Cursor.lockState = CursorLockMode.None;
-        MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Clear();
-        RemoveDeadEntities();
+        var cache = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
+
+        cache.tileEnemy.Clear();
+        
 
         if (victor.stats is playerData)
         {
             playerData player = (playerData)victor.stats;
-            int levels = player.gainXp(xpHarvested);
-            player.playerInfo["money"] += moneyHarvested;
+            int levels = player.gainXp(xpHarvested + cache.xpOnTile);
+            player.playerInfo["money"] += moneyHarvested + cache.moneyOnTile;
             foreach(var item in  itemsPicked)
             {
                 NetworkData.Instance.AddItemToInventory(player.playerNumber, item);
             }
-            endBattleInfo.lines.Clear();
-            endBattleInfo.lines.Add(player.name + " has gained <color=blue>" + xpHarvested + "</color> xp ");
+            
+            endBattleInfo.lines.Add(player.name + " has gained <color=blue>" + (xpHarvested + cache.xpOnTile) + "</color> xp ");
             if(levels >  0)
             {
-                endBattleInfo.lines[0] += " and they've leveled up " + levels + " times";
+                endBattleInfo.lines[endBattleInfo.lines.Count-1] += " and they've leveled up " + levels + " times";
                 endBattleInfo.endEvent.RemoveAllListeners();
                 levelUpUI.statsToAllocate += levels * 3;
                 levelUpUI.inControl = player.playerNumber;
@@ -315,7 +330,7 @@ public class NewCombatManager : NetworkBehaviour
                 
             }
 
-            endBattleInfo.lines.Add(player.name + " has gained " + player.playerInfo["money"] + " money");
+            endBattleInfo.lines.Add(player.name + " has gained " + (moneyHarvested + cache.moneyOnTile) + " money");
 
             if (itemsPicked.Count > 0)
             {
@@ -336,20 +351,8 @@ public class NewCombatManager : NetworkBehaviour
                 
                 endBattleInfo.lines.Add(itemString);
             }
-            foreach (var combat in allCombatants)
-            {
-                if (combat.stats is playerData && combat.stats.isDead)
-                {
-                    var current = combat.stats as playerData;
-
-
-
-                    if (IsServer) { LinesToSyncRpc((current.name + " dropped " + current.playerInfo["money"] / 2 + " moneys"), current.LoseSomething(), 3, current.playerNumber); }
-
-                    current.playerInfo["money"] /= 2;
-                }
-            }
-            Debug.Log("SHOULD BE ACTIVE");
+            
+       
             endBattleInfo.gameObject.SetActive(true);
             endBattleInfo.startDialogue();
             endBattleInfo.whoInControl = player.playerNumber;
@@ -358,7 +361,7 @@ public class NewCombatManager : NetworkBehaviour
         }
         else
         {
-            endBattleInfo.lines.Clear();
+            
             endBattleInfo.lines.Add("Every player has been defeated");
             foreach(var combat in allCombatants)
             {
@@ -376,19 +379,21 @@ public class NewCombatManager : NetworkBehaviour
             endBattleInfo.gameObject.SetActive(true);
             endBattleInfo.startDialogue();
             endBattleInfo.whoInControl = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber;
+
+            cache.players.Clear();
             
-            MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Clear();
 
         }
         
         PlayerCombatManager.Instance.combatants.Clear();
-        
+        RemoveDeadEntities();
         NetworkData.Instance.setNextTurnNum();
         endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
       
         Debug.Log("It should be player " + NetworkData.Instance.currentPlayer);
 
-
+        cache.xpOnTile = 0;
+        cache.moneyOnTile = 0;
 
     }
 
@@ -398,12 +403,13 @@ public class NewCombatManager : NetworkBehaviour
         playercontrol.SwitchCurrentActionMap("UI");
         fightOver = true;
         Cursor.lockState = CursorLockMode.None;
-        endBattleInfo.lines.Clear();
+        
 
         endBattleInfo.lines.Add("NEXT TIME ON DRAGON BALL Z");
         endBattleInfo.gameObject.SetActive(true);
         endBattleInfo.startDialogue();
         RemoveDeadEntities();
+                    
         NetworkData.Instance.setNextTurnNum();
         
         endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
@@ -415,33 +421,35 @@ public class NewCombatManager : NetworkBehaviour
         endBattleInfo.lines.Add(lostmoney);
         endBattleInfo.lines.Add(lostitem);
         Debug.Log("did u died?");
-        NetworkData.Instance.players[playerNumber].death(turnsDead);
+        //NetworkData.Instance.players[playerNumber].death(turnsDead, false);
     }
 
     private void RemoveDeadEntities() //Removes them from the database that stores all enemy info (it probably shouldn't be accessible all the time but fml
     {
         var tilereadCache = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
-        
-        Debug.Log("At which Tile " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
-        Debug.Log("Enemies before " + tilereadCache.tileEnemy.Count);
+
+        tilereadCache.xpOnTile = xpHarvested;
+        tilereadCache.moneyOnTile = moneyHarvested;
         for(int i = tilereadCache.tileEnemy.Count - 1; i >= 0; i--)
         {
-            Debug.Log("Okay ur telling me nothing happened" + tilereadCache.tileEnemy[i].name);
+            
             if (tilereadCache.tileEnemy[i].isDead)
             {
                 tilereadCache.tileEnemy.RemoveAt(i);
             }
         }
-
+        Debug.Log("How many players in the pile " +  tilereadCache.players.Count);
         for (int i = tilereadCache.players.Count - 1; i >= 0; i--)
         {
+            Debug.Log("Who am I " +NetworkData.Instance.players[tilereadCache.players[i]].name);
             if (NetworkData.Instance.players[tilereadCache.players[i]].isDead)
             {
+                Debug.Log("I should be dead " + NetworkData.Instance.players[tilereadCache.players[i]].name);
                 NetworkData.Instance.players[tilereadCache.players[i]].death(3);
-                tilereadCache.players.RemoveAt(i);
+                
             }
         }
-        Debug.Log("Enemies after " + tilereadCache.tileEnemy.Count);
+        Debug.Log("How many players in the pile afterwards " + tilereadCache.players.Count);
     }
     public void RightSpec()
     {

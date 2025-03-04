@@ -22,7 +22,8 @@ public class SceneChanger : NetworkBehaviour
     {
         
         if (sceneName == "Fake") { return;  }
-       
+
+        loadedPlayers = 0;
         ResetYoStuffRpc();
         NetworkManager.Singleton.SceneManager.LoadScene(sceneName,LoadSceneMode.Single);
     }
@@ -31,7 +32,7 @@ public class SceneChanger : NetworkBehaviour
     private void ResetYoStuffRpc()
     {
         loadedPlayers = 0;
-        Debug.Log("ResetLoaded ");
+        
     }
    
     public override void OnNetworkSpawn()

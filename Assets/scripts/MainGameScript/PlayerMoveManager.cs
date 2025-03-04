@@ -44,7 +44,7 @@ public class PlayerMoveManager : NetworkBehaviour
         }
         Instance = this;
 
-        Debug.Log("Setting up player " + NetworkData.Instance.currentPlayer);
+        
 
        
         

@@ -248,12 +248,11 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     }
     public void setNextTurnNum()
     {
-        Debug.Log("Whos turn was it before " + NetworkData.Instance.currentPlayer);
+        
         if (NetworkData.Instance.currentPlayer < NetworkData.Instance.maxPlayers - 1) { NetworkData.Instance.currentPlayer += 1; }
 
         else { NetworkData.Instance.currentPlayer = 0; }
-        Debug.Log("Whos turn is it " + NetworkData.Instance.currentPlayer);
-        Debug.Log("Maximum Players " + NetworkData.Instance.maxPlayers);
+        
     }
     public void ProgressStatus(int player)
     {
