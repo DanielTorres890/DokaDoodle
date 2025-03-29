@@ -403,7 +403,7 @@ public class NewCombatManager : NetworkBehaviour
         playercontrol.SwitchCurrentActionMap("UI");
         fightOver = true;
         Cursor.lockState = CursorLockMode.None;
-        
+        endBattleInfo.whoInControl = NetworkData.Instance.currentPlayer;
 
         endBattleInfo.lines.Add("NEXT TIME ON DRAGON BALL Z");
         endBattleInfo.gameObject.SetActive(true);

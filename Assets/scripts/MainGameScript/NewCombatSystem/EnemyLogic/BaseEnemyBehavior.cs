@@ -18,12 +18,13 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
     public AbilityManager myManager;
 
-
+    public AttackBase selectedAttack;
     public float attackRange;
     public bool InAttackRange;
 
-    public float stateDuration;
 
+    public float releaseTimer = 0;
+    public float timeToHold;
 
     public override void OnNetworkSpawn()
     {
@@ -36,7 +37,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
        
     }
 
-    private void FindEnemy()
+    public void FindEnemy()
     {
         
         if (targetManager == null || targetManager.stats.isDead) { targetManager = NewCombatManager.instance.allCombatants[0];  }
@@ -56,18 +57,22 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
         }
     }
-    private void Update()
+    public virtual void Update()
     {
-       
-        if(NewCombatManager.instance.fightOver) { return; }
+        AttackHold();
+
+        if (NewCombatManager.instance.fightOver) { return; }
 
         InAttackRange = Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position) < attackRange ;
-        
-        if(!InAttackRange) { ChasePlayer();  }
-
 
         if (targetManager == null || targetManager.gameObject.gameObject == gameObject || targetManager.stats.isDead) { FindEnemy(); }
 
+
+
+        if (!InAttackRange) { ChasePlayer();  }
+
+
+        
 
         if (InAttackRange) { AttackPlayer(); }
         
@@ -77,7 +82,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
 
     
-    private void ChasePlayer()
+    public virtual void ChasePlayer()
     {
         
 
@@ -87,17 +92,46 @@ public class BaseEnemyBehavior : NetworkBehaviour
         if (!IsServer) { return; }
         myManager.stateManager[myManager.stats.attacks[0]].pressed = false;
     }
-    private void AttackPlayer()
+
+
+    public virtual void AttackPlayer()
     {
+        
         transform.LookAt(new Vector3(targetManager.gameObject.transform.position.x, transform.position.y , targetManager.gameObject.transform.position.z));
         if(!IsServer) { return; }
+        if( myManager.CanAct())
+        {
+            
+            selectAttack();
+            Debug.Log("What are u" + selectedAttack);
+            myManager.stateManager[selectedAttack].pressed = true;
+        }
+        
 
-        myManager.stateManager[myManager.stats.attacks[0]].pressed = true;
-
-        if (myManager.combatantstate != combatantStates.Free || myManager.combatantstate != combatantStates.StartUpFree)
+        if (!myManager.CanMove())
         {
             agent.SetDestination(transform.position);
         }
         
+    }
+
+    public virtual void selectAttack()
+    {
+        selectedAttack = myManager.stats.attacks[0];
+    }
+
+    public void AttackHold()
+    {
+        if (!myManager.CanMove())
+        {
+            releaseTimer += Time.deltaTime;
+           
+            if (releaseTimer > timeToHold)
+            {
+                Debug.Log("Did this happen");
+                myManager.stateManager[selectedAttack].pressed = false;
+                releaseTimer = 0;
+            }
+        }
     }
 }

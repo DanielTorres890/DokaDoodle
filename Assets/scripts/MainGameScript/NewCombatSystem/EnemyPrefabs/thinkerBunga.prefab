@@ -398,7 +398,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8653719598885068355, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
       propertyPath: m_Name
-      value: bunga
+      value: thinkerBunga
       objectReference: {fileID: 0}
     - target: {fileID: -8653719598885068355, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
       propertyPath: m_Layer
@@ -481,8 +481,12 @@ PrefabInstance:
       value: -2
       objectReference: {fileID: 0}
     - target: {fileID: -3524275733239509310, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: -3524275733239509310, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8
+      value: 3.1
       objectReference: {fileID: 0}
     - target: {fileID: -2899259724117269334, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
       propertyPath: m_SortingOrder
@@ -516,6 +520,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7643961964286683367, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 5011204816136732221, guid: 4a40415863874a4409a24be6232b560a, type: 3}
     - target: {fileID: 7643961964286683367, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
       propertyPath: m_SortingOrder
       value: 2
@@ -569,7 +577,7 @@ PrefabInstance:
       addedObject: {fileID: 3358961221082085050}
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -8106719395968188378}
+      addedObject: {fileID: -6027368977396564399}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
 --- !u!4 &703723169880527041 stripped
 Transform:
@@ -614,7 +622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 500146776
+  GlobalObjectIdHash: 1084165791
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -755,7 +763,7 @@ NavMeshAgent:
   m_BaseOffset: 2.98
   m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
---- !u!114 &-8106719395968188378
+--- !u!114 &-6027368977396564399
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -764,21 +772,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1804880954259114146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdb28464ba1cf494fb526ebbb502160e, type: 3}
+  m_Script: {fileID: 11500000, guid: 199564b097cd9f54e86d0b84fa9ab1ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  targetManager: {fileID: 0}
+  targetManager: {fileID: 3257693015704149352}
   agent: {fileID: 3358961221082085050}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
   whatIsPLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   myManager: {fileID: 3257693015704149352}
   selectedAttack: {fileID: 0}
-  attackRange: 2
+  attackRange: 15
   InAttackRange: 0
   releaseTimer: 0
-  timeToHold: 0
+  timeToHold: 1
+  kiteRange: 8
+  inKiteRange: 0

@@ -258,22 +258,31 @@ public class AbilityManager : NetworkBehaviour
         stateManager[stats.attacks[inputToInt[action.control]]].pressed = false;
 
     }
-
-   /* private void Ability1(InputAction.CallbackContext action)
+    public bool CanMove()
     {
-        if (!IsOwner) { return; }
-        if (stats.attacks.Count <= 1) { return; }
-        stateManager[stats.attacks[1]].pressed = true;
-
-    } //I hate this and my life but i really don't know how else to go about this bc how else would you assign these
-    private void Ability1Released(InputAction.CallbackContext action)
-    {
-        if (!IsOwner) { return; }
-        if (stats.attacks.Count <= 1) { return; }
-        stateManager[stats.attacks[1]].pressed = false;
-
+        return (combatantstate == combatantStates.Free || combatantstate == combatantStates.StartUpFree || combatantstate == combatantStates.Dashing) && !stats.isDead;
     }
-    */
+    public bool CanAct()
+    {
+        return combatantstate == combatantStates.Free;
+    }
+
+
+    /* private void Ability1(InputAction.CallbackContext action)
+     {
+         if (!IsOwner) { return; }
+         if (stats.attacks.Count <= 1) { return; }
+         stateManager[stats.attacks[1]].pressed = true;
+
+     } //I hate this and my life but i really don't know how else to go about this bc how else would you assign these
+     private void Ability1Released(InputAction.CallbackContext action)
+     {
+         if (!IsOwner) { return; }
+         if (stats.attacks.Count <= 1) { return; }
+         stateManager[stats.attacks[1]].pressed = false;
+
+     }
+     */
 
 }
 public class AbilityStates

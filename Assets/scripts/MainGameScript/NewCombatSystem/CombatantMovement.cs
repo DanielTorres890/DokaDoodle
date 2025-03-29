@@ -105,7 +105,7 @@ public class CombatantMovement : NetworkBehaviour
 
     private void Move()
     {   
-        if (!CanMove()) 
+        if (!abilityManager.CanMove()) 
         {
           
             transform.Rotate(new Vector3(playerCam.transform.parent.localEulerAngles.x,0,0));
@@ -152,7 +152,7 @@ public class CombatantMovement : NetworkBehaviour
     private void LateUpdate()
     {
         if (NewCombatManager.instance.fightOver || !IsOwner) { return; }
-        if (!CanMove() && abilityManager.combatantstate != combatantStates.Endlag)
+        if (!abilityManager.CanMove() && abilityManager.combatantstate != combatantStates.Endlag)
         {
             transform.Rotate(new Vector3(-look.y * sensitivy, look.x * sensitivy, 0));
             
@@ -170,10 +170,7 @@ public class CombatantMovement : NetworkBehaviour
         grounded = state;
     }
 
-    private bool CanMove()
-    {
-        return (abilityManager.combatantstate == combatantStates.Free || abilityManager.combatantstate == combatantStates.StartUpFree || abilityManager.combatantstate == combatantStates.Dashing) && !abilityManager.stats.isDead;
-    }
+    
 
     
 }
