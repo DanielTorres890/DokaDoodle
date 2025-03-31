@@ -18,12 +18,14 @@ public class playerData : EntityStats
 
     public int[] maxInventorySizes = new int[3];
 
-    public Dictionary<string, int> playerInfo = new Dictionary<string, int>
+
+    public Dictionary<PlayerInfo, int> playerInfo = new Dictionary<PlayerInfo, int>
     {
-        {"xp", 0 },
-        {"level", 1 },
-        {"money", 2000 },
-        {"fame", 0 }
+        {PlayerInfo.xp, 0 },
+        {PlayerInfo.level, 1 },
+        {PlayerInfo.money, 2000 },
+        {PlayerInfo.fame, 0 }
+   
     };
     
     public int tillRevive;
@@ -166,10 +168,10 @@ public class playerData : EntityStats
     public int gainXp(int xp)
     {
         int levelsGained = 0;
-        this.playerInfo["xp"] += xp;
-        while (this.playerInfo["xp"] > 24 * Mathf.Pow((float)this.playerInfo["level"], 1.2f) + 20) 
+        this.playerInfo[PlayerInfo.xp] += xp;
+        while (this.playerInfo[PlayerInfo.xp] > 24 * Mathf.Pow((float)this.playerInfo[PlayerInfo.level], 1.2f) + 20) 
         {
-            this.playerInfo["level"] += 1;
+            this.playerInfo[PlayerInfo.level] += 1;
             levelsGained++;
             foreach( var stat in NetworkData.Instance.classDataBase.Classes[this.playerClass].levelUpStats)
             {
@@ -215,4 +217,11 @@ public class playerData : EntityStats
 
         }
     }
+}
+public enum PlayerInfo
+{
+    xp,
+    level,
+    money,
+    fame
 }

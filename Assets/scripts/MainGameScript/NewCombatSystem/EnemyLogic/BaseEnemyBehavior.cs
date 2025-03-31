@@ -31,6 +31,9 @@ public class BaseEnemyBehavior : NetworkBehaviour
         
         
         agent = GetComponent<NavMeshAgent>();
+        myManager = GetComponent<AbilityManager>();
+
+
         FindEnemy();
         agent.speed += myManager.stats.speedFormula();
 
