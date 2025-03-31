@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7705cc5e6a865c459a50f13f007f6fd, type: 3}
+  m_Name: SHROOMS
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: 4654649984857402643, guid: 2762dd6cd9360ba40bbed5e1d102e451, type: 3}
+  type: 0
+  itemValue: 0
+  description: taking this helps open your third eye
+  useText: IC AN SEE EVERYTHING
+  itemName: SHROOMS
+  buffs: []
+  StatusEffects:
+  - {fileID: 11400000, guid: 5faae344efbb3c249981acc584cf55e1, type: 2}

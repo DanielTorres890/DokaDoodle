@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
+using UnityEngine.Events;
 
 public class DialogueScript : NetworkBehaviour
 {
@@ -14,24 +16,47 @@ public class DialogueScript : NetworkBehaviour
     [SerializeField] public List<string> lines;
 
     public string nextScene = "Fake";
+    [DoNotSerialize]public int whoInControl = 0;
 
     [SerializeField] float textSpeed;
+    [SerializeField] bool startShown;
+    public UnityEvent endEvent;
+
     private int index;
     public void Awake()
     {
-        
+        endEvent = new UnityEvent();
         startDialogue();
+        if(nextScene != "Fake")
+        {
+            endEvent.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc(nextScene); });
+        }
+        else
+        {
+            endEvent.AddListener(delegate { gameObject.SetActive(false); });
+        }
+    }
+    public override void OnNetworkSpawn()
+    {
+        var button = GetComponentInChildren<Button>();
+        button.onClick.AddListener(delegate { contCutsceneServerRpc(); });
+        if (!startShown)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
-    
- 
-    [ServerRpc(RequireOwnership = false)]
-    public void contCutsceneServerRpc()
+
+
+    [Rpc(SendTo.Server, RequireOwnership = false)]
+    public void contCutsceneServerRpc(RpcParams rpcstuff = default)
     {
-        Debug.Log("I see u");
-        if (!NetworkManager.Singleton.IsHost) { return; }
-        Debug.Log("Only see host");
+        Debug.Log("Who is in control " + whoInControl);
+        Debug.Log("WHO SENT THIS " + rpcstuff.Receive.SenderClientId);
+        
+        if (!NetworkData.Instance.IsAllowed(whoInControl,rpcstuff.Receive.SenderClientId)) { return; }
+
         contCutsceneClientRpc();
     }
 
@@ -50,7 +75,7 @@ public class DialogueScript : NetworkBehaviour
             textComponent.text = lines[index];
         }
     }
-    void startDialogue ()
+    public void startDialogue ()
     {
         StopAllCoroutines();
         textComponent.text = string.Empty;
@@ -80,14 +105,7 @@ public class DialogueScript : NetworkBehaviour
         {
             gameObject.SetActive(false);
             background.gameObject.SetActive(false);
-            if (!nextScene.Equals("Fake"))
-            {
-                SceneChanger.Instance.loadClientScenesServerRpc(nextScene);
-            }
-            else
-            {
-                gameObject.SetActive(false);
-            }
+            endEvent.Invoke();
             
         }
     }

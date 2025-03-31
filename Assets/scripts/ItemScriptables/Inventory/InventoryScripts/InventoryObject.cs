@@ -8,10 +8,21 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
 {
     public ItemDataBase database;
     public List<InventorySlot> container = new List<InventorySlot>();
+    public int MAXSIZE;
 
-    public void AddItem(ItemBase _item)
+    public bool AddItem(ItemBase _item)
     {
-        container.Add(new InventorySlot(database.GetId[_item], _item));
+        bool success = false;
+        if (container.Count < MAXSIZE  )
+        {
+            success = true;
+            container.Add(new InventorySlot(database.GetId[_item], _item));
+        }
+        else
+        {
+           
+        }
+        return success;
 
     }
     public void RemoveItem(ItemBase _item)
@@ -50,6 +61,19 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
     public ItemBase getItem(int index)
     {
         return container[index].item;
+    }
+    public void ToFront(ItemBase _item)
+    {
+        for (int i = container.Count - 1; i >= 0; i--)
+        {
+            if (container[i].item == _item)
+            {
+                container.Insert(0, container[i]);
+                container.RemoveAt(i+1);
+                return;
+            }
+
+        }
     }
     public void OnAfterDeserialize()
     {

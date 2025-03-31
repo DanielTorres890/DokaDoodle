@@ -7,8 +7,5 @@ public class BasicMDefend : DefenseBase
 {
 
 
-    public override void WeaponEffect(GameObject caster)
-    {
-
-    }
+   
 }

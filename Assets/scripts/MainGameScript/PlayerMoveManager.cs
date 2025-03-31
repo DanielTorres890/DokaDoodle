@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using TMPro;
+using Unity.Cinemachine;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,14 +15,14 @@ public class PlayerMoveManager : NetworkBehaviour
 
     [SerializeField] public List<TileScript> mapTiles = new List<TileScript>();
 
-    [SerializeField] private TMP_Text rollNum;
+    public TMP_Text rollNum;
 
     private List<GameObject> takenPath = new List<GameObject>();
-    private List<GameObject> playerSticks = new List<GameObject>();
+    public List<GameObject> playerSticks = new List<GameObject>();
     private List<Animator> stickAnimators = new List<Animator>();
 
     public int mapNumber;
-    public GameObject playerCam;
+    public CinemachineCamera playerCam;
     public GameObject gameMenu;
 
     public bool canMove = false;
@@ -34,36 +35,45 @@ public class PlayerMoveManager : NetworkBehaviour
     private Vector3 cameraMoveDirection;
 
     public static PlayerMoveManager Instance;
-    private void Awake()
+    public void Awake()
     {
         
+        for(int i = 0; i < mapTiles.Count; i++)
+        {
+            mapTiles[i].tileId = i;
+        }
         Instance = this;
+
         
 
-
+       
+        
         setUpTileEnemies();
         playerSticks = GameObject.FindGameObjectWithTag("Data").GetComponent<NetworkData>().playerSticks;
-
-        int xoffset = 0;
+        
+        float xoffset = 0;
         int stagger = 1;
-        for(int i = 0; i < NetworkData.Instance.players.Count; i++)
+        for (int i = 0; i < NetworkData.Instance.players.Count; i++)
         {
-           
 
+           
             stickAnimators.Add(playerSticks[i].GetComponent<Animator>());
             playerSticks[i].transform.position = mapTiles[NetworkData.Instance.players[i].curTileId].transform.position;
-            playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + xoffset, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z + 60 * stagger);
-            xoffset += 120;
+            playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + xoffset, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z - 2 + .3f * stagger);
+            xoffset += 1;
             stagger *= -1;
-            playerCam.transform.position = playerSticks[i].transform.position + new Vector3(95,797,-1054);
+          
         }
+        playerCam.Follow = playerSticks[NetworkData.Instance.currentPlayer].transform;
+  
 
-        FightOrNot();
+
 
     }
+    
     private void Update()
     {
-        if (!cameraMove.Value) { playerCam.transform.position = playerSticks[NetworkData.Instance.currentPlayer].transform.position + new Vector3(95, 797, -1054);  }
+        if (!cameraMove.Value) {  }
         
         else {  playerCam.transform.position += cameraMoveDirection * cameraSpeed * Time.deltaTime; }
     }
@@ -88,22 +98,17 @@ public class PlayerMoveManager : NetworkBehaviour
         takenPath.Add(mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].gameObject);
         
     }
-    [ServerRpc (RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SyncDiceRollServerRpc(int num)
     {
         stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", true);
         diceRoll = num;
-        SyncDiceRollClientRpc(num);
-    }
-    [ClientRpc (RequireOwnership = false)]
-    private void SyncDiceRollClientRpc(int num)
-    {
-        
+
         diceRoll = num;
         rollNum.text = diceRoll.ToString();
         rollNum.transform.parent.gameObject.SetActive(true);
-        
     }
+   
 
     public void confirmMove(InputAction.CallbackContext action)
     {
@@ -113,8 +118,9 @@ public class PlayerMoveManager : NetworkBehaviour
         if (diceRoll <= 0)
         {
 
-            stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", false);
+            
             canMove = false;
+            SyncPlayerTileServerRpc(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
             SetNextTurnServerRpc();
 
         }
@@ -180,8 +186,8 @@ public class PlayerMoveManager : NetworkBehaviour
                 takenPath.RemoveAt(takenPath.Count - 1);
             }
             else { return; }
-            SyncPlayerTileServerRpc(curTile.upTile.GetComponent<TileScript>().tileId);
-          
+            NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.upTile.GetComponent<TileScript>().tileId;
+
         }
         if (action.action.ReadValue<Vector2>() == Vector2.down && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].downTile != null)
         {
@@ -198,7 +204,7 @@ public class PlayerMoveManager : NetworkBehaviour
                 takenPath.RemoveAt(takenPath.Count - 1);
             }
             else { return; }
-            SyncPlayerTileServerRpc(curTile.downTile.GetComponent<TileScript>().tileId);
+            NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.downTile.GetComponent<TileScript>().tileId;
         }
 
         if (action.action.ReadValue<Vector2>() == Vector2.right && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].rightTile != null)
@@ -216,7 +222,7 @@ public class PlayerMoveManager : NetworkBehaviour
                 takenPath.RemoveAt(takenPath.Count - 1);
             }
             else { return; }
-            SyncPlayerTileServerRpc(curTile.rightTile.GetComponent<TileScript>().tileId);
+            NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.rightTile.GetComponent<TileScript>().tileId;
         }
 
         if (action.action.ReadValue<Vector2>() == Vector2.left && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].leftTile != null)
@@ -234,73 +240,63 @@ public class PlayerMoveManager : NetworkBehaviour
                 takenPath.RemoveAt(takenPath.Count - 1);
             }
             else { return; };
-            SyncPlayerTileServerRpc(curTile.leftTile.GetComponent<TileScript>().tileId);
+            NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.leftTile.GetComponent<TileScript>().tileId;
         }
 
         SyncDiceRollServerRpc(diceRoll);
         rollNum.text = diceRoll.ToString();
-        PlayerMoverServerRpc(moveSpeed);
+        StopAllCoroutines();
+        StartCoroutine(playerMover(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId));
+        PlayerMoverRpc(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
     }
 
 
 
-    [ServerRpc(RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SyncPlayerTileServerRpc (int id)
     {
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = id;
-        SyncPlayerTileClientRpc(id);
+  
     }
-    [ClientRpc(RequireOwnership = false)]
-    private void SyncPlayerTileClientRpc(int id)
+
+
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void PlayerMoverRpc(float speed, int tildid, RpcParams rpcstuff = default)
     {
-        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = id;
+        if (rpcstuff.Receive.SenderClientId == NetworkManager.Singleton.LocalClientId) { return; }
+
+        StopAllCoroutines();
+       
+        StartCoroutine(playerMover(speed, tildid));
     }
 
-
-
-    [ServerRpc (RequireOwnership = false)]
-    private void PlayerMoverServerRpc(float speed)
-    {
-        
-        StartCoroutine(playerMover(speed));
-    }
-
-    [ServerRpc(RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SetNextTurnServerRpc()
     {
-        
-        SetNextTurnClientRpc();
-    }
-
-
-
-    [ClientRpc(RequireOwnership =false)]
-    private void SetNextTurnClientRpc()
-    {
+        stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", false);
         rollNum.transform.parent.gameObject.SetActive(true);
         MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Add(NetworkData.Instance.currentPlayer);
-        Debug.Log("Something should happen?");
+  
         mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].TileEvent();
-        
-        
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void NextTurnRpc()
     {
         NetworkData.Instance.setNextTurnNum();
-        FightOrNot();
+        ClientChecks.Instance.OnNetworkSpawn();
         
 
     }
 
-    private IEnumerator playerMover(float speed)
+    private IEnumerator playerMover(float speed, int tildId)
     {
 
-        while (Vector3.Distance(playerSticks[NetworkData.Instance.currentPlayer].transform.position, mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].gameObject.transform.position) > 0.01f )
+        while (Vector3.Distance(playerSticks[NetworkData.Instance.currentPlayer].transform.position, mapTiles[tildId].gameObject.transform.position) > 0.01f )
         {
             playerSticks[NetworkData.Instance.currentPlayer].transform.position =
-        Vector3.MoveTowards(playerSticks[NetworkData.Instance.currentPlayer].transform.position, mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].gameObject.transform.position, speed * Time.deltaTime);
+        Vector3.MoveTowards(playerSticks[NetworkData.Instance.currentPlayer].transform.position, mapTiles[tildId].gameObject.transform.position, speed * Time.deltaTime);
             yield return null;
         }
         
@@ -323,13 +319,17 @@ public class PlayerMoveManager : NetworkBehaviour
 
             for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[mapNumber].Length; i++)
             {
-                if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy != null)
+                if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy.Count != 0)
                 {
-                    var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy.enemyId].enemyPrefab);
-                    enemy.transform.position = mapTiles[i].transform.position;
-                    enemy.transform.position = new Vector3(enemy.transform.position.x - 120, enemy.transform.position.y, enemy.transform.position.z + 60);
-                    enemy.transform.localScale = new Vector3(50, 50, 1);
-                    Debug.Log("OVERWORLD ENEMY SPAWNED");
+                    foreach (var enemies in MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy)
+                    {
+                        var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemies.enemyId].enemyNonCombatPrefab);
+                        enemy.transform.position = mapTiles[i].transform.position;
+                        enemy.transform.position = new Vector3(enemy.transform.position.x - 0, enemy.transform.position.y, enemy.transform.position.z + 0);
+                        enemy.transform.localScale = new Vector3(1, 1, 1);
+                        Debug.Log("OVERWORLD ENEMY SPAWNED AT " + i);
+                    }
+                    
                 }
 
             }
@@ -349,13 +349,19 @@ public class PlayerMoveManager : NetworkBehaviour
         }
 
         if ((MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy == null || !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
+        {
+            playerCam.Follow = playerSticks[NetworkData.Instance.currentPlayer].transform;
             gameMenu.SetActive(true);
+            rollNum.gameObject.transform.parent.gameObject.SetActive(false);
+        }
+            
         else
         {
 
             if (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
             {
                 gameMenu.SetActive(false);
+
                 ClientChecks.Instance.DisplayDeadRpc();
                 return;
             }
@@ -365,4 +371,6 @@ public class PlayerMoveManager : NetworkBehaviour
             NextTurnRpc();
         }
     }
+
+    
 }

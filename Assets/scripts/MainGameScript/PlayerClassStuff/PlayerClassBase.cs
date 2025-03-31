@@ -8,6 +8,8 @@ public abstract class PlayerClassBase : ScriptableObject
 
     public ItemBuff[] levelUpStats;
 
-    
+    public int[] inventorySizes;
+
+    public AttackBase combatAbility;
     public abstract void ClassAction();
 }

@@ -63,9 +63,10 @@ public class DisplayInventory : MonoBehaviour
     public void CreateDisplay( int playerNum ,int inventoryType = 0)
     {
         SetInventory(inventoryType, playerNum);
-
+        
         for (int i = 0; i < inventory.container.Count; i++)
         {
+
             var tempId = i; //WHY IS THIS A THING THAT HAS TO BE DONE
             var obj = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
             obj.transform.GetComponent<Image>().sprite = inventory.container[i].item.itemSprite;
@@ -122,6 +123,11 @@ public class DisplayInventory : MonoBehaviour
         
 
         inventory = NetworkData.Instance.playerInventories[playerNum][inventoryType];
+        Debug.Log("HOW MUCH" + inventory.container.Count);
+        Debug.Log("WHO " +  playerNum);
+        Debug.Log("WHICH ONE " + inventoryType);
+
+
         foreach (GameObject item in itemsDisplayed.Values)
         {
             Destroy(item);

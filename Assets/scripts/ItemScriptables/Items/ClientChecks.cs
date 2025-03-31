@@ -18,6 +18,48 @@ public class ClientChecks : NetworkBehaviour
 
     public GameObject combatPreview;
 
+    public override void OnNetworkSpawn()
+    {
+        
+        NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
+        bool rumble = false;
+        foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
+        {
+            
+            if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && !NetworkData.Instance.players[players].isDead && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
+            {
+                Debug.Log("we tried to fight even tho we can't");
+                rumble = true;
+            }
+        }
+
+        if ((MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0 && !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
+        {
+            
+            MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Remove(NetworkData.Instance.currentPlayer);
+            PlayerMoveManager.Instance.playerCam.Follow = PlayerMoveManager.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
+            PlayerMoveManager.Instance.gameMenu.SetActive(true);
+            PlayerMoveManager.Instance.rollNum.gameObject.transform.parent.gameObject.SetActive(false);
+        }
+
+        else
+        {
+
+            if (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
+            {
+                PlayerMoveManager.Instance.gameMenu.SetActive(false);
+           
+                if(IsServer) { ClientChecks.Instance.DisplayDeadRpc(); }
+                return;
+            }
+
+            
+            PlayerMoveManager.Instance.gameMenu.SetActive(false);
+            if (IsServer) { SyncEnemyRpc(0); }
+            
+        }
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -37,7 +79,7 @@ public class ClientChecks : NetworkBehaviour
         NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
 
         
-        display.CreateDisplay(inventoryNum, player);
+        display.CreateDisplay( player, inventoryNum);
         display.gameObject.SetActive(false);
 
         displayTxt.text = NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].useText;
@@ -47,65 +89,75 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void ConfirmItemPickupRpc(int player, int itemId, int inventoryNum)
     {
-        NetworkData.Instance.playerInventories[player][inventoryNum].AddItem(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId]);
         displayText.SetActive(true);
         displayText = ItemPickupDisplay.Instance.gameObject;
-        displayTxt.text = "Obtained a <color=blue>" + NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].name + "</color>";
-        StartCoroutine(displayItem());
+        if (NetworkData.Instance.playerInventories[player][inventoryNum].AddItem(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId]))
+        {
+            
+            
+            displayTxt.text = "Obtained a <color=blue>" + NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].name + "</color>";
+            StartCoroutine(displayItem());
+        }
+        else
+        {
+            displayTxt.text = "You've got NO ROOM for that ish stoopid (hopefully in the future u can pick what u want)";
+            StartCoroutine(displayItem());
+
+        }
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void SyncEnemyRpc(int enemyId)
     {
-        EnemyCombat enemy;
-
-        //Pretty much everything that isn't these two is stuff from the old system
         PlayerCombatManager.Instance.combatants.Clear();
         PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
+        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].setCombatActions();
 
-        if ( MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy == null )
-        {
-            enemy = new EnemyCombat(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemyId]);
-        }
-        else
-        {
-            enemy = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy;
-        }
-        
-        PlayerCombatManager.Instance.combatant1 = NetworkData.Instance.players[NetworkData.Instance.currentPlayer];
-        PlayerCombatManager.Instance.combatant2 = enemy;
-        PlayerCombatManager.Instance.combatants.Add(enemy);
 
         bool rumble = false;
-        int counter = 0;
+        
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
         {
             if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
             {
+                PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[players]);
+                NetworkData.Instance.players[players].setCombatActions();
                 rumble = true;
-                break;
+                
             }
-            counter++;
-        }
-        if (rumble)
-        {
-            PlayerCombatManager.Instance.combatant2 = NetworkData.Instance.players[counter];
-        }
-        //PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.currentPlayer].tileEnemy = enemy;
-
-
-
-        combatPreview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();
-        if (PlayerCombatManager.Instance.combatant2 is playerData)
-        {
-            combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[(PlayerCombatManager.Instance.combatant2 as playerData).playerNumber].name.ToString();
-        }
-        else
-        {
-            Debug.Log(PlayerCombatManager.Instance.combatant2.name.ToString());
-            combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatant2.name.ToString();
-            MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy = enemy;
             
         }
+        
+        //Pretty much everything that isn't these two is stuff from the old system
+        
+            if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0)
+            {
+                if (!rumble) 
+                {
+                    var temp = new EnemyCombat(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemyId]);
+                    PlayerCombatManager.Instance.combatants.Add(temp);
+                    MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Add(temp);
+                }
+            
+                
+            }
+            else
+            {
+                foreach (var enemyy in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy)
+                {
+                    PlayerCombatManager.Instance.combatants.Add(enemyy);
+                }
+
+            }
+        
+      
+
+        combatPreview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();
+       
+        
+        combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatants[1].name.ToString();
+           
+            
+        
       
         
         StartCoroutine(previewFight());
@@ -138,9 +190,13 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost,RequireOwnership = false)]
     public void DisplayDeadRpc()
     {
-        displayTxt.text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name + " is dead for <color=red>" + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].tillRevive + "</color> turns";
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
+        displayTxt.text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name + " is dead for <color=red>" + (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].tillRevive + 1) + "</color> turns";
+        Debug.Log("does progressing death break u");
+        
+        Debug.Log("displaying def shouldn't");
         StartCoroutine(displayItem());
+        
     }
     private IEnumerator previewFight()
     {
@@ -159,6 +215,7 @@ public class ClientChecks : NetworkBehaviour
 
             yield return null;
         }
+        if (IsServer)
         PlayerMoveManager.Instance.NextTurnRpc();
 
     }

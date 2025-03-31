@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public abstract class AbilityBase : NetworkBehaviour
@@ -16,11 +17,12 @@ public abstract class AbilityBase : NetworkBehaviour
 
     private void Awake()
     {
-        
+        lifetimer = 0f;
     }
     public void Update()
     {
-       if (lifespan < lifetimer)
+        if (!IsServer) { return; }
+        if (lifespan < lifetimer)
         {
             Destroy(gameObject);
 
@@ -28,17 +30,20 @@ public abstract class AbilityBase : NetworkBehaviour
         lifetimer += Time.deltaTime;
 
     }
-
-   public int DamageCalculator( EntityStats defender)
+    public virtual void OnHit()
+    {
+        Destroy(gameObject);
+    }
+    public int DamageCalculator(EntityStats defender)
     {
         float totalDamge = 0;
         foreach (var offense in attackInfo.multipliers)
         {
-            totalDamge += offense.mult * ownerStats.stats[offense.attribute];
+            totalDamge += offense.mult * ownerStats.postStatusStats[offense.attribute];
         }
         foreach (var defense in attackInfo.defenseMult)
         {
-            totalDamge -= defense.mult * defender.stats[defense.attribute];
+            totalDamge -= defense.mult * defender.postStatusStats[defense.attribute];
         }
 
         if (totalDamge < 0)
@@ -47,5 +52,26 @@ public abstract class AbilityBase : NetworkBehaviour
             return Mathf.RoundToInt(totalDamge);
 
     }
+    public virtual void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Did i enter their hitbox");
+        if(!IsServer || other.gameObject == owner) { return; }
+        
+        OnHit();
+
+        Debug.Log(other.gameObject);
+        Debug.Log(owner);
+
+        if (other.gameObject.TryGetComponent(out AbilityManager hitby))
+        {
+            
+         
+            Debug.Log("ERRRR" + other.GetType());
+
+            hitby.ImHitRpc(DamageCalculator(hitby.stats));
+        }
+
+    }
+
 
 }

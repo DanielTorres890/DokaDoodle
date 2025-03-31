@@ -10,11 +10,10 @@ public class DefaultTile : TileScript
     public EventBase[] events;
     public override void TileEvent()
     {
-        Debug.Log("WHO ARE U " + NetworkData.Instance.currentPlayer);
-        Debug.Log("Who am I " + NetworkManager.Singleton.LocalClientId);
-        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        
+        if (!NetworkManager.Singleton.IsServer) { return; }
         //PlayerMoveManager.Instance.NextTurnRpc();
-        if (Random.Range(1,2) == 3)  
+        if (Random.Range(1,4) == 5)  
         {
             int eventToSet = Random.Range(0,events.Length);
             ClientChecks.Instance.SyncEventRpc(eventToSet);

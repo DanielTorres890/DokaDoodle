@@ -12,20 +12,24 @@ public class CombatantMovement : NetworkBehaviour
     [SerializeField] private AbilityManager abilityManager;
     [SerializeField] private GameObject playerCam;
     [SerializeField] private float speed, sensitivy, maxForce, jumpForce;
+
+
+    [SerializeField] private PlayerInput action;
     private Vector2 move, look;
     private float lookRotation;
 
-    private Camera camcomponent;
+    //private Camera camcomponent;
 
     //All of my states.. hopefully?
     [SerializeField] private bool grounded;
 
     public void moveForward(InputAction.CallbackContext action)
     {
-        
+
         move = action.action.ReadValue<Vector2>();
 
     }
+    
     public void LookAround(InputAction.CallbackContext action)
     {
         look = action.action.ReadValue<Vector2>();
@@ -33,29 +37,77 @@ public class CombatantMovement : NetworkBehaviour
     public void NormalJump(InputAction.CallbackContext action)
     {
 
-        if (grounded) 
+        if (grounded && IsOwner) 
         {
       
-            body.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+            body.AddForce(Vector3.up * (jumpForce + abilityManager.stats.speedFormula()), ForceMode.VelocityChange);
+        }
+    }
+    public void DashRight(InputAction.CallbackContext action)
+    {
+        if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
+        if (grounded && IsOwner)
+        {
+            abilityManager.combatantstate = combatantStates.Dashing;
+            abilityManager.stateDuration = .25f;
+            body.AddForce(transform.TransformDirection(Vector3.right * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
+        }
+    }
+    public void DashLeft(InputAction.CallbackContext action)
+    {
+        if(abilityManager.combatantstate == combatantStates.Dashing) { return; }
+        if (grounded && IsOwner)
+        {
+            abilityManager.combatantstate = combatantStates.Dashing;
+            abilityManager.stateDuration = .25f;
+            body.AddForce(transform.TransformDirection(Vector3.left * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
         }
     }
 
-    private void Awake()
+    public void DashFwd(InputAction.CallbackContext action)
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        camcomponent = playerCam.GetComponent<Camera>();
+        if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
+        if (grounded && IsOwner)
+        {
+            abilityManager.combatantstate = combatantStates.Dashing;
+            abilityManager.stateDuration = .25f;
+            body.AddForce(transform.TransformDirection(Vector3.forward * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
+        }
+    }
+    public void DashBack(InputAction.CallbackContext action)
+    {
+        if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
+        if (grounded && IsOwner)
+        {
+            abilityManager.combatantstate = combatantStates.Dashing;
+            abilityManager.stateDuration = .25f;
+            body.AddForce(transform.TransformDirection(Vector3.back * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
+        }
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if(!IsOwner) { return; }
+
+        action.actions["DashRight"].performed += DashRight;
+        action.actions["DashLeft"].performed += DashLeft;
+        action.actions["DashFwd"].performed += DashFwd;
+        action.actions["DashBack"].performed += DashBack;
+        //camcomponent = playerCam.GetComponent<Camera>();
     }
     private void FixedUpdate()
     {
+        if (NewCombatManager.instance.fightOver || !IsOwner) { return; }
+  
         Move();   
     }
 
 
     private void Move()
     {   
-        if (!CanMove()) 
+        if (!abilityManager.CanMove()) 
         {
-            Debug.Log(playerCam.transform.parent.localEulerAngles.x);
+          
             transform.Rotate(new Vector3(playerCam.transform.parent.localEulerAngles.x,0,0));
             playerCam.transform.parent.transform.localRotation = Quaternion.identity;
             body.constraints = RigidbodyConstraints.FreezePosition;
@@ -63,11 +115,24 @@ public class CombatantMovement : NetworkBehaviour
         }    
         body.constraints = RigidbodyConstraints.FreezeRotation;
 
-        Vector3 currentVelocity = body.velocity;
-        Vector3 targetVeloctiy = new Vector3(move.x, 0, move.y);
-        targetVeloctiy *= speed;
+        Vector3 currentVelocity = body.linearVelocity;
 
+        Vector3 targetVeloctiy;
+        targetVeloctiy = new Vector3(move.x, 0, move.y);
+        targetVeloctiy *= speed + abilityManager.stats.speedFormula();
         targetVeloctiy = transform.TransformDirection(targetVeloctiy);
+
+        if (abilityManager.combatantstate == combatantStates.Dashing)
+        {
+            Debug.Log("Target: " + targetVeloctiy);
+            Debug.Log("Current: " + currentVelocity);
+            targetVeloctiy = new Vector3(currentVelocity.x - targetVeloctiy.x, 0, currentVelocity.z - targetVeloctiy.z);
+        }
+        
+        
+        
+
+        
 
         Vector3 velocityChange = (targetVeloctiy - currentVelocity);
         velocityChange = new Vector3(velocityChange.x,0,velocityChange.z);
@@ -77,7 +142,7 @@ public class CombatantMovement : NetworkBehaviour
         body.AddForce(velocityChange, ForceMode.VelocityChange);
         
         playerCam.transform.parent.transform.Rotate(new Vector3(transform.eulerAngles.x, 0, 0),Space.Self);
-        camcomponent.transparencySortAxis = new Vector3(math.sin(math.radians(playerCam.transform.parent.transform.eulerAngles.y)),0, math.cos( math.radians(playerCam.transform.parent.transform.eulerAngles.x)));
+        //camcomponent.transparencySortAxis = new Vector3(math.sin(math.radians(playerCam.transform.parent.transform.eulerAngles.y)),0, math.cos( math.radians(playerCam.transform.parent.transform.eulerAngles.x)));
         transform.eulerAngles = new Vector3(0,transform.eulerAngles.y,0);
 
         
@@ -86,8 +151,8 @@ public class CombatantMovement : NetworkBehaviour
 
     private void LateUpdate()
     {
-        
-        if (!CanMove())
+        if (NewCombatManager.instance.fightOver || !IsOwner) { return; }
+        if (!abilityManager.CanMove() && abilityManager.combatantstate != combatantStates.Endlag)
         {
             transform.Rotate(new Vector3(-look.y * sensitivy, look.x * sensitivy, 0));
             
@@ -105,9 +170,8 @@ public class CombatantMovement : NetworkBehaviour
         grounded = state;
     }
 
-    private bool CanMove()
-    {
-        return (abilityManager.combatantstate == combatantStates.Free || abilityManager.combatantstate == combatantStates.StartUpFree);
-    }
+    
+
+    
 }
 

@@ -1,16 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class AbilityManager : NetworkBehaviour
 {
-    [SerializeField] private PlayerInput actions;
+    [SerializeField] public PlayerInput actions;
 
 
-    private Dictionary<AttackBase, AbilityStates> stateManager = new Dictionary<AttackBase, AbilityStates>();
+    public Dictionary<AttackBase, AbilityStates> stateManager = new Dictionary<AttackBase, AbilityStates>();
+    public List<AttackBase> orderedAttacks = new List<AttackBase>();
+
     [SerializeField] private AttackBase testAttack;
 
     public EntityStats stats;
@@ -18,16 +23,28 @@ public class AbilityManager : NetworkBehaviour
     public float stateDuration;
 
     private AttackBase currentAttack = null;
-    void Awake()
-    {
+    private GameObject spawnedAttack;
 
+    private Dictionary<InputControl,int> inputToInt = new Dictionary<InputControl,int>();
+
+    [SerializeField] private EntityUIUpdate nameText;
+    [SerializeField] private EntityUIUpdate hpText;
+
+    public UnityEvent onStatus;
+    public override void OnNetworkSpawn()
+    {
+        NewCombatManager.instance.fricku.Add(gameObject);
+        NewCombatManager.instance.allCombatants.Add(this);
+        
+      
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!IsOwner) { return; }
+
+        if(!IsOwner || NewCombatManager.instance.fightOver || stats.isDead) { return; }
         foreach (var state in  stateManager.Keys) 
         {
             stateManager[state].cooldown -= Time.deltaTime;
@@ -52,11 +69,23 @@ public class AbilityManager : NetworkBehaviour
         {
             if (currentAttack != null)
             {
-                currentAttack.WeaponEffect(gameObject);
+                int foundu = 0;
+                
+                for(int i = 0; i < stats.attacks.Count; i++ )
+                {
+                    if (stats.attacks[i] == currentAttack) {  foundu = i; break; }
+                }
+                if(stats is EnemyCombat)
+                {
+                    Debug.Log(" IM WALLOPPING A BIT TOO FAST I THINKS");
+                }
+                
+                spawnedAttack = currentAttack.WeaponEffect(gameObject);
+                PerformAttackRpc(foundu, NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,gameObject.transform.eulerAngles);
 
                 stateDuration = currentAttack.endLag;
                 combatantstate = combatantStates.Endlag;
-                if (stateDuration >= 0)
+                if (stateDuration <= 0)
                 {
                     combatantstate = combatantStates.Free;
                 }
@@ -72,73 +101,189 @@ public class AbilityManager : NetworkBehaviour
         
 
     }
-    
 
+    [Rpc(SendTo.Server, RequireOwnership = false)]
+    private void PerformAttackRpc(int whom, float time, Vector3 wherewasyou, Vector3 whereyoulookin)
+    {
+        currentAttack = stats.attacks[whom];
+       
+        currentAttack.WeaponEffect(gameObject,time, wherewasyou, whereyoulookin);
+
+    }
+    [Rpc(SendTo.SpecifiedInParams, RequireOwnership = false)]
+    public void RealAttackRpc(RpcParams rpcStuff)
+    {
+        if (spawnedAttack == null) { return ; }
+        Destroy(spawnedAttack);
+    }
     public void AssignAbilities()
     {
-        Debug.Log("Who owns" + OwnerClientId);
-        Debug.Log("Who am i" + NetworkManager.Singleton.LocalClientId);
-        Debug.Log("So im the owner?" + IsOwner);
-        Debug.Log("And the server owns me? " + IsOwnedByServer);
+       
         if (!IsOwner) { return; }
       
+
         actions.SwitchCurrentActionMap("Player");
+        onStatus = new UnityEvent();
+
+
         actions.actions["M1Attack"].performed += M1Attack;
         actions.actions["M1Attack"].canceled += M1AttackReleased;
-        stateManager.Add(testAttack, new AbilityStates());
+        inputToInt.Add(actions.actions["M1Attack"].controls[0], 0);
+        stateManager.Add(stats.attacks[0], new AbilityStates());
+        orderedAttacks.Add(stats.attacks[0]);
 
-        for (int i = 1; i < 10; i++)
+        for (int i = 1; i < stats.attacks.Count-1; i++)
         {
             if (i >= stats.attacks.Count) { break; }
 
-            actions.actions["Ability" + i.ToString()].performed += Ability1;
-            actions.actions["Ability" + i.ToString()].canceled += Ability1Released;
+            if (stateManager.ContainsKey(stats.attacks[i])) { continue; }
+
+          
+            actions.actions["Ability" + i.ToString()].performed += M1Attack;
+            actions.actions["Ability" + i.ToString()].canceled += M1AttackReleased;
+            inputToInt.Add(actions.actions["Ability" + i.ToString()].controls[0], i);
+            stateManager.Add(stats.attacks[i], new AbilityStates());
+            orderedAttacks.Add(stats.attacks[i]);
+        }
+
+        actions.actions["ClassAbility"].performed += M1Attack;
+        actions.actions["ClassAbility"].canceled += M1AttackReleased;
+        inputToInt.Add(actions.actions["ClassAbility"].controls[0], stats.attacks.Count-1);
+        stateManager.Add(stats.attacks[stats.attacks.Count - 1], new AbilityStates());
+        orderedAttacks.Add(stats.attacks[stats.attacks.Count - 1]);
+    }
+
+    public void AssignStateManager()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            if (i >= stats.attacks.Count) { break; }
             stateManager.Add(stats.attacks[i], new AbilityStates());
 
+        }
+    }
+   /* 
+    public void OnTriggerEnter(Collider other)
+    {
+        
+        if (!IsServer) { return; }
+        
+        if (other.gameObject.TryGetComponent(out AbilityBase hitby))
+        {
+            if (gameObject == hitby.owner) { return; }
+            hitby.OnHit();
+            Debug.Log("ERRRR" + other.GetType());
+            
+            ImHitRpc(hitby.DamageCalculator(stats));
+        }
+
+    }
+   */
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void ImHitRpc(int damageAmt)
+    {
+        stats.stats[Attributes.Health] -= damageAmt;
+        Debug.Log("did i get hit twice or did that just hurt alot " + damageAmt);
+        stats.PostStatusStatCalc();
+        hpText.UpdateText();
+        if (stats.stats[Attributes.Health] <= 0 && !stats.isDead)
+        {
+            stats.isDead = true;
+            NewCombatManager.instance.KILL(this);
+        }
+        
+        
+        
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void IGainedBuffRpc(int[] buffId)
+    {
+        foreach(int i in buffId)
+        {
+            stats.GainStatus(NetworkData.Instance.buffDataBase.GetBuff[i]);
+        }
+        Debug.Log("I gained buffs i think");
+        stats.PostStatusStatCalc();
+        onStatus.Invoke();
+    }
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void UpdateMaterialRpc(int playerNum)
+    {
+        var render = GetComponentInChildren<MeshRenderer>();
+        render.material = NetworkData.Instance.playerSticks[playerNum].GetComponent<characterEditor>().myMaterial;
+      
+     
+        NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineCamera>());
+       
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void UpdateStatsRpc(int combatantNum)
+    {
+
+        stats = PlayerCombatManager.Instance.combatants[combatantNum];
+        nameText.AbilityManager = this;
+        hpText.AbilityManager = this;
+        stats.PostStatusStatCalc();
+        nameText.UpdateText();
+        hpText.UpdateText();
+        
+        if(IsOwner) 
+        { 
+            if (gameObject.TryGetComponent(out BaseEnemyBehavior ai))
+            {
+                Debug.Log("BUNGA ASSIGN");
+                AssignStateManager();
+            }
+            else
+            {
+                AssignAbilities();
+            }
+           
         }
     }
     private void M1Attack(InputAction.CallbackContext action)
     {
         if (!IsOwner) { return; }
-        stateManager[testAttack].pressed = true;
+
+        stateManager[stats.attacks[inputToInt[action.control]]].pressed = true;
         
+
     }
     private void M1AttackReleased(InputAction.CallbackContext action)
     {
 
         if (!IsOwner) { return; }
-        stateManager[testAttack].pressed = false;
+        stateManager[stats.attacks[inputToInt[action.control]]].pressed = false;
 
     }
-    private void Ability1(InputAction.CallbackContext action)
+    public bool CanMove()
     {
-        if (!IsOwner) { return; }
-        if (stats.attacks.Count <= 1) { return;  }
-        stateManager[stats.attacks[1]].pressed = true;
+        return (combatantstate == combatantStates.Free || combatantstate == combatantStates.StartUpFree || combatantstate == combatantStates.Dashing) && !stats.isDead;
+    }
+    public bool CanAct()
+    {
+        return combatantstate == combatantStates.Free;
+    }
 
-    }
-    private void Ability1Released(InputAction.CallbackContext action)
-    {
-        if (!IsOwner) { return; }
-        if (stats.attacks.Count <= 1) { return; }
-        stateManager[stats.attacks[1]].pressed = false;
 
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (!IsOwner) { return; }
-        if (collision.gameObject.TryGetComponent(out AbilityBase hitby))
-        {
-            ImHitRpc(hitby.DamageCalculator(stats));
-        }
+    /* private void Ability1(InputAction.CallbackContext action)
+     {
+         if (!IsOwner) { return; }
+         if (stats.attacks.Count <= 1) { return; }
+         stateManager[stats.attacks[1]].pressed = true;
 
-    }
-    [Rpc(SendTo.Everyone, RequireOwnership = true)]
-    private void ImHitRpc(int damageAmt)
-    {
-        stats.stats[Attributes.Health] -= damageAmt;
-        Debug.Log(stats.name + " got hit for " +  damageAmt + " ouchy");
-    }
+     } //I hate this and my life but i really don't know how else to go about this bc how else would you assign these
+     private void Ability1Released(InputAction.CallbackContext action)
+     {
+         if (!IsOwner) { return; }
+         if (stats.attacks.Count <= 1) { return; }
+         stateManager[stats.attacks[1]].pressed = false;
+
+     }
+     */
+
 }
 public class AbilityStates
 {
@@ -152,6 +297,10 @@ public enum combatantStates
     StartUp,
     StartUpFree,
     Endlag,
+    Dashing,
     Free
 
 }
+
+
+

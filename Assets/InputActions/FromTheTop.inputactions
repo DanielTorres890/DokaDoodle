@@ -27,7 +27,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "7fba05cf-dcd0-45c3-8ccf-9e3b467f75b4",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -36,7 +36,16 @@
                     "name": "M1Attack",
                     "type": "Value",
                     "id": "d46545e6-1d57-4c7c-82cb-705cd58c3373",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ClassAbility",
+                    "type": "Value",
+                    "id": "e6e9170c-7107-46f3-8902-a82550979934",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -45,7 +54,7 @@
                     "name": "Ability1",
                     "type": "Button",
                     "id": "2a393684-4563-4438-baf9-134db626f02e",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -54,7 +63,7 @@
                     "name": "Ability2",
                     "type": "Button",
                     "id": "972f2ff3-98c7-47eb-be10-5a3d72d224db",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -63,9 +72,63 @@
                     "name": "Ability3",
                     "type": "Button",
                     "id": "72e43198-b9e2-4802-b9c6-72743baa5d95",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability4",
+                    "type": "Button",
+                    "id": "d98da1e2-b171-4f58-8934-4892c8acd1e2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability5",
+                    "type": "Button",
+                    "id": "db4a5c9c-47d2-45f5-8128-095f6b040a06",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DashRight",
+                    "type": "Button",
+                    "id": "df6b6081-55b5-4299-bd2d-efcc80596bcc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "MultiTap",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DashLeft",
+                    "type": "Button",
+                    "id": "1edf29a3-ef5f-49c6-9c85-3ebc76c9ffdb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "MultiTap",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DashFwd",
+                    "type": "Button",
+                    "id": "618003e8-7724-415d-9da8-1e6e363fbbe3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "MultiTap",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DashBack",
+                    "type": "Button",
+                    "id": "b8dda105-e600-4892-92d7-499654de4eb3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "MultiTap",
                     "initialStateCheck": false
                 }
             ],
@@ -270,6 +333,17 @@
                 },
                 {
                     "name": "",
+                    "id": "9d2afdcd-99b6-40b8-b903-4af5e8de79f2",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ClassAbility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4bfcfc5f-7421-4a00-910a-4055a2a42ad2",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -298,6 +372,72 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Ability3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0acaa503-6251-45dc-927b-9c896a2559f1",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Ability4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3cbdf489-05e5-45bf-9a00-1ec71b29c390",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Ability5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69d4089a-c991-4610-a4c5-31c9913d27f8",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DashRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8d27367d-39c6-4ce8-99b2-d41e34cdd591",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DashLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99c076b6-d2e6-4cd8-ab5c-235d8bf47377",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DashFwd",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "638bbd98-231e-4220-beca-5cc684b20220",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DashBack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1116,6 +1256,54 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "UndoCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Spectating",
+            "id": "a87147de-bcb3-4056-bcb1-baaf69ecefa6",
+            "actions": [
+                {
+                    "name": "LeftCameraSwitch",
+                    "type": "Button",
+                    "id": "6b1ba3de-c960-4157-bc8e-770d759d23af",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightCameraSwitch",
+                    "type": "Button",
+                    "id": "38fc7505-bee1-478b-9efa-bedf6ebd76e0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "33f57745-696f-4fd4-9ee8-a13f38351fd2",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "LeftCameraSwitch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "73f71a3d-6ae4-4957-aa4a-4abf18b09139",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RightCameraSwitch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

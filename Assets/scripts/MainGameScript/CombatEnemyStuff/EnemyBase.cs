@@ -10,10 +10,14 @@ public class EnemyBase : ScriptableObject
 
     public string enemyName;
     public GameObject enemyPrefab;
+    public GameObject enemyNonCombatPrefab;
     public ItemBuff[] Stats = new ItemBuff[7];
+    public List<string> loyaltyTags;
     public AttackBase[] Attackss;
     public DefenseBase[] Defendss;
     public ItemBase[] DroppedItems;
+
+   
     public int[] probability;
     public int droppedXp;
     public int droppedMoney;
@@ -24,7 +28,7 @@ public class EnemyBase : ScriptableObject
         int drop = Random.Range(0,100);
         if (DroppedItems.Length > 0)
         {
-            int dropTracker = probability[0];
+            int dropTracker = 0;
             for (int i = 0; i < DroppedItems.Length; i++)
             {
                 dropTracker += probability[i];

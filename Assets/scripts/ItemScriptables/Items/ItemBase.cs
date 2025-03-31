@@ -25,6 +25,7 @@ public enum Attributes
     Magic,
     MDefense,
     Dexterity
+
 }
 public abstract class ItemBase : ScriptableObject
 {
