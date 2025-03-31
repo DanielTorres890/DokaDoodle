@@ -149,7 +149,7 @@ public class playerData : EntityStats
 
         if (turnsDead == -1)
         {
-            this.tillRevive = Random.Range(2, 2);
+            this.tillRevive = Random.Range(2, 2); //man random numbers suck buns
         }
 
     }
@@ -185,7 +185,7 @@ public class playerData : EntityStats
         return levelsGained;
 
     }
-    public void healHp(int hp)
+    public bool healHp(int hp) //note this will work for dmg too ig
     {
         if (this.stats[Attributes.Health] +  hp > this.stats[Attributes.MaxHealth]) 
         {
@@ -195,6 +195,11 @@ public class playerData : EntityStats
         {
             this.stats[Attributes.Health] += hp;
         }
+        if(hp <= 0)
+        {
+            return true;
+        }
+        return false;
     }
     public void UnequipItem(ItemType type)
     {

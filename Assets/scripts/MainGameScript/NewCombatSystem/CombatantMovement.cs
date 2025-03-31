@@ -15,8 +15,13 @@ public class CombatantMovement : NetworkBehaviour
 
 
     [SerializeField] private PlayerInput action;
+
+
     private Vector2 move, look;
     private float lookRotation;
+
+    private float dashCdTimer;
+    [SerializeField] private float dashCd;
 
     //private Camera camcomponent;
 
@@ -45,9 +50,12 @@ public class CombatantMovement : NetworkBehaviour
     }
     public void DashRight(InputAction.CallbackContext action)
     {
+        if(dashCdTimer < dashCd) { return; }
+
         if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
         if (grounded && IsOwner)
         {
+            dashCdTimer = 0;
             abilityManager.combatantstate = combatantStates.Dashing;
             abilityManager.stateDuration = .25f;
             body.AddForce(transform.TransformDirection(Vector3.right * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
@@ -55,9 +63,12 @@ public class CombatantMovement : NetworkBehaviour
     }
     public void DashLeft(InputAction.CallbackContext action)
     {
-        if(abilityManager.combatantstate == combatantStates.Dashing) { return; }
+        if (dashCdTimer < dashCd) { return; }
+
+        if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
         if (grounded && IsOwner)
         {
+            dashCdTimer = 0;
             abilityManager.combatantstate = combatantStates.Dashing;
             abilityManager.stateDuration = .25f;
             body.AddForce(transform.TransformDirection(Vector3.left * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
@@ -66,9 +77,12 @@ public class CombatantMovement : NetworkBehaviour
 
     public void DashFwd(InputAction.CallbackContext action)
     {
+        if (dashCdTimer < dashCd) { return; }
+
         if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
         if (grounded && IsOwner)
         {
+            dashCdTimer = 0;
             abilityManager.combatantstate = combatantStates.Dashing;
             abilityManager.stateDuration = .25f;
             body.AddForce(transform.TransformDirection(Vector3.forward * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
@@ -76,9 +90,12 @@ public class CombatantMovement : NetworkBehaviour
     }
     public void DashBack(InputAction.CallbackContext action)
     {
+        if (dashCdTimer < dashCd) { return; }
+
         if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
         if (grounded && IsOwner)
         {
+            dashCdTimer = 0;
             abilityManager.combatantstate = combatantStates.Dashing;
             abilityManager.stateDuration = .25f;
             body.AddForce(transform.TransformDirection(Vector3.back * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
@@ -104,7 +121,8 @@ public class CombatantMovement : NetworkBehaviour
 
 
     private void Move()
-    {   
+    {
+        dashCdTimer += Time.deltaTime;
         if (!abilityManager.CanMove()) 
         {
           
@@ -124,8 +142,7 @@ public class CombatantMovement : NetworkBehaviour
 
         if (abilityManager.combatantstate == combatantStates.Dashing)
         {
-            Debug.Log("Target: " + targetVeloctiy);
-            Debug.Log("Current: " + currentVelocity);
+            
             targetVeloctiy = new Vector3(currentVelocity.x - targetVeloctiy.x, 0, currentVelocity.z - targetVeloctiy.z);
         }
         

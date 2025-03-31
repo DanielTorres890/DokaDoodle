@@ -26,7 +26,9 @@ public class PlayerMoveManager : NetworkBehaviour
     public GameObject gameMenu;
 
     public bool canMove = false;
-    public NetworkVariable<bool> cameraMove = new NetworkVariable<bool>();
+    public bool cameraMove = false;
+    public GameObject freeCamera;
+
 
     int diceRoll = 0;
 
@@ -73,7 +75,7 @@ public class PlayerMoveManager : NetworkBehaviour
     
     private void Update()
     {
-        if (!cameraMove.Value) {  }
+        if (!cameraMove) {  }
         
         else {  playerCam.transform.position += cameraMoveDirection * cameraSpeed * Time.deltaTime; }
     }
@@ -125,40 +127,41 @@ public class PlayerMoveManager : NetworkBehaviour
 
         }
     }
-    public void cameraMoverEnable(InputAction.CallbackContext action)
-    {
-        if(!canMove) { return; }
-        cameraMoverEnableServerRpc();
-        canMove = false;
-    }
-    [ServerRpc (RequireOwnership = false)]
-    private void cameraMoverEnableServerRpc ()
-    {
-        cameraMove.Value = true;
-    }
+   
 
-    public void cameraMoverDisable(InputAction.CallbackContext action)
+    public void FreeCamera()
     {
-        if (canMove) { return; };
-        cameraMoverDisableServerRpc();
-        canMove = true;
-    }
+        if(!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer,NetworkManager.Singleton.LocalClientId)) { return; }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void cameraMoverDisableServerRpc()
-    {
-        cameraMove.Value = false;
+        FreeCameraRpc();
     }
-    public void cameraMover(InputAction.CallbackContext action)
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void FreeCameraRpc(RpcParams paramys = default)
     {
-        if(!cameraMove.Value) { return; }
-        if (NetworkData.Instance.currentPlayer != Convert.ToInt32(NetworkManager.Singleton.LocalClientId) && !IsHost) { return; }
-        cameraMoverServerRpc(action.action.ReadValue<Vector3>());
+        cameraMove = true;
+        freeCamera.SetActive(true);
+        playerCam.Follow = freeCamera.transform;
+        if(IsServer)
+        {
+            freeCamera.GetComponent<NetworkObject>().ChangeOwnership(paramys.Receive.SenderClientId);
+        }
+        
     }
-    [ServerRpc(RequireOwnership = false)]
-    public void cameraMoverServerRpc(Vector3 action)
+    public void EndFreeCamera()
     {
-        cameraMoveDirection = action;
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        EndFreeCameraRpc();
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void EndFreeCameraRpc(RpcParams paramys = default)
+    {
+        cameraMove = false;
+        freeCamera.SetActive(false);
+        playerCam.Follow = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
+        if (IsServer)
+        {
+            freeCamera.GetComponent<NetworkObject>().ChangeOwnership(0);
+        }
     }
     public void MovePlayer(InputAction.CallbackContext action )
     {   

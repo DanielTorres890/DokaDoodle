@@ -119,8 +119,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3735387054086767184}
-  - component: {fileID: -8335829988793527975}
-  m_Layer: 0
+  - component: {fileID: 6177504573007340016}
+  - component: {fileID: 7039851659618530384}
+  m_Layer: 8
   m_Name: ItemTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +144,7 @@ Transform:
   - {fileID: 5532635932098808053}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-8335829988793527975
+--- !u!114 &6177504573007340016
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,3 +164,24 @@ MonoBehaviour:
   tileId: 0
   playersOnTile: 00000000
   items: []
+--- !u!65 &7039851659618530384
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4275375762089989838}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.42, y: 0.12, z: 4.54}
+  m_Center: {x: 0.4, y: 0.23, z: 0}

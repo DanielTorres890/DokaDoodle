@@ -79,7 +79,7 @@ public class DisplayInventory : MonoBehaviour
             else if (displayType == 1)
             {
                 obj.GetComponent<Button>().onClick.AddListener(delegate { ShopUISync.instance.setUpSell(tempId, inventoryType); });
-                if (inventory.container[tempId].item.itemValue <= NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo["money"])
+                if (inventory.container[tempId].item.itemValue <= NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money])
                 {
 
                     obj.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0, -13} {1}", inventory.container[tempId].item.name, inventory.container[tempId].item.itemValue);

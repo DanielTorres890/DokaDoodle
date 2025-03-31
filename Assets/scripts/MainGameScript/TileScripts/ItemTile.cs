@@ -14,7 +14,6 @@ public class ItemTile : TileScript
   
     public override void TileEvent()
     {
-        Debug.Log("Happened");
        
         if (!NetworkManager.Singleton.IsServer) { return; }
         int rando = UnityEngine.Random.Range(0,items.Length);

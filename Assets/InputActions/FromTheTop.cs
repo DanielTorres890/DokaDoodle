@@ -563,7 +563,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""name"": ""FreeCamera"",
                     ""type"": ""Button"",
                     ""id"": ""5f304cee-ff02-4fc6-a47c-3446c3f38663"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false

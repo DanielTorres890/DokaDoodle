@@ -119,8 +119,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3735387054086767184}
-  - component: {fileID: 1525862722101387219}
-  m_Layer: 0
+  - component: {fileID: 964784369748876675}
+  - component: {fileID: 5705220310492287758}
+  m_Layer: 8
   m_Name: EventTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +144,7 @@ Transform:
   - {fileID: 5532635932098808053}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1525862722101387219
+--- !u!114 &964784369748876675
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,5 +163,26 @@ MonoBehaviour:
   canFight: 0
   tileId: 0
   playersOnTile: 00000000
-  tileEvent:
-  - {fileID: 11400000, guid: 0a0cf92a146435e49baa995a79760ae9, type: 2}
+  enemies: []
+  events: []
+--- !u!65 &5705220310492287758
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4275375762089989838}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.01, y: 1, z: 4.53}
+  m_Center: {x: 0, y: 0, z: 0}

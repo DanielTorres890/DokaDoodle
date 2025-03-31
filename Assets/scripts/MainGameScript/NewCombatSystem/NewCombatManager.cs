@@ -224,10 +224,10 @@ public class NewCombatManager : NetworkBehaviour
                 
 
 
-            if (IsServer) { LinesToSyncRpc((info.name + " dropped " + info.playerInfo["money"] / 2 + " moneys"), info.LoseSomething(), 3, info.playerNumber); }
+            if (IsServer) { LinesToSyncRpc((info.name + " dropped " + info.playerInfo[PlayerInfo.money] / 2 + " moneys"), info.LoseSomething(), 3, info.playerNumber); }
 
-            moneyHarvested = info.playerInfo["money"] /= 2; 
-            info.playerInfo["money"] /= 2;
+            moneyHarvested = info.playerInfo[PlayerInfo.money] /= 2; 
+            info.playerInfo[PlayerInfo.money] /= 2;
                 
             
 
@@ -312,7 +312,7 @@ public class NewCombatManager : NetworkBehaviour
         {
             playerData player = (playerData)victor.stats;
             int levels = player.gainXp(xpHarvested + cache.xpOnTile);
-            player.playerInfo["money"] += moneyHarvested + cache.moneyOnTile;
+            player.playerInfo[PlayerInfo.money] += moneyHarvested + cache.moneyOnTile;
             foreach(var item in  itemsPicked)
             {
                 NetworkData.Instance.AddItemToInventory(player.playerNumber, item);
@@ -371,9 +371,9 @@ public class NewCombatManager : NetworkBehaviour
                     
                     
        
-                    if (IsServer) { LinesToSyncRpc((current.name + " dropped " + current.playerInfo["money"] / 2 + " moneys"), current.LoseSomething(), 3, current.playerNumber); }
+                    if (IsServer) { LinesToSyncRpc((current.name + " dropped " + current.playerInfo[PlayerInfo.money] / 2 + " moneys"), current.LoseSomething(), 3, current.playerNumber); }
                     
-                    current.playerInfo["money"] /= 2;
+                    current.playerInfo[PlayerInfo.money] /= 2;
                 }
             }
             endBattleInfo.gameObject.SetActive(true);

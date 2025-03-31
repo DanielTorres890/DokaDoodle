@@ -68,7 +68,7 @@ public class ShopUISync : NetworkBehaviour
 
     public void setUpBuy(int itemNum)
     {
-        if ((!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) || NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo["money"] < curEvent.itemsSold[itemNum].itemValue) { return; }
+        if ((!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) || NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money] < curEvent.itemsSold[itemNum].itemValue) { return; }
         setUpBuyRpc(itemNum);
     }
 
@@ -99,7 +99,7 @@ public class ShopUISync : NetworkBehaviour
     private void purchaseItemRpc(int itemNum)
     {
         NetworkData.Instance.AddItemToInventory(NetworkData.Instance.currentPlayer, curEvent.itemsSold[itemNum]);
-        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo["money"] -= curEvent.itemsSold[itemNum].itemValue;
+        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money] -= curEvent.itemsSold[itemNum].itemValue;
         buyShop.SetActive(true);
         hideMenuButtons(buyDontButtons);
     }
@@ -168,7 +168,7 @@ public class ShopUISync : NetworkBehaviour
                 
             }
         }
-        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo["money"] += NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][inventoryNum].getItem(itemNum).itemValue / 2;
+        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money] += NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][inventoryNum].getItem(itemNum).itemValue / 2;
         NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][inventoryNum].RemoveItem(itemNum);
         sellUIManager.CreateDisplay(NetworkData.Instance.currentPlayer, inventoryNum);
 

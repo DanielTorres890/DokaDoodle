@@ -44,7 +44,7 @@ public class ShopUICreator : MonoBehaviour
             //UnityEventTools.AddObjectPersistentListener<GameObject>(obj.GetComponent<Button>().onClick, action, obj);
             var temp = obj.GetComponentInChildren<TextMeshProUGUI>();
             
-            if (displayedItems[i].itemValue <= NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo["money"])
+            if (displayedItems[i].itemValue <= NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money])
             {
              
                 temp.text = string.Format("{0, -13} {1}", displayedItems[i].name, displayedItems[i].itemValue);
