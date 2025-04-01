@@ -71,6 +71,7 @@ public class ClientChecks : NetworkBehaviour
         displayTxt = displayText.GetComponentInChildren<TextMeshProUGUI>();
     }
 
+    
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void ConfirmBuffRpc(int player, int itemId, int inventoryNum)
     {
@@ -105,6 +106,7 @@ public class ClientChecks : NetworkBehaviour
 
         }
     }
+
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void SyncEnemyRpc(int enemyId)
     {
@@ -192,11 +194,19 @@ public class ClientChecks : NetworkBehaviour
     {
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
         displayTxt.text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name + " is dead for <color=red>" + (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].tillRevive + 1) + "</color> turns";
-        Debug.Log("does progressing death break u");
         
-        Debug.Log("displaying def shouldn't");
         StartCoroutine(displayItem());
         
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void DeployTrapRpc(int tileId, int trapId)
+    {
+        MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][tileId].trapIds.Add(trapId);
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void ActivateTrapsRpc()
+    {
+        StartCoroutine(TrapActivates());
     }
     private IEnumerator previewFight()
     {
@@ -204,6 +214,28 @@ public class ClientChecks : NetworkBehaviour
         combatPreview.SetActive(true);
         yield return new WaitForSecondsRealtime(5f);
         SceneChanger.Instance.loadClientScenesServerRpc("NewBattleArea");
+
+    }
+    private IEnumerator TrapActivates()
+    {
+        var trapcache = NetworkData.Instance.trapDataBase.GetTrap[MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds[0]];
+        displayTxt.text = trapcache.TrapString();
+        trapcache.TrapEffect(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
+        MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds.RemoveAt(0);
+        displayText.SetActive(true);
+        while (displayText.activeSelf)
+        {
+
+            yield return null;
+        }
+        if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds.Count > 0) 
+        {
+            StartCoroutine(TrapActivates());
+        }
+        else if (IsServer && NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead) {  PlayerMoveManager.Instance.NextTurnRpc(); }
+
+        else if (IsServer) { PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].TileEvent(); }
+            
 
     }
     private IEnumerator displayItem()

@@ -27,7 +27,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
     public bool canMove = false;
     public bool cameraMove = false;
-    public GameObject freeCamera;
+
 
 
     int diceRoll = 0;
@@ -129,40 +129,7 @@ public class PlayerMoveManager : NetworkBehaviour
     }
    
 
-    public void FreeCamera()
-    {
-        if(!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer,NetworkManager.Singleton.LocalClientId)) { return; }
-
-        FreeCameraRpc();
-    }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    private void FreeCameraRpc(RpcParams paramys = default)
-    {
-        cameraMove = true;
-        freeCamera.SetActive(true);
-        playerCam.Follow = freeCamera.transform;
-        if(IsServer)
-        {
-            freeCamera.GetComponent<NetworkObject>().ChangeOwnership(paramys.Receive.SenderClientId);
-        }
-        
-    }
-    public void EndFreeCamera()
-    {
-        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
-        EndFreeCameraRpc();
-    }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    private void EndFreeCameraRpc(RpcParams paramys = default)
-    {
-        cameraMove = false;
-        freeCamera.SetActive(false);
-        playerCam.Follow = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
-        if (IsServer)
-        {
-            freeCamera.GetComponent<NetworkObject>().ChangeOwnership(0);
-        }
-    }
+    
     public void MovePlayer(InputAction.CallbackContext action )
     {   
         
@@ -279,9 +246,14 @@ public class PlayerMoveManager : NetworkBehaviour
     {
         stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", false);
         rollNum.transform.parent.gameObject.SetActive(true);
-        MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Add(NetworkData.Instance.currentPlayer);
-  
-        mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].TileEvent();
+        MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Add(NetworkData.Instance.currentPlayer);
+
+        if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds.Count > 0 && IsServer)
+        {
+            ClientChecks.Instance.ActivateTrapsRpc();
+        }
+        else {  mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].TileEvent(); }
+        
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]

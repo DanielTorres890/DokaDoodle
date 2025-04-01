@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 //
 
-[CreateAssetMenu(fileName = "New Item Database", menuName = "Inventory System/Items/Database")]
+[CreateAssetMenu(fileName = "New Item Database", menuName = "TileSystem/Traps/TrapDataBase")]
 public class TrapDataBase : ScriptableObject, ISerializationCallbackReceiver
 {
     public BaseTrap[] Items;

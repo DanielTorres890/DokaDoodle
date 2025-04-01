@@ -13,4 +13,8 @@ public class FlatDmgTrap : BaseTrap
         if (die) { whom.death(turnsDeath); }
 
     }
+    public override string TrapString()
+    {
+        return ActivateText;
+    }
 }

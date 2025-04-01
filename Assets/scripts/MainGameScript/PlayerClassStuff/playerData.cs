@@ -195,7 +195,8 @@ public class playerData : EntityStats
         {
             this.stats[Attributes.Health] += hp;
         }
-        if(hp <= 0)
+        PostStatusStatCalc();
+        if(stats[Attributes.Health] <= 0)
         {
             return true;
         }
