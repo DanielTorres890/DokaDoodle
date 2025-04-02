@@ -48,6 +48,7 @@ public class ShowMeToAll : NetworkBehaviour
 
     private void HideUiFromAllClientRpc()
     {
+        Debug.Log("tHE PANEL HAS BEN HIDENEND");
         menuUI.SetActive(false);
     }
 

@@ -11,8 +11,9 @@ public class TrapItem : ItemBase
         if (!NetworkData.Instance.IsAllowed(player, NetworkManager.Singleton.LocalClientId)) { return; }
 
         FreeMover.Instance.FreeCamera();
-        Debug.Log("how many times did we sub");
         FreeMover.Instance.onTileSelect.AddListener(trap.DeployTrap);
+
+        
         FreeMover.Instance.onTileSelect.AddListener(delegate { ClientChecks.Instance.ConfirmBuffRpc(player, itemId, 0); });
         
 

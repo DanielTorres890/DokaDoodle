@@ -16,6 +16,7 @@ public class ClientChecks : NetworkBehaviour
     public GameObject displayText;
     private TextMeshProUGUI displayTxt;
 
+
     public GameObject combatPreview;
 
     public override void OnNetworkSpawn()
@@ -72,6 +73,8 @@ public class ClientChecks : NetworkBehaviour
     }
 
     
+
+
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void ConfirmBuffRpc(int player, int itemId, int inventoryNum)
     {
@@ -82,6 +85,7 @@ public class ClientChecks : NetworkBehaviour
         
         display.CreateDisplay( player, inventoryNum);
         display.gameObject.SetActive(false);
+        Debug.Log("i should be hidden");
 
         displayTxt.text = NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].useText;
         StartCoroutine(usedItem());
@@ -198,6 +202,7 @@ public class ClientChecks : NetworkBehaviour
         StartCoroutine(displayItem());
         
     }
+
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void DeployTrapRpc(int tileId, int trapId)
     {
@@ -254,11 +259,17 @@ public class ClientChecks : NetworkBehaviour
     private IEnumerator usedItem()
     {
         displayText.SetActive(true);
+        
         while (displayText.activeSelf)
         {
-
+            
+            
             yield return null;
         }
+        
         display.gameObject.SetActive(true);
+        Debug.Log(" ive been seened");
     }
+
+
 }

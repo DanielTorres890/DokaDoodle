@@ -20,7 +20,7 @@ public class FreeMover : NetworkBehaviour
 
     public static FreeMover Instance;
 
-
+    public float needToMove;
 
     public void Awake()
     {
@@ -32,6 +32,7 @@ public class FreeMover : NetworkBehaviour
     }
     public override void OnNetworkSpawn()
     {
+        base.OnNetworkSpawn();
         gameObject.SetActive(false);
     }
     public void moveAround(InputAction.CallbackContext action)
@@ -43,10 +44,23 @@ public class FreeMover : NetworkBehaviour
     public void Update()
     {
         if(!IsOwner || !gameObject.activeSelf) { return; }
+        var oldpos = transform.position;
+
         transform.position += new Vector3(move.x * speed,0,move.y * speed);
+
+        if(Vector3.Distance(transform.position,oldpos) > needToMove)
+        {
+            SyncTranformRpc(transform.position);
+        }
 
     }
 
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void SyncTranformRpc(Vector3 newPos)
+    {
+        transform.position = newPos;
+    }
     public void OnTriggerEnter(Collider other)
     {
         Debug.Log("I found something");
@@ -69,7 +83,7 @@ public class FreeMover : NetworkBehaviour
     public void SelectTile(InputAction.CallbackContext action)
     {
 
-        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId) && IsOwner) { return; }
         if (baseTile != null && action.started)
         {
             Debug.Log("okay im trying to shoot u now");
@@ -100,7 +114,6 @@ public class FreeMover : NetworkBehaviour
         gameObject.transform.position = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform.position;
 
         onBeginFree.Invoke();
-
         playerCam.Follow = gameObject.transform;
         if (IsServer)
         {
