@@ -134,13 +134,12 @@ public class PlayerMoveManager : NetworkBehaviour
     {   
         
         if (!canMove) { return; }
-        
+        var direction = action.action.ReadValue<Vector2>();
         var curTile = mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
 
-        
-        if (action.action.ReadValue<Vector2>() == Vector2.up && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].upTile != null)
+       
+        if (direction == Vector2.up && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].upTile != null)
         {
-
 
           
             if (((takenPath.Count <= 1 && diceRoll > 0) || (takenPath[takenPath.Count - 2] != curTile.upTile)) && diceRoll > 0)
@@ -159,7 +158,7 @@ public class PlayerMoveManager : NetworkBehaviour
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.upTile.GetComponent<TileScript>().tileId;
 
         }
-        if (action.action.ReadValue<Vector2>() == Vector2.down && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].downTile != null)
+        if(direction == Vector2.down && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].downTile != null)
         {
             
             if (((takenPath.Count <= 1 && diceRoll > 0) || (takenPath[takenPath.Count - 2] != curTile.downTile)) && diceRoll > 0)
@@ -177,7 +176,7 @@ public class PlayerMoveManager : NetworkBehaviour
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.downTile.GetComponent<TileScript>().tileId;
         }
 
-        if (action.action.ReadValue<Vector2>() == Vector2.right && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].rightTile != null)
+        if(direction == Vector2.right && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].rightTile != null)
         {
             
             if (((takenPath.Count <= 1 && diceRoll > 0) || (takenPath[takenPath.Count - 2] != curTile.rightTile)) && diceRoll > 0)
@@ -195,7 +194,7 @@ public class PlayerMoveManager : NetworkBehaviour
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.rightTile.GetComponent<TileScript>().tileId;
         }
 
-        if (action.action.ReadValue<Vector2>() == Vector2.left && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].leftTile != null)
+        if(direction == Vector2.left && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].leftTile != null)
         {
             
             if (((takenPath.Count <= 1 && diceRoll > 0) || (takenPath[takenPath.Count - 2] != curTile.leftTile)) && diceRoll > 0)
@@ -221,12 +220,25 @@ public class PlayerMoveManager : NetworkBehaviour
     }
 
 
+    public void UndoMove(InputAction.CallbackContext action)
+    {
+        if (!canMove || takenPath.Count < 2 || !action.performed) { return; }
 
+        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = takenPath[takenPath.Count-2].GetComponent<TileScript>().tileId;
+        Debug.Log("who tf u think u is " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
+        diceRoll++;
+        takenPath.RemoveAt(takenPath.Count-1);
+        SyncDiceRollServerRpc(diceRoll);
+        rollNum.text = diceRoll.ToString();
+        StopAllCoroutines();
+        StartCoroutine(playerMover(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId));
+        PlayerMoverRpc(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
+
+    }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SyncPlayerTileServerRpc (int id)
     {
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = id;
-  
     }
 
 
