@@ -6,10 +6,14 @@ using UnityEngine;
 public class Warrior : PlayerClassBase
 {
 
+    public BuffBase classBuff;
 
 
-    public override void ClassAction()
+    public override void ClassAction(playerData player)
     {
-        
+
+        player.GainStatus(classBuff);
+        player.playerInfo[PlayerInfo.classCd] = ClassActionCD;
+
     }
 }

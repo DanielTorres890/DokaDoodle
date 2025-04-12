@@ -9,7 +9,11 @@ public abstract class PlayerClassBase : ScriptableObject
     public ItemBuff[] levelUpStats;
 
     public int[] inventorySizes;
+    public int ClassActionCD;
+
+    [TextArea(15, 5)]
+    public string actionUseText;
 
     public AttackBase combatAbility;
-    public abstract void ClassAction();
+    public abstract void ClassAction(playerData player);
 }

@@ -1,0 +1,31 @@
+using TMPro;
+using UnityEngine;
+
+public class ClassAbility : MonoBehaviour
+{
+    public TextMeshProUGUI buttonText;
+
+    public void Awake()
+    {
+        ClientChecks.Instance.onRoundStart.AddListener(delegate { setButtonText(); });   
+    }
+    public void setButtonText()
+    {
+        if (NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] > 0) 
+        {
+            buttonText.text = NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd].ToString();
+        }
+        else
+        {
+            buttonText.text = "USE ABILITY";
+        }
+    }
+    public void UseClassAbility()
+    {
+        Debug.Log("I was pressed");
+        if ( !NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer,NetworkData.Instance.NetworkManager.LocalClientId) &&NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] > 0) { return; }
+        ClientChecks.Instance.UseClassAbilityRpc();
+    }
+
+
+}

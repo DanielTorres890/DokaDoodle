@@ -268,4 +268,9 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         }
         NetworkData.Instance.players[player].PostStatusStatCalc();
     }
+
+    public playerData GetCurrentPlayer()
+    {
+        return Instance.players[Instance.currentPlayer];
+    }
 }

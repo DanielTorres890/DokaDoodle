@@ -75,6 +75,7 @@ public class EntityStats
         {
             statuses.Add(new BuffHolder(status.duration, NetworkData.Instance.buffDataBase.GetId[status]));
         }
+        PostStatusStatCalc();
     }
     public void ProgressStatuses()
     {

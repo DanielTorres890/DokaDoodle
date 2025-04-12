@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RangedAbility : AbilityBase
 {
-
+    
     [SerializeField] private float speed;
     // Update is called once per frame
     private void Start()

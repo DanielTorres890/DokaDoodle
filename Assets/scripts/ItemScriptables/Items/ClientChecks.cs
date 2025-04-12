@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,16 +15,20 @@ public class ClientChecks : NetworkBehaviour
     public static ClientChecks Instance { get; private set; }
 
     public GameObject displayText;
+    public GameObject mainMenuButtons;
     private TextMeshProUGUI displayTxt;
 
-
+    public UnityEvent onRoundStart;
     public GameObject combatPreview;
 
     public override void OnNetworkSpawn()
     {
         
+
+        NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
         NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
         bool rumble = false;
+        onRoundStart.Invoke();
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
         {
             
@@ -67,8 +72,8 @@ public class ClientChecks : NetworkBehaviour
         {
             Instance = this;
         }
-        
 
+        onRoundStart = new UnityEvent();
         displayTxt = displayText.GetComponentInChildren<TextMeshProUGUI>();
     }
 
@@ -208,6 +213,16 @@ public class ClientChecks : NetworkBehaviour
     {
         MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][tileId].trapIds.Add(trapId);
     }
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void UseClassAbilityRpc()
+    {
+        Debug.Log("I happened ");
+        NetworkData.Instance.classDataBase.GetClass[NetworkData.Instance.GetCurrentPlayer().playerClass].ClassAction(NetworkData.Instance.GetCurrentPlayer());
+        displayTxt.text = NetworkData.Instance.classDataBase.GetClass[NetworkData.Instance.GetCurrentPlayer().playerClass].actionUseText;
+        StartCoroutine(usedAbility());
+
+    }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void ActivateTrapsRpc()
     {
@@ -270,6 +285,20 @@ public class ClientChecks : NetworkBehaviour
         display.gameObject.SetActive(true);
         Debug.Log(" ive been seened");
     }
+    private IEnumerator usedAbility()
+    {
+        mainMenuButtons.SetActive(false);
+        displayText.SetActive(true);
 
+        mainMenuButtons.transform.GetChild(3).gameObject.GetComponent<ClassAbility>().setButtonText(); //nasty work i shouuld redo this frfr
+        while (displayText.activeSelf)
+        {
+
+
+            yield return null;
+        }
+
+        mainMenuButtons.SetActive(true);
+    }
 
 }
