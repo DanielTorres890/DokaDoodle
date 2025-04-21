@@ -29,6 +29,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public int playerCount = -1;
     public int maxPlayers = 4;
     public int currentPlayer = 0;
+    public float globalMoneyMultiplier = 1;
     private List<bool> readyPlayers = new List<bool>();
 
     public EventBase currentEvent;

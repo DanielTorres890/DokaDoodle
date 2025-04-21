@@ -67,7 +67,9 @@ public class AbilityManager : NetworkBehaviour
         
         if (stateDuration <= 0)
         {
-            if (currentAttack != null)
+            if(combatantstate == combatantStates.Attacking) { combatantstate = combatantStates.Endlag; }
+
+            else if (currentAttack != null && InStartUp())
             {
                 int foundu = 0;
                 
@@ -83,15 +85,25 @@ public class AbilityManager : NetworkBehaviour
                 spawnedAttack = currentAttack.WeaponEffect(gameObject);
                 PerformAttackRpc(foundu, NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,gameObject.transform.eulerAngles);
 
-                stateDuration = currentAttack.endLag;
-                combatantstate = combatantStates.Endlag;
-                if (stateDuration <= 0)
+                stateDuration = currentAttack.attackDuration;
+                combatantstate = combatantStates.Attacking;
+                if (stateDuration <= 0) //  i'd like to point out that i COULD do a list of states to progress through, then for loop through them but i dont see any usecase for that 
                 {
-                    combatantstate = combatantStates.Free;
+                    combatantstate = combatantStates.Endlag;
+                    stateDuration = currentAttack.endLag;
+                    if (stateDuration <= 0  ) { combatantstate = combatantStates.Free; }
                 }
                 
                 stateManager[currentAttack].cooldown = currentAttack.cooldown;
+                
+            }
+            else if (combatantstate == combatantStates.Attacking)
+            {
                 currentAttack = null;
+                combatantstate = combatantStates.Endlag;
+                stateDuration = currentAttack.endLag;
+
+                if (stateDuration <= 0) { combatantstate = combatantStates.Free; }
             }
             else
             {
@@ -260,7 +272,15 @@ public class AbilityManager : NetworkBehaviour
     }
     public bool CanMove()
     {
-        return (combatantstate == combatantStates.Free || combatantstate == combatantStates.StartUpFree || combatantstate == combatantStates.Dashing) && !stats.isDead;
+        return (combatantstate == combatantStates.Free || combatantstate == combatantStates.StartUpFree || combatantstate == combatantStates.Dashing || combatantstate == combatantStates.Attacking) && !stats.isDead;
+    }
+    public bool InStartUp()
+    {
+        return combatantstate == combatantStates.StartUp || combatantstate == combatantStates.StartUpFree;
+    }
+    public bool CanMoveNotAct()
+    {
+        return (combatantstate == combatantStates.Attacking || combatantstate == combatantStates.Dashing);
     }
     public bool CanAct()
     {
@@ -298,6 +318,7 @@ public enum combatantStates
     StartUpFree,
     Endlag,
     Dashing,
+    Attacking,
     Free
 
 }

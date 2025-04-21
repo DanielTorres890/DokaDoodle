@@ -52,7 +52,7 @@ public class CombatantMovement : NetworkBehaviour
     {
         if(dashCdTimer < dashCd) { return; }
 
-        if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
+        if (abilityManager.CanMoveNotAct()) { return; }
         if (grounded && IsOwner)
         {
             dashCdTimer = 0;
@@ -65,7 +65,7 @@ public class CombatantMovement : NetworkBehaviour
     {
         if (dashCdTimer < dashCd) { return; }
 
-        if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
+        if (abilityManager.CanMoveNotAct()) { return; }
         if (grounded && IsOwner)
         {
             dashCdTimer = 0;
@@ -79,7 +79,7 @@ public class CombatantMovement : NetworkBehaviour
     {
         if (dashCdTimer < dashCd) { return; }
 
-        if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
+        if (abilityManager.CanMoveNotAct()) { return; }
         if (grounded && IsOwner)
         {
             dashCdTimer = 0;
@@ -140,11 +140,12 @@ public class CombatantMovement : NetworkBehaviour
         targetVeloctiy *= speed + abilityManager.stats.speedFormula();
         targetVeloctiy = transform.TransformDirection(targetVeloctiy);
 
-        if (abilityManager.combatantstate == combatantStates.Dashing)
+        if (abilityManager.CanMoveNotAct())
         {
             
             targetVeloctiy = new Vector3(currentVelocity.x - targetVeloctiy.x, 0, currentVelocity.z - targetVeloctiy.z);
         }
+
         
         
         
@@ -155,9 +156,12 @@ public class CombatantMovement : NetworkBehaviour
         velocityChange = new Vector3(velocityChange.x,0,velocityChange.z);
 
         Vector3.ClampMagnitude(velocityChange, maxForce);
-
-        body.AddForce(velocityChange, ForceMode.VelocityChange);
         
+        body.AddForce(velocityChange, ForceMode.VelocityChange);
+        if (abilityManager.combatantstate != combatantStates.Attacking && body.angularVelocity.y > maxForce) 
+        { body.angularVelocity = new Vector3(body.angularVelocity.x, maxForce, body.angularVelocity.z);  }
+
+
         playerCam.transform.parent.transform.Rotate(new Vector3(transform.eulerAngles.x, 0, 0),Space.Self);
         //camcomponent.transparencySortAxis = new Vector3(math.sin(math.radians(playerCam.transform.parent.transform.eulerAngles.y)),0, math.cos( math.radians(playerCam.transform.parent.transform.eulerAngles.x)));
         transform.eulerAngles = new Vector3(0,transform.eulerAngles.y,0);

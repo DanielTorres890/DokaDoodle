@@ -180,6 +180,11 @@ public class ClientChecks : NetworkBehaviour
         SceneChanger.Instance.loadClientScenesServerRpc("EventScreen");
     }
 
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void WorldEventRpc(int eventNum)
+    {
+
+    }
     /* [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
      public void InitiateFightRpc()
      {

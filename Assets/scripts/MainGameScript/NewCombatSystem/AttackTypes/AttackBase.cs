@@ -12,11 +12,13 @@ public abstract class AttackBase : ScriptableObject
     public string attackName;
 
     public float startUp;
+    public float attackDuration; //its kinda a weird thing but basically if it was a dash attack or something similar where you're moving we need a seperate state for that (i think)
     public float endLag;
     public float cooldown;
     public float lifespan;
 
     public combatantStates stateToBe;
+
     public bool chargeable;
 
     public GameObject attackPrefab;

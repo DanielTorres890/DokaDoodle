@@ -905,6 +905,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: b8dda105-e600-4892-92d7-499654de4eb3
     m_ActionName: 'Player/DashBack[/Keyboard/s]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 45acdef1-4532-41ca-bfde-ff9535359d58
+    m_ActionName: 'UI/UseKey[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -931,7 +935,7 @@ MonoBehaviour:
   maxForce: 10000
   jumpForce: 1.5
   action: {fileID: 3018395302920932811}
-  dashCd: 4
+  dashCd: 2
   grounded: 1
 --- !u!114 &992508209932742035
 MonoBehaviour:
