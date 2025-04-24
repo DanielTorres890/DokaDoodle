@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "New Money Event", menuName = "WorldEvents/MoneyEvent")]
 public class GlobalMoneyEvent : TimedWEvent
 {
     public float multiplier;

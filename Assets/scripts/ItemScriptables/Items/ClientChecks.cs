@@ -27,44 +27,13 @@ public class ClientChecks : NetworkBehaviour
 
         NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
         NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
-        bool rumble = false;
-        onRoundStart.Invoke();
-        foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
-        {
-            
-            if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && !NetworkData.Instance.players[players].isDead && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
-            {
-                Debug.Log("we tried to fight even tho we can't");
-                rumble = true;
-            }
-        }
-
-        if ((MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0 && !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
-        {
-            
-            MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Remove(NetworkData.Instance.currentPlayer);
-            PlayerMoveManager.Instance.playerCam.Follow = PlayerMoveManager.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
-            PlayerMoveManager.Instance.gameMenu.SetActive(true);
-            PlayerMoveManager.Instance.rollNum.gameObject.transform.parent.gameObject.SetActive(false);
-        }
-
-        else
-        {
-
-            if (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
-            {
-                PlayerMoveManager.Instance.gameMenu.SetActive(false);
-           
-                if(IsServer) { ClientChecks.Instance.DisplayDeadRpc(); }
-                return;
-            }
-
-            
-            PlayerMoveManager.Instance.gameMenu.SetActive(false);
-            if (IsServer) { SyncEnemyRpc(0); }
-            
-        }
+        WorldEventManager.Instance.ProgressDay();
+        
+        
+        
     }
+
+ 
 
     private void Awake()
     {
@@ -78,7 +47,46 @@ public class ClientChecks : NetworkBehaviour
     }
 
     
+    public void TurnStartChecks()
+    {
+        bool rumble = false;
+        onRoundStart.Invoke();
+        foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
+        {
 
+            if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && !NetworkData.Instance.players[players].isDead && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
+            {
+                Debug.Log("we tried to fight even tho we can't");
+                rumble = true;
+            }
+        }
+
+        if ((MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0 && !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
+        {
+
+            MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Remove(NetworkData.Instance.currentPlayer);
+            PlayerMoveManager.Instance.playerCam.Follow = PlayerMoveManager.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
+            PlayerMoveManager.Instance.gameMenu.SetActive(true);
+            PlayerMoveManager.Instance.rollNum.gameObject.transform.parent.gameObject.SetActive(false);
+        }
+
+        else
+        {
+
+            if (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
+            {
+                PlayerMoveManager.Instance.gameMenu.SetActive(false);
+
+                if (IsServer) { ClientChecks.Instance.DisplayDeadRpc(); }
+                return;
+            }
+
+
+            PlayerMoveManager.Instance.gameMenu.SetActive(false);
+            if (IsServer) { SyncEnemyRpc(0); }
+
+        }
+    }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void ConfirmBuffRpc(int player, int itemId, int inventoryNum)
@@ -181,8 +189,10 @@ public class ClientChecks : NetworkBehaviour
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    public void WorldEventRpc(int eventNum)
+    public void WorldEventRpc()
     {
+        if (WorldEventManager.Instance.eventsToActivate.Count > 0) { StartCoroutine(displayActivateEvent()); }
+        else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0) { StartCoroutine(displayDeactivateEvent()); }
 
     }
     /* [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -306,4 +316,33 @@ public class ClientChecks : NetworkBehaviour
         mainMenuButtons.SetActive(true);
     }
 
+    private IEnumerator displayActivateEvent()
+    {
+        displayTxt.text = WorldEventManager.Instance.eventsToActivate[0].ActivateText;
+        displayText.SetActive(true);
+        
+        while (displayText.activeSelf)
+        {
+            yield return null;
+        }
+        WorldEventManager.Instance.eventsToActivate.RemoveAt(0);
+        if (WorldEventManager.Instance.eventsToActivate.Count > 0) { StartCoroutine(displayActivateEvent()); }
+
+        else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0 ) {  StartCoroutine(displayDeactivateEvent()); }
+
+        else { TurnStartChecks(); }
+    }
+    private IEnumerator displayDeactivateEvent()
+    {
+        displayTxt.text = WorldEventManager.Instance.eventsToDeactivate[0].DeactivateText;
+        displayText.SetActive(true);
+
+        while (displayText.activeSelf)
+        {
+            yield return null;
+        }
+        WorldEventManager.Instance.eventsToDeactivate.RemoveAt(0);
+        if (WorldEventManager.Instance.eventsToDeactivate.Count > 0) { StartCoroutine(displayDeactivateEvent()); }
+        else { TurnStartChecks(); }
+    }
 }
