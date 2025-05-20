@@ -12,7 +12,7 @@ public class WorldEventManager : NetworkBehaviour
 
 
     [DoNotSerialize] public List<WorldEventBase> eventsToActivate = new List<WorldEventBase>(); //the reason this is like this is bc an event won't just activate right away,
-    public List<WorldEventBase> activeWorldEvents = new List<WorldEventBase>();
+    public List<WorldEventWrapper> activeWorldEvents = new List<WorldEventWrapper>();
     [DoNotSerialize] public List<WorldEventBase> eventsToDeactivate = new List<WorldEventBase>();
 
     public static WorldEventManager Instance;
@@ -49,7 +49,12 @@ public class WorldEventManager : NetworkBehaviour
             weeks++;
             days = 0;
             Debug.Log("NEXT WEEK");
-            if (IsHost && Random.Range(0,100) > 50)
+            foreach (var events in activeWorldEvents)
+            {
+                events.Progress();
+            }
+
+            if (IsHost && Random.Range(0,100) > 0)
             {
                 AddEventRpc(Random.Range(0, randomEvents.Length));
             }
@@ -57,12 +62,13 @@ public class WorldEventManager : NetworkBehaviour
             {
                 ClientChecks.Instance.WorldEventRpc();
             }
-            else
+            else if (!(eventsToActivate.Count > 0 || eventsToDeactivate.Count > 0))
             {
                 ClientChecks.Instance.TurnStartChecks();
             }
             return;
         }
+        ClientChecks.Instance.TurnStartChecks();
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void AddEventRpc(int eventId)

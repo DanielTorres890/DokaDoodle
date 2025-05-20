@@ -11,9 +11,14 @@ public class ShopEvent : EventBase
     public List<string> endShopDialogue;
     public override void FireEvent()
     {
-        var bg  = FindAnyObjectByType<Canvas>();
-        var temp = Instantiate(shop,bg.transform);
-        temp.GetComponentInChildren<NetworkObject>().Spawn();
+        //no need for any of this then if its a seperate scene now im big sad
+        /*if (NetworkData.Instance.IsHost)
+        {
+            var bg = FindAnyObjectByType<Canvas>();
+            var temp = Instantiate(shop, bg.transform);
+            temp.transform.GetComponentInChildren<NetworkObject>().Spawn();//im kinda depressed ab this ngl HOW ELSE WOULD YOU MAKE SYNCED STUFF WITHOUT USING A DIFFERENT SCENE BRU(maybe a ill switch to synced scene later)
+        }*/
+        
         
     }
 

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2089949993519164564}
-  - component: {fileID: 1411686287863461669}
+  - component: {fileID: 2785094894293154887}
   - component: {fileID: 2402367725294590324}
   m_Layer: 5
   m_Name: ShopEventManager
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1411686287863461669
+--- !u!114 &2785094894293154887
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -49,15 +49,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4097866081
+  GlobalObjectIdHash: 0
   InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
   AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 0
-  ActiveSceneSynchronization: 1
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
   SceneMigrationSynchronization: 1
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &2402367725294590324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd311b80702b854e8f420a2c9f6deed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   buyShop: {fileID: 0}
   sellShop: {fileID: 0}
   mainMenuButtons:
@@ -78,3 +83,7 @@ MonoBehaviour:
   buyDontButtons:
   - {fileID: 0}
   - {fileID: 0}
+  sellDontButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  sellUIManager: {fileID: 0}

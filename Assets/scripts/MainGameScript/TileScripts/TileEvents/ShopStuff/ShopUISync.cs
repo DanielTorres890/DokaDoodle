@@ -99,7 +99,7 @@ public class ShopUISync : NetworkBehaviour
     private void purchaseItemRpc(int itemNum)
     {
         NetworkData.Instance.AddItemToInventory(NetworkData.Instance.currentPlayer, curEvent.itemsSold[itemNum]);
-        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money] -= curEvent.itemsSold[itemNum].itemValue;
+        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money] -= Mathf.RoundToInt(curEvent.itemsSold[itemNum].itemValue * NetworkData.Instance.globalShopMultiplier);
         buyShop.SetActive(true);
         hideMenuButtons(buyDontButtons);
     }

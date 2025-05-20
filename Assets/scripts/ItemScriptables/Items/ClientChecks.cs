@@ -185,7 +185,7 @@ public class ClientChecks : NetworkBehaviour
     public void SyncEventRpc(int eventNum)
     {
         NetworkData.Instance.currentEvent = (PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId] as DefaultTile).events[eventNum];
-        SceneChanger.Instance.loadClientScenesServerRpc("EventScreen");
+        SceneChanger.Instance.loadClientScenesServerRpc(NetworkData.Instance.currentEvent.SceneToGoTo);
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -319,8 +319,9 @@ public class ClientChecks : NetworkBehaviour
     private IEnumerator displayActivateEvent()
     {
         displayTxt.text = WorldEventManager.Instance.eventsToActivate[0].ActivateText;
+        WorldEventManager.Instance.eventsToActivate[0].OnActivate();
         displayText.SetActive(true);
-        
+        WorldEventManager.Instance.activeWorldEvents.Add(new WorldEventWrapper(WorldEventManager.Instance.worldDatabase.GetId[WorldEventManager.Instance.eventsToActivate[0]]));
         while (displayText.activeSelf)
         {
             yield return null;
@@ -336,7 +337,8 @@ public class ClientChecks : NetworkBehaviour
     {
         displayTxt.text = WorldEventManager.Instance.eventsToDeactivate[0].DeactivateText;
         displayText.SetActive(true);
-
+        WorldEventManager.Instance.eventsToActivate[0].OnDeactivate();
+        
         while (displayText.activeSelf)
         {
             yield return null;
