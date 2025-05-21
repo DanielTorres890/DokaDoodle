@@ -8,10 +8,35 @@ public class InventoryChangeScript : NetworkBehaviour
     private int currentInventory = 0;
     [SerializeField] public DisplayInventory inventoryDisplay;
 
-    [Rpc( SendTo.ClientsAndHost,RequireOwnership = false)]
-    public void InventoryForwardRpc()
+
+    public void ResetDisplay()
     {
-        
+        if(NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer,NetworkManager.Singleton.LocalClientId))
+        {
+            ResetDisplayRpc();
+        }
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void ResetDisplayRpc(RpcParams rpcstuff = default)
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, rpcstuff.Receive.SenderClientId)) { return; }
+
+        inventoryDisplay.CreateDisplay(NetworkData.Instance.currentPlayer, currentInventory);
+    }
+
+
+    public void InventoryForward()
+    {
+        if (NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
+        {
+            InventoryForwardRpc();
+        }
+    }
+    [Rpc( SendTo.ClientsAndHost,RequireOwnership = false)]
+    private void InventoryForwardRpc(RpcParams rpcstuff = default)
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, rpcstuff.Receive.SenderClientId)) { return; }
+
         if (currentInventory >= 2) { return; }
 
         currentInventory += 1;
@@ -24,10 +49,19 @@ public class InventoryChangeScript : NetworkBehaviour
         currentInventory = inv;
         inventoryDisplay.CreateDisplay(currentInventory, NetworkData.Instance.currentPlayer);
     }*/
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    public void InventoryBackRpc()
+
+    public void InventoryBack()
     {
-        Debug.Log(currentInventory);
+        if (NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
+        {
+            InventoryBackRpc();
+        }
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void InventoryBackRpc(RpcParams rpcstuff = default)
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, rpcstuff.Receive.SenderClientId)) { return; }
+
         if (currentInventory <= 0) { return;  }
 
         currentInventory -= 1;

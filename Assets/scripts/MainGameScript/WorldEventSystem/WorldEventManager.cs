@@ -62,14 +62,16 @@ public class WorldEventManager : NetworkBehaviour
             {
                 ClientChecks.Instance.WorldEventRpc();
             }
-            else if (!(eventsToActivate.Count > 0 || eventsToDeactivate.Count > 0))
+            else if (IsHost)
             {
-                ClientChecks.Instance.TurnStartChecks();
+                NoEventRpc(); //idk if this is the only way but the sphaghetti is starting to get real
             }
             return;
         }
         ClientChecks.Instance.TurnStartChecks();
     }
+
+    
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void AddEventRpc(int eventId)
     {
@@ -81,5 +83,9 @@ public class WorldEventManager : NetworkBehaviour
         }
         
     }
-
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void NoEventRpc()
+    {
+        ClientChecks.Instance.TurnStartChecks();
+    }
 }
