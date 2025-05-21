@@ -20,6 +20,7 @@ public class WorldEventManager : NetworkBehaviour
     public int days;
     public int weeks;
 
+    public int daysPerWeek;
     private void Awake()
     {
         if(Instance == null) { Instance = this; }
@@ -44,7 +45,7 @@ public class WorldEventManager : NetworkBehaviour
             turns = 0;
             Debug.Log("NEXT DAY");
         }
-        if (days >= 6)
+        if (days >= daysPerWeek)
         {
             weeks++;
             days = 0;
