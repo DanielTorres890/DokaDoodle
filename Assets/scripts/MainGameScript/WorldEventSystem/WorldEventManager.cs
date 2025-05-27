@@ -76,7 +76,7 @@ public class WorldEventManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void AddEventRpc(int eventId)
     {
-        eventsToActivate.Add(worldDatabase.GetEvent[eventId]);
+        eventsToActivate.Add(randomEvents[eventId]);
 
         if (IsHost)
         {

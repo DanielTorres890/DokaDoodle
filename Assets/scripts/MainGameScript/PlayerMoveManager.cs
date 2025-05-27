@@ -310,11 +310,7 @@ public class PlayerMoveManager : NetworkBehaviour
                 {
                     foreach (var enemies in MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy)
                     {
-                        var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemies.enemyId].enemyNonCombatPrefab);
-                        enemy.transform.position = mapTiles[i].transform.position;
-                        enemy.transform.position = new Vector3(enemy.transform.position.x - 0, enemy.transform.position.y, enemy.transform.position.z + 0);
-                        enemy.transform.localScale = new Vector3(1, 1, 1);
-                        Debug.Log("OVERWORLD ENEMY SPAWNED AT " + i);
+                        spawnEnemyOverworld(i, enemies.enemyId);
                     }
                     
                 }
@@ -323,6 +319,15 @@ public class PlayerMoveManager : NetworkBehaviour
 
         }
 
+    }
+
+    public void spawnEnemyOverworld(int tileId, int enemyId)
+    {
+        var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemyId].enemyNonCombatPrefab);
+        enemy.transform.position = mapTiles[tileId].transform.position;
+        enemy.transform.position = new Vector3(enemy.transform.position.x - 0, enemy.transform.position.y, enemy.transform.position.z + 0);
+        enemy.transform.localScale = new Vector3(1, 1, 1);
+        Debug.Log("OVERWORLD ENEMY SPAWNED AT " + tileId);
     }
     private void FightOrNot()
     {

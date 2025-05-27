@@ -3475,7 +3475,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   worldDatabase: {fileID: 11400000, guid: 214e79b9240cbe841868c0d00d9fa8f8, type: 2}
-  randomEvents: []
+  randomEvents:
+  - {fileID: 11400000, guid: 0b0b706af1edd6147b4e30a99006e119, type: 2}
   questEvents: []
   eventsToActivate: []
   activeWorldEvents: []
@@ -3483,7 +3484,7 @@ MonoBehaviour:
   turns: 0
   days: 0
   weeks: 0
-  daysPerWeek: 6
+  daysPerWeek: 2
 --- !u!4 &536058873
 Transform:
   m_ObjectHideFlags: 0
