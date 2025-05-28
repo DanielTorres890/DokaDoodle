@@ -22,6 +22,7 @@ public abstract class AttackBase : ScriptableObject
     public bool chargeable;
 
     public GameObject attackPrefab;
+    public GameObject startUpPrefab; //tea
     public Vector3 offset = Vector3.zero;
     public Vector3 ablitySize = Vector3.one;
 

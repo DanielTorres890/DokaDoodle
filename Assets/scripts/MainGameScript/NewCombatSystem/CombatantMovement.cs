@@ -146,20 +146,17 @@ public class CombatantMovement : NetworkBehaviour
             targetVeloctiy = new Vector3(currentVelocity.x - targetVeloctiy.x, 0, currentVelocity.z - targetVeloctiy.z);
         }
 
-        
-        
-        
 
-        
-
-        Vector3 velocityChange = (targetVeloctiy - currentVelocity);
+        Vector3 velocityChange = targetVeloctiy - currentVelocity;
         velocityChange = new Vector3(velocityChange.x,0,velocityChange.z);
 
         Vector3.ClampMagnitude(velocityChange, maxForce);
-        
+       
         body.AddForce(velocityChange, ForceMode.VelocityChange);
         if (abilityManager.combatantstate != combatantStates.Attacking && body.angularVelocity.y > maxForce) 
-        { body.angularVelocity = new Vector3(body.angularVelocity.x, maxForce, body.angularVelocity.z);  }
+        {
+            body.angularVelocity = new Vector3(body.angularVelocity.x, maxForce, body.angularVelocity.z);  
+        }
 
 
         playerCam.transform.parent.transform.Rotate(new Vector3(transform.eulerAngles.x, 0, 0),Space.Self);

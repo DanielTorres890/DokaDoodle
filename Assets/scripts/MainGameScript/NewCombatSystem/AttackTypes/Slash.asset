@@ -15,12 +15,14 @@ MonoBehaviour:
   description: A standard sword slash
   attackName: Slash
   startUp: 0.2
+  attackDuration: 0
   endLag: 0
   cooldown: 0
   lifespan: 0.3
   stateToBe: 0
   chargeable: 0
   attackPrefab: {fileID: 2566779757777240371, guid: b4fd0f87d4129aa4681b4392e0d9a122, type: 3}
+  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   offset: {x: 0, y: 2, z: 1}
   ablitySize: {x: 1, y: 0.2, z: 1}
   multipliers:

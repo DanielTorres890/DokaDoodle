@@ -17,7 +17,7 @@ public class TileEventManager : NetworkBehaviour
     [SerializeField] private float startButtonY;
     [SerializeField] private float startButtonX;
 
-    [SerializeField] private bool inScene = false;
+    [SerializeField] private bool inScene = false; // who are you
 
     // Start is called before the first frame update
     public void Awake()

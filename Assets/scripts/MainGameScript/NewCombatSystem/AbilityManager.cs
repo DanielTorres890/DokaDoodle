@@ -24,6 +24,7 @@ public class AbilityManager : NetworkBehaviour
 
     private AttackBase currentAttack = null;
     private GameObject spawnedAttack;
+    private GameObject startUpEffects;
 
     private Dictionary<InputControl,int> inputToInt = new Dictionary<InputControl,int>();
 
@@ -45,14 +46,18 @@ public class AbilityManager : NetworkBehaviour
     {
 
         if(!IsOwner || NewCombatManager.instance.fightOver || stats.isDead) { return; }
-        foreach (var state in  stateManager.Keys) 
+        foreach (var atk in  stateManager.Keys) 
         {
-            stateManager[state].cooldown -= Time.deltaTime;
-            if (stateManager[state].pressed && combatantstate == combatantStates.Free && stateManager[state].cooldown <= 0)
+            stateManager[atk].cooldown -= Time.deltaTime;
+            if (stateManager[atk].pressed && combatantstate == combatantStates.Free && stateManager[atk].cooldown <= 0)
             {
-                currentAttack = state;
-                combatantstate = state.stateToBe;
+                currentAttack = atk;
+                combatantstate = atk.stateToBe;
                 stateDuration = currentAttack.startUp;
+                if (currentAttack.startUpPrefab != null && startUpEffects == null)
+                {
+                    SpawnStartFabUpRpc(GetCurrentAtkNum());
+                }
             }
         }
 
@@ -65,25 +70,20 @@ public class AbilityManager : NetworkBehaviour
             }
         }
         
-        if (stateDuration <= 0)
+        if (stateDuration <= 0) //time for state to progress
         {
-            if(combatantstate == combatantStates.Attacking) { combatantstate = combatantStates.Endlag; }
+            if(combatantstate == combatantStates.Attacking) { combatantstate = combatantStates.Endlag; } //checking if the attack has active time IE dash attack
 
             else if (currentAttack != null && InStartUp())
             {
-                int foundu = 0;
-                
-                for(int i = 0; i < stats.attacks.Count; i++ )
-                {
-                    if (stats.attacks[i] == currentAttack) {  foundu = i; break; }
-                }
-                if(stats is EnemyCombat)
-                {
-                    Debug.Log(" IM WALLOPPING A BIT TOO FAST I THINKS");
-                }
-                
+
+                /* if(stats is EnemyCombat) // this existed to check enemies since for some reason they were acting weird
+                 {
+                     Debug.Log(" IM WALLOPPING A BIT TOO FAST I THINKS");
+                 }*/
+                DestroyStartUpFabRpc();
                 spawnedAttack = currentAttack.WeaponEffect(gameObject);
-                PerformAttackRpc(foundu, NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,gameObject.transform.eulerAngles);
+                PerformAttackRpc(GetCurrentAtkNum(), NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,gameObject.transform.eulerAngles);
 
                 stateDuration = currentAttack.attackDuration;
                 combatantstate = combatantStates.Attacking;
@@ -112,6 +112,28 @@ public class AbilityManager : NetworkBehaviour
         }
         
 
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void SpawnStartFabUpRpc(int whom)
+    {
+      
+        currentAttack = stats.attacks[whom];
+        if(currentAttack.startUpPrefab != null && startUpEffects == null)
+        {
+            startUpEffects = Instantiate(currentAttack.startUpPrefab);
+            startUpEffects.transform.position = gameObject.transform.position;
+            startUpEffects.transform.SetParent(gameObject.transform);
+
+        }
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void DestroyStartUpFabRpc()
+    {
+        if(startUpEffects != null)
+        {
+            
+            Destroy(startUpEffects);
+        }
     }
 
     [Rpc(SendTo.Server, RequireOwnership = false)]
@@ -223,9 +245,9 @@ public class AbilityManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void UpdateMaterialRpc(int playerNum)
     {
-        var render = GetComponentInChildren<MeshRenderer>();
+        /*var render = GetComponentInChildren<MeshRenderer>(); skip for now maybe?
         render.material = NetworkData.Instance.playerSticks[playerNum].GetComponent<characterEditor>().myMaterial;
-      
+       */
      
         NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineCamera>());
        
@@ -270,6 +292,18 @@ public class AbilityManager : NetworkBehaviour
         stateManager[stats.attacks[inputToInt[action.control]]].pressed = false;
 
     }
+
+
+    private int GetCurrentAtkNum()
+    {
+        int foundu = 0;
+
+        for (int i = 0; i < stats.attacks.Count; i++)
+        {
+            if (stats.attacks[i] == currentAttack) { foundu = i; break; }
+        }
+        return foundu;
+    }
     public bool CanMove()
     {
         return (combatantstate == combatantStates.Free || combatantstate == combatantStates.StartUpFree || combatantstate == combatantStates.Dashing || combatantstate == combatantStates.Attacking) && !stats.isDead;
@@ -286,7 +320,7 @@ public class AbilityManager : NetworkBehaviour
     {
         return combatantstate == combatantStates.Free;
     }
-
+   
 
     /* private void Ability1(InputAction.CallbackContext action)
      {
