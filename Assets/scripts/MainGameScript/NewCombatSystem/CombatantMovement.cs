@@ -153,7 +153,7 @@ public class CombatantMovement : NetworkBehaviour
         Vector3.ClampMagnitude(velocityChange, maxForce);
        
         body.AddForce(velocityChange, ForceMode.VelocityChange);
-        if (abilityManager.combatantstate != combatantStates.Attacking && body.angularVelocity.y > maxForce) 
+        if (abilityManager.combatantstate != combatantStates.Attacking && body.angularVelocity.y > maxForce) //fmcl
         {
             body.angularVelocity = new Vector3(body.angularVelocity.x, maxForce, body.angularVelocity.z);  
         }

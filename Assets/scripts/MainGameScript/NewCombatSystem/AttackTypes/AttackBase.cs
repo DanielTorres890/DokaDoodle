@@ -50,8 +50,8 @@ public abstract class AttackBase : ScriptableObject
     {
         var attack = Instantiate(attackPrefab);
         attack.transform.position = whereiscaster +  Quaternion.Euler(casterLooking) * offset;
-
         attack.transform.rotation = caster.transform.rotation;
+        attack.transform.localScale = ablitySize;
         attack.GetComponent<NetworkObject>().Spawn(true);
         
 
