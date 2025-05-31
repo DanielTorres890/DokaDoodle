@@ -113,4 +113,5 @@ public class characterEditor : MonoBehaviour
         NetworkData.Instance.sendPlayerDataServerRpc(playerName,playerClass,playerFace,playerHair, new ServerRpcParams());
         
     }
+    
 }

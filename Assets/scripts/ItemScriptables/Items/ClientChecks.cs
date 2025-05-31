@@ -24,17 +24,23 @@ public class ClientChecks : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         
-
-        NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
-        NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
-        WorldEventManager.Instance.ProgressDay();
+        if(SceneChanger.Instance.everyoneLoaded())
+        {
+            PreturnStuff();
+            Debug.Log("fmcl bruh WHY DOES IT DO IT MULTIPLE TIMES FOR EACH CLIENT THAT LOADS IN ON THE SERVER ");
+        }
         
         
         
     }
 
  
-
+    public void PreturnStuff()
+    {
+        NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
+        NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
+        WorldEventManager.Instance.ProgressDay();
+    }
     private void Awake()
     {
         if (Instance == null)

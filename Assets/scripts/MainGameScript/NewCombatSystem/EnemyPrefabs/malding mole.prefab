@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.5, y: 12.97}
+  m_AnchoredPosition: {x: 0.5, y: 8.52}
   m_SizeDelta: {x: 11.4782, y: 3.1654}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3969007259573072807
@@ -229,7 +229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.5, y: 10.370001}
+  m_AnchoredPosition: {x: 0.5, y: 5.920001}
   m_SizeDelta: {x: 11.4782, y: 3.1654}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8473584863921687292
@@ -398,7 +398,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8653719598885068355, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
       propertyPath: m_Name
-      value: thinkerBunga 1
+      value: malding mole
       objectReference: {fileID: 0}
     - target: {fileID: -8653719598885068355, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
       propertyPath: m_Layer
@@ -587,7 +587,7 @@ PrefabInstance:
       addedObject: {fileID: 3358961221082085050}
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -6027368977396564399}
+      addedObject: {fileID: 7918884110081087636}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
 --- !u!4 &703723169880527041 stripped
 Transform:
@@ -619,7 +619,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 5, y: 9, z: 0.55}
-  m_Center: {x: -0.2, y: 5, z: 0}
+  m_Center: {x: -0.2, y: 1, z: 0}
 --- !u!114 &1951428160628325734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,10 +770,10 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 7.18
-  m_BaseOffset: -1
+  m_BaseOffset: 3.5
   m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
---- !u!114 &-6027368977396564399
+--- !u!114 &7918884110081087636
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -782,7 +782,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1804880954259114146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 199564b097cd9f54e86d0b84fa9ab1ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 633d77f7646b9a24a97beab9be607b53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
@@ -796,17 +796,14 @@ MonoBehaviour:
     m_Bits: 0
   myManager: {fileID: 3257693015704149352}
   selectedAttack: {fileID: 0}
-  attackRange: 15
+  attackRange: 0
   InAttackRange: 0
   releaseTimer: 0
-  timeToHold: 1
-  kiteRange: 8
-  kiteAmount: 10
-  Precision: 10
-  StopKitingDistance: 4
-  failedEscapeAmount: 4
-  inKiteRange: 0
-  avoiding: 0
+  timeToHold: 0
+  attackRanges:
+  - 3
+  - 8
+  - 15
 --- !u!1001 &8282463249659298141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -818,6 +815,14 @@ PrefabInstance:
     - target: {fileID: -8653719598885068355, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
       propertyPath: m_Name
       value: MALDINGMOLE
+      objectReference: {fileID: 0}
+    - target: {fileID: -8244691016477402259, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.4399998
+      objectReference: {fileID: 0}
+    - target: {fileID: -7602423936521767560, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.65
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -858,6 +863,34 @@ PrefabInstance:
     - target: {fileID: -7552582706839291426, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5654654825796574026, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.6550004
+      objectReference: {fileID: 0}
+    - target: {fileID: -3524275733239509310, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.9949992
+      objectReference: {fileID: 0}
+    - target: {fileID: -1406736754831263328, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.019999623
+      objectReference: {fileID: 0}
+    - target: {fileID: -1290079913423108808, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 1603209846546602517, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.3049998
+      objectReference: {fileID: 0}
+    - target: {fileID: 3754065272479203152, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.9099994
+      objectReference: {fileID: 0}
+    - target: {fileID: 5520837662689748726, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5149994
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

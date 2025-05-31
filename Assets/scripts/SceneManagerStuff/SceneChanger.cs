@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class SceneChanger : NetworkBehaviour
 {
    
-    private int loadedPlayers = 0;
+    [SerializeField]private int loadedPlayers = 0;
 
     public static SceneChanger Instance { get; set; }
     private void Awake()
@@ -51,6 +51,6 @@ public class SceneChanger : NetworkBehaviour
 
    public bool everyoneLoaded()
     {
-        return loadedPlayers >= NetworkData.Instance.playerCount;
+        return loadedPlayers >= NetworkData.Instance.maxPlayers;
     }
 }

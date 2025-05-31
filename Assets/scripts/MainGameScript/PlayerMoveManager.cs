@@ -272,7 +272,7 @@ public class PlayerMoveManager : NetworkBehaviour
     public void NextTurnRpc()
     {
         NetworkData.Instance.setNextTurnNum();
-        ClientChecks.Instance.OnNetworkSpawn();
+        ClientChecks.Instance.PreturnStuff();
         
 
     }

@@ -15,7 +15,7 @@ public class CombatantMovement : NetworkBehaviour
 
 
     [SerializeField] private PlayerInput action;
-
+    [SerializeField] private characterEditor characterEditor;
 
     private Vector2 move, look;
     private float lookRotation;
@@ -110,6 +110,8 @@ public class CombatantMovement : NetworkBehaviour
         action.actions["DashLeft"].performed += DashLeft;
         action.actions["DashFwd"].performed += DashFwd;
         action.actions["DashBack"].performed += DashBack;
+
+         //big idk from me seems weirde to make seperate
         //camcomponent = playerCam.GetComponent<Camera>();
     }
     private void FixedUpdate()

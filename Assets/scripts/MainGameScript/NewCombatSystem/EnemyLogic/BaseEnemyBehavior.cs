@@ -66,9 +66,9 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
         if (NewCombatManager.instance.fightOver) { return; }
 
-        InAttackRange = Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position) < attackRange ;
+        InAttackRange = InRange();
 
-        if (targetManager == null || targetManager.gameObject.gameObject == gameObject || targetManager.stats.isDead) { FindEnemy(); }
+        if (targetManager == null || targetManager.gameObject.gameObject == gameObject || targetManager.stats.isDead) { FindEnemy(); } //the checks on the if are kinda redundant but thats okay
 
 
 
@@ -84,7 +84,10 @@ public class BaseEnemyBehavior : NetworkBehaviour
     }
 
 
-    
+    public virtual bool InRange()
+    {
+        return Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position) < attackRange;
+    }
     public virtual void ChasePlayer()
     {
         

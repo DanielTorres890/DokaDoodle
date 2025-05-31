@@ -152,7 +152,11 @@ public class AbilityManager : NetworkBehaviour
     }
     public void AssignAbilities()
     {
-       
+        characterEditor characterEdit = GetComponent<characterEditor>();
+        characterEdit.setClass((stats as playerData).playerClass);
+        characterEdit.setFace((stats as playerData).playerFace);
+        characterEdit.setHair((stats as playerData).playerHair);
+
         if (!IsOwner) { return; }
       
 
@@ -193,6 +197,7 @@ public class AbilityManager : NetworkBehaviour
         {
             if (i >= stats.attacks.Count) { break; }
             stateManager.Add(stats.attacks[i], new AbilityStates());
+            orderedAttacks.Add(stats.attacks[i]);
 
         }
     }

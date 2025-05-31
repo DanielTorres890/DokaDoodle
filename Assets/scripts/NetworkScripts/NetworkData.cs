@@ -26,7 +26,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     [SerializeField] private List<InventoryObject> player4Inventories = new List<InventoryObject>();
 
     public static NetworkData Instance { get; private set; }
-    public int playerCount = -1;
+    public int playerCount = -1; //you know i have 0 clue why i did this im a dummy dumb
     public int maxPlayers = 4;
     public int currentPlayer = 0;
     public float globalShopMultiplier = 1;

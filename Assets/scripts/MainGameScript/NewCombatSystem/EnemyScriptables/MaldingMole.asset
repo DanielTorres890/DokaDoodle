@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42e542e6897b1b49a5085f063ea70bd, type: 3}
+  m_Name: MaldingMole
+  m_EditorClassIdentifier: 
+  enemyName: M. Mole
+  enemyPrefab: {fileID: 1804880954259114146, guid: 5a3453a6ede22c94faf2d0a486238c59, type: 3}
+  enemyNonCombatPrefab: {fileID: -8653719598885068355, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
+  Stats:
+  - attribute: 0
+    value: 120
+  - attribute: 1
+    value: 120
+  - attribute: 2
+    value: 1
+  - attribute: 3
+    value: 1
+  - attribute: 4
+    value: 1
+  - attribute: 5
+    value: 1
+  - attribute: 6
+    value: 5
+  loyaltyTags:
+  - Monster
+  Attackss:
+  - {fileID: 11400000, guid: 8b8cda6fa69d3ca47884150c60cc9e8d, type: 2}
+  - {fileID: 11400000, guid: 2a3581620a3d17b4bb24d3018e53d3f7, type: 2}
+  - {fileID: 11400000, guid: 50d494befe4997d44bd7940cf21fe7f0, type: 2}
+  Defendss: []
+  DroppedItems: []
+  probability: 
+  droppedXp: 0
+  droppedMoney: 0
