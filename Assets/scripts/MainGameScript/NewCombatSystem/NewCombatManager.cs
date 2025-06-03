@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -84,22 +85,24 @@ public class NewCombatManager : NetworkBehaviour
             
 
         instance = this;
-        if (SceneChanger.Instance.everyoneLoaded())
+        if (IsHost)
         {
-                
-                //b UT WHY DOES IT SPAWN DOUBLE IF A CLIENT HASNT LOADED IN YET BC ONLY THE SERVER SHOULDVE BEEN ALLOWED TO SPAWNS STUFF IN AND THE HOST AND SERVER AR ETHE SAME HOW DOES THAT EVEN MAKE SENSE SMD FRICK U EMA I AHTE U LMB EXPLODE
-                //shoutout to onloadcomplete tho brother fixed that stupid problem
-                SetUp();
-    
-            
-            base.OnNetworkSpawn();
-
+            //b UT WHY DOES IT SPAWN DOUBLE IF A CLIENT HASNT LOADED IN YET BC ONLY THE SERVER SHOULDVE BEEN ALLOWED TO SPAWNS STUFF IN AND THE HOST AND SERVER AR ETHE SAME HOW DOES THAT EVEN MAKE SENSE SMD FRICK U EMA I AHTE U LMB EXPLODE
+            //shoutout to onloadcomplete tho brother fixed that stupid problem
+            //also shoutout to ben bc lowkey what he said makes sense when each client loads in they spawn their own version of the network object which overrides previous ones (?) tho thats still a weird ahh thing
+            StartCoroutine(WaitForLoadIn());
         }
-            
-        
          
     }
     
+    private IEnumerator WaitForLoadIn()
+    {
+        while(!SceneChanger.Instance.everyoneLoaded())
+        {
+            yield return null;
+        }
+        SetUp();
+    }
 
     private void SetUp()
     {
