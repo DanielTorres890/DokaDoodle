@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using Unity.Netcode;
 using UnityEngine;
@@ -21,6 +22,11 @@ public class CombatantMovement : NetworkBehaviour
     private float lookRotation;
 
     private float dashCdTimer;
+
+
+    private Vector3 lastDashDirection;
+    private float lastDashTime;
+    [SerializeField] private float TimeBetweenDash = 0.2f;
     [SerializeField] private float dashCd;
 
     //private Camera camcomponent;
@@ -50,9 +56,19 @@ public class CombatantMovement : NetworkBehaviour
     }
     public void DashRight(InputAction.CallbackContext action)
     {
-        if(dashCdTimer < dashCd) { return; }
+        float oldTime = lastDashTime;
+        lastDashTime = Time.fixedTime;
+        if(lastDashDirection != Vector3.right)
+        {
+            lastDashDirection = Vector3.right;
+            return;
+        }
 
+        if(dashCdTimer < dashCd) { return; }
         if (abilityManager.CanMoveNotAct()) { return; }
+
+        if(!(lastDashTime - oldTime < TimeBetweenDash)) { return; }
+        
         if (grounded && IsOwner)
         {
             dashCdTimer = 0;
@@ -63,9 +79,18 @@ public class CombatantMovement : NetworkBehaviour
     }
     public void DashLeft(InputAction.CallbackContext action)
     {
+        float oldTime = lastDashTime;
+        lastDashTime = Time.fixedTime;
+        if (lastDashDirection != Vector3.left)
+        {
+            lastDashDirection = Vector3.left;
+            return;
+        }
         if (dashCdTimer < dashCd) { return; }
 
         if (abilityManager.CanMoveNotAct()) { return; }
+
+        if (!(lastDashTime - oldTime < TimeBetweenDash)) { return; }
         if (grounded && IsOwner)
         {
             dashCdTimer = 0;
@@ -77,9 +102,19 @@ public class CombatantMovement : NetworkBehaviour
 
     public void DashFwd(InputAction.CallbackContext action)
     {
+        float oldTime = lastDashTime;
+        lastDashTime = Time.fixedTime;
+        if (lastDashDirection != Vector3.forward)
+        {
+            lastDashDirection = Vector3.forward;
+            return;
+        }
         if (dashCdTimer < dashCd) { return; }
 
         if (abilityManager.CanMoveNotAct()) { return; }
+
+        if (!(lastDashTime - oldTime < TimeBetweenDash)) { return; }
+
         if (grounded && IsOwner)
         {
             dashCdTimer = 0;
@@ -90,9 +125,19 @@ public class CombatantMovement : NetworkBehaviour
     }
     public void DashBack(InputAction.CallbackContext action)
     {
+        float oldTime = lastDashTime;
+        lastDashTime = Time.fixedTime;
+        if (lastDashDirection != Vector3.back)
+        {
+            lastDashDirection = Vector3.back;
+            return;
+        }
         if (dashCdTimer < dashCd) { return; }
 
-        if (abilityManager.combatantstate == combatantStates.Dashing) { return; }
+        if (abilityManager.CanMoveNotAct()) { return; }
+
+        if (!(lastDashTime - oldTime < TimeBetweenDash)) { return; }
+
         if (grounded && IsOwner)
         {
             dashCdTimer = 0;
@@ -106,10 +151,10 @@ public class CombatantMovement : NetworkBehaviour
     {
         if(!IsOwner) { return; }
 
-        action.actions["DashRight"].performed += DashRight;
-        action.actions["DashLeft"].performed += DashLeft;
-        action.actions["DashFwd"].performed += DashFwd;
-        action.actions["DashBack"].performed += DashBack;
+        action.actions["DashRight"].started += DashRight;
+        action.actions["DashLeft"].started += DashLeft;
+        action.actions["DashFwd"].started += DashFwd;
+        action.actions["DashBack"].started += DashBack;
 
          //big idk from me seems weirde to make seperate
         //camcomponent = playerCam.GetComponent<Camera>();

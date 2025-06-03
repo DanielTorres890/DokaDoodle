@@ -123,7 +123,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""id"": ""df6b6081-55b5-4299-bd2d-efcc80596bcc"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""MultiTap"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
@@ -132,7 +132,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""id"": ""1edf29a3-ef5f-49c6-9c85-3ebc76c9ffdb"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""MultiTap"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
@@ -141,7 +141,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""id"": ""618003e8-7724-415d-9da8-1e6e363fbbe3"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""MultiTap"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
@@ -150,7 +150,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""id"": ""b8dda105-e600-4892-92d7-499654de4eb3"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""MultiTap"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
