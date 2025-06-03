@@ -88,7 +88,7 @@ public class playerData : EntityStats
             this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack);
         }
 
-        this.attacks.Add(NetworkData.Instance.classDataBase.GetClass[playerClass].combatAbility);
+        this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[playerClass].combatAbility);
         // this.defenses[0] = (NetworkData.Instance.playerInventories[0][1].database.GetItem[this.equipItems[ItemType.Shield]] as WeaponItem).attack as DefenseBase;
         // this.defenses[1] = (NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.MagicGuard]] as WeaponItem).attack as DefenseBase; 
     }
@@ -174,7 +174,7 @@ public class playerData : EntityStats
         {
             this.playerInfo[PlayerInfo.level] += 1;
             levelsGained++;
-            foreach( var stat in NetworkData.Instance.classDataBase.Classes[this.playerClass].levelUpStats)
+            foreach( var stat in NetworkData.Instance.classDataBase.GetItem[this.playerClass].levelUpStats)
             {
                 this.ChangeBaseStat(stat.attribute, stat.value);
 

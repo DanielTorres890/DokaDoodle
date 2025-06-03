@@ -323,7 +323,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
     public void spawnEnemyOverworld(int tileId, int enemyId)
     {
-        var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemyId].enemyNonCombatPrefab);
+        var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemyId].enemyNonCombatPrefab);
         enemy.transform.position = mapTiles[tileId].transform.position;
         enemy.transform.position = new Vector3(enemy.transform.position.x - 0, enemy.transform.position.y, enemy.transform.position.z + 0);
         enemy.transform.localScale = new Vector3(1, 1, 1);

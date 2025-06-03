@@ -131,14 +131,16 @@ public class ClientChecks : NetworkBehaviour
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    public void SyncEnemyRpc(int enemyId)
+    public void SyncEnemyRpc(int encounterId)
     {
         PlayerCombatManager.Instance.combatants.Clear();
         PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
+        string encounterName = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].EncounterName;
+
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].setCombatActions();
 
 
-        bool rumble = false;
+        bool rumble = false; //is there another player that we fight
         
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
         {
@@ -147,42 +149,45 @@ public class ClientChecks : NetworkBehaviour
                 PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[players]);
                 NetworkData.Instance.players[players].setCombatActions();
                 rumble = true;
-                
+                encounterName = NetworkData.Instance.players[players].name;
             }
             
         }
         
         //Pretty much everything that isn't these two is stuff from the old system
         
-            if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0)
+        if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0)
+        {
+            if (!rumble) 
             {
-                if (!rumble) 
+                foreach (var enemy in PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].enemies)
                 {
-                    var temp = new EnemyCombat(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[enemyId]);
+                    var temp = new EnemyCombat(enemy);
                     PlayerCombatManager.Instance.combatants.Add(temp);
                     MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Add(temp);
                 }
+                    
+            }
             
                 
-            }
-            else
+        }
+        else
+        {
+            foreach (var enemyy in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy)
             {
-                foreach (var enemyy in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy)
-                {
-                    PlayerCombatManager.Instance.combatants.Add(enemyy);
-                }
-
+                PlayerCombatManager.Instance.combatants.Add(enemyy);
+                encounterName = enemyy.name;
             }
+
+        }
         
       
 
         combatPreview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();
        
         
-        combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = PlayerCombatManager.Instance.combatants[1].name.ToString();
-           
-            
-        
+        combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = encounterName;
+              
       
         
         StartCoroutine(previewFight());
@@ -239,8 +244,8 @@ public class ClientChecks : NetworkBehaviour
     public void UseClassAbilityRpc()
     {
         Debug.Log("I happened ");
-        NetworkData.Instance.classDataBase.GetClass[NetworkData.Instance.GetCurrentPlayer().playerClass].ClassAction(NetworkData.Instance.GetCurrentPlayer());
-        displayTxt.text = NetworkData.Instance.classDataBase.GetClass[NetworkData.Instance.GetCurrentPlayer().playerClass].actionUseText;
+        NetworkData.Instance.classDataBase.GetItem[NetworkData.Instance.GetCurrentPlayer().playerClass].ClassAction(NetworkData.Instance.GetCurrentPlayer());
+        displayTxt.text = NetworkData.Instance.classDataBase.GetItem[NetworkData.Instance.GetCurrentPlayer().playerClass].actionUseText;
         StartCoroutine(usedAbility());
 
     }
@@ -254,7 +259,7 @@ public class ClientChecks : NetworkBehaviour
 
         combatPreview.SetActive(true);
         yield return new WaitForSecondsRealtime(5f);
-        SceneChanger.Instance.loadClientScenesServerRpc("NewBattleArea");
+        SceneChanger.Instance.loadClientScenesServerRpc(PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.GetCurrentPlayer().curTileId].battleEnvironment);
 
     }
     private IEnumerator TrapActivates()

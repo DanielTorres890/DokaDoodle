@@ -240,7 +240,7 @@ public class AbilityManager : NetworkBehaviour
     {
         foreach(int i in buffId)
         {
-            stats.GainStatus(NetworkData.Instance.buffDataBase.GetBuff[i]);
+            stats.GainStatus(NetworkData.Instance.buffDataBase.GetItem[i]);
         }
         Debug.Log("I gained buffs i think");
         stats.PostStatusStatCalc();

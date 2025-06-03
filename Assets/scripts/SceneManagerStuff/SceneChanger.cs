@@ -26,8 +26,17 @@ public class SceneChanger : NetworkBehaviour
         loadedPlayers = 0;
         ResetYoStuffRpc();
         NetworkManager.Singleton.SceneManager.LoadScene(sceneName,LoadSceneMode.Single);
+        
     }
+    [Rpc(SendTo.Server, RequireOwnership = false)]
+    public void loadClientScenesAddidtiveRpc(string sceneName)
+    {
+        if (sceneName == "Fake") { return; }
 
+        loadedPlayers = 0;
+        ResetYoStuffRpc();
+        NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+    }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void ResetYoStuffRpc()
     {

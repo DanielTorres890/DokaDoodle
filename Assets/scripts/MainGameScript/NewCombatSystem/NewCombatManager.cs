@@ -50,7 +50,10 @@ public class NewCombatManager : NetworkBehaviour
 
     public PlayerInput playercontrol;
 
-
+    private void Awake()
+    {
+       
+    }
     private void Update()
     {
         
@@ -74,6 +77,18 @@ public class NewCombatManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        if (instance != null) { return; }
+
+        Debug.Log("did me get instantiated");
+        instance = this;
+        
+        foreach (var camera in FindObjectsByType<CinemachineCamera>(FindObjectsSortMode.None))
+        {
+            cameras.Add(camera);
+        }
+
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("NewBattleArea"));
+
         //bc im dumb and didnt handle things earlier
         for (int i = 0; i < NetworkData.Instance.playerSticks.Count; i++)
         {
@@ -81,10 +96,7 @@ public class NewCombatManager : NetworkBehaviour
         }
         endBattleInfo.lines.Clear();
 
-        if (instance != null) { return;  }
-            
-
-        instance = this;
+        
         if (IsHost)
         {
             //b UT WHY DOES IT SPAWN DOUBLE IF A CLIENT HASNT LOADED IN YET BC ONLY THE SERVER SHOULDVE BEEN ALLOWED TO SPAWNS STUFF IN AND THE HOST AND SERVER AR ETHE SAME HOW DOES THAT EVEN MAKE SENSE SMD FRICK U EMA I AHTE U LMB EXPLODE
@@ -144,7 +156,7 @@ public class NewCombatManager : NetworkBehaviour
             else
             {
                 var npc = entity as EnemyCombat;
-                var npcfab = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[npc.enemyId].enemyPrefab);
+                var npcfab = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetItem[npc.enemyId].enemyPrefab);
                 npcfab.transform.position = new Vector3(spawnPoint.x * sideMult, spawnPoint.y, sideMult * spawnPoint.z + i * zDistanceBetween * -sideMult);
 
                 npcfab.GetComponent<NetworkObject>().Spawn(true);
@@ -198,12 +210,12 @@ public class NewCombatManager : NetworkBehaviour
         {
             EnemyCombat info = (EnemyCombat)whoded.stats;
             info.isDead = true;
-            xpHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[info.enemyId].droppedXp;
-            moneyHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[info.enemyId].droppedMoney;
+            xpHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].droppedXp;
+            moneyHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].droppedMoney;
 
             if (IsServer) 
             {
-                int dropnum = PlayerCombatManager.Instance.EnemyDataBase.GetEnemies[info.enemyId].rollItem();
+                int dropnum = PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].rollItem();
                 if (dropnum >= 0) { ItemDroppedRpc(dropnum, info.enemyId); }
                 
                 Destroy(whoded.gameObject);
@@ -295,7 +307,7 @@ public class NewCombatManager : NetworkBehaviour
     private void ItemDroppedRpc(int item, int enemyId)
     {
         Debug.Log("ITEMDROPPED");
-        itemsPicked.Add(PlayerCombatManager.Instance.EnemyDataBase.Enemies[enemyId].DroppedItems[item]);
+        itemsPicked.Add(PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemyId].DroppedItems[item]);
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]

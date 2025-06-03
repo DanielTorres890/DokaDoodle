@@ -182,7 +182,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
 
         maxPlayers = playerCountin;
-        players[playerId].maxInventorySizes = NetworkData.Instance.classDataBase.GetClass[playerClass].inventorySizes;
+        players[playerId].maxInventorySizes = NetworkData.Instance.classDataBase.GetItem[playerClass].inventorySizes;
 
         playerInventories[playerId][0].MAXSIZE = players[playerId].maxInventorySizes[0];
         playerInventories[playerId][1].MAXSIZE = players[playerId].maxInventorySizes[1];
@@ -220,7 +220,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     {
         for (int i = 0; i < players.Count; i++)
         {
-            foreach (var stat in classDataBase.Classes[players[i].playerClass].stats)
+            foreach (var stat in classDataBase.GetItem[players[i].playerClass].stats)
             {
                 players[i].stats[stat.attribute] += stat.value;
 

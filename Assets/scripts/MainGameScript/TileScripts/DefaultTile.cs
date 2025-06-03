@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class DefaultTile : TileScript
 {
-    public EnemyBase[] enemies;
+    public EnemyEncounter[] enemies;
     
     public EventBase[] events;
+    
     public override void TileEvent()
     {
         
@@ -21,9 +22,10 @@ public class DefaultTile : TileScript
         }
         else
         {
-            int enemyId = PlayerCombatManager.Instance.EnemyDataBase.GetId[enemies[Random.Range(0, enemies.Length)]];
+            Debug.Log(PlayerCombatManager.Instance.EnemyEncounterDataBase.GetId.Keys.Count);
+            int encounterId = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetId[enemies[Random.Range(0, enemies.Length)]];
 
-            ClientChecks.Instance.SyncEnemyRpc(enemyId);
+            ClientChecks.Instance.SyncEnemyRpc(encounterId);
         }
     }
 }

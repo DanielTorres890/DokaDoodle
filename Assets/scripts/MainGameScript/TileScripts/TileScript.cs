@@ -12,6 +12,7 @@ public abstract class TileScript : MonoBehaviour
 
     public bool canFight = true;
     public int tileId;
+    public string battleEnvironment = "TestArena";
     public List<bool> playersOnTile = new List<bool> { false,false,false,false};
 
     public abstract void TileEvent();

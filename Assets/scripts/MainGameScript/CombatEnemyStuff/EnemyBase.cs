@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Enemy", menuName = "Combat System/Enemy")]
-public class EnemyBase : ScriptableObject
+public class EnemyBase : ScriptableObject, ISerializationCallbackReceiver
 {
 
     public string enemyName;
@@ -21,8 +21,17 @@ public class EnemyBase : ScriptableObject
     public int[] probability;
     public int droppedXp;
     public int droppedMoney;
-    
-    
+
+    public void OnAfterDeserialize()
+    {
+        
+    }
+
+    public void OnBeforeSerialize()
+    {
+        
+    }
+
     public int rollItem()
     {
         int drop = Random.Range(0,100);

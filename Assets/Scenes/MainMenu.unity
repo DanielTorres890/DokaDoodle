@@ -4206,7 +4206,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyDataBase: {fileID: 11400000, guid: 7ac05ac4e40d1414e9fa8ff079f27b8a, type: 2}
+  EnemyEncounterDataBase: {fileID: 11400000, guid: 8cac5a19cd855e74cb0e1b21c64d19ac, type: 2}
   combatants: []
+  currentEncounter: {fileID: 0}
   combatant1:
     name: 
     isDead: 1
@@ -8831,6 +8833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  loadedPlayers: 0
 --- !u!4 &1492627001
 Transform:
   m_ObjectHideFlags: 0
