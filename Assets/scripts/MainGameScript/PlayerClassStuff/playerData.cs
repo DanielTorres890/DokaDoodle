@@ -71,17 +71,29 @@ public class playerData : EntityStats
     public void setCombatActions()
     {
         this.attacks.Clear();
-        
-        if(NetworkData.Instance.playerInventories[playerNumber][1].container.Count == 0  && NetworkData.Instance.playerInventories[playerNumber][2].container.Count == 0)
+        bool hasOffense = false;
+        for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
+        {
+            if ((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem).attack is not GuardAbility) { hasOffense = true; }
+            
+        }
+        for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][2].container.Count; i++)
+        {
+            if ((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack is not GuardAbility) { hasOffense = true; }
+
+        }
+
+        if (!hasOffense)
         {
             this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][1].database.GetItem[0] as WeaponItem).attack);
         }
+        //all the stuff above is checking if the player actually has an item that provides offense bc if they don't you're helpless for no reason
+
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
         {
             if (this.attacks.Contains((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem).attack)) { continue; }
             this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem).attack);
         }
-
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][2].container.Count; i++)
         {
             if (this.attacks.Contains((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack)) { continue; }

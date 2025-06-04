@@ -24,7 +24,9 @@ public enum Attributes
     Defense,
     Magic,
     MDefense,
-    Dexterity
+    Dexterity,
+    PDmgReduction,
+    MDmgReduction
 
 }
 public abstract class ItemBase : ScriptableObject

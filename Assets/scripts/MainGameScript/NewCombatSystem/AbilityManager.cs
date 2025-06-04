@@ -118,6 +118,7 @@ public class AbilityManager : NetworkBehaviour
     {
       
         currentAttack = stats.attacks[whom];
+        currentAttack.OnStartUp(gameObject);
         if(currentAttack.startUpPrefab != null && startUpEffects == null)
         {
             startUpEffects = Instantiate(currentAttack.startUpPrefab);

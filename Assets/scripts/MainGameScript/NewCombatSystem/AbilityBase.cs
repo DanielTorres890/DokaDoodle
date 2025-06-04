@@ -10,7 +10,8 @@ public abstract class AbilityBase : NetworkBehaviour
     public AttackBase attackInfo;
 
     public EntityStats ownerStats;
-
+    public AttackTypes attackType;
+    
     public float lifespan;
     private float lifetimer;
 
@@ -45,7 +46,7 @@ public abstract class AbilityBase : NetworkBehaviour
         {
             totalDamge -= defense.mult * defender.postStatusStats[defense.attribute];
         }
-
+        totalDamge *= (1 - defender.dmgReduction[attackType]);
         if (totalDamge < 0)
             return 0;
         else
@@ -73,5 +74,11 @@ public abstract class AbilityBase : NetworkBehaviour
 
     }
 
+
+}
+public enum AttackTypes
+{
+    Physical,
+    Magic,
 
 }

@@ -68,6 +68,10 @@ public abstract class AttackBase : ScriptableObject
         info.attackInfo = this;
         return attack;
     }
+    public virtual void OnStartUp(GameObject caster)
+    {
+
+    }
 }
 
 [System.Serializable]

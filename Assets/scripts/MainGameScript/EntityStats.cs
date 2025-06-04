@@ -38,7 +38,12 @@ public class EntityStats
         
 
     };
-    
+    public Dictionary<AttackTypes, int> dmgReduction = new Dictionary<AttackTypes, int> 
+    {
+        { AttackTypes.Physical, 0},
+        { AttackTypes.Magic, 0}
+
+    };
     [SerializeField] public List<AttackBase> attacks = new List<AttackBase>();
     [SerializeField] public DefenseBase[] defenses = new DefenseBase[4];
 
@@ -120,3 +125,5 @@ public class EntityStats
     }   
 
 }
+
+
