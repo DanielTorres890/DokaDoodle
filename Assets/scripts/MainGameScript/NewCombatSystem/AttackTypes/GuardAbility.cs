@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Attack Object", menuName = "Abilities/NonDamage/Guard")]
 public class GuardAbility : AttackBase
 {
+    [Tooltip("By percentage bc i'm not consistant ie: 30 = 30%")]
     public int PDmgReduction,MDmgReduction;
 
 

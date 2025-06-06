@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class DefenseBase : AttackBase
 {
-    public float defendPercentage;
+
+    public float PDefendPercentage, MDefendPercentage;
 
 }
    

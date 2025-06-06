@@ -46,7 +46,7 @@ public abstract class AbilityBase : NetworkBehaviour
         {
             totalDamge -= defense.mult * defender.postStatusStats[defense.attribute];
         }
-        totalDamge *= (1 - defender.dmgReduction[attackType]);
+        totalDamge *= (1 - defender.dmgReduction[attackType]/100f);
         if (totalDamge < 0)
             return 0;
         else

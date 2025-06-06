@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69e3f8846c21ff740a7c78f858046bcd, type: 3}
-  m_Name: LightGuard
+  m_Script: {fileID: 11500000, guid: bc5d19f0eeeab664a8fc827576ce68d4, type: 3}
+  m_Name: BasicGuard
   m_EditorClassIdentifier: 
-  description: A light guard that doesn't protect you much
+  description: A basic block against physical attacks
   attackName: Light Guard
-  startUp: 0
+  startUp: 0.3
   attackDuration: 0
   endLag: 0
   cooldown: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
   - attribute: 2
     mult: 0
   - attribute: 3
-    mult: 1.2
+    mult: 0
   - attribute: 4
     mult: 0
   - attribute: 5
@@ -56,4 +56,5 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  defendPercentage: 30
+  PDmgReduction: 30
+  MDmgReduction: 0
