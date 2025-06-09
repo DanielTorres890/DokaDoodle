@@ -32,12 +32,15 @@ public class AbilityManager : NetworkBehaviour
     [SerializeField] private EntityUIUpdate hpText;
 
     public UnityEvent onStatus;
+
+    private Animator animator;
     public override void OnNetworkSpawn()
     {
         NewCombatManager.instance.fricku.Add(gameObject);
         NewCombatManager.instance.allCombatants.Add(this);
+
+        TryGetComponent(out animator);
         
-      
         
     }
 
@@ -153,11 +156,8 @@ public class AbilityManager : NetworkBehaviour
     }
     public void AssignAbilities()
     {
-        characterEditor characterEdit = GetComponent<characterEditor>();
-        characterEdit.setClass((stats as playerData).playerClass);
-        characterEdit.setFace((stats as playerData).playerFace);
-        characterEdit.setHair((stats as playerData).playerHair);
-
+        
+        
         if (!IsOwner) { return; }
       
 
@@ -167,6 +167,10 @@ public class AbilityManager : NetworkBehaviour
 
         actions.actions["M1Attack"].performed += M1Attack;
         actions.actions["M1Attack"].canceled += M1AttackReleased;
+
+        actions.actions["Move"].performed += StartWalking;
+        actions.actions["Move"].canceled += StopWalking;
+
         inputToInt.Add(actions.actions["M1Attack"].controls[0], 0);
         stateManager.Add(stats.attacks[0], new AbilityStates());
         orderedAttacks.Add(stats.attacks[0]);
@@ -254,7 +258,11 @@ public class AbilityManager : NetworkBehaviour
         /*var render = GetComponentInChildren<MeshRenderer>(); skip for now maybe?
         render.material = NetworkData.Instance.playerSticks[playerNum].GetComponent<characterEditor>().myMaterial;
        */
-     
+
+        characterEditor characterEdit = GetComponent<characterEditor>();
+        characterEdit.setClass((stats as playerData).playerClass);
+        characterEdit.setFace((stats as playerData).playerFace);
+        characterEdit.setHair((stats as playerData).playerHair);
         NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineCamera>());
        
     }
@@ -326,6 +334,7 @@ public class AbilityManager : NetworkBehaviour
     {
         return combatantstate == combatantStates.Free;
     }
+    
    
 
     /* private void Ability1(InputAction.CallbackContext action)
@@ -343,6 +352,14 @@ public class AbilityManager : NetworkBehaviour
 
      }
      */
+    private void StartWalking(InputAction.CallbackContext action)
+    {
+        animator.SetBool("Walking", true);
+    }
+    private void StopWalking(InputAction.CallbackContext action)
+    {
+        animator.SetBool("Walking", false);
+    }
 
 }
 public class AbilityStates

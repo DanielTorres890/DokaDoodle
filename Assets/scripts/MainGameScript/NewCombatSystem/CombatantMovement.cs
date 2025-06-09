@@ -31,7 +31,7 @@ public class CombatantMovement : NetworkBehaviour
 
     //private Camera camcomponent;
 
-    //All of my states.. hopefully?
+    //All states are in the ability manager bc honestly it makes more sense there
     [SerializeField] private bool grounded;
 
     public void moveForward(InputAction.CallbackContext action)
