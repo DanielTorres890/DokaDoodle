@@ -206,7 +206,7 @@ public class CombatantMovement : NetworkBehaviour
         }
 
         //This line makes the camera not snap immediately to back to its previous position but idk how i really wanna handle this yet tbh
-        //playerCam.transform.parent.transform.Rotate(new Vector3(transform.eulerAngles.x, 0, 0), Space.Self);
+        playerCam.transform.parent.transform.Rotate(new Vector3(transform.eulerAngles.x, 0, 0), Space.Self);
         
         
         //camcomponent.transparencySortAxis = new Vector3(math.sin(math.radians(playerCam.transform.parent.transform.eulerAngles.y)),0, math.cos( math.radians(playerCam.transform.parent.transform.eulerAngles.x)));
@@ -222,12 +222,15 @@ public class CombatantMovement : NetworkBehaviour
         if (!abilityManager.CanMove() && abilityManager.combatantstate != combatantStates.Endlag)
         {
             transform.Rotate(new Vector3(-look.y * sensitivy, look.x * sensitivy, 0));
-
+            if (transform.eulerAngles.x % 360 < 360 + minXCam && transform.eulerAngles.x % 360 > maxXCam)
+            {
+                transform.Rotate(new Vector3(look.y * sensitivy, 0, 0));
+            }
             return;
         }
         transform.Rotate(new Vector3(0, look.x * sensitivy, 0));
 
-        float changeInRotation =  -1 * look.y * sensitivy;
+       
         playerCam.transform.parent.transform.Rotate(new Vector3(-look.y * sensitivy, 0, 0));
 
         if (playerCam.transform.parent.transform.eulerAngles.x % 360 < 360 + minXCam && playerCam.transform.parent.transform.eulerAngles.x % 360 > maxXCam)
