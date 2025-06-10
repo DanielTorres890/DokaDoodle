@@ -1119,6 +1119,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7245829469214723730, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.866452
+      objectReference: {fileID: 0}
     - target: {fileID: -7110995906851474845, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -1202,6 +1206,10 @@ PrefabInstance:
     - target: {fileID: 2419549006489912285, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708613195247864430, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.6006595
       objectReference: {fileID: 0}
     - target: {fileID: 3573228653110509163, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1292,6 +1300,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1325917592731872046}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2651429450716657545}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
 --- !u!4 &204523565734630779 stripped
 Transform:
@@ -1629,11 +1640,42 @@ MonoBehaviour:
     - {fileID: 0}
   combatantstate: 5
   stateDuration: 0
+  currentAttack: {fileID: 0}
   nameText: {fileID: 5664443472795612315}
   hpText: {fileID: 8772110262794327063}
   onStatus:
     m_PersistentCalls:
       m_Calls: []
+  onAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2651429450716657545}
+        m_TargetAssemblyTypeName: CombatAnimator, Assembly-CSharp
+        m_MethodName: SelectCurrentAttackRpc
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onEndAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2651429450716657545}
+        m_TargetAssemblyTypeName: CombatAnimator, Assembly-CSharp
+        m_MethodName: EndCurrentAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-7575021645446966744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1773,6 +1815,22 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   TransitionStateInfoList: []
   m_Animator: {fileID: -4163339753683397056}
+--- !u!114 &2651429450716657545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305626960793455896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5157333ff089143888c5b113e658e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  animator: {fileID: -4163339753683397056}
+  abilityManager: {fileID: 992508209932742035}
+  overrideController: {fileID: 0}
 --- !u!1001 &3933728912296855295
 PrefabInstance:
   m_ObjectHideFlags: 0

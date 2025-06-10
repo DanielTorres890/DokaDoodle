@@ -60,9 +60,7 @@ public abstract class AbilityBase : NetworkBehaviour
         
         OnHit();
 
-        Debug.Log(other.gameObject);
-        Debug.Log(owner);
-
+        
         if (other.gameObject.TryGetComponent(out AbilityManager hitby))
         {
             

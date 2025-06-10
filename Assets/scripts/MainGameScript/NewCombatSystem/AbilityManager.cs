@@ -22,7 +22,7 @@ public class AbilityManager : NetworkBehaviour
     public combatantStates combatantstate = combatantStates.Free;
     public float stateDuration;
 
-    private AttackBase currentAttack = null;
+    public AttackBase currentAttack = null;
     private GameObject spawnedAttack;
     private GameObject startUpEffects;
 
@@ -32,16 +32,24 @@ public class AbilityManager : NetworkBehaviour
     [SerializeField] private EntityUIUpdate hpText;
 
     public UnityEvent onStatus;
+    public UnityEvent onAttack;
+    public UnityEvent onEndAttack;
 
     private Animator animator;
+
+    private void Awake()
+    {
+       
+
+    }
     public override void OnNetworkSpawn()
     {
         NewCombatManager.instance.fricku.Add(gameObject);
         NewCombatManager.instance.allCombatants.Add(this);
 
         TryGetComponent(out animator);
-        
-        
+
+
     }
 
     // Update is called once per frame
@@ -57,6 +65,7 @@ public class AbilityManager : NetworkBehaviour
                 currentAttack = atk;
                 combatantstate = atk.stateToBe;
                 stateDuration = currentAttack.startUp;
+                
                 if (currentAttack.startUpPrefab != null && startUpEffects == null)
                 {
                     SpawnStartFabUpRpc(GetCurrentAtkNum());
@@ -73,7 +82,7 @@ public class AbilityManager : NetworkBehaviour
             }
         }
         
-        if (stateDuration <= 0) //time for state to progress
+        if (stateDuration <= 0 && combatantstate != combatantStates.Free) //time for state to progress
         {
             if(combatantstate == combatantStates.Attacking) { combatantstate = combatantStates.Endlag; } //checking if the attack has active time IE dash attack
 
@@ -86,6 +95,9 @@ public class AbilityManager : NetworkBehaviour
                  }*/
                 DestroyStartUpFabRpc();
                 spawnedAttack = currentAttack.WeaponEffect(gameObject);
+                
+
+                Debug.Log("I should have invoked " + onAttack.GetPersistentEventCount());
                 PerformAttackRpc(GetCurrentAtkNum(), NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,gameObject.transform.eulerAngles);
 
                 stateDuration = currentAttack.attackDuration;
@@ -94,6 +106,7 @@ public class AbilityManager : NetworkBehaviour
                 {
                     combatantstate = combatantStates.Endlag;
                     stateDuration = currentAttack.endLag;
+                    onEndAttack.Invoke();
                     if (stateDuration <= 0  ) { combatantstate = combatantStates.Free; }
                 }
                 
@@ -105,11 +118,12 @@ public class AbilityManager : NetworkBehaviour
                 currentAttack = null;
                 combatantstate = combatantStates.Endlag;
                 stateDuration = currentAttack.endLag;
-
+                onEndAttack.Invoke();
                 if (stateDuration <= 0) { combatantstate = combatantStates.Free; }
             }
             else
             {
+                onEndAttack.Invoke();
                 combatantstate = combatantStates.Free;
             }
         }
@@ -119,8 +133,9 @@ public class AbilityManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SpawnStartFabUpRpc(int whom)
     {
-      
+        
         currentAttack = stats.attacks[whom];
+        onAttack.Invoke();
         currentAttack.OnStartUp(gameObject);
         if(currentAttack.startUpPrefab != null && startUpEffects == null)
         {
@@ -162,8 +177,7 @@ public class AbilityManager : NetworkBehaviour
       
 
         actions.SwitchCurrentActionMap("Player");
-        onStatus = new UnityEvent();
-
+        
 
         actions.actions["M1Attack"].performed += M1Attack;
         actions.actions["M1Attack"].canceled += M1AttackReleased;
@@ -258,11 +272,11 @@ public class AbilityManager : NetworkBehaviour
         /*var render = GetComponentInChildren<MeshRenderer>(); skip for now maybe?
         render.material = NetworkData.Instance.playerSticks[playerNum].GetComponent<characterEditor>().myMaterial;
        */
-
+        //im pretty sure i have to put this stuff here bc the method below has to work for all enemy types and they're not all player datas
         characterEditor characterEdit = GetComponent<characterEditor>();
-        characterEdit.setClass((stats as playerData).playerClass);
-        characterEdit.setFace((stats as playerData).playerFace);
-        characterEdit.setHair((stats as playerData).playerHair);
+        characterEdit.setClass(NetworkData.Instance.players[playerNum].playerClass);
+        characterEdit.setFace(NetworkData.Instance.players[playerNum].playerFace);
+        characterEdit.setHair(NetworkData.Instance.players[playerNum].playerHair);
         NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineCamera>());
        
     }
@@ -358,6 +372,7 @@ public class AbilityManager : NetworkBehaviour
     }
     private void StopWalking(InputAction.CallbackContext action)
     {
+        
         animator.SetBool("Walking", false);
     }
 

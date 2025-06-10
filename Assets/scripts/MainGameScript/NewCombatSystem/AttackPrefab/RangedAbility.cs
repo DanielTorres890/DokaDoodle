@@ -5,11 +5,11 @@ using UnityEngine;
 public class RangedAbility : AbilityBase
 {
     
-    [SerializeField] private float speed;
+    
     // Update is called once per frame
     private void Start()
     {
-        gameObject.GetComponent<Rigidbody>().linearVelocity = transform.TransformDirection(Vector3.forward * speed);
+        
     }
 
     private new void Update()
