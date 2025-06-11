@@ -52,8 +52,7 @@ public class DialogueScript : NetworkBehaviour
     [Rpc(SendTo.Server, RequireOwnership = false)]
     public void contCutsceneServerRpc(RpcParams rpcstuff = default)
     {
-        Debug.Log("Who is in control " + whoInControl);
-        Debug.Log("WHO SENT THIS " + rpcstuff.Receive.SenderClientId);
+        
         
         if (!NetworkData.Instance.IsAllowed(whoInControl,rpcstuff.Receive.SenderClientId)) { return; }
 
@@ -78,6 +77,7 @@ public class DialogueScript : NetworkBehaviour
     public void startDialogue ()
     {
         StopAllCoroutines();
+        
         textComponent.text = string.Empty;
 
         index = 0;
@@ -86,11 +86,22 @@ public class DialogueScript : NetworkBehaviour
 
     IEnumerator TypeLine()
     {
-        foreach (char c in lines[index].ToCharArray())
+        var charArr = lines[index].ToCharArray();
+        for (int i = 0; i < charArr.Length; i++)
         {
-            textComponent.text += c;
+            textComponent.text += charArr[i];
+            if (charArr[i] == '<')
+            {
+                while (charArr[i] != '>')
+                {
+                    i++;
+                    textComponent.text += charArr[i];
+                }
+
+            }
             yield return new WaitForSeconds(textSpeed);
         }
+        
     }
 
     void NextLine()
@@ -103,8 +114,12 @@ public class DialogueScript : NetworkBehaviour
         } 
         else
         {
-            gameObject.SetActive(false);
+            
+            //once again fmcl
+            if(background)
             background.gameObject.SetActive(false);
+
+
             endEvent.Invoke();
             
         }

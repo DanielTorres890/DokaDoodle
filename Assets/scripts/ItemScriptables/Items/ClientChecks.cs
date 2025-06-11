@@ -14,13 +14,14 @@ public class ClientChecks : NetworkBehaviour
 
     public static ClientChecks Instance { get; private set; }
 
-    public GameObject displayText;
+    public DialogueScript displayText;
     public GameObject mainMenuButtons;
     private TextMeshProUGUI displayTxt;
 
     public UnityEvent onRoundStart;
     public GameObject combatPreview;
-
+    //im gonna be so fr this whole thingy i have going on with this class is some big buns and im sorry to anyone who looks at this
+    //(the main issue is im doing wayyy to much in here in the worst ways possible
     public override void OnNetworkSpawn()
     {
         
@@ -49,7 +50,7 @@ public class ClientChecks : NetworkBehaviour
         }
 
         onRoundStart = new UnityEvent();
-        displayTxt = displayText.GetComponentInChildren<TextMeshProUGUI>();
+        
     }
 
     
@@ -100,31 +101,30 @@ public class ClientChecks : NetworkBehaviour
 
 
         NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
+        displayText.lines.Clear();
 
-        
         display.CreateDisplay( player, inventoryNum);
         display.gameObject.SetActive(false);
         Debug.Log("i should be hidden");
 
-        displayTxt.text = NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].useText;
+        displayText.lines.Add(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].useText);
         StartCoroutine(usedItem());
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void ConfirmItemPickupRpc(int player, int itemId, int inventoryNum)
     {
-        displayText.SetActive(true);
-        displayText = ItemPickupDisplay.Instance.gameObject;
+        displayText.lines.Clear();
+        //?displayText = ItemPickupDisplay.Instance.gameObject;
         if (NetworkData.Instance.playerInventories[player][inventoryNum].AddItem(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId]))
         {
             
-            
-            displayTxt.text = "Obtained a <color=blue>" + NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].name + "</color>";
+            displayText.lines.Add("Obtained a <color=blue>" + NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].name + "</color>");
             StartCoroutine(displayItem());
         }
         else
         {
-            displayTxt.text = "You've got NO ROOM for that ish stoopid (hopefully in the future u can pick what u want)";
+            displayText.lines.Add("You've got NO ROOM for that ish stoopid (hopefully in the future u can pick what u want)");
             StartCoroutine(displayItem());
 
         }
@@ -227,8 +227,9 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost,RequireOwnership = false)]
     public void DisplayDeadRpc()
     {
+        displayText.lines.Clear();
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
-        displayTxt.text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name + " is dead for <color=red>" + (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].tillRevive + 1) + "</color> turns";
+        displayText.lines.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name + " is dead for <color=red>" + (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].tillRevive + 1) + "</color> turns");
         
         StartCoroutine(displayItem());
         
@@ -243,9 +244,9 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void UseClassAbilityRpc()
     {
-        Debug.Log("I happened ");
+        displayText.lines.Clear();
         NetworkData.Instance.classDataBase.GetItem[NetworkData.Instance.GetCurrentPlayer().playerClass].ClassAction(NetworkData.Instance.GetCurrentPlayer());
-        displayTxt.text = NetworkData.Instance.classDataBase.GetItem[NetworkData.Instance.GetCurrentPlayer().playerClass].actionUseText;
+        displayText.lines.Add(NetworkData.Instance.classDataBase.GetItem[NetworkData.Instance.GetCurrentPlayer().playerClass].actionUseText);
         StartCoroutine(usedAbility());
 
     }
@@ -264,12 +265,14 @@ public class ClientChecks : NetworkBehaviour
     }
     private IEnumerator TrapActivates()
     {
+        displayText.lines.Clear();
         var trapcache = NetworkData.Instance.trapDataBase.GetTrap[MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds[0]];
-        displayTxt.text = trapcache.TrapString();
+        displayText.lines.Add(trapcache.TrapString());
         trapcache.TrapEffect(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
         MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds.RemoveAt(0);
-        displayText.SetActive(true);
-        while (displayText.activeSelf)
+        displayText.gameObject.SetActive(true);
+        displayText.Awake();
+        while (displayText.gameObject.activeSelf)
         {
 
             yield return null;
@@ -287,8 +290,9 @@ public class ClientChecks : NetworkBehaviour
     private IEnumerator displayItem()
     {
         
-        displayText.SetActive(true);
-        while (displayText.activeSelf)
+        displayText.gameObject.SetActive(true);
+        displayText.Awake();
+        while (displayText.gameObject.activeSelf)
         {
 
             yield return null;
@@ -299,25 +303,24 @@ public class ClientChecks : NetworkBehaviour
     }
     private IEnumerator usedItem()
     {
-        displayText.SetActive(true);
-        
-        while (displayText.activeSelf)
+        displayText.gameObject.SetActive(true);
+        displayText.Awake();
+        while (displayText.gameObject.activeSelf)
         {
-            
             
             yield return null;
         }
         
         display.gameObject.SetActive(true);
-        Debug.Log(" ive been seened");
+        
     }
     private IEnumerator usedAbility()
     {
         mainMenuButtons.SetActive(false);
-        displayText.SetActive(true);
+        displayText.gameObject.SetActive(true);
 
         mainMenuButtons.transform.GetChild(3).gameObject.GetComponent<ClassAbility>().setButtonText(); //nasty work i shouuld redo this frfr
-        while (displayText.activeSelf)
+        while (displayText.gameObject.activeSelf)
         {
 
 
@@ -329,11 +332,13 @@ public class ClientChecks : NetworkBehaviour
 
     private IEnumerator displayActivateEvent()
     {
-        displayTxt.text = WorldEventManager.Instance.eventsToActivate[0].ActivateText;
+        displayText.lines.Clear();
+        displayText.lines.Add(WorldEventManager.Instance.eventsToActivate[0].ActivateText);
         WorldEventManager.Instance.eventsToActivate[0].OnActivate();
-        displayText.SetActive(true);
+        displayText.gameObject.SetActive(true);
         WorldEventManager.Instance.activeWorldEvents.Add(new WorldEventWrapper(WorldEventManager.Instance.worldDatabase.GetId[WorldEventManager.Instance.eventsToActivate[0]]));
-        while (displayText.activeSelf)
+        displayText.Awake();
+        while (displayText.gameObject.activeSelf)
         {
             yield return null;
         }
@@ -346,11 +351,12 @@ public class ClientChecks : NetworkBehaviour
     }
     private IEnumerator displayDeactivateEvent()
     {
-        displayTxt.text = WorldEventManager.Instance.eventsToDeactivate[0].DeactivateText;
-        displayText.SetActive(true);
+        displayText.lines.Clear();
+        displayText.lines.Add(WorldEventManager.Instance.eventsToDeactivate[0].DeactivateText);
+        displayText.gameObject.SetActive(true);
         WorldEventManager.Instance.eventsToActivate[0].OnDeactivate();
-        
-        while (displayText.activeSelf)
+        displayText.Awake();
+        while (displayText.gameObject.activeSelf)
         {
             yield return null;
         }

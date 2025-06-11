@@ -6,6 +6,8 @@ public abstract class WorldEventBase : ScriptableObject
     public string ActivateText;
     [TextArea(5, 15)]
     public string DeactivateText;
+
+    public Sprite eventDisplay;
     public abstract void OnActivate();
 
     public abstract void OnDeactivate();
