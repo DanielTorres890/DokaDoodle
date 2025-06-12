@@ -266,6 +266,7 @@ public class ClientChecks : NetworkBehaviour
     private IEnumerator TrapActivates()
     {
         displayText.lines.Clear();
+        displayText.whoInControl = NetworkData.Instance.currentPlayer;
         var trapcache = NetworkData.Instance.trapDataBase.GetTrap[MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds[0]];
         displayText.lines.Add(trapcache.TrapString());
         trapcache.TrapEffect(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
@@ -291,6 +292,7 @@ public class ClientChecks : NetworkBehaviour
     {
         
         displayText.gameObject.SetActive(true);
+        displayText.whoInControl = NetworkData.Instance.currentPlayer;
         displayText.Awake();
         while (displayText.gameObject.activeSelf)
         {
@@ -304,6 +306,7 @@ public class ClientChecks : NetworkBehaviour
     private IEnumerator usedItem()
     {
         displayText.gameObject.SetActive(true);
+        displayText.whoInControl = NetworkData.Instance.currentPlayer;
         displayText.Awake();
         while (displayText.gameObject.activeSelf)
         {
@@ -317,6 +320,7 @@ public class ClientChecks : NetworkBehaviour
     private IEnumerator usedAbility()
     {
         mainMenuButtons.SetActive(false);
+        displayText.whoInControl = NetworkData.Instance.currentPlayer;
         displayText.gameObject.SetActive(true);
 
         mainMenuButtons.transform.GetChild(3).gameObject.GetComponent<ClassAbility>().setButtonText(); //nasty work i shouuld redo this frfr
@@ -336,6 +340,7 @@ public class ClientChecks : NetworkBehaviour
         displayText.lines.Add(WorldEventManager.Instance.eventsToActivate[0].ActivateText);
         WorldEventManager.Instance.eventsToActivate[0].OnActivate();
         displayText.gameObject.SetActive(true);
+        displayText.whoInControl = NetworkData.Instance.currentPlayer;
         WorldEventManager.Instance.activeWorldEvents.Add(new WorldEventWrapper(WorldEventManager.Instance.worldDatabase.GetId[WorldEventManager.Instance.eventsToActivate[0]]));
         displayText.Awake();
         while (displayText.gameObject.activeSelf)
@@ -354,6 +359,7 @@ public class ClientChecks : NetworkBehaviour
         displayText.lines.Clear();
         displayText.lines.Add(WorldEventManager.Instance.eventsToDeactivate[0].DeactivateText);
         displayText.gameObject.SetActive(true);
+        displayText.whoInControl = NetworkData.Instance.currentPlayer;
         WorldEventManager.Instance.eventsToActivate[0].OnDeactivate();
         displayText.Awake();
         while (displayText.gameObject.activeSelf)

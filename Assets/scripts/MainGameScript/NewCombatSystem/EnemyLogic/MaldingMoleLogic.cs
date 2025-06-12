@@ -4,7 +4,7 @@ using UnityEngine;
 public class MaldingMoleLogic : BaseEnemyBehavior
 {
 
-    public float[] attackRanges;
+    
 
     public override bool InRange()
     {

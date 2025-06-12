@@ -19,9 +19,16 @@ public class BaseEnemyBehavior : NetworkBehaviour
     public AbilityManager myManager;
 
     public AttackBase selectedAttack;
-    public float attackRange;
+    public float[] attackRanges;
     public bool InAttackRange;
 
+    public Animator animator;
+    public AnimatorOverrideController overrideController;
+
+    public AnimationClip walkingAnimation;
+
+    [Tooltip("This array works under the assumption that every attack has both a startUp and attack Animation")]
+    public AnimationClip[][] attackAnimations; 
 
     public float releaseTimer = 0;
     public float timeToHold;
@@ -32,6 +39,9 @@ public class BaseEnemyBehavior : NetworkBehaviour
         
         agent = GetComponent<NavMeshAgent>();
         myManager = GetComponent<AbilityManager>();
+        animator = GetComponent<Animator> ();
+        overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
+        overrideController["DefaultWalking"] = walkingAnimation;
 
 
         FindEnemy();
@@ -86,7 +96,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
     public virtual bool InRange()
     {
-        return Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position) < attackRange;
+        return Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position) < attackRanges[0];
     }
     public virtual void ChasePlayer()
     {
