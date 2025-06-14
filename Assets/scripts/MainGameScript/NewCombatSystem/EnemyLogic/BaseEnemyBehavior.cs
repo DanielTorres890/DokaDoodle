@@ -23,7 +23,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     public bool InAttackRange;
 
     public Animator animator;
-    public AnimatorOverrideController overrideController;
+    [DoNotSerialize]public AnimatorOverrideController overrideController;
 
     public AnimationClip walkingAnimation;
 
@@ -35,14 +35,13 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        
-        
         agent = GetComponent<NavMeshAgent>();
         myManager = GetComponent<AbilityManager>();
-        animator = GetComponent<Animator> ();
-        overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
-        overrideController["DefaultWalking"] = walkingAnimation;
+        animator = GetComponent<Animator>();
 
+        
+        overrideController["DefaultWalking"] = walkingAnimation;
+      
 
         FindEnemy();
         agent.speed += myManager.stats.speedFormula();
@@ -131,7 +130,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
                     AttackAnimRpc(i);
                 }
             }
-            Debug.Log("What are u" + selectedAttack);
+            
             myManager.stateManager[selectedAttack].pressed = true;
         }
         
@@ -152,8 +151,12 @@ public class BaseEnemyBehavior : NetworkBehaviour
     public void AttackAnimRpc(int attackIndex)
     {
         selectedAttack = myManager.stats.attacks[attackIndex];
+        
+        
         overrideController["DefaultStartUp"] = attackAnimations[attackIndex].startUp;
+        
         overrideController["DefaultAttack"] = attackAnimations[attackIndex].attack;
+        
         animator.SetBool("Attacking", true);
     }
     public void AttackHold()

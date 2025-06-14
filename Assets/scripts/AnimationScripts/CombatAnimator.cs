@@ -26,7 +26,7 @@ public class CombatAnimator : NetworkBehaviour
         if(IsOwner)
         animator.SetBool("Attacking", true);
        
-        Debug.Log("I should be playing bru" + overrideController.overridesCount);
+        
         
     }
    
