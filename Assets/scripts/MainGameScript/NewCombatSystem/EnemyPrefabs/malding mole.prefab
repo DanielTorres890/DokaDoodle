@@ -671,10 +671,8 @@ MonoBehaviour:
     name: 
     isDead: 0
     loyaltyTags: []
-    attacks:
-    - {fileID: 0}
-    defenses:
-    - {fileID: 0}
+    attacks: []
+    defenses: []
   combatantstate: 5
   stateDuration: 0
   currentAttack: {fileID: 0}
@@ -809,14 +807,23 @@ MonoBehaviour:
     m_Bits: 0
   myManager: {fileID: 3257693015704149352}
   selectedAttack: {fileID: 0}
-  attackRange: 0
-  InAttackRange: 0
-  releaseTimer: 0
-  timeToHold: 0
   attackRanges:
   - 3
   - 8
   - 15
+  InAttackRange: 0
+  animator: {fileID: 0}
+  overrideController: {fileID: 0}
+  walkingAnimation: {fileID: 7400000, guid: ffeeadf3641321749b44105aa0a2caf9, type: 2}
+  attackAnimations:
+  - startUp: {fileID: 7400000, guid: a39503b9768aba04b89b9ca14385a013, type: 2}
+    attack: {fileID: 7400000, guid: f7ffe7c51b7b5be458c888335c85afd8, type: 2}
+  - startUp: {fileID: 7400000, guid: a39503b9768aba04b89b9ca14385a013, type: 2}
+    attack: {fileID: 7400000, guid: f7ffe7c51b7b5be458c888335c85afd8, type: 2}
+  - startUp: {fileID: 7400000, guid: a39503b9768aba04b89b9ca14385a013, type: 2}
+    attack: {fileID: 7400000, guid: f7ffe7c51b7b5be458c888335c85afd8, type: 2}
+  releaseTimer: 0
+  timeToHold: 0
 --- !u!95 &7378447743338620645
 Animator:
   serializedVersion: 7
@@ -827,7 +834,7 @@ Animator:
   m_GameObject: {fileID: 1804880954259114146}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 53492df683f893349a53ef6eaf59a880, type: 2}
+  m_Controller: {fileID: 22100000, guid: e4834ea9410f9f64287b6e821eabfc80, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

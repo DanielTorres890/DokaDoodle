@@ -28,7 +28,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     public AnimationClip walkingAnimation;
 
     [Tooltip("This array works under the assumption that every attack has both a startUp and attack Animation")]
-    public AnimationClip[][] attackAnimations; 
+    public AttackAnimation[] attackAnimations; 
 
     public float releaseTimer = 0;
     public float timeToHold;
@@ -105,7 +105,10 @@ public class BaseEnemyBehavior : NetworkBehaviour
         if (myManager.combatantstate == combatantStates.Free ||  myManager.combatantstate == combatantStates.StartUpFree)
         agent.SetDestination(targetManager.gameObject.transform.position);
 
+
         if (!IsServer) { return; }
+        animator.SetBool("Attacking", false);
+        animator.SetBool("Walking", true);
         myManager.stateManager[myManager.stats.attacks[0]].pressed = false;
     }
 
@@ -115,10 +118,19 @@ public class BaseEnemyBehavior : NetworkBehaviour
         
         transform.LookAt(new Vector3(targetManager.gameObject.transform.position.x, transform.position.y , targetManager.gameObject.transform.position.z));
         if(!IsServer) { return; }
-        if( myManager.CanAct())
+        animator.SetBool("Attacking", true);
+        
+        if ( myManager.CanAct())
         {
             
             selectAttack();
+            for (int i = 0; i < myManager.stats.attacks.Count; i++)
+            {
+                if (myManager.stats.attacks[i] == selectedAttack)
+                {
+                    AttackAnimRpc(i);
+                }
+            }
             Debug.Log("What are u" + selectedAttack);
             myManager.stateManager[selectedAttack].pressed = true;
         }
@@ -136,6 +148,14 @@ public class BaseEnemyBehavior : NetworkBehaviour
         selectedAttack = myManager.stats.attacks[0];
     }
 
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void AttackAnimRpc(int attackIndex)
+    {
+        selectedAttack = myManager.stats.attacks[attackIndex];
+        overrideController["DefaultStartUp"] = attackAnimations[attackIndex].startUp;
+        overrideController["DefaultAttack"] = attackAnimations[attackIndex].attack;
+        animator.SetBool("Attacking", true);
+    }
     public void AttackHold()
     {
         if (!myManager.CanMove())
@@ -150,4 +170,10 @@ public class BaseEnemyBehavior : NetworkBehaviour
             }
         }
     }
+}
+[System.Serializable]
+public class AttackAnimation
+{
+    public AnimationClip startUp;
+    public AnimationClip attack;
 }
