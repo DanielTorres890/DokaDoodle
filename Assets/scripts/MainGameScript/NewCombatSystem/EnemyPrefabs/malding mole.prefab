@@ -813,15 +813,18 @@ MonoBehaviour:
   - 15
   InAttackRange: 0
   animator: {fileID: 0}
-  overrideController: {fileID: 22100000, guid: e4834ea9410f9f64287b6e821eabfc80, type: 2}
+  overrideController: {fileID: 0}
   walkingAnimation: {fileID: 7400000, guid: ffeeadf3641321749b44105aa0a2caf9, type: 2}
   attackAnimations:
-  - startUp: {fileID: 7400000, guid: a39503b9768aba04b89b9ca14385a013, type: 2}
-    attack: {fileID: 7400000, guid: f7ffe7c51b7b5be458c888335c85afd8, type: 2}
-  - startUp: {fileID: 7400000, guid: c3d430779df853c418d605002a7059c7, type: 2}
-    attack: {fileID: 7400000, guid: cc53c2bc18829b6428c77ff21b86ad9e, type: 2}
   - startUp: {fileID: 7400000, guid: 77b0346dafdaebe4daaa4a8d65f8d2e1, type: 2}
     attack: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+    animationSpeed: 0.5
+  - startUp: {fileID: 7400000, guid: a39503b9768aba04b89b9ca14385a013, type: 2}
+    attack: {fileID: 7400000, guid: f7ffe7c51b7b5be458c888335c85afd8, type: 2}
+    animationSpeed: 0.5
+  - startUp: {fileID: 7400000, guid: c3d430779df853c418d605002a7059c7, type: 2}
+    attack: {fileID: 7400000, guid: cc53c2bc18829b6428c77ff21b86ad9e, type: 2}
+    animationSpeed: 0.5
   releaseTimer: 0
   timeToHold: 0
 --- !u!95 &7378447743338620645
@@ -834,7 +837,7 @@ Animator:
   m_GameObject: {fileID: 1804880954259114146}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: e4834ea9410f9f64287b6e821eabfc80, type: 2}
+  m_Controller: {fileID: 9100000, guid: 53492df683f893349a53ef6eaf59a880, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -880,6 +883,10 @@ PrefabInstance:
     - target: {fileID: -7602423936521767560, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
       propertyPath: m_LocalPosition.y
       value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: -7552582706839291426, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 2fa6cbe4093db5d43ac3cf794149caf3, type: 3}
       propertyPath: m_LocalPosition.x

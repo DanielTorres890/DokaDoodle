@@ -39,9 +39,9 @@ public class BaseEnemyBehavior : NetworkBehaviour
         myManager = GetComponent<AbilityManager>();
         animator = GetComponent<Animator>();
 
-        
+        overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         overrideController["DefaultWalking"] = walkingAnimation;
-      
+        animator.runtimeAnimatorController = overrideController;
 
         FindEnemy();
         agent.speed += myManager.stats.speedFormula();
@@ -106,8 +106,15 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
 
         if (!IsServer) { return; }
-        animator.SetBool("Attacking", false);
-        animator.SetBool("Walking", true);
+
+        if (myManager.combatantstate == combatantStates.Free)
+        {
+            animator.SetBool("Attacking", false);
+            animator.SetBool("StartUp", false);
+            animator.SetBool("Walking", true);
+            animator.SetFloat("AnimSpeed", 1);
+        }
+        
         myManager.stateManager[myManager.stats.attacks[0]].pressed = false;
     }
 
@@ -117,8 +124,9 @@ public class BaseEnemyBehavior : NetworkBehaviour
         
         transform.LookAt(new Vector3(targetManager.gameObject.transform.position.x, transform.position.y , targetManager.gameObject.transform.position.z));
         if(!IsServer) { return; }
-        animator.SetBool("Attacking", true);
-        
+        animator.SetBool("StartUp", true);
+        animator.SetBool("Attacking ", false);
+
         if ( myManager.CanAct())
         {
             
@@ -151,13 +159,15 @@ public class BaseEnemyBehavior : NetworkBehaviour
     public void AttackAnimRpc(int attackIndex)
     {
         selectedAttack = myManager.stats.attacks[attackIndex];
-        
+
         
         overrideController["DefaultStartUp"] = attackAnimations[attackIndex].startUp;
         
         overrideController["DefaultAttack"] = attackAnimations[attackIndex].attack;
-        
-        animator.SetBool("Attacking", true);
+        animator.SetFloat("AnimSpeed", attackAnimations[attackIndex].animationSpeed);
+        animator.runtimeAnimatorController = overrideController;
+
+        animator.SetBool("StartUp", true);
     }
     public void AttackHold()
     {
@@ -167,7 +177,13 @@ public class BaseEnemyBehavior : NetworkBehaviour
            
             if (releaseTimer > timeToHold)
             {
-                Debug.Log("Did this happen");
+                if(myManager.stateDuration < 0.1f)
+                {
+                    Debug.Log("Time to attack?");
+                    animator.SetBool("Attacking", true);
+                    
+                    animator.SetBool("StartUp", false);
+                }
                 myManager.stateManager[selectedAttack].pressed = false;
                 releaseTimer = 0;
             }
@@ -179,4 +195,5 @@ public class AttackAnimation
 {
     public AnimationClip startUp;
     public AnimationClip attack;
+    public float animationSpeed;
 }

@@ -18,7 +18,7 @@ MonoBehaviour:
   attackDuration: 0
   endLag: 1
   cooldown: 7
-  lifespan: 10
+  lifespan: 0.2
   stateToBe: 0
   chargeable: 1
   attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
@@ -46,3 +46,4 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
+  attackAnimation: {fileID: 0}
