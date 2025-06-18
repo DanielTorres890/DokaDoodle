@@ -33,6 +33,7 @@ public class AbilityManager : NetworkBehaviour
 
     public UnityEvent onStatus;
     public UnityEvent onAttack;
+    public UnityEvent onSpawnAttack; //bc im dumb and dont feel like changing the labels rn
     public UnityEvent onEndAttack;
 
     private Animator animator;
@@ -95,9 +96,9 @@ public class AbilityManager : NetworkBehaviour
                  }*/
                 DestroyStartUpFabRpc();
                 spawnedAttack = currentAttack.WeaponEffect(gameObject);
-                
 
-                Debug.Log("I should have invoked " + onAttack.GetPersistentEventCount());
+                
+                onSpawnAttack.Invoke();
                 PerformAttackRpc(GetCurrentAtkNum(), NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,gameObject.transform.eulerAngles);
 
                 stateDuration = currentAttack.attackDuration;
@@ -159,7 +160,7 @@ public class AbilityManager : NetworkBehaviour
     private void PerformAttackRpc(int whom, float time, Vector3 wherewasyou, Vector3 whereyoulookin)
     {
         currentAttack = stats.attacks[whom];
-       
+        
         currentAttack.WeaponEffect(gameObject,time, wherewasyou, whereyoulookin);
 
     }

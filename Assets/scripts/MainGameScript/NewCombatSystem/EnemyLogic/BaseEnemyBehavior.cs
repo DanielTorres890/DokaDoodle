@@ -43,6 +43,8 @@ public class BaseEnemyBehavior : NetworkBehaviour
         overrideController["DefaultWalking"] = walkingAnimation;
         animator.runtimeAnimatorController = overrideController;
 
+     
+
         FindEnemy();
         agent.speed += myManager.stats.speedFormula();
 
@@ -124,8 +126,8 @@ public class BaseEnemyBehavior : NetworkBehaviour
         
         transform.LookAt(new Vector3(targetManager.gameObject.transform.position.x, transform.position.y , targetManager.gameObject.transform.position.z));
         if(!IsServer) { return; }
-        animator.SetBool("StartUp", true);
-        animator.SetBool("Attacking ", false);
+
+        
 
         if ( myManager.CanAct())
         {
@@ -166,8 +168,9 @@ public class BaseEnemyBehavior : NetworkBehaviour
         overrideController["DefaultAttack"] = attackAnimations[attackIndex].attack;
         animator.SetFloat("AnimSpeed", attackAnimations[attackIndex].animationSpeed);
         animator.runtimeAnimatorController = overrideController;
-
-        animator.SetBool("StartUp", true);
+        animator.SetBool("Attacking", false);
+        
+        
     }
     public void AttackHold()
     {
@@ -177,19 +180,23 @@ public class BaseEnemyBehavior : NetworkBehaviour
            
             if (releaseTimer > timeToHold)
             {
-                if(myManager.stateDuration < 0.1f)
-                {
-                    Debug.Log("Time to attack?");
-                    animator.SetBool("Attacking", true);
-                    
-                    animator.SetBool("StartUp", false);
-                }
+                
                 myManager.stateManager[selectedAttack].pressed = false;
                 releaseTimer = 0;
             }
         }
     }
+    public void SetStartUpAnim(bool whatDo)
+    {
+        animator.SetBool("StartUp", whatDo);
+    }
+    public void SetAttackingAnim(bool whatDo)//bc the way network objects work these functions are directly connected to the ability manager events bc fmcl
+    {
+        
+        animator.SetBool("Attacking", whatDo);
+    }
 }
+
 [System.Serializable]
 public class AttackAnimation
 {
