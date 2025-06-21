@@ -202,5 +202,5 @@ public class AttackAnimation
 {
     public AnimationClip startUp;
     public AnimationClip attack;
-    public float animationSpeed;
+    public float animationSpeed = 1;
 }

@@ -874,6 +874,17 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""08541cf4-3b7b-44c7-92fd-db80482bed7e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""9ea44762-1947-47cd-8548-f90ac62c0cab"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": ""Press"",

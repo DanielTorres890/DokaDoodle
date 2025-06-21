@@ -4259,7 +4259,7 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: b1580e1a4be8a1c418903201ff8cc5a5, type: 2}
+      objectReference: {fileID: 11400000, guid: df61bc776fba047479f85c388cc42091, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.380663
@@ -4545,8 +4545,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -237.9, y: 5.7519}
-  m_SizeDelta: {x: -222.8843, y: -11.5037}
+  m_AnchoredPosition: {x: -200.33281, y: 1.9259987}
+  m_SizeDelta: {x: -149.15, y: -3.852}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &984594533
 MonoBehaviour:
@@ -6538,6 +6538,14 @@ PrefabInstance:
       propertyPath: rightTile
       value: 
       objectReference: {fileID: 1828979714}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'enemies.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.380663
@@ -6808,8 +6816,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 299.4, y: -53.32}
-  m_SizeDelta: {x: 350, y: 106.640015}
+  m_AnchoredPosition: {x: 264.28503, y: -51.186172}
+  m_SizeDelta: {x: 275.5701, y: 98.9884}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1582132374
 MonoBehaviour:
@@ -7513,7 +7521,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -7580,7 +7588,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9.4611, y: 83.5}
+  m_AnchoredPosition: {x: -3.4611, y: 76}
   m_SizeDelta: {x: 93.0777, y: 72.9625}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1805213586
