@@ -1071,6 +1071,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: -8081462308217092480, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7869689376675805203, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -1170,6 +1174,10 @@ PrefabInstance:
     - target: {fileID: -1592287177966329176, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -1592287177966329176, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1472938738338902295, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
@@ -1307,6 +1315,11 @@ PrefabInstance:
 --- !u!4 &204523565734630779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7552582706839291426, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+  m_PrefabInstance: {fileID: 1583379286521998501}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1176120325074820952 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: -8814916497514597379, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
   m_PrefabInstance: {fileID: 1583379286521998501}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1305626960793455896 stripped
@@ -1661,6 +1674,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onSpawnAttack:
+    m_PersistentCalls:
+      m_Calls: []
   onEndAttack:
     m_PersistentCalls:
       m_Calls:
@@ -1830,7 +1846,13 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   animator: {fileID: -4163339753683397056}
   abilityManager: {fileID: 992508209932742035}
-  overrideController: {fileID: 0}
+  weaponSprite: {fileID: 1176120325074820952}
+  shieldSprite: {fileID: 2745181691668242552}
+--- !u!212 &2745181691668242552 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3738430958623280349, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+  m_PrefabInstance: {fileID: 1583379286521998501}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3933728912296855295
 PrefabInstance:
   m_ObjectHideFlags: 0

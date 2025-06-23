@@ -37,7 +37,7 @@ public class AbilityManager : NetworkBehaviour
     public UnityEvent onEndAttack;
 
     private Animator animator;
-
+    
     private void Awake()
     {
        

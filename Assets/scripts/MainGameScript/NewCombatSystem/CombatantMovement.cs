@@ -175,7 +175,9 @@ public class CombatantMovement : NetworkBehaviour
 
             transform.Rotate(new Vector3(playerCam.transform.parent.localEulerAngles.x, 0, 0));
             playerCam.transform.parent.transform.localRotation = Quaternion.identity;
-            body.constraints = RigidbodyConstraints.FreezePosition;
+            body.linearVelocity = Vector3.zero;
+           
+            body.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotationZ;
             return;
         }
         body.constraints = RigidbodyConstraints.FreezeRotation;
@@ -202,7 +204,7 @@ public class CombatantMovement : NetworkBehaviour
         body.AddForce(velocityChange, ForceMode.VelocityChange);
         if (abilityManager.combatantstate != combatantStates.Attacking && body.angularVelocity.y > maxForce) //fmcl
         {
-            body.angularVelocity = new Vector3(body.angularVelocity.x, maxForce, body.angularVelocity.z);
+            body.linearVelocity = new Vector3(body.linearVelocity.x, maxForce, body.linearVelocity.z);
         }
 
         //This line makes the camera not snap immediately to back to its previous position but idk how i really wanna handle this yet tbh

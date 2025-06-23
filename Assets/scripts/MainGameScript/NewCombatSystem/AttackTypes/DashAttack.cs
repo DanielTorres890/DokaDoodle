@@ -10,6 +10,7 @@ public class DashAttack : AttackBase
     {
 
         caster.GetComponent<Rigidbody>().AddForce(caster.transform.TransformDirection(Vector3.forward * dashSpeed), ForceMode.Impulse);
+        
         return base.WeaponEffect(caster);
     }
     public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking)
