@@ -161,7 +161,12 @@ public class CombatantMovement : NetworkBehaviour
     }
     private void FixedUpdate()
     {
-        if (NewCombatManager.instance.fightOver || !IsOwner) { return; }
+        
+        if (NewCombatManager.instance.fightOver || !IsOwner) 
+        {
+            body.constraints = RigidbodyConstraints.FreezeAll; 
+            return; 
+        }
 
         Move();
     }
@@ -172,11 +177,11 @@ public class CombatantMovement : NetworkBehaviour
         dashCdTimer += Time.deltaTime;
         if (!abilityManager.CanMove())
         {
-
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0f);
             transform.Rotate(new Vector3(playerCam.transform.parent.localEulerAngles.x, 0, 0));
             playerCam.transform.parent.transform.localRotation = Quaternion.identity;
             body.linearVelocity = Vector3.zero;
-           
+            
             body.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotationZ;
             return;
         }
@@ -202,8 +207,9 @@ public class CombatantMovement : NetworkBehaviour
         Vector3.ClampMagnitude(velocityChange, maxForce);
 
         body.AddForce(velocityChange, ForceMode.VelocityChange);
-        if (abilityManager.combatantstate != combatantStates.Attacking && body.angularVelocity.y > maxForce) //fmcl
+        if (abilityManager.combatantstate != combatantStates.Attacking && body.linearVelocity.y > maxForce) //fmcl
         {
+           
             body.linearVelocity = new Vector3(body.linearVelocity.x, maxForce, body.linearVelocity.z);
         }
 
@@ -221,9 +227,12 @@ public class CombatantMovement : NetworkBehaviour
     private void LateUpdate()
     {
         if (NewCombatManager.instance.fightOver || !IsOwner) { return; }
-        if (!abilityManager.CanMove() && abilityManager.combatantstate != combatantStates.Endlag)
+        if (!abilityManager.CanMove() )
         {
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0f);
+            Debug.Log("Man why u movin " + transform.eulerAngles);
             transform.Rotate(new Vector3(-look.y * sensitivy, look.x * sensitivy, 0));
+            
             if (transform.eulerAngles.x % 360 < 360 + minXCam && transform.eulerAngles.x % 360 > maxXCam)
             {
                 transform.Rotate(new Vector3(look.y * sensitivy, 0, 0));

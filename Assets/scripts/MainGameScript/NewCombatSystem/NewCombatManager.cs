@@ -40,8 +40,10 @@ public class NewCombatManager : NetworkBehaviour
     public List<CinemachineCamera> cameras = new List<CinemachineCamera>();
     [DoNotSerialize]  public int currentSpec = 0;
 
-    [SerializeField] private Vector3 spawnPoint;
-    [SerializeField] private float zDistanceBetween;
+
+    [Tooltip("Center spawn point where all units will spawn around")][SerializeField] private Vector3 spawnPoint;
+    [Tooltip("How far enemies will be staggered from each other")][SerializeField] private float zDistanceBetween;
+    [Tooltip("How far enemies spawn from the spawn point")][SerializeField] private float distanceFromCenter;
 
     private bool alreadyDone = false;
     private float statusTick = 0;
@@ -130,44 +132,69 @@ public class NewCombatManager : NetworkBehaviour
     
         int countbcisuck = 1;
         int sideMult = -1;
+
+        Dictionary<string, List<EntityStats>> spawnGroups = new Dictionary<string, List<EntityStats>>();
+        foreach(var combatant in PlayerCombatManager.Instance.combatants)
+        {
+            if (!spawnGroups.ContainsKey(combatant.loyaltyTags[0]))
+            {
+                spawnGroups.Add(combatant.loyaltyTags[0], new List<EntityStats>());
+                
+            }
+            Debug.Log("This guy is in " + combatant.name);
+            spawnGroups[combatant.loyaltyTags[0]].Add(combatant);
+        }
+        int counter = 0;
+        float circleIncrement = 360f / spawnGroups.Keys.Count;
+       
+        circleIncrement = circleIncrement / 180 * Mathf.PI;
+        foreach(var ctag in spawnGroups.Keys)
+        {
+
+            for (int i = 0; i < spawnGroups[ctag].Count; i++)
+            {
+                
+                var entity = spawnGroups[ctag][i];
+
+                if (entity is playerData)
+                {
+
+                    var player = entity as playerData;
+                    var playerfab = Instantiate(playerPrefab);
+                    playerfab.gameObject.transform.position = new Vector3(spawnPoint.x + Mathf.Cos(circleIncrement*counter) * distanceFromCenter, spawnPoint.y, sideMult * spawnPoint.z + (i * zDistanceBetween)  + (Mathf.Sin(circleIncrement * counter) * distanceFromCenter));
+
+                    playerfab.GetComponent<NetworkObject>().SpawnWithOwnership((ulong)player.playerNumber, true);
+
+
+                    var abilitiyManage = playerfab.GetComponent<AbilityManager>();
+                    abilitiyManage.UpdateMaterialRpc(player.playerNumber);
+
+                    abilitiyManage.UpdateStatsRpc(PlayerCombatManager.Instance.combatants.IndexOf(entity));
+                    SetNotSpectateRpc(countbcisuck, RpcTarget.Single((ulong)player.playerNumber, RpcTargetUse.Temp));
+
+                    countbcisuck++;
+                }
+                else
+                {
+                    var npc = entity as EnemyCombat;
+                    var npcfab = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetItem[npc.enemyId].enemyPrefab);
+                    npcfab.transform.position = new Vector3(spawnPoint.x + Mathf.Cos(circleIncrement * counter) * distanceFromCenter, spawnPoint.y, sideMult * spawnPoint.z + (i * zDistanceBetween) + (Mathf.Sin(circleIncrement * counter) * distanceFromCenter));
+
+                    npcfab.GetComponent<NetworkObject>().Spawn(true);
+
+                    var abilitiyManage = npcfab.GetComponent<AbilityManager>();
+                    abilitiyManage.UpdateStatsRpc(PlayerCombatManager.Instance.combatants.IndexOf(entity));
+
+
+                   
+
+                }
+            }
+            counter++;
+        }
         for (int i = 0; i < PlayerCombatManager.Instance.combatants.Count; i ++)
         {
-            sideMult *= -1;
-            var entity = PlayerCombatManager.Instance.combatants[i];
-           
-            if (entity is playerData)
-            {
-                
-                var player = entity as playerData;
-                var playerfab = Instantiate(playerPrefab);
-                playerfab.gameObject.transform.position = new Vector3(spawnPoint.x * sideMult, spawnPoint.y, sideMult * spawnPoint.z + i * zDistanceBetween * -sideMult);
-
-                playerfab.GetComponent<NetworkObject>().SpawnWithOwnership( (ulong)player.playerNumber, true);
-                
-               
-                var abilitiyManage = playerfab.GetComponent<AbilityManager>();
-                abilitiyManage.UpdateMaterialRpc(player.playerNumber);
-
-                abilitiyManage.UpdateStatsRpc(i);
-                SetNotSpectateRpc(countbcisuck,RpcTarget.Single((ulong)player.playerNumber, RpcTargetUse.Temp));
-               
-                countbcisuck++;
-            }
-            else
-            {
-                var npc = entity as EnemyCombat;
-                var npcfab = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetItem[npc.enemyId].enemyPrefab);
-                npcfab.transform.position = new Vector3(spawnPoint.x * sideMult, spawnPoint.y, sideMult * spawnPoint.z + i * zDistanceBetween * -sideMult);
-
-                npcfab.GetComponent<NetworkObject>().Spawn(true);
-
-                var abilitiyManage = npcfab.GetComponent<AbilityManager>();
-                abilitiyManage.UpdateStatsRpc(i);
-                
-                
-                Debug.Log("Enemy Spawn: " + npcfab.GetComponent<NetworkObject>().NetworkObjectId);
-
-            }
+            
             
         }
         
