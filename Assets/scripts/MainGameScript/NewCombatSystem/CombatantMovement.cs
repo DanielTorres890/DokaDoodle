@@ -230,7 +230,7 @@ public class CombatantMovement : NetworkBehaviour
         if (!abilityManager.CanMove() )
         {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0f);
-            Debug.Log("Man why u movin " + transform.eulerAngles);
+            
             transform.Rotate(new Vector3(-look.y * sensitivy, look.x * sensitivy, 0));
             
             if (transform.eulerAngles.x % 360 < 360 + minXCam && transform.eulerAngles.x % 360 > maxXCam)

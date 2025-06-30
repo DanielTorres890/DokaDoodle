@@ -22,7 +22,7 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
 
     public override void Update()
     {
-        if (myManager.CanMove())
+        if (myManager.CanMove() && targetManager != null)
         {
             
             kiteFinish();

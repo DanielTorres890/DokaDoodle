@@ -53,23 +53,39 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
     public void FindEnemy()
     {
-        
-        if (targetManager == null || targetManager.stats.isDead) { targetManager = NewCombatManager.instance.allCombatants[0];  }
-        
+
+        if (targetManager == null || targetManager.stats.isDead) { targetManager = NewCombatManager.instance.allCombatants[0]; }
+
         foreach (var entity in NewCombatManager.instance.allCombatants)
         {
-            
+           
             if (gameObject == entity.gameObject || entity.stats.isDead) { continue; }
 
             if (targetManager.gameObject == gameObject || targetManager.stats.isDead) { targetManager = entity; }
             
-
-            if (!entity.stats.loyaltyTags.Intersect(myManager.stats.loyaltyTags).Any() && Vector3.Distance(gameObject.transform.position, entity.gameObject.transform.position) < Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position))
+            
+            if (!entity.stats.loyaltyTags.Intersect(myManager.stats.loyaltyTags).Any() )
             {
-                targetManager = entity;
+               
+                if (targetManager.stats.loyaltyTags.Intersect(myManager.stats.loyaltyTags).Any())
+                {
+                    targetManager = entity;
+                 
+                    continue;
+                }
+                if(Vector3.Distance(gameObject.transform.position, entity.gameObject.transform.position) < Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position))
+                {
+                    targetManager = entity;
+                    
+                }
             }
+            
 
         }
+        
+
+
+       
     }
     public virtual void Update()
     {
@@ -77,11 +93,13 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
         if (NewCombatManager.instance.fightOver) { return; }
 
+        
+
+        if (targetManager == null || targetManager.gameObject.gameObject == gameObject || targetManager.stats.isDead || targetManager.stats.loyaltyTags.Intersect(myManager.stats.loyaltyTags).Any()) { FindEnemy(); } //the checks on the if are kinda redundant but thats okay
+
+        
+        if (targetManager == null) { return; }
         InAttackRange = InRange();
-
-        if (targetManager == null || targetManager.gameObject.gameObject == gameObject || targetManager.stats.isDead) { FindEnemy(); } //the checks on the if are kinda redundant but thats okay
-
-
 
         if (!InAttackRange) { ChasePlayer();  }
 
