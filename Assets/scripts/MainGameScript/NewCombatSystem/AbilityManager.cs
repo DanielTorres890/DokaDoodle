@@ -37,6 +37,7 @@ public class AbilityManager : NetworkBehaviour
     public UnityEvent onEndAttack;
 
     private Animator animator;
+
     
     private void Awake()
     {
@@ -47,7 +48,7 @@ public class AbilityManager : NetworkBehaviour
     {
         NewCombatManager.instance.fricku.Add(gameObject);
         NewCombatManager.instance.allCombatants.Add(this);
-
+        
         TryGetComponent(out animator);
 
 
@@ -162,8 +163,14 @@ public class AbilityManager : NetworkBehaviour
         currentAttack = stats.attacks[whom];
         
         currentAttack.WeaponEffect(gameObject,time, wherewasyou, whereyoulookin);
-
+        InvokeOnSpawnAttackRpc();
     }
+    [Rpc(SendTo.Server,RequireOwnership = false)]
+    private void InvokeOnSpawnAttackRpc()
+    {
+        onSpawnAttack.Invoke();
+    }
+
     [Rpc(SendTo.SpecifiedInParams, RequireOwnership = false)]
     public void RealAttackRpc(RpcParams rpcStuff)
     {

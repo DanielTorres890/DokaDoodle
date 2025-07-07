@@ -7,6 +7,6 @@ public class EnemyEncounter : ScriptableObject
 {
     public EnemyBase[] enemies;
     public string EncounterName;
-    
+    public AudioClip battleMusic;
 
 }

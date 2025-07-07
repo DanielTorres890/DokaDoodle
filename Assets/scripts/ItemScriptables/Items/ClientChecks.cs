@@ -136,7 +136,7 @@ public class ClientChecks : NetworkBehaviour
         PlayerCombatManager.Instance.combatants.Clear();
         PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
         string encounterName = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].EncounterName;
-
+        PlayerCombatManager.Instance.currentEncounter = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId];
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].setCombatActions();
 
 

@@ -477,6 +477,7 @@ GameObject:
   - component: {fileID: 830096869}
   - component: {fileID: 830096868}
   - component: {fileID: 830096867}
+  - component: {fileID: 830096870}
   m_Layer: 0
   m_Name: CineMachine
   m_TagString: Untagged
@@ -583,6 +584,14 @@ Transform:
   - {fileID: 1900546548}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &830096870
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830096866}
+  m_Enabled: 1
 --- !u!1 &970874200
 GameObject:
   m_ObjectHideFlags: 0

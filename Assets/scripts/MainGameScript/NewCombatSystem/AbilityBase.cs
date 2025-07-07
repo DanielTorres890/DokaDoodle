@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ public abstract class AbilityBase : NetworkBehaviour
     public AttackTypes attackType;
     
     public float lifespan;
-    private float lifetimer;
+    [DoNotSerialize]public float lifetimer;
 
 
     private void Awake()

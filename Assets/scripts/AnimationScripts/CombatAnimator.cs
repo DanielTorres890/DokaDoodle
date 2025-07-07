@@ -10,12 +10,14 @@ public class CombatAnimator : NetworkBehaviour
     [SerializeField] private SpriteRenderer weaponSprite;
     [SerializeField] private SpriteRenderer shieldSprite;
     private playerData playerInfo;
+
+   
     public void Start()
     {
         TryGetComponent(out animator);
         TryGetComponent(out abilityManager);
         playerInfo = abilityManager.stats as playerData;
-
+      
         overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
 
     }

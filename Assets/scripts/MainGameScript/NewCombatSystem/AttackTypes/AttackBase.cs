@@ -32,6 +32,9 @@ public abstract class AttackBase : ScriptableObject
 
     [Tooltip("This is specifically for players, enemies have their clips in their own stuff")]
     public AnimationClip attackAnimation;
+
+
+    public AudioClip attackSound;
     //^ Saves me the annoyance of setting them everytime i create a scriptable
     public virtual GameObject WeaponEffect(GameObject caster)
     {

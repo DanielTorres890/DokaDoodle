@@ -28,4 +28,5 @@ public class EnemyCombat : EntityStats
         base.defenses = EnemyInfo.Defendss;
     
     }
+    
 }
