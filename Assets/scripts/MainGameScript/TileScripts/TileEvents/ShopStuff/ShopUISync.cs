@@ -77,7 +77,7 @@ public class ShopUISync : NetworkBehaviour
     {
 
         buyDontButtons[0].SetActive(true);
-        buyDontButtons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Sell";
+        buyDontButtons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Buy";
         var button = buyDontButtons[0].GetComponent<Button>();
         button.Select();
         button.onClick.RemoveAllListeners();
@@ -85,6 +85,7 @@ public class ShopUISync : NetworkBehaviour
 
         buyDontButtons[1].SetActive(true);
         var button2 = buyDontButtons[1].GetComponent<Button>();
+        buyDontButtons[1].GetComponentInChildren<TextMeshProUGUI>().text = "Dont Buy";
         button2.onClick.RemoveAllListeners();
         button2.onClick.AddListener(delegate { dontPurchase(); });
         buyShop.SetActive(false);
@@ -141,6 +142,7 @@ public class ShopUISync : NetworkBehaviour
 
         sellDontButtons[1].SetActive(true);
         var button2 = sellDontButtons[1].GetComponent<Button>();
+        sellDontButtons[1].GetComponentInChildren<TextMeshProUGUI>().text = "Dont Sell";
         button2.onClick.RemoveAllListeners();
         button2.onClick.AddListener(delegate { dontSell(); });
     }

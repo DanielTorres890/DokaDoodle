@@ -7,6 +7,7 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -52,6 +53,7 @@ public class NewCombatManager : NetworkBehaviour
 
     public PlayerInput playercontrol;
 
+    public UnityEvent onCombatEnd;
     private AudioSource AudioSource;
     private void Awake()
     {
@@ -137,12 +139,13 @@ public class NewCombatManager : NetworkBehaviour
         Dictionary<string, List<EntityStats>> spawnGroups = new Dictionary<string, List<EntityStats>>();
         foreach(var combatant in PlayerCombatManager.Instance.combatants)
         {
+            Debug.Log("This guy is in " + combatant.name);
             if (!spawnGroups.ContainsKey(combatant.loyaltyTags[0]))
             {
                 spawnGroups.Add(combatant.loyaltyTags[0], new List<EntityStats>());
                 
             }
-            Debug.Log("This guy is in " + combatant.name);
+            
             spawnGroups[combatant.loyaltyTags[0]].Add(combatant);
         }
         int counter = 0;
@@ -343,6 +346,7 @@ public class NewCombatManager : NetworkBehaviour
     {
         AbilityManager victor = WhoWon();
         Debug.Log("I AM THE WINNER " + victor.stats.name);
+        onCombatEnd.Invoke();
         playercontrol.SwitchCurrentActionMap("UI");
         fightOver = true;
         Cursor.lockState = CursorLockMode.None;
@@ -444,6 +448,7 @@ public class NewCombatManager : NetworkBehaviour
     private void EarlyEndCombatRpc()
     {
         playercontrol.SwitchCurrentActionMap("UI");
+        onCombatEnd.Invoke();
         fightOver = true;
         Cursor.lockState = CursorLockMode.None;
         endBattleInfo.whoInControl = NetworkData.Instance.currentPlayer;

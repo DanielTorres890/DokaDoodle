@@ -7,11 +7,7 @@ using UnityEngine;
 public class WeaponItem : ItemBase
 {
     public AttackBase attack;
-    public void Awake()
-    {
-        type = ItemType.Weapon;
-    }
-
+    
     public override void ItemInfoCheck(int player, int itemId)
     {
 

@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2089949993519164564}
-  - component: {fileID: 2785094894293154887}
+  - component: {fileID: 4614583349100789846}
   - component: {fileID: 2402367725294590324}
+  - component: {fileID: 7576354568535644889}
   m_Layer: 5
   m_Name: ShopEventManager
   m_TagString: Untagged
@@ -37,7 +38,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2785094894293154887
+--- !u!114 &4614583349100789846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -79,7 +80,6 @@ MonoBehaviour:
   sellShop: {fileID: 0}
   mainMenuButtons:
   - {fileID: 0}
-  - {fileID: 0}
   buyDontButtons:
   - {fileID: 0}
   - {fileID: 0}
@@ -87,3 +87,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   sellUIManager: {fileID: 0}
+--- !u!114 &7576354568535644889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7381497715790069487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c4a9c8d19a1d3149b1a801e559d21b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  inventoryDisplay: {fileID: 0}

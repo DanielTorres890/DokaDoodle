@@ -24,16 +24,16 @@ public class InventoryChangeScript : NetworkBehaviour
         inventoryDisplay.CreateDisplay(NetworkData.Instance.currentPlayer, currentInventory);
     }
 
-
-    public void InventoryForward()
+    //for some god forsaken reason my button keeps forcing itself to subscribe to inventory forward which makes 0 sense
+    public void InventoryForwardFrickU()
     {
         if (NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
         {
-            InventoryForwardRpc();
+            InventoryForwardsRpc();
         }
     }
     [Rpc( SendTo.ClientsAndHost,RequireOwnership = false)]
-    private void InventoryForwardRpc(RpcParams rpcstuff = default)
+    public void InventoryForwardsRpc(RpcParams rpcstuff = default)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, rpcstuff.Receive.SenderClientId)) { return; }
 
@@ -50,15 +50,15 @@ public class InventoryChangeScript : NetworkBehaviour
         inventoryDisplay.CreateDisplay(currentInventory, NetworkData.Instance.currentPlayer);
     }*/
 
-    public void InventoryBack()
+    public void InventoryBackFrickU()
     {
         if (NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
         {
-            InventoryBackRpc();
+            InventoryBacksRpc();
         }
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    private void InventoryBackRpc(RpcParams rpcstuff = default)
+    public void InventoryBacksRpc(RpcParams rpcstuff = default)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, rpcstuff.Receive.SenderClientId)) { return; }
 

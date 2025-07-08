@@ -89,6 +89,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     }
     public virtual void Update()
     {
+        if(!IsServer) { return;}
         AttackHold();
 
         if (NewCombatManager.instance.fightOver) { return; }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class SummonDespawn : AbilityBase
     public override void OnNetworkSpawn()
     {
         myManager = GetComponent<AbilityManager>();
+
+        
         
         
         
@@ -34,7 +37,7 @@ public class SummonDespawn : AbilityBase
         Debug.Log("I've been added");
         if (IsServer)
         {
-            entity.loyaltyTags = ownerStats.loyaltyTags;
+            entity.loyaltyTags = new List<string>(ownerStats.loyaltyTags);
             myManager.UpdateStatsRpc(PlayerCombatManager.Instance.combatants.IndexOf(entity));
         }
         

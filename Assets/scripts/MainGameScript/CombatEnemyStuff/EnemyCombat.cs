@@ -23,7 +23,7 @@ public class EnemyCombat : EntityStats
         }
 
         base.attacks = new List<AttackBase>(attacks);
-        base.loyaltyTags = EnemyInfo.loyaltyTags;
+        base.loyaltyTags = new List<string>(EnemyInfo.loyaltyTags);
     
         base.defenses = EnemyInfo.Defendss;
     
