@@ -29,11 +29,11 @@ public class InventoryChangeScript : NetworkBehaviour
     {
         if (NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
         {
-            InventoryForwardsRpc();
+            InventoryForwardRpc();
         }
     }
     [Rpc( SendTo.ClientsAndHost,RequireOwnership = false)]
-    public void InventoryForwardsRpc(RpcParams rpcstuff = default)
+    public void InventoryForwardRpc(RpcParams rpcstuff = default)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, rpcstuff.Receive.SenderClientId)) { return; }
 
@@ -54,11 +54,11 @@ public class InventoryChangeScript : NetworkBehaviour
     {
         if (NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
         {
-            InventoryBacksRpc();
+            InventoryBackRpc();
         }
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    public void InventoryBacksRpc(RpcParams rpcstuff = default)
+    public void InventoryBackRpc(RpcParams rpcstuff = default)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, rpcstuff.Receive.SenderClientId)) { return; }
 

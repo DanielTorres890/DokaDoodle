@@ -127,7 +127,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
         for (int i = 0; i < players.Count; i++)
         {
-            SyncSticksClientRpc(i, players[i].name, players[i].playerClass, players[i].playerFace, players[i].playerHair, maxPlayers);
+            SyncSticksClientRpc(i, players[i].name, players[i].playerClass, players[i].playerFace, players[i].playerHair, maxPlayers, players.Count);
         }
 
     }
@@ -150,7 +150,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         players[playerId] =
             new playerData(playerClass, playerName, playerFace, playerHair);
         readyPlayers[playerId] = true;
-        SyncSticksClientRpc(playerId, players[playerId].name, players[playerId].playerClass, players[playerId].playerFace, players[playerId].playerHair, maxPlayers);
+        SyncSticksClientRpc(playerId, players[playerId].name, players[playerId].playerClass, players[playerId].playerFace, players[playerId].playerHair, maxPlayers, players.Count);
 
 
     }
@@ -172,7 +172,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         playerCount--;
     }
     [ClientRpc(RequireOwnership = false)]
-    public void SyncSticksClientRpc(int playerId, FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair, int playerCountin)
+    public void SyncSticksClientRpc(int playerId, FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair, int playerCountin, int openSlots)
     {
 
         players[playerId].name = playerName.ToString();
@@ -193,7 +193,12 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         curStickEdit.setClass(players[playerId].playerClass);
         playerSticks[playerId].GetComponent<characterEditor>().setFace(players[playerId].playerFace);
         playerSticks[playerId].GetComponent<characterEditor>().setHair(players[playerId].playerHair);
-
+        
+        while(players.Count > openSlots)
+        {
+            players.RemoveAt(playerCountin-1);
+            readyPlayers.RemoveAt(playerCountin-1);
+        }
     }
 
     public void startGame()
