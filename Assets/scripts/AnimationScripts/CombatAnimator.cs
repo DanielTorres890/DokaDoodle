@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 //FOR PLAYERS
@@ -27,8 +28,14 @@ public class CombatAnimator : NetworkBehaviour
     {
         
         //i would like to be the one to say that this is RIDICULOUS THAT ITS BASED ON THE CLIP NAME AND NOT THE STATE
-        
-        overrideController["IdleAnim"] = abilityManager.currentAttack.attackAnimation;
+        if(abilityManager.currentAttack.attackAnimation)
+        {
+            overrideController["DefaultAttack"] = abilityManager.currentAttack.attackAnimation;
+        }
+        else
+        {
+            Debug.LogWarning(abilityManager.currentAttack.attackName + " Does not have a player animation you might care about that");
+        }
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerInfo.playerNumber][1].container.Count; i++)
         {
             var weapon = (NetworkData.Instance.playerInventories[playerInfo.playerNumber][1].container[i].item as WeaponItem);

@@ -486,10 +486,11 @@ public class NewCombatManager : NetworkBehaviour
                 tilereadCache.tileEnemy.RemoveAt(i);
             }
         }
-        Debug.Log("How many players in the pile " +  tilereadCache.players.Count);
+        
         for (int i = tilereadCache.players.Count - 1; i >= 0; i--)
         {
-            Debug.Log("Who am I " +NetworkData.Instance.players[tilereadCache.players[i]].name);
+            
+            NetworkData.Instance.players[tilereadCache.players[i]].ClearCombatStatuses();
             if (NetworkData.Instance.players[tilereadCache.players[i]].isDead)
             {
                 Debug.Log("I should be dead " + NetworkData.Instance.players[tilereadCache.players[i]].name);
@@ -497,7 +498,7 @@ public class NewCombatManager : NetworkBehaviour
                 
             }
         }
-        Debug.Log("How many players in the pile afterwards " + tilereadCache.players.Count);
+     
     }
     public void RightSpec()
     {

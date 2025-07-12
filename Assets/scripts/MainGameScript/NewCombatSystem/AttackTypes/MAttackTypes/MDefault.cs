@@ -17,7 +17,7 @@ public class MDefault : AttackBase
     public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking)
 
     {
-        Debug.Log("I tried shootin magic");
+        
         var attack = base.WeaponEffect(caster, time, whereiscaster, casterLooking);
         
         var rigid = attack.GetComponent<Rigidbody>();

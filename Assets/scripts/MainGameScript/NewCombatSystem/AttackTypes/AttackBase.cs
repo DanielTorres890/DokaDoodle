@@ -35,6 +35,7 @@ public abstract class AttackBase : ScriptableObject
 
 
     public AudioClip attackSound;
+    public AudioClip onHitSound;
     //^ Saves me the annoyance of setting them everytime i create a scriptable
     public virtual GameObject WeaponEffect(GameObject caster)
     {

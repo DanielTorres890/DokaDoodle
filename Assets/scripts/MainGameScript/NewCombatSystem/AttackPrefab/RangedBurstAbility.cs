@@ -13,7 +13,8 @@ public class RangedBurstAbility : RangedAbility
 
         var cash = burst.GetComponent<AbilityBase>();
         var burstattack = (attackInfo as BurstAtk);
-
+        cash.owner = owner;
+        cash.ownerStats = ownerStats;
         cash.attackInfo = attackInfo;
         cash.lifespan = burstattack.burstLifespan;
 

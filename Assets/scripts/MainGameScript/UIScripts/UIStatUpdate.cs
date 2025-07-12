@@ -25,7 +25,7 @@ public class UIStatUpdate : MonoBehaviour
         if (attribute != Attributes.Health && attribute != Attributes.MaxHealth && NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attribute] > NetworkData.Instance.players[NetworkData.Instance.currentPlayer].stats[attribute])
             color = "<color=#1abf3a>";
         if (attribute != Attributes.Health && attribute != Attributes.MaxHealth && NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attribute] < NetworkData.Instance.players[NetworkData.Instance.currentPlayer].stats[attribute])
-            color = "<color=red";
+            color = "<color=red>";
 
 
             textMeshProUGUI.text = statName + " "+color+NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attribute]+"</color>";

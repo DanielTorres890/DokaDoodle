@@ -71,10 +71,7 @@ public class CombatantMovement : NetworkBehaviour
 
         if (grounded && IsOwner)
         {
-            dashCdTimer = 0;
-            abilityManager.combatantstate = combatantStates.Dashing;
-            abilityManager.stateDuration = .25f;
-            body.AddForce(transform.TransformDirection(Vector3.right * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
+            Dash();
         }
     }
     public void DashLeft(InputAction.CallbackContext action)
@@ -93,10 +90,7 @@ public class CombatantMovement : NetworkBehaviour
         if (!(lastDashTime - oldTime < TimeBetweenDash)) { return; }
         if (grounded && IsOwner)
         {
-            dashCdTimer = 0;
-            abilityManager.combatantstate = combatantStates.Dashing;
-            abilityManager.stateDuration = .25f;
-            body.AddForce(transform.TransformDirection(Vector3.left * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
+            Dash();
         }
     }
 
@@ -117,10 +111,7 @@ public class CombatantMovement : NetworkBehaviour
 
         if (grounded && IsOwner)
         {
-            dashCdTimer = 0;
-            abilityManager.combatantstate = combatantStates.Dashing;
-            abilityManager.stateDuration = .25f;
-            body.AddForce(transform.TransformDirection(Vector3.forward * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
+            Dash();
         }
     }
     public void DashBack(InputAction.CallbackContext action)
@@ -140,13 +131,16 @@ public class CombatantMovement : NetworkBehaviour
 
         if (grounded && IsOwner)
         {
-            dashCdTimer = 0;
-            abilityManager.combatantstate = combatantStates.Dashing;
-            abilityManager.stateDuration = .25f;
-            body.AddForce(transform.TransformDirection(Vector3.back * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
+            Dash();
         }
     }
-
+    public void Dash()
+    {
+        dashCdTimer = 0;
+        abilityManager.combatantstate = combatantStates.Dashing;
+        abilityManager.stateDuration = .25f;
+        body.AddForce(transform.TransformDirection(new Vector3(move.x, 0, move.y) * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
+    }
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) { return; }

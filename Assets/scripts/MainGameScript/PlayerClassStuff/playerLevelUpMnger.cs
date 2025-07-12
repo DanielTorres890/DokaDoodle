@@ -125,7 +125,7 @@ public class playerLevelUpMnger : NetworkBehaviour
     {
         foreach (var stat in playerStatIncrease.Keys)
         {
-            playerWhoLevel.stats[stat] += playerStatIncrease[stat];
+            playerWhoLevel.ChangeBaseStat(stat, playerStatIncrease[stat]);
         }
 
         if(IsServer)

@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class BuffBase : ScriptableObject
 {
     public int duration;
-
+    public bool combatOnly = false;
     public abstract void OnApply(EntityStats stats);
 
     public abstract void OnRemove(EntityStats stats);

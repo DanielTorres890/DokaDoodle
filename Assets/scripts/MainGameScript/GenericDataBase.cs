@@ -6,7 +6,7 @@ public class DataBase : ScriptableObject
 
 }
 //i'd just like to say that WHY ARE THERE 0 ONLINE RESOURCES ABOUT THE ORDER TO APPLY THINGS IN FMCL
-public abstract class GenericDataBase<T> : DataBase, ISerializationCallbackReceiver where T : ScriptableObject
+public abstract class GenericDataBase<T> : DataBase, ISerializationCallbackReceiver
 {
     public T[] items;
 

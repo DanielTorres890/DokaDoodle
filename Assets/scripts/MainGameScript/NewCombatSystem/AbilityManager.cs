@@ -250,7 +250,7 @@ public class AbilityManager : NetworkBehaviour
     public void ImHitRpc(int damageAmt)
     {
         stats.stats[Attributes.Health] -= damageAmt;
-        Debug.Log("did i get hit twice or did that just hurt alot " + damageAmt);
+        
         stats.PostStatusStatCalc();
         hpText.UpdateText();
         if (stats.stats[Attributes.Health] <= 0 && !stats.isDead)

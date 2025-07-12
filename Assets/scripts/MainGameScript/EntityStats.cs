@@ -16,8 +16,8 @@ public class EntityStats
 
     public Dictionary<Attributes, int> stats = new Dictionary<Attributes, int>
     {
-        {Attributes.MaxHealth, 10 },
-        {Attributes.Health, 10 },
+        {Attributes.MaxHealth, 0 },
+        {Attributes.Health, 0 },
         {Attributes.Attack, 0 },
         {Attributes.Defense, 0 },
         {Attributes.Magic, 0 },
@@ -28,13 +28,13 @@ public class EntityStats
     };
     public Dictionary<Attributes, int> postStatusStats = new Dictionary<Attributes, int>
     {
-        {Attributes.MaxHealth, 5 },
-        {Attributes.Health, 5 },
-        {Attributes.Attack, 5 },
-        {Attributes.Defense, 5 },
-        {Attributes.Magic, 5 },
-        {Attributes.MDefense, 5 },
-        {Attributes.Dexterity, 5}
+        {Attributes.MaxHealth, 0 },
+        {Attributes.Health, 0 },
+        {Attributes.Attack, 0 },
+        {Attributes.Defense, 0 },
+        {Attributes.Magic, 0 },
+        {Attributes.MDefense, 0 },
+        {Attributes.Dexterity, 0}
         
 
     };
@@ -61,11 +61,13 @@ public class EntityStats
     public void ChangeBaseStat(Attributes attr, int amt)
     {
         stats[attr] += amt;
+        PostStatusStatCalc();
         
     }
     public void SetBaseStat(Attributes attr, int amt)
     {
         stats[attr] = amt;
+        PostStatusStatCalc();
     }
     public void GainStatus(BuffBase status)
     {
@@ -124,10 +126,22 @@ public class EntityStats
         }
         foreach (var attrib in StatusMultipliers.Keys)
         {
+            
             postStatusStats[attrib] = Mathf.RoundToInt(stats[attrib] * (1 + StatusMultipliers[attrib]));
         }
     }   
-
+   public void ClearCombatStatuses()
+    {
+        for(int i = statuses.Count - 1; i >= 0; i--)
+        {
+            var status = statuses[i];
+            if (NetworkData.Instance.buffDataBase.GetItem[status.buffId].combatOnly)
+            {
+                statuses.RemoveAt(i);
+            }
+        }
+        PostStatusStatCalc();
+    }
 }
 
 
