@@ -66,7 +66,7 @@ public class NewCombatManager : NetworkBehaviour
 
         statusTick += Time.deltaTime;
 
-        timerText.text = Mathf.RoundToInt(combatTimer).ToString();
+        timerText.text = "Time Remaining: " + Mathf.RoundToInt(combatTimer).ToString();
         if (!IsServer) { return; }
 
         if (!fightOver && statusTick >= 10)//Progress status effects every 10 seconds
