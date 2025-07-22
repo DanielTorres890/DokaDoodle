@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static Unity.Netcode.NetworkSceneManager;
 
 public class ClientChecks : NetworkBehaviour
 {
@@ -20,27 +22,44 @@ public class ClientChecks : NetworkBehaviour
 
     public UnityEvent onRoundStart;
     public GameObject combatPreview;
+
     //im gonna be so fr this whole thingy i have going on with this class is some big buns and im sorry to anyone who looks at this
     //(the main issue is im doing wayyy to much in here in the worst ways possible
+   
+    
     public override void OnNetworkSpawn()
     {
+
+        NetworkManager.SceneManager.OnLoadEventCompleted += SceneStart;
         
-        if(SceneChanger.Instance.everyoneLoaded())
-        {
-            PreturnStuff();
-            Debug.Log("fmcl bruh WHY DOES IT DO IT MULTIPLE TIMES FOR EACH CLIENT THAT LOADS IN ON THE SERVER ");
-        }
-        
-        
-        
+        //StartCoroutine(WaitUntilAllLoaded());
+        /* if(SceneChanger.Instance.everyoneLoaded())
+         {
+             PreturnStuff();
+
+             Debug.Log("fmcl bruh WHY DOES IT DO IT MULTIPLE TIMES FOR EACH CLIENT THAT LOADS IN ON THE SERVER ");
+         }*/
+
+
+
     }
 
- 
+    private void SceneStart(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    {
+        NetworkManager.SceneManager.OnLoadEventCompleted -= SceneStart;
+        PreturnStuff();
+    }
+
     public void PreturnStuff()
     {
+        
+        
         NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
         NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
+        
         WorldEventManager.Instance.ProgressDay();
+       
+
     }
     private void Awake()
     {
@@ -74,6 +93,9 @@ public class ClientChecks : NetworkBehaviour
             MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Remove(NetworkData.Instance.currentPlayer);
             PlayerMoveManager.Instance.playerCam.Follow = PlayerMoveManager.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
             PlayerMoveManager.Instance.gameMenu.SetActive(true);
+            
+            PopUpManager.Instance.PerformPopUp(0);
+
             PlayerMoveManager.Instance.rollNum.gameObject.transform.parent.gameObject.SetActive(false);
         }
 
@@ -90,6 +112,7 @@ public class ClientChecks : NetworkBehaviour
 
 
             PlayerMoveManager.Instance.gameMenu.SetActive(false);
+
             if (IsServer) { SyncEnemyRpc(0); }
 
         }
@@ -369,5 +392,15 @@ public class ClientChecks : NetworkBehaviour
         WorldEventManager.Instance.eventsToDeactivate.RemoveAt(0);
         if (WorldEventManager.Instance.eventsToDeactivate.Count > 0) { StartCoroutine(displayDeactivateEvent()); }
         else { TurnStartChecks(); }
+    }
+
+    private IEnumerator WaitUntilAllLoaded()
+    {
+        while(SceneChanger.Instance.everyoneLoaded())
+        {
+            yield return null;
+        }
+        PreturnStuff();
+        Debug.Log("fmcl bruh WHY DOES IT DO IT MULTIPLE TIMES FOR EACH CLIENT THAT LOADS IN ON THE SERVER ");
     }
 }

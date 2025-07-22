@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ public class SceneChanger : NetworkBehaviour
 {
    
     [SerializeField]private int loadedPlayers = 0;
-
+    private bool LoadComplete;
     public static SceneChanger Instance { get; set; }
     private void Awake()
     {
@@ -22,7 +23,7 @@ public class SceneChanger : NetworkBehaviour
     {
         
         if (sceneName == "Fake") { return;  }
-
+        LoadComplete = false;
         loadedPlayers = 0;
         ResetYoStuffRpc();
         NetworkManager.Singleton.SceneManager.LoadScene(sceneName,LoadSceneMode.Single);
@@ -33,9 +34,25 @@ public class SceneChanger : NetworkBehaviour
     {
         if (sceneName == "Fake") { return; }
 
+        LoadComplete = false;
+        
         loadedPlayers = 0;
         ResetYoStuffRpc();
-        NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+        var status = NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+        if (status != SceneEventProgressStatus.Started)
+        {
+            Debug.LogWarning($"Failed to load {sceneName} " +
+                  $"with a {nameof(SceneEventProgressStatus)}: {status}");
+        }
+
+    }
+
+    [Rpc(SendTo.Server, RequireOwnership = false)]
+    public void UnloadClientScenesRpc(string sceneName)
+    {
+        Debug.Log("I better not be happening or ill crash out");
+        
+        NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(sceneName));
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void ResetYoStuffRpc()
@@ -47,19 +64,23 @@ public class SceneChanger : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        NetworkManager.SceneManager.OnLoadComplete += OnSceneLoaded;
+        NetworkManager.SceneManager.OnLoadEventCompleted += OnSceneLoaded;
 
         
     }
 
-    private void OnSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
+    private void OnSceneLoaded(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
-        loadedPlayers += 1;
-        Debug.Log("Loaded PLayers " + loadedPlayers);
+        LoadComplete = true;
+
     }
 
-   public bool everyoneLoaded()
+    
+
+    public bool everyoneLoaded()
     {
-        return loadedPlayers >= NetworkData.Instance.maxPlayers;
+        return LoadComplete;
     }
+   
+    
 }

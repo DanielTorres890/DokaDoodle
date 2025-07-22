@@ -7,7 +7,7 @@ using UnityEngine;
 public class WeaponItem : ItemBase
 {
     public AttackBase attack;
-    
+    public List<ItemBuff> skillRequirements;
     public override void ItemInfoCheck(int player, int itemId)
     {
 

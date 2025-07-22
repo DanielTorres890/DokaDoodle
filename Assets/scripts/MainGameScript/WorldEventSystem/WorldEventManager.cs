@@ -39,6 +39,7 @@ public class WorldEventManager : NetworkBehaviour
     public void ProgressDay()
     {
         turns++;
+        
         if (turns >= NetworkData.Instance.maxPlayers)
         {
             days += 1;

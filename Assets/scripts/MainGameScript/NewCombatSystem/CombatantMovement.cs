@@ -28,7 +28,7 @@ public class CombatantMovement : NetworkBehaviour
     private float lastDashTime;
     [SerializeField] private float TimeBetweenDash = 0.2f;
     [SerializeField] private float dashCd;
-
+    [SerializeField] private int DashDexRequirement;
     //private Camera camcomponent;
 
     //All states are in the ability manager bc honestly it makes more sense there
@@ -56,19 +56,11 @@ public class CombatantMovement : NetworkBehaviour
     }
     public void DashRight(InputAction.CallbackContext action)
     {
-        float oldTime = lastDashTime;
-        lastDashTime = Time.fixedTime;
         if (lastDashDirection != Vector3.right)
         {
             lastDashDirection = Vector3.right;
             return;
         }
-
-        if (dashCdTimer < dashCd) { return; }
-        if (abilityManager.CanMoveNotAct()) { return; }
-
-        if (!(lastDashTime - oldTime < TimeBetweenDash)) { return; }
-
         if (grounded && IsOwner)
         {
             Dash();
@@ -76,18 +68,12 @@ public class CombatantMovement : NetworkBehaviour
     }
     public void DashLeft(InputAction.CallbackContext action)
     {
-        float oldTime = lastDashTime;
-        lastDashTime = Time.fixedTime;
         if (lastDashDirection != Vector3.left)
         {
             lastDashDirection = Vector3.left;
             return;
         }
-        if (dashCdTimer < dashCd) { return; }
-
-        if (abilityManager.CanMoveNotAct()) { return; }
-
-        if (!(lastDashTime - oldTime < TimeBetweenDash)) { return; }
+      
         if (grounded && IsOwner)
         {
             Dash();
@@ -96,18 +82,12 @@ public class CombatantMovement : NetworkBehaviour
 
     public void DashFwd(InputAction.CallbackContext action)
     {
-        float oldTime = lastDashTime;
-        lastDashTime = Time.fixedTime;
         if (lastDashDirection != Vector3.forward)
         {
             lastDashDirection = Vector3.forward;
             return;
         }
-        if (dashCdTimer < dashCd) { return; }
-
-        if (abilityManager.CanMoveNotAct()) { return; }
-
-        if (!(lastDashTime - oldTime < TimeBetweenDash)) { return; }
+       
 
         if (grounded && IsOwner)
         {
@@ -116,18 +96,13 @@ public class CombatantMovement : NetworkBehaviour
     }
     public void DashBack(InputAction.CallbackContext action)
     {
-        float oldTime = lastDashTime;
-        lastDashTime = Time.fixedTime;
+        
         if (lastDashDirection != Vector3.back)
         {
             lastDashDirection = Vector3.back;
             return;
         }
-        if (dashCdTimer < dashCd) { return; }
-
-        if (abilityManager.CanMoveNotAct()) { return; }
-
-        if (!(lastDashTime - oldTime < TimeBetweenDash)) { return; }
+        
 
         if (grounded && IsOwner)
         {
@@ -136,6 +111,17 @@ public class CombatantMovement : NetworkBehaviour
     }
     public void Dash()
     {
+        
+        if (dashCdTimer < dashCd) { return; }
+
+        if (abilityManager.CanMoveNotAct()) { return; }
+
+        float oldTime = lastDashTime;
+        lastDashTime = Time.fixedTime;
+
+        if (!(lastDashTime - oldTime < TimeBetweenDash)) { return; }
+
+        if (DashDexRequirement > abilityManager.stats.stats[Attributes.Dexterity]) { return; }
         dashCdTimer = 0;
         abilityManager.combatantstate = combatantStates.Dashing;
         abilityManager.stateDuration = .25f;

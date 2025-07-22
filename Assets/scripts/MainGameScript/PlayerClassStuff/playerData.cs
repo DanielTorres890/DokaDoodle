@@ -17,7 +17,7 @@ public class playerData : EntityStats
     public int curMap;
 
     public int[] maxInventorySizes = new int[3];
-
+    
 
     public Dictionary<PlayerInfo, int> playerInfo = new Dictionary<PlayerInfo, int>
     {
@@ -64,7 +64,7 @@ public class playerData : EntityStats
         curTileId = 0;
         curMap = 0;
         playerSpawnTile = 0;
-
+        
         
     } 
     
@@ -74,11 +74,15 @@ public class playerData : EntityStats
         bool hasOffense = false;
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
         {
+            if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem))) { continue; }
+
             if ((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem).attack is not GuardAbility) { hasOffense = true; }
             
         }
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][2].container.Count; i++)
         {
+            if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem))) { continue; }
+
             if ((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack is not GuardAbility) { hasOffense = true; }
 
         }
@@ -91,11 +95,17 @@ public class playerData : EntityStats
 
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
         {
+            
+            if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem))) { continue; }
+
             if (this.attacks.Contains((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem).attack)) { continue; }
+
             this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem).attack);
         }
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][2].container.Count; i++)
         {
+            if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem))) { continue; }
+
             if (this.attacks.Contains((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack)) { continue; }
             this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack);
         }
@@ -141,22 +151,14 @@ public class playerData : EntityStats
         this.isDead = true;
         this.tillRevive = turnsDead;
 
-        Debug.Log(this.name + "man i should reallllyy be dead " + this.isDead); 
+        
         if (backToBase)
         {
-            Debug.Log("Who did I remove? " + NetworkData.Instance.players[playerNumber].name);
-            foreach(var num in MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players)
-            {
-                Debug.Log("Each number before " + num);
-            }
-            bool success = MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Remove(playerNumber);
-            Debug.Log("Was it successful "+ success);
-            foreach (var num in MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players)
-            {
-                Debug.Log("Each number after " + num);
-            }
-            this.curTileId = this.playerSpawnTile;
             
+            
+            bool success = MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Remove(playerNumber);
+            
+            this.curTileId = this.playerSpawnTile;    
 
         }
 
@@ -236,6 +238,16 @@ public class playerData : EntityStats
 
         }
     }
+    private bool UsableItem(WeaponItem item)
+    {
+        bool canUse = true;
+        foreach (var attribs in item.skillRequirements)
+        {
+            if (stats[attribs.attribute] < attribs.value) { canUse = false; break; }
+        }
+        return canUse;
+        
+    }
 }
 public enum PlayerInfo
 {
@@ -244,4 +256,12 @@ public enum PlayerInfo
     money,
     fame,
     classCd
+}
+
+[System.Serializable]
+public class PlayerClassProgress
+{
+    public int xp = 0;
+    public int level = 0;
+
 }

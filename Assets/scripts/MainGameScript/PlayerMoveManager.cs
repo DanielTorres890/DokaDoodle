@@ -8,7 +8,6 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class PlayerMoveManager : NetworkBehaviour
 {
@@ -46,8 +45,8 @@ public class PlayerMoveManager : NetworkBehaviour
         }
         Instance = this;
 
-        
 
+        
        
         
         setUpTileEnemies();
