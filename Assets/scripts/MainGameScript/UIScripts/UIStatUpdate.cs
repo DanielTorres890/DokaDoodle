@@ -13,10 +13,13 @@ public class UIStatUpdate : MonoBehaviour
     private void Start()
     {
         textMeshProUGUI = gameObject.GetComponent<TextMeshProUGUI>();
+        ClientChecks.Instance.onItemUse.AddListener(StatUpdate);
+        ClientChecks.Instance.onClassAbilityUse.AddListener(StatUpdate);
+        StatUpdate();
     }
     void Update()
     {
-        StatUpdate();
+        
     }
 
     private void StatUpdate()

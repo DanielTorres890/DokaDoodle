@@ -22,6 +22,8 @@ public class ClientChecks : NetworkBehaviour
 
     public UnityEvent onRoundStart;
     public GameObject combatPreview;
+    public UnityEvent onItemUse;//i'd like to say that im not that happy about whats going on here but this has to be better than updating stat UI every frame
+    public UnityEvent onClassAbilityUse;
 
     //im gonna be so fr this whole thingy i have going on with this class is some big buns and im sorry to anyone who looks at this
     //(the main issue is im doing wayyy to much in here in the worst ways possible
@@ -128,10 +130,11 @@ public class ClientChecks : NetworkBehaviour
 
         display.CreateDisplay( player, inventoryNum);
         display.gameObject.SetActive(false);
-        Debug.Log("i should be hidden");
+        
 
         displayText.lines.Add(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].useText);
         StartCoroutine(usedItem());
+        onItemUse.Invoke();
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -271,6 +274,7 @@ public class ClientChecks : NetworkBehaviour
         NetworkData.Instance.classDataBase.GetItem[NetworkData.Instance.GetCurrentPlayer().playerClass].ClassAction(NetworkData.Instance.GetCurrentPlayer());
         displayText.lines.Add(NetworkData.Instance.classDataBase.GetItem[NetworkData.Instance.GetCurrentPlayer().playerClass].actionUseText);
         StartCoroutine(usedAbility());
+        onClassAbilityUse.Invoke();
 
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
