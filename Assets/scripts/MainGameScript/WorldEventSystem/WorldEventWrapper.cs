@@ -15,9 +15,11 @@ public class WorldEventWrapper
     public void Progress()
     {
         daysPassed++;
-        if(WorldEventManager.Instance.worldDatabase.GetItem[eventId].Condition(daysPassed)) //maybe just pass it the wrapper instead of turns ?
+        var thisEvent = WorldEventManager.Instance.worldDatabase.GetItem[eventId];
+        if (thisEvent.Condition(daysPassed)) //maybe just pass it the wrapper instead of turns ?
         {
-            WorldEventManager.Instance.eventsToDeactivate.Add(WorldEventManager.Instance.worldDatabase.GetItem[eventId]);
+            WorldEventManager.Instance.eventsToDeactivate.Add(thisEvent);
+            if(thisEvent.MainQuestCondition != null) { WorldEventManager.Instance.completeWorldEvents.Add(thisEvent); }
         }
     }
 }

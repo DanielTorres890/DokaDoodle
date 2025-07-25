@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.LightTransport;
 
 public class WorldEventManager : NetworkBehaviour
 {
@@ -14,6 +16,8 @@ public class WorldEventManager : NetworkBehaviour
     [DoNotSerialize] public List<WorldEventBase> eventsToActivate = new List<WorldEventBase>(); //the reason this is like this is bc an event won't just activate right away,
     public List<WorldEventWrapper> activeWorldEvents = new List<WorldEventWrapper>();
     [DoNotSerialize] public List<WorldEventBase> eventsToDeactivate = new List<WorldEventBase>();
+
+    public List<WorldEventBase> completeWorldEvents = new List<WorldEventBase>();
 
     public static WorldEventManager Instance;
     public int turns;
@@ -40,6 +44,7 @@ public class WorldEventManager : NetworkBehaviour
     {
         turns++;
         
+        
         if (turns >= NetworkData.Instance.maxPlayers)
         {
             days += 1;
@@ -51,16 +56,25 @@ public class WorldEventManager : NetworkBehaviour
             weeks++;
             days = 0;
             Debug.Log("NEXT WEEK");
+            foreach (var qEvent in questEvents)
+            {
+                if (qEvent.MainQuestCondition != null && qEvent.MainQuestCondition.CanBeginQuest() && !AlreadyActive(qEvent) && !AlreadyComplete(qEvent))
+                {
+                    eventsToActivate.Add(qEvent);
+                }
+                
+            }
+
             foreach (var events in activeWorldEvents)
             {
                 events.Progress();
             }
 
-            if (IsHost && Random.Range(0,100) > 0)
+            if (IsHost && Random.Range(0,100) > 70)
             {
-                AddEventRpc(Random.Range(0, randomEvents.Length));
+                AddEventRpc(worldDatabase.GetId[randomEvents[Random.Range(0, randomEvents.Length)]]);
             }
-            else if (IsHost && (eventsToActivate.Count > 0 || eventsToDeactivate.Count > 0))
+            if (IsHost && (eventsToActivate.Count > 0 || eventsToDeactivate.Count > 0))
             {
                 ClientChecks.Instance.WorldEventRpc();
             }
@@ -77,17 +91,36 @@ public class WorldEventManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void AddEventRpc(int eventId)
     {
-        eventsToActivate.Add(randomEvents[eventId]);
 
-        if (IsHost)
-        {
-            ClientChecks.Instance.WorldEventRpc();
-        }
+        if (AlreadyActive(worldDatabase.GetItem[eventId])) { return; }
+        
+        eventsToActivate.Add(worldDatabase.GetItem[eventId]);      
         
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void NoEventRpc()
     {
         ClientChecks.Instance.TurnStartChecks();
+    }
+    private bool AlreadyActive(WorldEventBase eventToCheck)
+    {
+        
+        foreach (var eventWrapper in activeWorldEvents)
+        {
+            if (eventWrapper.eventId == worldDatabase.GetId[eventToCheck]) { return true; }
+        }
+
+        return false;
+    }
+
+    private bool AlreadyComplete(WorldEventBase eventToCheck)
+    {
+        foreach (var completeEvent in completeWorldEvents)
+        {
+            if (completeEvent == eventToCheck) { return true; }
+        }
+
+        return false;
+
     }
 }

@@ -74,6 +74,7 @@ public class playerData : EntityStats
         bool hasOffense = false;
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
         {
+            
             if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem))) { continue; }
 
             if ((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem).attack is not GuardAbility) { hasOffense = true; }
@@ -81,7 +82,7 @@ public class playerData : EntityStats
         }
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][2].container.Count; i++)
         {
-            if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem))) { continue; }
+            if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem))) { continue; }
 
             if ((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack is not GuardAbility) { hasOffense = true; }
 
@@ -104,7 +105,7 @@ public class playerData : EntityStats
         }
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][2].container.Count; i++)
         {
-            if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem))) { continue; }
+            if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem))) { continue; }
 
             if (this.attacks.Contains((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack)) { continue; }
             this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack);

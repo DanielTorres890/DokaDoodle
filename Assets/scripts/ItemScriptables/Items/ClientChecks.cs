@@ -58,7 +58,8 @@ public class ClientChecks : NetworkBehaviour
         
         NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
         NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
-        
+
+        onRoundStart.Invoke();
         WorldEventManager.Instance.ProgressDay();
        
 
@@ -78,7 +79,7 @@ public class ClientChecks : NetworkBehaviour
     public void TurnStartChecks()
     {
         bool rumble = false;
-        onRoundStart.Invoke();
+        
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
         {
 
@@ -387,12 +388,20 @@ public class ClientChecks : NetworkBehaviour
         displayText.lines.Add(WorldEventManager.Instance.eventsToDeactivate[0].DeactivateText);
         displayText.gameObject.SetActive(true);
         displayText.whoInControl = NetworkData.Instance.currentPlayer;
-        WorldEventManager.Instance.eventsToActivate[0].OnDeactivate();
+        WorldEventManager.Instance.eventsToDeactivate[0].OnDeactivate();
         displayText.Awake();
         while (displayText.gameObject.activeSelf)
         {
             yield return null;
         }
+        for(int i = WorldEventManager.Instance.activeWorldEvents.Count - 1; i >= 0; i--)
+        {
+            if (WorldEventManager.Instance.activeWorldEvents[i].eventId == WorldEventManager.Instance.worldDatabase.GetId[WorldEventManager.Instance.eventsToDeactivate[0]]) 
+            {
+                WorldEventManager.Instance.activeWorldEvents.RemoveAt(i);
+            }
+        }
+
         WorldEventManager.Instance.eventsToDeactivate.RemoveAt(0);
         if (WorldEventManager.Instance.eventsToDeactivate.Count > 0) { StartCoroutine(displayDeactivateEvent()); }
         else { TurnStartChecks(); }

@@ -15,7 +15,10 @@ public class TimedWEvent : WorldEventBase
     }
     public override bool Condition(int turns)
     {
-        if (duration <= turns) { return false; } else { return true; }
+        //returns true IF the event should end
+        if (duration <= turns) { return true; } 
+            
+        return false; 
     }
 
 }
