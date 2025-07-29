@@ -59,6 +59,16 @@ public class AbilityManager : NetworkBehaviour
     {
 
         if(!IsOwner || NewCombatManager.instance.fightOver || stats.isDead) { return; }
+
+        if (combatantstate != combatantStates.Free)
+        {
+            stateDuration -= Time.deltaTime;
+            if (currentAttack != null && stateManager[currentAttack].pressed && currentAttack.chargeable && stateDuration < .1f)
+            {
+                stateDuration = 0.01f;
+            }
+        }
+
         foreach (var atk in  stateManager.Keys) 
         {
             stateManager[atk].cooldown -= Time.deltaTime;
@@ -75,14 +85,7 @@ public class AbilityManager : NetworkBehaviour
             }
         }
 
-        if (combatantstate != combatantStates.Free)
-        {
-            stateDuration -= Time.deltaTime;
-            if (currentAttack != null && stateManager[currentAttack].pressed && currentAttack.chargeable && stateDuration < .1f)
-            {
-                stateDuration = 0.01f;
-            }
-        }
+        
         
         if (stateDuration <= 0 && combatantstate != combatantStates.Free) //time for state to progress
         {
