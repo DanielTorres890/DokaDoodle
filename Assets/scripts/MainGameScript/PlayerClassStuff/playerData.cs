@@ -155,7 +155,7 @@ public class playerData : EntityStats
         
         if (backToBase)
         {
-            
+            Debug.Log("back to the lobby my n ");
             
             bool success = MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Remove(playerNumber);
             

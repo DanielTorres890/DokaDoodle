@@ -236,7 +236,6 @@ public class NewCombatManager : NetworkBehaviour
     public void KILL(AbilityManager whoded)
     {
         fricku.Remove(whoded.gameObject);
-        Debug.Log("wHO IS dead " + whoded.gameObject.name);
         if(whoded.stats is EnemyCombat)
         {
             EnemyCombat info = (EnemyCombat)whoded.stats;
@@ -352,8 +351,8 @@ public class NewCombatManager : NetworkBehaviour
         Cursor.lockState = CursorLockMode.None;
         var cache = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
 
-        cache.tileEnemy.Clear();
-        
+        cache.tileEnemy.Clear(); //this thing causes malding mole to died check this later
+
 
         if (victor.stats is playerData)
         {
@@ -427,17 +426,15 @@ public class NewCombatManager : NetworkBehaviour
             endBattleInfo.startDialogue();
             endBattleInfo.whoInControl = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber;
 
-            cache.players.Clear();
             
 
         }
         
-        PlayerCombatManager.Instance.combatants.Clear();
+        PlayerCombatManager.Instance.combatants.Clear(); 
         RemoveDeadEntities();
         NetworkData.Instance.setNextTurnNum();
         endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
       
-        Debug.Log("It should be player " + NetworkData.Instance.currentPlayer);
 
         cache.xpOnTile = 0;
         cache.moneyOnTile = 0;
@@ -468,7 +465,6 @@ public class NewCombatManager : NetworkBehaviour
     {
         endBattleInfo.lines.Add(lostmoney);
         endBattleInfo.lines.Add(lostitem);
-        Debug.Log("did u died?");
         //NetworkData.Instance.players[playerNumber].death(turnsDead, false);
     }
 
@@ -476,8 +472,8 @@ public class NewCombatManager : NetworkBehaviour
     {
         var tilereadCache = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
 
-        tilereadCache.xpOnTile = xpHarvested;
-        tilereadCache.moneyOnTile = moneyHarvested;
+        tilereadCache.xpOnTile += xpHarvested;
+        tilereadCache.moneyOnTile += moneyHarvested;
         for(int i = tilereadCache.tileEnemy.Count - 1; i >= 0; i--)
         {
             
@@ -486,19 +482,18 @@ public class NewCombatManager : NetworkBehaviour
                 tilereadCache.tileEnemy.RemoveAt(i);
             }
         }
-        
+        Debug.Log("tf even happened " + tilereadCache.players.Count);
         for (int i = tilereadCache.players.Count - 1; i >= 0; i--)
         {
             
             NetworkData.Instance.players[tilereadCache.players[i]].ClearCombatStatuses();
             if (NetworkData.Instance.players[tilereadCache.players[i]].isDead)
             {
-                Debug.Log("I should be dead " + NetworkData.Instance.players[tilereadCache.players[i]].name);
                 NetworkData.Instance.players[tilereadCache.players[i]].death(3);
-                
+
             }
         }
-     
+        
     }
     public void RightSpec()
     {

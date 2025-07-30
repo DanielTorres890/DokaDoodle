@@ -93,7 +93,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
 
         canMove = true;
-        SyncDiceRollServerRpc(diceRoll);
+        SyncDiceRollServerRpc(3); //can force die roll with this
         takenPath.Clear();
         mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].playersOnTile[NetworkData.Instance.currentPlayer] = false;
         takenPath.Add(mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].gameObject);
@@ -103,7 +103,6 @@ public class PlayerMoveManager : NetworkBehaviour
     private void SyncDiceRollServerRpc(int num)
     {
         stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", true);
-        diceRoll = num;
 
         diceRoll = num;
         rollNum.text = diceRoll.ToString();
