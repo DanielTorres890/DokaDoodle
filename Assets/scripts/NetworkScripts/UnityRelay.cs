@@ -19,10 +19,12 @@ public class UnityRelay : MonoBehaviour
     [SerializeField] private Button relayButton;
     [SerializeField] private TMP_Text joinCodeText;
     [SerializeField] private TMP_InputField joinCodeInput;
+    [SerializeField] private Button submitCode;
     [SerializeField] private GameObject editor;
     private async void Start()
     {
         joinCodeInput.onEndEdit.AddListener(JoinRelay);
+        
         
         await UnityServices.InitializeAsync();
 
