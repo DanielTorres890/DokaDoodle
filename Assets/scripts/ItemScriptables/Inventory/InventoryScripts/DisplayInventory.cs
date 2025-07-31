@@ -21,7 +21,7 @@ public class DisplayInventory : MonoBehaviour
     public int X_SPACE_BETWEEN_ITEM;
     public int NUMBER_OF_COLUMN;
     public int Y_SPACE_BETWEEN_ITEMS;
-    public int displayType = 0;
+    public InvDisplayType displayType = InvDisplayType.Inventory;
     public Dictionary<InventorySlot,GameObject> itemsDisplayed = new Dictionary<InventorySlot, GameObject>();
     // Start is called before the first frame update
     void Start()
@@ -71,27 +71,16 @@ public class DisplayInventory : MonoBehaviour
             var obj = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
             obj.transform.GetComponent<Image>().sprite = inventory.container[i].item.itemSprite;
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-            if (displayType == 0)
+            if (displayType == InvDisplayType.Inventory)
             {
                 obj.GetComponent<Button>().onClick.AddListener(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
             }
-            else if (displayType == 1)
+            else if (displayType == InvDisplayType.ItemSell)
             {
                 obj.GetComponent<Button>().onClick.AddListener(delegate { ShopUISync.instance.setUpSell(tempId, inventoryType); });
-                if (inventory.container[tempId].item.itemValue <= NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money])
-                {
-
-                    obj.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0, -13} {1}", inventory.container[tempId].item.name, inventory.container[tempId].item.itemValue);
-                }
-
-                else
-                {
-
-                    obj.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("<color=red>{0, -13} {1} </color>", inventory.container[tempId].item.name, inventory.container[tempId].item.itemValue);
-                    obj.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
-
-                }
+                obj.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0, -13} {1}", inventory.container[tempId].item.name, inventory.container[tempId].item.itemValue / 2);
+                
             }
             AddEvent(obj, EventTriggerType.Select, delegate { displayText.SetText(inventory.container[tempId].item.description); });
             AddEvent(obj, EventTriggerType.PointerEnter, delegate { displayText.SetText(inventory.container[tempId].item.description); });
@@ -140,4 +129,9 @@ public class DisplayInventory : MonoBehaviour
     {
         return new Vector3(X_Start +( X_SPACE_BETWEEN_ITEM * (i % NUMBER_OF_COLUMN)),Y_Start + (-Y_SPACE_BETWEEN_ITEMS * (i / NUMBER_OF_COLUMN)), 0f);
     }
+}
+public enum InvDisplayType
+{
+    Inventory,
+    ItemSell,
 }

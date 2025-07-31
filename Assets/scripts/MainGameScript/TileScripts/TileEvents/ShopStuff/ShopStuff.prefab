@@ -4383,7 +4383,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2082489154373710662}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4574,7 +4574,7 @@ GameObject:
   - component: {fileID: 3217589623454300094}
   - component: {fileID: 6039027876038655863}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: MoneyDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5861,6 +5861,18 @@ PrefabInstance:
       propertyPath: sellShop
       value: 
       objectReference: {fileID: 5423902371897595377}
+    - target: {fileID: 2402367725294590324, guid: f8172871bfb7db044a929ab158f96239, type: 3}
+      propertyPath: buyShopStuff
+      value: 
+      objectReference: {fileID: 2911042122995236281}
+    - target: {fileID: 2402367725294590324, guid: f8172871bfb7db044a929ab158f96239, type: 3}
+      propertyPath: currentMoney
+      value: 
+      objectReference: {fileID: 2889333669305247348}
+    - target: {fileID: 2402367725294590324, guid: f8172871bfb7db044a929ab158f96239, type: 3}
+      propertyPath: moneyDisplay
+      value: 
+      objectReference: {fileID: 5048860704808385090}
     - target: {fileID: 2402367725294590324, guid: f8172871bfb7db044a929ab158f96239, type: 3}
       propertyPath: sellUIManager
       value: 

@@ -13,12 +13,14 @@ public class ShopUISync : NetworkBehaviour
     [SerializeField] private List<GameObject> buyDontButtons;
     [SerializeField] private List<GameObject> sellDontButtons;
     [SerializeField] private DisplayInventory sellUIManager;
+    [SerializeField] private UIStatUpdate moneyDisplay;
     private ShopEvent curEvent;
     public static ShopUISync instance;
-
+    [SerializeField] private ShopUICreator buyShopStuff;
     private void Awake()
     {
         instance = this;
+        
         curEvent = (NetworkData.Instance.currentEvent as ShopEvent);
     }
     public void BuyButton()
@@ -30,6 +32,7 @@ public class ShopUISync : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void ShowShopRpc()
     {
+        buyShopStuff.UpdateDisplay();
         buyShop.SetActive(true);
         hideMenuButtons(mainMenuButtons);
     }
@@ -101,6 +104,8 @@ public class ShopUISync : NetworkBehaviour
     {
         NetworkData.Instance.AddItemToInventory(NetworkData.Instance.currentPlayer, curEvent.itemsSold[itemNum]);
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money] -= Mathf.RoundToInt(curEvent.itemsSold[itemNum].itemValue * NetworkData.Instance.globalShopMultiplier);
+        moneyDisplay.StatUpdate();
+
         buyShop.SetActive(true);
         hideMenuButtons(buyDontButtons);
     }
@@ -172,6 +177,7 @@ public class ShopUISync : NetworkBehaviour
         }
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money] += NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][inventoryNum].getItem(itemNum).itemValue / 2;
         NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][inventoryNum].RemoveItem(itemNum);
+        moneyDisplay.StatUpdate();
         sellUIManager.CreateDisplay(NetworkData.Instance.currentPlayer, inventoryNum);
 
     }

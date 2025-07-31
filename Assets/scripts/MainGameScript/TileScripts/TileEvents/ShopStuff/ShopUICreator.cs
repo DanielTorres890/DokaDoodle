@@ -15,12 +15,15 @@ public class ShopUICreator : MonoBehaviour
     public int X_SPACE_BETWEEN_ITEM;
     public int NUMBER_OF_COLUMN;
     public int Y_SPACE_BETWEEN_ITEMS;
-    private ItemBase[] displayedItems;
+
+    [SerializeField] private ItemBase[] displayedItems;
+    private List<GameObject> displayedGameObjects = new List<GameObject>();
     [SerializeField] private TextMeshProUGUI displayText;
 
 
     private void Awake()
     {
+        //if im being fr this is bc my brain does NOT feel like making shop buying things function similarly to player inventory icl frfr fmcl 
         displayedItems = (NetworkData.Instance.currentEvent as ShopEvent).itemsSold;
         CreateDisplay();
     }
@@ -57,11 +60,19 @@ public class ShopUICreator : MonoBehaviour
                 temp.color = Color.red;
 
             }
-            
+            displayedGameObjects.Add(obj);
 
         }
     }
-
+    public void UpdateDisplay()
+    {
+        foreach(var obj in displayedGameObjects)
+        {
+            Destroy(obj);
+        }
+        displayedGameObjects.Clear();
+        CreateDisplay();
+    }
     private void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)
     {
         EventTrigger trigger = obj.GetComponent<EventTrigger>();

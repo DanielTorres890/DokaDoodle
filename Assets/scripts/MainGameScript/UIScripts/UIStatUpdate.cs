@@ -22,7 +22,7 @@ public class UIStatUpdate : MonoBehaviour
         
     }
 
-    private void StatUpdate()
+    public void StatUpdate()
     {
         string color = "<color=black>";
         if (attribute != Attributes.Health && attribute != Attributes.MaxHealth && NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attribute] > NetworkData.Instance.players[NetworkData.Instance.currentPlayer].stats[attribute])
