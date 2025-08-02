@@ -151,7 +151,7 @@ public class playerData : EntityStats
     {
         this.isDead = true;
         this.tillRevive = turnsDead;
-
+        this.stats[Attributes.Health] = 0;
         
         if (backToBase)
         {

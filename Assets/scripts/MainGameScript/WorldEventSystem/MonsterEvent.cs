@@ -22,6 +22,7 @@ public class MonsterEvent : WorldEventBase
     public override void OnActivate()
     {
         var enemyspawn = new EnemyCombat(enemy);
+        enemyspawn.persistant = true;
         MapTileSpecialEvents.Instance.mapTiles[mapToSpawn][tileIdToSpawn].tileEnemy.Add(enemyspawn);
         if(mapToSpawn == PlayerMoveManager.Instance.mapNumber) { PlayerMoveManager.Instance.spawnEnemyOverworld(tileIdToSpawn, enemyspawn.enemyId); } 
         //maybe add another check but im p sure events should only occur on the overworld

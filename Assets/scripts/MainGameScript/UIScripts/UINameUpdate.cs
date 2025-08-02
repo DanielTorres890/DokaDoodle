@@ -10,11 +10,7 @@ public class UINameUpdate : MonoBehaviour
     private void Start()
     {
         m_TextMeshProUGUI = gameObject.GetComponent<TextMeshProUGUI>();
-    }
-
-    void Update()
-    {
-        updateName();
+        ClientChecks.Instance.onRoundStart.AddListener(updateName);
     }
 
     private void updateName()

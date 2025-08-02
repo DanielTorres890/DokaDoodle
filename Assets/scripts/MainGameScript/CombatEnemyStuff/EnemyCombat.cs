@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyCombat : EntityStats
 {
     public int enemyId;
-
+    public bool persistant = false; //basically if the enemy should stay on the tile even if a fight ends with their victory
     public EnemyCombat(EnemyBase EnemyInfo) : base() 
     {
         foreach ( var temp in EnemyInfo.Stats)

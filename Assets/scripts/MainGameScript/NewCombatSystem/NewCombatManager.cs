@@ -350,8 +350,15 @@ public class NewCombatManager : NetworkBehaviour
         fightOver = true;
         Cursor.lockState = CursorLockMode.None;
         var cache = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
-
-        cache.tileEnemy.Clear(); //this thing causes malding mole to died check this later
+        for(int i = cache.tileEnemy.Count - 1; i >= 0; i--)
+        {
+            if (!cache.tileEnemy[i].persistant)
+            {
+                cache.tileEnemy.RemoveAt(i);
+            }
+        }
+        
+        //this thing causes malding mole to died check this later
 
 
         if (victor.stats is playerData)

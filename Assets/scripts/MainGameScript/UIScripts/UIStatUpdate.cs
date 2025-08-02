@@ -15,6 +15,7 @@ public class UIStatUpdate : MonoBehaviour
         textMeshProUGUI = gameObject.GetComponent<TextMeshProUGUI>();
         ClientChecks.Instance.onItemUse.AddListener(StatUpdate);
         ClientChecks.Instance.onClassAbilityUse.AddListener(StatUpdate);
+        ClientChecks.Instance.onRoundStart.AddListener(StatUpdate);
         StatUpdate();
     }
     void Update()
