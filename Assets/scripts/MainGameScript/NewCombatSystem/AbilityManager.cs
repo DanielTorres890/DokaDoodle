@@ -31,11 +31,12 @@ public class AbilityManager : NetworkBehaviour
     [SerializeField] private EntityUIUpdate nameText;
     [SerializeField] private EntityUIUpdate hpText;
 
+
     public UnityEvent onStatus;
     public UnityEvent onAttack;
     public UnityEvent onSpawnAttack; //bc im dumb and dont feel like changing the labels rn
     public UnityEvent onEndAttack;
-
+    public UnityEvent onHit;
     private Animator animator;
 
     
@@ -261,7 +262,7 @@ public class AbilityManager : NetworkBehaviour
             stats.isDead = true;
             NewCombatManager.instance.KILL(this);
         }
-        
+        onHit.Invoke();
         
         
     }

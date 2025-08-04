@@ -269,8 +269,8 @@ public class NewCombatManager : NetworkBehaviour
                 
 
 
-            if (IsServer) { LinesToSyncRpc((info.name + " dropped " + info.playerInfo[PlayerInfo.money] / 2 + " moneys"), info.LoseSomething(), 3, info.playerNumber); }
-
+            //if (IsServer) { LinesToSyncRpc((info.name + " dropped " + info.playerInfo[PlayerInfo.money] / 2 + " moneys"), info.LoseSomething(), 3, info.playerNumber); }
+            //idk if i did this here for a reason but it doesnt make much sense since they shouldnt drop something if they might survive (like a revive or something)
             moneyHarvested = info.playerInfo[PlayerInfo.money] /= 2; 
             info.playerInfo[PlayerInfo.money] /= 2;
                 

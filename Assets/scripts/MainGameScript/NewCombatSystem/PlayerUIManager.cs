@@ -5,6 +5,7 @@ public class PlayerUIManager : MonoBehaviour
 {
     public AbilityManager abilityManager;
     [SerializeField] private GameObject abilityDisplayPrefab;
+    [SerializeField] private healthbar playerHealthBar;
     
     public int X_Start;
     public int Y_Start;
@@ -19,8 +20,9 @@ public class PlayerUIManager : MonoBehaviour
     {
         
         int i = 0;
-        
 
+        playerHealthBar.manager = abilityManager;
+        playerHealthBar.SetUp();
         foreach (var attack in abilityManager.orderedAttacks)
         {
          
@@ -31,6 +33,7 @@ public class PlayerUIManager : MonoBehaviour
             
 
             var display = obj.GetComponent<AbilityDisplay>();
+            
             display.attack = attack;
             display.abilityManager = abilityManager;
             if (i == abilityManager.orderedAttacks.Count - 1)
