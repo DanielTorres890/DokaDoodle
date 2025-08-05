@@ -15,5 +15,6 @@ public abstract class PlayerClassBase : ScriptableObject
     public string actionUseText;
 
     public AttackBase combatAbility;
+    public AttackBase basicAttackAbility;
     public abstract void ClassAction(playerData player);
 }

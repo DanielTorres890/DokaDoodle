@@ -11,6 +11,7 @@ public class playerLevelUpMnger : NetworkBehaviour
     public int statsToAllocate;
     public TextMeshProUGUI[] statText;
     public TextMeshProUGUI[] levelText;
+    public TextMeshProUGUI remainingStats;
     public playerData playerWhoLevel;
     public int inControl;
     [SerializeField] private bool startShown;
@@ -52,6 +53,7 @@ public class playerLevelUpMnger : NetworkBehaviour
         {
             statText[i].text = NetworkData.Instance.attributeStrings[playerAttributes[i]] + "\n" + playerWhoLevel.stats[playerAttributes[i]].ToString();
         }
+        remainingStats.text = statsToAllocate.ToString();
         
     }
 
@@ -76,6 +78,7 @@ public class playerLevelUpMnger : NetworkBehaviour
         else { playerStatIncrease[playerAttributes[stat]] += 1; }
 
         statsToAllocate -= 1;
+        remainingStats.text = statsToAllocate.ToString();
         levelText[stat].text = playerStatIncrease[playerAttributes[stat]].ToString();
 
     }
@@ -100,6 +103,7 @@ public class playerLevelUpMnger : NetworkBehaviour
         }
         else { playerStatIncrease[playerAttributes[stat]] -= 1; }
         statsToAllocate += 1;
+        remainingStats.text = statsToAllocate.ToString();
         levelText[stat].text = playerStatIncrease[playerAttributes[stat]].ToString();
     }
 

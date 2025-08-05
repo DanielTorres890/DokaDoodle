@@ -71,8 +71,11 @@ public class playerData : EntityStats
     public void setCombatActions()
     {
         this.attacks.Clear();
-        bool hasOffense = false;
-        for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
+        //bool hasOffense = false;
+        this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[playerClass].basicAttackAbility);
+
+        //the code below was for checking if they actually had any offensive attacks but i have decided that every class has a basic attack
+        /*for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
         {
             
             if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem))) { continue; }
@@ -87,11 +90,11 @@ public class playerData : EntityStats
             if ((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack is not GuardAbility) { hasOffense = true; }
 
         }
-
+        
         if (!hasOffense)
         {
             this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][1].database.GetItem[0] as WeaponItem).attack);
-        }
+        }*/
         //all the stuff above is checking if the player actually has an item that provides offense bc if they don't you're helpless for no reason
 
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
