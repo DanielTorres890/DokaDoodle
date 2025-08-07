@@ -42,7 +42,8 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         { Attributes.Defense, "DEF" },
         { Attributes.Magic, "MAG" },
         { Attributes.MDefense, "MDEF" },
-        { Attributes.Dexterity, "DEX" }
+        { Attributes.Dexterity, "DEX" }, 
+        { Attributes.Potency, "POT" }
 
     };
     public void Awake()

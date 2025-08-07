@@ -39,6 +39,9 @@ public class AbilityManager : NetworkBehaviour
     public UnityEvent onHit;
     private Animator animator;
 
+    public float maxEnergy = 100f;
+    public float currentEnergy = 100f;
+    public float energyRegen = 1f;
     
     private void Awake()
     {
@@ -61,6 +64,7 @@ public class AbilityManager : NetworkBehaviour
 
         if(!IsOwner || NewCombatManager.instance.fightOver || stats.isDead) { return; }
 
+       
         if (combatantstate != combatantStates.Free)
         {
             stateDuration -= Time.deltaTime;
@@ -68,6 +72,15 @@ public class AbilityManager : NetworkBehaviour
             {
                 stateDuration = 0.01f;
             }
+        }
+        else
+        {
+            currentEnergy += Time.deltaTime;
+            if(currentEnergy > maxEnergy)
+            {
+                currentEnergy = maxEnergy;
+            }
+
         }
 
         foreach (var atk in  stateManager.Keys) 

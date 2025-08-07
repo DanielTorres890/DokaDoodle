@@ -22,7 +22,8 @@ public class EntityStats
         {Attributes.Defense, 0 },
         {Attributes.Magic, 0 },
         {Attributes.MDefense, 0 },
-        {Attributes.Dexterity, 0 }
+        {Attributes.Dexterity, 0 },
+        {Attributes.Potency, 0 }
 
 
     };
@@ -34,7 +35,8 @@ public class EntityStats
         {Attributes.Defense, 0 },
         {Attributes.Magic, 0 },
         {Attributes.MDefense, 0 },
-        {Attributes.Dexterity, 0}
+        {Attributes.Dexterity, 0},
+        {Attributes.Potency, 0 }
         
 
     };
@@ -44,6 +46,7 @@ public class EntityStats
         { AttackTypes.Magic, 0}
 
     };
+
     [SerializeField] public List<AttackBase> attacks = new List<AttackBase>();
     [SerializeField] public DefenseBase[] defenses = new DefenseBase[4];
 
@@ -111,7 +114,8 @@ public class EntityStats
         {Attributes.Defense, 0 },
         {Attributes.Magic, 0 },
         {Attributes.MDefense, 0 },
-        {Attributes.Dexterity, 0}
+        {Attributes.Dexterity, 0},
+        {Attributes.Potency, 0 }
         };
 
         foreach (var status in statuses)
