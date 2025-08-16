@@ -14,11 +14,11 @@ public class MDefault : AttackBase
         return base.WeaponEffect(caster);
 
     }
-    public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking)
+    public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargeDuration)
 
     {
         
-        var attack = base.WeaponEffect(caster, time, whereiscaster, casterLooking);
+        var attack = base.WeaponEffect(caster, time, whereiscaster, casterLooking, chargeDuration);
         
         var rigid = attack.GetComponent<Rigidbody>();
         

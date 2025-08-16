@@ -19,6 +19,7 @@ MonoBehaviour:
   endLag: 1
   cooldown: 0
   lifespan: 12
+  energyDrain: 2
   stateToBe: 0
   chargeable: 1
   attackPrefab: {fileID: 4958144232811764369, guid: 4668d625169cc90448d3030b4cde0002, type: 3}
@@ -47,6 +48,8 @@ MonoBehaviour:
   - attribute: 6
     mult: 1
   attackAnimation: {fileID: 0}
+  attackSound: {fileID: 0}
+  onHitSound: {fileID: 0}
   speed: 12
   burstLifespan: 1
   burstSize: {x: 2, y: 2, z: 2}

@@ -7,7 +7,7 @@ public class BuffAbility : AttackBase
     public BuffBase[] StatusEffects;
 
 
-    public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking)
+    public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargeDuration)
     {
 
         int[] buffids = new int[StatusEffects.Length];
@@ -18,7 +18,7 @@ public class BuffAbility : AttackBase
         }
 
         caster.GetComponent<AbilityManager>().IGainedBuffRpc(buffids);
-        return base.WeaponEffect(caster, time, whereiscaster, casterLooking);
+        return base.WeaponEffect(caster, time, whereiscaster, casterLooking, chargeDuration);
         
     }
 }

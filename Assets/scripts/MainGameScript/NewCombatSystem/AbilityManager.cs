@@ -37,11 +37,13 @@ public class AbilityManager : NetworkBehaviour
     public UnityEvent onSpawnAttack; //bc im dumb and dont feel like changing the labels rn
     public UnityEvent onEndAttack;
     public UnityEvent onHit;
+    public UnityEvent onEnergyChange;
     private Animator animator;
 
     public float maxEnergy = 100f;
     public float currentEnergy = 100f;
     public float energyRegen = 1f;
+    public float chargeDuration = 0f;
     
     private void Awake()
     {
@@ -71,14 +73,26 @@ public class AbilityManager : NetworkBehaviour
             if (currentAttack != null && stateManager[currentAttack].pressed && currentAttack.chargeable && stateDuration < .1f)
             {
                 stateDuration = 0.01f;
+                currentEnergy -= Time.deltaTime * currentAttack.energyDrain;
+                chargeDuration += Time.deltaTime;
+                if (currentEnergy <= 0f)
+                {
+                    currentEnergy = 0f;
+                    stateDuration = 0f;
+                }
+                onEnergyChange.Invoke();
             }
         }
         else
         {
-            currentEnergy += Time.deltaTime;
+            currentEnergy += Time.deltaTime * energyRegen;
             if(currentEnergy > maxEnergy)
             {
                 currentEnergy = maxEnergy;
+            }
+            else
+            {
+                onEnergyChange.Invoke();
             }
 
         }
@@ -179,7 +193,8 @@ public class AbilityManager : NetworkBehaviour
     {
         currentAttack = stats.attacks[whom];
         
-        currentAttack.WeaponEffect(gameObject,time, wherewasyou, whereyoulookin);
+        currentAttack.WeaponEffect(gameObject,time, wherewasyou, whereyoulookin, chargeDuration);
+        chargeDuration = 0f;
         InvokeOnSpawnAttackRpc();
     }
     [Rpc(SendTo.Server,RequireOwnership = false)]

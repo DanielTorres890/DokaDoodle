@@ -15,11 +15,11 @@ public class GuardAbility : AttackBase
         stats.stats.dmgReduction[AttackTypes.Magic] += MDmgReduction;
     }
 
-    public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking)
+    public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargeDuration)
     {
         var stats = caster.GetComponent<AbilityManager>();
         stats.stats.dmgReduction[AttackTypes.Physical] -= PDmgReduction;
         stats.stats.dmgReduction[AttackTypes.Magic] -= MDmgReduction;
-        return base.WeaponEffect(caster, time, whereiscaster, casterLooking);
+        return base.WeaponEffect(caster, time, whereiscaster, casterLooking, chargeDuration);
     }
 }

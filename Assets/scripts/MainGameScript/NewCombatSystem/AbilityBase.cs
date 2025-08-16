@@ -16,6 +16,8 @@ public abstract class AbilityBase : NetworkBehaviour
     
     public float lifespan;
     [DoNotSerialize]public float lifetimer;
+    public float chargedDuration;
+
 
     private AudioSource AudioSource;
 
@@ -54,6 +56,7 @@ public abstract class AbilityBase : NetworkBehaviour
         }
         
         totalDamge *= (1 - defender.dmgReduction[attackType]/100f);
+        totalDamge *= attackInfo.ChargeMultiplier(ownerStats, chargedDuration) * attackInfo.maxChargeAtkBuff;
         if (totalDamge < 0)
             return 0;
         else

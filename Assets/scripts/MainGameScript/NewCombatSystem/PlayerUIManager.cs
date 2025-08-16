@@ -6,7 +6,7 @@ public class PlayerUIManager : MonoBehaviour
     public AbilityManager abilityManager;
     [SerializeField] private GameObject abilityDisplayPrefab;
     [SerializeField] private healthbar playerHealthBar;
-    
+    [SerializeField] private energybar playerEnergyBar;
     public int X_Start;
     public int Y_Start;
     public int X_SPACE_BETWEEN_ITEM;
@@ -22,7 +22,9 @@ public class PlayerUIManager : MonoBehaviour
         int i = 0;
 
         playerHealthBar.manager = abilityManager;
+        playerEnergyBar.manager = abilityManager;
         playerHealthBar.SetUp();
+        playerEnergyBar.SetUp();
         foreach (var attack in abilityManager.orderedAttacks)
         {
          

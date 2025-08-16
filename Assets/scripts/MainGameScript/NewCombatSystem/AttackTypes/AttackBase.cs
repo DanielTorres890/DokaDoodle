@@ -16,6 +16,18 @@ public abstract class AttackBase : ScriptableObject
     public float endLag;
     public float cooldown;
     public float lifespan;
+    public float energyDrain = 1f;
+
+    [Tooltip("Max charge refers to an attack charged by whatever the duration of MaxChargeDuration is\nThis is BEFORE its affected by potency ")]
+    public float maxChargeAtkBuff = 1.2f; 
+    public float maxChargeSizeBuff = 1.2f;
+    public float maxChargeSpeedBuff = 1.1f; 
+    public float maxChargeDuration = 3f;
+    [Tooltip("The amount of potency required to reach maximum effectiveness ")]
+    public int requiredPotency = 0;
+    public float dmgPotencyEffect = 2;
+    public float sizePotencyEffect = 2;
+    
 
     public combatantStates stateToBe;
 
@@ -53,12 +65,15 @@ public abstract class AttackBase : ScriptableObject
         
 
     }
-    public virtual GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking)
+    public virtual GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargedDuration)
     {
+        var manager = caster.GetComponent<AbilityManager>();
         var attack = Instantiate(attackPrefab);
+
+
         attack.transform.position = whereiscaster +  Quaternion.Euler(casterLooking) * offset;
         attack.transform.rotation = caster.transform.rotation;
-        attack.transform.localScale = ablitySize;
+        attack.transform.localScale = ChargeMultiplier(manager.stats, chargedDuration) * maxChargeSizeBuff * ablitySize;
         attack.GetComponent<NetworkObject>().Spawn(true);
         
 
@@ -67,8 +82,8 @@ public abstract class AttackBase : ScriptableObject
         
         info.owner = caster;
         info.lifespan = lifespan - (time - NetworkManager.Singleton.ServerTime.TimeAsFloat);
-
-        var manager = caster.GetComponent<AbilityManager>();
+        info.chargedDuration = chargedDuration;
+        
         manager.RealAttackRpc(caster.GetComponent<NetworkObject>().NetworkManager.RpcTarget.Single(caster.GetComponent<NetworkObject>().OwnerClientId, RpcTargetUse.Temp));
         info.ownerStats = caster.GetComponent<AbilityManager>().stats;
        
@@ -78,6 +93,21 @@ public abstract class AttackBase : ScriptableObject
     public virtual void OnStartUp(GameObject caster)
     {
 
+    }
+
+    public virtual float ChargeMultiplier(EntityStats entity, float chargeDuration)
+    {
+        if(chargeDuration > maxChargeDuration)
+        {
+            chargeDuration = maxChargeDuration;
+        }
+        int usedPotency = entity.stats[Attributes.Potency];
+        if(usedPotency > requiredPotency)
+        {
+            usedPotency = requiredPotency;
+        }
+
+        return 1 + (usedPotency + 1) / (requiredPotency + 1) * (chargeDuration / maxChargeDuration);
     }
 }
 
