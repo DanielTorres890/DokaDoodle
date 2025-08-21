@@ -1637,8 +1637,9 @@ MonoBehaviour:
   action: {fileID: 3018395302920932811}
   characterEditor: {fileID: -7575021645446966744}
   TimeBetweenDash: 0.2
-  dashCd: 2
+  dashCd: 1
   DashDexRequirement: 10
+  DashEnergyCost: 10
   grounded: 1
 --- !u!114 &992508209932742035
 MonoBehaviour:
@@ -1719,6 +1720,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onHit:
+    m_PersistentCalls:
+      m_Calls: []
+  onEnergyChange:
+    m_PersistentCalls:
+      m_Calls: []
+  maxEnergy: 100
+  currentEnergy: 100
+  energyRegen: 1
+  chargeDuration: 0
 --- !u!114 &-7575021645446966744
 MonoBehaviour:
   m_ObjectHideFlags: 0

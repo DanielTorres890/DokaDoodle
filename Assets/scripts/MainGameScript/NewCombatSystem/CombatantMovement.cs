@@ -29,6 +29,7 @@ public class CombatantMovement : NetworkBehaviour
     [SerializeField] private float TimeBetweenDash = 0.2f;
     [SerializeField] private float dashCd;
     [SerializeField] private int DashDexRequirement;
+    [SerializeField] private float DashEnergyCost = 10f;
     //private Camera camcomponent;
 
     //All states are in the ability manager bc honestly it makes more sense there
@@ -116,12 +117,18 @@ public class CombatantMovement : NetworkBehaviour
 
         if (abilityManager.CanMoveNotAct()) { return; }
 
+        if (abilityManager.currentEnergy < 10 ) { return; }
+
+        
+        abilityManager.onEnergyChange.Invoke();
         float oldTime = lastDashTime;
         lastDashTime = Time.fixedTime;
 
         if (!(lastDashTime - oldTime < TimeBetweenDash)) { return; }
 
         if (DashDexRequirement > abilityManager.stats.stats[Attributes.Dexterity]) { return; }
+
+        abilityManager.currentEnergy -= DashEnergyCost;
         dashCdTimer = 0;
         abilityManager.combatantstate = combatantStates.Dashing;
         abilityManager.stateDuration = .25f;
