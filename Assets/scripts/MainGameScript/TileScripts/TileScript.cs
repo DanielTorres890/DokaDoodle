@@ -11,6 +11,7 @@ public abstract class TileScript : MonoBehaviour
     public GameObject leftTile;
 
     public bool canFight = true;
+    [Tooltip("This isn't meant to be set manually as their id is decided \nby whatever their place is in the PlayerMoveManager script (bc i cant be bothered to set them manually")]
     public int tileId;
     public string battleEnvironment = "TestArena";
     public List<bool> playersOnTile = new List<bool> { false,false,false,false};

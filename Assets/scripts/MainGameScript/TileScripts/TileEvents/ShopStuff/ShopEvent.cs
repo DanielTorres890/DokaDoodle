@@ -7,7 +7,6 @@ using UnityEngine;
 public class ShopEvent : EventBase
 {
     public ItemBase[] itemsSold;
-    public GameObject shop;
     public List<string> endShopDialogue;
     public override void FireEvent()
     {

@@ -16,5 +16,5 @@ public class SpecialTileEventHold
 
 
     public int townMoneyLevel; //im not sure if this is a great spot for it but it'll have to do since i use this class for persistant tile data
-    //Maybe If there was events it'd go here
+    
 }

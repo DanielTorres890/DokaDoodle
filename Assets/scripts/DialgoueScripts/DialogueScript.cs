@@ -43,6 +43,7 @@ public class DialogueScript : NetworkBehaviour
         if (!startShown)
         {
             gameObject.SetActive(false);
+            StopAllCoroutines();
         }
     }
 
