@@ -15,6 +15,7 @@ public class SpecialTileEventHold
     public int moneyOnTile;
 
 
+    public int tileOwner = -1;
     public int townMoneyLevel; //im not sure if this is a great spot for it but it'll have to do since i use this class for persistant tile data
     
 }

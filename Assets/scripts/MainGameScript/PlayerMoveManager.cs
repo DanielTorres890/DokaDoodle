@@ -261,7 +261,7 @@ public class PlayerMoveManager : NetworkBehaviour
         if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds.Count > 0 && IsServer)
         {
             ClientChecks.Instance.ActivateTrapsRpc();
-        }
+        }        
         else {  mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].TileEvent(); }
         
     }

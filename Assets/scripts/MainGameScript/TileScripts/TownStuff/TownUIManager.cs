@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -60,5 +61,33 @@ public class TownUIManager : NetworkBehaviour
         }
 
     }
+    public void Rest()
+    {
+        if (NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
+        {
+            RestRpc();
+        }
+    }
 
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void RestRpc()
+    {
+        if(MapTileSpecialEvents.Instance.GetCurrentTile().tileOwner != NetworkData.Instance.currentPlayer)
+        {
+            TownEvent curEvent = NetworkData.Instance.currentEvent as TownEvent;
+            if (NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.money] < curEvent.townInfo.restCost)
+            {
+                //Can't rest do something 
+
+                return;
+            }
+        }
+        NetworkData.Instance.GetCurrentPlayer().healHp(99999);
+        MainMenu.SetActive(false);
+        RestMenu.SetActive(false);
+        TileEventManager.Instance.dialogueScript.lines.Clear();
+        TileEventManager.Instance.dialogueScript.lines = new List<string>(NetworkData.Instance.currentEvent.endDialouge);
+
+        TileEventManager.Instance.EndEvent();
+    }
 }

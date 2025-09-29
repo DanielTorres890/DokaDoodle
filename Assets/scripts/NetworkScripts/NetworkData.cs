@@ -18,6 +18,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public BuffDataBase buffDataBase;
     public TrapDataBase trapDataBase;
     public AudioDataBase audioDataBase;
+    public TownInfoDataBase TownInfoDataBase;
     //BEFORE U @ ME FOR THIS ITS BC UNITY DOESNT ALLOW U TO SERIALIZE 2D LIST SO THIS IS MY WORK AROUND SO I CAN ADD THEM IN THE INSPECTOR
     public List<List<InventoryObject>> playerInventories = new List<List<InventoryObject>>();
     [SerializeField] private List<InventoryObject> player1Inventories = new List<InventoryObject>();

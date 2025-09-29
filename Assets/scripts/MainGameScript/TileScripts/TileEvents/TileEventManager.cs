@@ -50,7 +50,7 @@ public class TileEventManager : NetworkBehaviour
         NetworkData.Instance.currentEvent.FireEvent();
     }
 
-   public void EndEvent()
+    public void EndEvent()
     {
         dialogue.SetActive(true);
         dialogueScript.Awake();

@@ -17,6 +17,9 @@ public class MapTileSpecialEvents : NetworkBehaviour
         Instance = this;
         this.mapTiles = new SpecialTileEventHold[10][];
     }
-
+    public SpecialTileEventHold GetCurrentTile()
+    {
+        return mapTiles[NetworkData.Instance.GetCurrentPlayer().curMap][NetworkData.Instance.GetCurrentPlayer().curTileId];
+    }
   
 }
