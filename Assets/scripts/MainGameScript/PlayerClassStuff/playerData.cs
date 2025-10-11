@@ -252,6 +252,10 @@ public class playerData : EntityStats
         return canUse;
         
     }
+    public bool CanAfford(int cost)
+    {
+        return playerInfo[PlayerInfo.money] >= cost;
+    }
 }
 public enum PlayerInfo
 {
