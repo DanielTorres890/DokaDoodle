@@ -13,4 +13,7 @@ public class TownInfo : ScriptableObject
     public float upgradeCostMultiplier;
     public int restCost;
 
+    [Tooltip("Each entry corrseponds with the equal defense level")]
+    public EnemyEncounter[] defenseEncounters;
+
 }

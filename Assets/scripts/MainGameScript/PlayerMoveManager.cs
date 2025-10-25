@@ -84,7 +84,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
     public void rollDice()
     {
-        if (NetworkData.Instance.currentPlayer != Convert.ToInt32(NetworkManager.Singleton.LocalClientId) && !IsHost) { return; }
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         int randomNum = UnityEngine.Random.Range(0, 100);
 
         if (randomNum <= 3) { diceRoll = 1; }
@@ -296,7 +296,16 @@ public class PlayerMoveManager : NetworkBehaviour
             MapTileSpecialEvents.Instance.mapTiles[mapNumber] = new SpecialTileEventHold[mapTiles.Count];
             for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[mapNumber].Length; i++)
             {
-                MapTileSpecialEvents.Instance.mapTiles[mapNumber][i] = new SpecialTileEventHold();
+                MapTileSpecialEvents.Instance.mapTiles[mapNumber][i] = new SpecialTileEventHold
+                {
+                    battleArea = mapTiles[i].battleEnvironment
+                };
+                //id like to say that im not super happy about this but things are getting messy
+                //they NEED to know their town id right away otherwise its really unintuitive
+                if (Instance.mapTiles[i] is TownTile)
+                {
+                    MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].townId = NetworkData.Instance.TownInfoDataBase.GetId[(Instance.mapTiles[i] as TownTile).Info];
+                }
             }
         }
         else

@@ -20,7 +20,6 @@ public class ShopUISync : NetworkBehaviour
     private void Awake()
     {
         instance = this;
-        
         curEvent = (NetworkData.Instance.currentEvent as ShopEvent);
     }
     public void BuyButton()
@@ -59,6 +58,7 @@ public class ShopUISync : NetworkBehaviour
     {
         hideMenuButtons(mainMenuButtons);
         TileEventManager.Instance.dialogueScript.lines = new List<string>(curEvent.endShopDialogue);
+        
         TileEventManager.Instance.EndEvent();
     }
     private void hideMenuButtons(List<GameObject> buttons, bool hide = false)

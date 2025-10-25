@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,8 +48,8 @@ public class EntityStats
 
     };
 
-    [SerializeField] public List<AttackBase> attacks = new List<AttackBase>();
-    [SerializeField] public DefenseBase[] defenses = new DefenseBase[4];
+    [JsonIgnore][SerializeField] public List<AttackBase> attacks = new List<AttackBase>();
+    [JsonIgnore][SerializeField] public DefenseBase[] defenses = new DefenseBase[4];
 
 
 

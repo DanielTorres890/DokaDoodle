@@ -366,6 +366,7 @@ public class NewCombatManager : NetworkBehaviour
             playerData player = (playerData)victor.stats;
             int levels = player.gainXp(xpHarvested + cache.xpOnTile);
             player.playerInfo[PlayerInfo.money] += moneyHarvested + cache.moneyOnTile;
+            cache.tileOwner = player.playerNumber;
             foreach(var item in  itemsPicked)
             {
                 NetworkData.Instance.AddItemToInventory(player.playerNumber, item);
@@ -416,7 +417,8 @@ public class NewCombatManager : NetworkBehaviour
         {
             
             endBattleInfo.lines.Add("Every player has been defeated");
-            foreach(var combat in allCombatants)
+            cache.tileOwner = -1;
+            foreach (var combat in allCombatants)
             {
                 if (combat.stats is playerData)
                 {

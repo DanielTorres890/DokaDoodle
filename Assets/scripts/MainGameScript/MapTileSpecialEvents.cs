@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class MapTileSpecialEvents : NetworkBehaviour
+public class MapTileSpecialEvents : NetworkBehaviour, IDataPersistance
 {
     public SpecialTileEventHold[][] mapTiles = new SpecialTileEventHold[10][];
   
@@ -21,5 +21,14 @@ public class MapTileSpecialEvents : NetworkBehaviour
     {
         return mapTiles[NetworkData.Instance.GetCurrentPlayer().curMap][NetworkData.Instance.GetCurrentPlayer().curTileId];
     }
-  
+
+    public void LoadData(GameData data)
+    {
+        mapTiles = data.tileEvents;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.tileEvents = mapTiles;
+    }
 }

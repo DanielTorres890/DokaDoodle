@@ -3,7 +3,7 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class WorldEventManager : NetworkBehaviour
+public class WorldEventManager : NetworkBehaviour, IDataPersistance
 {
     public WorldEventDataBase worldDatabase;
 
@@ -68,7 +68,20 @@ public class WorldEventManager : NetworkBehaviour
                 events.Progress();
             }
 
-            if (IsHost && Random.Range(0,100) > 70)
+            //i feel like theres a way to do weekly money gain with events (like on week change) vs this but im not sure since events
+            //are kinda preplanned? maybe the special tile event hold could have the function/subscribe here but id need to think more
+            for(int i = 0; i < NetworkData.Instance.maxPlayers; i++)
+            {
+                playerData player = NetworkData.Instance.players[i];
+                foreach (int tileid in player.ownedTowns)
+                {
+                    var curTile = MapTileSpecialEvents.Instance.mapTiles[0][tileid];
+                    player.playerInfo[PlayerInfo.money] += (curTile.townMoneyLevel + 1) * NetworkData.Instance.TownInfoDataBase.GetItem[curTile.townId].baseMoneyGeneration;
+                    Debug.Log("Gained Money from town");
+                }
+
+            }
+            if (IsHost && Random.Range(0,100) > 90)
             {
                 AddEventRpc(worldDatabase.GetId[randomEvents[Random.Range(0, randomEvents.Length)]]);
             }
@@ -119,6 +132,17 @@ public class WorldEventManager : NetworkBehaviour
         }
 
         return false;
+
+    }
+
+    public void LoadData(GameData data)
+    {
+        activeWorldEvents = data.worldEvents;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.worldEvents = activeWorldEvents;
 
     }
 }

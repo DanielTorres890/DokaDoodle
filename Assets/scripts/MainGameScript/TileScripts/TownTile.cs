@@ -9,6 +9,7 @@ public class TownTile : EventTIle
         if (MapTileSpecialEvents.Instance.GetCurrentTile().tileOwner == -1)
         {
             MapTileSpecialEvents.Instance.GetCurrentTile().tileOwner = NetworkData.Instance.currentPlayer;
+            NetworkData.Instance.GetCurrentPlayer().ownedTowns.Add(tileId);
         }
         base.TileEvent();
     }

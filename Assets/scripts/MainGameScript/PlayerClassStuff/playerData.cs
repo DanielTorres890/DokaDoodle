@@ -16,6 +16,7 @@ public class playerData : EntityStats
     public int curTileId;
     public int curMap;
 
+
     public int[] maxInventorySizes = new int[3];
     
 
@@ -43,7 +44,10 @@ public class playerData : EntityStats
 
 
     };
-    
+
+    public List<int> ownedTowns = new List<int>();
+
+
     public playerData()
     {
         playerClass = 0;

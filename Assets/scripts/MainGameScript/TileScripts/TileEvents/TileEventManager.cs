@@ -28,6 +28,7 @@ public class TileEventManager : NetworkBehaviour
 
         dialogueScript = dialogue.GetComponent<DialogueScript>();
         dialogue.SetActive(true);
+        dialogueScript.whoInControl = NetworkData.Instance.currentPlayer;
         dialogueScript.lines = new List<string>(NetworkData.Instance.currentEvent.dialouge);
         dialogueScript.Awake();
         StartCoroutine(completeEvent());

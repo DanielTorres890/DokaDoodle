@@ -13,7 +13,7 @@ public class ShowMeToAll : NetworkBehaviour
 
     public void ShowUIToAll ()
     {
-        if (NetworkData.Instance.currentPlayer != Convert.ToInt32(NetworkManager.Singleton.LocalClientId) && !IsHost) { return; }
+        if(!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
 
         ShowUIToAllServerRpc();
     }
@@ -34,7 +34,7 @@ public class ShowMeToAll : NetworkBehaviour
 
     public void HideUIFromAll()
     {
-        if (NetworkData.Instance.currentPlayer != Convert.ToInt32(NetworkManager.Singleton.LocalClientId) && !IsHost) { return; }
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         HideUiFromAllServerRpc();
     }
 
