@@ -8,6 +8,7 @@ public class ShopEvent : EventBase
 {
     public ItemBase[] itemsSold;
     public List<string> endShopDialogue;
+    public EnemyEncounter storeDefense;
     public override void FireEvent()
     {
         //no need for any of this then if its a seperate scene now im big sad

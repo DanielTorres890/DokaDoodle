@@ -34,13 +34,14 @@ public class playerData : EntityStats
 
     public int playerSpawnTile;
 
+    //this may get scrapped at somep point
     public Dictionary<ItemType, int> equipItems = new Dictionary<ItemType, int>
     {
-        { ItemType.Equipment , 0 },
-        { ItemType.Weapon,  0},
-        { ItemType.Magic , 0 },
-        { ItemType.Shield, 1 },
-        { ItemType.MagicGuard, 1 }
+        { ItemType.Equipment , -1 },
+        { ItemType.Weapon,  -1},
+        { ItemType.Magic , -1 },
+        { ItemType.Shield, -1 },
+        { ItemType.MagicGuard, -1 }
 
 
     };

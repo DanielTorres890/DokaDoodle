@@ -66,7 +66,7 @@ public class PlayerMoveManager : NetworkBehaviour
           
         }
         playerCam.Follow = playerSticks[NetworkData.Instance.currentPlayer].transform;
-  
+        FreeMover.Instance.playerCam = playerCam;   
 
 
 
@@ -105,8 +105,9 @@ public class PlayerMoveManager : NetworkBehaviour
         stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", true);
 
         diceRoll = num;
-        rollNum.text = diceRoll.ToString();
-        rollNum.transform.parent.gameObject.SetActive(true);
+        //id like to say that while this is not the most beautiful thing in the world i cant hate it
+        ClientChecks.Instance.rollNum.text = diceRoll.ToString();
+        ClientChecks.Instance.rollNum.transform.parent.gameObject.SetActive(true);
     }
    
 
@@ -211,7 +212,7 @@ public class PlayerMoveManager : NetworkBehaviour
         }
 
         SyncDiceRollServerRpc(diceRoll);
-        rollNum.text = diceRoll.ToString();
+        ClientChecks.Instance.rollNum.text = diceRoll.ToString();
         StopAllCoroutines();
         StartCoroutine(playerMover(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId));
         PlayerMoverRpc(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
@@ -255,7 +256,7 @@ public class PlayerMoveManager : NetworkBehaviour
     private void SetNextTurnServerRpc()
     {
         stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", false);
-        rollNum.transform.parent.gameObject.SetActive(true);
+        ClientChecks.Instance.rollNum.transform.parent.gameObject.SetActive(true);
         MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Add(NetworkData.Instance.currentPlayer);
 
         if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds.Count > 0 && IsServer)
@@ -289,29 +290,26 @@ public class PlayerMoveManager : NetworkBehaviour
 
     private void setUpTileEnemies()
     {
-        
-
-        if (MapTileSpecialEvents.Instance.mapTiles[mapNumber] == null)
+        Debug.Log("Ran the calcs");
+        if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber] == null)
         {
-            MapTileSpecialEvents.Instance.mapTiles[mapNumber] = new SpecialTileEventHold[mapTiles.Count];
-            for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[mapNumber].Length; i++)
+            MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber] = new SpecialTileEventHold[PlayerMoveManager.Instance.mapTiles.Count];
+            for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber].Length; i++)
             {
-                MapTileSpecialEvents.Instance.mapTiles[mapNumber][i] = new SpecialTileEventHold
+                MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i] = new SpecialTileEventHold
                 {
-                    battleArea = mapTiles[i].battleEnvironment
+                    battleArea = PlayerMoveManager.Instance.mapTiles[i].battleEnvironment
                 };
                 //id like to say that im not super happy about this but things are getting messy
                 //they NEED to know their town id right away otherwise its really unintuitive
-                if (Instance.mapTiles[i] is TownTile)
+                if (PlayerMoveManager.Instance.mapTiles[i] is TownTile)
                 {
-                    MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].townId = NetworkData.Instance.TownInfoDataBase.GetId[(Instance.mapTiles[i] as TownTile).Info];
+                    MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].townId = NetworkData.Instance.TownInfoDataBase.GetId[(PlayerMoveManager.Instance.mapTiles[i] as TownTile).Info];
                 }
             }
         }
-        else
-        {
 
-            for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[mapNumber].Length; i++)
+        for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[mapNumber].Length; i++)
             {
                 if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy.Count != 0)
                 {
@@ -324,8 +322,6 @@ public class PlayerMoveManager : NetworkBehaviour
 
             }
 
-        }
-
     }
 
     public void spawnEnemyOverworld(int tileId, int enemyId)
@@ -336,7 +332,7 @@ public class PlayerMoveManager : NetworkBehaviour
         enemy.transform.localScale = new Vector3(1, 1, 1);
         Debug.Log("OVERWORLD ENEMY SPAWNED AT " + tileId);
     }
-    private void FightOrNot()
+    /*private void FightOrNot()
     {
         bool rumble = false;
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
@@ -369,7 +365,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
             NextTurnRpc();
         }
-    }
+    }*/
 
     
 }

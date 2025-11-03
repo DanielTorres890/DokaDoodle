@@ -93,6 +93,12 @@ public class NewCombatManager : NetworkBehaviour
         }
 
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("NewBattleArea"));
+
+        if(PlayerCombatManager.Instance.currentEncounter.battleMusic)
+        {
+            AudioSource.resource = PlayerCombatManager.Instance.currentEncounter.battleMusic;
+            AudioSource.Play();
+        }
         
         //bc im dumb and didnt handle things earlier
         for (int i = 0; i < NetworkData.Instance.playerSticks.Count; i++)

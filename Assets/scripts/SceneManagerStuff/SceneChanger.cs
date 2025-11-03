@@ -50,7 +50,6 @@ public class SceneChanger : NetworkBehaviour
     [Rpc(SendTo.Server, RequireOwnership = false)]
     public void UnloadClientScenesRpc(string sceneName)
     {
-        Debug.Log("I better not be happening or ill crash out");
         
         NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(sceneName));
     }

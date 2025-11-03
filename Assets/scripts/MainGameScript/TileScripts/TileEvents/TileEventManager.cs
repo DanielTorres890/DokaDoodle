@@ -64,7 +64,7 @@ public class TileEventManager : NetworkBehaviour
             yield return null;
         }
         NetworkData.Instance.setNextTurnNum();
-        SceneChanger.Instance.loadClientScenesServerRpc("MainGameScene");
+        SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI");
     }
 
     public List<GameObject> createOptions(GameObject button, int num = 2)

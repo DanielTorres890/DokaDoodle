@@ -28,6 +28,7 @@ public class FreeMover : NetworkBehaviour
 
 
         onTileSelect = new UnityEvent<int>();
+        
 
     }
     public override void OnNetworkSpawn()

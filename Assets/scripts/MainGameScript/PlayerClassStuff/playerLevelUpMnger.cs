@@ -24,7 +24,8 @@ public class playerLevelUpMnger : NetworkBehaviour
         {Attributes.Defense, 0 },
         {Attributes.Magic, 0 },
         {Attributes.MDefense, 0 },
-        {Attributes.Dexterity, 0}
+        {Attributes.Dexterity, 0},
+        {Attributes.Potency, 0 },
 
     };
     private List<Attributes> playerAttributes = new List<Attributes>
@@ -34,7 +35,8 @@ public class playerLevelUpMnger : NetworkBehaviour
         Attributes.Defense,
         Attributes.Magic,
         Attributes.MDefense,
-        Attributes.Dexterity
+        Attributes.Dexterity,
+        Attributes.Potency,
     };
 
     public override void OnNetworkSpawn()
@@ -134,7 +136,7 @@ public class playerLevelUpMnger : NetworkBehaviour
 
         if(IsServer)
         {
-            SceneChanger.Instance.loadClientScenesServerRpc("MainGameScene");
+            SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI");
         }
     }
 }

@@ -18,22 +18,33 @@ public class ClientChecks : NetworkBehaviour
 
     public DialogueScript displayText;
     public GameObject mainMenuButtons;
+    
     private TextMeshProUGUI displayTxt;
-
+    public TextMeshProUGUI rollNum;
     public UnityEvent onRoundStart;
     public GameObject combatPreview;
     public UnityEvent onItemUse;//i'd like to say that im not that happy about whats going on here but this has to be better than updating stat UI every frame
     public UnityEvent onClassAbilityUse;
 
+    private bool loadedIn = false;
     //im gonna be so fr this whole thingy i have going on with this class is some big buns and im sorry to anyone who looks at this
     //(the main issue is im doing wayyy to much in here in the worst ways possible
    
     
     public override void OnNetworkSpawn()
     {
-
-        NetworkManager.SceneManager.OnLoadEventCompleted += SceneStart;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
         
+        if(IsHost)
+        {
+            StartCoroutine(WaitUntilAllLoaded());
+        }
+       
+        
+
         //StartCoroutine(WaitUntilAllLoaded());
         /* if(SceneChanger.Instance.everyoneLoaded())
          {
@@ -46,16 +57,46 @@ public class ClientChecks : NetworkBehaviour
 
     }
 
-    private void SceneStart(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    private void SceneStart()
     {
-        NetworkManager.SceneManager.OnLoadEventCompleted -= SceneStart;
-        PreturnStuff();
+        
+        loadedIn = false;
+        //THIS SHOULD CHANGE THIS IS ONLY FOR NOW
+        
+
+        //kind of a mickey mouse manuever but its okay i hope
+        if(!loadedIn)
+        {   
+            
+            if(IsHost)
+            {
+                NetworkManager.SceneManager.OnLoadEventCompleted += McChickenWrapper;
+                SceneChanger.Instance.loadClientScenesAddidtiveRpc("MainGameScene");
+            }
+        }
+        
+        loadedIn = true;
+    }
+    //silly name bc it only exists for this
+    private void McChickenWrapper(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    {
+        NetworkManager.SceneManager.OnLoadEventCompleted -= McChickenWrapper;
+        Debug.Log("Straight up Chicken");
+        
+        StartCoroutine(WaitUntilAllLoaded2());
+        
     }
 
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void EveryoneLockInRpc()
+    {
+        PreturnStuff();
+    }
     public void PreturnStuff()
     {
+        //im really not sure if this is the best way, its basically saying maps dont exist until someone sees them but surely that cant be good
         
-        
+
         NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
         NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
 
@@ -66,10 +107,7 @@ public class ClientChecks : NetworkBehaviour
     }
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
+        
 
         onRoundStart = new UnityEvent();
         
@@ -95,11 +133,11 @@ public class ClientChecks : NetworkBehaviour
 
             MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Remove(NetworkData.Instance.currentPlayer);
             PlayerMoveManager.Instance.playerCam.Follow = PlayerMoveManager.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
-            PlayerMoveManager.Instance.gameMenu.SetActive(true);
+            mainMenuButtons.SetActive(true);
             
             PopUpManager.Instance.PerformPopUp(0);
 
-            PlayerMoveManager.Instance.rollNum.gameObject.transform.parent.gameObject.SetActive(false);
+            rollNum.gameObject.transform.parent.gameObject.SetActive(false);
         }
 
         else
@@ -227,6 +265,7 @@ public class ClientChecks : NetworkBehaviour
         displayText.lines.Clear();
         NetworkData.Instance.classDataBase.GetItem[NetworkData.Instance.GetCurrentPlayer().playerClass].ClassAction(NetworkData.Instance.GetCurrentPlayer());
         displayText.lines.Add(NetworkData.Instance.classDataBase.GetItem[NetworkData.Instance.GetCurrentPlayer().playerClass].actionUseText);
+        
         StartCoroutine(usedAbility());
         onClassAbilityUse.Invoke();
 
@@ -303,6 +342,7 @@ public class ClientChecks : NetworkBehaviour
         mainMenuButtons.SetActive(false);
         displayText.whoInControl = NetworkData.Instance.currentPlayer;
         displayText.gameObject.SetActive(true);
+        displayText.Awake();
 
         mainMenuButtons.transform.GetChild(3).gameObject.GetComponent<ClassAbility>().setButtonText(); //nasty work i shouuld redo this frfr
         while (displayText.gameObject.activeSelf)
@@ -362,11 +402,26 @@ public class ClientChecks : NetworkBehaviour
 
     private IEnumerator WaitUntilAllLoaded()
     {
-        while(SceneChanger.Instance.everyoneLoaded())
+        while(!SceneChanger.Instance.everyoneLoaded())
         {
             yield return null;
         }
-        PreturnStuff();
-        Debug.Log("fmcl bruh WHY DOES IT DO IT MULTIPLE TIMES FOR EACH CLIENT THAT LOADS IN ON THE SERVER ");
+        SceneStart();
+
+        Debug.Log("am i doubled up?");
+       
+        
+    }
+    private IEnumerator WaitUntilAllLoaded2()
+    {
+        while (!SceneChanger.Instance.everyoneLoaded())
+        {
+            yield return null;
+        }
+
+
+        Debug.Log("am i doubled up?");
+
+        EveryoneLockInRpc();
     }
 }
