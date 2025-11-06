@@ -97,6 +97,8 @@ public class NewCombatManager : NetworkBehaviour
         if(PlayerCombatManager.Instance.currentEncounter.battleMusic)
         {
             AudioSource.resource = PlayerCombatManager.Instance.currentEncounter.battleMusic;
+            AudioSource.volume = SettingsManager.instance.volume;
+            SettingsManager.instance.onBackgroundVolumeChange.AddListener(UpdateVolume);
             AudioSource.Play();
         }
         
@@ -536,5 +538,11 @@ public class NewCombatManager : NetworkBehaviour
             currentSpec = cameras.Count - 1;
         }
         cameras[currentSpec].Priority = 10;
+    }
+
+    //good programming states that i shouldnt put this here but frick u (im sorry)
+    private void UpdateVolume()
+    {
+        AudioSource.volume = SettingsManager.instance.volume; 
     }
 }

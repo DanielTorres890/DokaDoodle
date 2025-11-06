@@ -594,6 +594,15 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Settings"",
+                    ""type"": ""Button"",
+                    ""id"": ""3cd92774-57ff-4d6e-9ee0-e800fb5107a0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1311,6 +1320,28 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""action"": ""UndoCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8cdd12c4-7d2b-4b76-a2c9-45a9565dcd2c"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Settings"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8182bbf2-2e7a-4c89-8be6-a96056fd26f0"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Settings"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1458,6 +1489,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         m_UI_FreeCamera = m_UI.FindAction("FreeCamera", throwIfNotFound: true);
         m_UI_MovingCamera = m_UI.FindAction("MovingCamera", throwIfNotFound: true);
         m_UI_UndoCamera = m_UI.FindAction("UndoCamera", throwIfNotFound: true);
+        m_UI_Settings = m_UI.FindAction("Settings", throwIfNotFound: true);
         // Spectating
         m_Spectating = asset.FindActionMap("Spectating", throwIfNotFound: true);
         m_Spectating_LeftCameraSwitch = m_Spectating.FindAction("LeftCameraSwitch", throwIfNotFound: true);
@@ -1694,6 +1726,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_FreeCamera;
     private readonly InputAction m_UI_MovingCamera;
     private readonly InputAction m_UI_UndoCamera;
+    private readonly InputAction m_UI_Settings;
     public struct UIActions
     {
         private @CustomInput m_Wrapper;
@@ -1712,6 +1745,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         public InputAction @FreeCamera => m_Wrapper.m_UI_FreeCamera;
         public InputAction @MovingCamera => m_Wrapper.m_UI_MovingCamera;
         public InputAction @UndoCamera => m_Wrapper.m_UI_UndoCamera;
+        public InputAction @Settings => m_Wrapper.m_UI_Settings;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1763,6 +1797,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @UndoCamera.started += instance.OnUndoCamera;
             @UndoCamera.performed += instance.OnUndoCamera;
             @UndoCamera.canceled += instance.OnUndoCamera;
+            @Settings.started += instance.OnSettings;
+            @Settings.performed += instance.OnSettings;
+            @Settings.canceled += instance.OnSettings;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1809,6 +1846,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @UndoCamera.started -= instance.OnUndoCamera;
             @UndoCamera.performed -= instance.OnUndoCamera;
             @UndoCamera.canceled -= instance.OnUndoCamera;
+            @Settings.started -= instance.OnSettings;
+            @Settings.performed -= instance.OnSettings;
+            @Settings.canceled -= instance.OnSettings;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1958,6 +1998,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         void OnFreeCamera(InputAction.CallbackContext context);
         void OnMovingCamera(InputAction.CallbackContext context);
         void OnUndoCamera(InputAction.CallbackContext context);
+        void OnSettings(InputAction.CallbackContext context);
     }
     public interface ISpectatingActions
     {
