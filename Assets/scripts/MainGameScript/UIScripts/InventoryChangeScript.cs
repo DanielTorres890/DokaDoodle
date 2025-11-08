@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ public class InventoryChangeScript : NetworkBehaviour
 {
     private int currentInventory = 0;
     [SerializeField] public DisplayInventory inventoryDisplay;
+
+    [SerializeField] private string[] inventoryNames;
+    [SerializeField] private TextMeshProUGUI nameText;
 
 
     public void ResetDisplay()
@@ -40,7 +44,7 @@ public class InventoryChangeScript : NetworkBehaviour
         if (currentInventory >= 2) { return; }
 
         currentInventory += 1;
-
+        nameText.text = inventoryNames[currentInventory];
         inventoryDisplay.CreateDisplay( NetworkData.Instance.currentPlayer, currentInventory);
     }
    /* [ClientRpc( RequireOwnership = false)]
@@ -65,6 +69,7 @@ public class InventoryChangeScript : NetworkBehaviour
         if (currentInventory <= 0) { return;  }
 
         currentInventory -= 1;
+        nameText.text = inventoryNames[currentInventory];
         inventoryDisplay.CreateDisplay(NetworkData.Instance.currentPlayer, currentInventory);
     }
 

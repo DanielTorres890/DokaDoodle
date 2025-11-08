@@ -145,14 +145,14 @@ public class ClientChecks : NetworkBehaviour
 
             if (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
             {
-                PlayerMoveManager.Instance.gameMenu.SetActive(false);
+                mainMenuButtons.SetActive(false);
 
                 if (IsServer) { ClientChecks.Instance.DisplayDeadRpc(); }
                 return;
             }
 
 
-            PlayerMoveManager.Instance.gameMenu.SetActive(false);
+            mainMenuButtons.SetActive(false);
 
             if (IsServer) { SyncEnemyRpc(0); }
 

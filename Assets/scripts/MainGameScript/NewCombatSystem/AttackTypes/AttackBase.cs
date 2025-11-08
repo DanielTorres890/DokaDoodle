@@ -45,6 +45,7 @@ public abstract class AttackBase : ScriptableObject
     [Tooltip("This is specifically for players, enemies have their clips in their own stuff")]
     public AnimationClip attackAnimation;
 
+    public ItemBuff[] LevelRequirements;
 
     public AudioClip attackSound;
     public AudioClip onHitSound;
@@ -108,6 +109,17 @@ public abstract class AttackBase : ScriptableObject
         }
 
         return 1 + (usedPotency + 1) / (requiredPotency + 1) * (chargeDuration / maxChargeDuration);
+    }
+    public bool meetsRequirement(EntityStats entity)
+    {
+        foreach(var Requirement in LevelRequirements)
+        {
+            if (entity.stats[Requirement.attribute]  < entity.stats[Requirement.attribute])
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
 

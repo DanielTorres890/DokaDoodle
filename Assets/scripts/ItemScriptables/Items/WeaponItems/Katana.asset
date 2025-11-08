@@ -15,10 +15,16 @@ MonoBehaviour:
   itemSprite: {fileID: -3166058781739055145, guid: 1e834e05bdb73514682dab921ed10df7, type: 3}
   type: 2
   itemValue: 0
-  description: A pretty light blade
+  description: 'Performs an attack that dashes forward cutting anything you pass
+    through
+
+    Requires: 7 ATK'
   useText: Weapon Equipped
   itemName: Katana
   buffs:
   - attribute: 2
     value: 10
   attack: {fileID: 11400000, guid: ffa5a809d7479794ba87d08d7a51802b, type: 2}
+  skillRequirements:
+  - attribute: 2
+    value: 7

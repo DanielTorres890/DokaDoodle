@@ -104,19 +104,22 @@ public class playerData : EntityStats
 
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
         {
-            
-            if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem))) { continue; }
+            var thisWeapon = NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem;
 
-            if (this.attacks.Contains((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem).attack)) { continue; }
+            if (!UsableItem(thisWeapon)) { continue; }
+            if (!thisWeapon.attack.meetsRequirement(this)) { continue; }
 
-            this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem).attack);
+            if (this.attacks.Contains(thisWeapon.attack)) { continue; }
+
+            this.attacks.Add(thisWeapon.attack);
         }
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][2].container.Count; i++)
         {
-            if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem))) { continue; }
+            var thisWeapon = NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem;
+            if (!UsableItem(thisWeapon)) { continue; }
 
-            if (this.attacks.Contains((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack)) { continue; }
-            this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack);
+            if (this.attacks.Contains(thisWeapon.attack)) { continue; }
+            this.attacks.Add(thisWeapon.attack);
         }
 
         this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[playerClass].combatAbility);

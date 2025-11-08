@@ -15,8 +15,13 @@ MonoBehaviour:
   itemSprite: {fileID: 21300000, guid: 5387d20b2ae5db649b2e713ff3f7604c, type: 3}
   type: 4
   itemValue: 200
-  description: A small ember fires out
+  description: 'Fires a small ball of fire doing light AOE dmg
+
+    Requires: 5 MAG'
   useText: 
   itemName: Flare
   buffs: []
   attack: {fileID: 11400000, guid: 50d494befe4997d44bd7940cf21fe7f0, type: 2}
+  skillRequirements:
+  - attribute: 4
+    value: 5
