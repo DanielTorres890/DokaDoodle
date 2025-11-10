@@ -11,7 +11,9 @@ public class InventoryChangeScript : NetworkBehaviour
 
     [SerializeField] private string[] inventoryNames;
     [SerializeField] private TextMeshProUGUI nameText;
-
+    [TextArea(3,12)]
+    [SerializeField] private string[] inventoryToolTips;
+    [SerializeField] private TextMeshProUGUI mouseOverText;
 
     public void ResetDisplay()
     {
@@ -45,6 +47,7 @@ public class InventoryChangeScript : NetworkBehaviour
 
         currentInventory += 1;
         nameText.text = inventoryNames[currentInventory];
+        mouseOverText.text = inventoryToolTips[currentInventory];
         inventoryDisplay.CreateDisplay( NetworkData.Instance.currentPlayer, currentInventory);
     }
    /* [ClientRpc( RequireOwnership = false)]
@@ -70,8 +73,12 @@ public class InventoryChangeScript : NetworkBehaviour
 
         currentInventory -= 1;
         nameText.text = inventoryNames[currentInventory];
+        mouseOverText.text = inventoryToolTips[currentInventory];
         inventoryDisplay.CreateDisplay(NetworkData.Instance.currentPlayer, currentInventory);
     }
-
+    public void currentMouseOver()
+    {
+        mouseOverText.text = inventoryToolTips[currentInventory];
+    }
     
 }

@@ -26,6 +26,7 @@ public class ClientChecks : NetworkBehaviour
     public UnityEvent onItemUse;//i'd like to say that im not that happy about whats going on here but this has to be better than updating stat UI every frame
     public UnityEvent onClassAbilityUse;
 
+    public Image worldEventImage;
     private bool loadedIn = false;
     //im gonna be so fr this whole thingy i have going on with this class is some big buns and im sorry to anyone who looks at this
     //(the main issue is im doing wayyy to much in here in the worst ways possible
@@ -359,6 +360,8 @@ public class ClientChecks : NetworkBehaviour
     {
         displayText.lines.Clear();
         displayText.lines.Add(WorldEventManager.Instance.eventsToActivate[0].ActivateText);
+        worldEventImage.sprite = WorldEventManager.Instance.eventsToActivate[0].eventDisplay;
+        worldEventImage.gameObject.SetActive(true);
         WorldEventManager.Instance.eventsToActivate[0].OnActivate();
         displayText.gameObject.SetActive(true);
         displayText.whoInControl = NetworkData.Instance.currentPlayer;
@@ -368,6 +371,7 @@ public class ClientChecks : NetworkBehaviour
         {
             yield return null;
         }
+        worldEventImage.gameObject.SetActive(false);
         WorldEventManager.Instance.eventsToActivate.RemoveAt(0);
         if (WorldEventManager.Instance.eventsToActivate.Count > 0) { StartCoroutine(displayActivateEvent()); }
 

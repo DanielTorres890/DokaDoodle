@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WorldEventManager : NetworkBehaviour, IDataPersistance
 {
     public WorldEventDataBase worldDatabase;
 
-    public WorldEventBase[] randomEvents;
+    public WorldAndWeight[] randomEvents;
     public WorldEventBase[] questEvents;
 
 
@@ -18,6 +19,8 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     public List<WorldEventBase> completeWorldEvents = new List<WorldEventBase>();
 
     public static WorldEventManager Instance;
+
+    public UnityEvent onDayChange; //once again im not a huge fan but better than some alternatives
     public int turns;
     public int days;
     public int weeks;
@@ -25,7 +28,11 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     public int daysPerWeek;
     private void Awake()
     {
-        if(Instance == null) { Instance = this; }
+        if(Instance == null) 
+        { 
+            Instance = this;
+            days -= 1; //bc me noob and dont know how to actually handle this
+        }
 
     }
     void Start()
@@ -45,7 +52,9 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
         
         if (turns >= NetworkData.Instance.maxPlayers)
         {
+            
             days += 1;
+            onDayChange.Invoke();
             turns = 0;
             Debug.Log("NEXT DAY TotalPlayers: " + NetworkData.Instance.playerCount);
         }
@@ -70,20 +79,27 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
             //i feel like theres a way to do weekly money gain with events (like on week change) vs this but im not sure since events
             //are kinda preplanned? maybe the special tile event hold could have the function/subscribe here but id need to think more
-            for(int i = 0; i < NetworkData.Instance.maxPlayers; i++)
+            PopUpManager.Instance.PerformPopUp(1, true);
+            if (IsHost && Random.Range(0,100) > 30)
             {
-                playerData player = NetworkData.Instance.players[i];
-                foreach (int tileid in player.ownedTowns)
+                int totalWeight = 0;
+                foreach(var weighted in randomEvents)
                 {
-                    var curTile = MapTileSpecialEvents.Instance.mapTiles[0][tileid];
-                    player.playerInfo[PlayerInfo.money] += (curTile.townMoneyLevel + 1) * NetworkData.Instance.TownInfoDataBase.GetItem[curTile.townId].baseMoneyGeneration;
-                    Debug.Log("Gained Money from town");
+                    totalWeight += weighted.weight;
                 }
+                
+                int randomWeight = Random.Range(0, totalWeight);
+                int currentWeight = randomEvents[0].weight;
+                foreach(var weighted in randomEvents)
+                {
+                    if(randomWeight < currentWeight)
+                    {
+                        AddEventRpc(worldDatabase.GetId[weighted.worldEvent]);
+                        break;
+                    }
 
-            }
-            if (IsHost && Random.Range(0,100) > 90)
-            {
-                AddEventRpc(worldDatabase.GetId[randomEvents[Random.Range(0, randomEvents.Length)]]);
+                }
+                //AddEventRpc(worldDatabase.GetId[randomEvents[Random.Range(0, randomEvents.Length)]]);
             }
             if (IsHost && (eventsToActivate.Count > 0 || eventsToDeactivate.Count > 0))
             {
@@ -145,4 +161,10 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
         data.worldEvents = activeWorldEvents;
 
     }
+}
+[System.Serializable]
+public class WorldAndWeight
+{
+    public WorldEventBase worldEvent;
+    public int weight;
 }

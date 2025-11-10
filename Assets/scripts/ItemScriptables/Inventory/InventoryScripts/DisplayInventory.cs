@@ -50,8 +50,9 @@ public class DisplayInventory : MonoBehaviour
                 var obj = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
                 obj.transform.GetComponent<Image>().sprite = inventory.container[i].item.itemSprite;
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-  
-                
+                obj.transform.SetAsFirstSibling();
+
+
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
                 itemsDisplayed.Add(inventory.container[i], obj);
             }
@@ -69,6 +70,7 @@ public class DisplayInventory : MonoBehaviour
 
             var tempId = i; //WHY IS THIS A THING THAT HAS TO BE DONE
             var obj = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
+            obj.transform.SetAsFirstSibling();
             obj.transform.GetComponent<Image>().sprite = inventory.container[i].item.itemSprite;
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
             if (displayType == InvDisplayType.Inventory)

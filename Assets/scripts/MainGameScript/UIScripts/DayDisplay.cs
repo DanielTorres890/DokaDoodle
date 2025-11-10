@@ -8,7 +8,7 @@ public class DayDisplay : MonoBehaviour
     {
         dayText = GetComponent<TextMeshProUGUI>();
         UpdateText();
-        ClientChecks.Instance.onRoundStart.AddListener(UpdateText);
+        WorldEventManager.Instance.onDayChange.AddListener(UpdateText);
     }
 
     // Update is called once per frame

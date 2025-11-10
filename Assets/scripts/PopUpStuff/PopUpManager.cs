@@ -18,10 +18,10 @@ public class PopUpManager : MonoBehaviour, IDataPersistance
 
     
 
-    public void PerformPopUp(int popUpId)
+    public void PerformPopUp(int popUpId, bool repeating = false)
     {
 
-        if (seenPopUpIds.Contains(popUpId)) { return; }
+        if (seenPopUpIds.Contains(popUpId) && !repeating) { return; }
         currentPopUp = PopUpDatabase.GetItem[popUpId];
         seenPopUpIds.Add(popUpId);
 
