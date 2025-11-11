@@ -26,12 +26,13 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     public int weeks;
 
     public int daysPerWeek;
+    public bool firstTime = false; //im a bum so im sticking duct tape to fix this
     private void Awake()
     {
         if(Instance == null) 
         { 
             Instance = this;
-            days -= 1; //bc me noob and dont know how to actually handle this
+            //bc me noob and dont know how to actually handle this
         }
 
     }
@@ -47,6 +48,12 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     }
     public void ProgressDay()
     {
+        if(!firstTime) 
+        { 
+            firstTime = true;
+            ClientChecks.Instance.TurnStartChecks();
+            return;
+        }
         turns++;
         
         

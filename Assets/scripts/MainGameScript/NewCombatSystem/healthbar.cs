@@ -10,7 +10,7 @@ public class healthbar : MonoBehaviour
     {
         slider = GetComponent<Slider>();
         gameObject.SetActive(true);
-        manager.onEnergyChange.AddListener(UpdateSize);
+        manager.onHit.AddListener(UpdateSize);
         UpdateSize();
     }
     //this seems to work completely find for the main editor but stops working on the multiplay one (which im not sure why at all) should check if that happens in final version

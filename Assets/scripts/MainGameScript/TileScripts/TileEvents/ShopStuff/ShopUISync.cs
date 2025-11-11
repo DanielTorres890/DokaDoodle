@@ -17,10 +17,15 @@ public class ShopUISync : NetworkBehaviour
     private ShopEvent curEvent;
     public static ShopUISync instance;
     [SerializeField] private ShopUICreator buyShopStuff;
+    [SerializeField] private Image background;
     private void Awake()
     {
         instance = this;
         curEvent = (NetworkData.Instance.currentEvent as ShopEvent);
+        if (curEvent.background)
+        {
+            background.sprite = curEvent.background;
+        }
     }
     public void BuyButton()
     {

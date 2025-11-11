@@ -23,8 +23,11 @@ public class PlayerUIManager : MonoBehaviour
 
         playerHealthBar.manager = abilityManager;
         playerEnergyBar.manager = abilityManager;
+        playerHealthBar.gameObject.SetActive(true);
         playerHealthBar.SetUp();
+        playerEnergyBar.gameObject.SetActive(true);
         playerEnergyBar.SetUp();
+        
         foreach (var attack in abilityManager.orderedAttacks)
         {
          

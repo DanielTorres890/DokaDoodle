@@ -306,6 +306,10 @@ public class PlayerMoveManager : NetworkBehaviour
                 {
                     MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].townId = NetworkData.Instance.TownInfoDataBase.GetId[(PlayerMoveManager.Instance.mapTiles[i] as TownTile).Info];
                 }
+                else
+                {
+                    MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].townId = -1;
+                }
             }
         }
 

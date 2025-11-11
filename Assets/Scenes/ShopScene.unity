@@ -761,19 +761,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700918888031821364, guid: 862aca850e549a3428bdc4b209d02b7d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1703.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5700918888031821364, guid: 862aca850e549a3428bdc4b209d02b7d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 255.65
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5700918888031821364, guid: 862aca850e549a3428bdc4b209d02b7d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.012215
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5700918888031821364, guid: 862aca850e549a3428bdc4b209d02b7d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00079823
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6212743969821964402, guid: 862aca850e549a3428bdc4b209d02b7d, type: 3}
       propertyPath: nextScene
@@ -946,27 +946,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2759380255128693150, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2759380255128693150, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2759380255128693150, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2759380255128693150, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2759380255128693150, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2759380255128693150, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2759380255128693150, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1124,6 +1124,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   inventoryDisplay: {fileID: 1627102213}
+  inventoryNames: []
+  nameText: {fileID: 0}
+  inventoryToolTips: []
+  mouseOverText: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -374,7 +374,17 @@ public class NewCombatManager : NetworkBehaviour
             playerData player = (playerData)victor.stats;
             int levels = player.gainXp(xpHarvested + cache.xpOnTile);
             player.playerInfo[PlayerInfo.money] += moneyHarvested + cache.moneyOnTile;
-            cache.tileOwner = player.playerNumber;
+
+            if (cache.townId > -1 && cache.tileOwner != player.playerNumber)
+            {
+                if(cache.tileOwner != -1)
+                {
+                    NetworkData.Instance.players[cache.tileOwner].ownedTowns.Remove(cache.townId);
+                }
+                cache.tileOwner = player.playerNumber;
+                player.ownedTowns.Add(cache.townId);
+            }
+            
             foreach(var item in  itemsPicked)
             {
                 NetworkData.Instance.AddItemToInventory(player.playerNumber, item);
@@ -425,7 +435,11 @@ public class NewCombatManager : NetworkBehaviour
         {
             
             endBattleInfo.lines.Add("Every player has been defeated");
-            cache.tileOwner = -1;
+            if((victor.stats as EnemyCombat).persistant)
+            {
+                NetworkData.Instance.players[cache.tileOwner].ownedTowns.Remove(cache.townId);
+                cache.tileOwner = -1;
+            }
             foreach (var combat in allCombatants)
             {
                 if (combat.stats is playerData)
