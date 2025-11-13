@@ -178,10 +178,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8178005292931169646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0032958984, y: 123.06259}
-  m_SizeDelta: {x: 1631.4, y: 603.6249}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9206413578385292681
 CanvasRenderer:
@@ -211,10 +211,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: This should pop up the first time someones turn starts so if you see this
-    more than once fmcl and if you dont then YIPPE. Once you're ready click on this
-    pop up to make it go away (keep in mind only whoevers turn it is can make the
-    pop up go away)
+  m_text: "This should pop up the first time someones turn starts so if you see this
+    more than once fmcl and if you dont then YIPPE. \nThere's only one main goal
+    of this demo and thats to SLAY MALDING MOLE (assuming nothing breaks before then)\nOnce
+    you're ready click on this pop up to make it go away (keep in mind only whoevers
+    turn it is can make the pop up go away)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

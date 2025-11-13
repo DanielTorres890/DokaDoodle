@@ -7,7 +7,7 @@ public class EndOfWeek : MonoBehaviour
 
     private void Start()
     {
-        string popUpString = "";
+        string popUpString = "End of week gold gains \n";
         for (int i = 0; i < NetworkData.Instance.maxPlayers; i++)
         {
             playerData player = NetworkData.Instance.players[i];
