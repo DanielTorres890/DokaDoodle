@@ -16,6 +16,7 @@ public class UIStatUpdate : MonoBehaviour
         ClientChecks.Instance.onItemUse.AddListener(StatUpdate);
         ClientChecks.Instance.onClassAbilityUse.AddListener(StatUpdate);
         ClientChecks.Instance.onRoundStart.AddListener(StatUpdate);
+        WorldEventManager.Instance.onDayChange.AddListener(StatUpdate);
         StatUpdate();
     }
     void Update()

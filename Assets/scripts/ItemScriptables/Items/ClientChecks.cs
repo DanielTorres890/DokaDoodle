@@ -103,7 +103,7 @@ public class ClientChecks : NetworkBehaviour
 
         onRoundStart.Invoke();
         WorldEventManager.Instance.ProgressDay();
-       
+        
 
     }
     private void Awake()

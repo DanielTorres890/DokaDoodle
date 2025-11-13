@@ -46,8 +46,11 @@ public class InventoryChangeScript : NetworkBehaviour
         if (currentInventory >= 2) { return; }
 
         currentInventory += 1;
-        nameText.text = inventoryNames[currentInventory];
-        mouseOverText.text = inventoryToolTips[currentInventory];
+        if (nameText)
+        {
+            nameText.text = inventoryNames[currentInventory];
+            mouseOverText.text = inventoryToolTips[currentInventory];
+        }
         inventoryDisplay.CreateDisplay( NetworkData.Instance.currentPlayer, currentInventory);
     }
    /* [ClientRpc( RequireOwnership = false)]
@@ -72,8 +75,12 @@ public class InventoryChangeScript : NetworkBehaviour
         if (currentInventory <= 0) { return;  }
 
         currentInventory -= 1;
-        nameText.text = inventoryNames[currentInventory];
-        mouseOverText.text = inventoryToolTips[currentInventory];
+        if(nameText)
+        {
+            nameText.text = inventoryNames[currentInventory];
+            mouseOverText.text = inventoryToolTips[currentInventory];
+        }
+        
         inventoryDisplay.CreateDisplay(NetworkData.Instance.currentPlayer, currentInventory);
     }
     public void currentMouseOver()

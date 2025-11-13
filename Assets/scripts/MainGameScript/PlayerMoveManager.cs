@@ -27,6 +27,10 @@ public class PlayerMoveManager : NetworkBehaviour
     public bool canMove = false;
     public bool cameraMove = false;
 
+    [Tooltip("DEBUG OPTION forces a number to be rolled")]
+    public bool forceRoll;
+    [Tooltip("if forceroll is on this is the number to be rolled")]
+    public int forcedRollNum;
 
 
     int diceRoll = 0;
@@ -84,13 +88,21 @@ public class PlayerMoveManager : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         int randomNum = UnityEngine.Random.Range(0, 100);
 
-        if (randomNum <= 3) { diceRoll = 1; }
+        if (randomNum <= 3) { diceRoll = 0; }
 
         else { diceRoll = Convert.ToInt32(Math.Ceiling(randomNum / 14f));  }
 
 
         canMove = true;
-        SyncDiceRollServerRpc(3); //can force die roll with this
+        if(forceRoll)
+        {
+            SyncDiceRollServerRpc(forcedRollNum);//can force die roll with this
+        }
+        else
+        {
+            SyncDiceRollServerRpc(diceRoll); 
+        }
+        
         takenPath.Clear();
         mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].playersOnTile[NetworkData.Instance.currentPlayer] = false;
         takenPath.Add(mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].gameObject);
@@ -226,7 +238,7 @@ public class PlayerMoveManager : NetworkBehaviour
         diceRoll++;
         takenPath.RemoveAt(takenPath.Count-1);
         SyncDiceRollServerRpc(diceRoll);
-        rollNum.text = diceRoll.ToString();
+        ClientChecks.Instance.rollNum.text = diceRoll.ToString();
         StopAllCoroutines();
         StartCoroutine(playerMover(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId));
         PlayerMoverRpc(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
