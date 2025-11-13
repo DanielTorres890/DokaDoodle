@@ -74,9 +74,6 @@ public class PlayerMoveManager : NetworkBehaviour
     
     private void Update()
     {
-        if (!cameraMove) {  }
-        
-        else {  playerCam.transform.position += cameraMoveDirection * cameraSpeed * Time.deltaTime; }
     }
 
 
@@ -133,6 +130,7 @@ public class PlayerMoveManager : NetworkBehaviour
     {   
         
         if (!canMove) { return; }
+        if (cameraMove) { return;}
         var direction = action.action.ReadValue<Vector2>();
         var curTile = mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
 
@@ -371,5 +369,22 @@ public class PlayerMoveManager : NetworkBehaviour
         }
     }*/
 
-    
+    public void FreeCamera()
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        if (!canMove) { return; }
+
+        cameraMove = true;
+
+        FreeMover.Instance.onUndoFree.AddListener(delegate { cameraMove = false; });
+        FreeMover.Instance.FreeCamera();
+    }
+    public void UnfreeCamera()
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        if (!canMove) { return; }
+        if(!cameraMove) { return; }
+
+        FreeMover.Instance.EndFreeCamera();
+    }
 }

@@ -118,7 +118,7 @@ public class DialogueScript : NetworkBehaviour
             
             //once again fmcl
             if(background)
-            background.gameObject.SetActive(false);
+            gameObject.SetActive(false);
 
 
             endEvent.Invoke();

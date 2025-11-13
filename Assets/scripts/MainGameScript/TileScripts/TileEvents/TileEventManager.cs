@@ -54,7 +54,7 @@ public class TileEventManager : NetworkBehaviour
     public void EndEvent()
     {
         dialogue.SetActive(true);
-        dialogueScript.Awake();
+        dialogueScript.startDialogue();
         StartCoroutine(additionalDialogue());
     }
     private IEnumerator additionalDialogue()

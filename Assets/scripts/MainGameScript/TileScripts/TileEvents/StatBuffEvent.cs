@@ -17,7 +17,7 @@ public class StatBuffEvent : EventBase
     {
     
         TileEventManager.Instance.dialogueScript.lines.Clear();
-        TileEventManager.Instance.dialogueScript.lines.Add("Imagine u got some juice");
+        TileEventManager.Instance.dialogueScript.lines.Add("Imagine some magically thingy juiced you up");
         string textToAdd = "You Gained ";
         if (buffs.Length > 0)
         {
