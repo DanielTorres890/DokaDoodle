@@ -370,6 +370,10 @@ PrefabInstance:
       propertyPath: rightTile
       value: 
       objectReference: {fileID: 365233453}
+    - target: {fileID: 4167338426680809358, guid: 504eb41076951fe45a258198990da1d5, type: 3}
+      propertyPath: defaultTileEnemies
+      value: 
+      objectReference: {fileID: 11400000, guid: df61bc776fba047479f85c388cc42091, type: 2}
     - target: {fileID: 4582226151731708076, guid: 504eb41076951fe45a258198990da1d5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20
@@ -459,6 +463,10 @@ PrefabInstance:
       propertyPath: leftTile
       value: 
       objectReference: {fileID: 1788415045}
+    - target: {fileID: 4167338426680809358, guid: 504eb41076951fe45a258198990da1d5, type: 3}
+      propertyPath: defaultTileEnemies
+      value: 
+      objectReference: {fileID: 11400000, guid: a2004e00679393045a0a0c7a020438e8, type: 2}
     - target: {fileID: 4582226151731708076, guid: 504eb41076951fe45a258198990da1d5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 30
@@ -771,6 +779,7 @@ MonoBehaviour:
   forcedRollNum: 0
   cameraSpeed: 10
   moveSpeed: 50
+  enemyDistance: {x: 2, y: 1}
 --- !u!4 &361615209
 Transform:
   m_ObjectHideFlags: 0
@@ -1482,6 +1491,10 @@ PrefabInstance:
       propertyPath: rightTile
       value: 
       objectReference: {fileID: 1751924493}
+    - target: {fileID: 4167338426680809358, guid: 504eb41076951fe45a258198990da1d5, type: 3}
+      propertyPath: defaultTileEnemies
+      value: 
+      objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 4582226151731708076, guid: 504eb41076951fe45a258198990da1d5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -40

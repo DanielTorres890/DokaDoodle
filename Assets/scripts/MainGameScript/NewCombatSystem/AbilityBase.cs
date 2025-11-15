@@ -44,10 +44,11 @@ public abstract class AbilityBase : NetworkBehaviour
     }
     public int DamageCalculator(EntityStats defender)
     {
-        float totalDamge = 0;
+        float totalDamge = attackInfo.baseDamage;
+
         foreach (var offense in attackInfo.multipliers)
         {
-            Debug.Log("The owners offense stat " + ownerStats.postStatusStats[offense.attribute] + "Who is the owner " + owner.name);
+ 
             totalDamge += offense.mult * ownerStats.postStatusStats[offense.attribute];
         }
         foreach (var defense in attackInfo.defenseMult)
@@ -79,7 +80,7 @@ public abstract class AbilityBase : NetworkBehaviour
                 return;
             }
 
-            Debug.Log("Who did I hit: " + other.gameObject.name + "\n Who Am I? " + ownerStats.name);
+
             hitby.ImHitRpc(DamageCalculator(hitby.stats));
             if (AudioSource && attackInfo.onHitSound)
             {

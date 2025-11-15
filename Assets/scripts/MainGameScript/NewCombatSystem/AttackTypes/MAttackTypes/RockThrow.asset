@@ -20,12 +20,20 @@ MonoBehaviour:
   cooldown: 0
   lifespan: 12
   energyDrain: 2
+  maxChargeAtkBuff: 1.2
+  maxChargeSizeBuff: 1.2
+  maxChargeSpeedBuff: 1.1
+  maxChargeDuration: 3
+  requiredPotency: 0
+  dmgPotencyEffect: 2
+  sizePotencyEffect: 2
   stateToBe: 0
   chargeable: 1
   attackPrefab: {fileID: 4958144232811764369, guid: 4668d625169cc90448d3030b4cde0002, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 1, y: 1, z: 1}
+  baseDamage: 10
   multipliers:
   - attribute: 2
     mult: 1.8
@@ -48,6 +56,7 @@ MonoBehaviour:
   - attribute: 6
     mult: 1
   attackAnimation: {fileID: 0}
+  LevelRequirements: []
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
   speed: 12

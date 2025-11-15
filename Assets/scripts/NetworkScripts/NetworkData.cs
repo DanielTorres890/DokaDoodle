@@ -47,6 +47,8 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         { Attributes.Potency, "POT" }
 
     };
+
+    public int statsPerLevel = 2;
     public const string BattleScene = "NewBattleArea";
     public void Awake()
     {

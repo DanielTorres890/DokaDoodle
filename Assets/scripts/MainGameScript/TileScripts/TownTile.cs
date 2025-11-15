@@ -6,10 +6,9 @@ public class TownTile : EventTIle
 
     public override void TileEvent()
     {
-        if (MapTileSpecialEvents.Instance.GetCurrentTile().tileOwner == -1)
+        if (MapTileSpecialEvents.Instance.GetCurrentTile().tileOwner == -1 && MapTileSpecialEvents.Instance.GetCurrentTile().tileEnemy.Count <= 0)
         {
-            MapTileSpecialEvents.Instance.GetCurrentTile().tileOwner = NetworkData.Instance.currentPlayer;
-            NetworkData.Instance.GetCurrentPlayer().ownedTowns.Add(tileId);
+            NetworkData.Instance.GetCurrentPlayer().GainTown(MapTileSpecialEvents.Instance.GetCurrentTile());
         }
         base.TileEvent();
     }

@@ -31,12 +31,16 @@ public class PlayerMoveManager : NetworkBehaviour
     public bool forceRoll;
     [Tooltip("if forceroll is on this is the number to be rolled")]
     public int forcedRollNum;
-
+    
 
     int diceRoll = 0;
 
     [SerializeField] private float cameraSpeed = 5f;
     [SerializeField] private float moveSpeed = 500f;
+    [Tooltip("When enemies are visually spawned on the overworld this is how far apart they'll be ")]
+    public Vector2 enemyDistance;
+
+
     private Vector3 cameraMoveDirection;
 
     public static PlayerMoveManager Instance;
@@ -143,7 +147,10 @@ public class PlayerMoveManager : NetworkBehaviour
         
         if (!canMove) { return; }
         if (cameraMove) { return;}
-        var direction = action.action.ReadValue<Vector2>();
+        //just as a note to self taken path defaults to your current tile being in there after a roll so its always at least 1
+        if (takenPath.Count <= 1 && diceRoll <= 0) { return; };
+
+            var direction = action.action.ReadValue<Vector2>();
         var curTile = mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
 
        
@@ -234,7 +241,7 @@ public class PlayerMoveManager : NetworkBehaviour
         if (!canMove || takenPath.Count < 2 || !action.performed) { return; }
 
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = takenPath[takenPath.Count-2].GetComponent<TileScript>().tileId;
-        Debug.Log("who tf u think u is " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
+        
         diceRoll++;
         takenPath.RemoveAt(takenPath.Count-1);
         SyncDiceRollServerRpc(diceRoll);
@@ -298,9 +305,11 @@ public class PlayerMoveManager : NetworkBehaviour
         
     }
 
+    //id like to say that in an ideal world id be able to directly set up a lot of these things in the inspector
+    //but it doesnt support 2d data structures
     private void setUpTileEnemies()
     {
-        Debug.Log("Ran the calcs");
+
         if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber] == null)
         {
             MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber] = new SpecialTileEventHold[PlayerMoveManager.Instance.mapTiles.Count];
@@ -315,6 +324,11 @@ public class PlayerMoveManager : NetworkBehaviour
                 if (PlayerMoveManager.Instance.mapTiles[i] is TownTile)
                 {
                     MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].townId = NetworkData.Instance.TownInfoDataBase.GetId[(PlayerMoveManager.Instance.mapTiles[i] as TownTile).Info];
+                    foreach (var enemy in Instance.mapTiles[i].defaultTileEnemies.enemies)
+                    {
+                        MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].tileEnemy.Add(new EnemyCombat(enemy));
+                    }
+                    
                 }
                 else
                 {
@@ -327,24 +341,25 @@ public class PlayerMoveManager : NetworkBehaviour
             {
                 if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy.Count != 0)
                 {
-                    foreach (var enemies in MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy)
-                    {
-                        spawnEnemyOverworld(i, enemies.enemyId);
-                    }
-                    
+                    spawnEnemyOverworld(i, MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy);
+
                 }
 
             }
 
     }
 
-    public void spawnEnemyOverworld(int tileId, int enemyId)
+    public void spawnEnemyOverworld(int tileId, List<EnemyCombat> enemies)
     {
-        var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemyId].enemyNonCombatPrefab);
-        enemy.transform.position = mapTiles[tileId].transform.position;
-        enemy.transform.position = new Vector3(enemy.transform.position.x - 0, enemy.transform.position.y, enemy.transform.position.z + 0);
-        enemy.transform.localScale = new Vector3(1, 1, 1);
-        Debug.Log("OVERWORLD ENEMY SPAWNED AT " + tileId);
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemies[i].enemyId].enemyNonCombatPrefab);
+            enemy.transform.position = mapTiles[tileId].transform.position;
+            enemy.transform.position = new Vector3(enemy.transform.position.x + (enemyDistance.x * (i % (enemies.Count/2 + 1))), enemy.transform.position.y,enemy.transform.position.z+ (-enemyDistance.y * (i / ((enemies.Count / 2)+ 1))));
+            enemy.transform.localScale = new Vector3(1, 1, 1);
+
+        }
+        
     }
     /*private void FightOrNot()
     {
@@ -399,4 +414,6 @@ public class PlayerMoveManager : NetworkBehaviour
 
         FreeMover.Instance.EndFreeCamera();
     }
+
+
 }

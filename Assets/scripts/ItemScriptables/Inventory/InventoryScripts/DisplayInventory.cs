@@ -114,9 +114,7 @@ public class DisplayInventory : MonoBehaviour
         
 
         inventory = NetworkData.Instance.playerInventories[playerNum][inventoryType];
-        Debug.Log("HOW MUCH" + inventory.container.Count);
-        Debug.Log("WHO " +  playerNum);
-        Debug.Log("WHICH ONE " + inventoryType);
+
 
 
         foreach (GameObject item in itemsDisplayed.Values)

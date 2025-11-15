@@ -30,6 +30,7 @@ public class NewCombatManager : NetworkBehaviour
 
     private int xpHarvested;
     private int moneyHarvested;
+
     private List<ItemBase> itemsPicked = new List<ItemBase>();
 
     public float combatTimer = 30;
@@ -377,12 +378,7 @@ public class NewCombatManager : NetworkBehaviour
 
             if (cache.townId > -1 && cache.tileOwner != player.playerNumber)
             {
-                if(cache.tileOwner != -1)
-                {
-                    NetworkData.Instance.players[cache.tileOwner].ownedTowns.Remove(cache.townId);
-                }
-                cache.tileOwner = player.playerNumber;
-                player.ownedTowns.Add(cache.townId);
+                NetworkData.Instance.players[player.playerNumber].GainTown(cache);
             }
             
             foreach(var item in  itemsPicked)
@@ -395,7 +391,7 @@ public class NewCombatManager : NetworkBehaviour
             {
                 endBattleInfo.lines[endBattleInfo.lines.Count-1] += " and they've leveled up " + levels + " times";
                 endBattleInfo.endEvent.RemoveAllListeners();
-                levelUpUI.statsToAllocate += levels * 3;
+                levelUpUI.statsToAllocate += levels * NetworkData.Instance.statsPerLevel;
                 levelUpUI.inControl = player.playerNumber;
                 levelUpUI.playerWhoLevel = player;
                 endBattleInfo.endEvent.AddListener(delegate { levelUpUI.Setup(); });
@@ -435,10 +431,9 @@ public class NewCombatManager : NetworkBehaviour
         {
             
             endBattleInfo.lines.Add("Every player has been defeated");
-            if((victor.stats as EnemyCombat).persistant)
+            if((victor.stats as EnemyCombat).persistant && cache.townId != -1 )
             {
-                NetworkData.Instance.players[cache.tileOwner].ownedTowns.Remove(cache.townId);
-                cache.tileOwner = -1;
+                NetworkData.Instance.players[cache.tileOwner].LoseTown(cache);
             }
             foreach (var combat in allCombatants)
             {

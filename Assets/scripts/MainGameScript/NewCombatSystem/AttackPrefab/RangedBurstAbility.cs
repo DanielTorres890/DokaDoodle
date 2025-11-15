@@ -26,7 +26,7 @@ public class RangedBurstAbility : RangedAbility
     }
     public override void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Did i enter their hitbox");
+
         if (!IsServer || other.gameObject == owner) { return; }
 
         OnHit();       

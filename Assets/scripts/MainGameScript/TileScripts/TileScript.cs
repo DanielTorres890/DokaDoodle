@@ -16,6 +16,9 @@ public abstract class TileScript : MonoBehaviour
     public string battleEnvironment = "TestArena";
     public List<bool> playersOnTile = new List<bool> { false,false,false,false};
 
+    [Tooltip("When the game first first begins this is what would be spawned in on certain tiles")]
+    public EnemyEncounter defaultTileEnemies;
+
     public static bool DrawTrails = true;
     public static float TrailOffset = 2f;
 

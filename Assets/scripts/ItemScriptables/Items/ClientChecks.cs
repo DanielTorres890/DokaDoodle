@@ -82,7 +82,7 @@ public class ClientChecks : NetworkBehaviour
     private void McChickenWrapper(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
         NetworkManager.SceneManager.OnLoadEventCompleted -= McChickenWrapper;
-        Debug.Log("Straight up Chicken");
+
         
         StartCoroutine(WaitUntilAllLoaded2());
         
@@ -118,13 +118,14 @@ public class ClientChecks : NetworkBehaviour
     public void TurnStartChecks()
     {
         bool rumble = false;
-        
+        //at some point im probably gonna have to make this a different event but frick u
+        onRoundStart.Invoke();
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
         {
 
             if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && !NetworkData.Instance.players[players].isDead && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
             {
-                Debug.Log("we tried to fight even tho we can't");
+
                 rumble = true;
             }
         }
@@ -213,7 +214,7 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void SyncEventRpc(int eventNum)
     {
-        Debug.Log((PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId] as DefaultTile).name);
+        
         NetworkData.Instance.currentEvent = (PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId] as DefaultTile).events[eventNum];
         SceneChanger.Instance.loadClientScenesServerRpc(NetworkData.Instance.currentEvent.SceneToGoTo);
     }
@@ -412,7 +413,7 @@ public class ClientChecks : NetworkBehaviour
         }
         SceneStart();
 
-        Debug.Log("am i doubled up?");
+
        
         
     }
@@ -424,7 +425,7 @@ public class ClientChecks : NetworkBehaviour
         }
 
 
-        Debug.Log("am i doubled up?");
+
 
         EveryoneLockInRpc();
     }

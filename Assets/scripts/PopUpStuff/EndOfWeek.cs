@@ -13,17 +13,17 @@ public class EndOfWeek : MonoBehaviour
             playerData player = NetworkData.Instance.players[i];
             popUpString += player.name + " made ";
             int madeMoney = 0;
-            foreach (int tileid in player.ownedTowns)
+            foreach (var townid in player.ownedTowns)
             {
-                var curTile = MapTileSpecialEvents.Instance.mapTiles[0][tileid];
+                var curTile = MapTileSpecialEvents.Instance.mapTiles[0][townid.Value];
                 
-                madeMoney += (curTile.townMoneyLevel + 1) * NetworkData.Instance.TownInfoDataBase.GetItem[curTile.townId].baseMoneyGeneration;
+                madeMoney += (curTile.townMoneyLevel + 1) * NetworkData.Instance.TownInfoDataBase.GetItem[townid.Key].baseMoneyGeneration;
                 player.playerInfo[PlayerInfo.money] += madeMoney;
                 
                 Debug.Log("Gained Money from town");
             }
             popUpString += madeMoney.ToString();
-            popUpString += " money from their towns" + "\n\n";
+            popUpString += " money from their towns (Total Gold: " + player.playerInfo[PlayerInfo.money] + ")" + "\n\n";
         }
         text.text = popUpString;
     }

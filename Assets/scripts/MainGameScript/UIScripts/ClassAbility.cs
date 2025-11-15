@@ -22,7 +22,7 @@ public class ClassAbility : MonoBehaviour
     }
     public void UseClassAbility()
     {
-        Debug.Log("I was pressed");
+
         if ( !NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer,NetworkData.Instance.NetworkManager.LocalClientId) || NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] > 0) { return; }
         ClientChecks.Instance.UseClassAbilityRpc();
     }

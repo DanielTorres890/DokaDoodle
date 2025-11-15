@@ -12,6 +12,7 @@ public class TownInfo : ScriptableObject
     public int moneyUpgradeCost, defenseUpgradeCost,unitUpgradeCost;
     public float upgradeCostMultiplier;
     public int restCost;
+    public int baseFame;
 
     [Tooltip("Each entry corrseponds with the equal defense level")]
     public EnemyEncounter[] defenseEncounters;

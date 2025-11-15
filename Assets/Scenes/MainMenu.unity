@@ -223,6 +223,7 @@ MonoBehaviour:
   currentPlayer: 0
   globalShopMultiplier: 1
   currentEvent: {fileID: 0}
+  statsPerLevel: 2
 --- !u!114 &42359529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3634,6 +3635,7 @@ MonoBehaviour:
   days: 0
   weeks: 0
   daysPerWeek: 2
+  firstTime: 0
 --- !u!4 &536058873
 Transform:
   m_ObjectHideFlags: 0
@@ -3740,7 +3742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 894c750f022a0b846af19c179698c861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volume: 0.2
+  volume: 0
   SFXVolume: 0.5
   settings: {fileID: -944628639613478452, guid: 7c6fd24d06e1a1b469225625ea1f5d83, type: 3}
   onSFXVolumeChange:
@@ -3749,6 +3751,7 @@ MonoBehaviour:
   onBackgroundVolumeChange:
     m_PersistentCalls:
       m_Calls: []
+  previousMode: 0
 --- !u!114 &588945390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10414,6 +10417,7 @@ GameObject:
   - component: {fileID: 1798678139}
   - component: {fileID: 1798678138}
   - component: {fileID: 1798678137}
+  - component: {fileID: 1798678140}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -10535,6 +10539,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798678135}
   m_CullTransparentMesh: 1
+--- !u!114 &1798678140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798678135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebae91bca01ef8543858796599ba39c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnlyHost
 --- !u!1 &1813045580
 GameObject:
   m_ObjectHideFlags: 0
@@ -12167,6 +12183,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1798678140}
+        m_TargetAssemblyTypeName: OnlyHost, Assembly-CSharp
+        m_MethodName: UpdateCondition
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

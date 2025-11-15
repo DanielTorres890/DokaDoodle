@@ -77,6 +77,7 @@ public class UnityRelay : MonoBehaviour
             NetworkManager.Singleton.StartClient(); 
             //editor.SetActive(true);
             joinCodeInput.gameObject.SetActive(false);
+            joinCodeText.text = joinCode;
         }
         catch (RelayServiceException e)
         {

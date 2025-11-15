@@ -46,8 +46,7 @@ public class playerData : EntityStats
 
     };
 
-    public List<int> ownedTowns = new List<int>();
-
+    public Dictionary<int,int> ownedTowns = new Dictionary<int, int>();
 
     public playerData()
     {
@@ -166,7 +165,7 @@ public class playerData : EntityStats
         
         if (backToBase)
         {
-            Debug.Log("back to the lobby my n ");
+
             
             bool success = MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Remove(playerNumber);
             
@@ -264,6 +263,38 @@ public class playerData : EntityStats
     {
         return playerInfo[PlayerInfo.money] >= cost;
     }
+
+    public void GainTown(SpecialTileEventHold tileInfo)
+    {
+        if(tileInfo.tileOwner != -1)
+        {
+            NetworkData.Instance.players[tileInfo.tileOwner].LoseTown(tileInfo);
+        }
+        int TileId = -1;
+        //id like to say that for the record this depresses me
+        for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[0].Length; i++)
+        {
+            if (MapTileSpecialEvents.Instance.mapTiles[0][i] == tileInfo)
+            {
+                TileId = i;
+                break;
+            }
+        }
+
+        Debug.Log("who tf " + tileInfo.townId);
+        Debug.Log("what be this " + tileInfo.townMoneyLevel + tileInfo.unitLevel + tileInfo.defenseLevel);
+        ownedTowns.Add(tileInfo.townId, TileId);
+        playerInfo[PlayerInfo.fame] += NetworkData.Instance.TownInfoDataBase.GetItem[tileInfo.townId].baseFame;
+        playerInfo[PlayerInfo.fame] += tileInfo.townMoneyLevel + tileInfo.unitLevel + tileInfo.defenseLevel;
+
+    }
+    public void LoseTown(SpecialTileEventHold tileInfo)
+    {
+        ownedTowns.Remove(tileInfo.townId);
+        playerInfo[PlayerInfo.fame] -= NetworkData.Instance.TownInfoDataBase.GetItem[tileInfo.townId].baseFame;
+        playerInfo[PlayerInfo.fame] -= tileInfo.townMoneyLevel + tileInfo.unitLevel + tileInfo.defenseLevel;
+    }
+
 }
 public enum PlayerInfo
 {

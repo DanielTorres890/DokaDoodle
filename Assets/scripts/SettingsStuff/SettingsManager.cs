@@ -13,6 +13,7 @@ public class SettingsManager : MonoBehaviour
     public UnityEvent onSFXVolumeChange;
     public UnityEvent onBackgroundVolumeChange;
 
+    public CursorLockMode previousMode;
     private bool settingsOpen = false;
     void Awake()
     {
@@ -37,11 +38,14 @@ public class SettingsManager : MonoBehaviour
         if(settingsOpen)
         {
             settingsOpen = false;
+            Cursor.lockState = previousMode;
             SceneManager.UnloadSceneAsync("Settings");
         }
         else
         {
             settingsOpen = true;
+            previousMode = Cursor.lockState;
+            Cursor.lockState = CursorLockMode.None;
             SceneManager.LoadSceneAsync("Settings", LoadSceneMode.Additive);
         }
     }

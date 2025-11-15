@@ -14,7 +14,7 @@ public class DefaultTile : TileScript
         
         if (!NetworkManager.Singleton.IsServer) { return; }
         //PlayerMoveManager.Instance.NextTurnRpc();
-        if (Random.Range(1,5) != 1)  
+        if (Random.Range(1,10) == 1)  
         {
             int eventToSet = Random.Range(0,events.Length);
             ClientChecks.Instance.SyncEventRpc(eventToSet);
@@ -22,7 +22,7 @@ public class DefaultTile : TileScript
         }
         else
         {
-            Debug.Log(PlayerCombatManager.Instance.EnemyEncounterDataBase.GetId.Keys.Count);
+
             int encounterId = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetId[enemies[Random.Range(0, enemies.Length)]];
 
             ClientChecks.Instance.SyncEnemyRpc(encounterId);
