@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class SettingsManager : MonoBehaviour
 {
@@ -13,8 +14,17 @@ public class SettingsManager : MonoBehaviour
     public UnityEvent onSFXVolumeChange;
     public UnityEvent onBackgroundVolumeChange;
 
+
+
     public CursorLockMode previousMode;
     private bool settingsOpen = false;
+
+    public bool canJumpscare;
+
+
+
+
+
     void Awake()
     {
         if(instance == null)

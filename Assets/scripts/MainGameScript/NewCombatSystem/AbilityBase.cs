@@ -28,14 +28,8 @@ public abstract class AbilityBase : NetworkBehaviour
     }
     public void Update()
     {
-        if (!IsServer) { return; }
-        if (lifespan < lifetimer)
-        {
-            Destroy(gameObject);
 
-        }
-        lifetimer += Time.deltaTime;
-
+        AbilityAction();
     }
     public virtual void OnHit()
     {
@@ -102,6 +96,16 @@ public abstract class AbilityBase : NetworkBehaviour
         AudioSource.Play();
     }
 
+    public virtual void AbilityAction()
+    {
+        if (!IsServer) { return; }
+        if (lifespan < lifetimer)
+        {
+            Destroy(gameObject);
+
+        }
+        lifetimer += Time.deltaTime;
+    }
 }
 public enum AttackTypes
 {
