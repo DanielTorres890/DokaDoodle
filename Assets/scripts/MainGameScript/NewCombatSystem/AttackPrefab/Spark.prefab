@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 7227854483512577326}
   - component: {fileID: -2952436479630027941}
   m_Layer: 0
-  m_Name: BasicRanged
+  m_Name: Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3cbeb255b30da6f4bbf9cff67ea0cfbc, type: 2}
+  - {fileID: 2100000, guid: de79dfae0d17bd147ab4dd5db1c1d385, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -490,7 +490,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.25
+      scalar: 1.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
