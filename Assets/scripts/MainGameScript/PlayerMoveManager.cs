@@ -40,7 +40,7 @@ public class PlayerMoveManager : NetworkBehaviour
     [Tooltip("When enemies are visually spawned on the overworld this is how far apart they'll be ")]
     public Vector2 enemyDistance;
 
-
+    public AudioClip BGM;
     private Vector3 cameraMoveDirection;
 
     public static PlayerMoveManager Instance;
@@ -53,7 +53,8 @@ public class PlayerMoveManager : NetworkBehaviour
         }
         Instance = this;
 
-
+        if(BGM) { BGMManager.instance.PlaySound(BGM); }
+        
         
        
         

@@ -36,7 +36,12 @@ public class BGMManager : MonoBehaviour
     {
         BGMSource.resource = BGMDataBase.GetItem[soundID];
         BGMSource.Play();
-    }   
+    }
+    public void PlaySound(AudioClip soundClip)
+    {
+        BGMSource.resource = soundClip;
+        BGMSource.Play();
+    }
     public void StopSounds(Scene scene, LoadSceneMode type)
     {
         if(type == LoadSceneMode.Additive) { return; }

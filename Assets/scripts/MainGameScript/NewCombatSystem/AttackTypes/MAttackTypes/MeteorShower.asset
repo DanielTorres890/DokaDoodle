@@ -32,7 +32,7 @@ MonoBehaviour:
   attackPrefab: {fileID: 2566779757777240371, guid: bea8b2ee432e61c4f8291893153acdb1, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   offset: {x: 0, y: 0, z: 0}
-  ablitySize: {x: 1, y: 1, z: 1}
+  ablitySize: {x: 2, y: 2, z: 2}
   baseDamage: 10
   multipliers:
   - attribute: 4
@@ -62,6 +62,7 @@ MonoBehaviour:
   meteorCount: 40
   meteor: {fileID: 4958144232811764369, guid: 4cd5b4fe029e82546b92024f6eab68eb, type: 3}
   interval: 0.5
+  meteorInfo: {fileID: 11400000, guid: 53359034ca1725c41b86cbd8a1f2f828, type: 2}
   meteorOffset: {x: 0, y: 30, z: 0}
   directionWidth: {x: 10, y: -25, z: 10}
   meteorSound: {fileID: 8300000, guid: 94142a859f6e12e4f87555790bed4f7c, type: 3}

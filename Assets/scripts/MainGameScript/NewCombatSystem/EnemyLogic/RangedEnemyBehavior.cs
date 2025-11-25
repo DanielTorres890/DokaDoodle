@@ -63,7 +63,10 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
     public void KiteAway()
     {
         Quaternion NOJANK = gameObject.transform.rotation;
-
+        SetAttackingAnim(false);
+        SetStartUpAnim(false);
+        SetWalkingAnim(true);
+        
         gameObject.transform.LookAt(targetManager.gameObject.transform.position);
         gameObject.transform.Rotate(Vector3.up, -Precision);
         bool freeme = true;

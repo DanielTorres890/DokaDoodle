@@ -31,6 +31,7 @@ public class CombatAnimator : NetworkBehaviour
         if(abilityManager.currentAttack.attackAnimation)
         {
             overrideController["DefaultAttack"] = abilityManager.currentAttack.attackAnimation;
+            animator.SetFloat("AnimationSpeed", abilityManager.currentAttack.animationSpeed);
         }
         else
         {

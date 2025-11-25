@@ -20,8 +20,9 @@ public class MeteorySpawner : NonDamage
             var cash = meteor.GetComponent<AbilityBase>();
             cash.owner = owner;
             cash.ownerStats = ownerStats;
-            cash.attackInfo = attackInfo;
+            cash.attackInfo = meteorInfo.meteorInfo;
             cash.lifespan = meteorInfo.lifespan;
+            cash.chargedDuration = chargedDuration;
 
             meteor.transform.localScale = meteorInfo.ablitySize;
             var rigid = meteor.GetComponent<Rigidbody>();

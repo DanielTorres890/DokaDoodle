@@ -187,7 +187,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
         overrideController["DefaultAttack"] = attackAnimations[attackIndex].attack;
         animator.SetFloat("AnimSpeed", attackAnimations[attackIndex].animationSpeed);
         animator.runtimeAnimatorController = overrideController;
-        animator.SetBool("Attacking", false);
+        animator.SetBool("Walking", false);
         
         
     }
@@ -209,9 +209,13 @@ public class BaseEnemyBehavior : NetworkBehaviour
     {
         animator.SetBool("StartUp", whatDo);
     }
-    public void SetAttackingAnim(bool whatDo)//bc the way network objects work these functions are directly connected to the ability manager events bc fmcl
+    public void SetAttackingAnim(bool whatDo)//bc the way network objects work these functions are directly connected to the ability manager (IN THE PREFAB BTW) events bc fmcl
     {
         
+        animator.SetBool("Attacking", whatDo);
+    }
+    public void SetWalkingAnim(bool whatDo)
+    {
         animator.SetBool("Attacking", whatDo);
     }
 }

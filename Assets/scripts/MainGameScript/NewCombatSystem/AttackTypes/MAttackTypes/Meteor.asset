@@ -9,18 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbba4ab3dd06e7f40adc52594909bc56, type: 3}
-  m_Name: Spark
+  m_Script: {fileID: 11500000, guid: 88423fa34ea4c3b4d8d7661c8e38dca6, type: 3}
+  m_Name: Meteor
   m_EditorClassIdentifier: 
-  description: Squish someone with your imagination (because you don't know any actual
-    magic)
-  attackName: Spark
-  startUp: 0.2
+  description: Meteor idk if this'll ever be seen
+  attackName: Meteor
+  startUp: 0
   attackDuration: 0
   endLag: 0
-  cooldown: 1
-  lifespan: 1
-  energyDrain: 2
+  cooldown: 0
+  lifespan: 12
+  energyDrain: 0
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -29,15 +28,15 @@ MonoBehaviour:
   dmgPotencyEffect: 2
   sizePotencyEffect: 2
   stateToBe: 0
-  chargeable: 0
-  attackPrefab: {fileID: 4958144232811764369, guid: b291f8a5d740c1948bc1edc46c5e3b6f, type: 3}
+  chargeable: 1
+  attackPrefab: {fileID: 4958144232811764369, guid: cbff05ed897eeb44eb4d5ed56e96a07a, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
-  offset: {x: 0, y: 1, z: 0}
-  ablitySize: {x: 0.4, y: 0.4, z: 0.4}
-  baseDamage: 2
+  offset: {x: 0, y: 0, z: 0}
+  ablitySize: {x: 2, y: 2, z: 2}
+  baseDamage: 10
   multipliers:
   - attribute: 4
-    mult: 0.4
+    mult: 2
   defenseMult:
   - attribute: 5
     mult: 1.2
@@ -56,8 +55,10 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  attackAnimation: {fileID: 0}
+  attackAnimation: {fileID: 7400000, guid: 07cf1319332625148b3ed48fac40aa50, type: 2}
   LevelRequirements: []
-  attackSound: {fileID: 0}
-  onHitSound: {fileID: 0}
-  speed: 20
+  attackSound: {fileID: 8300000, guid: f25a327ac15456a4a84f118c0ae58eda, type: 3}
+  onHitSound: {fileID: 8300000, guid: 01a9fa707d474ec44a8ba781bf7032cd, type: 3}
+  speed: 9
+  burstLifespan: 1
+  burstSize: {x: 2, y: 2, z: 2}

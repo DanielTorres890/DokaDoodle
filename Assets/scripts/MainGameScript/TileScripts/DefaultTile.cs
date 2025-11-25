@@ -14,7 +14,7 @@ public class DefaultTile : TileScript
         
         if (!NetworkManager.Singleton.IsServer) { return; }
         //PlayerMoveManager.Instance.NextTurnRpc();
-        if (Random.Range(1,10) == 1)  
+        if (Random.Range(1,10) == 1000)  
         {
             int eventToSet = Random.Range(0,events.Length);
             ClientChecks.Instance.SyncEventRpc(eventToSet);

@@ -7,15 +7,20 @@ using UnityEngine.SceneManagement;
 
 public abstract class AttackBase : ScriptableObject
 {
+    
     [TextArea(15, 20)]
     public string description;
     public string attackName;
 
+    [Header("Attack frame data")]
     public float startUp;
     public float attackDuration; //its kinda a weird thing but basically if it was a dash attack or something similar where you're moving we need a seperate state for that (i think)
     public float endLag;
     public float cooldown;
     public float lifespan;
+
+
+    [Header("Charging info")]
     public float energyDrain = 1f;
 
     [Tooltip("Max charge refers to an attack charged by whatever the duration of MaxChargeDuration is\nThis is BEFORE its affected by potency ")]
@@ -27,17 +32,20 @@ public abstract class AttackBase : ScriptableObject
     public int requiredPotency = 0;
     public float dmgPotencyEffect = 2;
     public float sizePotencyEffect = 2;
-    
 
+    [Tooltip("What state should an attack enter after cast (like for dash attack you enter attacking so you can move) ")]
     public combatantStates stateToBe;
 
     public bool chargeable;
 
+    [Header("Prefabs and prefab modifiers")]
     public GameObject attackPrefab;
     public GameObject startUpPrefab; //tea
     public Vector3 offset = Vector3.zero;
     public Vector3 ablitySize = Vector3.one;
 
+
+    [Header("Damage info")]
     public int baseDamage;
     public AttackMult[] multipliers = new AttackMult[7] {new AttackMult(Attributes.MaxHealth), new AttackMult(Attributes.Health) , new AttackMult(Attributes.Attack) , new AttackMult(Attributes.Defense) , new AttackMult(Attributes.Magic) , new AttackMult(Attributes.MDefense) , new AttackMult(Attributes.Dexterity)};
     public AttackMult[] defenseMult;
@@ -45,7 +53,7 @@ public abstract class AttackBase : ScriptableObject
 
     [Tooltip("This is specifically for players, enemies have their clips in their own stuff")]
     public AnimationClip attackAnimation;
-
+    public float animationSpeed = 1f;
     public ItemBuff[] LevelRequirements;
 
     public AudioClip attackSound;
