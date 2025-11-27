@@ -8,6 +8,7 @@ public abstract class EventBase : ScriptableObject
     //random choice to make it list but i cant be bothered to go back and fix it rn
     public List<string> dialouge;
     public List<string> endDialouge;
+    public Sprite background;
     public string SceneToGoTo;
 
 

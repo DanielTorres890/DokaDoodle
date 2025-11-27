@@ -374,6 +374,8 @@ public class NewCombatManager : NetworkBehaviour
         {
             playerData player = (playerData)victor.stats;
             int levels = player.gainXp(xpHarvested + cache.xpOnTile);
+            bool gainedClassLevel = player.gainClassXp(xpHarvested + cache.xpOnTile) > 0;
+
             player.playerInfo[PlayerInfo.money] += moneyHarvested + cache.moneyOnTile;
 
             if (cache.townId > -1 && cache.tileOwner != player.playerNumber)
@@ -389,7 +391,7 @@ public class NewCombatManager : NetworkBehaviour
             endBattleInfo.lines.Add(player.name + " has gained <color=blue>" + (xpHarvested + cache.xpOnTile) + "</color> xp ");
             if(levels >  0)
             {
-                endBattleInfo.lines[endBattleInfo.lines.Count-1] += " and they've leveled up " + levels + " times";
+                endBattleInfo.lines[endBattleInfo.lines.Count-1] += " and they've leveled up <color=blue>" + levels + "</color> times";
                 endBattleInfo.endEvent.RemoveAllListeners();
                 levelUpUI.statsToAllocate += levels * NetworkData.Instance.statsPerLevel;
                 levelUpUI.inControl = player.playerNumber;
@@ -397,7 +399,10 @@ public class NewCombatManager : NetworkBehaviour
                 endBattleInfo.endEvent.AddListener(delegate { levelUpUI.Setup(); });
                 
             }
-
+            if (gainedClassLevel)
+            {
+                endBattleInfo.lines.Add("You're now a level <color=blue>" + player.playerClassProgress[player.playerClass].level + "</color> " + NetworkData.Instance.classDataBase.GetItem[player.playerClass].className);
+            }
             endBattleInfo.lines.Add(player.name + " has gained " + (moneyHarvested + cache.moneyOnTile) + " money");
 
             if (itemsPicked.Count > 0)

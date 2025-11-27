@@ -30,6 +30,8 @@ public class playerData : EntityStats
    
     };
     
+    
+
     public int tillRevive;
 
     public int playerSpawnTile;
@@ -47,6 +49,17 @@ public class playerData : EntityStats
     };
 
     public Dictionary<int,int> ownedTowns = new Dictionary<int, int>();
+
+    //should add new ones as they're unlocked instead of them already existing
+    //but every player always has these 3
+    //and incase we're worried about imaginary numbers the int represents the class id
+    public Dictionary<int,PlayerClassProgress> playerClassProgress = new Dictionary<int, PlayerClassProgress>
+    {
+        { 0, new PlayerClassProgress() },
+        { 1, new PlayerClassProgress() },
+        { 2, new PlayerClassProgress() },
+
+    };
 
     public playerData()
     {
@@ -210,6 +223,21 @@ public class playerData : EntityStats
 
         return levelsGained;
 
+    }
+    public int gainClassXp(int xp)
+    {
+
+        if(this.playerClassProgress[playerClass].level == NetworkData.Instance.classDataBase.GetItem[playerClass].classXpRequirements.Length - 1) { return 0; }
+
+
+        this.playerClassProgress[playerClass].xp += xp;
+        if (this.playerClassProgress[playerClass].xp >= NetworkData.Instance.classDataBase.GetItem[playerClass].classXpRequirements[this.playerClassProgress[playerClass].level])
+        {
+            this.playerClassProgress[playerClass].level += 1;
+            Debug.Log("Class level up :)");
+            return 1;
+        }
+        return 0;
     }
     public bool healHp(int hp) //note this will work for dmg too ig
     {

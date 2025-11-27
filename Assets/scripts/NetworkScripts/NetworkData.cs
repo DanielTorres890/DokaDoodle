@@ -224,6 +224,10 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
         return true;
     }
+    public bool IsAllowed()
+    {
+        return IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId);
+    }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void PlayerClassStatsRpc()
