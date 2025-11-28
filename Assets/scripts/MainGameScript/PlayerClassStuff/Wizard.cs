@@ -4,6 +4,7 @@ public class Wizard : PlayerClassBase
 {
     public PlayerClassBase prerequisiteClass;
 
+
     public BuffBase[] possibleBuffs;
     public override void ClassAction(playerData player, int randomNum)
     {

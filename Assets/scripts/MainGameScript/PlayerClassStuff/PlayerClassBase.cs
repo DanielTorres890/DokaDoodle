@@ -9,6 +9,7 @@ public abstract class PlayerClassBase : ScriptableObject
 
     [TextArea(1, 5)] public string classDescription;
 
+
     public ItemBuff[] stats;
 
     public ItemBuff[] levelUpStats;
@@ -23,6 +24,8 @@ public abstract class PlayerClassBase : ScriptableObject
     public AttackBase basicAttackAbility;
 
     public int[] classXpRequirements;
+
+    public int baseSalary;
     public virtual void ClassAction(playerData player, int randomNum)
     {
         if(NetworkData.Instance.IsHost) { ClientChecks.Instance.CompleteClassAbilityRpc(); }
