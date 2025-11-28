@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public abstract class PlayerClassBase : ScriptableObject
@@ -22,6 +23,9 @@ public abstract class PlayerClassBase : ScriptableObject
     public AttackBase basicAttackAbility;
 
     public int[] classXpRequirements;
-    public abstract void ClassAction(playerData player);
-    public virtual bool UnlockCondition() { return true; }
+    public virtual void ClassAction(playerData player, int randomNum)
+    {
+        if(NetworkData.Instance.IsHost) { ClientChecks.Instance.CompleteClassAbilityRpc(); }
+    }
+    public virtual bool UnlockCondition(playerData player) { return true; }
 }

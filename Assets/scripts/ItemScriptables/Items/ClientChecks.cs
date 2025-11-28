@@ -135,11 +135,22 @@ public class ClientChecks : NetworkBehaviour
 
             MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Remove(NetworkData.Instance.currentPlayer);
             PlayerMoveManager.Instance.playerCam.Follow = PlayerMoveManager.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
-            mainMenuButtons.SetActive(true);
+            
             
             PopUpManager.Instance.PerformPopUp(0);
 
-            rollNum.gameObject.transform.parent.gameObject.SetActive(false);
+            var unlockedClassId = NetworkData.Instance.checkUnlockedClass(NetworkData.Instance.currentPlayer);
+            if(unlockedClassId == -1)
+            {
+                mainMenuButtons.SetActive(true);
+                rollNum.gameObject.transform.parent.gameObject.SetActive(false);
+            }
+            else
+            {
+                if(IsHost) { DisplayGainedClassRpc(unlockedClassId); }
+            }
+
+            
         }
 
         else
@@ -256,21 +267,34 @@ public class ClientChecks : NetworkBehaviour
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void DisplayGainedClassRpc(int classId)
+    {
+        displayText.lines.Clear();
+        displayText.lines.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name + " unlocked the <color=purple>" + (NetworkData.Instance.classDataBase.GetItem[classId].className) + "</color> class\nGo to the employment office to change your class!");
+        StartCoroutine(displayClassGained());
+
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void DeployTrapRpc(int tileId, int trapId)
     {
         MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][tileId].trapIds.Add(trapId);
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    public void UseClassAbilityRpc()
+    public void UseClassAbilityRpc(int randomNum = 0)
+    {
+
+        NetworkData.Instance.classDataBase.GetItem[NetworkData.Instance.GetCurrentPlayer().playerClass].ClassAction(NetworkData.Instance.GetCurrentPlayer(), randomNum);
+
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void CompleteClassAbilityRpc()
     {
         displayText.lines.Clear();
-        NetworkData.Instance.classDataBase.GetItem[NetworkData.Instance.GetCurrentPlayer().playerClass].ClassAction(NetworkData.Instance.GetCurrentPlayer());
         displayText.lines.Add(NetworkData.Instance.classDataBase.GetItem[NetworkData.Instance.GetCurrentPlayer().playerClass].actionUseText);
-        
+
         StartCoroutine(usedAbility());
         onClassAbilityUse.Invoke();
-
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void ActivateTrapsRpc()
@@ -338,6 +362,18 @@ public class ClientChecks : NetworkBehaviour
         
         display.gameObject.SetActive(true);
         
+    }
+    private IEnumerator displayClassGained()
+    {
+        displayText.gameObject.SetActive(true);
+        displayText.whoInControl = NetworkData.Instance.currentPlayer;
+        displayText.Awake();
+        while (displayText.gameObject.activeSelf)
+        {
+
+            yield return null;
+        }
+        mainMenuButtons.SetActive(true);
     }
     private IEnumerator usedAbility()
     {

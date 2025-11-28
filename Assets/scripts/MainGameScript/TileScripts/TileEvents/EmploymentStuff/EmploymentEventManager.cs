@@ -33,7 +33,7 @@ public class EmploymentEventManager : NetworkBehaviour
     public void ChangePlayerClassRpc(int classId)
     {
         NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].GetComponent<characterEditor>().setClass(classId);
-        NetworkData.Instance.GetCurrentPlayer().playerClass = classId;
+        NetworkData.Instance.GetCurrentPlayer().ChangeClass(NetworkData.Instance.classDataBase.GetItem[classId]);
     }
 
     public void LeaveButton()

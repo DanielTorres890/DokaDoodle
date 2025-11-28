@@ -288,4 +288,17 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     {
         return Instance.players[Instance.currentPlayer];
     }
+    public int checkUnlockedClass(int player)
+    {
+        foreach(var classId in classDataBase.GetId.Values)
+        {
+            if (players[player].playerClassProgress.ContainsKey(classId)) { continue; }
+
+            if (!classDataBase.GetItem[classId].UnlockCondition(NetworkData.Instance.players[player])) { continue; }
+
+            Instance.players[player].playerClassProgress.Add(classId, new PlayerClassProgress());
+            return classId;
+        }
+        return -1;
+    }
 }

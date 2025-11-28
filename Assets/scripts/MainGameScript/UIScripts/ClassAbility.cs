@@ -24,7 +24,7 @@ public class ClassAbility : MonoBehaviour
     {
 
         if ( !NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer,NetworkData.Instance.NetworkManager.LocalClientId) || NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] > 0) { return; }
-        ClientChecks.Instance.UseClassAbilityRpc();
+        ClientChecks.Instance.UseClassAbilityRpc(Random.Range(0,1000));
     }
 
 

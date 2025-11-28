@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4350b4a2e11d07440898c54fc1ab6b12, type: 3}
+  m_Name: Wizard
+  m_EditorClassIdentifier: Assembly-CSharp::Wizard
+  className: Wizard
+  classDescription: A more experienced spellcaster that allows them more versatility.
+    Out of combat they can perform a special spell that will give them a random buff.
+    In combat their special attack can stun enemies
+  stats:
+  - attribute: 0
+    value: 60
+  - attribute: 1
+    value: 60
+  - attribute: 2
+    value: 2
+  - attribute: 3
+    value: 2
+  - attribute: 4
+    value: 8
+  - attribute: 5
+    value: 6
+  - attribute: 6
+    value: 3
+  levelUpStats:
+  - attribute: 0
+    value: 10
+  - attribute: 1
+    value: 10
+  - attribute: 4
+    value: 2
+  - attribute: 5
+    value: 2
+  - attribute: 6
+    value: 1
+  inventorySizes: 040000000200000004000000
+  ClassActionCD: 3
+  actionUseText: You feel stronger, though you're not sure in what way (yes you are
+    look up at the green numbers)
+  combatAbility: {fileID: 11400000, guid: cd872b4baf811dc46976b6df02e67835, type: 2}
+  basicAttackAbility: {fileID: 11400000, guid: 18bb598afd91e6049b885d8b7cf60a4d, type: 2}
+  classXpRequirements: 
+  prerequisiteClass: {fileID: 11400000, guid: 404d7d52c43f2c3469d9d3c8c3e57b3e, type: 2}
+  possibleBuffs:
+  - {fileID: 11400000, guid: 25c827c2aee2ce746bdafeea473d680f, type: 2}
+  - {fileID: 11400000, guid: 8d7db574446928743bcd7c3f1ef651a0, type: 2}
+  - {fileID: 11400000, guid: 29b4d7b6eeb87b04c80e63d437204380, type: 2}

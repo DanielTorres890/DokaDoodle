@@ -7,8 +7,14 @@ public class AttackSoundPlayer : NetworkBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        UpdateVolume();
+        SettingsManager.instance.onSFXVolumeChange.AddListener(UpdateVolume);
     }
 
+    private void UpdateVolume()
+    {
+        audioSource.volume = SettingsManager.instance.SFXVolume;
+    }
     // Update is called once per frame
     void Update()
     {

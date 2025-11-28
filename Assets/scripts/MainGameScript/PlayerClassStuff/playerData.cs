@@ -227,7 +227,7 @@ public class playerData : EntityStats
     public int gainClassXp(int xp)
     {
 
-        if(this.playerClassProgress[playerClass].level == NetworkData.Instance.classDataBase.GetItem[playerClass].classXpRequirements.Length - 1) { return 0; }
+        if(this.playerClassProgress[playerClass].level >= NetworkData.Instance.classDataBase.GetItem[playerClass].classXpRequirements.Length) { return 0; }
 
 
         this.playerClassProgress[playerClass].xp += xp;
@@ -322,7 +322,19 @@ public class playerData : EntityStats
         playerInfo[PlayerInfo.fame] -= NetworkData.Instance.TownInfoDataBase.GetItem[tileInfo.townId].baseFame;
         playerInfo[PlayerInfo.fame] -= tileInfo.townMoneyLevel + tileInfo.unitLevel + tileInfo.defenseLevel;
     }
-
+    public void ChangeClass(PlayerClassBase classChangeTo)
+    {
+        var currentClass = NetworkData.Instance.classDataBase.GetItem[playerClass];
+        foreach(var attrib in currentClass.stats)
+        {
+            stats[attrib.attribute] -= attrib.value;
+        }
+        foreach(var attrib in classChangeTo.stats)
+        {
+            stats[attrib.attribute] += attrib.value;
+        }
+        playerClass = NetworkData.Instance.classDataBase.GetId[classChangeTo];
+    }
 }
 public enum PlayerInfo
 {
