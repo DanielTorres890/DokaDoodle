@@ -18,6 +18,6 @@ public class StatStatusEffect : BuffBase
 
     public override void OnRemove(EntityStats stats)
     {
-
+        //its kinda weird but its implied(?) since itll be removed in some other way
     }
 }

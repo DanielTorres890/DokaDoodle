@@ -89,15 +89,16 @@ public class EntityStats
         if(!alreadyAfflicted)
         {
             statuses.Add(new BuffHolder(status.duration, NetworkData.Instance.buffDataBase.GetId[status]));
+            status.OnApply(this);
         }
-        PostStatusStatCalc();
     }
-    public void ProgressStatuses()
+    public void ProgressStatuses(float timePassed)
     {
         for(int i = statuses.Count - 1; i >= 0; i--) 
         {
-            if (statuses[i].ProgressStatus())
+            if (statuses[i].ProgressStatus(timePassed))
             {
+                NetworkData.Instance.buffDataBase.GetItem[statuses[i].buffId].OnRemove(this);
                 statuses.RemoveAt(i);
                 
             }

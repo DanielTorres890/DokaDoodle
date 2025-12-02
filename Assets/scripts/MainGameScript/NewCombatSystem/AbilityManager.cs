@@ -44,7 +44,9 @@ public class AbilityManager : NetworkBehaviour
     public float currentEnergy = 100f;
     public float energyRegen = 1f;
     public float chargeDuration = 0f;
-    
+
+    private float updateStatsTimer = 0f;
+    private float whenToUpdate = 1f;
     private void Awake()
     {
        
@@ -63,10 +65,27 @@ public class AbilityManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(NewCombatManager.instance.fightOver || stats.isDead) { return; }
+        //i got mixed opinions on this being out here but w/e
+        for (int i = stats.statuses.Count - 1; i >= 0; i--)
+        {
+            var status = stats.statuses[i];
+            stats.ProgressStatuses(Time.deltaTime);
 
-        if(!IsOwner || NewCombatManager.instance.fightOver || stats.isDead) { return; }
+        }
+        updateStatsTimer += Time.deltaTime;
+        if (updateStatsTimer > whenToUpdate)
+        {
+            onStatus.Invoke();
+            updateStatsTimer = 0f;
+        }
 
-       
+        if (!IsOwner) { return; }
+        
+        
+        
+
+        
         if (combatantstate != combatantStates.Free)
         {
             stateDuration -= Time.deltaTime;

@@ -16,7 +16,6 @@ public class energybar : MonoBehaviour
     //this seems to work completely find for the main editor but stops working on the multiplay one (which im not sure why at all) should check if that happens in final version
     public void UpdateSize()
     {
-        Debug.Log("do i be updating");
         slider.value = manager.currentEnergy / manager.maxEnergy;
         
     }

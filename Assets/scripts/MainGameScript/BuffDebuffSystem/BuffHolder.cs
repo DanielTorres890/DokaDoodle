@@ -3,14 +3,14 @@ using UnityEngine;
 public class BuffHolder 
 {
 
-    public int timeRemaining;
+    public float timeRemaining;
     public int buffId;
     public BuffHolder(int time, int buffId)
     {
         this.timeRemaining = time;
         this.buffId = buffId;   
     }
-    public bool ProgressStatus(int time = 1)
+    public bool ProgressStatus(float time = 1)
     {
         timeRemaining -= time;
         if (timeRemaining <= 0) { return true; }

@@ -48,7 +48,6 @@ public class NewCombatManager : NetworkBehaviour
     [Tooltip("How far enemies spawn from the spawn point")][SerializeField] private float distanceFromCenter;
 
     private bool alreadyDone = false;
-    private float statusTick = 0;
 
     public DialogueScript endBattleInfo;
 
@@ -65,16 +64,11 @@ public class NewCombatManager : NetworkBehaviour
         
         combatTimer -= Time.deltaTime;
 
-        statusTick += Time.deltaTime;
 
         timerText.text = "Time Remaining: " + Mathf.RoundToInt(combatTimer).ToString();
         if (!IsServer) { return; }
 
-        if (!fightOver && statusTick >= 10)//Progress status effects every 10 seconds
-        {
-            TickCombatantStatusRpc();
-            statusTick = 0;
-        }
+        //lowkey im braindamaged why would i put this here
         if (!fightOver && combatTimer <= 0)//end fight
         {
             EarlyEndCombatRpc();
@@ -228,17 +222,6 @@ public class NewCombatManager : NetworkBehaviour
 
         statUI.abilityManager = allCombatants[whichone - 1];
         statUI.SetUp();
-
-    }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    private void TickCombatantStatusRpc()
-    {
-        foreach(var combat in allCombatants)
-        {
-            combat.stats.ProgressStatuses();
-            combat.onStatus.Invoke();
-            
-        }
 
     }
 

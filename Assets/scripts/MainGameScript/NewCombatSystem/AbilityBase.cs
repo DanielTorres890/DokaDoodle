@@ -76,6 +76,12 @@ public abstract class AbilityBase : NetworkBehaviour
 
 
             hitby.ImHitRpc(DamageCalculator(hitby.stats));
+            int[] buffIds = new int[attackInfo.onHitEffects.Length];
+            for (int i = 0; i < attackInfo.onHitEffects.Length; i++)
+            {
+                buffIds[i] = NetworkData.Instance.buffDataBase.GetId[attackInfo.onHitEffects[i]];
+            }
+            hitby.IGainedBuffRpc(buffIds);
             if (AudioSource && attackInfo.onHitSound)
             {
                 PlayHitSoundRpc(NetworkData.Instance.audioDataBase.GetId[attackInfo.onHitSound]);

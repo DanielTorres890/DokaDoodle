@@ -58,6 +58,8 @@ public abstract class AttackBase : ScriptableObject
 
     public AudioClip attackSound;
     public AudioClip onHitSound;
+
+    public BuffBase[] onHitEffects; //im not really a fan of this one i'll be honest but it makes the most sense in my brain
     //^ Saves me the annoyance of setting them everytime i create a scriptable
     public virtual GameObject WeaponEffect(GameObject caster)
     {
