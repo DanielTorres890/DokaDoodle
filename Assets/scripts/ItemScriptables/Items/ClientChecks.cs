@@ -28,6 +28,8 @@ public class ClientChecks : NetworkBehaviour
 
     public Image worldEventImage;
     private bool loadedIn = false;
+
+    public RandomItemSelect randomItemPickup;
     //im gonna be so fr this whole thingy i have going on with this class is some big buns and im sorry to anyone who looks at this
     //(the main issue is im doing wayyy to much in here in the worst ways possible
    
@@ -190,7 +192,13 @@ public class ClientChecks : NetworkBehaviour
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    public void ConfirmItemPickupRpc(int player, int itemId, int inventoryNum)
+    public void RandomizedItemSelectRpc(int player, int itemId, int inventoryType)
+    {
+        var playerinfo = NetworkData.Instance.players[player];
+        randomItemPickup.ShuffleDisplay((PlayerMoveManager.Instance.mapTiles[playerinfo.curTileId] as ItemTile).items, itemId, inventoryType);
+    }
+
+    public void ConfirmItemPickup(int player, int itemId, int inventoryNum)
     {
         displayText.lines.Clear();
         //?displayText = ItemPickupDisplay.Instance.gameObject;

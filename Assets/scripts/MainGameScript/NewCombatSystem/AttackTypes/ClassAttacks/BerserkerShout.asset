@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b47e846fecebc48b8df7bd633dae51, type: 3}
+  m_Name: BerserkerShout
+  m_EditorClassIdentifier: 
+  description: Shout out loud scaring enemies, reducing ATK MAG and DEX of any nearby
+    enemies
+  attackName: Mocking Shout
+  startUp: 1
+  attackDuration: 0
+  endLag: 0.5
+  cooldown: 7
+  lifespan: 0.1
+  energyDrain: 1
+  maxChargeAtkBuff: 1.2
+  maxChargeSizeBuff: 1.2
+  maxChargeSpeedBuff: 1.1
+  maxChargeDuration: 3
+  requiredPotency: 0
+  dmgPotencyEffect: 2
+  sizePotencyEffect: 2
+  stateToBe: 0
+  chargeable: 0
+  attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
+  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  offset: {x: 0, y: -2, z: 0}
+  ablitySize: {x: 30, y: 10, z: 30}
+  baseDamage: 0
+  multipliers:
+  - attribute: 2
+    mult: 0
+  defenseMult:
+  - attribute: 3
+    mult: 1
+  antiGuardMultipliers:
+  - attribute: 0
+    mult: 1
+  - attribute: 1
+    mult: 1
+  - attribute: 2
+    mult: 1
+  - attribute: 3
+    mult: 1
+  - attribute: 4
+    mult: 1
+  - attribute: 5
+    mult: 1
+  - attribute: 6
+    mult: 1
+  attackAnimation: {fileID: 0}
+  animationSpeed: 1
+  LevelRequirements: []
+  attackSound: {fileID: 0}
+  onHitSound: {fileID: 0}
+  onHitEffects:
+  - {fileID: 11400000, guid: 166b0df7ab835a14bb41d969f83ee3b1, type: 2}
