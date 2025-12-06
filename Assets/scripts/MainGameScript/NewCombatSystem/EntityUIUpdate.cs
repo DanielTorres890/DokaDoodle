@@ -33,7 +33,7 @@ public class EntityUIUpdate : MonoBehaviour
             if (attributeToWhom != Attributes.Health && attributeToWhom != Attributes.MaxHealth && NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attributeToWhom] > NetworkData.Instance.players[NetworkData.Instance.currentPlayer].stats[attributeToWhom])
                 color = "<color=#1abf3a>";
             if (attributeToWhom != Attributes.Health && attributeToWhom != Attributes.MaxHealth && NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attributeToWhom] < NetworkData.Instance.players[NetworkData.Instance.currentPlayer].stats[attributeToWhom])
-                color = "<color=red";
+                color = "<color=red>";
 
 
             textMeshProUGUI.text = NetworkData.Instance.attributeStrings[attributeToWhom] + " " + color + AbilityManager.stats.postStatusStats[attributeToWhom] + "</color>";

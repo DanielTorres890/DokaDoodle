@@ -112,6 +112,7 @@ public class FreeMover : NetworkBehaviour
     private void FreeCameraRpc(RpcParams paramys = default)
     {
         gameObject.SetActive(true);
+        ClientChecks.Instance.mainMenuButtons.SetActive(false);
         gameObject.transform.position = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform.position;
 
         onBeginFree.Invoke();
@@ -131,6 +132,7 @@ public class FreeMover : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void EndFreeCameraRpc(RpcParams paramys = default)
     {
+        Debug.Log("I should end");
         gameObject.SetActive(false);
         onUndoFree.Invoke();
         onTileSelect.RemoveAllListeners();

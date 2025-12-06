@@ -28,7 +28,8 @@ public abstract class PlayerClassBase : ScriptableObject
     public int baseSalary;
     public virtual void ClassAction(playerData player, int randomNum)
     {
-        if(NetworkData.Instance.IsHost) { ClientChecks.Instance.CompleteClassAbilityRpc(); }
+        player.playerInfo[PlayerInfo.classCd] = ClassActionCD;
+        if (NetworkData.Instance.IsHost) { ClientChecks.Instance.CompleteClassAbilityRpc(); }
     }
     public virtual bool UnlockCondition(playerData player) { return true; }
 }

@@ -9,18 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0c9d4d0f95c02c43b8de0b5cff9477b, type: 3}
-  m_Name: Rogue
-  m_EditorClassIdentifier: 
-  className: Rogue
-  classDescription: A swift fighter, though not particularly strong or magically
-    inclined. They try to outmanuever their foes with their DEX but still a bit of
-    a rookie.
+  m_Script: {fileID: 11500000, guid: d46731cb6b24e1f4d999eef61cb75896, type: 3}
+  m_Name: Hunter
+  m_EditorClassIdentifier: Assembly-CSharp::Hunter
+  className: Hunter
+  classDescription: 'Not so much of a fighter, but a specialist in trapping and debilitating
+    enemies with traps, while outmaneuvering them to avoid direct confrontation. '
   stats:
   - attribute: 0
-    value: 50
+    value: 60
   - attribute: 1
-    value: 50
+    value: 60
   - attribute: 2
     value: 4
   - attribute: 3
@@ -30,7 +29,7 @@ MonoBehaviour:
   - attribute: 5
     value: 2
   - attribute: 6
-    value: 5
+    value: 7
   levelUpStats:
   - attribute: 0
     value: 10
@@ -43,10 +42,11 @@ MonoBehaviour:
   - attribute: 6
     value: 2
   inventorySizes: 060000000200000002000000
-  ClassActionCD: 5
-  actionUseText: You FOCUS UP (dex up)
-  combatAbility: {fileID: 11400000, guid: bb72f2cd532e5ea4289a36b42ecbd159, type: 2}
+  ClassActionCD: 3
+  actionUseText: Trap Down
+  combatAbility: {fileID: 11400000, guid: cd872b4baf811dc46976b6df02e67835, type: 2}
   basicAttackAbility: {fileID: 11400000, guid: 624f23ed2bf8f504eb4aa48a590b999f, type: 2}
-  classXpRequirements: 01000000
-  baseSalary: 100
-  classBuff: {fileID: 11400000, guid: 9a7ef03f12525eb4ba19eec5600a91a5, type: 2}
+  classXpRequirements: 
+  baseSalary: 500
+  HunterTrap: {fileID: 11400000, guid: 7213ea87e31941a4d87749ee68d1cf4a, type: 2}
+  prerequisiteClass: {fileID: 11400000, guid: 37c4370512a62b74e805ed377d578269, type: 2}

@@ -31,11 +31,12 @@ public class ClassesDisplay : MonoBehaviour
     {
 
         var classDictionary = NetworkData.Instance.GetCurrentPlayer().playerClassProgress;
+        int i = 0;
         foreach (var key in classDictionary.Keys)
         {
             var tempId = key; //WHY IS THIS A THING THAT HAS TO BE DONE
             var obj = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, transform);
-            obj.GetComponent<RectTransform>().localPosition = GetPosition(key);
+            obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
 
             //COME BACK HERE LATER DOUCHEBAG
             obj.GetComponent<Button>().onClick.AddListener(delegate { EmploymentEventManager.instance.ChangePlayerClass(tempId); });
@@ -47,7 +48,7 @@ public class ClassesDisplay : MonoBehaviour
             //UnityEventTools.AddObjectPersistentListener<GameObject>(obj.GetComponent<Button>().onClick, action, obj);
             obj.GetComponentInChildren<TextMeshProUGUI>().text = NetworkData.Instance.classDataBase.GetItem[tempId].className;
             displayedGameObjects.Add(obj);
-
+            i++;
         }
     }
     public void UpdateDisplay()
