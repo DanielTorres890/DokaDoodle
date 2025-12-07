@@ -16,5 +16,5 @@ public abstract class BaseTrap : ScriptableObject
         
 
     }
-    public abstract string TrapString();
+    public abstract string TrapString(playerData whom);
 }

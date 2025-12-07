@@ -18,6 +18,7 @@ public abstract class AbilityBase : NetworkBehaviour
     [DoNotSerialize]public float lifetimer;
     public float chargedDuration;
 
+    public bool destroyOnWallCollide;
 
     private AudioSource AudioSource;
 
@@ -62,13 +63,13 @@ public abstract class AbilityBase : NetworkBehaviour
     {
         
         if(!IsServer || other.gameObject == owner) { return; }
-        
-        
 
+
+        bool isEntity = false;
         
         if (other.gameObject.TryGetComponent(out AbilityManager hitby))
         {
-            
+            isEntity = true;
             if(hitby.stats.loyaltyTags.Intersect(ownerStats.loyaltyTags).Any())
             {
                 return;
@@ -91,8 +92,11 @@ public abstract class AbilityBase : NetworkBehaviour
                 Debug.LogWarning(attackInfo.attackName + " Does not contain a hit SFX if you even care.... \nor this ability prefab doesn't contain an AudioSource");
             }
         }
+        if(isEntity || destroyOnWallCollide)
+        {
+            OnHit();
+        }
         
-        OnHit();
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = true)]

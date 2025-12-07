@@ -322,8 +322,9 @@ public class ClientChecks : NetworkBehaviour
         displayText.lines.Clear();
         displayText.whoInControl = NetworkData.Instance.currentPlayer;
         var trapcache = NetworkData.Instance.trapDataBase.GetTrap[MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds[0]];
-        displayText.lines.Add(trapcache.TrapString());
+        displayText.lines.Add(trapcache.TrapString(NetworkData.Instance.GetCurrentPlayer()));
         trapcache.TrapEffect(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
+        onItemUse.Invoke();
         MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds.RemoveAt(0);
         displayText.gameObject.SetActive(true);
         displayText.Awake();
