@@ -52,6 +52,8 @@ public abstract class AttackBase : ScriptableObject
     public AttackMult[] antiGuardMultipliers = new AttackMult[7] { new AttackMult(Attributes.MaxHealth, 1), new AttackMult(Attributes.Health, 1), new AttackMult(Attributes.Attack, 1), new AttackMult(Attributes.Defense, 1), new AttackMult(Attributes.Magic, 1), new AttackMult(Attributes.MDefense, 1), new AttackMult(Attributes.Dexterity, 1) };
 
     [Tooltip("This is specifically for players, enemies have their clips in their own stuff")]
+
+    public AnimationClip startUpAnimation;
     public AnimationClip attackAnimation;
     public float animationSpeed = 1f;
     public ItemBuff[] LevelRequirements;

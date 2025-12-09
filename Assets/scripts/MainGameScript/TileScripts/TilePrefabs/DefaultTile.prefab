@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 033b1a170e7894644b33abada5c309bc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -167,6 +167,7 @@ MonoBehaviour:
   tileId: 0
   battleEnvironment: TestArena
   playersOnTile: 00000000
+  defaultTileEnemies: {fileID: 0}
   enemies:
   - {fileID: 11400000, guid: df61bc776fba047479f85c388cc42091, type: 2}
   - {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}

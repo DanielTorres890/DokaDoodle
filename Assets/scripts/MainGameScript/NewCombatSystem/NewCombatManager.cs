@@ -169,7 +169,7 @@ public class NewCombatManager : NetworkBehaviour
                     var player = entity as playerData;
                     var playerfab = Instantiate(playerPrefab);
                     playerfab.gameObject.transform.position = new Vector3(spawnPoint.x + Mathf.Cos(circleIncrement*counter) * distanceFromCenter, spawnPoint.y, sideMult * spawnPoint.z + (i * zDistanceBetween)  + (Mathf.Sin(circleIncrement * counter) * distanceFromCenter));
-
+                    playerfab.transform.LookAt(spawnPoint);
                     playerfab.GetComponent<NetworkObject>().SpawnWithOwnership((ulong)player.playerNumber, true);
 
 

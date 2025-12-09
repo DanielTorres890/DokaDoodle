@@ -15,7 +15,7 @@ MonoBehaviour:
   description: Squish someone with your imagination (because you don't know any actual
     magic)
   attackName: Squish
-  startUp: 0.3
+  startUp: 1
   attackDuration: 0
   endLag: 0.1
   cooldown: 3
@@ -56,9 +56,11 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  attackAnimation: {fileID: 0}
+  startUpAnimation: {fileID: 7400000, guid: 1ec7acfd85869694d875f8336f0ff19e, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 3e62947b840ca624daeb0ec60a4fa90e, type: 2}
   animationSpeed: 1
   LevelRequirements: []
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
+  onHitEffects: []
   speed: 12

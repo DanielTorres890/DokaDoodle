@@ -23,6 +23,11 @@ public class DialogueScript : NetworkBehaviour
     public UnityEvent endEvent;
 
     private int index;
+
+    //if you're wondering what this is about its bc if make the string visible 1 at a time it excludes color codes </color=blue>
+    //which is a problem since those ARE counted as a part of the string length so it makes you HAVE to click twice on any dialgoue
+    //with colored text so i use this to keep track of every character not part of the actual displayed string
+    private int charsToIgnore;
     public void Awake()
     {
         endEvent = new UnityEvent();
@@ -63,8 +68,8 @@ public class DialogueScript : NetworkBehaviour
     [ClientRpc]
     private void contCutsceneClientRpc()
     {
-        Debug.Log("Am I happening twice");
-        if (textComponent.text == lines[index])
+
+        if (textComponent.maxVisibleCharacters >= lines[index].Length - 1 - charsToIgnore)
         {
             NextLine();
         }
@@ -72,14 +77,15 @@ public class DialogueScript : NetworkBehaviour
         {
             
             StopAllCoroutines();
-            textComponent.text = lines[index];
+            textComponent.maxVisibleCharacters = lines[index].Length;
         }
     }
     public void startDialogue ()
     {
         StopAllCoroutines();
         
-        textComponent.text = string.Empty;
+        textComponent.text = lines[0];
+        textComponent.maxVisibleCharacters = 0;
 
         index = 0;
         StartCoroutine(TypeLine());
@@ -87,22 +93,22 @@ public class DialogueScript : NetworkBehaviour
 
     IEnumerator TypeLine()
     {
-        var charArr = lines[index].ToCharArray();
-        for (int i = 0; i < charArr.Length; i++)
-        {
-            textComponent.text += charArr[i];
-            if (charArr[i] == '<')
-            {
-                while (charArr[i] != '>')
-                {
-                    i++;
-                    textComponent.text += charArr[i];
-                }
-
-            }
-            yield return new WaitForSeconds(textSpeed);
-        }
         
+
+        while (textComponent.maxVisibleCharacters < lines[index].Length - charsToIgnore)
+        {
+            textComponent.maxVisibleCharacters += 1;
+            if(textComponent.text[textComponent.maxVisibleCharacters + charsToIgnore - 1] == '<')
+            {
+                while (textComponent.text[textComponent.maxVisibleCharacters + charsToIgnore - 1] != '>')
+                {
+                    charsToIgnore += 1;
+                }
+            }
+            
+            yield return new WaitForSeconds(textSpeed);
+
+        }
     }
 
     void NextLine()
@@ -110,7 +116,8 @@ public class DialogueScript : NetworkBehaviour
         if (index < lines.Count -1)
         {
             index++;
-            textComponent.text = string.Empty;
+            textComponent.text = lines[index];
+            textComponent.maxVisibleCharacters = 0;
             StartCoroutine(TypeLine());
         } 
         else

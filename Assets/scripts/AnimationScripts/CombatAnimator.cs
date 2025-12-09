@@ -26,10 +26,15 @@ public class CombatAnimator : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void SelectCurrentAttackRpc()
     {
-        
+
         //i would like to be the one to say that this is RIDICULOUS THAT ITS BASED ON THE CLIP NAME AND NOT THE STATE
+        if (abilityManager.currentAttack.startUpAnimation)
+        {
+            overrideController["DefaultStartUp"] = abilityManager.currentAttack.startUpAnimation;
+        }
         if(abilityManager.currentAttack.attackAnimation)
         {
+            
             overrideController["DefaultAttack"] = abilityManager.currentAttack.attackAnimation;
             animator.SetFloat("AnimationSpeed", abilityManager.currentAttack.animationSpeed);
         }
@@ -59,14 +64,15 @@ public class CombatAnimator : NetworkBehaviour
 
 
         animator.runtimeAnimatorController = overrideController;
-        
-        
-        animator.SetBool("Attacking", true);
-        
+        animator.SetBool("StartUp", true);
+        EndCurrentAttack();
         
         
     }
-   
+   public void StartUpAnimState(bool stateToBe)
+    {
+        animator.SetBool("StartUp", stateToBe);
+    }
     public void EndCurrentAttack()
     {
         animator.SetBool("Attacking", false);
