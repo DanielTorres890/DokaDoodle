@@ -15,14 +15,25 @@ MonoBehaviour:
   description: SHOUT OUT AND GET BUFF
   attackName: Warrior Cry
   startUp: 0
+  attackDuration: 0
   endLag: 1
   cooldown: 20
   lifespan: 1
+  energyDrain: 1
+  maxChargeAtkBuff: 1.2
+  maxChargeSizeBuff: 1.2
+  maxChargeSpeedBuff: 1.1
+  maxChargeDuration: 3
+  requiredPotency: 0
+  dmgPotencyEffect: 2
+  sizePotencyEffect: 2
   stateToBe: 0
   chargeable: 0
   attackPrefab: {fileID: 2566779757777240371, guid: 025be11524405ff43871ea2fd91b5485, type: 3}
+  startUpPrefab: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 1, y: 1, z: 1}
+  baseDamage: 0
   multipliers: []
   defenseMult: []
   antiGuardMultipliers:
@@ -40,5 +51,12 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
+  startUpAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+  animationSpeed: 1
+  LevelRequirements: []
+  attackSound: {fileID: 0}
+  onHitSound: {fileID: 0}
+  onHitEffects: []
   StatusEffects:
   - {fileID: 11400000, guid: 89188fb09b5e92c4899d80474873ca13, type: 2}
