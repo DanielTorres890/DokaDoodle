@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: A small stab
   attackName: Poke
-  startUp: 0.5
+  startUp: 0.4
   attackDuration: 0
-  endLag: 0
+  endLag: 0.1
   cooldown: 0
   lifespan: 0.2
   energyDrain: 1
@@ -58,8 +58,8 @@ MonoBehaviour:
   - attribute: 6
     mult: 1
   startUpAnimation: {fileID: 7400000, guid: 07cf1319332625148b3ed48fac40aa50, type: 2}
-  attackAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
-  animationSpeed: 3
+  attackAnimation: {fileID: 7400000, guid: e80fbb1f332456f4abf4cf2a144dba05, type: 2}
+  animationSpeed: 1.5
   LevelRequirements: []
   attackSound: {fileID: 8300000, guid: f8e04c0f92914e34da11e1e75e61e638, type: 3}
   onHitSound: {fileID: 8300000, guid: 01a9fa707d474ec44a8ba781bf7032cd, type: 3}

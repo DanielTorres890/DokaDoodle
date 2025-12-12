@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
@@ -14,7 +14,7 @@ public class InventoryChangeScript : NetworkBehaviour
     [TextArea(3,12)]
     [SerializeField] private string[] inventoryToolTips;
     [SerializeField] private TextMeshProUGUI mouseOverText;
-
+    [SerializeField] private TextMeshProUGUI sizeText;
     public void ResetDisplay()
     {
         if(NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer,NetworkManager.Singleton.LocalClientId))
@@ -27,7 +27,10 @@ public class InventoryChangeScript : NetworkBehaviour
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, rpcstuff.Receive.SenderClientId)) { return; }
 
+        
         inventoryDisplay.CreateDisplay(NetworkData.Instance.currentPlayer, currentInventory);
+        if(sizeText)
+        sizeText.text = inventoryDisplay.inventory.container.Count.ToString() + "/" + inventoryDisplay.inventory.MAXSIZE.ToString();
     }
 
     //for some god forsaken reason my button keeps forcing itself to subscribe to inventory forward which makes 0 sense
@@ -52,6 +55,8 @@ public class InventoryChangeScript : NetworkBehaviour
             mouseOverText.text = inventoryToolTips[currentInventory];
         }
         inventoryDisplay.CreateDisplay( NetworkData.Instance.currentPlayer, currentInventory);
+        if (sizeText)
+            sizeText.text = inventoryDisplay.inventory.container.Count.ToString() + "/" + inventoryDisplay.inventory.MAXSIZE.ToString();
     }
    /* [ClientRpc( RequireOwnership = false)]
     private void InventoryForwardClientRpc(int inv)
@@ -82,6 +87,8 @@ public class InventoryChangeScript : NetworkBehaviour
         }
         
         inventoryDisplay.CreateDisplay(NetworkData.Instance.currentPlayer, currentInventory);
+        if (sizeText)
+            sizeText.text = inventoryDisplay.inventory.container.Count.ToString() + "/" + inventoryDisplay.inventory.MAXSIZE.ToString();
     }
     public void currentMouseOver()
     {

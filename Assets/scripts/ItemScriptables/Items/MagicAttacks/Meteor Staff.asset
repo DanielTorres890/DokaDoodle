@@ -15,9 +15,14 @@ MonoBehaviour:
   itemSprite: {fileID: 21300000, guid: c5a2b0519ac2f4d48ab34ff988ff6fef, type: 3}
   type: 4
   itemValue: 0
-  description: Allows you to summon a meteor shower on your location
+  description: 'Allows you to summon a meteor shower on your location
+
+    Req: 10
+    MAG'
   useText: 
   itemName: MeteorShower
   buffs: []
   attack: {fileID: 11400000, guid: 8bec3afc25eaf064ab10931aba6d9284, type: 2}
-  skillRequirements: []
+  skillRequirements:
+  - attribute: 4
+    value: 10

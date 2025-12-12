@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
-  m_Name: WoodSword
+  m_Name: Spear
   m_EditorClassIdentifier: 
   itemSprite: {fileID: -3166058781739055145, guid: 1e834e05bdb73514682dab921ed10df7, type: 3}
   type: 2
   itemValue: 50
-  description: A basic Wooden Sword, performs a bigger stronger slash
-  useText: You equip the wooden sword
-  itemName: Wood Sword
+  description: "A standard spear, performs a thrusting ( \u0361\xB0 \u035C\u0296
+    \u0361\xB0) attack with longer reach but more narrow"
+  useText: You equip the spear
+  itemName: Spear
   buffs:
   - attribute: 2
     value: 10
-  attack: {fileID: 11400000, guid: 8b8cda6fa69d3ca47884150c60cc9e8d, type: 2}
+  attack: {fileID: 11400000, guid: a5b01c26d5c4cc1408fb60cf8603268c, type: 2}
   skillRequirements: []

@@ -18,6 +18,7 @@ public class ItemTile : TileScript
         if (!NetworkManager.Singleton.IsServer) { return; }
         int rando = UnityEngine.Random.Range(0,items.Length);
         itemType = items[rando].determineType();
+
         ClientChecks.Instance.RandomizedItemSelectRpc(NetworkData.Instance.currentPlayer, NetworkData.Instance.playerInventories[0][itemType].database.GetId[items[rando]], itemType);
         
     }

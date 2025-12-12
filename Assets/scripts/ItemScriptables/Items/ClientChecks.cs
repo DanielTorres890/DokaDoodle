@@ -195,25 +195,22 @@ public class ClientChecks : NetworkBehaviour
     public void RandomizedItemSelectRpc(int player, int itemId, int inventoryType)
     {
         var playerinfo = NetworkData.Instance.players[player];
+        rollNum.gameObject.transform.parent.gameObject.SetActive(false);
         randomItemPickup.ShuffleDisplay((PlayerMoveManager.Instance.mapTiles[playerinfo.curTileId] as ItemTile).items, itemId, inventoryType);
     }
 
     public void ConfirmItemPickup(int player, int itemId, int inventoryNum)
     {
         displayText.lines.Clear();
-        //?displayText = ItemPickupDisplay.Instance.gameObject;
-        if (NetworkData.Instance.playerInventories[player][inventoryNum].AddItem(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId]))
-        {
-            
-            displayText.lines.Add("Obtained a <color=blue>" + NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].name + "</color>");
-            StartCoroutine(displayItem());
-        }
-        else
-        {
-            displayText.lines.Add("You've got NO ROOM for that ish stoopid (hopefully in the future u can pick what u want)");
-            StartCoroutine(displayItem());
 
-        }
+        //?displayText = ItemPickupDisplay.Instance.gameObject;
+        bool overflowed = NetworkData.Instance.playerInventories[player][inventoryNum].AddItem(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId]);
+
+
+        displayText.lines.Add("Obtained a <color=blue>" + NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].name + "</color>");
+        StartCoroutine(displayItem(overflowed, player, itemId, inventoryNum));
+        
+        
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -270,7 +267,7 @@ public class ClientChecks : NetworkBehaviour
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
         displayText.lines.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name + " is dead for <color=red>" + (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].tillRevive + 1) + "</color> turns");
         
-        StartCoroutine(displayItem());
+        StartCoroutine(displayItem(false,0,0,0));//man im lazy
         
     }
 
@@ -343,7 +340,7 @@ public class ClientChecks : NetworkBehaviour
             
 
     }
-    private IEnumerator displayItem()
+    private IEnumerator displayItem(bool overflow, int player, int itemId, int inventoryNum)
     {
         
         displayText.gameObject.SetActive(true);
@@ -355,7 +352,20 @@ public class ClientChecks : NetworkBehaviour
             yield return null;
         }
         if (IsServer)
-        PlayerMoveManager.Instance.NextTurnRpc();
+        {
+            if(overflow)
+            {
+
+                LoseItemManager.instance.SetUp(player,inventoryNum);
+                LoseItemManager.instance.finishLose.AddListener(PlayerMoveManager.Instance.NextTurnRpc);
+            }
+            else
+            {
+                PlayerMoveManager.Instance.NextTurnRpc();
+            }
+                
+        }
+        
 
     }
     private IEnumerator usedItem()
@@ -468,7 +478,7 @@ public class ClientChecks : NetworkBehaviour
         {
             yield return null;
         }
-
+        Debug.Log("everyone SHOULD be loaded...");
 
 
 

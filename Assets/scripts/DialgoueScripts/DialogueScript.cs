@@ -58,17 +58,16 @@ public class DialogueScript : NetworkBehaviour
     [Rpc(SendTo.Server, RequireOwnership = false)]
     public void contCutsceneServerRpc(RpcParams rpcstuff = default)
     {
-        
-        
-        if (!NetworkData.Instance.IsAllowed(whoInControl,rpcstuff.Receive.SenderClientId)) { return; }
 
+        Debug.Log("Ive been called here too");
+        if (!NetworkData.Instance.IsAllowed(whoInControl,rpcstuff.Receive.SenderClientId)) { return; }
         contCutsceneClientRpc();
     }
 
     [ClientRpc]
     private void contCutsceneClientRpc()
     {
-
+        Debug.Log("I should be continuing");
         if (textComponent.maxVisibleCharacters >= lines[index].Length - 1 - charsToIgnore)
         {
             NextLine();
@@ -83,7 +82,7 @@ public class DialogueScript : NetworkBehaviour
     public void startDialogue ()
     {
         StopAllCoroutines();
-        
+        Debug.Log("I began");
         textComponent.text = lines[0];
         textComponent.maxVisibleCharacters = 0;
 

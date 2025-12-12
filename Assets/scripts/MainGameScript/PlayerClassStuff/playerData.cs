@@ -143,9 +143,8 @@ public class playerData : EntityStats
         return name;
     }
    
-    public string LoseSomething()
+    public ItemBase LoseSomething()
     {
-        string whatwaslost = "nothing was lost u (" + name + ") lucky son of a gun";
         int whattolose = Random.Range(1, 30);
         if (whattolose > 0 && whattolose < 50)
         {
@@ -157,9 +156,9 @@ public class playerData : EntityStats
                 {
 
                     int itemLost = Random.Range(0, NetworkData.Instance.playerInventories[this.playerNumber][k].container.Count);
-
-                    whatwaslost = "Lost <color=red>" + NetworkData.Instance.playerInventories[playerNumber][k].container[itemLost].item.name + "</color>";
+                    ItemBase item = NetworkData.Instance.playerInventories[this.playerNumber][k].container[itemLost].item;
                     NetworkData.Instance.LoseItemRpc(playerNumber,itemLost,k);
+                    return item;
                     ;
 
                 }
@@ -168,7 +167,7 @@ public class playerData : EntityStats
 
         }
        
-        return whatwaslost;
+        return null;
     }
     public void death(int turnsDead = -1, bool backToBase = true)
     {

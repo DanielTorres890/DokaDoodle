@@ -18,6 +18,7 @@ public class ShopUISync : NetworkBehaviour
     public static ShopUISync instance;
     [SerializeField] private ShopUICreator buyShopStuff;
     [SerializeField] private Image background;
+    [SerializeField] private TextMeshProUGUI shopText;
     private void Awake()
     {
         instance = this;
@@ -83,6 +84,11 @@ public class ShopUISync : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void setUpBuyRpc(int itemNum)
     {
+        var playerInv = NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][curEvent.itemsSold[itemNum].determineType()];
+        if (playerInv.container.Count >= playerInv.MAXSIZE)
+        {
+            shopText.text = "That inventory is full go sell something (remember theres 3 different inventory types :)";
+        }
 
         buyDontButtons[0].SetActive(true);
         buyDontButtons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Buy";
@@ -107,6 +113,7 @@ public class ShopUISync : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void purchaseItemRpc(int itemNum)
     {
+        
         NetworkData.Instance.AddItemToInventory(NetworkData.Instance.currentPlayer, curEvent.itemsSold[itemNum]);
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money] -= Mathf.RoundToInt(curEvent.itemsSold[itemNum].itemValue * NetworkData.Instance.globalShopMultiplier);
         moneyDisplay.StatUpdate();

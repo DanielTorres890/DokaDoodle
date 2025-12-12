@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using TMPro;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -26,7 +27,7 @@ public class DisplayInventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CreateDisplay(NetworkData.Instance.currentPlayer);
+       
     }
 
     // Update is called once per frame
@@ -63,6 +64,7 @@ public class DisplayInventory : MonoBehaviour
 
     public void CreateDisplay( int playerNum ,int inventoryType = 0)
     {
+        Debug.Log("I shouldnt have changed the fard " + inventoryType);
         SetInventory(inventoryType, playerNum);
         
         for (int i = 0; i < inventory.container.Count; i++)
@@ -73,6 +75,7 @@ public class DisplayInventory : MonoBehaviour
             obj.transform.SetAsFirstSibling();
             obj.transform.GetComponent<Image>().sprite = inventory.container[i].item.itemSprite;
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+            //u know im not happy about this but lowkey it just seems easier to reuse this ngl
             if (displayType == InvDisplayType.Inventory)
             {
                 obj.GetComponent<Button>().onClick.AddListener(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
@@ -84,7 +87,17 @@ public class DisplayInventory : MonoBehaviour
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0, -13} {1}", inventory.container[tempId].item.name, inventory.container[tempId].item.itemValue / 2);
                 
             }
-            AddEvent(obj, EventTriggerType.Select, delegate { displayText.SetText(inventory.container[tempId].item.description); });
+            else if(displayType == InvDisplayType.DropItem)
+            {
+                obj.GetComponent<Button>().onClick.AddListener(delegate { LoseItemManager.instance.LoseItem(tempId, inventoryType); });
+                obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
+            }
+            else if(displayType == InvDisplayType.StealItem)
+            {
+                obj.GetComponent<Button>().onClick.AddListener(delegate { StealItemUI.instance.StealItem(tempId, inventoryType);  });
+                obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
+            }
+                AddEvent(obj, EventTriggerType.Select, delegate { displayText.SetText(inventory.container[tempId].item.description); });
             AddEvent(obj, EventTriggerType.PointerEnter, delegate { displayText.SetText(inventory.container[tempId].item.description); });
 
             //UnityAction<GameObject> action = new UnityAction<GameObject>(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
@@ -134,4 +147,6 @@ public enum InvDisplayType
 {
     Inventory,
     ItemSell,
+    StealItem,
+    DropItem
 }

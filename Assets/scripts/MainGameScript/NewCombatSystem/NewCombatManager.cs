@@ -37,10 +37,10 @@ public class NewCombatManager : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
 
     [DoNotSerialize] public bool fightOver = false;
-    
+
 
     public List<CinemachineCamera> cameras = new List<CinemachineCamera>();
-    [DoNotSerialize]  public int currentSpec = 0;
+    [DoNotSerialize] public int currentSpec = 0;
 
 
     [Tooltip("Center spawn point where all units will spawn around")][SerializeField] private Vector3 spawnPoint;
@@ -53,15 +53,17 @@ public class NewCombatManager : NetworkBehaviour
 
     public PlayerInput playercontrol;
 
+    public PVPVictory pvpVictory;
+
     public UnityEvent onCombatEnd;
     private AudioSource AudioSource;
     private void Awake()
     {
-       AudioSource = GetComponent<AudioSource>();
+        AudioSource = GetComponent<AudioSource>();
     }
     private void Update()
     {
-        
+
         combatTimer -= Time.deltaTime;
 
 
@@ -81,7 +83,7 @@ public class NewCombatManager : NetworkBehaviour
 
         Debug.Log("did me get instantiated");
         instance = this;
-        
+
         foreach (var camera in FindObjectsByType<CinemachineCamera>(FindObjectsSortMode.None))
         {
             cameras.Add(camera);
@@ -89,14 +91,14 @@ public class NewCombatManager : NetworkBehaviour
 
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("NewBattleArea"));
 
-        if(PlayerCombatManager.Instance.currentEncounter.battleMusic)
+        if (PlayerCombatManager.Instance.currentEncounter.battleMusic)
         {
             AudioSource.resource = PlayerCombatManager.Instance.currentEncounter.battleMusic;
             AudioSource.volume = SettingsManager.instance.volume;
             SettingsManager.instance.onBackgroundVolumeChange.AddListener(UpdateVolume);
             AudioSource.Play();
         }
-        
+
         //bc im dumb and didnt handle things earlier
         for (int i = 0; i < NetworkData.Instance.playerSticks.Count; i++)
         {
@@ -104,7 +106,7 @@ public class NewCombatManager : NetworkBehaviour
         }
         endBattleInfo.lines.Clear();
 
-        
+
         if (IsHost)
         {
             //b UT WHY DOES IT SPAWN DOUBLE IF A CLIENT HASNT LOADED IN YET BC ONLY THE SERVER SHOULDVE BEEN ALLOWED TO SPAWNS STUFF IN AND THE HOST AND SERVER AR ETHE SAME HOW DOES THAT EVEN MAKE SENSE SMD FRICK U EMA I AHTE U LMB EXPLODE
@@ -112,12 +114,12 @@ public class NewCombatManager : NetworkBehaviour
             //also shoutout to ben bc lowkey what he said makes sense when each client loads in they spawn their own version of the network object which overrides previous ones (?) tho thats still a weird ahh thing
             StartCoroutine(WaitForLoadIn());
         }
-         
+
     }
-    
+
     private IEnumerator WaitForLoadIn()
     {
-        while(!SceneChanger.Instance.everyoneLoaded())
+        while (!SceneChanger.Instance.everyoneLoaded())
         {
             yield return null;
         }
@@ -133,34 +135,34 @@ public class NewCombatManager : NetworkBehaviour
     [Rpc(SendTo.Server, RequireOwnership = false)]
     private void SetUpRpc()
     {
-        if(alreadyDone) { return; }
+        if (alreadyDone) { return; }
         alreadyDone = true;
-    
+
         int countbcisuck = 1;
         int sideMult = -1;
 
         Dictionary<string, List<EntityStats>> spawnGroups = new Dictionary<string, List<EntityStats>>();
-        foreach(var combatant in PlayerCombatManager.Instance.combatants)
+        foreach (var combatant in PlayerCombatManager.Instance.combatants)
         {
             Debug.Log("This guy is in " + combatant.name);
             if (!spawnGroups.ContainsKey(combatant.loyaltyTags[0]))
             {
                 spawnGroups.Add(combatant.loyaltyTags[0], new List<EntityStats>());
-                
+
             }
-            
+
             spawnGroups[combatant.loyaltyTags[0]].Add(combatant);
         }
         int counter = 0;
         float circleIncrement = 360f / spawnGroups.Keys.Count;
-       
+
         circleIncrement = circleIncrement / 180 * Mathf.PI;
-        foreach(var ctag in spawnGroups.Keys)
+        foreach (var ctag in spawnGroups.Keys)
         {
 
             for (int i = 0; i < spawnGroups[ctag].Count; i++)
             {
-                
+
                 var entity = spawnGroups[ctag][i];
 
                 if (entity is playerData)
@@ -168,7 +170,7 @@ public class NewCombatManager : NetworkBehaviour
 
                     var player = entity as playerData;
                     var playerfab = Instantiate(playerPrefab);
-                    playerfab.gameObject.transform.position = new Vector3(spawnPoint.x + Mathf.Cos(circleIncrement*counter) * distanceFromCenter, spawnPoint.y, sideMult * spawnPoint.z + (i * zDistanceBetween)  + (Mathf.Sin(circleIncrement * counter) * distanceFromCenter));
+                    playerfab.gameObject.transform.position = new Vector3(spawnPoint.x + Mathf.Cos(circleIncrement * counter) * distanceFromCenter, spawnPoint.y, sideMult * spawnPoint.z + (i * zDistanceBetween) + (Mathf.Sin(circleIncrement * counter) * distanceFromCenter));
                     playerfab.transform.LookAt(spawnPoint);
                     playerfab.GetComponent<NetworkObject>().SpawnWithOwnership((ulong)player.playerNumber, true);
 
@@ -193,22 +195,22 @@ public class NewCombatManager : NetworkBehaviour
                     abilitiyManage.UpdateStatsRpc(PlayerCombatManager.Instance.combatants.IndexOf(entity));
 
 
-                   
+
 
                 }
             }
             counter++;
         }
-        for (int i = 0; i < PlayerCombatManager.Instance.combatants.Count; i ++)
+        for (int i = 0; i < PlayerCombatManager.Instance.combatants.Count; i++)
         {
-            
-            
+
+
         }
-        
-      
+
+
     }
     [Rpc(SendTo.SpecifiedInParams, RequireOwnership = false)]
-    private void SetNotSpectateRpc(int whichone,RpcParams rpcStuff)
+    private void SetNotSpectateRpc(int whichone, RpcParams rpcStuff)
     {
         //fricku[whichone].GetComponent<PlayerInput>();
         Cursor.lockState = CursorLockMode.Locked;
@@ -216,8 +218,8 @@ public class NewCombatManager : NetworkBehaviour
         cameras[0].Priority = 1;
         currentSpec = whichone;
         cameras[whichone].Priority = 10;
-        
-        playerUI.abilityManager = allCombatants[whichone-1]; //keep in mind that theres already a camera in the scene by default so its off by 1
+
+        playerUI.abilityManager = allCombatants[whichone - 1]; //keep in mind that theres already a camera in the scene by default so its off by 1
         playerUI.SetUp();
 
         statUI.abilityManager = allCombatants[whichone - 1];
@@ -228,45 +230,45 @@ public class NewCombatManager : NetworkBehaviour
     public void KILL(AbilityManager whoded)
     {
         fricku.Remove(whoded.gameObject);
-        if(whoded.stats is EnemyCombat)
+        if (whoded.stats is EnemyCombat)
         {
             EnemyCombat info = (EnemyCombat)whoded.stats;
             info.isDead = true;
             xpHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].droppedXp;
             moneyHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].droppedMoney;
 
-            if (IsServer) 
+            if (IsServer)
             {
                 int dropnum = PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].rollItem();
                 if (dropnum >= 0) { ItemDroppedRpc(dropnum, info.enemyId); }
-                
+
                 Destroy(whoded.gameObject);
-            }           
+            }
         }
         if (whoded.stats is playerData)
         {
             playerData info = (playerData)whoded.stats;
             info.isDead = true;
-            Debug.Log(info.name + " did i die: " +info.isDead);
-            
-            if(whoded.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) 
+            Debug.Log(info.name + " did i die: " + info.isDead);
+
+            if (whoded.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId)
             {
                 playercontrol.SwitchCurrentActionMap("Spectating");
                 cameras[currentSpec].Priority = 1;
                 cameras[0].Priority = 10;
                 currentSpec = 0;
-                
+
             }
-          
-                
+
+
 
 
             //if (IsServer) { LinesToSyncRpc((info.name + " dropped " + info.playerInfo[PlayerInfo.money] / 2 + " moneys"), info.LoseSomething(), 3, info.playerNumber); }
             //idk if i did this here for a reason but it doesnt make much sense since they shouldnt drop something if they might survive (like a revive or something)
-            moneyHarvested = info.playerInfo[PlayerInfo.money] /= 2; 
+            moneyHarvested = info.playerInfo[PlayerInfo.money] /= 2;
             info.playerInfo[PlayerInfo.money] /= 2;
-                
-            
+
+
 
         }
 
@@ -276,33 +278,33 @@ public class NewCombatManager : NetworkBehaviour
         }
 
     }
-    
+
 
 
     private bool CheckWin()
     {
         bool didWin = true;
-        
 
-        for(int i = 0 ; i < allCombatants.Count; i++)
+
+        for (int i = 0; i < allCombatants.Count; i++)
         {
             if (allCombatants[i].stats.isDead) { continue; }
 
-            for (int j = 0 ; j < allCombatants.Count ; j++)
+            for (int j = 0; j < allCombatants.Count; j++)
             {
                 if (allCombatants[j].stats.isDead) { continue; }
 
                 if (!allCombatants[i].stats.loyaltyTags.Intersect(allCombatants[j].stats.loyaltyTags).Any())
                 {
-                    
+
                     didWin = false;
                     return didWin;
                 }
 
-       
+
             }
         }
-        
+
         return didWin;
     }
 
@@ -310,16 +312,16 @@ public class NewCombatManager : NetworkBehaviour
     {
         AbilityManager enemy = allCombatants[0];
 
-        for(int i = 0; i < allCombatants.Count; i++)
+        for (int i = 0; i < allCombatants.Count; i++)
         {
-            
-            
+
+
             if (enemy.stats.isDead) { enemy = allCombatants[i]; }
             if (!(enemy.stats is playerData) && !enemy.stats.isDead)
             {
                 enemy = allCombatants[i];
             }
-            
+
         }
 
         return enemy;
@@ -330,6 +332,11 @@ public class NewCombatManager : NetworkBehaviour
     {
         Debug.Log("ITEMDROPPED");
         itemsPicked.Add(PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemyId].DroppedItems[item]);
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void PlayerItemDroppedRpc(int item, int itemType)
+    {
+        itemsPicked.Add(NetworkData.Instance.playerInventories[0][itemType].database.GetItem[item]);
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -349,15 +356,15 @@ public class NewCombatManager : NetworkBehaviour
                 cache.tileEnemy.RemoveAt(i);
             }
         }
-        
+
         //this thing causes malding mole to died check this later
 
-
+        List<int> deadPlayers = RemoveDeadEntities();
         if (victor.stats is playerData)
         {
             playerData player = (playerData)victor.stats;
-            int levels = player.gainXp(xpHarvested + cache.xpOnTile);
-            bool gainedClassLevel = player.gainClassXp(xpHarvested + cache.xpOnTile) > 0;
+            int levels = player.gainXp(cache.xpOnTile);
+            bool gainedClassLevel = player.gainClassXp(cache.xpOnTile) > 0;
 
             player.playerInfo[PlayerInfo.money] += moneyHarvested + cache.moneyOnTile;
 
@@ -371,7 +378,7 @@ public class NewCombatManager : NetworkBehaviour
                 NetworkData.Instance.AddItemToInventory(player.playerNumber, item);
             }
             
-            endBattleInfo.lines.Add(player.name + " has gained <color=blue>" + (xpHarvested + cache.xpOnTile) + "</color> xp ");
+            endBattleInfo.lines.Add(player.name + " has gained <color=blue>" + (cache.xpOnTile) + "</color> xp ");
             if(levels >  0)
             {
                 endBattleInfo.lines[endBattleInfo.lines.Count-1] += " and they've leveled up <color=blue>" + levels + "</color> times";
@@ -386,7 +393,7 @@ public class NewCombatManager : NetworkBehaviour
             {
                 endBattleInfo.lines.Add("You're now a level <color=blue>" + player.playerClassProgress[player.playerClass].level + "</color> " + NetworkData.Instance.classDataBase.GetItem[player.playerClass].className);
             }
-            endBattleInfo.lines.Add(player.name + " has gained " + (moneyHarvested + cache.moneyOnTile) + " money");
+            endBattleInfo.lines.Add(player.name + " has gained " + (cache.moneyOnTile) + " money");
 
             if (itemsPicked.Count > 0)
             {
@@ -431,7 +438,11 @@ public class NewCombatManager : NetworkBehaviour
                     
                     
        
-                    if (IsServer) { LinesToSyncRpc((current.name + " dropped " + current.playerInfo[PlayerInfo.money] / 2 + " moneys"), current.LoseSomething(), 3, current.playerNumber); }
+                    if (IsServer) 
+                    {
+                       
+                            
+                    }
                     
                     current.playerInfo[PlayerInfo.money] /= 2;
                 }
@@ -445,7 +456,7 @@ public class NewCombatManager : NetworkBehaviour
         }
         
         PlayerCombatManager.Instance.combatants.Clear(); 
-        RemoveDeadEntities();
+        
         NetworkData.Instance.setNextTurnNum();
         endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
       
@@ -463,26 +474,28 @@ public class NewCombatManager : NetworkBehaviour
         fightOver = true;
         Cursor.lockState = CursorLockMode.None;
         endBattleInfo.whoInControl = NetworkData.Instance.currentPlayer;
-
-        endBattleInfo.lines.Add("NEXT TIME ON DRAGON BALL Z");
-        endBattleInfo.gameObject.SetActive(true);
-        endBattleInfo.startDialogue();
-        RemoveDeadEntities();
-                    
-        NetworkData.Instance.setNextTurnNum();
+        List<int> deadPlayers = RemoveDeadEntities();
         
-        endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
+        
+        if(IsHost)
+        {
+            foreach(int player in deadPlayers)
+            {
+                EarlyCombatEndPlayerLoss(player);
+            }
+            EndDialogueRpc();
+        }
+      
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    private void LinesToSyncRpc(string lostmoney, string lostitem, int turnsDead, int playerNumber)
+    private void LinesToSyncRpc(string stringToAdd, int turnsDead, int playerNumber)
     {
-        endBattleInfo.lines.Add(lostmoney);
-        endBattleInfo.lines.Add(lostitem);
+        endBattleInfo.lines.Add(stringToAdd);
         //NetworkData.Instance.players[playerNumber].death(turnsDead, false);
     }
 
-    private void RemoveDeadEntities() //Removes them from the database that stores all enemy info (it probably shouldn't be accessible all the time but fml
+    private List<int> RemoveDeadEntities() //Removes them from the database that stores all enemy info (it probably shouldn't be accessible all the time but fml
     {
         var tilereadCache = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
 
@@ -496,18 +509,50 @@ public class NewCombatManager : NetworkBehaviour
                 tilereadCache.tileEnemy.RemoveAt(i);
             }
         }
-        Debug.Log("tf even happened " + tilereadCache.players.Count);
+        List<int> deadPlayer = new List<int>();
         for (int i = tilereadCache.players.Count - 1; i >= 0; i--)
         {
             
             NetworkData.Instance.players[tilereadCache.players[i]].ClearCombatStatuses();
             if (NetworkData.Instance.players[tilereadCache.players[i]].isDead)
             {
+                deadPlayer.Add(tilereadCache.players[i]);
                 NetworkData.Instance.players[tilereadCache.players[i]].death(3);
 
             }
         }
-        
+        return deadPlayer;
+    }
+    
+    private void EarlyCombatEndPlayerLoss(int playerId)
+    {
+        playerData current = NetworkData.Instance.players[playerId];
+        string lostString = (current.name + " dropped " + current.playerInfo[PlayerInfo.money] / 2 + " moneys");
+        LinesToSyncRpc(lostString, 3, current.playerNumber);
+
+        ItemBase lostItem = current.LoseSomething();
+        if (lostItem != null)
+        {
+            int itemType = lostItem.determineType();
+            lostString = "Lost <color=red>" + lostItem.itemName + "</color>";
+            LinesToSyncRpc(lostString, 3, current.playerNumber);
+            PlayerItemDroppedRpc(NetworkData.Instance.playerInventories[0][itemType].database.GetId[lostItem], itemType);
+        }
+        else
+        {
+            LinesToSyncRpc("nothing was lost u (" + current.name + ") lucky son of a gun", 3, current.playerNumber);
+        }
+    }
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void EndDialogueRpc()
+    {
+        endBattleInfo.lines.Add("NEXT TIME ON DRAGON BALL Z");
+        endBattleInfo.gameObject.SetActive(true);
+        endBattleInfo.startDialogue();
+        NetworkData.Instance.setNextTurnNum();
+
+        endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
     }
     public void RightSpec()
     {
