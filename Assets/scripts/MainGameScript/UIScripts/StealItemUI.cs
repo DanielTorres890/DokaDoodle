@@ -6,10 +6,12 @@ using UnityEngine.UI;
 
 public class StealItemUI : NetworkBehaviour
 {
+    //this pretty much doesn't need to be a singleton but ill be darned if you make me make a seperate display script
     public static StealItemUI instance;
 
     public Button goBackButton;
     public DisplayInventory inventoryDisplay;
+    public InventoryChangeScript inventoryChangeScript;
     public int stealingPlayer;
     public int stolenPlayer;
     public int inventoryNum;
@@ -20,7 +22,7 @@ public class StealItemUI : NetworkBehaviour
     public GameObject confirmButtons;
     public GameObject mainItemDisplay;
 
-    public UnityEvent<bool> finishSteal;
+    public UnityEvent<bool,int> finishSteal;
 
     public override void OnNetworkSpawn()
     {
@@ -28,10 +30,10 @@ public class StealItemUI : NetworkBehaviour
         instance = this;
         gameObject.SetActive(false);
     }
-    public void SetUp(int stealerId, int playerId)
+    public void SetUp(int stealerId, int stolenId)
     {
         if (!IsServer) { return; }
-        SetUpRpc(stealerId, playerId);
+        SetUpRpc(stealerId, stolenId);
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -41,6 +43,8 @@ public class StealItemUI : NetworkBehaviour
         inventoryNum = 0;
 
         inventoryDisplay.inventory = NetworkData.Instance.playerInventories[stolenId][0];
+        inventoryChangeScript.whomsInventory = stolenId;
+        Debug.Log("I should be created");
         inventoryDisplay.CreateDisplay(stealerId, inventoryNum);
         gameObject.SetActive(true);
         confirmButtons.SetActive(false);
@@ -86,7 +90,7 @@ public class StealItemUI : NetworkBehaviour
 
         bool success = stealingPlayerInventory.AddItem(stolenPlayerInventory[stolenItem].item);
         stolenPlayerInventory.RemoveAt(stolenItem);
-        finishSteal.Invoke(success);
+        finishSteal.Invoke(success,inventoryNum);
         gameObject.SetActive(false);
     }
 }

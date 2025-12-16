@@ -416,6 +416,13 @@ public class NewCombatManager : NetworkBehaviour
             }
             
        
+            if(deadPlayers.Count > 0)
+            {
+                //this strongly suggests i should fix my flow of things but man do i not want to
+                endBattleInfo.endEvent.RemoveAllListeners();
+                endBattleInfo.endEvent.AddListener(delegate { endBattleInfo.gameObject.SetActive(false); });
+                endBattleInfo.endEvent.AddListener(delegate { pvpVictory.SetUp(deadPlayers[0],player.playerNumber); });
+            }
             endBattleInfo.gameObject.SetActive(true);
             endBattleInfo.startDialogue();
             endBattleInfo.whoInControl = player.playerNumber;
@@ -456,7 +463,7 @@ public class NewCombatManager : NetworkBehaviour
         }
         
         PlayerCombatManager.Instance.combatants.Clear(); 
-        
+        statUI.gameObject.SetActive(false);
         NetworkData.Instance.setNextTurnNum();
         endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
       

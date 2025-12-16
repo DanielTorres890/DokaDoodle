@@ -7,16 +7,27 @@ public class PVPVictory : NetworkBehaviour
     public GameObject stealItem;
     public GameObject stealMoney;
     public GameObject prank;
+    
+    private StealItemUI stealItemUI;
+    public LoseItemManager dropItem;
+
     public int winner;
+    public int loser;
 
     public override void OnNetworkSpawn()
     {
         gameObject.SetActive(false);
     }
 
-    public void SetUp()
+    public void SetUp(int loserId, int winnerId)
     {
-
+        gameObject.SetActive(true);
+        stealItemUI = stealItem.GetComponent<StealItemUI>();
+        stealItemUI.goBackButton.onClick.AddListener(BackFromSteal);
+        stealItemUI.finishSteal.AddListener(CheckIfFull);
+        
+        winner = winnerId;
+        loser = loserId;
     }
 
     public void StealItemButton()
@@ -29,7 +40,7 @@ public class PVPVictory : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void StealItemButtonRpc()
     {
-        stealItem.SetActive(true);
+        stealItemUI.SetUp(winner, loser);
         mainButtons.SetActive(false);
     }
     public void BackFromSteal()
@@ -46,5 +57,24 @@ public class PVPVictory : NetworkBehaviour
         mainButtons.SetActive(true);
     }
 
+    public void CheckIfFull(bool fullInv, int inventoryNum)
+    {
+        if (!NetworkData.Instance.IsAllowed(winner, NetworkManager.Singleton.LocalClientId)) { return; }
+        if (!IsHost) {  return; }
+        if (fullInv)
+        {
+            dropItem.SetUp(winner, inventoryNum);
+        }
+        else
+        {
+            FinishVictory();
+        }
+    
+    }
+    
+    public void FinishVictory()
+    {
+
+    }
 
 }

@@ -34,7 +34,7 @@ public abstract class AbilityBase : NetworkBehaviour
     }
     public virtual void OnHit()
     {
-        
+        Debug.Log("I MAY have hit an entity or a wall");
         Destroy(gameObject);
     }
     public int DamageCalculator(EntityStats defender)
@@ -69,6 +69,7 @@ public abstract class AbilityBase : NetworkBehaviour
         
         if (other.gameObject.TryGetComponent(out AbilityManager hitby))
         {
+            Debug.Log("I hit an entity!");
             isEntity = true;
             if(hitby.stats.loyaltyTags.Intersect(ownerStats.loyaltyTags).Any())
             {
