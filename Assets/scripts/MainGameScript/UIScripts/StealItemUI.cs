@@ -26,7 +26,7 @@ public class StealItemUI : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if(instance != null) { return; }
+        
         instance = this;
         gameObject.SetActive(false);
     }
@@ -45,7 +45,7 @@ public class StealItemUI : NetworkBehaviour
         inventoryDisplay.inventory = NetworkData.Instance.playerInventories[stolenId][0];
         inventoryChangeScript.whomsInventory = stolenId;
         Debug.Log("I should be created");
-        inventoryDisplay.CreateDisplay(stealerId, inventoryNum);
+        inventoryDisplay.CreateDisplay(stolenId, inventoryNum);
         gameObject.SetActive(true);
         confirmButtons.SetActive(false);
         mainItemDisplay.SetActive(true);

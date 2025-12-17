@@ -54,6 +54,7 @@ public class NewCombatManager : NetworkBehaviour
     public PlayerInput playercontrol;
 
     public PVPVictory pvpVictory;
+    public LoseItemManager dropItem;
 
     public UnityEvent onCombatEnd;
     private AudioSource AudioSource;
@@ -372,10 +373,15 @@ public class NewCombatManager : NetworkBehaviour
             {
                 NetworkData.Instance.players[player.playerNumber].GainTown(cache);
             }
-            
+            bool isFull = false;
+            int itemType = -1;
             foreach(var item in  itemsPicked)
             {
-                NetworkData.Instance.AddItemToInventory(player.playerNumber, item);
+                if(NetworkData.Instance.AddItemToInventory(player.playerNumber, item))
+                {
+                    isFull = true;
+                    itemType = item.determineType();
+                }
             }
             
             endBattleInfo.lines.Add(player.name + " has gained <color=blue>" + (cache.xpOnTile) + "</color> xp ");
@@ -414,7 +420,22 @@ public class NewCombatManager : NetworkBehaviour
                 
                 endBattleInfo.lines.Add(itemString);
             }
-            
+            if(isFull)
+            {
+                endBattleInfo.endEvent.RemoveAllListeners();
+                endBattleInfo.endEvent.AddListener(delegate { endBattleInfo.gameObject.SetActive(false); });
+                
+                if (IsHost)
+                {
+                    Debug.Log("Im locked in ");
+                    
+                    endBattleInfo.endEvent.AddListener(delegate { pvpVictory.DropTimeRpc(); });
+                    endBattleInfo.endEvent.AddListener(delegate { dropItem.SetUp(player.playerNumber, itemType); });
+
+                    dropItem.finishLose.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI"); });
+                }
+                
+            }
        
             if(deadPlayers.Count > 0)
             {

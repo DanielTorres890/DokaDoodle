@@ -59,7 +59,7 @@ public class DialogueScript : NetworkBehaviour
     public void contCutsceneServerRpc(RpcParams rpcstuff = default)
     {
 
-        Debug.Log("Ive been called here too");
+
         if (!NetworkData.Instance.IsAllowed(whoInControl,rpcstuff.Receive.SenderClientId)) { return; }
         contCutsceneClientRpc();
     }
@@ -67,7 +67,7 @@ public class DialogueScript : NetworkBehaviour
     [ClientRpc]
     private void contCutsceneClientRpc()
     {
-        Debug.Log("I should be continuing");
+
         if (textComponent.maxVisibleCharacters >= lines[index].Length - 1 - charsToIgnore)
         {
             NextLine();
@@ -125,7 +125,7 @@ public class DialogueScript : NetworkBehaviour
             //once again fmcl
             if(background)
             gameObject.SetActive(false);
-
+            Debug.Log("The dialogue has finished properly");
 
             endEvent.Invoke();
             

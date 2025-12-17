@@ -10,22 +10,27 @@ public class PVPVictory : NetworkBehaviour
     
     private StealItemUI stealItemUI;
     public LoseItemManager dropItem;
-
+    public DialogueScript dialogueBox;
     public int winner;
     public int loser;
 
     public override void OnNetworkSpawn()
     {
-        gameObject.SetActive(false);
+       
+        mainButtons.SetActive(false);
+        stealItem.SetActive(false);
+
     }
 
     public void SetUp(int loserId, int winnerId)
     {
+        Debug.Log("I set up when i shouldn't have fmcl");
         gameObject.SetActive(true);
         stealItemUI = stealItem.GetComponent<StealItemUI>();
         stealItemUI.goBackButton.onClick.AddListener(BackFromSteal);
         stealItemUI.finishSteal.AddListener(CheckIfFull);
-        
+        stealItemUI.gameObject.SetActive(false);
+        dropItem.gameObject.SetActive(false);
         winner = winnerId;
         loser = loserId;
     }
@@ -64,17 +69,28 @@ public class PVPVictory : NetworkBehaviour
         if (fullInv)
         {
             dropItem.SetUp(winner, inventoryNum);
+            dropItem.finishLose.AddListener(FinishVictoryRpc);
+            DropTimeRpc();
         }
         else
         {
-            FinishVictory();
+            FinishVictoryRpc();
         }
     
     }
-    
-    public void FinishVictory()
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void FinishVictoryRpc()
     {
-
+        dialogueBox.endEvent.RemoveAllListeners();
+        dialogueBox.endEvent.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc(dialogueBox.nextScene); });
+        dialogueBox.lines.Clear();
+        dialogueBox.lines.Add("Well that happpened ");
+        
     }
-
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void DropTimeRpc()
+    {
+        stealItem.SetActive(false);
+        mainButtons.SetActive(false);
+    }
 }

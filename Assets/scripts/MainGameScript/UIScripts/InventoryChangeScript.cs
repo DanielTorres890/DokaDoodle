@@ -17,11 +17,13 @@ public class InventoryChangeScript : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI sizeText;
 
     public int whomsInventory;
+    public int whoInControl;
 
     public override void OnNetworkSpawn()
     {
-        whomsInventory = NetworkData.Instance.currentPlayer;
-        if(ClientChecks.Instance != null)
+        Debug.Log("I be changing");
+        roundStart();
+        if (ClientChecks.Instance != null)
         {
             ClientChecks.Instance.onRoundStart.AddListener(roundStart);
         }
@@ -29,7 +31,8 @@ public class InventoryChangeScript : NetworkBehaviour
   
     public void ResetDisplay()
     {
-        if(NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer,NetworkManager.Singleton.LocalClientId))
+        Debug.Log("I tried to move back");
+        if(NetworkData.Instance.IsAllowed(whoInControl,NetworkManager.Singleton.LocalClientId))
         {
             ResetDisplayRpc();
         }
@@ -37,7 +40,7 @@ public class InventoryChangeScript : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void ResetDisplayRpc(RpcParams rpcstuff = default)
     {
-        if (!NetworkData.Instance.IsAllowed(whomsInventory, rpcstuff.Receive.SenderClientId)) { return; }
+        if (!NetworkData.Instance.IsAllowed(whoInControl, rpcstuff.Receive.SenderClientId)) { return; }
 
         
         inventoryDisplay.CreateDisplay(whomsInventory, currentInventory);
@@ -48,7 +51,8 @@ public class InventoryChangeScript : NetworkBehaviour
     //for some god forsaken reason my button keeps forcing itself to subscribe to inventory forward which makes 0 sense
     public void InventoryForwardFrickU()
     {
-        if (NetworkData.Instance.IsAllowed(whomsInventory, NetworkManager.Singleton.LocalClientId))
+        Debug.Log("I tried to move forward");
+        if (NetworkData.Instance.IsAllowed(whoInControl, NetworkManager.Singleton.LocalClientId))
         {
             InventoryForwardRpc();
         }
@@ -56,10 +60,10 @@ public class InventoryChangeScript : NetworkBehaviour
     [Rpc( SendTo.ClientsAndHost,RequireOwnership = false)]
     public void InventoryForwardRpc(RpcParams rpcstuff = default)
     {
-        if (!NetworkData.Instance.IsAllowed(whomsInventory, rpcstuff.Receive.SenderClientId)) { return; }
+        if (!NetworkData.Instance.IsAllowed(whoInControl, rpcstuff.Receive.SenderClientId)) { return; }
 
         if (currentInventory >= 2) { return; }
-
+        
         currentInventory += 1;
         if (nameText)
         {
@@ -79,7 +83,7 @@ public class InventoryChangeScript : NetworkBehaviour
 
     public void InventoryBackFrickU()
     {
-        if (NetworkData.Instance.IsAllowed(whomsInventory, NetworkManager.Singleton.LocalClientId))
+        if (NetworkData.Instance.IsAllowed(whoInControl, NetworkManager.Singleton.LocalClientId))
         {
             InventoryBackRpc();
         }
@@ -87,7 +91,7 @@ public class InventoryChangeScript : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void InventoryBackRpc(RpcParams rpcstuff = default)
     {
-        if (!NetworkData.Instance.IsAllowed(whomsInventory, rpcstuff.Receive.SenderClientId)) { return; }
+        if (!NetworkData.Instance.IsAllowed(whoInControl, rpcstuff.Receive.SenderClientId)) { return; }
 
         if (currentInventory <= 0) { return;  }
 
@@ -109,5 +113,6 @@ public class InventoryChangeScript : NetworkBehaviour
     public void roundStart()
     {
         whomsInventory = NetworkData.Instance.currentPlayer;
+        whoInControl = NetworkData.Instance.currentPlayer;
     }
 }
