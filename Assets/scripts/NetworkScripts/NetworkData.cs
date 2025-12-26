@@ -248,6 +248,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     }
     public bool AddItemToInventory(int playerId, ItemBase item)
     {
+        
         int type = item.determineType();
         return playerInventories[playerId][type].AddItem(item);
     }

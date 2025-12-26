@@ -115,7 +115,7 @@ public class ShopUISync : NetworkBehaviour
     {
         
         NetworkData.Instance.AddItemToInventory(NetworkData.Instance.currentPlayer, curEvent.itemsSold[itemNum]);
-        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money] -= Mathf.RoundToInt(curEvent.itemsSold[itemNum].itemValue * NetworkData.Instance.globalShopMultiplier);
+        NetworkData.Instance.GetCurrentPlayer().GainMoney(-Mathf.RoundToInt(curEvent.itemsSold[itemNum].itemValue * NetworkData.Instance.globalShopMultiplier));
         moneyDisplay.StatUpdate();
 
         buyShop.SetActive(true);
@@ -187,7 +187,7 @@ public class ShopUISync : NetworkBehaviour
                 
             }
         }
-        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money] += NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][inventoryNum].getItem(itemNum).itemValue / 2;
+        NetworkData.Instance.GetCurrentPlayer().GainMoney(NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][inventoryNum].getItem(itemNum).itemValue / 2);
         NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][inventoryNum].RemoveItem(itemNum);
         moneyDisplay.StatUpdate();
         sellUIManager.CreateDisplay(NetworkData.Instance.currentPlayer, inventoryNum);

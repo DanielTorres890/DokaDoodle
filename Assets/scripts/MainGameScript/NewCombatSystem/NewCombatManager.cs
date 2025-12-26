@@ -266,8 +266,10 @@ public class NewCombatManager : NetworkBehaviour
 
             //if (IsServer) { LinesToSyncRpc((info.name + " dropped " + info.playerInfo[PlayerInfo.money] / 2 + " moneys"), info.LoseSomething(), 3, info.playerNumber); }
             //idk if i did this here for a reason but it doesnt make much sense since they shouldnt drop something if they might survive (like a revive or something)
-            moneyHarvested = info.playerInfo[PlayerInfo.money] /= 2;
-            info.playerInfo[PlayerInfo.money] /= 2;
+            
+            //this made players drop half their money on death but i dont think we should do that YET(?)
+            //moneyHarvested = info.playerInfo[PlayerInfo.money] / 2;
+            //info.GainMoney(-moneyHarvested);
 
 
 
@@ -367,7 +369,7 @@ public class NewCombatManager : NetworkBehaviour
             int levels = player.gainXp(cache.xpOnTile);
             bool gainedClassLevel = player.gainClassXp(cache.xpOnTile) > 0;
 
-            player.playerInfo[PlayerInfo.money] += moneyHarvested + cache.moneyOnTile;
+            player.GainMoney(moneyHarvested + cache.moneyOnTile);
 
             if (cache.townId > -1 && cache.tileOwner != player.playerNumber)
             {
@@ -471,8 +473,8 @@ public class NewCombatManager : NetworkBehaviour
                        
                             
                     }
+                    current.GainMoney(-current.playerInfo[PlayerInfo.money] / 2);
                     
-                    current.playerInfo[PlayerInfo.money] /= 2;
                 }
             }
             endBattleInfo.gameObject.SetActive(true);

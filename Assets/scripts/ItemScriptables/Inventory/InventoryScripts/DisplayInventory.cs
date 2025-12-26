@@ -64,7 +64,6 @@ public class DisplayInventory : MonoBehaviour
 
     public void CreateDisplay( int playerNum ,int inventoryType = 0)
     {
-        Debug.Log("I shouldnt have changed the fard " + inventoryType);
         SetInventory(inventoryType, playerNum);
         
         for (int i = 0; i < inventory.container.Count; i++)

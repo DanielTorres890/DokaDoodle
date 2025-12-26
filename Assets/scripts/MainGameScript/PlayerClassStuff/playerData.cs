@@ -24,7 +24,7 @@ public class playerData : EntityStats
     {
         {PlayerInfo.xp, 0 },
         {PlayerInfo.level, 1 },
-        {PlayerInfo.money, 0 },
+        {PlayerInfo.money, 1000 },
         {PlayerInfo.fame, 0 },
         {PlayerInfo.classCd, 0 }
    
@@ -91,29 +91,6 @@ public class playerData : EntityStats
         //bool hasOffense = false;
         this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[playerClass].basicAttackAbility);
 
-        //the code below was for checking if they actually had any offensive attacks but i have decided that every class has a basic attack
-        /*for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
-        {
-            
-            if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem))) { continue; }
-
-            if ((NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem).attack is not GuardAbility) { hasOffense = true; }
-            
-        }
-        for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][2].container.Count; i++)
-        {
-            if (!UsableItem((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem))) { continue; }
-
-            if ((NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem).attack is not GuardAbility) { hasOffense = true; }
-
-        }
-        
-        if (!hasOffense)
-        {
-            this.attacks.Add((NetworkData.Instance.playerInventories[playerNumber][1].database.GetItem[0] as WeaponItem).attack);
-        }*/
-        //all the stuff above is checking if the player actually has an item that provides offense bc if they don't you're helpless for no reason
-
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
         {
             var thisWeapon = NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem;
@@ -123,6 +100,7 @@ public class playerData : EntityStats
 
             if (this.attacks.Contains(thisWeapon.attack)) { continue; }
 
+            Debug.Log("This attack was added " + thisWeapon.attack.attackName);
             this.attacks.Add(thisWeapon.attack);
         }
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][2].container.Count; i++)
@@ -132,11 +110,11 @@ public class playerData : EntityStats
 
             if (this.attacks.Contains(thisWeapon.attack)) { continue; }
             this.attacks.Add(thisWeapon.attack);
+            Debug.Log("This attack was added " + thisWeapon.attack.attackName);
         }
 
         this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[playerClass].combatAbility);
-        // this.defenses[0] = (NetworkData.Instance.playerInventories[0][1].database.GetItem[this.equipItems[ItemType.Shield]] as WeaponItem).attack as DefenseBase;
-        // this.defenses[1] = (NetworkData.Instance.playerInventories[0][2].database.GetItem[this.equipItems[ItemType.MagicGuard]] as WeaponItem).attack as DefenseBase; 
+
     }
     public FixedString32Bytes getName()
     {
@@ -254,6 +232,11 @@ public class playerData : EntityStats
             return true;
         }
         return false;
+    }
+
+    public void GainMoney(int amount)
+    {
+        playerInfo[PlayerInfo.money] += amount;
     }
     public void UnequipItem(ItemType type)
     {

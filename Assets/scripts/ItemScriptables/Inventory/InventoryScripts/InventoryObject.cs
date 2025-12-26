@@ -13,11 +13,16 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
     public bool AddItem(ItemBase _item)
     {
         bool success = false;
-        if (container.Count + 1 >= MAXSIZE  )
-        {
-            success = true;          
-        }
+        Debug.Log("I gained an item mf");
+        Debug.Log("Inventory size " + container.Count);
+        Debug.Log("I can only hold this much " +  MAXSIZE);
+        
         container.Add(new InventorySlot(database.GetId[_item], _item));
+
+        if (container.Count > MAXSIZE)
+        {
+            success = true;
+        }
         return success;
 
     }

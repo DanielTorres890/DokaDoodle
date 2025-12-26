@@ -67,7 +67,7 @@ public class LoseItemManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void LoseItemRpc(int itemNum, int inventoryNumber)
     {
-        Debug.Log(gameObject);
+        
         itemToLose = itemNum;
         inventoryNum = inventoryNumber;
         confirmButtons.SetActive(true);
@@ -93,7 +93,7 @@ public class LoseItemManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void FinishRpc()
     {
-        if(IsServer) { NetworkData.Instance.LoseItemRpc(currentPlayer, itemToLose, inventoryNum); }
+        NetworkData.Instance.playerInventories[currentPlayer][inventoryNum].RemoveItem(itemToLose);
 
         for(int i = 0; i < NetworkData.Instance.playerInventories[currentPlayer].Count; i++)
         {

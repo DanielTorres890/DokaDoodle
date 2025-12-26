@@ -264,7 +264,7 @@ public class TownUIManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void LevelUpMoneyRpc()
     {
-        NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.money] -= Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.townMoneyLevel) + 1) * curTown.townInfo.moneyUpgradeCost);
+        NetworkData.Instance.GetCurrentPlayer().GainMoney (-Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.townMoneyLevel) + 1) * curTown.townInfo.moneyUpgradeCost));
         MapTileSpecialEvents.Instance.GetCurrentTile().townMoneyLevel += 1;
         goldTextManager.StatUpdate();
         levelManager.UpdateMoneySlider();
@@ -311,7 +311,7 @@ public class TownUIManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void LevelUpUnitRpc()
     {
-        NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.money] -= Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.unitLevel) + 1) * curTown.townInfo.unitUpgradeCost);
+        NetworkData.Instance.GetCurrentPlayer().GainMoney(-Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.unitLevel) + 1) * curTown.townInfo.unitUpgradeCost));
         MapTileSpecialEvents.Instance.GetCurrentTile().unitLevel += 1;
         goldTextManager.StatUpdate();
         levelManager.UpdateUnitSlider();
@@ -358,7 +358,7 @@ public class TownUIManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void LevelUpDefenseRpc()
     {
-        NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.money] -= Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.defenseLevel) + 1) * curTown.townInfo.defenseUpgradeCost);
+        NetworkData.Instance.GetCurrentPlayer().GainMoney(-Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.defenseLevel) + 1) * curTown.townInfo.defenseUpgradeCost));
         MapTileSpecialEvents.Instance.GetCurrentTile().defenseLevel += 1;
         goldTextManager.StatUpdate();
         levelManager.UpdateDefenseSlider();

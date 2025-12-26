@@ -14,7 +14,6 @@ public class StealItemUI : NetworkBehaviour
     public InventoryChangeScript inventoryChangeScript;
     public int stealingPlayer;
     public int stolenPlayer;
-    public int inventoryNum;
 
     private int stolenItem;
     private int stolenItemInv;
@@ -29,10 +28,12 @@ public class StealItemUI : NetworkBehaviour
         
         instance = this;
         gameObject.SetActive(false);
+
+
     }
     public void SetUp(int stealerId, int stolenId)
     {
-        if (!IsServer) { return; }
+        if (!IsHost) { return; }
         SetUpRpc(stealerId, stolenId);
     }
 
@@ -40,12 +41,14 @@ public class StealItemUI : NetworkBehaviour
     private void SetUpRpc(int stealerId, int stolenId)
     {
         stealingPlayer = stealerId;
-        inventoryNum = 0;
+        stolenPlayer = stolenId;
+        stolenItemInv = 0;
 
         inventoryDisplay.inventory = NetworkData.Instance.playerInventories[stolenId][0];
         inventoryChangeScript.whomsInventory = stolenId;
-        Debug.Log("I should be created");
-        inventoryDisplay.CreateDisplay(stolenId, inventoryNum);
+        Debug.Log("I should be created also i exist frick u " + StealItemUI.instance.gameObject);
+
+        inventoryDisplay.CreateDisplay(stolenId, stolenItemInv);
         gameObject.SetActive(true);
         confirmButtons.SetActive(false);
         mainItemDisplay.SetActive(true);
@@ -58,12 +61,13 @@ public class StealItemUI : NetworkBehaviour
         StealItemRpc(itemNum, inventoryNum);
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    private void StealItemRpc(int itemNum, int inventoryNumber)
+    public void StealItemRpc(int itemNum, int inventoryNumber)
     {
         stolenItem = itemNum;
         stolenItemInv = inventoryNumber;
         confirmButtons.SetActive(true);
         mainItemDisplay.SetActive(false);
+
     }
     public void GoBack()
     {
@@ -84,13 +88,15 @@ public class StealItemUI : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void FinishRpc()
     {
-        var stolenPlayerInventory = NetworkData.Instance.playerInventories[stolenPlayer][inventoryNum].container;
-        var stealingPlayerInventory = NetworkData.Instance.playerInventories[stealingPlayer][inventoryNum];
+
+        var stolenPlayerInventory = NetworkData.Instance.playerInventories[stolenPlayer][stolenItemInv].container;
+        var stealingPlayerInventory = NetworkData.Instance.playerInventories[stealingPlayer][stolenItemInv];
 
 
         bool success = stealingPlayerInventory.AddItem(stolenPlayerInventory[stolenItem].item);
+
         stolenPlayerInventory.RemoveAt(stolenItem);
-        finishSteal.Invoke(success,inventoryNum);
+        finishSteal.Invoke(success, stolenItemInv);
         gameObject.SetActive(false);
     }
 }

@@ -59,7 +59,7 @@ public class AbilityManager : NetworkBehaviour
         
         TryGetComponent(out animator);
 
-
+        
     }
 
     // Update is called once per frame
@@ -185,8 +185,11 @@ public class AbilityManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SpawnStartFabUpRpc(int whom)
     {
-        
+      
         currentAttack = stats.attacks[whom];
+        Debug.Log("Looking at THIS attack " + currentAttack.attackName);
+
+
         onAttack.Invoke();
         currentAttack.OnStartUp(gameObject);
         if(currentAttack.startUpPrefab != null && startUpEffects == null)
@@ -349,8 +352,11 @@ public class AbilityManager : NetworkBehaviour
         stats.PostStatusStatCalc();
         nameText.UpdateText();
         hpText.UpdateText();
-        
-        if(IsOwner) 
+        for (int i = 0; i < stats.attacks.Count; i++)
+        {
+            Debug.Log(stats.name + ": Info about this attack " + stats.attacks[i].attackName);
+        }
+        if (IsOwner) 
         { 
             if (gameObject.TryGetComponent(out BaseEnemyBehavior ai))
             {

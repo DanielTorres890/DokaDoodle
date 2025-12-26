@@ -14,13 +14,13 @@ public class EndOfWeek : MonoBehaviour
             popUpString += player.name + " made <color=yellow>";
             int madeMoney = 0;
             int madeMoneySalary = NetworkData.Instance.classDataBase.GetItem[player.playerClass].baseSalary * (player.playerClassProgress[player.playerClass].level + 1);
-            player.playerInfo[PlayerInfo.money] += madeMoneySalary;
+            player.GainMoney(madeMoneySalary);
             foreach (var townid in player.ownedTowns)
             {
                 var curTile = MapTileSpecialEvents.Instance.mapTiles[0][townid.Value];
                 
                 madeMoney += (curTile.townMoneyLevel + 1) * NetworkData.Instance.TownInfoDataBase.GetItem[townid.Key].baseMoneyGeneration;
-                player.playerInfo[PlayerInfo.money] += madeMoney;
+                player.GainMoney(madeMoney);
                 
                 Debug.Log("Gained Money from town");
             }
