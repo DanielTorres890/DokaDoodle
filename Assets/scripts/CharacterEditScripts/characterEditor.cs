@@ -27,6 +27,8 @@ public class characterEditor : MonoBehaviour
     [HideInInspector] public int playerFace = 0;
     [HideInInspector] public int playerHair = 0;
 
+    //i made it a const to be cool 
+    private const int defaultHairCount = 5;
     public void UpdateMaterial()
     {
         myMaterial.mainTexture = myTexture;
@@ -72,7 +74,8 @@ public class characterEditor : MonoBehaviour
     {
         List<string> hairs = library.GetCategoryLabelNames("hair").ToList();
 
-        if (playerHair < hairs.Count - 1) { playerHair++; }
+        
+        if (playerHair < defaultHairCount - 1) { playerHair++; }
         else { playerHair = 0; }
 
         setSprite("hair", hairs[playerHair]);
@@ -83,7 +86,7 @@ public class characterEditor : MonoBehaviour
         List<string> faces = library.GetCategoryLabelNames("face").ToList();
 
         if (playerFace > 0) { playerFace--; }
-        else { playerFace = faces.Count - 1; }
+        else { playerFace = defaultHairCount - 1; }
 
         setSprite("face", faces[playerFace]);
     }
