@@ -122,6 +122,7 @@ public class ClientChecks : NetworkBehaviour
         bool rumble = false;
         //at some point im probably gonna have to make this a different event but frick u
         onRoundStart.Invoke();
+
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
         {
 
@@ -238,6 +239,7 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void WorldEventRpc()
     {
+        Debug.Log("Step 3");
         if (WorldEventManager.Instance.eventsToActivate.Count > 0) { StartCoroutine(displayActivateEvent()); }
         else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0) { StartCoroutine(displayDeactivateEvent()); }
 
@@ -353,11 +355,13 @@ public class ClientChecks : NetworkBehaviour
         }
         if (IsServer)
         {
+            
             if(overflow)
             {
 
                 LoseItemManager.instance.SetUp(player,inventoryNum);
                 LoseItemManager.instance.finishLose.AddListener(PlayerMoveManager.Instance.NextTurnRpc);
+                Debug.Log("Im only subbed once right?");
             }
             else
             {
@@ -414,6 +418,7 @@ public class ClientChecks : NetworkBehaviour
 
     private IEnumerator displayActivateEvent()
     {
+        Debug.Log("How many times did i happen?");
         displayText.lines.Clear();
         displayText.lines.Add(WorldEventManager.Instance.eventsToActivate[0].ActivateText);
         worldEventImage.sprite = WorldEventManager.Instance.eventsToActivate[0].eventDisplay;
@@ -478,7 +483,7 @@ public class ClientChecks : NetworkBehaviour
         {
             yield return null;
         }
-        Debug.Log("everyone SHOULD be loaded...");
+ 
 
 
 

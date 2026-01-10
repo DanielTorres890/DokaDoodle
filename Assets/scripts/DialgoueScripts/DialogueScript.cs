@@ -82,9 +82,10 @@ public class DialogueScript : NetworkBehaviour
     public void startDialogue ()
     {
         StopAllCoroutines();
-        Debug.Log("I began");
+
         textComponent.text = lines[0];
         textComponent.maxVisibleCharacters = 0;
+        charsToIgnore = 0;
 
         index = 0;
         StartCoroutine(TypeLine());
@@ -106,7 +107,6 @@ public class DialogueScript : NetworkBehaviour
             }
             
             yield return new WaitForSeconds(textSpeed);
-
         }
     }
 
@@ -117,6 +117,7 @@ public class DialogueScript : NetworkBehaviour
             index++;
             textComponent.text = lines[index];
             textComponent.maxVisibleCharacters = 0;
+            charsToIgnore = 0;
             StartCoroutine(TypeLine());
         } 
         else
@@ -125,7 +126,7 @@ public class DialogueScript : NetworkBehaviour
             //once again fmcl
             if(background)
             gameObject.SetActive(false);
-            Debug.Log("The dialogue has finished properly");
+   
 
             endEvent.Invoke();
             

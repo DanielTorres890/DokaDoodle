@@ -30,15 +30,15 @@ public class LoseItemManager : NetworkBehaviour
     {
         instance = this;
         gameObject.SetActive(false);
-        Debug.Log("Ive been set FRICK U MF" +instance.gameObject);
+
     }
 
 
     public void SetUp(int playerId, int inventoryNumber)
     {
-        Debug.Log("I'm setting up?");
+
         if (!IsHost) { return; }
-        Debug.Log("Dono walled or what");
+
         SetUpRpc(playerId, inventoryNumber);
     }
 
@@ -60,7 +60,6 @@ public class LoseItemManager : NetworkBehaviour
     public void LoseItem(int itemNum, int inventoryNumber)
     {
         if (!NetworkData.Instance.IsAllowed(currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
-        Debug.Log("hello(?) i am very real right :) " + instance.gameObject);
         LoseItemRpc(itemNum, inventoryNumber);
     }
 
@@ -104,8 +103,9 @@ public class LoseItemManager : NetworkBehaviour
                 return;
             }
         }
-
+        
         finishLose.Invoke();
+        finishLose.RemoveAllListeners();
         gameObject.SetActive(false);
     }
 }

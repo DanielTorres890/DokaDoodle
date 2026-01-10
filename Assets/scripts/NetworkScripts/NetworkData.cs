@@ -168,7 +168,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         readyPlayers.RemoveAt(readyPlayers.Count - 1);
         maxPlayers--;
 
-        Debug.Log(playerCount);
+
     }
     [ServerRpc(RequireOwnership = false)]
     public void removePlayerServerRpc(int index)

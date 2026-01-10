@@ -21,7 +21,7 @@ public class InventoryChangeScript : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        Debug.Log("I be changing");
+
         roundStart();
         if (ClientChecks.Instance != null)
         {
@@ -31,7 +31,7 @@ public class InventoryChangeScript : NetworkBehaviour
   
     public void ResetDisplay()
     {
-        Debug.Log("I tried to move back");
+
         if(NetworkData.Instance.IsAllowed(whoInControl,NetworkManager.Singleton.LocalClientId))
         {
             ResetDisplayRpc();
@@ -51,7 +51,7 @@ public class InventoryChangeScript : NetworkBehaviour
     //for some god forsaken reason my button keeps forcing itself to subscribe to inventory forward which makes 0 sense
     public void InventoryForwardFrickU()
     {
-        Debug.Log("I tried to move forward");
+
         if (NetworkData.Instance.IsAllowed(whoInControl, NetworkManager.Singleton.LocalClientId))
         {
             InventoryForwardRpc();

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class PVPVictory : NetworkBehaviour
     public int winner;
     public int loser;
 
+    //im not a huge fan but i started with the sprite library so i gotta ride with it i fear
+    public List<int> prankHairIds;
     public override void OnNetworkSpawn()
     {
        
@@ -183,15 +186,18 @@ public class PVPVictory : NetworkBehaviour
     {
         if (NetworkData.Instance.IsAllowed(winner, NetworkManager.Singleton.LocalClientId))
         {
-             PrankRpc();
+            PrankRpc(prankHairIds[Random.Range(0,prankHairIds.Count)]);
         }
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    private void PrankRpc()
+    private void PrankRpc(int hairId)
     {
         //does not yet do anything....
-
-
+        characterEditor loserEditor = NetworkData.Instance.playerSticks[loser].GetComponent<characterEditor>();
+        loserEditor.setHair(hairId);
+        playerData loserData = NetworkData.Instance.players[loser];
+        loserData.playerHair = hairId;
+       
         if (IsHost) { FinishVictoryRpc(); }
     }
 }

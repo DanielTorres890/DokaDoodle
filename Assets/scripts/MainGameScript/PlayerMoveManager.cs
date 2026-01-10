@@ -288,6 +288,7 @@ public class PlayerMoveManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void NextTurnRpc()
     {
+        Debug.Log("Did i happen twice?");
         NetworkData.Instance.setNextTurnNum();
         ClientChecks.Instance.PreturnStuff();
         

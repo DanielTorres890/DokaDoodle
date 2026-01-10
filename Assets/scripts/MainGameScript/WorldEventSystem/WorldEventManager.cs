@@ -63,13 +63,13 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
             days += 1;
             onDayChange.Invoke();
             turns = 0;
-            Debug.Log("NEXT DAY TotalPlayers: " + NetworkData.Instance.playerCount);
+
         }
         if (days >= daysPerWeek)
         {
-            weeks++;
             days = 0;
-            Debug.Log("NEXT WEEK");
+            weeks++;
+            Debug.Log("Step 1");
             foreach (var qEvent in questEvents)
             {
                 if (qEvent.MainQuestCondition != null && qEvent.MainQuestCondition.CanBeginQuest() && !AlreadyActive(qEvent) && !AlreadyComplete(qEvent))
@@ -118,7 +118,9 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
             }
             return;
         }
+        Debug.Log("Step 1 and a half");
         ClientChecks.Instance.TurnStartChecks();
+        
     }
 
     
@@ -134,6 +136,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void NoEventRpc()
     {
+        Debug.Log("Step 2");
         ClientChecks.Instance.TurnStartChecks();
     }
     private bool AlreadyActive(WorldEventBase eventToCheck)
