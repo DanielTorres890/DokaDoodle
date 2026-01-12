@@ -20,12 +20,14 @@ public abstract class AbilityBase : NetworkBehaviour
 
     public bool destroyOnWallCollide;
 
+   
     private AudioSource AudioSource;
 
     private void Awake()
     {
         lifetimer = 0f;
         TryGetComponent(out AudioSource);
+       
     }
     public void Update()
     {
@@ -71,6 +73,8 @@ public abstract class AbilityBase : NetworkBehaviour
         {
             Debug.Log("I hit an entity!");
             isEntity = true;
+            if(NewCombatManager.instance && NewCombatManager.instance.fightOver) { return; }
+
             if(hitby.stats.loyaltyTags.Intersect(ownerStats.loyaltyTags).Any())
             {
                 return;
@@ -103,8 +107,8 @@ public abstract class AbilityBase : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = true)]
     private void PlayHitSoundRpc(int soundId)
     {
-        AudioSource.resource = NetworkData.Instance.audioDataBase.GetItem[soundId];
-        AudioSource.Play();
+        AudioSource.PlayClipAtPoint(NetworkData.Instance.audioDataBase.GetItem[soundId], transform.position, SettingsManager.instance.SFXVolume);
+        Debug.Log("I HIT AND IM PLAYING ");
     }
 
     public virtual void AbilityAction()

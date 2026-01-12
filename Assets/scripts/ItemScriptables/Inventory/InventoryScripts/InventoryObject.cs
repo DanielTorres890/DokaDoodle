@@ -13,9 +13,7 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
     public bool AddItem(ItemBase _item)
     {
         bool success = false;
-        Debug.Log("I gained an item mf");
-        Debug.Log("Inventory size " + container.Count);
-        Debug.Log("I can only hold this much " +  MAXSIZE);
+        
         
         container.Add(new InventorySlot(database.GetId[_item], _item));
 

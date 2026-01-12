@@ -45,7 +45,7 @@ public class LoseItemManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SetUpRpc(int playerId, int inventoryNumber)
     {
-        Debug.Log("I'm setting up");
+    
         currentPlayer = playerId;
         inventoryNum = inventoryNumber;
 

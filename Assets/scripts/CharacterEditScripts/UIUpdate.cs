@@ -11,12 +11,13 @@ public class UIUpdate : MonoBehaviour
     private float timer = 60f;
     private void Update()
     {
-        if (playerNum > NetworkData.Instance.playerCount)
+        if (playerNum >= NetworkData.Instance.maxPlayers)
         {
             return;
         }
         if (timer > 0)
         {
+            
             if (NetworkData.Instance.players[playerNum].name.ToString() != text.text)
             {
                 setTextToName(playerNum);

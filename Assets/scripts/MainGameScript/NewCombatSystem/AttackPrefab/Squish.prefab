@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: -2379229687477295144}
   - component: {fileID: 7227854483512577326}
   - component: {fileID: -2952436479630027941}
+  - component: {fileID: 3645794422805083591}
   m_Layer: 0
   m_Name: Squish
   m_TagString: Untagged
@@ -135,10 +136,10 @@ SphereCollider:
   m_Material: {fileID: 13400000, guid: 61e143d90be865148a6eb918412ada80, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 447
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -5160,3 +5161,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackSoundPlayer
   ShowTopMostFoldoutHeaderGroup: 1
   audioSource: {fileID: 7227854483512577326}
+--- !u!65 &3645794422805083591
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958144232811764369}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3, y: 0.3, z: 0.3}
+  m_Center: {x: 0, y: 0, z: 0}

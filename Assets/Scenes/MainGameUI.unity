@@ -7320,6 +7320,8 @@ MonoBehaviour:
     magics, as long as they're in your inventory they'll appear in combat"
   mouseOverText: {fileID: 1712460201}
   sizeText: {fileID: 10237841}
+  whomsInventory: 0
+  whoInControl: 0
 --- !u!114 &1222805384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11981,7 +11983,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1602749651094713678, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 132.69304
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071873206483609822, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}
+      propertyPath: Y_Start
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 2364310357629204240, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -11990,6 +11996,14 @@ PrefabInstance:
     - target: {fileID: 2364310357629204240, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623396731086010025, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}
+      propertyPath: m_Size
+      value: 0.571
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623396731086010025, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}
+      propertyPath: m_Value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3472634996971899538, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}
       propertyPath: m_Pivot.x
@@ -12081,6 +12095,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7015598941914393724, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7015598941914393724, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7888858109168585818, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}

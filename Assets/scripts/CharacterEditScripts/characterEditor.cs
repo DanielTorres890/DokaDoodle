@@ -86,7 +86,8 @@ public class characterEditor : MonoBehaviour
         List<string> faces = library.GetCategoryLabelNames("face").ToList();
 
         if (playerFace > 0) { playerFace--; }
-        else { playerFace = defaultHairCount - 1; }
+        else { playerFace = faces.Count - 1; }
+
 
         setSprite("face", faces[playerFace]);
     }
@@ -96,7 +97,7 @@ public class characterEditor : MonoBehaviour
         List<string> hairs = library.GetCategoryLabelNames("hair").ToList();
 
         if (playerHair > 0) { playerHair--; }
-        else { playerHair = hairs.Count - 1; }
+        else { playerHair = defaultHairCount - 1; }
 
         setSprite("hair", hairs[playerHair]);
     }

@@ -56,10 +56,13 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  attackAnimation: {fileID: 7400000, guid: 07cf1319332625148b3ed48fac40aa50, type: 2}
+  startUpAnimation: {fileID: 7400000, guid: 6714484de2d644441850d03ca9a0a223, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 516d7771e496e0c4ba2bda07a8d3607b, type: 2}
+  animationSpeed: 1
   LevelRequirements: []
   attackSound: {fileID: 8300000, guid: f25a327ac15456a4a84f118c0ae58eda, type: 3}
-  onHitSound: {fileID: 8300000, guid: 01a9fa707d474ec44a8ba781bf7032cd, type: 3}
+  onHitSound: {fileID: 8300000, guid: 2229f9f602241d5408c34cbffc1e7acc, type: 3}
+  onHitEffects: []
   speed: 9
   burstLifespan: 1
   burstSize: {x: 2, y: 2, z: 2}

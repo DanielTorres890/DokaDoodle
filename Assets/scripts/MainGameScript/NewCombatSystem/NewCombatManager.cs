@@ -43,9 +43,14 @@ public class NewCombatManager : NetworkBehaviour
     [DoNotSerialize] public int currentSpec = 0;
 
 
-    [Tooltip("Center spawn point where all units will spawn around")][SerializeField] private Vector3 spawnPoint;
-    [Tooltip("How far enemies will be staggered from each other")][SerializeField] private float zDistanceBetween;
-    [Tooltip("How far enemies spawn from the spawn point")][SerializeField] private float distanceFromCenter;
+    [Tooltip("Center spawn point where all units will spawn around")]
+    [SerializeField] private Vector3 spawnPoint;
+
+    [Tooltip("How far enemies will be staggered from each other")]
+    [SerializeField] private float zDistanceBetween;
+
+    [Tooltip("How far enemies spawn from the spawn point")]
+    [SerializeField] private float distanceFromCenter;
 
     private bool alreadyDone = false;
 
@@ -58,6 +63,10 @@ public class NewCombatManager : NetworkBehaviour
 
     public UnityEvent onCombatEnd;
     private AudioSource AudioSource;
+
+
+    public GameObject spectateUI;
+    public GameObject inCombatUI;
     private void Awake()
     {
         AudioSource = GetComponent<AudioSource>();
@@ -216,6 +225,8 @@ public class NewCombatManager : NetworkBehaviour
         //fricku[whichone].GetComponent<PlayerInput>();
         Cursor.lockState = CursorLockMode.Locked;
         playercontrol.SwitchCurrentActionMap("Player");
+        spectateUI.SetActive(false);
+        inCombatUI.SetActive(true);
         cameras[0].Priority = 1;
         currentSpec = whichone;
         cameras[whichone].Priority = 10;
@@ -254,6 +265,8 @@ public class NewCombatManager : NetworkBehaviour
 
             if (whoded.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId)
             {
+                spectateUI.SetActive(true);
+                inCombatUI.SetActive(false);
                 playercontrol.SwitchCurrentActionMap("Spectating");
                 cameras[currentSpec].Priority = 1;
                 cameras[0].Priority = 10;
@@ -376,6 +389,7 @@ public class NewCombatManager : NetworkBehaviour
                 NetworkData.Instance.players[player.playerNumber].GainTown(cache);
             }
             bool isFull = false;
+            bool leveledUp = levels > 0;
             int itemType = -1;
             foreach(var item in  itemsPicked)
             {
@@ -387,14 +401,14 @@ public class NewCombatManager : NetworkBehaviour
             }
             
             endBattleInfo.lines.Add(player.name + " has gained <color=blue>" + (cache.xpOnTile) + "</color> xp ");
-            if(levels >  0)
+            if(leveledUp)
             {
                 endBattleInfo.lines[endBattleInfo.lines.Count-1] += " and they've leveled up <color=blue>" + levels + "</color> times";
-                endBattleInfo.endEvent.RemoveAllListeners();
+                
                 levelUpUI.statsToAllocate += levels * NetworkData.Instance.statsPerLevel;
                 levelUpUI.inControl = player.playerNumber;
                 levelUpUI.playerWhoLevel = player;
-                endBattleInfo.endEvent.AddListener(delegate { levelUpUI.Setup(); });
+                
                 
             }
             if (gainedClassLevel)
@@ -415,7 +429,7 @@ public class NewCombatManager : NetworkBehaviour
                     }
                     else
                     {
-                        itemString += " a " + itemsPicked[i].name;
+                        itemString += "a " + itemsPicked[i].name;
                         if (i != itemsPicked.Count - 1) { itemString += ", "; }
                     }
                 }
@@ -426,7 +440,12 @@ public class NewCombatManager : NetworkBehaviour
             {
                 endBattleInfo.endEvent.RemoveAllListeners();
                 endBattleInfo.endEvent.AddListener(delegate { endBattleInfo.gameObject.SetActive(false); });
-                
+
+                if (leveledUp)
+                {
+                    dropItem.finishLose.AddListener(delegate { levelUpUI.Setup(); });
+                }
+
                 if (IsHost)
                 {
                     Debug.Log("Im locked in ");
@@ -434,7 +453,12 @@ public class NewCombatManager : NetworkBehaviour
                     endBattleInfo.endEvent.AddListener(delegate { pvpVictory.DropTimeRpc(); });
                     endBattleInfo.endEvent.AddListener(delegate { dropItem.SetUp(player.playerNumber, itemType); });
 
-                    dropItem.finishLose.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI"); });
+                    
+                    if(!leveledUp)
+                    {
+                        dropItem.finishLose.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI"); });
+                    }
+                        
                 }
                 
             }

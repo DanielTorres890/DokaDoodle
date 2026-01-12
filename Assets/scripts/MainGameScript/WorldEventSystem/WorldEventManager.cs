@@ -69,7 +69,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
         {
             days = 0;
             weeks++;
-            Debug.Log("Step 1");
+      
             foreach (var qEvent in questEvents)
             {
                 if (qEvent.MainQuestCondition != null && qEvent.MainQuestCondition.CanBeginQuest() && !AlreadyActive(qEvent) && !AlreadyComplete(qEvent))
@@ -118,7 +118,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
             }
             return;
         }
-        Debug.Log("Step 1 and a half");
+
         ClientChecks.Instance.TurnStartChecks();
         
     }
