@@ -436,40 +436,66 @@ public class NewCombatManager : NetworkBehaviour
                 
                 endBattleInfo.lines.Add(itemString);
             }
-            if(isFull)
-            {
+            //okay so this logic is mickey mouse but free me bru it cant be that deep
+            bool pvpWin = deadPlayers.Count > 0;
+            
+            //LEMME MAKE THIS REAL CLEAR I KNOW I COULD IMPLEMENT SOME KIND OF QUEUE BUT LORD THAT SOUNDS LIKE A LOT OF THINKING
+            //AND ITS 4 AM AND IM TIRED ANDF THISLL DO FRICK U
+            if(leveledUp || isFull || pvpWin) 
+            { 
                 endBattleInfo.endEvent.RemoveAllListeners();
                 endBattleInfo.endEvent.AddListener(delegate { endBattleInfo.gameObject.SetActive(false); });
+            }
+            if (leveledUp)
+            {
 
-                if (leveledUp)
+                endBattleInfo.endEvent.AddListener(delegate { levelUpUI.Setup(); });
+                levelUpUI.onFinishLevelUp.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI"); });
+            }
+            if (isFull)
+            {
+                if(leveledUp)
                 {
-                    dropItem.finishLose.AddListener(delegate { levelUpUI.Setup(); });
+                    levelUpUI.onFinishLevelUp.RemoveAllListeners();
+                    if(IsHost)
+                    levelUpUI.onFinishLevelUp.AddListener(delegate { dropItem.SetUp(player.playerNumber, itemType); });
+
                 }
-
-                if (IsHost)
+                else
                 {
-                    Debug.Log("Im locked in ");
-                    
-                    endBattleInfo.endEvent.AddListener(delegate { pvpVictory.DropTimeRpc(); });
+                    if (IsHost)
                     endBattleInfo.endEvent.AddListener(delegate { dropItem.SetUp(player.playerNumber, itemType); });
+                }
+                dropItem.finishLose.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI"); });
+            }
+            if (pvpWin)
+            {
+                //this strongly suggests i should fix my flow of things but man do i not want to
+                if (isFull)
+                {
+                    dropItem.finishLose.RemoveAllListeners();
+                    dropItem.finishLose.AddListener(delegate { pvpVictory.SetUp(deadPlayers[0], player.playerNumber); });
 
-                    
-                    if(!leveledUp)
-                    {
-                        dropItem.finishLose.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI"); });
-                    }
-                        
+                }
+                else if(leveledUp)
+                {
+                    levelUpUI.onFinishLevelUp.RemoveAllListeners();
+                    levelUpUI.onFinishLevelUp.AddListener(delegate { pvpVictory.SetUp(deadPlayers[0], player.playerNumber); });
+
+                }
+                else
+                {
+                    endBattleInfo.endEvent.AddListener(delegate { pvpVictory.SetUp(deadPlayers[0], player.playerNumber); });
                 }
                 
             }
+            
+
+           
+
+            
        
-            if(deadPlayers.Count > 0)
-            {
-                //this strongly suggests i should fix my flow of things but man do i not want to
-                endBattleInfo.endEvent.RemoveAllListeners();
-                endBattleInfo.endEvent.AddListener(delegate { endBattleInfo.gameObject.SetActive(false); });
-                endBattleInfo.endEvent.AddListener(delegate { pvpVictory.SetUp(deadPlayers[0],player.playerNumber); });
-            }
+            
             endBattleInfo.gameObject.SetActive(true);
             endBattleInfo.startDialogue();
             endBattleInfo.whoInControl = player.playerNumber;

@@ -185,7 +185,7 @@ public class playerData : EntityStats
     {
         int levelsGained = 0;
         this.playerInfo[PlayerInfo.xp] += xp;
-        while (this.playerInfo[PlayerInfo.xp] > 24 * Mathf.Pow((float)this.playerInfo[PlayerInfo.level], 1.2f) + 20) 
+        while (this.playerInfo[PlayerInfo.xp] > 24 * Mathf.Pow((float)this.playerInfo[PlayerInfo.level], 1.2f)) 
         {
             this.playerInfo[PlayerInfo.level] += 1;
             levelsGained++;

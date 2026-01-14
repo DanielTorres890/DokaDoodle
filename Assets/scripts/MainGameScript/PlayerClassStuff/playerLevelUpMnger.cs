@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class playerLevelUpMnger : NetworkBehaviour
@@ -15,6 +16,8 @@ public class playerLevelUpMnger : NetworkBehaviour
     public playerData playerWhoLevel;
     public int inControl;
     [SerializeField] private bool startShown;
+
+    public UnityEvent onFinishLevelUp;
 
     public Dictionary<Attributes, int> playerStatIncrease = new Dictionary<Attributes, int>
     {
@@ -133,10 +136,11 @@ public class playerLevelUpMnger : NetworkBehaviour
         {
             playerWhoLevel.ChangeBaseStat(stat, playerStatIncrease[stat]);
         }
-
+        gameObject.SetActive(false);
         if(IsServer)
         {
-            SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI");
+            onFinishLevelUp.Invoke();
+            
         }
     }
 }

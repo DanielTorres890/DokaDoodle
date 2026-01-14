@@ -1455,7 +1455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3075552288
+  GlobalObjectIdHash: 2884901355
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1697,7 +1697,7 @@ MonoBehaviour:
   speed: 4
   sensitivy: 0.1
   maxForce: 10
-  jumpForce: 3
+  jumpForce: 7
   minXCam: -85
   maxXCam: 85
   action: {fileID: 3018395302920932811}
@@ -1707,6 +1707,7 @@ MonoBehaviour:
   DashDexRequirement: 10
   DashEnergyCost: 10
   grounded: 1
+  gravityMult: 15
 --- !u!114 &992508209932742035
 MonoBehaviour:
   m_ObjectHideFlags: 0

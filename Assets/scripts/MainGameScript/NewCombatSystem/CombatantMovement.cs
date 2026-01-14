@@ -34,6 +34,7 @@ public class CombatantMovement : NetworkBehaviour
 
     //All states are in the ability manager bc honestly it makes more sense there
     [SerializeField] private bool grounded;
+    [SerializeField] private float gravityMult = 2;
 
     public void moveForward(InputAction.CallbackContext action)
     {
@@ -194,6 +195,9 @@ public class CombatantMovement : NetworkBehaviour
         Vector3.ClampMagnitude(velocityChange, maxForce);
 
         body.AddForce(velocityChange, ForceMode.VelocityChange);
+
+        body.AddForce(Vector3.down * gravityMult, ForceMode.Acceleration);
+
         if (abilityManager.combatantstate != combatantStates.Attacking && body.linearVelocity.y > maxForce) //fmcl
         {
            
