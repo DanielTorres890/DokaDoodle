@@ -10,4 +10,6 @@ public abstract class BuffBase : ScriptableObject
 
     public abstract void OnRemove(EntityStats stats);
     public abstract void BuffEffect(EntityStats whoWon);
+
+    public virtual void OnEveryTick(AbilityManager stats) { }
 }

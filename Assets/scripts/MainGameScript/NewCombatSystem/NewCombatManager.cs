@@ -261,6 +261,7 @@ public class NewCombatManager : NetworkBehaviour
         {
             playerData info = (playerData)whoded.stats;
             info.isDead = true;
+            
             Debug.Log(info.name + " did i die: " + info.isDead);
 
             if (whoded.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId)

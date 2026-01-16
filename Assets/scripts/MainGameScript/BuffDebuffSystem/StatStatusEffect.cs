@@ -16,6 +16,11 @@ public class StatStatusEffect : BuffBase
         stats.PostStatusStatCalc();
     }
 
+    public override void OnEveryTick(AbilityManager stats)
+    {
+        
+    }
+
     public override void OnRemove(EntityStats stats)
     {
         //its kinda weird but its implied(?) since itll be removed in some other way

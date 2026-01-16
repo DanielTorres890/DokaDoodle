@@ -33,7 +33,8 @@ public class StunDebuff : BuffBase
                                 return;
                             }
                         }
-                        Debug.Log("I should have destroyed this");
+
+
                         Destroy(fx);
                     });
 

@@ -19,7 +19,7 @@ public class CombatantMovement : NetworkBehaviour
     [SerializeField] private characterEditor characterEditor;
 
     private Vector2 move, look;
-
+    public Vector3 additionalForces;
 
     private float dashCdTimer;
 
@@ -134,6 +134,7 @@ public class CombatantMovement : NetworkBehaviour
         abilityManager.combatantstate = combatantStates.Dashing;
         abilityManager.stateDuration = .25f;
         body.AddForce(transform.TransformDirection(new Vector3(move.x, 0, move.y) * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
+        
     }
     public override void OnNetworkSpawn()
     {
@@ -194,8 +195,12 @@ public class CombatantMovement : NetworkBehaviour
 
         Vector3.ClampMagnitude(velocityChange, maxForce);
 
-        body.AddForce(velocityChange, ForceMode.VelocityChange);
+        //if you're not moving U SHOULDNT MOVE (coould change this later)
+        if(move.magnitude > 0) { velocityChange += additionalForces; }
 
+
+        body.AddForce(velocityChange, ForceMode.VelocityChange);
+        additionalForces = Vector3.zero;
         body.AddForce(Vector3.down * gravityMult, ForceMode.Acceleration);
 
         if (abilityManager.combatantstate != combatantStates.Attacking && body.linearVelocity.y > maxForce) //fmcl

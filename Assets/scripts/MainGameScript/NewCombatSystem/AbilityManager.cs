@@ -49,7 +49,8 @@ public class AbilityManager : NetworkBehaviour
     private float whenToUpdate = 1f;
     private void Awake()
     {
-       
+
+        
 
     }
     public override void OnNetworkSpawn()
@@ -58,7 +59,7 @@ public class AbilityManager : NetworkBehaviour
         NewCombatManager.instance.allCombatants.Add(this);
         
         TryGetComponent(out animator);
-
+        
         
     }
 
@@ -67,10 +68,13 @@ public class AbilityManager : NetworkBehaviour
     {
         if(NewCombatManager.instance.fightOver || stats.isDead) { return; }
         //i got mixed opinions on this being out here but w/e
+
         for (int i = stats.statuses.Count - 1; i >= 0; i--)
         {
             var status = stats.statuses[i];
             stats.ProgressStatuses(Time.deltaTime);
+            NetworkData.Instance.buffDataBase.GetItem[status.buffId].OnEveryTick(this);
+            
 
         }
         updateStatsTimer += Time.deltaTime;
@@ -352,6 +356,29 @@ public class AbilityManager : NetworkBehaviour
         stats.PostStatusStatCalc();
         nameText.UpdateText();
         hpText.UpdateText();
+
+        foreach (var status in stats.statuses)
+        {
+
+            if (NetworkData.Instance.buffDataBase.GetItem[status.buffId].buffFx)
+            {
+                var fx = Instantiate(NetworkData.Instance.buffDataBase.GetItem[status.buffId].buffFx, transform);
+
+                onStatus.AddListener(delegate
+                {
+                    foreach (var status2 in stats.statuses)
+                    {
+                        if (NetworkData.Instance.buffDataBase.GetItem[status.buffId] == NetworkData.Instance.buffDataBase.GetItem[status2.buffId])
+                        {
+                            return;
+                        }
+                    }
+
+                    Destroy(fx);
+                });
+            }
+        }
+
         for (int i = 0; i < stats.attacks.Count; i++)
         {
             Debug.Log(stats.name + ": Info about this attack " + stats.attacks[i].attackName);
