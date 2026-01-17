@@ -15,15 +15,15 @@ public class Drunken : BuffBase
     public override void OnApply(EntityStats stats)
     {
         //yo ngl this is some bs with how i did this icl
-        stats.GainStatus(this);
         stats.PostStatusStatCalc();
+        base.OnApply(stats);
     }
 
   
 
     public override void OnRemove(EntityStats stats)
     {
-        
+        base.OnRemove(stats);
     }
 
     public override void OnEveryTick(AbilityManager manager)
@@ -36,5 +36,6 @@ public class Drunken : BuffBase
             playerMover.additionalForces = new Vector3(Mathf.Sin(Time.time), 0, Mathf.Cos(Time.time)) * strength;
 
         }
+
     }
 }

@@ -191,7 +191,7 @@ public class AbilityManager : NetworkBehaviour
     {
       
         currentAttack = stats.attacks[whom];
-        Debug.Log("Looking at THIS attack " + currentAttack.attackName);
+
 
 
         onAttack.Invoke();

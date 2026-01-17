@@ -11,9 +11,8 @@ public class StatStatusEffect : BuffBase
 
     public override void OnApply(EntityStats stats)
     {
-        Debug.Log("Is there something in here " + NetworkData.Instance.buffDataBase.GetId.Count);
-        stats.GainStatus(this);
         stats.PostStatusStatCalc();
+        base.OnApply(stats);
     }
 
     public override void OnEveryTick(AbilityManager stats)
@@ -24,5 +23,6 @@ public class StatStatusEffect : BuffBase
     public override void OnRemove(EntityStats stats)
     {
         //its kinda weird but its implied(?) since itll be removed in some other way
+        base.OnRemove(stats);
     }
 }

@@ -6,6 +6,7 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NetworkData : NetworkBehaviour, IDataPersistance
 {
@@ -34,6 +35,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     private List<bool> readyPlayers = new List<bool>();
 
     public EventBase currentEvent;
+    public UnityEvent onStatusProgress;
 
     public Dictionary<Attributes, string> attributeStrings = new Dictionary<Attributes, string>
     {
@@ -282,6 +284,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
                 i--;
             }
         }
+        
         NetworkData.Instance.players[player].PostStatusStatCalc();
     }
 

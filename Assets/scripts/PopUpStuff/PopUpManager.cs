@@ -25,7 +25,7 @@ public class PopUpManager : MonoBehaviour, IDataPersistance
         currentPopUp = PopUpDatabase.GetItem[popUpId];
         seenPopUpIds.Add(popUpId);
 
-        Debug.Log("Hey whats up bello");
+
         
         if (SceneChanger.Instance.IsServer)
         {

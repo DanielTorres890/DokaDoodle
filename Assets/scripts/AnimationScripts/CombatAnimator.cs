@@ -28,7 +28,7 @@ public class CombatAnimator : NetworkBehaviour
     {
 
         //i would like to be the one to say that this is RIDICULOUS THAT ITS BASED ON THE CLIP NAME AND NOT THE STATE
-        Debug.Log("Whats my current attack?");
+
         if (abilityManager.currentAttack.startUpAnimation)
         {
             overrideController["DefaultStartUp"] = abilityManager.currentAttack.startUpAnimation;

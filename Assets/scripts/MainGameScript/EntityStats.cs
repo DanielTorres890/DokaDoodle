@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 [Serializable]
 public class EntityStats 
@@ -14,6 +15,8 @@ public class EntityStats
     public List<string> loyaltyTags = new List<string>();
 
     public List<BuffHolder> statuses = new List<BuffHolder>();
+
+    [JsonIgnore] public UnityEvent onStatusProgress = new UnityEvent();
 
     public Dictionary<Attributes, int> stats = new Dictionary<Attributes, int>
     {
@@ -91,6 +94,8 @@ public class EntityStats
             statuses.Add(new BuffHolder(status.duration, NetworkData.Instance.buffDataBase.GetId[status]));
             status.OnApply(this);
         }
+
+        
     }
     public void ProgressStatuses(float timePassed)
     {
@@ -103,6 +108,7 @@ public class EntityStats
                 
             }
         }
+        onStatusProgress.Invoke();
         PostStatusStatCalc();
     }
 

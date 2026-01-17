@@ -14,9 +14,10 @@ public class StatusItem : ItemBase
 
     public override void PerformItemEffect(int player, InventoryObject inventory)
     {
+
         foreach(var buff in StatusEffects)
         {
-            buff.OnApply(NetworkData.Instance.players[player]);
+            NetworkData.Instance.players[player].GainStatus(buff);
         }
         
         inventory.RemoveItem(this);

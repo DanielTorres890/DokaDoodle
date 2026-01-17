@@ -189,6 +189,7 @@ public class ClientChecks : NetworkBehaviour
 
         displayText.lines.Add(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].useText);
         StartCoroutine(usedItem());
+
         onItemUse.Invoke();
     }
 

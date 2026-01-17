@@ -13,6 +13,7 @@ public class StunDebuff : BuffBase
     public override void OnApply(EntityStats stats)
     {
         //means we're in combat
+        base.OnApply(stats);
         if(NewCombatManager.instance)
         {
             foreach (var combatant in NewCombatManager.instance.allCombatants)
@@ -45,6 +46,7 @@ public class StunDebuff : BuffBase
 
     public override void OnRemove(EntityStats stats)
     {
+        base.OnRemove(stats);
         if (NewCombatManager.instance)
         {
             foreach (var combatant in NewCombatManager.instance.allCombatants)
