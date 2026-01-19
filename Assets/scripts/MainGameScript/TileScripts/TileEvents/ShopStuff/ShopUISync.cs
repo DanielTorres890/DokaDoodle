@@ -49,6 +49,7 @@ public class ShopUISync : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void ShowSellRpc()
     {
+        sellUIManager.CreateDisplay(NetworkData.Instance.currentPlayer);
         sellShop.SetActive(true);
         hideMenuButtons(mainMenuButtons);
     }
@@ -88,6 +89,7 @@ public class ShopUISync : NetworkBehaviour
         if (playerInv.container.Count >= playerInv.MAXSIZE)
         {
             shopText.text = "That inventory is full go sell something (remember theres 3 different inventory types :)";
+            return;
         }
 
         buyDontButtons[0].SetActive(true);
@@ -162,6 +164,7 @@ public class ShopUISync : NetworkBehaviour
         sellDontButtons[1].GetComponentInChildren<TextMeshProUGUI>().text = "Dont Sell";
         button2.onClick.RemoveAllListeners();
         button2.onClick.AddListener(delegate { dontSell(); });
+        
     }
 
 

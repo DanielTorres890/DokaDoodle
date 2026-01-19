@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -93,7 +94,7 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void EveryoneLockInRpc()
     {
-        PreturnStuff();
+        StartCoroutine(WaitUntilLocalLoaded());
     }
     public void PreturnStuff()
     {
@@ -123,6 +124,7 @@ public class ClientChecks : NetworkBehaviour
         //at some point im probably gonna have to make this a different event but frick u
         onRoundStart.Invoke();
 
+        
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
         {
 
@@ -480,14 +482,22 @@ public class ClientChecks : NetworkBehaviour
     }
     private IEnumerator WaitUntilAllLoaded2()
     {
+        //the second half is sorta(?) redundant but it happened once where everyone loaded before the tiles were initialized the first time
         while (!SceneChanger.Instance.everyoneLoaded())
         {
             yield return null;
         }
- 
-
-
 
         EveryoneLockInRpc();
+    }
+    private IEnumerator WaitUntilLocalLoaded()
+    {
+        //the second half is sorta(?) redundant but it happened once where everyone loaded before the tiles were initialized the first time
+        while (MapTileSpecialEvents.Instance.mapTiles.Length <= 0)
+        {
+            yield return null;
+        }
+
+        PreturnStuff();
     }
 }

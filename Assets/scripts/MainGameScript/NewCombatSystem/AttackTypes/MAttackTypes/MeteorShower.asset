@@ -39,7 +39,7 @@ MonoBehaviour:
     mult: 2
   defenseMult:
   - attribute: 5
-    mult: 1.2
+    mult: 0.7
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -55,10 +55,13 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
+  startUpAnimation: {fileID: 0}
   attackAnimation: {fileID: 0}
+  animationSpeed: 1
   LevelRequirements: []
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
+  onHitEffects: []
   meteorCount: 40
   meteor: {fileID: 4958144232811764369, guid: 4cd5b4fe029e82546b92024f6eab68eb, type: 3}
   interval: 0.5

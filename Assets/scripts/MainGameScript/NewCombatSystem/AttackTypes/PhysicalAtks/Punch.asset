@@ -32,7 +32,7 @@ MonoBehaviour:
   attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   offset: {x: 0, y: 2, z: 1}
-  ablitySize: {x: 0.5, y: 0.3, z: 1}
+  ablitySize: {x: 0.5, y: 0.3, z: 2}
   baseDamage: 2
   multipliers:
   - attribute: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
     mult: 0
   defenseMult:
   - attribute: 3
-    mult: 1
+    mult: 0.5
   antiGuardMultipliers:
   - attribute: 0
     mult: 1

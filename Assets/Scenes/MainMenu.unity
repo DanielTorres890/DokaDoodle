@@ -223,6 +223,9 @@ MonoBehaviour:
   currentPlayer: 0
   globalShopMultiplier: 1
   currentEvent: {fileID: 0}
+  onStatusProgress:
+    m_PersistentCalls:
+      m_Calls: []
   statsPerLevel: 2
 --- !u!114 &42359529
 MonoBehaviour:
@@ -1306,8 +1309,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -107.7257, y: 0.0000038146973}
-  m_SizeDelta: {x: 568.9265, y: 359.393}
+  m_AnchoredPosition: {x: -108.5642, y: 7.1048}
+  m_SizeDelta: {x: 567.2495, y: 345.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &162838640
 MonoBehaviour:
@@ -3973,7 +3976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 894c750f022a0b846af19c179698c861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volume: 0
+  volume: 0.1
   SFXVolume: 0.5
   settings: {fileID: -944628639613478452, guid: 7c6fd24d06e1a1b469225625ea1f5d83, type: 3}
   onSFXVolumeChange:
@@ -4717,6 +4720,9 @@ MonoBehaviour:
     name: 
     isDead: 1
     loyaltyTags: []
+    onStatusProgress:
+      m_PersistentCalls:
+        m_Calls: []
     attacks:
     - {fileID: 0}
     - {fileID: 0}
@@ -4731,6 +4737,9 @@ MonoBehaviour:
     name: 
     isDead: 1
     loyaltyTags: []
+    onStatusProgress:
+      m_PersistentCalls:
+        m_Calls: []
     attacks:
     - {fileID: 0}
     - {fileID: 0}
@@ -5832,26 +5841,6 @@ PrefabInstance:
       propertyPath: m_CategoryHash
       value: 0.000000007601103
       objectReference: {fileID: 0}
-    - target: {fileID: 2342827142536118031, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.56425893
-      objectReference: {fileID: 0}
-    - target: {fileID: 2342827142536118031, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2342827142536118031, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2342827142536118031, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.8255979
-      objectReference: {fileID: 0}
-    - target: {fileID: 2342827142536118031, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -111.298
-      objectReference: {fileID: 0}
     - target: {fileID: 2574167262076902638, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -5860,22 +5849,6 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 7043084984298293652, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
-    - target: {fileID: 3199567786694278130, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.3675683
-      objectReference: {fileID: 0}
-    - target: {fileID: 3199567786694278130, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3199567786694278130, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.92999655
-      objectReference: {fileID: 0}
-    - target: {fileID: 3199567786694278130, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 136.869
-      objectReference: {fileID: 0}
     - target: {fileID: 4119983861621157545, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_labelHash
       value: 1.6370188e-21
@@ -5895,26 +5868,6 @@ PrefabInstance:
     - target: {fileID: 4495797557382092867, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.187
-      objectReference: {fileID: 0}
-    - target: {fileID: 4699819425935157028, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.997576
-      objectReference: {fileID: 0}
-    - target: {fileID: 4699819425935157028, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4699819425935157028, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4699819425935157028, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.06958604
-      objectReference: {fileID: 0}
-    - target: {fileID: 4699819425935157028, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -7.98
       objectReference: {fileID: 0}
     - target: {fileID: 4700506716245463217, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_AutoRebind
@@ -10728,7 +10681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PresetAsset: {fileID: 0}
   m_PresetReference:
-    rid: 1379329786804436992
+    rid: 4924240223503908980
   m_Scenario:
     rid: -2
   m_IsScenarioSettingsFolded: 0
@@ -10738,16 +10691,17 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1379329786804436992
+    - rid: 4924240223503908980
       type: {class: NetworkSimulatorPreset, ns: Unity.Multiplayer.Tools.NetworkSimulator.Runtime, asm: Unity.Multiplayer.Tools.NetworkSimulator.Runtime}
       data:
-        <Name>k__BackingField: 'Home Broadband [WIFI, Cable, Console, PC]'
-        <Description>k__BackingField: Typical of desktop and console platforms (and
-          generally speaking most mobile players too).
-        <PacketDelayMs>k__BackingField: 32
-        <PacketJitterMs>k__BackingField: 12
+        <Name>k__BackingField: Home Broadband with Congested Network
+        <Description>k__BackingField: Desktop and console platforms trough congested
+          networks (multiple downloads or streaming already using the network's maximum
+          capacity). Medium ping, bad jitter and little packet loss.
+        <PacketDelayMs>k__BackingField: 50
+        <PacketJitterMs>k__BackingField: 50
         <PacketLossInterval>k__BackingField: 0
-        <PacketLossPercent>k__BackingField: 2
+        <PacketLossPercent>k__BackingField: 1
 --- !u!1 &1779271926
 GameObject:
   m_ObjectHideFlags: 0

@@ -771,6 +771,9 @@ MonoBehaviour:
     name: 
     isDead: 0
     loyaltyTags: []
+    onStatusProgress:
+      m_PersistentCalls:
+        m_Calls: []
     attacks:
     - {fileID: 0}
     defenses:
@@ -965,7 +968,7 @@ NavMeshAgent:
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 7.18
   m_BaseOffset: 2.98
