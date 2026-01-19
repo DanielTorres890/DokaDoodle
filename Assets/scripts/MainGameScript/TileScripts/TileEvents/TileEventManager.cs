@@ -16,7 +16,7 @@ public class TileEventManager : NetworkBehaviour
     [SerializeField] private float spaceBetweenButtons;
     [SerializeField] private float startButtonY;
     [SerializeField] private float startButtonX;
-
+    [SerializeField] private AudioSource soundSource;
     [SerializeField] private bool inScene = false; // who are you
 
     // Start is called before the first frame update
@@ -27,11 +27,22 @@ public class TileEventManager : NetworkBehaviour
             Instance = this;
 
         dialogueScript = dialogue.GetComponent<DialogueScript>();
+        soundSource = GetComponent<AudioSource>();
+        
         dialogue.SetActive(true);
         dialogueScript.whoInControl = NetworkData.Instance.currentPlayer;
         dialogueScript.lines = new List<string>(NetworkData.Instance.currentEvent.dialouge);
         dialogueScript.Awake();
         StartCoroutine(completeEvent());
+
+        if (NetworkData.Instance.currentEvent.backgroundMusic)
+        {
+            soundSource.resource = NetworkData.Instance.currentEvent.backgroundMusic;
+            soundSource.volume = SettingsManager.instance.volume;
+            SettingsManager.instance.onBackgroundVolumeChange.AddListener(delegate { soundSource.volume = SettingsManager.instance.volume; });
+            soundSource.Play();
+        }
+
     }
 
     // Update is called once per frame

@@ -99,8 +99,8 @@ public class ClientChecks : NetworkBehaviour
     public void PreturnStuff()
     {
         //im really not sure if this is the best way, its basically saying maps dont exist until someone sees them but surely that cant be good
-        
 
+        Debug.Log("Step4");
         NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
         NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
 
@@ -120,10 +120,12 @@ public class ClientChecks : NetworkBehaviour
     
     public void TurnStartChecks()
     {
+        Debug.Log("Step 5");
         bool rumble = false;
         //at some point im probably gonna have to make this a different event but frick u
         onRoundStart.Invoke();
-
+        Debug.Log("Broke 1 " + MapTileSpecialEvents.Instance == null);
+        Debug.Log("Broke 2 " + MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber].Length);
         
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
         {
@@ -492,12 +494,29 @@ public class ClientChecks : NetworkBehaviour
     }
     private IEnumerator WaitUntilLocalLoaded()
     {
+        Debug.Log("Step 2");
         //the second half is sorta(?) redundant but it happened once where everyone loaded before the tiles were initialized the first time
-        while (MapTileSpecialEvents.Instance.mapTiles.Length <= 0)
-        {
+        Debug.Log("Step 2 1/2? " + (PlayerMoveManager.Instance == null).ToString());
+        Debug.Log("YO F THIS MF ");
+        Debug.Log("Step 2 2/3? " + (MapTileSpecialEvents.Instance == null).ToString());
+        Debug.Log("Im  confused man");
+        Debug.Log("Step 2 3/4 " + (MapTileSpecialEvents.Instance.mapTiles == null).ToString());
+        Debug.Log("Ima be honest f u man " + (MapTileSpecialEvents.Instance.mapTiles[0] == null).ToString());
+        while (MapTileSpecialEvents.Instance == null)
             yield return null;
-        }
 
+        while (MapTileSpecialEvents.Instance.mapTiles == null)
+            yield return null;
+
+        while (PlayerMoveManager.Instance == null)
+            yield return null;
+
+        while (PlayerMoveManager.Instance.mapNumber >=MapTileSpecialEvents.Instance.mapTiles.Length)
+            yield return null;
+
+        while (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber] == null)
+            yield return null;
+        Debug.Log("Step 3");
         PreturnStuff();
     }
 }

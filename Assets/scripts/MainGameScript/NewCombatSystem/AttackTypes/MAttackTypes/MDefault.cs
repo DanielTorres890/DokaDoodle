@@ -25,6 +25,7 @@ public class MDefault : AttackBase
 
         rigid.position += attack.transform.TransformDirection(rigid.linearVelocity) * (time - NetworkManager.Singleton.ServerTime.TimeAsFloat);
         rigid.linearVelocity = attack.transform.TransformDirection(Vector3.forward * speed);
+        Debug.Log("What is my velocity " + rigid.linearVelocity);
 
         return attack;
     }

@@ -10,6 +10,7 @@ public class MapTileSpecialEvents : NetworkBehaviour, IDataPersistance
   
 
     public static MapTileSpecialEvents Instance;
+
     // Start is called before the first frame update
     public void Awake()
     {
@@ -17,6 +18,7 @@ public class MapTileSpecialEvents : NetworkBehaviour, IDataPersistance
         Instance = this;
         this.mapTiles = new SpecialTileEventHold[10][];
     }
+
     public SpecialTileEventHold GetCurrentTile()
     {
         return mapTiles[NetworkData.Instance.GetCurrentPlayer().curMap][NetworkData.Instance.GetCurrentPlayer().curTileId];
@@ -24,6 +26,7 @@ public class MapTileSpecialEvents : NetworkBehaviour, IDataPersistance
 
     public void LoadData(GameData data)
     {
+        Debug.Log("Is this getting in the way?");
         mapTiles = data.tileEvents;
     }
 

@@ -10,7 +10,7 @@ public abstract class EventBase : ScriptableObject
     public List<string> endDialouge;
     public Sprite background;
     public string SceneToGoTo;
-
+    public AudioClip backgroundMusic;
 
     public abstract void SetUpBg();
     public abstract void FireEvent();
