@@ -89,6 +89,7 @@ public class playerData : EntityStats
     {
         this.attacks.Clear();
         //bool hasOffense = false;
+        Debug.Log("Im tripple checking that its happening");
         this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[playerClass].basicAttackAbility);
 
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
@@ -114,7 +115,7 @@ public class playerData : EntityStats
         }
 
         this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[playerClass].combatAbility);
-
+        Debug.Log("I have this many attacks " + attacks.Count);
     }
     public FixedString32Bytes getName()
     {

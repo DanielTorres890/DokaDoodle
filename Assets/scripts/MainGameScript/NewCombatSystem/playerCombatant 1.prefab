@@ -1673,8 +1673,8 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: afda8e35-73d1-4288-a98f-1661aa425226
     m_ActionName: 'Spectating/Settings[/Keyboard/escape]'
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -1702,6 +1702,7 @@ MonoBehaviour:
   maxXCam: 85
   action: {fileID: 3018395302920932811}
   characterEditor: {fileID: -7575021645446966744}
+  additionalForces: {x: 0, y: 0, z: 0}
   TimeBetweenDash: 0.2
   dashCd: 1
   DashDexRequirement: 10
@@ -1728,6 +1729,9 @@ MonoBehaviour:
     name: 
     isDead: 1
     loyaltyTags: []
+    onStatusProgress:
+      m_PersistentCalls:
+        m_Calls: []
     attacks: []
     defenses:
     - {fileID: 0}

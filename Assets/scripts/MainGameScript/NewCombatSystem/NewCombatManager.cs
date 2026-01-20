@@ -223,6 +223,7 @@ public class NewCombatManager : NetworkBehaviour
     private void SetNotSpectateRpc(int whichone, RpcParams rpcStuff)
     {
         //fricku[whichone].GetComponent<PlayerInput>();
+        Debug.Log("I'm ready to fight! ");
         Cursor.lockState = CursorLockMode.Locked;
         playercontrol.SwitchCurrentActionMap("Player");
         spectateUI.SetActive(false);

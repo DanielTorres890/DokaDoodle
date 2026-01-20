@@ -378,11 +378,8 @@ public class AbilityManager : NetworkBehaviour
                 });
             }
         }
-
-        for (int i = 0; i < stats.attacks.Count; i++)
-        {
-            Debug.Log(stats.name + ": Info about this attack " + stats.attacks[i].attackName);
-        }
+        Debug.Log("How many attacks do i actually have " + stats.attacks.Count);
+        
         if (IsOwner) 
         { 
             if (gameObject.TryGetComponent(out BaseEnemyBehavior ai))

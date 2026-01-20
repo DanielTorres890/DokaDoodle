@@ -28,15 +28,17 @@ public class PlayerCombatManager : MonoBehaviour
         PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
         string encounterName = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].EncounterName;
         PlayerCombatManager.Instance.currentEncounter = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId];
+        Debug.Log("Step 1 before it was set up");
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].setCombatActions();
-
+        Debug.Log("Step 2 it SHOULD SET UP HERE ");
 
         bool rumble = false; //is there another player that we fight
-
+       
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
         {
             if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
             {
+                
                 PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[players]);
                 NetworkData.Instance.players[players].setCombatActions();
                 rumble = true;
@@ -53,9 +55,12 @@ public class PlayerCombatManager : MonoBehaviour
             {
                 foreach (var enemy in PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].enemies)
                 {
+
                     var temp = new EnemyCombat(enemy);
                     PlayerCombatManager.Instance.combatants.Add(temp);
                     MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Add(temp);
+                    
+
                 }
 
             }

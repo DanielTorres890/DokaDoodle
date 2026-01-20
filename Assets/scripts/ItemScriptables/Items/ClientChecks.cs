@@ -100,7 +100,6 @@ public class ClientChecks : NetworkBehaviour
     {
         //im really not sure if this is the best way, its basically saying maps dont exist until someone sees them but surely that cant be good
 
-        Debug.Log("Step4");
         NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
         NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
 
@@ -494,14 +493,8 @@ public class ClientChecks : NetworkBehaviour
     }
     private IEnumerator WaitUntilLocalLoaded()
     {
-        Debug.Log("Step 2");
-        //the second half is sorta(?) redundant but it happened once where everyone loaded before the tiles were initialized the first time
-        Debug.Log("Step 2 1/2? " + (PlayerMoveManager.Instance == null).ToString());
-        Debug.Log("YO F THIS MF ");
-        Debug.Log("Step 2 2/3? " + (MapTileSpecialEvents.Instance == null).ToString());
-        Debug.Log("Im  confused man");
-        Debug.Log("Step 2 3/4 " + (MapTileSpecialEvents.Instance.mapTiles == null).ToString());
-        Debug.Log("Ima be honest f u man " + (MapTileSpecialEvents.Instance.mapTiles[0] == null).ToString());
+        //incase you wonder why this whole thing is here when technically the end of playermovemanager would guarentee all this to be true so it could be called there
+        //its bc technically since awake hasn't finished the scene isnt loaded in yet so popups can't occur (racist) so i see no alternative
         while (MapTileSpecialEvents.Instance == null)
             yield return null;
 
@@ -516,7 +509,7 @@ public class ClientChecks : NetworkBehaviour
 
         while (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber] == null)
             yield return null;
-        Debug.Log("Step 3");
+
         PreturnStuff();
     }
 }
