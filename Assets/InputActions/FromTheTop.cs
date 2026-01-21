@@ -226,6 +226,15 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Scrolling"",
+                    ""type"": ""Button"",
+                    ""id"": ""1c95a7b6-7c52-40df-882b-d6b6a35de6dd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -556,6 +565,17 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DashBack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1297cc5c-f693-49b7-99e8-0958e832fcc6"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Scrolling"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1455,6 +1475,15 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""ScrollWheel"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""48ad7979-5d24-480a-9d29-7f3e3323d856"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Settings"",
                     ""type"": ""Button"",
                     ""id"": ""afda8e35-73d1-4288-a98f-1661aa425226"",
@@ -1467,10 +1496,19 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""name"": ""RightCameraSwitch"",
                     ""type"": ""Button"",
                     ""id"": ""38fc7505-bee1-478b-9efa-bedf6ebd76e0"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""c5c7be77-68e3-419a-850e-cb51ddfd4823"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -1482,6 +1520,17 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""LeftCameraSwitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6bfda88-c713-43e4-9879-76ee3300d1b3"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ScrollWheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1515,6 +1564,39 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""RightCameraSwitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""491ed289-4c3e-410f-939f-b97e64cf23b4"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f770450-908f-41b5-9d2e-5f87b9288dd6"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Touch"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd4ee562-b32e-45d6-9570-36998137a2e2"",
+                    ""path"": ""<Joystick>/{Hatswitch}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1557,6 +1639,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         m_Player_DashLeft = m_Player.FindAction("DashLeft", throwIfNotFound: true);
         m_Player_DashFwd = m_Player.FindAction("DashFwd", throwIfNotFound: true);
         m_Player_DashBack = m_Player.FindAction("DashBack", throwIfNotFound: true);
+        m_Player_Scrolling = m_Player.FindAction("Scrolling", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1577,8 +1660,10 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         // Spectating
         m_Spectating = asset.FindActionMap("Spectating", throwIfNotFound: true);
         m_Spectating_LeftCameraSwitch = m_Spectating.FindAction("LeftCameraSwitch", throwIfNotFound: true);
+        m_Spectating_ScrollWheel = m_Spectating.FindAction("ScrollWheel", throwIfNotFound: true);
         m_Spectating_Settings = m_Spectating.FindAction("Settings", throwIfNotFound: true);
         m_Spectating_RightCameraSwitch = m_Spectating.FindAction("RightCameraSwitch", throwIfNotFound: true);
+        m_Spectating_Look = m_Spectating.FindAction("Look", throwIfNotFound: true);
     }
 
     ~@CustomInput()
@@ -1676,6 +1761,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_DashLeft;
     private readonly InputAction m_Player_DashFwd;
     private readonly InputAction m_Player_DashBack;
+    private readonly InputAction m_Player_Scrolling;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1748,6 +1834,10 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @DashBack => m_Wrapper.m_Player_DashBack;
         /// <summary>
+        /// Provides access to the underlying input action "Player/Scrolling".
+        /// </summary>
+        public InputAction @Scrolling => m_Wrapper.m_Player_Scrolling;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1818,6 +1908,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @DashBack.started += instance.OnDashBack;
             @DashBack.performed += instance.OnDashBack;
             @DashBack.canceled += instance.OnDashBack;
+            @Scrolling.started += instance.OnScrolling;
+            @Scrolling.performed += instance.OnScrolling;
+            @Scrolling.canceled += instance.OnScrolling;
         }
 
         /// <summary>
@@ -1874,6 +1967,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @DashBack.started -= instance.OnDashBack;
             @DashBack.performed -= instance.OnDashBack;
             @DashBack.canceled -= instance.OnDashBack;
+            @Scrolling.started -= instance.OnScrolling;
+            @Scrolling.performed -= instance.OnScrolling;
+            @Scrolling.canceled -= instance.OnScrolling;
         }
 
         /// <summary>
@@ -2162,8 +2258,10 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Spectating;
     private List<ISpectatingActions> m_SpectatingActionsCallbackInterfaces = new List<ISpectatingActions>();
     private readonly InputAction m_Spectating_LeftCameraSwitch;
+    private readonly InputAction m_Spectating_ScrollWheel;
     private readonly InputAction m_Spectating_Settings;
     private readonly InputAction m_Spectating_RightCameraSwitch;
+    private readonly InputAction m_Spectating_Look;
     /// <summary>
     /// Provides access to input actions defined in input action map "Spectating".
     /// </summary>
@@ -2180,6 +2278,10 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @LeftCameraSwitch => m_Wrapper.m_Spectating_LeftCameraSwitch;
         /// <summary>
+        /// Provides access to the underlying input action "Spectating/ScrollWheel".
+        /// </summary>
+        public InputAction @ScrollWheel => m_Wrapper.m_Spectating_ScrollWheel;
+        /// <summary>
         /// Provides access to the underlying input action "Spectating/Settings".
         /// </summary>
         public InputAction @Settings => m_Wrapper.m_Spectating_Settings;
@@ -2187,6 +2289,10 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Spectating/RightCameraSwitch".
         /// </summary>
         public InputAction @RightCameraSwitch => m_Wrapper.m_Spectating_RightCameraSwitch;
+        /// <summary>
+        /// Provides access to the underlying input action "Spectating/Look".
+        /// </summary>
+        public InputAction @Look => m_Wrapper.m_Spectating_Look;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -2216,12 +2322,18 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @LeftCameraSwitch.started += instance.OnLeftCameraSwitch;
             @LeftCameraSwitch.performed += instance.OnLeftCameraSwitch;
             @LeftCameraSwitch.canceled += instance.OnLeftCameraSwitch;
+            @ScrollWheel.started += instance.OnScrollWheel;
+            @ScrollWheel.performed += instance.OnScrollWheel;
+            @ScrollWheel.canceled += instance.OnScrollWheel;
             @Settings.started += instance.OnSettings;
             @Settings.performed += instance.OnSettings;
             @Settings.canceled += instance.OnSettings;
             @RightCameraSwitch.started += instance.OnRightCameraSwitch;
             @RightCameraSwitch.performed += instance.OnRightCameraSwitch;
             @RightCameraSwitch.canceled += instance.OnRightCameraSwitch;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
         }
 
         /// <summary>
@@ -2236,12 +2348,18 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @LeftCameraSwitch.started -= instance.OnLeftCameraSwitch;
             @LeftCameraSwitch.performed -= instance.OnLeftCameraSwitch;
             @LeftCameraSwitch.canceled -= instance.OnLeftCameraSwitch;
+            @ScrollWheel.started -= instance.OnScrollWheel;
+            @ScrollWheel.performed -= instance.OnScrollWheel;
+            @ScrollWheel.canceled -= instance.OnScrollWheel;
             @Settings.started -= instance.OnSettings;
             @Settings.performed -= instance.OnSettings;
             @Settings.canceled -= instance.OnSettings;
             @RightCameraSwitch.started -= instance.OnRightCameraSwitch;
             @RightCameraSwitch.performed -= instance.OnRightCameraSwitch;
             @RightCameraSwitch.canceled -= instance.OnRightCameraSwitch;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
         }
 
         /// <summary>
@@ -2400,6 +2518,13 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDashBack(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Scrolling" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnScrolling(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
@@ -2529,6 +2654,13 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLeftCameraSwitch(InputAction.CallbackContext context);
         /// <summary>
+        /// Method invoked when associated input action "ScrollWheel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnScrollWheel(InputAction.CallbackContext context);
+        /// <summary>
         /// Method invoked when associated input action "Settings" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -2542,5 +2674,12 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRightCameraSwitch(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLook(InputAction.CallbackContext context);
     }
 }

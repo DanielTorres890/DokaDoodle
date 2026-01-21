@@ -404,7 +404,6 @@ GameObject:
   - component: {fileID: 82409520}
   - component: {fileID: 82409521}
   - component: {fileID: 82409522}
-  - component: {fileID: 82409523}
   - component: {fileID: 82409524}
   m_Layer: 0
   m_Name: newcombatmanager
@@ -480,6 +479,12 @@ MonoBehaviour:
   spawnPoint: {x: 0, y: 5, z: 0}
   zDistanceBetween: 5
   distanceFromCenter: 30
+  maxSpecZoomIn: -8
+  maxSpecZoomOut: -25
+  scrollSpeed: 25
+  mouseSpeed: 5
+  minXCam: -85
+  maxXCam: 85
   endBattleInfo: {fileID: 1357528591}
   playercontrol: {fileID: 332078524}
   pvpVictory: {fileID: 1214130297}
@@ -489,50 +494,6 @@ MonoBehaviour:
       m_Calls: []
   spectateUI: {fileID: 125516499}
   inCombatUI: {fileID: 583348554}
---- !u!114 &82409523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 82409518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NotificationBehavior: 2
-  m_MaxPlayerCount: -1
-  m_AllowJoining: 1
-  m_JoinBehavior: 0
-  m_PlayerJoinedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_PlayerLeftEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_JoinAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: 
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 2325295e-18fb-4d9a-bcd8-7dd66c7b8e85
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
-  m_SplitScreen: 0
-  m_MaintainAspectRatioInSplitScreen: 0
-  m_FixedNumberOfSplitScreens: -1
-  m_SplitScreenRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
 --- !u!82 &82409524
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1521,7 +1482,43 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: afda8e35-73d1-4288-a98f-1661aa425226
     m_ActionName: 'Spectating/Settings[/Keyboard/escape]'
-  m_NeverAutoSwitchControlSchemes: 1
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1c95a7b6-7c52-40df-882b-d6b6a35de6dd
+    m_ActionName: 'Player/Scrolling[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 82409522}
+        m_TargetAssemblyTypeName: NewCombatManager, Assembly-CSharp
+        m_MethodName: SpecScroll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 48ad7979-5d24-480a-9d29-7f3e3323d856
+    m_ActionName: 'Spectating/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 82409522}
+        m_TargetAssemblyTypeName: NewCombatManager, Assembly-CSharp
+        m_MethodName: SpecMouseMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c5c7be77-68e3-419a-850e-cb51ddfd4823
+    m_ActionName: 'Spectating/Look[/Mouse/delta]'
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Spectating
   m_SplitScreenIndex: -1

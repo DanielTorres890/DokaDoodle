@@ -42,6 +42,7 @@ public class SettingsManager : MonoBehaviour
         settings.actionMaps[0].FindAction("Settings").performed += SettingsScene;
         settings.actionMaps[1].FindAction("Settings").performed += SettingsScene;
         settings.actionMaps[2].FindAction("Settings").performed += SettingsScene;
+        
     }
     public void SettingsScene(InputAction.CallbackContext context)
     {

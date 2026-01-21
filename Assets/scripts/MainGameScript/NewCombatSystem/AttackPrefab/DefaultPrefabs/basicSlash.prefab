@@ -66,6 +66,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -87,6 +89,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -192,6 +195,9 @@ MonoBehaviour:
     name: 
     isDead: 0
     loyaltyTags: []
+    onStatusProgress:
+      m_PersistentCalls:
+        m_Calls: []
     attacks: []
     defenses:
     - {fileID: 0}
@@ -201,6 +207,8 @@ MonoBehaviour:
   attackType: 0
   lifespan: 15
   lifetimer: 0
+  chargedDuration: 0
+  destroyOnWallCollide: 0
 --- !u!82 &-6985951634538730933
 AudioSource:
   m_ObjectHideFlags: 0
@@ -222,7 +230,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 10
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0

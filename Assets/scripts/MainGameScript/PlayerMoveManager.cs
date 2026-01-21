@@ -328,7 +328,9 @@ public class PlayerMoveManager : NetworkBehaviour
                     MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].townId = NetworkData.Instance.TownInfoDataBase.GetId[(PlayerMoveManager.Instance.mapTiles[i] as TownTile).Info];
                     foreach (var enemy in Instance.mapTiles[i].defaultTileEnemies.enemies)
                     {
-                        MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].tileEnemy.Add(new EnemyCombat(enemy));
+                        var enemystats = new EnemyCombat(enemy);
+                        enemystats.persistant = true;
+                        MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].tileEnemy.Add(enemystats);
                     }
                     
                 }

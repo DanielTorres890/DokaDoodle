@@ -18,7 +18,8 @@ public class CombatantMovement : NetworkBehaviour
     [SerializeField] private PlayerInput action;
     [SerializeField] private characterEditor characterEditor;
 
-    private Vector2 move, look;
+
+    private Vector2 move, look,scroll;
     public Vector3 additionalForces;
 
     private float dashCdTimer;
@@ -35,7 +36,8 @@ public class CombatantMovement : NetworkBehaviour
     //All states are in the ability manager bc honestly it makes more sense there
     [SerializeField] private bool grounded;
     [SerializeField] private float gravityMult = 2;
-
+    [SerializeField] private float minZoomIn, maxZoomOut;
+ 
     public void moveForward(InputAction.CallbackContext action)
     {
 
@@ -47,6 +49,12 @@ public class CombatantMovement : NetworkBehaviour
     {
         look = action.action.ReadValue<Vector2>();
     }
+    public void Scroll(InputAction.CallbackContext action)
+    {
+        scroll = action.action.ReadValue<Vector2>();
+        scroll = scroll.normalized;
+    }
+
     public void NormalJump(InputAction.CallbackContext action)
     {
 
@@ -164,6 +172,8 @@ public class CombatantMovement : NetworkBehaviour
     private void Move()
     {
         dashCdTimer += Time.deltaTime;
+
+        
         if (!abilityManager.CanMove())
         {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0f);
@@ -237,7 +247,7 @@ public class CombatantMovement : NetworkBehaviour
         }
         transform.Rotate(new Vector3(0, look.x * sensitivy, 0));
 
-       
+        playerCam.transform.localPosition = new Vector3(playerCam.transform.localPosition.x, playerCam.transform.localPosition.y, Mathf.Clamp(playerCam.transform.localPosition.z + scroll.y, minZoomIn, maxZoomOut));
         playerCam.transform.parent.transform.Rotate(new Vector3(-look.y * sensitivy, 0, 0));
 
         if (playerCam.transform.parent.transform.eulerAngles.x % 360 < 360 + minXCam && playerCam.transform.parent.transform.eulerAngles.x % 360 > maxXCam)

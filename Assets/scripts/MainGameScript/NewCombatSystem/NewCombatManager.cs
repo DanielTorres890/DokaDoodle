@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,6 @@ using Unity.Cinemachine;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -52,6 +52,11 @@ public class NewCombatManager : NetworkBehaviour
     [Tooltip("How far enemies spawn from the spawn point")]
     [SerializeField] private float distanceFromCenter;
 
+    [Tooltip("The maximum amount you can zoom in and out")]
+    [SerializeField] private float maxSpecZoomIn, maxSpecZoomOut;
+    [SerializeField] private float scrollSpeed = 5.0f, mouseSpeed = 5.0f;
+    [SerializeField] private float minXCam = 5.0f, maxXCam = 5.0f;
+    private Vector2 scrolling, mouseMove;
     private bool alreadyDone = false;
 
     public DialogueScript endBattleInfo;
@@ -67,9 +72,12 @@ public class NewCombatManager : NetworkBehaviour
 
     public GameObject spectateUI;
     public GameObject inCombatUI;
+
+    
     private void Awake()
     {
         AudioSource = GetComponent<AudioSource>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
     private void Update()
     {
@@ -78,6 +86,8 @@ public class NewCombatManager : NetworkBehaviour
 
 
         timerText.text = "Time Remaining: " + Mathf.RoundToInt(combatTimer).ToString();
+
+        
         if (!IsServer) { return; }
 
         //lowkey im braindamaged why would i put this here
@@ -231,7 +241,7 @@ public class NewCombatManager : NetworkBehaviour
         cameras[0].Priority = 1;
         currentSpec = whichone;
         cameras[whichone].Priority = 10;
-
+        
         playerUI.abilityManager = allCombatants[whichone - 1]; //keep in mind that theres already a camera in the scene by default so its off by 1
         playerUI.SetUp();
 
@@ -664,9 +674,36 @@ public class NewCombatManager : NetworkBehaviour
         cameras[currentSpec].Priority = 10;
     }
 
-    //good programming states that i shouldnt put this here but frick u (im sorry)
+    
     private void UpdateVolume()
     {
         AudioSource.volume = SettingsManager.instance.volume; 
+    }
+    public void SpecScroll(InputAction.CallbackContext action)
+    {
+        scrolling = action.ReadValue<Vector2>().normalized;
+
+    }
+    public void SpecMouseMove(InputAction.CallbackContext action)
+    {
+        
+        mouseMove = action.ReadValue<Vector2>();
+    }
+    private void LateUpdate()
+    {
+        if(playercontrol.currentActionMap.name != "Spectating") { return; }
+
+        cameras[currentSpec].transform.position += cameras[currentSpec].transform.TransformDirection(Vector3.forward) * scrolling.y * Time.deltaTime * scrollSpeed;
+        if(cameras[currentSpec].transform.parent != null)
+        {
+            
+
+            cameras[currentSpec].transform.parent.transform.Rotate(new Vector3(-mouseMove.y * mouseSpeed * Time.deltaTime, 0, 0));
+
+            if (cameras[currentSpec].transform.parent.transform.eulerAngles.x % 360 < 360 + minXCam && cameras[currentSpec].transform.parent.transform.eulerAngles.x % 360 > maxXCam)
+            {
+                cameras[currentSpec].transform.parent.transform.Rotate(new Vector3(mouseMove.y * mouseSpeed, 0, 0));
+            }
+        }
     }
 }

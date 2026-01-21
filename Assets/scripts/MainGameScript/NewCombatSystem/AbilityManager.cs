@@ -244,7 +244,6 @@ public class AbilityManager : NetworkBehaviour
 
         actions.SwitchCurrentActionMap("Player");
         
-
         actions.actions["M1Attack"].performed += M1Attack;
         actions.actions["M1Attack"].canceled += M1AttackReleased;
 

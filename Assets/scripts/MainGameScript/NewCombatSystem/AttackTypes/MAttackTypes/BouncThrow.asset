@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1b47e846fecebc48b8df7bd633dae51, type: 3}
-  m_Name: Ground Pound
+  m_Script: {fileID: 11500000, guid: 88423fa34ea4c3b4d8d7661c8e38dca6, type: 3}
+  m_Name: BouncThrow
   m_EditorClassIdentifier: 
-  description: Wind up and SMACK the ground
-  attackName: Quake
-  startUp: 3
+  description: throw rock
+  attackName: Rock Throw
+  startUp: 1
   attackDuration: 0
   endLag: 1
-  cooldown: 7
-  lifespan: 0.2
-  energyDrain: 1
+  cooldown: 4
+  lifespan: 12
+  energyDrain: 2
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -29,17 +29,17 @@ MonoBehaviour:
   sizePotencyEffect: 2
   stateToBe: 0
   chargeable: 1
-  attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
+  attackPrefab: {fileID: 4958144232811764369, guid: 509358c41ea3a574699f9e6eb853f2af, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
-  offset: {x: 0, y: -2, z: 0}
-  ablitySize: {x: 35, y: 0.2, z: 35}
-  baseDamage: 20
+  offset: {x: 0, y: 0, z: 0}
+  ablitySize: {x: 1, y: 1, z: 1}
+  baseDamage: 10
   multipliers:
   - attribute: 2
-    mult: 1.3
+    mult: 1.8
   defenseMult:
-  - attribute: 3
-    mult: 1
+  - attribute: 5
+    mult: 0.5
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -62,3 +62,6 @@ MonoBehaviour:
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
   onHitEffects: []
+  speed: 20
+  burstLifespan: 1
+  burstSize: {x: 3, y: 3, z: 3}
