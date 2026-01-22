@@ -5017,6 +5017,9 @@ MonoBehaviour:
     name: 
     isDead: 0
     loyaltyTags: []
+    onStatusProgress:
+      m_PersistentCalls:
+        m_Calls: []
     attacks: []
     defenses:
     - {fileID: 0}
@@ -5130,7 +5133,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 5
+  MinDistance: 19.801981
   MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0

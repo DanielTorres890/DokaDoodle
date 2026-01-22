@@ -609,7 +609,7 @@ public class NewCombatManager : NetworkBehaviour
             if (NetworkData.Instance.players[tilereadCache.players[i]].isDead)
             {
                 deadPlayer.Add(tilereadCache.players[i]);
-                NetworkData.Instance.players[tilereadCache.players[i]].death(3);
+                NetworkData.Instance.players[tilereadCache.players[i]].death(1);
 
             }
         }
