@@ -31,6 +31,7 @@ public class ClientChecks : NetworkBehaviour
     private bool loadedIn = false;
 
     public RandomItemSelect randomItemPickup;
+
     //im gonna be so fr this whole thingy i have going on with this class is some big buns and im sorry to anyone who looks at this
     //(the main issue is im doing wayyy to much in here in the worst ways possible
    
@@ -46,7 +47,7 @@ public class ClientChecks : NetworkBehaviour
         {
             StartCoroutine(WaitUntilAllLoaded());
         }
-       
+      
         
 
         //StartCoroutine(WaitUntilAllLoaded());
@@ -119,12 +120,11 @@ public class ClientChecks : NetworkBehaviour
     
     public void TurnStartChecks()
     {
-        Debug.Log("Step 5");
+
         bool rumble = false;
         //at some point im probably gonna have to make this a different event but frick u
         onRoundStart.Invoke();
-        Debug.Log("Broke 1 " + MapTileSpecialEvents.Instance == null);
-        Debug.Log("Broke 2 " + MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber].Length);
+
         
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
         {
@@ -512,4 +512,5 @@ public class ClientChecks : NetworkBehaviour
 
         PreturnStuff();
     }
+
 }

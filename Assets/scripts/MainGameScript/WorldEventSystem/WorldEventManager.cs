@@ -27,6 +27,9 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
     public int daysPerWeek;
     public bool firstTime = false; //im a bum so im sticking duct tape to fix this
+
+
+    public AudioClip roundStartClip;
     private void Awake()
     {
         if(Instance == null) 
@@ -34,6 +37,8 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
             Instance = this;
             //bc me noob and dont know how to actually handle this
         }
+        
+        
 
     }
     void Start()
@@ -65,6 +70,13 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
             turns = 0;
 
         }
+
+        if(NetworkData.Instance.IsAllowed())
+        {
+            SFXManager.Instance.PlaySFX(roundStartClip);
+        }
+        
+
         if (days >= daysPerWeek)
         {
             days = 0;
