@@ -32,7 +32,7 @@ public class SFXManager : MonoBehaviour
     private void UpdateVolume()
     {
         audioPlayer.volume = SettingsManager.instance.SFXVolume;
-        Debug.Log("Im mogging");
+
     }
     public void PlaySFX(AudioClip clip)
     {

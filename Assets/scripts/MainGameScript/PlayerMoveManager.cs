@@ -91,11 +91,41 @@ public class PlayerMoveManager : NetworkBehaviour
     public void rollDice()
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
-        int randomNum = UnityEngine.Random.Range(0, 100);
 
-        if (randomNum <= 3) { diceRoll = 0; }
+        int rollMultiplier = 1;
 
-        else { diceRoll = Convert.ToInt32(Math.Ceiling(randomNum / 14f));  }
+
+        foreach (var status in NetworkData.Instance.GetCurrentPlayer().statuses)
+        {
+            var currentBuff = NetworkData.Instance.buffDataBase.GetItem[status.buffId];
+            if (currentBuff is RollBuff)
+            {
+                rollMultiplier = (currentBuff as RollBuff).rollMultiplier;
+                break;
+            }
+        }
+
+        int totalRoll = 0;
+        for(int i = 0; i < rollMultiplier; i++)
+        {
+            int randomNum = UnityEngine.Random.Range(0, 100);
+
+            if (randomNum <= 3) { diceRoll = 0; }
+
+            else { diceRoll = Convert.ToInt32(Math.Ceiling(randomNum / 14f)); }
+            totalRoll += diceRoll;
+        }
+
+
+        foreach (var status in NetworkData.Instance.GetCurrentPlayer().statuses)
+        {
+            var currentBuff = NetworkData.Instance.buffDataBase.GetItem[status.buffId];
+            if (currentBuff is ForceRollBuff)
+            {
+                totalRoll = (currentBuff as ForceRollBuff).forcedNumber;
+                break;
+            }
+        }
 
 
         canMove = true;
@@ -105,7 +135,7 @@ public class PlayerMoveManager : NetworkBehaviour
         }
         else
         {
-            SyncDiceRollServerRpc(diceRoll); 
+            SyncDiceRollServerRpc(totalRoll); 
         }
         
         takenPath.Clear();

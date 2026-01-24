@@ -64,7 +64,7 @@ public class SettingsManager : MonoBehaviour
     {
         SFXVolume = value / 100f;
         onSFXVolumeChange.Invoke();
-        Debug.Log("Im changing");
+
     }
     public void ChangeBGMVolume(int value)
     {

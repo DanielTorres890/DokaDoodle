@@ -55,7 +55,10 @@ public abstract class ItemBase : ScriptableObject
         if (this.type == ItemType.Magic || this.type == ItemType.Equipment) { return 2; }
         return -1;
     }
-
+    public virtual bool CanUse(int player)
+    {
+        return true;
+    }
 }
 [System.Serializable]
 public class ItemBuff

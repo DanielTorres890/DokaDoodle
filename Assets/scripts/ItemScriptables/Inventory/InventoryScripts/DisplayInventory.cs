@@ -77,8 +77,17 @@ public class DisplayInventory : MonoBehaviour
             //u know im not happy about this but lowkey it just seems easier to reuse this ngl
             if (displayType == InvDisplayType.Inventory)
             {
-                obj.GetComponent<Button>().onClick.AddListener(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
-                obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
+                if(inventory.container[i].item.CanUse(playerNum))
+                {
+                    obj.GetComponent<Button>().onClick.AddListener(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
+                    obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
+                }
+                else
+                {
+                    obj.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
+                    obj.GetComponentInChildren<TextMeshProUGUI>().text =  inventory.container[i].item.name;
+                }
+                
             }
             else if (displayType == InvDisplayType.ItemSell)
             {

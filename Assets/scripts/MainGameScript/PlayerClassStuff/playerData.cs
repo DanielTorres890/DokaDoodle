@@ -18,7 +18,7 @@ public class playerData : EntityStats
 
 
     public int[] maxInventorySizes = new int[3];
-    
+
 
     public Dictionary<PlayerInfo, int> playerInfo = new Dictionary<PlayerInfo, int>
     {
@@ -26,8 +26,8 @@ public class playerData : EntityStats
         {PlayerInfo.level, 1 },
         {PlayerInfo.money, 1000 },
         {PlayerInfo.fame, 0 },
-        {PlayerInfo.classCd, 0 }
-   
+        {PlayerInfo.classCd, 0 },
+
     };
     
     
@@ -101,7 +101,7 @@ public class playerData : EntityStats
 
             if (this.attacks.Contains(thisWeapon.attack)) { continue; }
 
-            Debug.Log("This attack was added " + thisWeapon.attack.attackName);
+           
             this.attacks.Add(thisWeapon.attack);
         }
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][2].container.Count; i++)
@@ -111,11 +111,11 @@ public class playerData : EntityStats
 
             if (this.attacks.Contains(thisWeapon.attack)) { continue; }
             this.attacks.Add(thisWeapon.attack);
-            Debug.Log("This attack was added " + thisWeapon.attack.attackName);
+            
         }
 
         this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[playerClass].combatAbility);
-        Debug.Log("I have this many attacks " + attacks.Count);
+        
     }
     public FixedString32Bytes getName()
     {
@@ -325,7 +325,7 @@ public enum PlayerInfo
     level,
     money,
     fame,
-    classCd
+    classCd,
 }
 
 [System.Serializable]
