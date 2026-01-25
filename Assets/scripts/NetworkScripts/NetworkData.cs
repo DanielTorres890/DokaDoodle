@@ -118,7 +118,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         players.Add(new playerData());
         players.Add(new playerData());
 
-        Debug.Log("My id is " + NetworkManager.LocalClientId);
+       
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
 
@@ -126,7 +126,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
     private void OnClientConnected(ulong clientId)
     {
-        Debug.Log(playerCount);
+        
         playerCount++;
         if (clientId == NetworkManager.Singleton.LocalClientId) { characterEditor.SetActive(true); }
 

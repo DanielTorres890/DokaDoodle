@@ -89,7 +89,7 @@ public class playerData : EntityStats
     {
         this.attacks.Clear();
         //bool hasOffense = false;
-        Debug.Log("Im tripple checking that its happening");
+     
         this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[playerClass].basicAttackAbility);
 
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
@@ -277,6 +277,7 @@ public class playerData : EntityStats
 
     public void GainTown(SpecialTileEventHold tileInfo)
     {
+
         if(tileInfo.tileOwner != -1)
         {
             NetworkData.Instance.players[tileInfo.tileOwner].LoseTown(tileInfo);
@@ -287,6 +288,7 @@ public class playerData : EntityStats
         {
             if (MapTileSpecialEvents.Instance.mapTiles[0][i] == tileInfo)
             {
+                MapTileSpecialEvents.Instance.mapTiles[0][i].tileOwner = playerNumber;
                 TileId = i;
                 break;
             }
@@ -301,6 +303,7 @@ public class playerData : EntityStats
     }
     public void LoseTown(SpecialTileEventHold tileInfo)
     {
+        Debug.Log("I should be removed ? ");
         ownedTowns.Remove(tileInfo.townId);
         playerInfo[PlayerInfo.fame] -= NetworkData.Instance.TownInfoDataBase.GetItem[tileInfo.townId].baseFame;
         playerInfo[PlayerInfo.fame] -= tileInfo.townMoneyLevel + tileInfo.unitLevel + tileInfo.defenseLevel;

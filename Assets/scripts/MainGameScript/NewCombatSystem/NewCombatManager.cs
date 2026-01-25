@@ -101,7 +101,7 @@ public class NewCombatManager : NetworkBehaviour
     {
         if (instance != null) { return; }
 
-        Debug.Log("did me get instantiated");
+     
         instance = this;
 
         foreach (var camera in FindObjectsByType<CinemachineCamera>(FindObjectsSortMode.None))
@@ -164,7 +164,7 @@ public class NewCombatManager : NetworkBehaviour
         Dictionary<string, List<EntityStats>> spawnGroups = new Dictionary<string, List<EntityStats>>();
         foreach (var combatant in PlayerCombatManager.Instance.combatants)
         {
-            Debug.Log("This guy is in " + combatant.name);
+            
             if (!spawnGroups.ContainsKey(combatant.loyaltyTags[0]))
             {
                 spawnGroups.Add(combatant.loyaltyTags[0], new List<EntityStats>());
@@ -396,10 +396,13 @@ public class NewCombatManager : NetworkBehaviour
 
             player.GainMoney(moneyHarvested + cache.moneyOnTile);
 
-            if (cache.townId > -1 && cache.tileOwner != player.playerNumber)
+           
+            if (cache.townId != -1 && cache.tileOwner != player.playerNumber)
             {
+                Debug.Log("I gained a town");
                 NetworkData.Instance.players[player.playerNumber].GainTown(cache);
             }
+
             bool isFull = false;
             bool leveledUp = levels > 0;
             int itemType = -1;
@@ -517,8 +520,8 @@ public class NewCombatManager : NetworkBehaviour
         else
         {
             
-            endBattleInfo.lines.Add("Every player has been defeated");
-            if((victor.stats as EnemyCombat).persistant && cache.townId != -1 )
+            endBattleInfo.lines.Add("Every player (in this combat) has been defeated");
+            if((victor.stats as EnemyCombat).persistant && cache.townId != -1 & cache.tileOwner != -1 )
             {
                 NetworkData.Instance.players[cache.tileOwner].LoseTown(cache);
             }

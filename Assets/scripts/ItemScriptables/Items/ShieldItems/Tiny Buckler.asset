@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 1864688877397279371, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
   type: 3
-  itemValue: 0
-  description: A tiny buckler, not protecting much but allows a little extra manueverability
+  itemValue: 200
+  description: A tiny buckler, that allows the user to guard though for a weak amount
   useText: 
   itemName: Tiny Buckler
   buffs:
@@ -24,3 +24,4 @@ MonoBehaviour:
   - attribute: 6
     value: 4
   attack: {fileID: 11400000, guid: d99c090114319a74e880597b6cde0a76, type: 2}
+  skillRequirements: []

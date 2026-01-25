@@ -28,9 +28,9 @@ public class PlayerCombatManager : MonoBehaviour
         PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
         string encounterName = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].EncounterName;
         PlayerCombatManager.Instance.currentEncounter = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId];
-        Debug.Log("Step 1 before it was set up");
+
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].setCombatActions();
-        Debug.Log("Step 2 it SHOULD SET UP HERE ");
+
 
         bool rumble = false; //is there another player that we fight
        

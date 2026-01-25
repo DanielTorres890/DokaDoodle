@@ -18,11 +18,10 @@ public class UIUpdate : MonoBehaviour
         if (timer > 0)
         {
             
-            if (NetworkData.Instance.players[playerNum].name.ToString() != text.text)
-            {
+            
                 setTextToName(playerNum);
                 timer = 60f;
-            }
+            
         }
         timer -= Time.deltaTime;
     }

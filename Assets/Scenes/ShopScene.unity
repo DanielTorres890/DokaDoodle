@@ -257,6 +257,7 @@ MonoBehaviour:
   rando: 0
   buttons: []
   dialogueScript: {fileID: 1133836644}
+  background: {fileID: 0}
   spaceBetweenButtons: 90
   startButtonY: 500
   startButtonX: 960
@@ -1302,7 +1303,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2911042122995236281, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: Y_Start
-      value: 520
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 2982792834007999440, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -1404,11 +1405,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5108693883717057987, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.9999999
       objectReference: {fileID: 0}
     - target: {fileID: 5108693883717057987, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.58023643
+      value: 0.5802364
       objectReference: {fileID: 0}
     - target: {fileID: 5233688412163001487, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_Size
@@ -1416,7 +1417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5233688412163001487, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5423902371897595377, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_IsActive

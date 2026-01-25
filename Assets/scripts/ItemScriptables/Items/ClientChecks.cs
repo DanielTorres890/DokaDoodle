@@ -13,7 +13,7 @@ using static Unity.Netcode.NetworkSceneManager;
 public class ClientChecks : NetworkBehaviour
 {
     [SerializeField] private DisplayInventory display;
-
+    [SerializeField] private InventoryChangeScript changeScript;
 
     public static ClientChecks Instance { get; private set; }
 
@@ -186,7 +186,8 @@ public class ClientChecks : NetworkBehaviour
         NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
         displayText.lines.Clear();
 
-        display.CreateDisplay( player, inventoryNum);
+        changeScript.ResetDisplay();
+
         display.gameObject.SetActive(false);
         
 

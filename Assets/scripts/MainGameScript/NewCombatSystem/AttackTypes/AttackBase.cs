@@ -83,11 +83,16 @@ public abstract class AttackBase : ScriptableObject
     {
         var manager = caster.GetComponent<AbilityManager>();
         var attack = Instantiate(attackPrefab);
+        var casterManager = caster.GetComponent<AbilityManager>().stats;
 
+
+        
 
         attack.transform.position = whereiscaster +  Quaternion.Euler(casterLooking) * offset;
         attack.transform.rotation = caster.transform.rotation;
         attack.transform.localScale = ChargeMultiplier(manager.stats, chargedDuration) * maxChargeSizeBuff * ablitySize;
+
+
         attack.GetComponent<NetworkObject>().Spawn(true);
         
 
@@ -99,7 +104,7 @@ public abstract class AttackBase : ScriptableObject
         info.chargedDuration = chargedDuration;
         
         manager.RealAttackRpc(caster.GetComponent<NetworkObject>().NetworkManager.RpcTarget.Single(caster.GetComponent<NetworkObject>().OwnerClientId, RpcTargetUse.Temp));
-        info.ownerStats = caster.GetComponent<AbilityManager>().stats;
+        info.ownerStats = casterManager;
        
         info.attackInfo = this;
         return attack;

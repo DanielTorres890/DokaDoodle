@@ -85,11 +85,12 @@ public class AbilityManager : NetworkBehaviour
         }
 
         if (!IsOwner) { return; }
-        
-        
-        
 
-        
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        Debug.DrawRay(ray.origin, ray.direction * 100, Color.blue);
+
+
+
         if (combatantstate != combatantStates.Free)
         {
             stateDuration -= Time.deltaTime;
@@ -326,7 +327,7 @@ public class AbilityManager : NetworkBehaviour
         {
             stats.GainStatus(NetworkData.Instance.buffDataBase.GetItem[i]);
         }
-        Debug.Log("I gained buffs i think");
+       
         stats.PostStatusStatCalc();
         onStatus.Invoke();
     }

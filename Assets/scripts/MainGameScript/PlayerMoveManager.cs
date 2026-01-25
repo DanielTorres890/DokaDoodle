@@ -385,7 +385,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
     public void spawnEnemyOverworld(int tileId, List<EnemyCombat> enemies)
     {
-        Debug.Log("I did succeed right? ");
+
         for (int i = 0; i < enemies.Count; i++)
         {
             var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemies[i].enemyId].enemyNonCombatPrefab);
@@ -394,7 +394,7 @@ public class PlayerMoveManager : NetworkBehaviour
             enemy.transform.localScale = new Vector3(1, 1, 1);
 
         }
-        Debug.Log("I suppose it doesn't really matter tho");
+
     }
     /*private void FightOrNot()
     {
