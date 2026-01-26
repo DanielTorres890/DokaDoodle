@@ -86,8 +86,8 @@ public class AbilityManager : NetworkBehaviour
 
         if (!IsOwner) { return; }
 
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        Debug.DrawRay(ray.origin, ray.direction * 100, Color.blue);
+        Ray rayer = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        Debug.DrawRay(rayer.origin, rayer.direction * 100, Color.blue);
 
 
 
@@ -126,6 +126,7 @@ public class AbilityManager : NetworkBehaviour
             stateManager[atk].cooldown -= Time.deltaTime;
             if (stateManager[atk].pressed && combatantstate == combatantStates.Free && stateManager[atk].cooldown <= 0)
             {
+               
                 currentAttack = atk;
                 combatantstate = atk.stateToBe;
                 stateDuration = currentAttack.startUp;
@@ -155,7 +156,9 @@ public class AbilityManager : NetworkBehaviour
 
                 
                 onSpawnAttack.Invoke();
-                PerformAttackRpc(GetCurrentAtkNum(), NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,gameObject.transform.eulerAngles);
+
+                
+                PerformAttackRpc(GetCurrentAtkNum(), NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,spawnedAttack.transform.eulerAngles);
 
                 stateDuration = currentAttack.attackDuration;
                 combatantstate = combatantStates.Attacking;
@@ -194,7 +197,7 @@ public class AbilityManager : NetworkBehaviour
         currentAttack = stats.attacks[whom];
 
 
-
+        
         onAttack.Invoke();
         currentAttack.OnStartUp(gameObject);
         if(currentAttack.startUpPrefab != null && startUpEffects == null)
@@ -378,13 +381,13 @@ public class AbilityManager : NetworkBehaviour
                 });
             }
         }
-        Debug.Log("How many attacks do i actually have " + stats.attacks.Count);
+       
         
         if (IsOwner) 
         { 
             if (gameObject.TryGetComponent(out BaseEnemyBehavior ai))
             {
-                Debug.Log("BUNGA ASSIGN");
+             
                 AssignStateManager();
             }
             else

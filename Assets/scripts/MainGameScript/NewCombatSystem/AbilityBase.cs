@@ -36,7 +36,7 @@ public abstract class AbilityBase : NetworkBehaviour
     }
     public virtual void OnHit()
     {
-        Debug.Log("I MAY have hit an entity or a wall");
+   
         Destroy(gameObject);
     }
     public int DamageCalculator(EntityStats defender)
@@ -71,7 +71,7 @@ public abstract class AbilityBase : NetworkBehaviour
         
         if (other.gameObject.TryGetComponent(out AbilityManager hitby))
         {
-            Debug.Log("I hit an entity!");
+           
             isEntity = true;
             if(NewCombatManager.instance && NewCombatManager.instance.fightOver) { return; }
 
@@ -108,7 +108,7 @@ public abstract class AbilityBase : NetworkBehaviour
     private void PlayHitSoundRpc(int soundId)
     {
         AudioSource.PlayClipAtPoint(NetworkData.Instance.audioDataBase.GetItem[soundId], transform.position, SettingsManager.instance.SFXVolume);
-        Debug.Log("I HIT AND IM PLAYING ");
+
     }
 
     public virtual void AbilityAction()

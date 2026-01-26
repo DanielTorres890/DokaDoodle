@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class NetworkData : NetworkBehaviour, IDataPersistance
 {
@@ -111,14 +112,17 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     }
     public override void OnNetworkSpawn()
     {
+        if (!SettingsManager.instance.settingsOpen && SceneManager.GetSceneByName("Settings").isLoaded)
+        {
+            SceneManager.UnloadSceneAsync("Settings");
+        }
 
-
         players.Add(new playerData());
         players.Add(new playerData());
         players.Add(new playerData());
         players.Add(new playerData());
 
-       
+        
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
 

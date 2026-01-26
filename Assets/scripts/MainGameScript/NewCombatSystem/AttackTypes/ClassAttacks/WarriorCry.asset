@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: SHOUT OUT AND GET BUFF
   attackName: Warrior Cry
-  startUp: 0
+  startUp: 0.3
   attackDuration: 0
-  endLag: 1
+  endLag: 0.4
   cooldown: 20
   lifespan: 1
   energyDrain: 1
@@ -30,7 +30,7 @@ MonoBehaviour:
   stateToBe: 0
   chargeable: 0
   attackPrefab: {fileID: 2566779757777240371, guid: 025be11524405ff43871ea2fd91b5485, type: 3}
-  startUpPrefab: {fileID: 0}
+  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 1, y: 1, z: 1}
   baseDamage: 0
@@ -51,12 +51,15 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
-  attackAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+  startUpAnimation: {fileID: 7400000, guid: 602941fcae800f440a205e0dcb1c2ab9, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 601848516adb0e24b9a25624628b3853, type: 2}
   animationSpeed: 1
   LevelRequirements: []
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
   onHitEffects: []
+  targets:
+    serializedVersion: 2
+    m_Bits: 0
   StatusEffects:
   - {fileID: 11400000, guid: 89188fb09b5e92c4899d80474873ca13, type: 2}

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RoarScript : MonoBehaviour
 {
-    
+    public float angleOffset;
     void Start()
     {
         //I gotta be honest im not a huge fan but this is much faster tha doing some bs
@@ -16,30 +16,41 @@ public class RoarScript : MonoBehaviour
 
         var emit = new ParticleSystem.EmitParams();
 
-        emit.velocity = gameObject.transform.TransformDirection(Vector3.back * 5f);
-        emit.rotation = 90;
+      
+
+
+        emit.velocity = Vector3.left * 5f;
+        emit.rotation = gameObject.transform.eulerAngles.y ;
+        emit.startLifetime = .2f;
         ps.Emit(emit, 1);
 
-        emit.velocity = gameObject.transform.TransformDirection(Vector3.forward * 5f);
-        emit.rotation = 270f;
-        ps.Emit(emit, 1);
-
-        yield return new WaitForSeconds(0.3f);
-        emit.velocity = gameObject.transform.TransformDirection(Vector3.back * 5f);
-        emit.rotation = 90;
-        ps.Emit(emit, 1);
-
-        emit.velocity = gameObject.transform.TransformDirection(Vector3.forward * 5f);
-        emit.rotation = 270f;
+        emit.velocity = Vector3.right * 5f;
+        emit.rotation = gameObject.transform.eulerAngles.y + 180;
+        emit.startLifetime = .2f;
         ps.Emit(emit, 1);
 
         yield return new WaitForSeconds(0.3f);
-        emit.velocity = gameObject.transform.TransformDirection(Vector3.back * 5f);
-        emit.rotation = 90;
+        emit.velocity = Vector3.left * 5f;
+        emit.rotation = gameObject.transform.eulerAngles.y;
+        emit.startLifetime = .2f;
         ps.Emit(emit, 1);
 
-        emit.velocity = gameObject.transform.TransformDirection(Vector3.forward * 5f);
-        emit.rotation = 270f;
+        emit.velocity = Vector3.right * 5f;
+        emit.rotation = gameObject.transform.eulerAngles.y + 180;
+        emit.startLifetime = .2f;
         ps.Emit(emit, 1);
+
+        yield return new WaitForSeconds(0.3f);
+        emit.velocity = Vector3.left * 5f;
+        emit.rotation = gameObject.transform.eulerAngles.y;
+        emit.startLifetime = .2f;
+        ps.Emit(emit, 1);
+
+        emit.velocity = Vector3.right * 5f;
+        emit.rotation = gameObject.transform.eulerAngles.y + 180;
+        emit.startLifetime = .2f;
+        ps.Emit(emit, 1);
+
+        yield return new WaitForSeconds(0.3f);
     }
 }

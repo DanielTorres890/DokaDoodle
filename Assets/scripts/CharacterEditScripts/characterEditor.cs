@@ -28,7 +28,7 @@ public class characterEditor : MonoBehaviour
     [HideInInspector] public int playerHair = 0;
 
     //i made it a const to be cool 
-    private const int defaultHairCount = 5;
+    private const int defaultHairCount = 7;
     public void UpdateMaterial()
     {
         myMaterial.mainTexture = myTexture;

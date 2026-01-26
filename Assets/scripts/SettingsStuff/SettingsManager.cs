@@ -17,7 +17,7 @@ public class SettingsManager : MonoBehaviour
 
 
     public CursorLockMode previousMode;
-    private bool settingsOpen = false;
+    public bool settingsOpen = false;
 
     public bool canJumpscare;
 
@@ -46,6 +46,8 @@ public class SettingsManager : MonoBehaviour
     }
     public void SettingsScene(InputAction.CallbackContext context)
     {
+        
+
         if(settingsOpen)
         {
             settingsOpen = false;

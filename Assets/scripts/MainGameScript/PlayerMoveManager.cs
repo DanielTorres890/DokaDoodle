@@ -100,6 +100,7 @@ public class PlayerMoveManager : NetworkBehaviour
             var currentBuff = NetworkData.Instance.buffDataBase.GetItem[status.buffId];
             if (currentBuff is RollBuff)
             {
+                
                 rollMultiplier = (currentBuff as RollBuff).rollMultiplier;
                 break;
             }
@@ -108,11 +109,12 @@ public class PlayerMoveManager : NetworkBehaviour
         int totalRoll = 0;
         for(int i = 0; i < rollMultiplier; i++)
         {
+            
             int randomNum = UnityEngine.Random.Range(0, 100);
 
             if (randomNum <= 3) { diceRoll = 0; }
 
-            else { diceRoll = Convert.ToInt32(Math.Ceiling(randomNum / 14f)); }
+            else { diceRoll = Convert.ToInt32(Math.Ceiling(randomNum / 15f)); }
             totalRoll += diceRoll;
         }
 

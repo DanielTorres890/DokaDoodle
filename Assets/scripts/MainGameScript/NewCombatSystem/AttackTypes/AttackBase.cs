@@ -63,6 +63,7 @@ public abstract class AttackBase : ScriptableObject
 
     public BuffBase[] onHitEffects; //im not really a fan of this one i'll be honest but it makes the most sense in my brain
     //^ Saves me the annoyance of setting them everytime i create a scriptable
+    public LayerMask targets;
     public virtual GameObject WeaponEffect(GameObject caster)
     {
        
@@ -70,6 +71,7 @@ public abstract class AttackBase : ScriptableObject
         attack.transform.position = caster.transform.position + caster.transform.TransformDirection(offset);
         attack.transform.rotation = caster.transform.rotation;
         attack.transform.localScale = ablitySize;
+
         var info = attack.GetComponent<AbilityBase>();
 
         info.owner = caster;

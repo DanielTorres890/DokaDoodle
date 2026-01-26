@@ -179,6 +179,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void AttackAnimRpc(int attackIndex)
     {
+        
         selectedAttack = myManager.stats.attacks[attackIndex];
 
         
@@ -207,11 +208,12 @@ public class BaseEnemyBehavior : NetworkBehaviour
     }
     public void SetStartUpAnim(bool whatDo)
     {
+        Debug.Log("Im entering start up " + whatDo);
         animator.SetBool("StartUp", whatDo);
     }
     public void SetAttackingAnim(bool whatDo)//bc the way network objects work these functions are directly connected to the ability manager (IN THE PREFAB BTW) events bc fmcl
     {
-        
+        Debug.Log("Im attacking " + whatDo);
         animator.SetBool("Attacking", whatDo);
     }
     public void SetWalkingAnim(bool whatDo)

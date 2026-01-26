@@ -26,7 +26,7 @@ public class CombatAnimator : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void SelectCurrentAttackRpc()
     {
-
+        Debug.Log("Did i started 1");
         //i would like to be the one to say that this is RIDICULOUS THAT ITS BASED ON THE CLIP NAME AND NOT THE STATE
 
         if (abilityManager.currentAttack.startUpAnimation)
@@ -62,7 +62,7 @@ public class CombatAnimator : NetworkBehaviour
 
             }
         }
-
+        Debug.Log("Did i started2 ");
 
         animator.runtimeAnimatorController = overrideController;
         animator.SetBool("StartUp", true);
