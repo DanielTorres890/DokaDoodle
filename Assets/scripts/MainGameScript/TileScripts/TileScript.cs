@@ -10,6 +10,8 @@ public abstract class TileScript : MonoBehaviour
     public GameObject rightTile;
     public GameObject leftTile;
 
+    public GameObject myArrow;
+    
     public bool canFight = true;
     [Tooltip("This isn't meant to be set manually as their id is decided \nby whatever their place is in the PlayerMoveManager script (bc i cant be bothered to set them manually")]
     public int tileId;
@@ -45,8 +47,13 @@ public abstract class TileScript : MonoBehaviour
         }
     }
 
+
     public abstract void TileEvent();
     
+    public void ArrowChange(bool setTo)
+    {
+        myArrow.SetActive(setTo);
+    }
     /*
     public void Move(GameObject player, FixedString32Bytes direction)
     {

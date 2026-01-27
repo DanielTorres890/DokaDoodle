@@ -8,6 +8,7 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 public class PlayerMoveManager : NetworkBehaviour
 {
@@ -42,6 +43,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
     public AudioClip BGM;
     private Vector3 cameraMoveDirection;
+    [SerializeField] private List<TileScript> possibleEndTiles = new List<TileScript>();
 
     public static PlayerMoveManager Instance;
     public void Awake()
@@ -439,7 +441,9 @@ public class PlayerMoveManager : NetworkBehaviour
         if (!canMove) { return; }
 
         cameraMove = true;
-
+        possibleEndTiles.Clear();
+        var currrentPlayer = NetworkData.Instance.GetCurrentPlayer();
+        PossibleTiles(mapTiles[currrentPlayer.curTileId], diceRoll, mapTiles[currrentPlayer.curTileId]);
         FreeMover.Instance.onUndoFree.AddListener(delegate { cameraMove = false; });
         FreeMover.Instance.FreeCamera();
     }
@@ -452,5 +456,21 @@ public class PlayerMoveManager : NetworkBehaviour
         FreeMover.Instance.EndFreeCamera();
     }
 
+    private void PossibleTiles(TileScript tile, int rollLeft, TileScript previousTile)
+    {
+        if(rollLeft == 0) 
+        {
+            if(possibleEndTiles.Contains(tile)) { return; }
+            possibleEndTiles.Add(tile);
+            tile.ArrowChange(true);
+            return;
+        }
+        
+        if (tile.upTile && tile.upTile != previousTile.gameObject) { PossibleTiles ( tile.upTile.GetComponent<TileScript>(), rollLeft - 1, tile); }
+        if (tile.downTile && tile.downTile != previousTile.gameObject) { PossibleTiles(tile.downTile.GetComponent<TileScript>(), rollLeft - 1, tile); }
+        if (tile.rightTile && tile.rightTile != previousTile.gameObject) { PossibleTiles(tile.rightTile.GetComponent<TileScript>(), rollLeft - 1, tile); }
+        if (tile.leftTile && tile.leftTile != previousTile.gameObject) { PossibleTiles(tile.leftTile.GetComponent<TileScript>(), rollLeft - 1, tile); }
 
+
+    }
 }

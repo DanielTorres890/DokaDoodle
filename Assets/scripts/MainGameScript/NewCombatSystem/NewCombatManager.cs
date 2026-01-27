@@ -439,13 +439,13 @@ public class NewCombatManager : NetworkBehaviour
                 {
                     if(i == itemsPicked.Count - 1 && itemsPicked.Count > 1)
                     {
-                        itemString += " and a " + itemsPicked[i].name;
+                        itemString += " and a <color=blue>" + itemsPicked[i].name + "</color>";
 
                     }
                     else
                     {
-                        itemString += "a " + itemsPicked[i].name;
-                        if (i != itemsPicked.Count - 1) { itemString += ", "; }
+                        itemString += "a<color=blue> " + itemsPicked[i].name;
+                        if (i != itemsPicked.Count - 1) { itemString += "</color>, "; }
                     }
                 }
                 
