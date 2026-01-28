@@ -1384,9 +1384,12 @@ MonoBehaviour:
   forcedRollNum: 5
   cameraSpeed: 10
   moveSpeed: 50
+  autoMoveTime: 0.6
+  autoMoveSpeed: 25
   enemyDistance: {x: 2, y: 1}
   BGM: {fileID: 8300000, guid: aafae79c16d68a347acbe1b7ae424f6a, type: 3}
   possibleEndTiles: []
+  allPaths: []
 --- !u!4 &361615209
 Transform:
   m_ObjectHideFlags: 0
@@ -1541,7 +1544,7 @@ MonoBehaviour:
       - m_Target: {fileID: 361615208}
         m_TargetAssemblyTypeName: PlayerMoveManager, Assembly-CSharp
         m_MethodName: FreeCamera
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

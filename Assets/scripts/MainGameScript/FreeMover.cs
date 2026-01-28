@@ -64,11 +64,11 @@ public class FreeMover : NetworkBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("I found something");
+        
         if (!gameObject.activeSelf) { return; }
         if (other.gameObject.TryGetComponent(out baseTile))
         {
-            Debug.Log("I FOUND U");
+          
             
         }
     }
@@ -132,7 +132,7 @@ public class FreeMover : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void EndFreeCameraRpc(RpcParams paramys = default)
     {
-        Debug.Log("I should end");
+        
         gameObject.SetActive(false);
         onUndoFree.Invoke();
         onTileSelect.RemoveAllListeners();
