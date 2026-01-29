@@ -5,12 +5,8 @@ using System.Data;
 using TMPro;
 using Unity.Cinemachine;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Profiling;
-using UnityEngine.Tilemaps;
-using UnityEngine.WSA;
 
 public class PlayerMoveManager : NetworkBehaviour
 {
@@ -19,7 +15,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
     public TMP_Text rollNum;
 
-    private List<GameObject> takenPath = new List<GameObject>();
+    [SerializeField] private List<GameObject> takenPath = new List<GameObject>();
     public List<GameObject> playerSticks = new List<GameObject>();
     private List<Animator> stickAnimators = new List<Animator>();
 
@@ -152,9 +148,22 @@ public class PlayerMoveManager : NetworkBehaviour
 
         takenPath.Clear();
         mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].playersOnTile[NetworkData.Instance.currentPlayer] = false;
-        takenPath.Add(mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].gameObject);
+        AddPathRpc(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
 
     }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void AddPathRpc(int tileId)
+    {
+        takenPath.Add(mapTiles[tileId].gameObject);
+        NetworkData.Instance.GetCurrentPlayer().curTileId = tileId;
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void RemovePathRpc()
+    {
+        takenPath.RemoveAt(takenPath.Count - 1);
+        NetworkData.Instance.GetCurrentPlayer().curTileId = takenPath[takenPath.Count - 1].GetComponent<TileScript>().tileId;
+    }
+
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SyncDiceRollServerRpc(int num)
     {
@@ -205,13 +214,14 @@ public class PlayerMoveManager : NetworkBehaviour
             {
 
                 diceRoll--;
-                takenPath.Add(curTile.upTile);
+                AddPathRpc(curTile.upTile.GetComponent<TileScript>().tileId);
+
 
             }
             else if (takenPath[takenPath.Count - 2] == curTile.upTile)
             {
                 diceRoll++;
-                takenPath.RemoveAt(takenPath.Count - 1);
+                RemovePathRpc();
             }
             else { return; }
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.upTile.GetComponent<TileScript>().tileId;
@@ -223,13 +233,13 @@ public class PlayerMoveManager : NetworkBehaviour
             if (((takenPath.Count <= 1 && diceRoll > 0) || (takenPath[takenPath.Count - 2] != curTile.downTile)) && diceRoll > 0)
             {
                 diceRoll--;
-                takenPath.Add(curTile.downTile);
+                AddPathRpc(curTile.downTile.GetComponent<TileScript>().tileId);
 
             }
             else if (takenPath[takenPath.Count - 2] == curTile.downTile)
             {
                 diceRoll++;
-                takenPath.RemoveAt(takenPath.Count - 1);
+                RemovePathRpc();
             }
             else { return; }
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.downTile.GetComponent<TileScript>().tileId;
@@ -241,13 +251,13 @@ public class PlayerMoveManager : NetworkBehaviour
             if (((takenPath.Count <= 1 && diceRoll > 0) || (takenPath[takenPath.Count - 2] != curTile.rightTile)) && diceRoll > 0)
             {
                 diceRoll--;
-                takenPath.Add(curTile.rightTile);
+                AddPathRpc(curTile.rightTile.GetComponent<TileScript>().tileId);
 
             }
             else if (takenPath[takenPath.Count - 2] == curTile.rightTile)
             {
                 diceRoll++;
-                takenPath.RemoveAt(takenPath.Count - 1);
+                RemovePathRpc();
             }
             else { return; }
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.rightTile.GetComponent<TileScript>().tileId;
@@ -259,13 +269,13 @@ public class PlayerMoveManager : NetworkBehaviour
             if (((takenPath.Count <= 1 && diceRoll > 0) || (takenPath[takenPath.Count - 2] != curTile.leftTile)) && diceRoll > 0)
             {
                 diceRoll--;
-                takenPath.Add(curTile.leftTile);
+                AddPathRpc(curTile.leftTile.GetComponent<TileScript>().tileId);
 
             }
             else if (takenPath[takenPath.Count - 2] == curTile.leftTile)
             {
                 diceRoll++;
-                takenPath.RemoveAt(takenPath.Count - 1);
+                RemovePathRpc();
             }
             else { return; };
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.leftTile.GetComponent<TileScript>().tileId;
@@ -286,12 +296,14 @@ public class PlayerMoveManager : NetworkBehaviour
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = takenPath[takenPath.Count - 2].GetComponent<TileScript>().tileId;
 
         diceRoll++;
-        takenPath.RemoveAt(takenPath.Count - 1);
+        RemovePathRpc();
         SyncDiceRollServerRpc(diceRoll);
         ClientChecks.Instance.rollNum.text = diceRoll.ToString();
         StopAllCoroutines();
         StartCoroutine(playerMover(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId));
         PlayerMoverRpc(moveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
+        
+
 
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -471,7 +483,9 @@ public class PlayerMoveManager : NetworkBehaviour
         if (NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
             FreeMover.Instance.onTileSelect.AddListener(GoToTile);
 
-        PossibleTiles(mapTiles[currrentPlayer.curTileId], diceRoll, mapTiles[currrentPlayer.curTileId], ref allPaths, new List<TileScript>());
+        int lookback = 1;
+        if(takenPath.Count > 1) { lookback = 2; }
+        PossibleTiles(mapTiles[currrentPlayer.curTileId], diceRoll, takenPath[takenPath.Count-lookback].GetComponent<TileScript>(), ref allPaths, new List<TileScript>());
 
     }
     public void UnfreeCamera()

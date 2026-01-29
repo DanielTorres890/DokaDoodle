@@ -33,7 +33,7 @@ MonoBehaviour:
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   offset: {x: 0, y: 2, z: 1}
   ablitySize: {x: 0.5, y: 0.3, z: 3}
-  baseDamage: 2
+  baseDamage: 4
   multipliers:
   - attribute: 0
     mult: 0
@@ -74,3 +74,6 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: 51465924abc41df428febd7bbcd57111, type: 3}
   onHitSound: {fileID: 8300000, guid: 0e726e18418de3642b4858efdc9d8fc5, type: 3}
   onHitEffects: []
+  targets:
+    serializedVersion: 2
+    m_Bits: 0
