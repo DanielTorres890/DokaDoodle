@@ -14,17 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: 
   attackName: Summon Bunga
-  startUp: 1
+  startUp: 2
   attackDuration: 0
-  endLag: 1
+  endLag: 0.2
   cooldown: 20
   lifespan: 10
+  energyDrain: 1
+  maxChargeAtkBuff: 1.2
+  maxChargeSizeBuff: 1.2
+  maxChargeSpeedBuff: 1.1
+  maxChargeDuration: 3
+  requiredPotency: 0
+  dmgPotencyEffect: 2
+  sizePotencyEffect: 2
   stateToBe: 0
   chargeable: 0
   attackPrefab: {fileID: 1804880954259114146, guid: aee79a3dde08af746bcbd154dc5f690b, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 1, y: 1, z: 1}
+  baseDamage: 0
   multipliers:
   - attribute: 0
     mult: 0
@@ -56,6 +65,14 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  attackAnimation: {fileID: 7400000, guid: 07cf1319332625148b3ed48fac40aa50, type: 2}
+  startUpAnimation: {fileID: 7400000, guid: e1550bb209db8cc419b7d05dab48b284, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+  animationSpeed: 1
+  LevelRequirements: []
   attackSound: {fileID: 8300000, guid: 51465924abc41df428febd7bbcd57111, type: 3}
+  onHitSound: {fileID: 0}
+  onHitEffects: []
+  targets:
+    serializedVersion: 2
+    m_Bits: 0
   summonSO: {fileID: 11400000, guid: 46447445cb16d584fa46980745d7dad0, type: 2}

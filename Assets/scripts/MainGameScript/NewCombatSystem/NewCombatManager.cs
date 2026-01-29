@@ -78,6 +78,10 @@ public class NewCombatManager : NetworkBehaviour
     {
         AudioSource = GetComponent<AudioSource>();
         Cursor.lockState = CursorLockMode.Locked;
+        if (instance != null) { return; }
+
+
+        instance = this;
     }
     private void Update()
     {
@@ -99,10 +103,7 @@ public class NewCombatManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (instance != null) { return; }
-
-     
-        instance = this;
+        
 
         foreach (var camera in FindObjectsByType<CinemachineCamera>(FindObjectsSortMode.None))
         {

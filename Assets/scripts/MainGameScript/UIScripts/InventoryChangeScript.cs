@@ -23,15 +23,14 @@ public class InventoryChangeScript : NetworkBehaviour
     {
 
         roundStart();
-        if (ClientChecks.Instance != null)
-        {
-            ClientChecks.Instance.onRoundStart.AddListener(roundStart);
-        }
+        //client checks SHOULD already be set if not then f them kids
+        ClientChecks.Instance.onRoundStart.AddListener(roundStart);
+        
     }   
   
     public void ResetDisplay()
     {
-
+        Debug.Log("This sometimes happens for 0");
         if(NetworkData.Instance.IsAllowed(whoInControl,NetworkManager.Singleton.LocalClientId))
         {
             ResetDisplayRpc();

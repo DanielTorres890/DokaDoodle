@@ -38,10 +38,7 @@ public class ClientChecks : NetworkBehaviour
     
     public override void OnNetworkSpawn()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
+        
         
         if(IsHost)
         {
@@ -114,7 +111,11 @@ public class ClientChecks : NetworkBehaviour
         
 
         onRoundStart = new UnityEvent();
-        
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+
     }
 
     
