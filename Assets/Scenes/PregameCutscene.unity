@@ -417,7 +417,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: f645fd01c281cfc40af9475f2c8b5ad7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -437,8 +437,8 @@ Transform:
   m_GameObject: {fileID: 1055628251}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 875.3188, y: 558.8126, z: -4.1146092}
-  m_LocalScale: {x: 17180.123, y: 9360.61, z: 1}
+  m_LocalPosition: {x: 836.4, y: 552.5, z: -4.1146092}
+  m_LocalScale: {x: 100, y: 100, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -639,7 +639,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 927023944587717619, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 718
+      value: 869
       objectReference: {fileID: 0}
     - target: {fileID: 927023944587717619, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -803,8 +803,22 @@ PrefabInstance:
       value: MainGameUI
       objectReference: {fileID: 0}
     - target: {fileID: 6212743969821964402, guid: 862aca850e549a3428bdc4b209d02b7d, type: 3}
+      propertyPath: lines.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212743969821964402, guid: 862aca850e549a3428bdc4b209d02b7d, type: 3}
       propertyPath: 'lines.Array.data[1]'
-      value: (i haven't come up with the story yet so this will have to do)
+      value: I doth declare that I will be retiring
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212743969821964402, guid: 862aca850e549a3428bdc4b209d02b7d, type: 3}
+      propertyPath: 'lines.Array.data[2]'
+      value: And the only one who can succeed me should be the most famous successful
+        citizen
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212743969821964402, guid: 862aca850e549a3428bdc4b209d02b7d, type: 3}
+      propertyPath: 'lines.Array.data[3]'
+      value: So go and make a name for yourselves, slay monsters, free people, or
+        perhaps less than savoury things I care not but get your name out there
       objectReference: {fileID: 0}
     - target: {fileID: 6716826549839537717, guid: 862aca850e549a3428bdc4b209d02b7d, type: 3}
       propertyPath: GlobalObjectIdHash

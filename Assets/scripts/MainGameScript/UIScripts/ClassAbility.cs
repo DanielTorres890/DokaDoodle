@@ -5,7 +5,7 @@ public class ClassAbility : MonoBehaviour
 {
     public TextMeshProUGUI buttonText;
 
-    public void Awake()
+    public void Start()
     {
         ClientChecks.Instance.onRoundStart.AddListener(delegate { setButtonText(); });   
     }
