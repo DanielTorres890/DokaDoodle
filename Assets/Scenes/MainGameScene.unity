@@ -1164,6 +1164,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2134208499}
     - target: {fileID: 4167338426680809358, guid: 504eb41076951fe45a258198990da1d5, type: 3}
+      propertyPath: canFight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167338426680809358, guid: 504eb41076951fe45a258198990da1d5, type: 3}
       propertyPath: leftTile
       value: 
       objectReference: {fileID: 1788415045}
@@ -1638,7 +1642,7 @@ MonoBehaviour:
   canMove: 0
   cameraMove: 0
   forceRoll: 0
-  forcedRollNum: 2
+  forcedRollNum: 5
   cameraSpeed: 10
   moveSpeed: 50
   autoMoveTime: 0.4
@@ -3398,6 +3402,10 @@ PrefabInstance:
       propertyPath: upTile
       value: 
       objectReference: {fileID: 142024823}
+    - target: {fileID: 4167338426680809358, guid: 504eb41076951fe45a258198990da1d5, type: 3}
+      propertyPath: canFight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4167338426680809358, guid: 504eb41076951fe45a258198990da1d5, type: 3}
       propertyPath: rightTile
       value: 
@@ -9261,6 +9269,10 @@ PrefabInstance:
       propertyPath: upTile
       value: 
       objectReference: {fileID: 1754340241}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: canFight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 2

@@ -125,8 +125,8 @@ public class ClientChecks : NetworkBehaviour
         bool rumble = false;
         //at some point im probably gonna have to make this a different event but frick u
         onRoundStart.Invoke();
-
         
+
         foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
         {
 

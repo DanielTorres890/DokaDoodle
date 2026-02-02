@@ -67,19 +67,13 @@ public class PlayerMoveManager : NetworkBehaviour
         setUpTileEnemies();
         playerSticks = GameObject.FindGameObjectWithTag("Data").GetComponent<NetworkData>().playerSticks;
 
-        float xoffset = 0;
-        int stagger = 1;
+        //mostly an artifact of old system but w/e
         for (int i = 0; i < NetworkData.Instance.players.Count; i++)
         {
-
-
             stickAnimators.Add(playerSticks[i].GetComponent<Animator>());
-            playerSticks[i].transform.position = mapTiles[NetworkData.Instance.players[i].curTileId].transform.position;
-            playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + xoffset, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z - 2 + .3f * stagger);
-            xoffset += 1;
-            stagger *= -1;
-
         }
+        StickPlacer();
+        
         playerCam.Follow = playerSticks[NetworkData.Instance.currentPlayer].transform;
         FreeMover.Instance.playerCam = playerCam;
 
@@ -331,7 +325,7 @@ public class PlayerMoveManager : NetworkBehaviour
         stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", false);
         ClientChecks.Instance.rollNum.transform.parent.gameObject.SetActive(true);
         MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Add(NetworkData.Instance.currentPlayer);
-
+        
         if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds.Count > 0 && IsServer)
         {
             ClientChecks.Instance.ActivateTrapsRpc();
@@ -343,7 +337,7 @@ public class PlayerMoveManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void NextTurnRpc()
     {
-
+        StickPlacer();
         NetworkData.Instance.setNextTurnNum();
         ClientChecks.Instance.PreturnStuff();
 
@@ -372,10 +366,20 @@ public class PlayerMoveManager : NetworkBehaviour
             MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber] = new SpecialTileEventHold[PlayerMoveManager.Instance.mapTiles.Count];
             for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber].Length; i++)
             {
+                
                 MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i] = new SpecialTileEventHold
                 {
                     battleArea = PlayerMoveManager.Instance.mapTiles[i].battleEnvironment
                 };
+
+                if (mapNumber == 0 && i == 0)
+                {
+                    Debug.Log("Either i set up or im missing vital information ");
+                    for (int j = 0; j < NetworkData.Instance.maxPlayers; j++)
+                    {
+                        MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].players.Add(j);
+                    }
+                }
                 //id like to say that im not super happy about this but things are getting messy
                 //they NEED to know their town id right away otherwise its really unintuitive
                 if (PlayerMoveManager.Instance.mapTiles[i] is TownTile)
@@ -575,7 +579,36 @@ public class PlayerMoveManager : NetworkBehaviour
         
         confirmMove(new InputAction.CallbackContext());
     }
+
+    private void StickPlacer()
+    {
+        float xoffset = 0;
+        
+        for (int i = 0; i < NetworkData.Instance.players.Count; i++)
+        {
+            
+            int playersOnTile = MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[i].curTileId].players.Count;
+
+            int intIndex = 0;
+            foreach (var playerId in MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[i].curTileId].players)
+            {
+                if (playerId == i) { break; }
+                intIndex += 1;
+            }
+            int stagger = 1;
+
+            if(intIndex > 1) { stagger = -1; }
+
+            playerSticks[i].transform.position = mapTiles[NetworkData.Instance.players[i].curTileId].transform.position;
+            playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + intIndex % 2, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z - 2 + .3f * stagger);
+                        
+            xoffset += 1;
+            
+
+        }
+    }
 }
+
 [System.Serializable]
 public class PathWrapper
 {

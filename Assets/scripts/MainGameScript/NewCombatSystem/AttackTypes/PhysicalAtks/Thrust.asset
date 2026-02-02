@@ -29,9 +29,9 @@ MonoBehaviour:
   sizePotencyEffect: 2
   stateToBe: 0
   chargeable: 0
-  attackPrefab: {fileID: 2566779757777240371, guid: b4fd0f87d4129aa4681b4392e0d9a122, type: 3}
+  attackPrefab: {fileID: 2566779757777240371, guid: 00d85ececf0dec24a93d2a38a23aa9af, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
-  offset: {x: 0, y: 2, z: 2}
+  offset: {x: -0.5, y: 2, z: 2}
   ablitySize: {x: 1, y: 0.2, z: 12}
   baseDamage: 7
   multipliers:
@@ -55,10 +55,13 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 7400000, guid: 38968a5220cd7c743b74e5f43feb60b8, type: 2}
-  attackAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+  startUpAnimation: {fileID: 7400000, guid: 083dbfa0f8446784a8d1db14119f6c28, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 49df7b3e4376dd14aa9aed036e4e8adf, type: 2}
   animationSpeed: 1
   LevelRequirements: []
   attackSound: {fileID: 8300000, guid: f8e04c0f92914e34da11e1e75e61e638, type: 3}
   onHitSound: {fileID: 8300000, guid: 0e726e18418de3642b4858efdc9d8fc5, type: 3}
   onHitEffects: []
+  targets:
+    serializedVersion: 2
+    m_Bits: 0
