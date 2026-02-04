@@ -25,6 +25,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
     public bool canMove = false;
     public bool cameraMove = false;
+    public bool autoMoving = false;
 
     [Tooltip("DEBUG OPTION forces a number to be rolled")]
     public bool forceRoll;
@@ -73,7 +74,7 @@ public class PlayerMoveManager : NetworkBehaviour
             stickAnimators.Add(playerSticks[i].GetComponent<Animator>());
         }
         StickPlacer();
-        
+
         playerCam.Follow = playerSticks[NetworkData.Instance.currentPlayer].transform;
         FreeMover.Instance.playerCam = playerCam;
 
@@ -180,6 +181,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
 
             canMove = false;
+
             SyncPlayerTileServerRpc(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
             SetNextTurnServerRpc();
 
@@ -190,7 +192,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
     public void MovePlayer(InputAction.CallbackContext action)
     {
-
+        if(autoMoving) { return; }
         if (!canMove) { return; }
         if (cameraMove) { return; }
         //just as a note to self taken path defaults to your current tile being in there after a roll so its always at least 1
@@ -285,7 +287,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
     public void UndoMove(InputAction.CallbackContext action)
     {
-        if (!canMove || takenPath.Count < 2 || !action.performed) { return; }
+        if (!canMove || takenPath.Count < 2 || !action.performed || autoMoving) { return; }
 
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = takenPath[takenPath.Count - 2].GetComponent<TileScript>().tileId;
 
@@ -504,6 +506,7 @@ public class PlayerMoveManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void UnfreeCameraRpc()
     {
+        
         foreach (var tile in possibleEndTiles)
         {
             tile.ArrowChange(false);
@@ -561,7 +564,7 @@ public class PlayerMoveManager : NetworkBehaviour
     {
         
         int startingTileIndex = 1;
-        
+        autoMoving = true;
         while (startingTileIndex < allPaths[finishTile].takenPath.Count)
         {
 
@@ -576,7 +579,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
         }
 
-        
+        autoMoving = false;
         confirmMove(new InputAction.CallbackContext());
     }
 

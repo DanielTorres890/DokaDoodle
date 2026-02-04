@@ -20,7 +20,7 @@ public abstract class AbilityBase : NetworkBehaviour
 
     public bool destroyOnWallCollide;
 
-   
+    public GameObject hitGameObject;
     private AudioSource AudioSource;
 
     private void Awake()
@@ -36,7 +36,14 @@ public abstract class AbilityBase : NetworkBehaviour
     }
     public virtual void OnHit()
     {
-   
+
+        if (hitGameObject)
+        {
+            Debug.Log("I should have spawned in");
+            var fx = Instantiate(hitGameObject);
+            fx.transform.position = transform.position;
+            fx.GetComponent<NetworkObject>().Spawn();
+        }
         Destroy(gameObject);
     }
     public int DamageCalculator(EntityStats defender)
@@ -91,6 +98,7 @@ public abstract class AbilityBase : NetworkBehaviour
             if (AudioSource && attackInfo.onHitSound)
             {
                 PlayHitSoundRpc(NetworkData.Instance.audioDataBase.GetId[attackInfo.onHitSound]);
+                
             }
             else
             {

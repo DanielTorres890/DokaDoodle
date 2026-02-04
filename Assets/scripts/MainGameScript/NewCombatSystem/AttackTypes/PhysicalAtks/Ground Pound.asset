@@ -29,8 +29,9 @@ MonoBehaviour:
   sizePotencyEffect: 2
   stateToBe: 0
   chargeable: 1
-  attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
+  attackPrefab: {fileID: 2566779757777240371, guid: 9d2c0a74166dccc44956f94ebe3523cd, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  spawnFx: {fileID: 2566779757777240371, guid: b9c36f9ed4535284fb776f68b1a59ebf, type: 3}
   offset: {x: 0, y: -2, z: 0}
   ablitySize: {x: 35, y: 0.2, z: 35}
   baseDamage: 20
@@ -62,3 +63,6 @@ MonoBehaviour:
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
   onHitEffects: []
+  targets:
+    serializedVersion: 2
+    m_Bits: 0

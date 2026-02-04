@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TimedWEvent : WorldEventBase
 {
+    [Tooltip("In days")]
     public int duration;
 
     public override void OnActivate()

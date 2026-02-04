@@ -60,14 +60,25 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
             return;
         }
         turns++;
-        
-        
+        foreach (var events in activeWorldEvents)
+        {
+            events.Progress();
+        }
+
         if (turns >= NetworkData.Instance.maxPlayers)
         {
             
             days += 1;
             onDayChange.Invoke();
             turns = 0;
+            foreach (var qEvent in questEvents)
+            {
+                if (qEvent.MainQuestCondition != null && qEvent.MainQuestCondition.CanBeginQuest() && !AlreadyActive(qEvent) && !AlreadyComplete(qEvent))
+                {
+                    eventsToActivate.Add(qEvent);
+                }
+
+            }
 
         }
 
@@ -82,20 +93,9 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
             days = 0;
             weeks++;
       
-            foreach (var qEvent in questEvents)
-            {
-                if (qEvent.MainQuestCondition != null && qEvent.MainQuestCondition.CanBeginQuest() && !AlreadyActive(qEvent) && !AlreadyComplete(qEvent))
-                {
-                    eventsToActivate.Add(qEvent);
-                }
-                
-            }
+           
 
-            foreach (var events in activeWorldEvents)
-            {
-                events.Progress();
-            }
-
+            
             //i feel like theres a way to do weekly money gain with events (like on week change) vs this but im not sure since events
             //are kinda preplanned? maybe the special tile event hold could have the function/subscribe here but id need to think more
             PopUpManager.Instance.PerformPopUp(1, true);
@@ -120,18 +120,16 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
                 }
                 //AddEventRpc(worldDatabase.GetId[randomEvents[Random.Range(0, randomEvents.Length)]]);
             }
-            if (IsHost && (eventsToActivate.Count > 0 || eventsToDeactivate.Count > 0))
-            {
-                ClientChecks.Instance.WorldEventRpc();
-            }
-            else if (IsHost)
-            {
-                NoEventRpc(); //idk if this is the only way but the sphaghetti is starting to get real
-            }
-            return;
         }
 
-        ClientChecks.Instance.TurnStartChecks();
+        if (IsHost && (eventsToActivate.Count > 0 || eventsToDeactivate.Count > 0))
+        {
+            ClientChecks.Instance.WorldEventRpc();
+        }
+        else if (IsHost)
+        {
+            NoEventRpc(); //idk if this is the only way but the sphaghetti is starting to get real
+        }
         
     }
 

@@ -41,6 +41,9 @@ public abstract class AttackBase : ScriptableObject
     [Header("Prefabs and prefab modifiers")]
     public GameObject attackPrefab;
     public GameObject startUpPrefab; //tea
+
+    [Tooltip("Additional Fx for on spawn just incase")]
+    public GameObject spawnFx;
     public Vector3 offset = Vector3.zero;
     public Vector3 ablitySize = Vector3.one;
 
@@ -64,6 +67,8 @@ public abstract class AttackBase : ScriptableObject
     public BuffBase[] onHitEffects; //im not really a fan of this one i'll be honest but it makes the most sense in my brain
     //^ Saves me the annoyance of setting them everytime i create a scriptable
     public LayerMask targets;
+
+    
     public virtual GameObject WeaponEffect(GameObject caster)
     {
        
@@ -96,8 +101,16 @@ public abstract class AttackBase : ScriptableObject
 
 
         attack.GetComponent<NetworkObject>().Spawn(true);
-        
 
+        if(spawnFx)
+        {
+            var fx = Instantiate(spawnFx);
+            fx.transform.position = caster.transform.position;
+            fx.transform.rotation = caster.transform.rotation;
+            fx.transform.localScale = ChargeMultiplier(manager.stats, chargedDuration) * maxChargeSizeBuff * ablitySize;
+            fx.GetComponent<NetworkObject>().Spawn(true);
+        }
+        
 
         var info = attack.GetComponent<AbilityBase>();
         
