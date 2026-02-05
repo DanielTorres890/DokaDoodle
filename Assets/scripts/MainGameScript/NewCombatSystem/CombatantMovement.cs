@@ -22,14 +22,14 @@ public class CombatantMovement : NetworkBehaviour
     private Vector2 move, look,scroll;
     public Vector3 additionalForces;
 
-    private float dashCdTimer;
+    public float dashCdTimer;
 
 
-    private Vector3 lastDashDirection;
+    [SerializeField] private Vector3 lastDashDirection;
     private float lastDashTime;
     [SerializeField] private float TimeBetweenDash = 0.2f;
-    [SerializeField] private float dashCd;
-    [SerializeField] private int DashDexRequirement;
+    [SerializeField] public float dashCd;
+    [SerializeField] public int DashDexRequirement;
     [SerializeField] private float DashEnergyCost = 10f;
     //private Camera camcomponent;
 

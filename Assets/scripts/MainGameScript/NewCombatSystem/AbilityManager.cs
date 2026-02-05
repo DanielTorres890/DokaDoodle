@@ -277,6 +277,8 @@ public class AbilityManager : NetworkBehaviour
         inputToInt.Add(actions.actions["ClassAbility"].controls[0], stats.attacks.Count-1);
         stateManager.Add(stats.attacks[stats.attacks.Count - 1], new AbilityStates());
         orderedAttacks.Add(stats.attacks[stats.attacks.Count - 1]);
+        maxEnergy = 100 + stats.stats[Attributes.Potency];
+        energyRegen = 1 + stats.stats[Attributes.Potency] / 2;
     }
 
     public void AssignStateManager()

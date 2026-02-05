@@ -72,7 +72,7 @@ public class NewCombatManager : NetworkBehaviour
 
     public GameObject spectateUI;
     public GameObject inCombatUI;
-
+    public DashCdDisplay dashCdDisplay;
     
     private void Awake()
     {
@@ -249,6 +249,11 @@ public class NewCombatManager : NetworkBehaviour
         statUI.abilityManager = allCombatants[whichone - 1];
         statUI.SetUp();
 
+
+        dashCdDisplay.manager = allCombatants[whichone - 1];
+        dashCdDisplay.playerMovement = allCombatants[whichone - 1].gameObject.GetComponent<CombatantMovement>();
+        dashCdDisplay.SetUp();
+        
     }
 
     public void KILL(AbilityManager whoded)
