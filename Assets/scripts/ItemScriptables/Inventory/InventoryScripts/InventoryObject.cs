@@ -95,6 +95,7 @@ public class InventoryObject : ScriptableObject, ISerializationCallbackReceiver
         }
         return result;
     }
+    
 }
 
 [System.Serializable]

@@ -17,7 +17,7 @@ MonoBehaviour:
   startUp: 0.5
   attackDuration: 0
   endLag: 0.1
-  cooldown: 0
+  cooldown: 3
   lifespan: 0.3
   energyDrain: 1
   maxChargeAtkBuff: 1.2
@@ -31,8 +31,9 @@ MonoBehaviour:
   chargeable: 0
   attackPrefab: {fileID: 2566779757777240371, guid: 00d85ececf0dec24a93d2a38a23aa9af, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  spawnFx: {fileID: 0}
   offset: {x: -0.5, y: 2, z: 2}
-  ablitySize: {x: 1, y: 0.2, z: 12}
+  ablitySize: {x: 1, y: 0.2, z: 15}
   baseDamage: 7
   multipliers:
   - attribute: 2

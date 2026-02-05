@@ -309,4 +309,15 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         }
         return -1;
     }
+    public void OnApplicationQuit()
+    {
+        foreach(var inventories in playerInventories)
+        {
+            foreach(var inventory in inventories)
+            {
+                inventory.container.Clear();
+            }
+            
+        }
+    }
 }

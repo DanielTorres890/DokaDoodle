@@ -111,14 +111,9 @@ public class NewCombatManager : NetworkBehaviour
         }
 
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("NewBattleArea"));
+        
 
-        if (PlayerCombatManager.Instance.currentEncounter.battleMusic)
-        {
-            AudioSource.resource = PlayerCombatManager.Instance.currentEncounter.battleMusic;
-            AudioSource.volume = SettingsManager.instance.volume;
-            SettingsManager.instance.onBackgroundVolumeChange.AddListener(UpdateVolume);
-            AudioSource.Play();
-        }
+        StartBGM();
 
         //bc im dumb and didnt handle things earlier
         for (int i = 0; i < NetworkData.Instance.playerSticks.Count; i++)
@@ -712,6 +707,36 @@ public class NewCombatManager : NetworkBehaviour
             if (cameras[currentSpec].transform.parent.transform.eulerAngles.x % 360 < 360 + minXCam && cameras[currentSpec].transform.parent.transform.eulerAngles.x % 360 > maxXCam)
             {
                 cameras[currentSpec].transform.parent.transform.Rotate(new Vector3(mouseMove.y * mouseSpeed, 0, 0));
+            }
+        }
+    }
+
+
+    private void StartBGM()
+    {
+        SettingsManager.instance.onBackgroundVolumeChange.AddListener(UpdateVolume);
+
+        if (PlayerCombatManager.Instance.currentEncounter.battleMusic)
+        {
+            AudioSource.resource = PlayerCombatManager.Instance.currentEncounter.battleMusic;
+            AudioSource.volume = SettingsManager.instance.volume;
+
+            AudioSource.Play();
+        }
+
+
+        foreach (var entity in PlayerCombatManager.Instance.combatants)
+        {
+            if (entity is EnemyCombat)
+            {
+                var enemy = entity as EnemyCombat;
+                var soundCache = PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemy.enemyId].SpecialMusic;
+                if (soundCache)
+                {
+                    AudioSource.resource = soundCache;
+                    AudioSource.volume = SettingsManager.instance.volume;
+                    AudioSource.Play();
+                }
             }
         }
     }

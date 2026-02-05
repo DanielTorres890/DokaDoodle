@@ -297,6 +297,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: afda8e35-73d1-4288-a98f-1661aa425226
     m_ActionName: 'Spectating/Settings[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1c95a7b6-7c52-40df-882b-d6b6a35de6dd
+    m_ActionName: 'Player/Scrolling[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 48ad7979-5d24-480a-9d29-7f3e3323d856
+    m_ActionName: 'Spectating/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c5c7be77-68e3-419a-850e-cb51ddfd4823
+    m_ActionName: 'Spectating/Look[/Mouse/delta]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
@@ -472,7 +484,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 033b1a170e7894644b33abada5c309bc, type: 2}
+  - {fileID: 2100000, guid: d5e7d423314db68449c72b23ba23e8a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

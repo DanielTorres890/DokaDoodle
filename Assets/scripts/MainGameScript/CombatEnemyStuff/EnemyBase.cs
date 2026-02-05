@@ -23,6 +23,8 @@ public class EnemyBase : ScriptableObject, ISerializationCallbackReceiver
     public int droppedMoney;
     public int droppedFame;
 
+    [Tooltip("If the enemy should override the bgm insert this")]
+    public AudioClip SpecialMusic;
     public void OnAfterDeserialize()
     {
         
