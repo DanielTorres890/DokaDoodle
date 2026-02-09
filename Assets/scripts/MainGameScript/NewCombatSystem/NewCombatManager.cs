@@ -73,13 +73,15 @@ public class NewCombatManager : NetworkBehaviour
     public GameObject spectateUI;
     public GameObject inCombatUI;
     public DashCdDisplay dashCdDisplay;
-    
+
+    public List<AllyAIWrapper> allyPrefabs;
+   
     private void Awake()
     {
         AudioSource = GetComponent<AudioSource>();
         Cursor.lockState = CursorLockMode.Locked;
         if (instance != null) { return; }
-
+        
 
         instance = this;
     }
@@ -199,7 +201,7 @@ public class NewCombatManager : NetworkBehaviour
 
                     countbcisuck++;
                 }
-                else
+                else if(entity is EnemyCombat)
                 {
                     var npc = entity as EnemyCombat;
                     var npcfab = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetItem[npc.enemyId].enemyPrefab);
@@ -208,9 +210,31 @@ public class NewCombatManager : NetworkBehaviour
                     npcfab.GetComponent<NetworkObject>().Spawn(true);
 
                     var abilitiyManage = npcfab.GetComponent<AbilityManager>();
+                    
                     abilitiyManage.UpdateStatsRpc(PlayerCombatManager.Instance.combatants.IndexOf(entity));
+                    
 
 
+
+                }
+                else if(entity is PartyMember)
+                {
+                    var ally = entity as PartyMember;
+                    GameObject allyfab = allyPrefabs[0].prefab;
+                    foreach(var prefabs in allyPrefabs)
+                    {
+                        if(prefabs.type != NetworkData.Instance.classDataBase.GetItem[ally.allyClass].AIType) { continue; }
+                        allyfab = Instantiate(prefabs.prefab);
+
+                    }
+                    allyfab.transform.position = new Vector3(spawnPoint.x + Mathf.Cos(circleIncrement * counter) * distanceFromCenter, spawnPoint.y, sideMult * spawnPoint.z + (i * zDistanceBetween) + (Mathf.Sin(circleIncrement * counter) * distanceFromCenter));
+
+                    allyfab.GetComponent<NetworkObject>().Spawn(true);
+
+                    
+                    var abilitiyManage = allyfab.GetComponent<AbilityManager>();
+                    abilitiyManage.UpdateStatsRpc(PlayerCombatManager.Instance.combatants.IndexOf(entity));
+                    abilitiyManage.UpdateMyLooksRpc();
 
 
                 }
@@ -740,4 +764,12 @@ public class NewCombatManager : NetworkBehaviour
             }
         }
     }
+}
+
+
+[System.Serializable]
+public class AllyAIWrapper
+{
+    public PartyAITypes type;
+    public GameObject prefab;
 }

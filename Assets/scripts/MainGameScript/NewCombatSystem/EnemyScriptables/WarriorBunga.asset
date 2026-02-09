@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42e542e6897b1b49a5085f063ea70bd, type: 3}
+  m_Name: WarriorBunga
+  m_EditorClassIdentifier: 
+  enemyName: Bunga
+  enemyPrefab: {fileID: 1804880954259114146, guid: 8b6c5fd9244abf3428bcef0eb3eb0656, type: 3}
+  enemyNonCombatPrefab: {fileID: 5090703921820710391, guid: 00f7579ca051bb04cadf537b0f226d26, type: 3}
+  Stats:
+  - attribute: 0
+    value: 80
+  - attribute: 1
+    value: 80
+  - attribute: 2
+    value: 6
+  - attribute: 3
+    value: 4
+  - attribute: 4
+    value: 1
+  - attribute: 5
+    value: 4
+  - attribute: 6
+    value: 4
+  loyaltyTags:
+  - Bunga
+  Attackss:
+  - {fileID: 11400000, guid: a5b01c26d5c4cc1408fb60cf8603268c, type: 2}
+  Defendss:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 06cc93f9a8465e9499eff7bb9c2e0268, type: 2}
+  DroppedItems:
+  - {fileID: 11400000, guid: bebd64a7aeba88e429d6425780ad4e4e, type: 2}
+  probability: 64000000
+  droppedXp: 25
+  droppedMoney: 100
+  droppedFame: 0
+  SpecialMusic: {fileID: 0}

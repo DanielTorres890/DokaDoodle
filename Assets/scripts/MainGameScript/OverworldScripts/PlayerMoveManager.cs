@@ -50,7 +50,13 @@ public class PlayerMoveManager : NetworkBehaviour
     public static PlayerMoveManager Instance;
 
 
+    public GameObject allyPrefab;
+    public float AllyDistance;
+
+    //DICTIONARIES SOLVE EVERYTHING HOLYYY
+    private List<Dictionary<PartyMember,GameObject>> playerAllies = new List<Dictionary<PartyMember, GameObject>>();
     private Coroutine activeRoutine;
+
     public void Awake()
     {
 
@@ -74,7 +80,7 @@ public class PlayerMoveManager : NetworkBehaviour
             stickAnimators.Add(playerSticks[i].GetComponent<Animator>());
         }
         StickPlacer();
-
+        PartyMemberSpawner();
         playerCam.Follow = playerSticks[NetworkData.Instance.currentPlayer].transform;
         FreeMover.Instance.playerCam = playerCam;
 
@@ -151,6 +157,7 @@ public class PlayerMoveManager : NetworkBehaviour
     {
         takenPath.Add(mapTiles[tileId].gameObject);
         NetworkData.Instance.GetCurrentPlayer().curTileId = tileId;
+        SetFollowingMembersToCurTile();
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void RemovePathRpc()
@@ -162,7 +169,9 @@ public class PlayerMoveManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SyncDiceRollServerRpc(int num)
     {
+        
         stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", true);
+        SetAllyAnimator(true);
 
         diceRoll = num;
         //id like to say that while this is not the most beautiful thing in the world i cant hate it
@@ -324,6 +333,7 @@ public class PlayerMoveManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SetNextTurnServerRpc()
     {
+        SetAllyAnimator(false);
         stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", false);
         ClientChecks.Instance.rollNum.transform.parent.gameObject.SetActive(true);
         MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Add(NetworkData.Instance.currentPlayer);
@@ -340,6 +350,7 @@ public class PlayerMoveManager : NetworkBehaviour
     public void NextTurnRpc()
     {
         StickPlacer();
+        PositionAllies();
         NetworkData.Instance.setNextTurnNum();
         ClientChecks.Instance.PreturnStuff();
 
@@ -348,11 +359,22 @@ public class PlayerMoveManager : NetworkBehaviour
 
     private IEnumerator playerMover(float speed, int tildId)
     {
+        var currentPartyMembers = NetworkData.Instance.GetCurrentPlayer().partyMembers;
 
-        while (Vector3.Distance(playerSticks[NetworkData.Instance.currentPlayer].transform.position, mapTiles[tildId].gameObject.transform.position) > 0.01f)
+        int curPlayerIndex = NetworkData.Instance.currentPlayer;
+        while (Vector3.Distance(playerSticks[curPlayerIndex].transform.position, mapTiles[tildId].gameObject.transform.position) > 0.01f)
         {
             playerSticks[NetworkData.Instance.currentPlayer].transform.position =
-        Vector3.MoveTowards(playerSticks[NetworkData.Instance.currentPlayer].transform.position, mapTiles[tildId].gameObject.transform.position, speed * Time.deltaTime);
+        Vector3.MoveTowards(playerSticks[curPlayerIndex].transform.position, mapTiles[tildId].gameObject.transform.position, speed * Time.deltaTime);
+
+            int memberCount = 0;
+            for(int i = 0; i < currentPartyMembers.Count; i++)
+            {
+                if (currentPartyMembers[i].curMap != mapNumber || currentPartyMembers[i].boardMovementState != PlayerFollowingStates.WithOwner) { continue; }
+
+                playerAllies[curPlayerIndex][currentPartyMembers[i]].transform.position = new Vector3(playerSticks[curPlayerIndex].transform.position.x - 0.5f + memberCount * AllyDistance, playerSticks[curPlayerIndex].transform.position.y, playerSticks[curPlayerIndex].transform.position.z - .5f);
+                memberCount++;
+            }
             yield return null;
         }
 
@@ -570,6 +592,10 @@ public class PlayerMoveManager : NetworkBehaviour
 
             
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = allPaths[finishTile].takenPath[startingTileIndex].tileId;
+            SetFollowingMembersToCurTile();
+
+
+
             activeRoutine = StartCoroutine(playerMover(autoMoveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId));
             PlayerMoverRpc(autoMoveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
             startingTileIndex++;
@@ -603,11 +629,78 @@ public class PlayerMoveManager : NetworkBehaviour
             if(intIndex > 1) { stagger = -1; }
 
             playerSticks[i].transform.position = mapTiles[NetworkData.Instance.players[i].curTileId].transform.position;
-            playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + intIndex % 2, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z - 2 + .3f * stagger);
+            playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + intIndex % 2, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z - 2 + 1f * stagger);
                         
             xoffset += 1;
             
+        }
+    }
 
+    private void SetAllyAnimator(bool state)
+    {
+        var currentPartyMembers = NetworkData.Instance.GetCurrentPlayer().partyMembers;
+        int memberCount = 0;
+        int curPlayerIndex = NetworkData.Instance.currentPlayer;
+        for (int i = 0; i < currentPartyMembers.Count; i++)
+        {
+            if (currentPartyMembers[i].curMap != mapNumber || currentPartyMembers[i].boardMovementState != PlayerFollowingStates.WithOwner) { continue; }
+            playerAllies[curPlayerIndex][currentPartyMembers[i]].GetComponent<Animator>().SetBool("Walking", state);
+            memberCount++;
+        }
+    }
+    private void PartyMemberSpawner()
+    {
+        
+
+        int memberCount = 0;
+        for (int i = 0; i < NetworkData.Instance.players.Count; i++)
+        {
+            Dictionary<PartyMember, GameObject> allyGameObjects = new Dictionary<PartyMember, GameObject>();
+            foreach (var member in NetworkData.Instance.players[i].partyMembers)
+            {
+                if (member.curMap != mapNumber) { continue; }
+                GameObject allyGameObject = Instantiate(allyPrefab);
+                member.SetPrefab(allyGameObject);
+                allyGameObject.transform.position = new Vector3(playerSticks[i].transform.position.x - 0.5f + memberCount * AllyDistance, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z - .5f);
+                allyGameObjects.Add(member, allyGameObject);
+                memberCount += 1;
+            }
+            playerAllies.Add(allyGameObjects);
+        }
+        
+
+        
+    }
+    private void SetFollowingMembersToCurTile()
+    {
+
+        foreach (var member in NetworkData.Instance.GetCurrentPlayer().partyMembers)
+        {
+            if (member.boardMovementState != PlayerFollowingStates.WithOwner || member.curMap != mapNumber) { continue; }
+
+            MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Remove(member);
+            member.curTileId = NetworkData.Instance.GetCurrentPlayer().curTileId;
+            MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Add(member);
+
+        }
+    }
+
+    private void PositionAllies()
+    {
+        int memberCount = 0;
+        for (int i = 0; i < NetworkData.Instance.players.Count; i++)
+        {
+            
+            foreach (var member in playerAllies[i])
+            {
+                if(member.Key.boardMovementState == PlayerFollowingStates.WithOwner)
+                {
+                    GameObject allyGameObject = member.Value;
+                    allyGameObject.transform.position = new Vector3(playerSticks[i].transform.position.x - 0.5f + memberCount * AllyDistance, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z - .5f);
+
+                }
+                memberCount += 1;
+            }
         }
     }
 }

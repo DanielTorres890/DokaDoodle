@@ -8,6 +8,10 @@ public class SpecialTileEventHold
 {
     [DoNotSerialize]public List<EnemyCombat> tileEnemy = new List<EnemyCombat>();
 
+    //so this is seperate bc they function juussstt differently enough to where i think it should be different
+    //but i can see an argument where i should merge tileEnemy and party members
+    [DoNotSerialize] public List<PartyMember> partyMembers = new List<PartyMember>();
+
     [DoNotSerialize] public List<int> players = new List<int>();
 
     [DoNotSerialize] public List<int> trapIds = new List<int>();//traps active on this

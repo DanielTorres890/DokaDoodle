@@ -47,6 +47,8 @@ public class AbilityManager : NetworkBehaviour
 
     private float updateStatsTimer = 0f;
     private float whenToUpdate = 1f;
+
+    
     private void Awake()
     {
 
@@ -348,8 +350,26 @@ public class AbilityManager : NetworkBehaviour
         characterEdit.setClass(NetworkData.Instance.players[playerNum].playerClass);
         characterEdit.setFace(NetworkData.Instance.players[playerNum].playerFace);
         characterEdit.setHair(NetworkData.Instance.players[playerNum].playerHair);
+
+
         NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineCamera>());
-       
+
+    }
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void UpdateMyLooksRpc()
+    {
+        characterEditor characterEdit = GetComponent<characterEditor>();
+        PartyMember myStats = (stats as PartyMember);
+
+        
+
+        characterEdit.setClass(myStats.allyClass);
+        characterEdit.setFace(myStats.allyFace);
+        characterEdit.setHair(myStats.allyHair);
+
+
+        NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineCamera>());
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void UpdateStatsRpc(int combatantNum)

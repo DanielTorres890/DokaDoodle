@@ -26,6 +26,10 @@ public abstract class PlayerClassBase : ScriptableObject
     public int[] classXpRequirements;
 
     public int baseSalary;
+
+    public ItemBase[] recommendedItems;
+
+    public PartyAITypes AIType;
     public virtual void ClassAction(playerData player, int randomNum)
     {
         player.playerInfo[PlayerInfo.classCd] = ClassActionCD;

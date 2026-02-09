@@ -5,6 +5,7 @@ using Unity.Netcode;
 using UnityEngine;
 
 
+[System.Serializable]
 public class playerData : EntityStats
 {
     
@@ -24,7 +25,7 @@ public class playerData : EntityStats
     {
         {PlayerInfo.xp, 0 },
         {PlayerInfo.level, 1 },
-        {PlayerInfo.money, 1000 },
+        {PlayerInfo.money, 5000 },
         {PlayerInfo.fame, 0 },
         {PlayerInfo.classCd, 0 },
 
@@ -60,6 +61,9 @@ public class playerData : EntityStats
         { 2, new PlayerClassProgress() },
 
     };
+
+
+    public List<PartyMember> partyMembers = new List<PartyMember>();
 
     public playerData()
     {

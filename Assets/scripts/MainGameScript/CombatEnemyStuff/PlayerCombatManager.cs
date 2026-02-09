@@ -31,10 +31,10 @@ public class PlayerCombatManager : MonoBehaviour
 
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].setCombatActions();
 
-
+        var currentTile = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
         bool rumble = false; //is there another player that we fight
        
-        foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
+        foreach (var players in currentTile.players)
         {
             if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
             {
@@ -49,7 +49,7 @@ public class PlayerCombatManager : MonoBehaviour
 
         //Pretty much everything that isn't these two is stuff from the old system
 
-        if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0)
+        if (currentTile.tileEnemy.Count == 0)
         {
             if (!rumble)
             {
@@ -58,7 +58,7 @@ public class PlayerCombatManager : MonoBehaviour
 
                     var temp = new EnemyCombat(enemy);
                     PlayerCombatManager.Instance.combatants.Add(temp);
-                    MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Add(temp);
+                    currentTile.tileEnemy.Add(temp);
                     
 
                 }
@@ -69,13 +69,19 @@ public class PlayerCombatManager : MonoBehaviour
         }
         else
         {
-            foreach (var enemyy in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy)
+            foreach (var enemyy in currentTile.tileEnemy)
             {
                 PlayerCombatManager.Instance.combatants.Add(enemyy);
                 encounterName = enemyy.name;
             }
 
         }
+
+        foreach(var ally in currentTile.partyMembers)
+        {
+            PlayerCombatManager.Instance.combatants.Add(ally);
+        }
+
         return encounterName;
     }
 }

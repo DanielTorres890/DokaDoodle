@@ -1678,7 +1678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3075552288
+  GlobalObjectIdHash: 2884901355
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1951,6 +1951,7 @@ MonoBehaviour:
   characterEditor: {fileID: -7575021645446966744}
   additionalForces: {x: 0, y: 0, z: 0}
   dashCdTimer: 0
+  lastDashDirection: {x: 0, y: 0, z: 0}
   TimeBetweenDash: 0.2
   dashCd: 1
   DashDexRequirement: 10
@@ -2057,18 +2058,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: CombatAnimator, Assembly-CSharp
         m_MethodName: StartUpAnimState
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2651429450716657545}
-        m_TargetAssemblyTypeName: CombatAnimator, Assembly-CSharp
-        m_MethodName: EndCurrentAttack
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

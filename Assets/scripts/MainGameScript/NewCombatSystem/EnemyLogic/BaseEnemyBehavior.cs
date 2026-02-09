@@ -177,7 +177,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    public void AttackAnimRpc(int attackIndex)
+    public virtual void AttackAnimRpc(int attackIndex)
     {
         
         selectedAttack = myManager.stats.attacks[attackIndex];
