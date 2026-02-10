@@ -1228,7 +1228,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: ff4041ba617f30748b8b6fd6df45f800, type: 2}
     - target: {fileID: -8653719598885068355, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Name
-      value: BasicRangedAlly
+      value: SmarterRangedAlly
       objectReference: {fileID: 0}
     - target: {fileID: -8653719598885068355, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
@@ -1624,7 +1624,7 @@ PrefabInstance:
       addedObject: {fileID: 1866336549448998315}
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -1334594276967331829}
+      addedObject: {fileID: 5143126193848974289}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
 --- !u!4 &204523565734630779 stripped
 Transform:
@@ -1696,7 +1696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2911743723
+  GlobalObjectIdHash: 2967414060
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1749,8 +1749,8 @@ MonoBehaviour:
   onAttack:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -1334594276967331829}
-        m_TargetAssemblyTypeName: RangedEnemyBehavior, Assembly-CSharp
+      - m_Target: {fileID: 5143126193848974289}
+        m_TargetAssemblyTypeName: SmarterRangedAlly, Assembly-CSharp
         m_MethodName: SetStartUpAnim
         m_Mode: 6
         m_Arguments:
@@ -1776,8 +1776,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: -1334594276967331829}
-        m_TargetAssemblyTypeName: RangedEnemyBehavior, Assembly-CSharp
+      - m_Target: {fileID: 5143126193848974289}
+        m_TargetAssemblyTypeName: SmarterRangedAlly, Assembly-CSharp
         m_MethodName: SetStartUpAnim
         m_Mode: 6
         m_Arguments:
@@ -1788,8 +1788,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: -1334594276967331829}
-        m_TargetAssemblyTypeName: RangedEnemyBehavior, Assembly-CSharp
+      - m_Target: {fileID: 5143126193848974289}
+        m_TargetAssemblyTypeName: SmarterRangedAlly, Assembly-CSharp
         m_MethodName: SetAttackingAnim
         m_Mode: 6
         m_Arguments:
@@ -1843,6 +1843,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onEnergyChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onSetUp:
     m_PersistentCalls:
       m_Calls: []
   maxEnergy: 100
@@ -2134,7 +2137,7 @@ NavMeshAgent:
   m_BaseOffset: 1.45
   m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
---- !u!114 &-1334594276967331829
+--- !u!114 &5143126193848974289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2143,11 +2146,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1305626960793455896}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 199564b097cd9f54e86d0b84fa9ab1ba, type: 3}
+  m_Script: {fileID: 11500000, guid: bf08fe4ee14575749abd7a5c20db01cc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RangedEnemyBehavior
+  m_EditorClassIdentifier: Assembly-CSharp::SmarterRangedAlly
   ShowTopMostFoldoutHeaderGroup: 1
-  targetManager: {fileID: 0}
+  targetManager: {fileID: 992508209932742035}
   agent: {fileID: 1866336549448998315}
   whatIsGround:
     serializedVersion: 2
@@ -2157,22 +2160,23 @@ MonoBehaviour:
     m_Bits: 1
   myManager: {fileID: 992508209932742035}
   selectedAttack: {fileID: 0}
-  attackRanges:
-  - 4
+  attackRanges: []
   InAttackRange: 0
   animator: {fileID: 0}
   overrideController: {fileID: 0}
   walkingAnimation: {fileID: 7400000, guid: 73249539e6c7fac4894f7033f33fc7f0, type: 2}
   attackAnimations: []
   releaseTimer: 0
-  timeToHold: 1
-  kiteRange: 4
+  timeToHold: 0
+  kiteRange: 0
   kiteAmount: 3
   Precision: 0
-  StopKitingDistance: 6
-  failedEscapeAmount: 3
+  StopKitingDistance: 0
+  failedEscapeAmount: 0
   inKiteRange: 0
   avoiding: 0
+  KiteAttackDelta: 5
+  minimumRange: 12
 --- !u!1001 &8292266084096716652
 PrefabInstance:
   m_ObjectHideFlags: 0

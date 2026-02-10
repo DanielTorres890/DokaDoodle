@@ -253,7 +253,7 @@ public class NewCombatManager : NetworkBehaviour
     private void SetNotSpectateRpc(int whichone, RpcParams rpcStuff)
     {
         //fricku[whichone].GetComponent<PlayerInput>();
-        Debug.Log("I'm ready to fight! ");
+      
         Cursor.lockState = CursorLockMode.Locked;
         playercontrol.SwitchCurrentActionMap("Player");
         spectateUI.SetActive(false);
@@ -311,18 +311,19 @@ public class NewCombatManager : NetworkBehaviour
 
             }
 
+        }
 
-
-
-            //if (IsServer) { LinesToSyncRpc((info.name + " dropped " + info.playerInfo[PlayerInfo.money] / 2 + " moneys"), info.LoseSomething(), 3, info.playerNumber); }
-            //idk if i did this here for a reason but it doesnt make much sense since they shouldnt drop something if they might survive (like a revive or something)
+        if (whoded.stats is PartyMember)
+        {
+            PartyMember info = (PartyMember)whoded.stats;
+            info.isDead = true;
+            xpHarvested += info.allyInfo[PlayerInfo.xp];
             
-            //this made players drop half their money on death but i dont think we should do that YET(?)
-            //moneyHarvested = info.playerInfo[PlayerInfo.money] / 2;
-            //info.GainMoney(-moneyHarvested);
 
-
-
+            if (IsServer)
+            {   
+                Destroy(whoded.gameObject);
+            }
         }
 
         if (IsServer && CheckWin())
@@ -416,7 +417,14 @@ public class NewCombatManager : NetworkBehaviour
         if (victor.stats is playerData)
         {
             playerData player = (playerData)victor.stats;
-            int levels = player.gainXp(cache.xpOnTile);
+
+            List<int> partyLevelsGained = new List<int>();
+            foreach(var partyMember in cache.partyMembers)
+            {
+                int levelsGained = partyMember.gainXp(cache.xpOnTile / cache.partyMembers.Count + 1);
+                partyLevelsGained.Add(levelsGained);
+            }
+            int levels = player.gainXp(cache.xpOnTile / (cache.partyMembers.Count + 1));
             bool gainedClassLevel = player.gainClassXp(cache.xpOnTile) > 0;
 
             player.GainMoney(moneyHarvested + cache.moneyOnTile);
@@ -430,7 +438,9 @@ public class NewCombatManager : NetworkBehaviour
 
             bool isFull = false;
             bool leveledUp = levels > 0;
+            bool partyLevelUp = partyLevelsGained.Count > 0;
             int itemType = -1;
+
             foreach(var item in  itemsPicked)
             {
                 if(NetworkData.Instance.AddItemToInventory(player.playerNumber, item))
@@ -450,6 +460,15 @@ public class NewCombatManager : NetworkBehaviour
                 levelUpUI.playerWhoLevel = player;
                 
                 
+            }
+            if(partyLevelUp)
+            {
+                for(int i = 0; i < partyLevelsGained.Count; i ++)
+                {
+                    if (partyLevelsGained[i] < 0) { continue; }
+                    endBattleInfo.lines.Add(cache.partyMembers[i].name + "(ally) has leveled up <color=green>" + partyLevelsGained[i].ToString() + "</color> times");
+
+                }
             }
             if (gainedClassLevel)
             {
@@ -621,6 +640,15 @@ public class NewCombatManager : NetworkBehaviour
 
         tilereadCache.xpOnTile += xpHarvested;
         tilereadCache.moneyOnTile += moneyHarvested;
+
+        for(int i = tilereadCache.partyMembers.Count -1; i >= 0; i--)
+        {
+            if (tilereadCache.partyMembers[i].isDead)
+            {
+                tilereadCache.partyMembers[i].Die();
+            }
+        }
+
         for(int i = tilereadCache.tileEnemy.Count - 1; i >= 0; i--)
         {
             
@@ -641,6 +669,7 @@ public class NewCombatManager : NetworkBehaviour
 
             }
         }
+
         return deadPlayer;
     }
     

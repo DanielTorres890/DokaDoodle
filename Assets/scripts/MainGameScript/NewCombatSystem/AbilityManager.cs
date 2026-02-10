@@ -31,13 +31,15 @@ public class AbilityManager : NetworkBehaviour
     [SerializeField] private EntityUIUpdate nameText;
     [SerializeField] private EntityUIUpdate hpText;
 
-
+    
     public UnityEvent onStatus;
     public UnityEvent onAttack;
     public UnityEvent onSpawnAttack; //bc im dumb and dont feel like changing the labels rn
     public UnityEvent onEndAttack;
     public UnityEvent onHit;
     public UnityEvent onEnergyChange;
+    public UnityEvent onSetUp;
+
     private Animator animator;
 
     public float maxEnergy = 100f;
@@ -353,7 +355,7 @@ public class AbilityManager : NetworkBehaviour
 
 
         NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineCamera>());
-
+        
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -370,6 +372,7 @@ public class AbilityManager : NetworkBehaviour
 
 
         NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineCamera>());
+        
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void UpdateStatsRpc(int combatantNum)

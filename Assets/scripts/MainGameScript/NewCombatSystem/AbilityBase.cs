@@ -39,7 +39,7 @@ public abstract class AbilityBase : NetworkBehaviour
 
         if (hitGameObject)
         {
-            Debug.Log("I should have spawned in");
+          
             var fx = Instantiate(hitGameObject);
             fx.transform.position = transform.position;
             fx.GetComponent<NetworkObject>().Spawn();

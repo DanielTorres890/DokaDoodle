@@ -43,8 +43,8 @@ public class BaseEnemyBehavior : NetworkBehaviour
         overrideController["DefaultWalking"] = walkingAnimation;
         animator.runtimeAnimatorController = overrideController;
 
-     
 
+        myManager.onHit.AddListener(FindEnemy);
         FindEnemy();
         agent.speed += myManager.stats.speedFormula();
 
@@ -58,8 +58,8 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
         foreach (var entity in NewCombatManager.instance.allCombatants)
         {
-           
-            if (gameObject == entity.gameObject || entity.stats.isDead) { continue; }
+            
+            if (entity == null || gameObject == entity.gameObject || entity.stats.isDead) { continue; }
 
             if (targetManager.gameObject == gameObject || targetManager.stats.isDead) { targetManager = entity; }
             
@@ -208,12 +208,12 @@ public class BaseEnemyBehavior : NetworkBehaviour
     }
     public void SetStartUpAnim(bool whatDo)
     {
-        Debug.Log("Im entering start up " + whatDo);
+      
         animator.SetBool("StartUp", whatDo);
     }
     public void SetAttackingAnim(bool whatDo)//bc the way network objects work these functions are directly connected to the ability manager (IN THE PREFAB BTW) events bc fmcl
     {
-        Debug.Log("Im attacking " + whatDo);
+     
         animator.SetBool("Attacking", whatDo);
     }
     public void SetWalkingAnim(bool whatDo)

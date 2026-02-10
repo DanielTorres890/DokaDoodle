@@ -188,24 +188,35 @@ public class EmploymentEventManager : NetworkBehaviour
         int[] faceIds = new int[numOfAllies];
         int[] allyHair = new int[numOfAllies];
         int[] classId = new int[numOfAllies];
-        
+
+        int[] randomStatBoost1 = new int[numOfAllies];
+        int[] randomStatBoost2 = new int[numOfAllies];
+
+
+        int attributesLength = 7;
         for (int i = 0; i < numOfAllies; i++)
         {
             newNames[i] = randomNames[Random.Range(0, randomNames.Count)];
             faceIds[i] = Random.Range(0, spriteLibrary.GetCategoryLabelNames("face").ToList().Count);
             allyHair[i] = Random.Range(0,spriteLibrary.GetCategoryLabelNames("hair").ToList().Count);
             classId[i] = Random.Range(0, 3);
+            randomStatBoost1[i] = Random.Range(2, attributesLength);
+            randomStatBoost2[i] = Random.Range(2, attributesLength);
         }
 
-        GenerateAlliesRpc(newNames,faceIds, allyHair, classId);
+        GenerateAlliesRpc(newNames,faceIds, allyHair, classId, randomStatBoost1, randomStatBoost2);
 
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    private void GenerateAlliesRpc(FixedString32Bytes[] names, int[] faceIds, int[] hairId,int[] classId )
+    private void GenerateAlliesRpc(FixedString32Bytes[] names, int[] faceIds, int[] hairId,int[] classId, int[] randoBoost1, int[] randoBoost2 )
     {
         for (int i = 0;i < numOfAllies;i++)
         {
             availableAllies.Add(new PartyMember(classId[i], names[i], faceIds[i], hairId[i]));
+
+            availableAllies[i].stats[(Attributes)randoBoost1[i]] += 1;
+            availableAllies[i].stats[(Attributes)randoBoost2[i]] += 1;
+
         }
         allyDisplay.CreateDisplay(availableAllies);
     }
@@ -256,12 +267,13 @@ public class EmploymentEventManager : NetworkBehaviour
     private void ConfirmAllyBuyRpc(int random)
     {
 
-        Debug.Log("Which ally am i looking at? " + currentAllyBuy);
+        
         var curPlayer = NetworkData.Instance.GetCurrentPlayer();
 
         availableAllies[currentAllyBuy].loyaltyTags = curPlayer.loyaltyTags;
         availableAllies[currentAllyBuy].curTileId = curPlayer.curTileId;
         availableAllies[currentAllyBuy].curMap = curPlayer.curMap;
+        availableAllies[currentAllyBuy].allyOwner = NetworkData.Instance.currentPlayer;
         availableAllies[currentAllyBuy].AddAbility(random);
 
         curPlayer.partyMembers.Add(availableAllies[currentAllyBuy]);

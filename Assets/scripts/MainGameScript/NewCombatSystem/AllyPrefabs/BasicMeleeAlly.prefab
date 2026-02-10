@@ -1250,6 +1250,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: -7759336214195336138, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_AutoRebind
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -7631854305448467284, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -1346,6 +1350,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: -3643509089563282147, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_AutoRebind
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -3049137432006953622, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -1365,6 +1373,10 @@ PrefabInstance:
     - target: {fileID: -2661796967133216484, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2537539892475593103, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_AutoRebind
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2049017328464570754, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_AutoRebind
@@ -1393,6 +1405,14 @@ PrefabInstance:
     - target: {fileID: -1125081754167440450, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -642880661225148658, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_AutoRebind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -587020401536548690, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_AutoRebind
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -514434208392463134, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
@@ -1425,6 +1445,10 @@ PrefabInstance:
     - target: {fileID: 1618306825498632937, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1691561014303112219, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_AutoRebind
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2336828378940701987, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1490,9 +1514,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5361708682116966349, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_AutoRebind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6025663400909485361, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_AutoRebind
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6093990254314453717, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541804612454531740, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_AutoRebind
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7031480825161123773, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1509,6 +1545,10 @@ PrefabInstance:
     - target: {fileID: 7453542755569150703, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839759935224386812, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      propertyPath: m_AutoRebind
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7903524719403815672, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
@@ -1767,6 +1807,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onEnergyChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onSetUp:
     m_PersistentCalls:
       m_Calls: []
   maxEnergy: 100
@@ -2045,7 +2088,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1305626960793455896}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.09
+  m_Radius: 0.58
   m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50

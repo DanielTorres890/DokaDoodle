@@ -22,6 +22,7 @@ public class AllyDisplay : MonoBehaviour
     private List<PartyMember> currentValues;
 
     public TextMeshProUGUI costText;
+    public TextMeshProUGUI allyTextDisplay;
 
     private void Start()
     {
@@ -52,8 +53,10 @@ public class AllyDisplay : MonoBehaviour
             AddEvent(obj, EventTriggerType.Select, delegate { SetAllyVisuals(yofyoungl); });
             AddEvent(obj, EventTriggerType.PointerEnter, delegate { SetAllyVisuals(yofyoungl); });
 
-            
-            
+            AddEvent(obj, EventTriggerType.Select, delegate { SetAllyStatsDisplay(yofyoungl); });
+            AddEvent(obj, EventTriggerType.PointerEnter, delegate { SetAllyStatsDisplay(yofyoungl); });
+
+
             obj.GetComponentInChildren<TextMeshProUGUI>().text = entity.name;
             displayedGameObjects.Add(obj);
             i++;
@@ -89,5 +92,13 @@ public class AllyDisplay : MonoBehaviour
         allyEditor.setHair(currentValues[allyIndex].allyHair);
         allyEditor.setFace(currentValues[allyIndex].allyFace);
 
+    }
+    private void SetAllyStatsDisplay(int allyIndex)
+    {
+        allyTextDisplay.text = "";
+        foreach (var stat in currentValues[allyIndex].stats)
+        {
+            allyTextDisplay.text += NetworkData.Instance.attributeStrings[stat.Key] + ": " + stat.Value + "\n";
+        }
     }
 }

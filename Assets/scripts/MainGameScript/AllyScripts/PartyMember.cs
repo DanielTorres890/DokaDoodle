@@ -13,9 +13,11 @@ public class PartyMember : EntityStats
     public int curTileId;
     public int curMap;
 
+    public int allyOwner;
+
     public PlayerFollowingStates boardMovementState; 
 
-    public Dictionary<PlayerInfo, int> playerInfo = new Dictionary<PlayerInfo, int>
+    public Dictionary<PlayerInfo, int> allyInfo = new Dictionary<PlayerInfo, int>
     {
         {PlayerInfo.xp, 0 },
         {PlayerInfo.level, 1 },
@@ -99,6 +101,32 @@ public class PartyMember : EntityStats
         }
 
         this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[allyClass].combatAbility);
+
+    }
+    public void Die()
+    {
+        NetworkData.Instance.players[allyOwner].partyMembers.Remove(this);
+        MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].partyMembers.Remove(this);
+        
+    }
+    public int gainXp(int xp)
+    {
+        int levelsGained = 0;
+        this.allyInfo[PlayerInfo.xp] += xp;
+        while (this.allyInfo[PlayerInfo.xp] > 24 * Mathf.Pow((float)this.allyInfo[PlayerInfo.level], 1.2f))
+        {
+            this.allyInfo[PlayerInfo.level] += 1;
+            levelsGained++;
+            foreach (var stat in NetworkData.Instance.classDataBase.GetItem[this.allyClass].levelUpStats)
+            {
+                this.ChangeBaseStat(stat.attribute, stat.value);
+
+            }
+            PostStatusStatCalc();
+
+        }
+
+        return levelsGained;
 
     }
 }
