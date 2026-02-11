@@ -18,7 +18,10 @@ public class PlayerCombatManager : MonoBehaviour
     
     private void Awake()
     {
-        if (Instance != null) { return; }
+        if (Instance != null) 
+        {
+            Destroy(gameObject);
+            return; }
         Instance = this;
     }
     
@@ -82,6 +85,10 @@ public class PlayerCombatManager : MonoBehaviour
             PlayerCombatManager.Instance.combatants.Add(ally);
         }
 
+        Debug.Log("How many combatants? " + Instance.combatants.Count);
+        Debug.Log("How many players? " + currentTile.players.Count);
+        Debug.Log("How many enemies? " + currentTile.tileEnemy.Count);
+        Debug.Log("How many party members? " +currentTile.partyMembers.Count); 
         return encounterName;
     }
 }

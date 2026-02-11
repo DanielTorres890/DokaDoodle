@@ -66,7 +66,7 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
         SetAttackingAnim(false);
         SetStartUpAnim(false);
         SetWalkingAnim(true);
-        
+        agent.speed = myManager.stats.speedFormula() + baseMoveSpeed;
         gameObject.transform.LookAt(targetManager.gameObject.transform.position);
         gameObject.transform.Rotate(Vector3.up, -Precision);
         bool freeme = true;

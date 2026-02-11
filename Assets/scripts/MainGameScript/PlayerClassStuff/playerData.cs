@@ -231,6 +231,14 @@ public class playerData : EntityStats
         {
             this.stats[Attributes.Health] += hp;
         }
+        foreach (var members in partyMembers)
+        {
+            if (members.boardMovementState == PlayerFollowingStates.WithOwner)
+            {
+                members.healHp(hp);
+                members.PostStatusStatCalc();
+            }
+        }
         PostStatusStatCalc();
         if(stats[Attributes.Health] <= 0)
         {

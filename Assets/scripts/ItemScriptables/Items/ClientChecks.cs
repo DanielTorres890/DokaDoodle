@@ -19,7 +19,10 @@ public class ClientChecks : NetworkBehaviour
 
     public DialogueScript displayText;
     public GameObject mainMenuButtons;
-    
+
+
+
+
     private TextMeshProUGUI displayTxt;
     public TextMeshProUGUI rollNum;
     public UnityEvent onRoundStart;

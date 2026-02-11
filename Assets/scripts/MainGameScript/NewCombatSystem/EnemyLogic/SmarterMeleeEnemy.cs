@@ -7,10 +7,9 @@ public class SmarterMeleeEnemy : BaseEnemyBehavior
     {
         base.OnNetworkSpawn();
 
-        if(IsHost)
-        {
-            CalculateAttackRanges();
-        }
+       
+        CalculateAttackRanges();
+        
         
         
     }
@@ -87,7 +86,7 @@ public class SmarterMeleeEnemy : BaseEnemyBehavior
         
         for(int i = 0; i < attackRanges.Length; i++)
         {
-            attackRanges[i] = myManager.stats.attacks[i].ablitySize.z - 1;
+            attackRanges[i] = myManager.stats.attacks[i].ablitySize.z - 2;
             if (myManager.stats.attacks[i] is MDefault)
             {
                 MDefault rangedAtk = (myManager.stats.attacks[i] as MDefault);

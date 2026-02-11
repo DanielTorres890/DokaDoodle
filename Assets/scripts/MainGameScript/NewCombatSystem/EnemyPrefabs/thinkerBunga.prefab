@@ -861,6 +861,9 @@ MonoBehaviour:
   onEnergyChange:
     m_PersistentCalls:
       m_Calls: []
+  onSetUp:
+    m_PersistentCalls:
+      m_Calls: []
   maxEnergy: 100
   currentEnergy: 100
   energyRegen: 1
@@ -949,7 +952,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1804880954259114146}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 2
+  m_Radius: 0.4
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -959,7 +962,7 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 7.18
-  m_BaseOffset: 2.98
+  m_BaseOffset: 3
   m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!114 &-6027368977396564399
@@ -986,7 +989,7 @@ MonoBehaviour:
   myManager: {fileID: 3257693015704149352}
   selectedAttack: {fileID: 0}
   attackRanges:
-  - 15
+  - 20
   InAttackRange: 0
   animator: {fileID: 0}
   overrideController: {fileID: 0}
@@ -997,7 +1000,8 @@ MonoBehaviour:
     animationSpeed: 1
   releaseTimer: 0
   timeToHold: 1
-  kiteRange: 8
+  baseMoveSpeed: 4
+  kiteRange: 10
   kiteAmount: 10
   Precision: 10
   StopKitingDistance: 4

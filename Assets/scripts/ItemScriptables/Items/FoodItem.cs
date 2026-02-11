@@ -28,6 +28,7 @@ public class FoodItem : ItemBase
             if (attrib.attribute == Attributes.Health)
             {
                 NetworkData.Instance.players[player].healHp(attrib.value);
+                
             }
             else { NetworkData.Instance.players[player].stats[attrib.attribute] += attrib.value;  }
             

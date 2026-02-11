@@ -748,6 +748,9 @@ MonoBehaviour:
   onEnergyChange:
     m_PersistentCalls:
       m_Calls: []
+  onSetUp:
+    m_PersistentCalls:
+      m_Calls: []
   maxEnergy: 100
   currentEnergy: 100
   energyRegen: 1
@@ -836,7 +839,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1804880954259114146}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.09
+  m_Radius: 0.4
   m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
@@ -892,6 +895,7 @@ MonoBehaviour:
     animationSpeed: 1
   releaseTimer: 0
   timeToHold: 0
+  baseMoveSpeed: 4
 --- !u!95 &7378447743338620645
 Animator:
   serializedVersion: 7

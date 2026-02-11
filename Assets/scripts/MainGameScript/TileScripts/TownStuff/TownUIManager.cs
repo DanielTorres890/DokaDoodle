@@ -168,6 +168,8 @@ public class TownUIManager : NetworkBehaviour
         }
 
         NetworkData.Instance.GetCurrentPlayer().healHp(99999);
+        
+
         MainMenu.SetActive(false);
         RestMenu.SetActive(false);
         AttackMenu.SetActive(false);

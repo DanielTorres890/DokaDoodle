@@ -113,7 +113,7 @@ public class PartyMember : EntityStats
     {
         int levelsGained = 0;
         this.allyInfo[PlayerInfo.xp] += xp;
-        while (this.allyInfo[PlayerInfo.xp] > 24 * Mathf.Pow((float)this.allyInfo[PlayerInfo.level], 1.2f))
+        while (this.allyInfo[PlayerInfo.xp] > 24 * Mathf.Pow((float)this.allyInfo[PlayerInfo.level], 2f))
         {
             this.allyInfo[PlayerInfo.level] += 1;
             levelsGained++;
@@ -128,6 +128,23 @@ public class PartyMember : EntityStats
 
         return levelsGained;
 
+    }
+    public bool healHp(int hp) //note this will work for dmg too ig
+    {
+        if (this.stats[Attributes.Health] + hp > this.stats[Attributes.MaxHealth])
+        {
+            this.stats[Attributes.Health] = this.stats[Attributes.MaxHealth];
+        }
+        else
+        {
+            this.stats[Attributes.Health] += hp;
+        }
+        PostStatusStatCalc();
+        if (stats[Attributes.Health] <= 0)
+        {
+            return true;
+        }
+        return false;
     }
 }
 public enum PlayerFollowingStates

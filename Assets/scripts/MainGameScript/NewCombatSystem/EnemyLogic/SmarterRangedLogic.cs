@@ -15,9 +15,11 @@ public class SmarterRangedLogic : RangedEnemyBehavior
         {
             CalculateAttackRanges();
             myManager.onAttack.AddListener(SetNextClosestRange);
+
         }
-        
-        
+
+
+
     }
 
     //theres a lot going on but the priorities of this is the the speed and size of your attack add the same proprtional value
@@ -32,7 +34,7 @@ public class SmarterRangedLogic : RangedEnemyBehavior
         
         if(bestAttack is MDefault)
         {
-            bestScore += (bestAttack as MDefault).speed * 2;
+            bestScore += (bestAttack as MDefault).speed * Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position) / 10;
         }
 
         foreach (var key in myManager.stats.attacks)
@@ -102,7 +104,8 @@ public class SmarterRangedLogic : RangedEnemyBehavior
             if (myManager.stats.attacks[i] is MDefault)
             {
                 MDefault rangedAtk = (myManager.stats.attacks[i] as MDefault);
-                attackRanges[i] += rangedAtk.speed * (rangedAtk.lifespan / 3);
+                //i needed something such that lifespan does matter for early values but loses value quickly over time im not trying to be cringe by using log
+                attackRanges[i] += rangedAtk.speed * Mathf.Log(rangedAtk.lifespan / 3);
             }
             if (myManager.stats.attacks[i] is BuffAbility)
             {

@@ -326,6 +326,8 @@ public class NewCombatManager : NetworkBehaviour
             }
         }
 
+        CleanUpCams();
+
         if (IsServer && CheckWin())
         {
             SetUpVictorRpc();
@@ -369,7 +371,7 @@ public class NewCombatManager : NetworkBehaviour
         for (int i = 0; i < allCombatants.Count; i++)
         {
 
-
+            Debug.Log("who did i look at? " + enemy.stats.name);
             if (enemy.stats.isDead) { enemy = allCombatants[i]; }
             if (!(enemy.stats is playerData) && !enemy.stats.isDead)
             {
@@ -411,7 +413,24 @@ public class NewCombatManager : NetworkBehaviour
             }
         }
 
-        //this thing causes malding mole to died check this later
+        if(victor.stats is PartyMember)
+        {
+            PartyMember GOAT = (PartyMember)victor.stats;
+            NetworkData.Instance.players[GOAT.allyOwner].stats[Attributes.Health] = 1;
+            NetworkData.Instance.players[GOAT.allyOwner].isDead = false;
+            foreach(var combatant in allCombatants)
+            {
+                if(combatant.stats is not playerData) { continue; }
+                if((combatant.stats as playerData).playerNumber == GOAT.allyOwner)
+                {
+                    victor = combatant;
+                    break;
+                }
+            }
+
+
+            Debug.Log("Who wonned " + victor.stats.name);
+        }
 
         List<int> deadPlayers = RemoveDeadEntities();
         if (victor.stats is playerData)
@@ -432,7 +451,7 @@ public class NewCombatManager : NetworkBehaviour
            
             if (cache.townId != -1 && cache.tileOwner != player.playerNumber)
             {
-                Debug.Log("I gained a town");
+                
                 NetworkData.Instance.players[player.playerNumber].GainTown(cache);
             }
 
@@ -451,6 +470,9 @@ public class NewCombatManager : NetworkBehaviour
             }
             
             endBattleInfo.lines.Add(player.name + " has gained <color=blue>" + (cache.xpOnTile) + "</color> xp ");
+            if(cache.partyMembers.Count > 0) { endBattleInfo.lines[endBattleInfo.lines.Count - 1] += "(split between you and your allies)"; }
+
+
             if(leveledUp)
             {
                 endBattleInfo.lines[endBattleInfo.lines.Count-1] += " and they've leveled up <color=blue>" + levels + "</color> times";
@@ -465,7 +487,7 @@ public class NewCombatManager : NetworkBehaviour
             {
                 for(int i = 0; i < partyLevelsGained.Count; i ++)
                 {
-                    if (partyLevelsGained[i] < 0) { continue; }
+                    if (partyLevelsGained[i] <= 0) { continue; }
                     endBattleInfo.lines.Add(cache.partyMembers[i].name + "(ally) has leveled up <color=green>" + partyLevelsGained[i].ToString() + "</color> times");
 
                 }
@@ -561,7 +583,7 @@ public class NewCombatManager : NetworkBehaviour
             
 
         }
-        else
+        else if (victor.stats is EnemyCombat)
         {
             
             endBattleInfo.lines.Add("Every player (in this combat) has been defeated");
@@ -703,8 +725,10 @@ public class NewCombatManager : NetworkBehaviour
 
         endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
     }
-    public void RightSpec()
+    public void RightSpec(InputAction.CallbackContext action)
     {
+        if(!action.started) { return; }
+        Debug.Log("Im shifting left ");
         cameras[currentSpec].Priority = 1;
         if (currentSpec < cameras.Count - 1)
         {
@@ -717,8 +741,10 @@ public class NewCombatManager : NetworkBehaviour
         }
         cameras[currentSpec].Priority = 10;
     }
-    public void LeftSpec()
+    public void LeftSpec(InputAction.CallbackContext action)
     {
+        if (!action.started) { return; }
+        Debug.Log("Im shifting left ");
         cameras[currentSpec].Priority = 1;
         if (currentSpec > 0)
         {
@@ -792,6 +818,19 @@ public class NewCombatManager : NetworkBehaviour
                 }
             }
         }
+    }
+
+    private void CleanUpCams()
+    {
+        for (int i = cameras.Count - 1; i >= 0; i--)
+        {
+            if (cameras[i] == null || cameras[i].gameObject == null)
+            {
+                cameras.RemoveAt(i);
+                Debug.Log("I cleaned up a camera ");
+            }
+        }
+        currentSpec = 0;
     }
 }
 

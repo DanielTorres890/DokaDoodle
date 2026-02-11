@@ -33,6 +33,8 @@ public class BaseEnemyBehavior : NetworkBehaviour
     public float releaseTimer = 0;
     public float timeToHold;
 
+    public float baseMoveSpeed = 4f;
+
     public override void OnNetworkSpawn()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -46,7 +48,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
         myManager.onHit.AddListener(FindEnemy);
         FindEnemy();
-        agent.speed += myManager.stats.speedFormula();
+        
 
        
     }
@@ -123,6 +125,8 @@ public class BaseEnemyBehavior : NetworkBehaviour
         
 
         if (myManager.combatantstate == combatantStates.Free ||  myManager.combatantstate == combatantStates.StartUpFree)
+
+        agent.speed = myManager.stats.speedFormula() + baseMoveSpeed;
         agent.SetDestination(targetManager.gameObject.transform.position);
 
 

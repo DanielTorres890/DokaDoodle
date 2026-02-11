@@ -89,6 +89,8 @@ public class EmploymentEventManager : NetworkBehaviour
     private void SetJobChangeActiveRpc(bool toBe)
     {
         JobChangeObject.SetActive(toBe);
+        if(toBe) { displayText.transform.parent.gameObject.SetActive(true); }
+        else { displayText.transform.parent.gameObject.SetActive(false); }
     }
 
     public void SetPartyChangeActive(bool toBe)
@@ -106,6 +108,8 @@ public class EmploymentEventManager : NetworkBehaviour
         {
             allyDisplay.UpdateDisplay(availableAllies);
         }
+        if (toBe) { displayText.transform.parent.gameObject.SetActive(true); }
+        else { displayText.transform.parent.gameObject.SetActive(false); }
     }
 
     public void SetMainMenuChangeActive(bool toBe)

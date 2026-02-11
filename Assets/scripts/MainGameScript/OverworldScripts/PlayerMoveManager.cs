@@ -315,6 +315,8 @@ public class PlayerMoveManager : NetworkBehaviour
     private void SyncPlayerTileServerRpc(int id)
     {
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = id;
+        SetFollowingMembersToCurTile();
+
     }
 
 
@@ -681,8 +683,10 @@ public class PlayerMoveManager : NetworkBehaviour
             MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Remove(member);
             member.curTileId = NetworkData.Instance.GetCurrentPlayer().curTileId;
             MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Add(member);
+            
 
         }
+
     }
 
     private void PositionAllies()
