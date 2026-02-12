@@ -128,9 +128,9 @@ public class ClientChecks : NetworkBehaviour
         bool rumble = false;
         //at some point im probably gonna have to make this a different event but frick u
         onRoundStart.Invoke();
-        
 
-        foreach (var players in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players)
+        var curTile = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
+        foreach (var players in curTile.players)
         {
 
             if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && !NetworkData.Instance.players[players].isDead && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
@@ -140,10 +140,20 @@ public class ClientChecks : NetworkBehaviour
             }
         }
 
-        if ((MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].tileEnemy.Count == 0 && !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
+
+        List<EntityStats> potentialCombatants = new List<EntityStats>(curTile.tileEnemy);
+        foreach(var ally in curTile.partyMembers)
+        {
+            if(ally.allyOwner == NetworkData.Instance.GetCurrentPlayer().playerNumber) { continue; }
+            potentialCombatants.Add(ally);
+        }
+        
+
+
+        if ((potentialCombatants.Count == 0 && !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
         {
 
-            MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Remove(NetworkData.Instance.currentPlayer);
+            curTile.players.Remove(NetworkData.Instance.currentPlayer);
             PlayerMoveManager.Instance.playerCam.Follow = PlayerMoveManager.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
             
             

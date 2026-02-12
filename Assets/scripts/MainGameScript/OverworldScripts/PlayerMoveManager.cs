@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using TMPro;
 using Unity.Cinemachine;
 using Unity.Netcode;
@@ -47,6 +48,8 @@ public class PlayerMoveManager : NetworkBehaviour
     [SerializeField] private List<TileScript> possibleEndTiles = new List<TileScript>();
     [SerializeField] List<PathWrapper> allPaths = new List<PathWrapper>();
 
+    [SerializeField] List<TileScript> bestPath = new List<TileScript>();
+
     public static PlayerMoveManager Instance;
 
 
@@ -83,7 +86,6 @@ public class PlayerMoveManager : NetworkBehaviour
         PartyMemberSpawner();
         playerCam.Follow = playerSticks[NetworkData.Instance.currentPlayer].transform;
         FreeMover.Instance.playerCam = playerCam;
-
 
 
     }
@@ -335,7 +337,9 @@ public class PlayerMoveManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SetNextTurnServerRpc()
     {
+        PerformAllyMoves();
         SetAllyAnimator(false);
+
         stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", false);
         ClientChecks.Instance.rollNum.transform.parent.gameObject.SetActive(true);
         MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Add(NetworkData.Instance.currentPlayer);
@@ -580,9 +584,108 @@ public class PlayerMoveManager : NetworkBehaviour
         if (tile.rightTile && tile.rightTile != previousTile.gameObject) { PossibleTiles(tile.rightTile.GetComponent<TileScript>(), rollLeft - 1, tile, ref takenTilePath, new List<TileScript>(thisPath)); }
         if (tile.leftTile && tile.leftTile != previousTile.gameObject) { PossibleTiles(tile.leftTile.GetComponent<TileScript>(), rollLeft - 1, tile, ref takenTilePath, new List<TileScript>(thisPath)); }
 
-
     }
 
+
+
+    private void BestPath(TileScript tile, TileScript TargetTile)
+    {
+        List<TileScript> thisPath = new List<TileScript>();
+        bestPath.Clear();
+
+
+        List<int> distancedPath = Enumerable.Repeat(-1,mapTiles.Count).ToList();
+        TileScript[] parentNodes = new TileScript[mapTiles.Count];
+
+        Debug.Log(parentNodes.Length);
+        distancedPath[tile.tileId] = 0;
+
+        thisPath.Add(tile);
+
+        int loopProtector = 0;
+        while (thisPath.Count > 0)
+        {
+            var currentVertex = thisPath[0];
+            thisPath.RemoveAt(0);
+
+            if(currentVertex.upTile)
+            {
+                var lookAheadTile = currentVertex.upTile.GetComponent<TileScript>();
+                if (distancedPath[lookAheadTile.tileId] == -1)
+                {
+                    parentNodes[lookAheadTile.tileId] = currentVertex;
+                    distancedPath[lookAheadTile.tileId] = distancedPath[currentVertex.tileId] + 1;
+                    thisPath.Add(lookAheadTile);
+                }
+
+            }
+
+
+            if (currentVertex.leftTile)
+            {
+                var lookAheadTile = currentVertex.leftTile.GetComponent<TileScript>();
+                if (distancedPath[lookAheadTile.tileId] == -1)
+                {
+                    parentNodes[lookAheadTile.tileId] = currentVertex;
+                    distancedPath[lookAheadTile.tileId] = distancedPath[currentVertex.tileId] + 1;
+                    thisPath.Add(lookAheadTile);
+                }
+
+            }
+
+            if (currentVertex.rightTile)
+            {
+                var lookAheadTile = currentVertex.rightTile.GetComponent<TileScript>();
+                if (distancedPath[lookAheadTile.tileId] == -1)
+                {
+                    parentNodes[lookAheadTile.tileId] = currentVertex;
+                    distancedPath[lookAheadTile.tileId] = distancedPath[currentVertex.tileId] + 1;
+                    thisPath.Add(lookAheadTile);
+                }
+
+            }
+
+            if (currentVertex.downTile)
+            {
+                var lookAheadTile = currentVertex.downTile.GetComponent<TileScript>();
+                if (distancedPath[lookAheadTile.tileId] == -1)
+                {
+                    parentNodes[lookAheadTile.tileId] = currentVertex;
+                    distancedPath[lookAheadTile.tileId] = distancedPath[currentVertex.tileId] + 1;
+                    thisPath.Add(lookAheadTile);
+                }
+
+            }
+            loopProtector += 1;
+
+            if(loopProtector> 1000) {
+                Debug.Log("infinite 1");
+                break; }
+        }
+
+
+        if (distancedPath[TargetTile.tileId] == -1)
+        {
+            Debug.Log("No possible path!");
+            return;
+        }
+
+        
+        int currentNode = TargetTile.tileId;
+        bestPath.Add(TargetTile);
+
+        loopProtector = 0;
+        while (parentNodes[currentNode] != null)
+        {
+            bestPath.Add(parentNodes[currentNode]);
+            currentNode = parentNodes[currentNode].tileId;
+            loopProtector += 1;
+            
+        }
+
+        bestPath.Reverse();
+
+    }
 
     public IEnumerator ToEachTileInPath(int finishTile)
     {
@@ -669,10 +772,9 @@ public class PlayerMoveManager : NetworkBehaviour
             }
             playerAllies.Add(allyGameObjects);
         }
-        
-
-        
+      
     }
+
     private void SetFollowingMembersToCurTile()
     {
 
@@ -684,9 +786,43 @@ public class PlayerMoveManager : NetworkBehaviour
             member.curTileId = NetworkData.Instance.GetCurrentPlayer().curTileId;
             MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Add(member);
             
+            
 
         }
 
+    }
+
+    private void PerformAllyMoves()
+    {
+        foreach (var member in NetworkData.Instance.GetCurrentPlayer().partyMembers)
+        {
+            if (member.boardMovementState == PlayerFollowingStates.WithOwner || member.curMap != mapNumber) { continue; }
+
+
+            int targetTileId = member.targetTile;
+
+            if(member.boardMovementState == PlayerFollowingStates.FollowingOwner) { targetTileId = NetworkData.Instance.players[member.allyOwner].curTileId; }
+
+            BestPath(mapTiles[member.curTileId], mapTiles[targetTileId]);
+
+            if (bestPath.Count == 0) { continue; }
+
+            if(bestPath.Count <= 4)
+            {
+                MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Remove(member);          
+                member.curTileId = targetTileId;
+                MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Add(member);
+                if (member.boardMovementState == PlayerFollowingStates.FollowingOwner) { member.boardMovementState = PlayerFollowingStates.WithOwner; }
+                return;
+
+            }
+
+            MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Remove(member);
+            member.curTileId = bestPath[3].tileId;
+            MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Add(member);
+            
+
+        }
     }
 
     private void PositionAllies()
@@ -701,6 +837,12 @@ public class PlayerMoveManager : NetworkBehaviour
                 {
                     GameObject allyGameObject = member.Value;
                     allyGameObject.transform.position = new Vector3(playerSticks[i].transform.position.x - 0.5f + memberCount * AllyDistance, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z - .5f);
+
+                }
+                else
+                {
+                    GameObject allyGameObject = member.Value;
+                    allyGameObject.transform.position = new Vector3(mapTiles[member.Key.curTileId].transform.position.x - 0.5f + memberCount * AllyDistance, mapTiles[member.Key.curTileId].transform.position.y, mapTiles[member.Key.curTileId].transform.position.z - .5f);
 
                 }
                 memberCount += 1;

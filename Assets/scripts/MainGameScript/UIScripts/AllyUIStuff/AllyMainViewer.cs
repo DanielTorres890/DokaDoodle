@@ -18,7 +18,7 @@ public class AllyMainViewer : MonoBehaviour
 
 
     private List<PartyMember> currentValues;
-
+    public AllyViewNetwork toNetwork;
 
     private void Start()
     {
@@ -41,17 +41,26 @@ public class AllyMainViewer : MonoBehaviour
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
 
 
-            obj.GetComponent<Button>().onClick.AddListener(delegate {  });
+            obj.GetComponent<Button>().onClick.AddListener(delegate { toNetwork.EnterAllyStateMenu(yofyoungl); });
 
 
             //this feels bleh but no other way to line it up nicely
             obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = entity.name;
-            obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.classDataBase.GetItem[entity.allyClass].className;
-            
-            int childCounter = 2;
+
+            obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "LVL " + entity.allyInfo[PlayerInfo.level];
+
+            obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.classDataBase.GetItem[entity.allyClass].className;
+
+            var stateChild = obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+            if(entity.boardMovementState == PlayerFollowingStates.WithOwner) { stateChild.text = "With you"; }
+            if(entity.boardMovementState == PlayerFollowingStates.FollowingOwner) { stateChild.text = "Going to you"; }
+            if(entity.boardMovementState == PlayerFollowingStates.HoldTile) { stateChild.text = "Going to tile"; }
+            if(entity.boardMovementState == PlayerFollowingStates.HoldTile && entity.curTileId == entity.targetTile) { stateChild.text = "Holding tile"; }
+
+            int childCounter = 4;
             foreach(var stat in entity.stats)
             {
-                obj.transform.GetChild(childCounter).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.attributeStrings[stat.Key] + $" {stat.Value,-4}";
+                obj.transform.GetChild(childCounter).GetComponent<TextMeshProUGUI>().text = $" {stat.Value,-4}";
                 childCounter += 1;
             }
             displayedGameObjects.Add(obj);

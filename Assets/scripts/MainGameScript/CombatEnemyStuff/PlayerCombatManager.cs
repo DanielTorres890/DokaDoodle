@@ -51,8 +51,16 @@ public class PlayerCombatManager : MonoBehaviour
         }
 
         //Pretty much everything that isn't these two is stuff from the old system
+        List<EntityStats> potentialEnemies = new List<EntityStats>(currentTile.tileEnemy);
 
-        if (currentTile.tileEnemy.Count == 0)
+        foreach(var ally in currentTile.partyMembers)
+        {
+            if(ally.allyOwner == NetworkData.Instance.currentPlayer) { continue; }
+
+            potentialEnemies.Add(ally);
+        }
+
+        if (potentialEnemies.Count == 0)
         {
             if (!rumble)
             {

@@ -15,6 +15,10 @@ public class PartyMember : EntityStats
 
     public int allyOwner;
 
+    public int targetTile;
+
+
+
     public PlayerFollowingStates boardMovementState; 
 
     public Dictionary<PlayerInfo, int> allyInfo = new Dictionary<PlayerInfo, int>
@@ -151,6 +155,7 @@ public enum PlayerFollowingStates
 {
     WithOwner,
     FollowingOwner,
+    HoldTile,
 
 }
 
