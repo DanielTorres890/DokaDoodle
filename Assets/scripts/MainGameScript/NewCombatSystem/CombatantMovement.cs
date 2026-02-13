@@ -37,7 +37,12 @@ public class CombatantMovement : NetworkBehaviour
     [SerializeField] private bool grounded;
     [SerializeField] private float gravityMult = 2;
     [SerializeField] private float minZoomIn, maxZoomOut;
- 
+
+    public void Start()
+    {
+        
+    }
+
     public void moveForward(InputAction.CallbackContext action)
     {
 
@@ -148,10 +153,40 @@ public class CombatantMovement : NetworkBehaviour
     {
         if (!IsOwner) { return; }
 
-        action.actions["DashRight"].started += DashRight;
-        action.actions["DashLeft"].started += DashLeft;
-        action.actions["DashFwd"].started += DashFwd;
-        action.actions["DashBack"].started += DashBack;
+        action = NewCombatManager.instance.playercontrol;
+
+        action.actions.actionMaps[0].actions[0].performed += moveForward;
+        action.actions.actionMaps[0].actions[2].performed += LookAround;
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 1].performed += Scroll;
+        action.actions.actionMaps[0].actions[3].performed += NormalJump;
+
+
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 5].performed += DashRight;
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 4].performed += DashLeft;
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 3].performed += DashFwd;
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 2].performed += DashBack;
+
+        action.actions.actionMaps[0].actions[0].started += moveForward;
+        action.actions.actionMaps[0].actions[2].started += LookAround;
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 1].started += Scroll;
+        action.actions.actionMaps[0].actions[3].started += NormalJump;
+
+
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 5].started += DashRight;
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 4].started += DashLeft;
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 3].started += DashFwd;
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 2].started += DashBack;
+
+        action.actions.actionMaps[0].actions[0].canceled += moveForward;
+        action.actions.actionMaps[0].actions[2].canceled += LookAround;
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 1].canceled += Scroll;
+        action.actions.actionMaps[0].actions[3].canceled += NormalJump;
+
+
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 5].canceled += DashRight;
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 4].canceled += DashLeft;
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 3].canceled += DashFwd;
+        action.actions.actionMaps[0].actions[action.actions.actionMaps[0].actions.Count - 2].canceled += DashBack;
 
         //big idk from me seems weirde to make seperate
         //camcomponent = playerCam.GetComponent<Camera>();

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1505466280043053804}
   - component: {fileID: 3533259553903066592}
   - component: {fileID: 1592617180348919854}
+  - component: {fileID: -1342861500232524823}
   m_Layer: 0
   m_Name: BouncyHit
   m_TagString: Untagged
@@ -4862,3 +4863,17 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!114 &-1342861500232524823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6234742567996364231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1efcdac294baaa143ba6ae7d7bd85f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyAfterTime
+  ShowTopMostFoldoutHeaderGroup: 1
+  duration: 3

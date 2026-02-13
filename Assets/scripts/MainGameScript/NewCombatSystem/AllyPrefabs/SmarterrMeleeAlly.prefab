@@ -1585,6 +1585,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1552901214651692190}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 5509087306482488691}
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       insertIndex: -1
@@ -1636,6 +1639,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -8653719598885068355, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
   m_PrefabInstance: {fileID: 1583379286521998501}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &1552901214651692190
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305626960793455896}
+  m_Material: {fileID: 13400000, guid: 61e143d90be865148a6eb918412ada80, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.57
+  m_Height: 5.93
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.54, z: 0}
 --- !u!65 &5509087306482488691
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1653,7 +1679,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 2, y: 6, z: 0.4}
   m_Center: {x: 0, y: 1.5, z: 0}
@@ -1749,8 +1775,8 @@ MonoBehaviour:
   onAttack:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SmarterRangedAlly, Assembly-CSharp
+      - m_Target: {fileID: 2596784185339906667}
+        m_TargetAssemblyTypeName: SmarterMeleeAlly, Assembly-CSharp
         m_MethodName: SetStartUpAnim
         m_Mode: 6
         m_Arguments:
@@ -1776,8 +1802,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SmarterRangedAlly, Assembly-CSharp
+      - m_Target: {fileID: 2596784185339906667}
+        m_TargetAssemblyTypeName: SmarterMeleeAlly, Assembly-CSharp
         m_MethodName: SetStartUpAnim
         m_Mode: 6
         m_Arguments:
@@ -1788,8 +1814,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SmarterRangedAlly, Assembly-CSharp
+      - m_Target: {fileID: 2596784185339906667}
+        m_TargetAssemblyTypeName: SmarterMeleeAlly, Assembly-CSharp
         m_MethodName: SetAttackingAnim
         m_Mode: 6
         m_Arguments:

@@ -10,6 +10,8 @@ public class SpawnEvent : MonoBehaviour
         if (objectToSpawnPrefab != null)
         {
             // Instantiate the prefab at the current position and rotation of this GameObject
+            if (spawnedObject != null) { Destroy(spawnedObject); }
+
             spawnedObject = Instantiate(objectToSpawnPrefab, transform);
             spawnedObject.transform.localPosition = new Vector3(0, 0, bello.floatParameter);
         }

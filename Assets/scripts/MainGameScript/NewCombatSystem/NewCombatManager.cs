@@ -7,6 +7,7 @@ using Unity.Cinemachine;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -199,7 +200,7 @@ public class NewCombatManager : NetworkBehaviour
                     abilitiyManage.UpdateStatsRpc(PlayerCombatManager.Instance.combatants.IndexOf(entity));
                     SetNotSpectateRpc(countbcisuck, RpcTarget.Single((ulong)player.playerNumber, RpcTargetUse.Temp));
 
-                    countbcisuck++;
+                    
                 }
                 else if(entity is EnemyCombat)
                 {
@@ -238,6 +239,7 @@ public class NewCombatManager : NetworkBehaviour
 
 
                 }
+                countbcisuck++;
             }
             counter++;
         }
@@ -263,7 +265,8 @@ public class NewCombatManager : NetworkBehaviour
         cameras[whichone].Priority = 10;
 
 
-        
+        Debug.Log("which one did i spawn in? " + whichone);
+        Debug.Log("okay so technically it could be that they're spawning in the wrong one? " + allCombatants[whichone - 1].stats.name);
         playerUI.abilityManager = allCombatants[whichone - 1]; //keep in mind that theres already a camera in the scene by default so its off by 1
         playerUI.SetUp();
 
@@ -299,7 +302,8 @@ public class NewCombatManager : NetworkBehaviour
         {
             playerData info = (playerData)whoded.stats;
             info.isDead = true;
-            
+            whoded.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            whoded.GetComponent<Rigidbody>().AddForce(whoded.transform.TransformDirection(Vector3.back) * 10, ForceMode.Impulse);
             Debug.Log(info.name + " did i die: " + info.isDead);
 
             if (whoded.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId)
@@ -307,6 +311,7 @@ public class NewCombatManager : NetworkBehaviour
                 spectateUI.SetActive(true);
                 inCombatUI.SetActive(false);
                 playercontrol.SwitchCurrentActionMap("Spectating");
+
                 cameras[currentSpec].Priority = 1;
                 cameras[0].Priority = 10;
                 currentSpec = 0;
@@ -320,12 +325,14 @@ public class NewCombatManager : NetworkBehaviour
             PartyMember info = (PartyMember)whoded.stats;
             info.isDead = true;
             xpHarvested += info.allyInfo[PlayerInfo.xp];
-            
+            whoded.GetComponent<NavMeshAgent>().enabled = false;
 
-            if (IsServer)
-            {   
-                Destroy(whoded.gameObject);
-            }
+
+            var rigid = whoded.GetComponent<Rigidbody>();
+            rigid.constraints = RigidbodyConstraints.None;
+            rigid.isKinematic = false;
+            rigid.AddForce(rigid.transform.TransformDirection(Vector3.back) * 10, ForceMode.Impulse);
+
         }
 
         CleanUpCams();
@@ -810,15 +817,21 @@ public class NewCombatManager : NetworkBehaviour
 
     private void CleanUpCams()
     {
+
         for (int i = cameras.Count - 1; i >= 0; i--)
         {
             if (cameras[i] == null || cameras[i].gameObject == null)
             {
+                if(currentSpec == i)
+                {
+                    currentSpec = 0;
+                }
                 cameras.RemoveAt(i);
                 Debug.Log("I cleaned up a camera ");
             }
         }
-        currentSpec = 0;
+
+        
     }
 
     private void SaveEntities(AbilityManager victor)

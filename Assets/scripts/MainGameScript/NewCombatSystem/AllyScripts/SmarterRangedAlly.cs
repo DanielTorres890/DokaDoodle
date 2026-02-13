@@ -8,12 +8,14 @@ public class SmarterRangedAlly : SmarterRangedLogic
     {
         selectedAttack = myManager.stats.attacks[attackIndex];
 
-        Debug.Log("Is the ally animation playing? ");
+        
         overrideController["DefaultStartUp"] = selectedAttack.startUpAnimation;
 
         overrideController["DefaultAttack"] = selectedAttack.attackAnimation;
         animator.SetFloat("AnimSpeed", selectedAttack.animationSpeed);
         animator.runtimeAnimatorController = overrideController;
+
+        if(IsOwner)
         animator.SetBool("Walking", false);
     }
 }

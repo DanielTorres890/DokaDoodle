@@ -43,19 +43,16 @@ public class PlayerUIManager : MonoBehaviour
             display.abilityManager = abilityManager;
             if (i == abilityManager.orderedAttacks.Count - 1)
             {
-                display.useKeyText.text = abilityManager.actions.actions["ClassAbility"].bindings[0].ToDisplayString();
+                display.useKeyText.text = NewCombatManager.instance.playercontrol.actions["ClassAbility"].bindings[0].ToDisplayString();
             }
             else if (i == 0)
             {
-                Debug.Log("is my ability manager not set?? " +abilityManager == null);
-                Debug.Log("so are we just racist or what? " + display.useKeyText.text);
-                Debug.Log("Perhaps its this " + abilityManager.actions.currentActionMap.name);
 
-                display.useKeyText.text = abilityManager.actions.actions["M1Attack"].bindings[0].ToDisplayString();
+                display.useKeyText.text = NewCombatManager.instance.playercontrol.actions["M1Attack"].bindings[0].ToDisplayString();
             }
             else
             {
-                display.useKeyText.text = abilityManager.actions.actions["Ability" + i.ToString()].bindings[0].ToDisplayString();
+                display.useKeyText.text = NewCombatManager.instance.playercontrol.actions["Ability" + i.ToString()].bindings[0].ToDisplayString();
             }
             
 

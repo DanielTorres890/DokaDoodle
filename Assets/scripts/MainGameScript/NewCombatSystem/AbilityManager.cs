@@ -248,7 +248,8 @@ public class AbilityManager : NetworkBehaviour
         
         
         if (!IsOwner) { return; }
-      
+
+        actions = NewCombatManager.instance.playercontrol;
 
         actions.SwitchCurrentActionMap("Player");
         
@@ -486,12 +487,14 @@ public class AbilityManager : NetworkBehaviour
      */
     private void StartWalking(InputAction.CallbackContext action)
     {
+        //i really dont understand why this would be null but okay
+        if(animator)
         animator.SetBool("Walking", true);
     }
     private void StopWalking(InputAction.CallbackContext action)
     {
-        
-        animator.SetBool("Walking", false);
+        if (animator)
+            animator.SetBool("Walking", false);
     }
 
 }

@@ -91,6 +91,9 @@ public class BaseEnemyBehavior : NetworkBehaviour
     }
     public virtual void Update()
     {
+        if(myManager.stats.isDead) { agent.enabled = false; return; }
+
+
         if(!IsServer) { return;}
         AttackHold();
 
@@ -222,7 +225,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     }
     public void SetWalkingAnim(bool whatDo)
     {
-        animator.SetBool("Attacking", whatDo);
+        animator.SetBool("Walking", whatDo);
     }
 }
 
