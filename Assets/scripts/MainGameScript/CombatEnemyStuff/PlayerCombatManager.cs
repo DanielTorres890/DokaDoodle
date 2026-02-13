@@ -29,7 +29,7 @@ public class PlayerCombatManager : MonoBehaviour
     {
         PlayerCombatManager.Instance.combatants.Clear();
         PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
-        string encounterName = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].EncounterName;
+        string encounterName = "";
         PlayerCombatManager.Instance.currentEncounter = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId];
 
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].setCombatActions();
@@ -41,7 +41,7 @@ public class PlayerCombatManager : MonoBehaviour
         {
             if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
             {
-                
+                Debug.Log("i set this player up " +  players);
                 PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[players]);
                 NetworkData.Instance.players[players].setCombatActions();
                 rumble = true;
@@ -68,6 +68,7 @@ public class PlayerCombatManager : MonoBehaviour
                 {
 
                     var temp = new EnemyCombat(enemy);
+                    encounterName = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].EncounterName;
                     PlayerCombatManager.Instance.combatants.Add(temp);
                     currentTile.tileEnemy.Add(temp);
                     
@@ -80,16 +81,21 @@ public class PlayerCombatManager : MonoBehaviour
         }
         else
         {
-            foreach (var enemyy in currentTile.tileEnemy)
-            {
-                PlayerCombatManager.Instance.combatants.Add(enemyy);
-                encounterName = enemyy.name;
-            }
+            
 
         }
-
-        foreach(var ally in currentTile.partyMembers)
+        foreach (var enemyy in potentialEnemies)
         {
+            PlayerCombatManager.Instance.combatants.Add(enemyy);
+            encounterName = enemyy.name;
+        }
+        if(currentTile.tileEnemy.Count > 1)
+        {
+            encounterName = "More than 1 guy";
+        }
+        foreach (var ally in currentTile.partyMembers)
+        {
+            if (ally.allyOwner != NetworkData.Instance.currentPlayer) { continue; }
             PlayerCombatManager.Instance.combatants.Add(ally);
         }
 

@@ -19,7 +19,7 @@ public class ClientChecks : NetworkBehaviour
 
     public DialogueScript displayText;
     public GameObject mainMenuButtons;
-
+    public GameObject cameraControlDisplay;
 
 
 
@@ -528,4 +528,10 @@ public class ClientChecks : NetworkBehaviour
         PreturnStuff();
     }
 
+    //specifically for undoing finder
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void UndoItemUseRpc()
+    {
+        display.gameObject.SetActive(true);
+    }
 }

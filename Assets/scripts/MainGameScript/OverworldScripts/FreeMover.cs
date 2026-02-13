@@ -113,6 +113,7 @@ public class FreeMover : NetworkBehaviour
     {
         gameObject.SetActive(true);
         ClientChecks.Instance.mainMenuButtons.SetActive(false);
+        ClientChecks.Instance.cameraControlDisplay.SetActive(true);
         gameObject.transform.position = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform.position;
 
         onBeginFree.Invoke();
@@ -134,8 +135,10 @@ public class FreeMover : NetworkBehaviour
     {
         
         gameObject.SetActive(false);
+        ClientChecks.Instance.cameraControlDisplay.SetActive(false);
         onUndoFree.Invoke();
         onTileSelect.RemoveAllListeners();
+        onUndoFree.RemoveAllListeners();
         playerCam.Follow = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
         if (IsServer)
         {

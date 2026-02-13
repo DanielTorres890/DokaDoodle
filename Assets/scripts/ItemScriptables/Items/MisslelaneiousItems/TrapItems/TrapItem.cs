@@ -15,7 +15,7 @@ public class TrapItem : ItemBase
 
         
         FreeMover.Instance.onTileSelect.AddListener(delegate { ClientChecks.Instance.ConfirmBuffRpc(player, itemId, 0); });
-        
+        FreeMover.Instance.onUndoFree.AddListener(delegate { ClientChecks.Instance.UndoItemUseRpc(); } );
 
     }
     

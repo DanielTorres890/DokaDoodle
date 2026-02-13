@@ -14,7 +14,18 @@ public class DefaultTile : TileScript
         
         if (!NetworkManager.Singleton.IsServer) { return; }
         //PlayerMoveManager.Instance.NextTurnRpc();
-        if (Random.Range(1,10) == 1)  
+
+        var currentTile = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.GetCurrentPlayer().curMap][NetworkData.Instance.GetCurrentPlayer().curTileId];
+
+        
+        bool enemyAlly = false;
+        foreach( var enemy in currentTile.partyMembers )
+        {
+            if(enemy.allyOwner == NetworkData.Instance.GetCurrentPlayer().playerNumber) { enemyAlly = true; break;}
+        }
+        
+        
+        if (Random.Range(1,10) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly)  
         {
             int eventToSet = Random.Range(0,events.Length);
             ClientChecks.Instance.SyncEventRpc(eventToSet);

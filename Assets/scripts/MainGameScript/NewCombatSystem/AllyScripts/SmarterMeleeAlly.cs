@@ -1,7 +1,9 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class SmarterMeleeAlly : SmarterMeleeEnemy
 {
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public override void AttackAnimRpc(int attackIndex)
     {
         selectedAttack = myManager.stats.attacks[attackIndex];

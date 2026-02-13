@@ -261,6 +261,8 @@ public class NewCombatManager : NetworkBehaviour
         cameras[0].Priority = 1;
         currentSpec = whichone;
         cameras[whichone].Priority = 10;
+
+
         
         playerUI.abilityManager = allCombatants[whichone - 1]; //keep in mind that theres already a camera in the scene by default so its off by 1
         playerUI.SetUp();
@@ -413,24 +415,11 @@ public class NewCombatManager : NetworkBehaviour
             }
         }
 
-        if(victor.stats is PartyMember)
-        {
-            PartyMember GOAT = (PartyMember)victor.stats;
-            NetworkData.Instance.players[GOAT.allyOwner].stats[Attributes.Health] = 1;
-            NetworkData.Instance.players[GOAT.allyOwner].isDead = false;
-            foreach(var combatant in allCombatants)
-            {
-                if(combatant.stats is not playerData) { continue; }
-                if((combatant.stats as playerData).playerNumber == GOAT.allyOwner)
-                {
-                    victor = combatant;
-                    break;
-                }
-            }
+
+        //if player win any dead allies should survive at 1 and vice versa
+        SaveEntities(victor);
 
 
-            Debug.Log("Who wonned " + victor.stats.name);
-        }
 
         List<int> deadPlayers = RemoveDeadEntities();
         if (victor.stats is playerData)
@@ -583,14 +572,19 @@ public class NewCombatManager : NetworkBehaviour
             
 
         }
-        else if (victor.stats is EnemyCombat)
+        else if (victor.stats is EnemyCombat || victor.stats is PartyMember)
         {
             
             endBattleInfo.lines.Add("Every player (in this combat) has been defeated");
-            if((victor.stats as EnemyCombat).persistant && cache.townId != -1 & cache.tileOwner != -1 )
+
+            if(victor.stats is EnemyCombat)
             {
-                NetworkData.Instance.players[cache.tileOwner].LoseTown(cache);
+                if ((victor.stats as EnemyCombat).persistant && cache.townId != -1 & cache.tileOwner != -1)
+                {
+                    NetworkData.Instance.players[cache.tileOwner].LoseTown(cache);
+                }
             }
+            
             foreach (var combat in allCombatants)
             {
                 if (combat.stats is playerData)
@@ -598,12 +592,6 @@ public class NewCombatManager : NetworkBehaviour
                     var current = combat.stats as playerData;
                     
                     
-       
-                    if (IsServer) 
-                    {
-                       
-                            
-                    }
                     current.GainMoney(-current.playerInfo[PlayerInfo.money] / 2);
                     
                 }
@@ -831,6 +819,53 @@ public class NewCombatManager : NetworkBehaviour
             }
         }
         currentSpec = 0;
+    }
+
+    private void SaveEntities(AbilityManager victor)
+    {
+        if (victor.stats is PartyMember)
+        {
+            PartyMember GOAT = (PartyMember)victor.stats;
+            NetworkData.Instance.players[GOAT.allyOwner].stats[Attributes.Health] = 1;
+            NetworkData.Instance.players[GOAT.allyOwner].isDead = false;
+            foreach (var combatant in allCombatants)
+            {
+                if (combatant.stats is not playerData) { continue; }
+                if ((combatant.stats as playerData).playerNumber == GOAT.allyOwner)
+                {
+                    victor = combatant;
+                    break;
+                }
+            }
+
+
+            Debug.Log("Who wonned " + victor.stats.name);
+        }
+        var tilereadCache = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
+
+        if(victor.stats is playerData)
+        {
+            var partyWinner = victor.stats as playerData;
+
+            for (int i = tilereadCache.partyMembers.Count - 1; i >= 0; i--)
+            {
+                if (!tilereadCache.partyMembers[i].isDead) { continue; }
+                if (tilereadCache.partyMembers[i].allyOwner == partyWinner.playerNumber)
+                {
+                    tilereadCache.partyMembers[i].stats[Attributes.Health] = 1;
+                    tilereadCache.partyMembers[i].isDead = false;
+
+                }
+                else
+                {
+                    tilereadCache.partyMembers[i].Die();
+                }
+
+
+            }
+
+        }
+        
     }
 }
 

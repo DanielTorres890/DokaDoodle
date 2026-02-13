@@ -1921,7 +1921,7 @@ MonoBehaviour:
     m_ActionId: c5c7be77-68e3-419a-850e-cb51ddfd4823
     m_ActionName: 'Spectating/Look[/Mouse/delta]'
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -2070,6 +2070,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onEnergyChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onSetUp:
     m_PersistentCalls:
       m_Calls: []
   maxEnergy: 100

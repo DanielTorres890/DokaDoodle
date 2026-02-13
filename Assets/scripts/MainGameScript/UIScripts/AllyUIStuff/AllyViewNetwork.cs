@@ -88,10 +88,14 @@ public class AllyViewNetwork : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void PickTileToHoldRpc()
     {
+
         FreeMover.Instance.FreeCamera();
-        
+        allyStateMenu.SetActive(false);
+
+
         FreeMover.Instance.onTileSelect.AddListener(LinkedToTile);
 
+        FreeMover.Instance.onUndoFree.AddListener(delegate { ExitAllyStateMenu(); });
         FreeMover.Instance.onTileSelect.AddListener(delegate { ExitAllyStateMenu(); });
         FreeMover.Instance.onTileSelect.AddListener(delegate { FreeMover.Instance.EndFreeCamera(); });
 

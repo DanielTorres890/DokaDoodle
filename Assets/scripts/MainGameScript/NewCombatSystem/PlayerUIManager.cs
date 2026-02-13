@@ -47,6 +47,10 @@ public class PlayerUIManager : MonoBehaviour
             }
             else if (i == 0)
             {
+                Debug.Log("is my ability manager not set?? " +abilityManager == null);
+                Debug.Log("so are we just racist or what? " + display.useKeyText.text);
+                Debug.Log("Perhaps its this " + abilityManager.actions.currentActionMap.name);
+
                 display.useKeyText.text = abilityManager.actions.actions["M1Attack"].bindings[0].ToDisplayString();
             }
             else

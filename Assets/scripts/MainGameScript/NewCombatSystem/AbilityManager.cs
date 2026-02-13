@@ -377,8 +377,7 @@ public class AbilityManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void UpdateStatsRpc(int combatantNum)
     {
-        Debug.Log("who tf is this man " + combatantNum);
-        Debug.Log("how many people are in here? " + PlayerCombatManager.Instance.combatants.Count);
+        
 
         stats = PlayerCombatManager.Instance.combatants[combatantNum];
         nameText.AbilityManager = this;
