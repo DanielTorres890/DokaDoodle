@@ -7,6 +7,8 @@ public class TownInfo : ScriptableObject
     //maybe if i can think of smarter way later but this makes the most sense to me for now
     public string TownName;
     public int baseMoneyGeneration;
+    public int baseXpGeneration;
+
 
     public int maxMoneyLevel, maxDefenseLevel, maxUnitLevel;
     public int moneyUpgradeCost, defenseUpgradeCost,unitUpgradeCost;

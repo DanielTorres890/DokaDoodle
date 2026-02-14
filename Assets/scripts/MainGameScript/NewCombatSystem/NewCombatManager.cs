@@ -434,6 +434,7 @@ public class NewCombatManager : NetworkBehaviour
             playerData player = (playerData)victor.stats;
 
             List<int> partyLevelsGained = new List<int>();
+            //its implied that if combat ends the only ones left would be your allies
             foreach(var partyMember in cache.partyMembers)
             {
                 int levelsGained = partyMember.gainXp(cache.xpOnTile / cache.partyMembers.Count + 1);

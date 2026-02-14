@@ -150,12 +150,45 @@ public class PartyMember : EntityStats
         }
         return false;
     }
+
+    public bool OffScreenCombat(EntityStats opponent)
+    {
+        int enemyDamageValue = 0;
+        enemyDamageValue += Mathf.Clamp(opponent.stats[Attributes.Attack] * 2 - stats[Attributes.Defense], 0, 1000000);
+
+        enemyDamageValue += Mathf.Clamp(opponent.stats[Attributes.Magic] * 2 - stats[Attributes.MDefense], 0, 1000000);
+
+        float yourDamageValue = 0;
+        yourDamageValue += Mathf.Clamp(stats[Attributes.Attack] * 2.2f - opponent.stats[Attributes.Defense], 0, 1000000);
+
+        yourDamageValue += Mathf.Clamp(stats[Attributes.Magic] * 2.2f - opponent.stats[Attributes.MDefense], 0, 1000000);
+
+        if(yourDamageValue > enemyDamageValue)
+        {
+            if(opponent is EnemyCombat)
+            {
+                gainXp(PlayerCombatManager.Instance.EnemyDataBase.GetItem[(opponent as EnemyCombat).enemyId].droppedXp);
+            }
+            else
+            {
+                gainXp((opponent as PartyMember).allyInfo[PlayerInfo.xp] - allyInfo[PlayerInfo.xp]);
+            }
+
+                return healHp(-enemyDamageValue * (opponent.stats[Attributes.Dexterity] / (stats[Attributes.Dexterity] + 1)));
+        }
+        else
+        {
+            return healHp(-9999);
+        }
+
+    }
 }
 public enum PlayerFollowingStates
 {
     WithOwner,
     FollowingOwner,
     HoldTile,
+   
 
 }
 

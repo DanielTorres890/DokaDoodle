@@ -26,4 +26,5 @@ public class SpecialTileEventHold
     [DoNotSerialize] public int defenseLevel;
     [DoNotSerialize] public int unitLevel; //basically you'll be able to station a guy at a town then they can train up until whatever the level of the town is
     
+
 }

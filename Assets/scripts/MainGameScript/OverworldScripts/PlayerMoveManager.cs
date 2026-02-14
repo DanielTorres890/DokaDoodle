@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using TMPro;
 using Unity.Cinemachine;
+
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class PlayerMoveManager : NetworkBehaviour
 {
@@ -348,7 +349,10 @@ public class PlayerMoveManager : NetworkBehaviour
         {
             ClientChecks.Instance.ActivateTrapsRpc();
         }
-        else { mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].TileEvent(); }
+        else 
+        { 
+            mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].TileEvent(); 
+        }
 
     }
 
@@ -821,10 +825,69 @@ public class PlayerMoveManager : NetworkBehaviour
             member.curTileId = bestPath[3].tileId;
             MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Add(member);
             
+            if(IsHost)
+            {
+                AllyActionsRpc(UnityEngine.Random.Range(0, 100));
+            }
 
         }
     }
 
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void AllyActionsRpc(int randomNum)
+    {
+        foreach (var member in NetworkData.Instance.GetCurrentPlayer().partyMembers)
+        {
+            if (member.boardMovementState == PlayerFollowingStates.WithOwner || member.curMap != mapNumber) { continue; }
+            if (mapTiles[member.curTileId] is not DefaultTile || mapTiles[member.curTileId] is not TownTile) { continue; }
+
+            var memberTile = MapTileSpecialEvents.Instance.mapTiles[member.curMap][member.curTileId];
+            var potentialEnemies = new List<EntityStats>(memberTile.tileEnemy);
+            foreach(var ally in memberTile.partyMembers)
+            {
+                if(ally.allyOwner == member.allyOwner) { continue; }
+                potentialEnemies.Add(ally);
+            }
+
+            if(potentialEnemies.Count > 0)
+            {
+                foreach(var enemy in potentialEnemies)
+                {
+
+                    var died = member.OffScreenCombat(enemy);
+                    if (!died)
+                    {
+                        if(enemy is EnemyCombat) { memberTile.tileEnemy.Remove(enemy as EnemyCombat); }
+                        if(enemy is PartyMember) 
+                        { 
+                            (enemy as PartyMember).Die(); 
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (mapTiles[member.curTileId] is DefaultTile)
+                {
+
+                    var defaultT = mapTiles[member.curTileId] as DefaultTile;
+
+                    foreach (var enemy in defaultT.enemies[randomNum % defaultT.enemies.Length].enemies)
+                    {
+                        member.OffScreenCombat(new EnemyCombat(enemy));
+                    }
+                }
+                else
+                {
+                    var townT = mapTiles[member.curTileId] as TownTile;
+                    member.gainXp(townT.Info.baseXpGeneration * memberTile.unitLevel);
+
+                }
+                
+            }
+            
+        }
+    }
     private void PositionAllies()
     {
         int memberCount = 0;
