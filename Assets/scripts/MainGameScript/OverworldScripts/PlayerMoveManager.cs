@@ -359,10 +359,11 @@ public class PlayerMoveManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void NextTurnRpc()
     {
-        StickPlacer();
-        PositionAllies();
         NetworkData.Instance.setNextTurnNum();
-        ClientChecks.Instance.PreturnStuff();
+        if (IsHost)
+        {
+            SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI");
+        }
 
 
     }
@@ -601,7 +602,7 @@ public class PlayerMoveManager : NetworkBehaviour
         List<int> distancedPath = Enumerable.Repeat(-1,mapTiles.Count).ToList();
         TileScript[] parentNodes = new TileScript[mapTiles.Count];
 
-        Debug.Log(parentNodes.Length);
+      
         distancedPath[tile.tileId] = 0;
 
         thisPath.Add(tile);
@@ -770,13 +771,12 @@ public class PlayerMoveManager : NetworkBehaviour
                 if (member.curMap != mapNumber) { continue; }
                 GameObject allyGameObject = Instantiate(allyPrefab);
                 member.SetPrefab(allyGameObject);
-                allyGameObject.transform.position = new Vector3(playerSticks[i].transform.position.x - 0.5f + memberCount * AllyDistance, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z - .5f);
                 allyGameObjects.Add(member, allyGameObject);
                 memberCount += 1;
             }
             playerAllies.Add(allyGameObjects);
         }
-      
+        PositionAllies();
     }
 
     private void SetFollowingMembersToCurTile()
@@ -798,11 +798,13 @@ public class PlayerMoveManager : NetworkBehaviour
 
     private void PerformAllyMoves()
     {
+
         foreach (var member in NetworkData.Instance.GetCurrentPlayer().partyMembers)
         {
+       
             if (member.boardMovementState == PlayerFollowingStates.WithOwner || member.curMap != mapNumber) { continue; }
 
-
+       
             int targetTileId = member.targetTile;
 
             if(member.boardMovementState == PlayerFollowingStates.FollowingOwner) { targetTileId = NetworkData.Instance.players[member.allyOwner].curTileId; }
@@ -810,37 +812,41 @@ public class PlayerMoveManager : NetworkBehaviour
             BestPath(mapTiles[member.curTileId], mapTiles[targetTileId]);
 
             if (bestPath.Count == 0) { continue; }
-
+  
             if(bestPath.Count <= 4)
             {
                 MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Remove(member);          
                 member.curTileId = targetTileId;
                 MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Add(member);
                 if (member.boardMovementState == PlayerFollowingStates.FollowingOwner) { member.boardMovementState = PlayerFollowingStates.WithOwner; }
-                return;
+                continue;
 
             }
 
             MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Remove(member);
             member.curTileId = bestPath[3].tileId;
             MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Add(member);
-            
-            if(IsHost)
-            {
-                AllyActionsRpc(UnityEngine.Random.Range(0, 100));
-            }
 
+        }
+        if (IsHost)
+        {
+            AllyActionsRpc(UnityEngine.Random.Range(0, 100));
         }
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void AllyActionsRpc(int randomNum)
     {
-        foreach (var member in NetworkData.Instance.GetCurrentPlayer().partyMembers)
+        
+        for(int i = NetworkData.Instance.GetCurrentPlayer().partyMembers.Count - 1; i >= 0 ; i--)
         {
-            if (member.boardMovementState == PlayerFollowingStates.WithOwner || member.curMap != mapNumber) { continue; }
-            if (mapTiles[member.curTileId] is not DefaultTile || mapTiles[member.curTileId] is not TownTile) { continue; }
+            var member = NetworkData.Instance.GetCurrentPlayer().partyMembers[i];
 
+            if (member.boardMovementState == PlayerFollowingStates.WithOwner || member.curMap != mapNumber) { continue; }
+            
+
+            if (mapTiles[member.curTileId] is not DefaultTile && mapTiles[member.curTileId] is not TownTile) { continue; }
+            
             var memberTile = MapTileSpecialEvents.Instance.mapTiles[member.curMap][member.curTileId];
             var potentialEnemies = new List<EntityStats>(memberTile.tileEnemy);
             foreach(var ally in memberTile.partyMembers)
@@ -851,31 +857,53 @@ public class PlayerMoveManager : NetworkBehaviour
 
             if(potentialEnemies.Count > 0)
             {
-                foreach(var enemy in potentialEnemies)
-                {
-
-                    var died = member.OffScreenCombat(enemy);
-                    if (!died)
+                Debug.Log("I did box a special enemy");
+                var died = member.OffScreenCombat(potentialEnemies);
+                foreach (var enemy in potentialEnemies)
+                {  
+                    Debug.Log("am i potentialman?");
+                    if (enemy.isDead)
                     {
-                        if(enemy is EnemyCombat) { memberTile.tileEnemy.Remove(enemy as EnemyCombat); }
+                        Debug.Log("im dead");
+                        if(enemy is EnemyCombat) 
+                        {
+                            Debug.Log("This guy should be toast");
+                            memberTile.tileEnemy.Remove(enemy as EnemyCombat); 
+                        }
                         if(enemy is PartyMember) 
                         { 
                             (enemy as PartyMember).Die(); 
                         }
                     }
                 }
+                if(!died && (mapTiles[member.curTileId] is TownTile))
+                {
+                    NetworkData.Instance.players[member.allyOwner].GainTown(memberTile);
+                }
+
             }
             else
             {
                 if (mapTiles[member.curTileId] is DefaultTile)
                 {
-
+                    
                     var defaultT = mapTiles[member.curTileId] as DefaultTile;
+
+                    List<EntityStats> enemyList = new List<EntityStats>();
+
 
                     foreach (var enemy in defaultT.enemies[randomNum % defaultT.enemies.Length].enemies)
                     {
-                        member.OffScreenCombat(new EnemyCombat(enemy));
+
+                        enemyList.Add(new EnemyCombat(enemy));
                     }
+                    bool dead = member.OffScreenCombat(enemyList);
+
+                    if(dead)
+                    {
+                        member.Die();
+                    }
+
                 }
                 else
                 {
@@ -900,7 +928,7 @@ public class PlayerMoveManager : NetworkBehaviour
                 {
                     GameObject allyGameObject = member.Value;
                     allyGameObject.transform.position = new Vector3(playerSticks[i].transform.position.x - 0.5f + memberCount * AllyDistance, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z - .5f);
-
+                    
                 }
                 else
                 {

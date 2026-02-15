@@ -54,6 +54,7 @@ public class EmploymentEventManager : NetworkBehaviour
     public TextMeshProUGUI displayText;
     public UIStatUpdate moneyDisplay;
 
+    public TextMeshProUGUI maxAllyDisplay;
     public void Awake()
     {
         instance = this;
@@ -67,7 +68,7 @@ public class EmploymentEventManager : NetworkBehaviour
         }
         
         playerDisplay.texture = playerTextures[NetworkData.Instance.currentPlayer];
-        
+        UpdateMaxAllyDisplay();
     }
 
     public override void OnNetworkSpawn()
@@ -240,6 +241,12 @@ public class EmploymentEventManager : NetworkBehaviour
             displayText.text = "You can't afford this mf ";
             return;
         }
+        if(NetworkData.Instance.GetCurrentPlayer().ownedTowns.Count + 1 <= NetworkData.Instance.GetCurrentPlayer().partyMembers.Count) 
+        {
+            displayText.text = "Your ally slots are full (each town lets you hold 1 more ally) ";
+            return;
+
+        }
         confirmAllyBuy.SetActive(true);
         PartyMemberPurchase.SetActive(false);
 
@@ -287,6 +294,7 @@ public class EmploymentEventManager : NetworkBehaviour
         allyDisplay.UpdateDisplay(availableAllies);
         confirmAllyBuy.SetActive(false);
         PartyMemberPurchase.SetActive(true);
+        UpdateMaxAllyDisplay();
     }
 
     public int CalculateAllyCost(PartyMember ally)
@@ -302,5 +310,14 @@ public class EmploymentEventManager : NetworkBehaviour
         }
 
         return totalCost;
+    }
+    private void UpdateMaxAllyDisplay()
+    {
+
+        maxAllyDisplay.text = NetworkData.Instance.GetCurrentPlayer().partyMembers.Count.ToString() + "/" + (NetworkData.Instance.GetCurrentPlayer().ownedTowns.Count + 1).ToString();
+        if(NetworkData.Instance.GetCurrentPlayer().partyMembers.Count >= NetworkData.Instance.GetCurrentPlayer().ownedTowns.Count + 1)
+        {
+            maxAllyDisplay.text = "<color=red>" + NetworkData.Instance.GetCurrentPlayer().partyMembers.Count.ToString() + "/" + (NetworkData.Instance.GetCurrentPlayer().ownedTowns.Count + 1).ToString() + "</color>";
+        }
     }
 }

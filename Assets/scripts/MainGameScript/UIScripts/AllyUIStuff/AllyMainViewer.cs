@@ -51,7 +51,7 @@ public class AllyMainViewer : MonoBehaviour
 
             obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.classDataBase.GetItem[entity.allyClass].className;
 
-            var stateChild = obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+            var stateChild = obj.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
             if(entity.boardMovementState == PlayerFollowingStates.WithOwner) { stateChild.text = "With you"; }
             if(entity.boardMovementState == PlayerFollowingStates.FollowingOwner) { stateChild.text = "Going to you"; }
             if(entity.boardMovementState == PlayerFollowingStates.HoldTile) { stateChild.text = "Going to tile"; }

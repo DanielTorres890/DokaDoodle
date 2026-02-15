@@ -115,6 +115,7 @@ public abstract class AbilityBase : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = true)]
     private void PlayHitSoundRpc(int soundId)
     {
+        if(ownerStats is playerData && NetworkData.Instance.IsAllowed((ownerStats as playerData).playerNumber, NetworkManager.LocalClientId))
         AudioSource.PlayClipAtPoint(NetworkData.Instance.audioDataBase.GetItem[soundId], transform.position, SettingsManager.instance.SFXVolume);
 
     }

@@ -295,8 +295,12 @@ public class NewCombatManager : NetworkBehaviour
                 int dropnum = PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].rollItem();
                 if (dropnum >= 0) { ItemDroppedRpc(dropnum, info.enemyId); }
 
-                Destroy(whoded.gameObject);
+                
             }
+            var rigid = whoded.GetComponent<Rigidbody>();
+            rigid.constraints = RigidbodyConstraints.None;
+            rigid.isKinematic = false;
+            rigid.AddForce(rigid.transform.TransformDirection(Vector3.back) * 10, ForceMode.Impulse);
         }
         if (whoded.stats is playerData)
         {
@@ -380,10 +384,11 @@ public class NewCombatManager : NetworkBehaviour
         for (int i = 0; i < allCombatants.Count; i++)
         {
 
-            Debug.Log("who did i look at? " + enemy.stats.name);
+           
             if (enemy.stats.isDead) { enemy = allCombatants[i]; }
-            if (!(enemy.stats is playerData) && !enemy.stats.isDead)
+            if (!allCombatants[i].stats.isDead)
             {
+                Debug.Log("Im not dead and i could be the winner " + enemy.name);
                 enemy = allCombatants[i];
             }
 
@@ -395,7 +400,7 @@ public class NewCombatManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void ItemDroppedRpc(int item, int enemyId)
     {
-        Debug.Log("ITEMDROPPED");
+      
         itemsPicked.Add(PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemyId].DroppedItems[item]);
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
@@ -424,7 +429,7 @@ public class NewCombatManager : NetworkBehaviour
 
 
         //if player win any dead allies should survive at 1 and vice versa
-        SaveEntities(victor);
+        victor = SaveEntities(victor);
 
 
 
@@ -835,8 +840,9 @@ public class NewCombatManager : NetworkBehaviour
         
     }
 
-    private void SaveEntities(AbilityManager victor)
+    private AbilityManager SaveEntities(AbilityManager victor)
     {
+        AbilityManager winner = victor;
         if (victor.stats is PartyMember)
         {
             PartyMember GOAT = (PartyMember)victor.stats;
@@ -847,13 +853,16 @@ public class NewCombatManager : NetworkBehaviour
                 if (combatant.stats is not playerData) { continue; }
                 if ((combatant.stats as playerData).playerNumber == GOAT.allyOwner)
                 {
-                    victor = combatant;
+                    winner = combatant;
+
                     break;
                 }
             }
 
+            Debug.Log("Who wonned " + winner.stats.name);
+            
 
-            Debug.Log("Who wonned " + victor.stats.name);
+            
         }
         var tilereadCache = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
 
@@ -879,7 +888,7 @@ public class NewCombatManager : NetworkBehaviour
             }
 
         }
-        
+        return winner;
     }
 }
 

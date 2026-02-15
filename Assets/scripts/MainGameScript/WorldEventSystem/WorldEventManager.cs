@@ -146,7 +146,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void NoEventRpc()
     {
-        Debug.Log("Step 2");
+
         ClientChecks.Instance.TurnStartChecks();
     }
     private bool AlreadyActive(WorldEventBase eventToCheck)

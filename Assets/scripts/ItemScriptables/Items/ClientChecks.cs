@@ -385,6 +385,7 @@ public class ClientChecks : NetworkBehaviour
             else
             {
                 PlayerMoveManager.Instance.NextTurnRpc();
+                Debug.Log("Am i skipping to here? ");
             }
                 
         }
@@ -437,7 +438,7 @@ public class ClientChecks : NetworkBehaviour
 
     private IEnumerator displayActivateEvent()
     {
-        Debug.Log("How many times did i happen?");
+   
         displayText.lines.Clear();
         displayText.lines.Add(WorldEventManager.Instance.eventsToActivate[0].ActivateText);
         worldEventImage.sprite = WorldEventManager.Instance.eventsToActivate[0].eventDisplay;

@@ -87,7 +87,7 @@ public class FreeMover : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId) && IsOwner) { return; }
         if (baseTile != null && action.started)
         {
-            Debug.Log("okay im trying to shoot u now");
+         
             SelectTileRpc(baseTile.tileId);
 
         }
@@ -97,7 +97,7 @@ public class FreeMover : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void SelectTileRpc(int tileId)
     {
-        Debug.Log("TRAPPED");
+      
         onTileSelect.Invoke(tileId);
     
     }

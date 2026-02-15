@@ -115,6 +115,8 @@ public class PartyMember : EntityStats
     }
     public int gainXp(int xp)
     {
+        
+        
         int levelsGained = 0;
         this.allyInfo[PlayerInfo.xp] += xp;
         while (this.allyInfo[PlayerInfo.xp] > 24 * Mathf.Pow((float)this.allyInfo[PlayerInfo.level], 2f))
@@ -133,54 +135,86 @@ public class PartyMember : EntityStats
         return levelsGained;
 
     }
-    public bool healHp(int hp) //note this will work for dmg too ig
-    {
-        if (this.stats[Attributes.Health] + hp > this.stats[Attributes.MaxHealth])
-        {
-            this.stats[Attributes.Health] = this.stats[Attributes.MaxHealth];
-        }
-        else
-        {
-            this.stats[Attributes.Health] += hp;
-        }
-        PostStatusStatCalc();
-        if (stats[Attributes.Health] <= 0)
-        {
-            return true;
-        }
-        return false;
-    }
+    
 
-    public bool OffScreenCombat(EntityStats opponent)
+    public bool OffScreenCombat(List<EntityStats> opponents)
     {
+
         int enemyDamageValue = 0;
-        enemyDamageValue += Mathf.Clamp(opponent.stats[Attributes.Attack] * 2 - stats[Attributes.Defense], 0, 1000000);
+        int yourDamageValue = 0;
 
-        enemyDamageValue += Mathf.Clamp(opponent.stats[Attributes.Magic] * 2 - stats[Attributes.MDefense], 0, 1000000);
 
-        float yourDamageValue = 0;
-        yourDamageValue += Mathf.Clamp(stats[Attributes.Attack] * 2.2f - opponent.stats[Attributes.Defense], 0, 1000000);
-
-        yourDamageValue += Mathf.Clamp(stats[Attributes.Magic] * 2.2f - opponent.stats[Attributes.MDefense], 0, 1000000);
-
-        if(yourDamageValue > enemyDamageValue)
+        bool allyDead = false;
+        foreach (var opponent in opponents)
         {
-            if(opponent is EnemyCombat)
+
+            enemyDamageValue += Mathf.RoundToInt(Mathf.Clamp(
+                opponent.stats[Attributes.Attack] * 2 - stats[Attributes.Defense], 0, 1000000) *
+                Mathf.Sqrt(Mathf.Log((float)opponent.stats[Attributes.Dexterity] / stats[Attributes.Dexterity] + 1, 2) + 1));
+
+
+
+
+            enemyDamageValue += Mathf.RoundToInt(Mathf.Clamp(
+                opponent.stats[Attributes.Magic] * 2 - stats[Attributes.MDefense], 0, 1000000) *
+                Mathf.Sqrt(Mathf.Log((float)opponent.stats[Attributes.Dexterity] / stats[Attributes.Dexterity] + 1, 2) + 1));
+
+
+
+
+
+            yourDamageValue += Mathf.RoundToInt(Mathf.Clamp(
+                stats[Attributes.Attack] * 2.5f - opponent.stats[Attributes.Defense], 0, 1000000)  *
+                Mathf.Sqrt(Mathf.Log((float)stats[Attributes.Dexterity] / opponent.stats[Attributes.Dexterity] + 1, 2) + 1));
+
+
+
+
+            yourDamageValue += Mathf.RoundToInt(Mathf.Clamp(
+                stats[Attributes.Magic] * 2.5f - opponent.stats[Attributes.MDefense], 0, 1000000)  *
+                Mathf.Sqrt(Mathf.Log((float)stats[Attributes.Dexterity] / opponent.stats[Attributes.Dexterity] + 1, 2) + 1));
+
+
+            bool alternate = true;
+
+            
+            while (opponent.stats[Attributes.Health] > 0 && stats[Attributes.Health] > 0)
             {
+                if(alternate)
+                {
+
+                    opponent.isDead = opponent.healHp(-yourDamageValue);
+                    
+                }
+                else
+                {
+                    
+                    allyDead = healHp(-enemyDamageValue);
+                }
+                alternate = !alternate;
+
+            }
+            if(allyDead) 
+            {
+                Die();
+                break; 
+            }
+
+            if (opponent is EnemyCombat)
+            {
+                
                 gainXp(PlayerCombatManager.Instance.EnemyDataBase.GetItem[(opponent as EnemyCombat).enemyId].droppedXp);
             }
             else
             {
+             
                 gainXp((opponent as PartyMember).allyInfo[PlayerInfo.xp] - allyInfo[PlayerInfo.xp]);
             }
-
-                return healHp(-enemyDamageValue * (opponent.stats[Attributes.Dexterity] / (stats[Attributes.Dexterity] + 1)));
-        }
-        else
-        {
-            return healHp(-9999);
         }
 
+
+        
+        return allyDead;
     }
 }
 public enum PlayerFollowingStates

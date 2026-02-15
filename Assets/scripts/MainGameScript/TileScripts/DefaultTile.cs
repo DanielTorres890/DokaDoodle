@@ -25,7 +25,7 @@ public class DefaultTile : TileScript
         }
         
         
-        if (Random.Range(1,10) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly)  
+        if (Random.Range(1,10) != 100 && currentTile.tileEnemy.Count == 0 && !enemyAlly)  
         {
             int eventToSet = Random.Range(0,events.Length);
             ClientChecks.Instance.SyncEventRpc(eventToSet);

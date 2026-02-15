@@ -141,8 +141,25 @@ public class EntityStats
             
             postStatusStats[attrib] = Mathf.RoundToInt(stats[attrib] * (1 + StatusMultipliers[attrib]));
         }
-    }   
-   public void ClearCombatStatuses()
+    }
+    public bool healHp(int hp) //note this will work for dmg too ig
+    {
+        if (this.stats[Attributes.Health] + hp > this.stats[Attributes.MaxHealth])
+        {
+            this.stats[Attributes.Health] = this.stats[Attributes.MaxHealth];
+        }
+        else
+        {
+            this.stats[Attributes.Health] += hp;
+        }
+        PostStatusStatCalc();
+        if (stats[Attributes.Health] <= 0)
+        {
+            return true;
+        }
+        return false;
+    }
+    public void ClearCombatStatuses()
     {
         for(int i = statuses.Count - 1; i >= 0; i--)
         {

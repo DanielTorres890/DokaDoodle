@@ -216,36 +216,12 @@ public class playerData : EntityStats
         if (this.playerClassProgress[playerClass].xp >= NetworkData.Instance.classDataBase.GetItem[playerClass].classXpRequirements[this.playerClassProgress[playerClass].level])
         {
             this.playerClassProgress[playerClass].level += 1;
-            Debug.Log("Class level up :)");
+          
             return 1;
         }
         return 0;
     }
-    public bool healHp(int hp) //note this will work for dmg too ig
-    {
-        if (this.stats[Attributes.Health] +  hp > this.stats[Attributes.MaxHealth]) 
-        {
-            this.stats[Attributes.Health] = this.stats[Attributes.MaxHealth];
-        }
-        else
-        {
-            this.stats[Attributes.Health] += hp;
-        }
-        foreach (var members in partyMembers)
-        {
-            if (members.boardMovementState == PlayerFollowingStates.WithOwner)
-            {
-                members.healHp(hp);
-                members.PostStatusStatCalc();
-            }
-        }
-        PostStatusStatCalc();
-        if(stats[Attributes.Health] <= 0)
-        {
-            return true;
-        }
-        return false;
-    }
+    
 
     public void GainMoney(int amount)
     {

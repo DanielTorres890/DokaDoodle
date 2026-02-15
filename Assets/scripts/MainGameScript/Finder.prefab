@@ -108,7 +108,7 @@ BoxCollider:
     m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 255
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -287,14 +287,6 @@ MonoBehaviour:
     m_ActionName: 'UI/UndoCamera[/Keyboard/escape]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 6b1ba3de-c960-4157-bc8e-770d759d23af
-    m_ActionName: 'Spectating/LeftCameraSwitch[/Keyboard/q]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 38fc7505-bee1-478b-9efa-bedf6ebd76e0
-    m_ActionName: 'Spectating/RightCameraSwitch[/Keyboard/e]'
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: f3732e55-a5c9-463f-9364-b9d53b10fedc
     m_ActionName: 'Player/Settings[/Keyboard/escape]'
   - m_PersistentCalls:
@@ -307,19 +299,27 @@ MonoBehaviour:
     m_ActionName: 'UI/Settings[/Keyboard/escape]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: afda8e35-73d1-4288-a98f-1661aa425226
-    m_ActionName: 'Spectating/Settings[/Keyboard/escape]'
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 1c95a7b6-7c52-40df-882b-d6b6a35de6dd
     m_ActionName: 'Player/Scrolling[/Mouse/scroll]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 48ad7979-5d24-480a-9d29-7f3e3323d856
+    m_ActionId: 9a86b092-0a56-427c-ad63-d9acb7db1f2a
+    m_ActionName: 'Spectating/LeftCameraSwitch[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cf587091-a9a8-4220-94b6-5cfe94c680cd
     m_ActionName: 'Spectating/ScrollWheel[/Mouse/scroll]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: c5c7be77-68e3-419a-850e-cb51ddfd4823
+    m_ActionId: 23268595-1c4d-43c5-ba4c-26642ea64b9e
+    m_ActionName: 'Spectating/Settings[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 97de365e-23ad-4d57-b5ef-96a4a7446b37
+    m_ActionName: 'Spectating/RightCameraSwitch[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3475f648-26ed-43d1-8b93-8a63077d419c
     m_ActionName: 'Spectating/Look[/Mouse/delta]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2039905599
+  GlobalObjectIdHash: 1550940036
   InScenePlacedSourceGlobalObjectIdHash: 1550940036
   DeferredDespawnTick: 0
   Ownership: 1

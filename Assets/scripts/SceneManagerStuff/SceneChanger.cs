@@ -5,11 +5,15 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class SceneChanger : NetworkBehaviour
 {
    
     [SerializeField]private int loadedPlayers = 0;
     private bool LoadComplete;
+    public Image fadeInOut;
+    public float fadeInTime;
+    public float fadeOutTime;
     public static SceneChanger Instance { get; set; }
     private void Awake()
     {
@@ -25,8 +29,8 @@ public class SceneChanger : NetworkBehaviour
         if (sceneName == "Fake") { return;  }
         LoadComplete = false;
         loadedPlayers = 0;
-        ResetYoStuffRpc();
-        NetworkManager.Singleton.SceneManager.LoadScene(sceneName,LoadSceneMode.Single);
+        ResetYoStuffRpc(sceneName);
+        
         
     }
     [Rpc(SendTo.Server, RequireOwnership = false)]
@@ -37,7 +41,7 @@ public class SceneChanger : NetworkBehaviour
         LoadComplete = false;
         
         loadedPlayers = 0;
-        ResetYoStuffRpc();
+        ResetYoStuffAddRpc(sceneName);
         var status = NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
         if (status != SceneEventProgressStatus.Started)
         {
@@ -54,12 +58,19 @@ public class SceneChanger : NetworkBehaviour
         NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(sceneName));
     }
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    private void ResetYoStuffRpc()
+    private void ResetYoStuffRpc(string scenename)
+    {
+        loadedPlayers = 0;
+        StartCoroutine(FadeIn(scenename, LoadSceneMode.Single));
+    }
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void ResetYoStuffAddRpc(string scenename)
     {
         loadedPlayers = 0;
         
     }
-   
+
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -71,7 +82,7 @@ public class SceneChanger : NetworkBehaviour
     private void OnSceneLoaded(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
         LoadComplete = true;
-
+        StartCoroutine(FadeOut());
     }
 
     
@@ -81,5 +92,38 @@ public class SceneChanger : NetworkBehaviour
         return LoadComplete;
     }
    
-    
+    IEnumerator FadeIn(string sceneName, LoadSceneMode loadmode)
+    {
+        float t = 0f;
+        Color c = fadeInOut.color;
+        while (t < fadeInTime)
+        {
+            t += Time.deltaTime;
+            c.a = t/fadeOutTime;
+            fadeInOut.color = c;
+            yield return null;
+        }
+        if(IsHost)
+        {
+            var status = NetworkManager.Singleton.SceneManager.LoadScene(sceneName, loadmode);
+            if (status != SceneEventProgressStatus.Started)
+            {
+                Debug.LogWarning($"Failed to load {sceneName} " +
+                      $"with a {nameof(SceneEventProgressStatus)}: {status}");
+            }
+        }
+    }
+    IEnumerator FadeOut()
+    {
+        float t = 0f;
+        Color c = fadeInOut.color;
+        while (t < fadeOutTime)
+        {
+            t += Time.deltaTime;
+            c.a = 1f - (t / fadeOutTime);
+            fadeInOut.color = c;
+            yield return null;
+        }
+        
+    }
 }

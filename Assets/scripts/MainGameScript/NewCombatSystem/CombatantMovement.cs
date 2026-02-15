@@ -65,7 +65,7 @@ public class CombatantMovement : NetworkBehaviour
 
         if (grounded && IsOwner)
         {
-
+            if(body)
             body.AddForce(Vector3.up * (jumpForce + abilityManager.stats.speedFormula()), ForceMode.VelocityChange);
         }
     }
