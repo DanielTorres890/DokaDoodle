@@ -142,7 +142,7 @@ public class TownUIManager : NetworkBehaviour
     }
     public void MouseOverUnit()
     {
-        infoText.text = "This upgrade increases the max level a homie can train to while staying here \nCost: " + Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.unitLevel) + 1) * curTown.townInfo.unitUpgradeCost).ToString();
+        infoText.text = "This upgrade increases the xp an ally will gain for staying here (allies dont take damage while training on a town) \nCost: " + Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.unitLevel) + 1) * curTown.townInfo.unitUpgradeCost).ToString();
     }
     public void Rest()
     {
