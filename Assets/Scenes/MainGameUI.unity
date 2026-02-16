@@ -14373,6 +14373,7 @@ GameObject:
   - component: {fileID: 1857722170}
   - component: {fileID: 1857722168}
   - component: {fileID: 1857722173}
+  - component: {fileID: 1857722174}
   m_Layer: 5
   m_Name: ViewAllies
   m_TagString: Untagged
@@ -14573,6 +14574,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2bb87ced0bae14eae6a4c0c168efb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllyButtonCondition
+--- !u!114 &1857722174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857722166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 635757fc3b6780f4bb3fb3980da0d272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlashingRed
+  whiteImage: {fileID: 1857722171}
 --- !u!1 &1896124177
 GameObject:
   m_ObjectHideFlags: 0

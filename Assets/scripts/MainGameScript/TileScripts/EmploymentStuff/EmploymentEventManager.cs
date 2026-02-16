@@ -271,11 +271,11 @@ public class EmploymentEventManager : NetworkBehaviour
     public void ConfirmAllyBuy()
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
-        ConfirmAllyBuyRpc(Random.Range(0, NetworkData.Instance.classDataBase.GetItem[availableAllies[currentAllyBuy].allyClass].recommendedItems.Length));
+        ConfirmAllyBuyRpc();
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    private void ConfirmAllyBuyRpc(int random)
+    private void ConfirmAllyBuyRpc()
     {
 
         
@@ -285,7 +285,7 @@ public class EmploymentEventManager : NetworkBehaviour
         availableAllies[currentAllyBuy].curTileId = curPlayer.curTileId;
         availableAllies[currentAllyBuy].curMap = curPlayer.curMap;
         availableAllies[currentAllyBuy].allyOwner = NetworkData.Instance.currentPlayer;
-        availableAllies[currentAllyBuy].AddAbility(random);
+        
 
         curPlayer.partyMembers.Add(availableAllies[currentAllyBuy]);
         curPlayer.playerInfo[PlayerInfo.money] -= CalculateAllyCost(availableAllies[currentAllyBuy]);

@@ -249,7 +249,7 @@ public class AbilityManager : NetworkBehaviour
         
         if (!IsOwner) { return; }
 
-        actions = NewCombatManager.instance.playercontrol;
+
 
         actions.SwitchCurrentActionMap("Player");
         

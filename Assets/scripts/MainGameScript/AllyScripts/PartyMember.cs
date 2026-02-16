@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
 [System.Serializable]
@@ -17,7 +18,7 @@ public class PartyMember : EntityStats
 
     public int targetTile;
 
-
+    private int GainMoveLevel = 3;
 
     public PlayerFollowingStates boardMovementState; 
 
@@ -57,6 +58,7 @@ public class PartyMember : EntityStats
             stats[attribute.attribute] += attribute.value;
         }
 
+        setCombatActions();
     }
 
     public void SetPrefab(GameObject prefab)
@@ -70,7 +72,7 @@ public class PartyMember : EntityStats
     }
     public void AddAbility(int selected)
     {
-
+        Debug.Log("Step 4");
         var randomItem = NetworkData.Instance.classDataBase.GetItem[allyClass].recommendedItems[selected];
         if(randomItem.determineType() == 1) { weaponsInventory.Add(NetworkData.Instance.playerInventories[0][1].database.GetId[randomItem]); }
         else { magicInventory.Add(NetworkData.Instance.playerInventories[0][2].database.GetId[randomItem]); }
@@ -122,6 +124,20 @@ public class PartyMember : EntityStats
         while (this.allyInfo[PlayerInfo.xp] > 24 * Mathf.Pow((float)this.allyInfo[PlayerInfo.level], 2f))
         {
             this.allyInfo[PlayerInfo.level] += 1;
+            Debug.Log("What is my thingy " + allyInfo[PlayerInfo.level] % GainMoveLevel);
+            if (allyInfo[PlayerInfo.level] % GainMoveLevel == 0)
+            {
+                Debug.Log("Step 2");
+                int counter = 0;
+                foreach (var member in NetworkData.Instance.GetCurrentPlayer().partyMembers)
+                {
+                    if (member == this) { break; }
+                    counter++;
+                }
+
+                if (NetworkData.Instance.IsHost)
+                    NetworkData.Instance.AddItemToAllyRpc(allyOwner, counter, Random.Range(0, NetworkData.Instance.classDataBase.GetItem[allyClass].recommendedItems.Length));
+            }
             levelsGained++;
             foreach (var stat in NetworkData.Instance.classDataBase.GetItem[this.allyClass].levelUpStats)
             {
@@ -129,9 +145,10 @@ public class PartyMember : EntityStats
 
             }
             PostStatusStatCalc();
-
+            
         }
-
+        
+        
         return levelsGained;
 
     }

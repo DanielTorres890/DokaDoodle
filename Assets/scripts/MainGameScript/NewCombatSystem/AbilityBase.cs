@@ -97,7 +97,8 @@ public abstract class AbilityBase : NetworkBehaviour
             hitby.IGainedBuffRpc(buffIds);
             if (AudioSource && attackInfo.onHitSound)
             {
-                PlayHitSoundRpc(NetworkData.Instance.audioDataBase.GetId[attackInfo.onHitSound]);
+                if(ownerStats is playerData)
+                PlayHitSoundRpc(NetworkData.Instance.audioDataBase.GetId[attackInfo.onHitSound], RpcTarget.Single((ulong)(ownerStats as playerData).playerNumber, RpcTargetUse.Temp));
                 
             }
             else
@@ -112,10 +113,10 @@ public abstract class AbilityBase : NetworkBehaviour
         
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = true)]
-    private void PlayHitSoundRpc(int soundId)
+    [Rpc(SendTo.SpecifiedInParams, RequireOwnership = true)]
+    private void PlayHitSoundRpc(int soundId, RpcParams rpcsend)
     {
-        if(ownerStats is playerData && NetworkData.Instance.IsAllowed((ownerStats as playerData).playerNumber, NetworkManager.LocalClientId))
+        
         AudioSource.PlayClipAtPoint(NetworkData.Instance.audioDataBase.GetItem[soundId], transform.position, SettingsManager.instance.SFXVolume);
 
     }

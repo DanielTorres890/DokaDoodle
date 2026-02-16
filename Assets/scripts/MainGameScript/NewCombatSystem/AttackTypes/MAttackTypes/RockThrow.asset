@@ -31,6 +31,7 @@ MonoBehaviour:
   chargeable: 1
   attackPrefab: {fileID: 4958144232811764369, guid: 4668d625169cc90448d3030b4cde0002, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  spawnFx: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 1, y: 1, z: 1}
   baseDamage: 10
@@ -55,10 +56,16 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
+  startUpAnimation: {fileID: 0}
   attackAnimation: {fileID: 0}
+  animationSpeed: 1
   LevelRequirements: []
   attackSound: {fileID: 0}
-  onHitSound: {fileID: 0}
+  onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
+  onHitEffects: []
+  targets:
+    serializedVersion: 2
+    m_Bits: 0
   speed: 12
   burstLifespan: 1
   burstSize: {x: 2, y: 2, z: 2}

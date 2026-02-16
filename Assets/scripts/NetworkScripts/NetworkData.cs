@@ -37,7 +37,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
     public EventBase currentEvent;
     public UnityEvent onStatusProgress;
-
+    private bool started;
     public Dictionary<Attributes, string> attributeStrings = new Dictionary<Attributes, string>
     {
         { Attributes.MaxHealth, "MaxHP" },
@@ -220,8 +220,14 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             if (!ready) { return; }
 
         }
-        PlayerClassStatsRpc();
-        SceneChanger.Instance.loadClientScenesServerRpc("PregameCutScene");
+        
+        if(!started)
+        {
+            PlayerClassStatsRpc();
+            started = true;
+            SceneChanger.Instance.loadClientScenesServerRpc("PregameCutScene");
+        }
+        
     }
     public bool IsAllowed(int playerNum, ulong playerId)
     {
@@ -319,5 +325,11 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             }
             
         }
+    }
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void AddItemToAllyRpc(int playerNum, int allyNum, int itemNum)
+    {
+        players[playerNum].partyMembers[allyNum].AddAbility(itemNum);
     }
 }

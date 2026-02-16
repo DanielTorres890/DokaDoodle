@@ -76,11 +76,12 @@ public class TileEventManager : NetworkBehaviour
     }
     private IEnumerator additionalDialogue()
     {
+        NetworkData.Instance.setNextTurnNum();
         while (dialogue.activeSelf)
         {
             yield return null;
         }
-        NetworkData.Instance.setNextTurnNum();
+        
         SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI");
     }
 

@@ -89,10 +89,11 @@ public class PlayerCombatManager : MonoBehaviour
             PlayerCombatManager.Instance.combatants.Add(enemyy);
             encounterName = enemyy.name;
         }
-        if(currentTile.tileEnemy.Count > 1)
+        if (potentialEnemies.Count > 1)
         {
             encounterName = "More than 1 guy";
         }
+
         foreach (var ally in currentTile.partyMembers)
         {
             if (ally.allyOwner != NetworkData.Instance.currentPlayer) { continue; }

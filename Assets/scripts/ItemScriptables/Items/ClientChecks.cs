@@ -43,10 +43,7 @@ public class ClientChecks : NetworkBehaviour
     {
         
         
-        if(IsHost)
-        {
-            StartCoroutine(WaitUntilAllLoaded());
-        }
+        
       
         
 
@@ -61,7 +58,15 @@ public class ClientChecks : NetworkBehaviour
 
 
     }
+    public void Start()
+    {
+       
+        if (IsHost)
+        {
 
+            StartCoroutine(WaitUntilAllLoaded());
+        }
+    }
     private void SceneStart()
     {
         

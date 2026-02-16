@@ -276,6 +276,8 @@ public class NewCombatManager : NetworkBehaviour
 
         dashCdDisplay.manager = allCombatants[whichone - 1];
         dashCdDisplay.playerMovement = allCombatants[whichone - 1].gameObject.GetComponent<CombatantMovement>();
+
+        dashCdDisplay.playerMovement.SetUp();
         dashCdDisplay.SetUp();
         
     }
@@ -846,15 +848,19 @@ public class NewCombatManager : NetworkBehaviour
         if (victor.stats is PartyMember)
         {
             PartyMember GOAT = (PartyMember)victor.stats;
-            NetworkData.Instance.players[GOAT.allyOwner].stats[Attributes.Health] = 1;
-            NetworkData.Instance.players[GOAT.allyOwner].isDead = false;
+            
+            
             foreach (var combatant in allCombatants)
             {
                 if (combatant.stats is not playerData) { continue; }
                 if ((combatant.stats as playerData).playerNumber == GOAT.allyOwner)
                 {
                     winner = combatant;
-
+                    if (NetworkData.Instance.players[GOAT.allyOwner].isDead)
+                    {
+                        NetworkData.Instance.players[GOAT.allyOwner].stats[Attributes.Health] = 1;
+                        NetworkData.Instance.players[GOAT.allyOwner].isDead = false;
+                    }
                     break;
                 }
             }
