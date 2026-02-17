@@ -59,14 +59,15 @@ public class AbilityManager : NetworkBehaviour
     }
     public override void OnNetworkSpawn()
     {
-        NewCombatManager.instance.fricku.Add(gameObject);
-        NewCombatManager.instance.allCombatants.Add(this);
+        //NEWCOMBAT MANAGER HAS TO EXIST ALREADY IT DOES NOT MAKE SENSE IF MANAGER SPAWNS THIS IN HOW COULD IT NOT ALREADY EXIST (we also already wait for everyone to load in)
         
-        TryGetComponent(out animator);
-        
+
+
+    }
+    public void Start()
+    {
         
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -324,6 +325,7 @@ public class AbilityManager : NetworkBehaviour
         if (stats.stats[Attributes.Health] <= 0 && !stats.isDead)
         {
             stats.isDead = true;
+            stats.stats[Attributes.Health] = 0;
             NewCombatManager.instance.KILL(this);
         }
         onHit.Invoke();
@@ -378,8 +380,11 @@ public class AbilityManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void UpdateStatsRpc(int combatantNum)
     {
-        
 
+        NewCombatManager.instance.fricku.Add(gameObject);
+        NewCombatManager.instance.allCombatants.Add(this);
+
+        TryGetComponent(out animator);
         stats = PlayerCombatManager.Instance.combatants[combatantNum];
         nameText.AbilityManager = this;
         hpText.AbilityManager = this;

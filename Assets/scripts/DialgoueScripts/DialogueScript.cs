@@ -32,14 +32,7 @@ public class DialogueScript : NetworkBehaviour
     {
         endEvent = new UnityEvent();
         startDialogue();
-        if(nextScene != "Fake")
-        {
-            endEvent.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc(nextScene); });
-        }
-        else
-        {
-            endEvent.AddListener(delegate { gameObject.SetActive(false); });
-        }
+        
     }
     public override void OnNetworkSpawn()
     {
@@ -50,6 +43,15 @@ public class DialogueScript : NetworkBehaviour
             gameObject.SetActive(false);
             StopAllCoroutines();
         }
+        if (nextScene != "Fake")
+        {
+            if (IsHost)
+                endEvent.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc(nextScene); });
+        }
+        else
+        {
+            endEvent.AddListener(delegate { gameObject.SetActive(false); });
+        }
     }
 
     // Update is called once per frame
@@ -59,7 +61,7 @@ public class DialogueScript : NetworkBehaviour
     public void contCutsceneServerRpc(RpcParams rpcstuff = default)
     {
 
-
+        
         if (!NetworkData.Instance.IsAllowed(whoInControl,rpcstuff.Receive.SenderClientId)) { return; }
         contCutsceneClientRpc();
     }
@@ -67,9 +69,9 @@ public class DialogueScript : NetworkBehaviour
     [ClientRpc]
     private void contCutsceneClientRpc()
     {
-
         if (textComponent.maxVisibleCharacters >= lines[index].Length - 1 - charsToIgnore)
         {
+            
             NextLine();
         }
         else
@@ -112,6 +114,7 @@ public class DialogueScript : NetworkBehaviour
 
     void NextLine()
     {
+
         if (index < lines.Count -1)
         {
             index++;
@@ -124,10 +127,9 @@ public class DialogueScript : NetworkBehaviour
         {
             
             //once again fmcl
-            if(background)
+            
             gameObject.SetActive(false);
-   
-
+;
             endEvent.Invoke();
             
         }

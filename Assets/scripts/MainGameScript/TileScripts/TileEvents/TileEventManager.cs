@@ -90,10 +90,10 @@ public class TileEventManager : NetworkBehaviour
         var options = new List<GameObject>();
         for (int i = 0; i < num; i++)
         {
-            var temp = Instantiate(button, Vector3.zero, Quaternion.identity, dialogue.transform.parent);
+            var temp = Instantiate(button, dialogue.transform.parent);
             
             options.Add(temp);
-            temp.transform.position = new Vector3(startButtonX, startButtonY - (spaceBetweenButtons * i));
+            temp.transform.localPosition = new Vector3(startButtonX, startButtonY - (spaceBetweenButtons * i));
         }
         return options;
     }

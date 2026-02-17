@@ -337,6 +337,7 @@ public class ClientChecks : NetworkBehaviour
 
         combatPreview.SetActive(true);
         yield return new WaitForSecondsRealtime(5f);
+        if(IsHost)
         SceneChanger.Instance.loadClientScenesServerRpc(PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.GetCurrentPlayer().curTileId].battleEnvironment);
 
     }

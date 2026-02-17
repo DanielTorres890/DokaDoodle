@@ -26,13 +26,18 @@ public class CombatAnimator : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void SelectCurrentAttackRpc()
     {
-        if(IsOwner)
-        //i would like to be the one to say that this is RIDICULOUS THAT ITS BASED ON THE CLIP NAME AND NOT THE STATE
 
+        //i would like to be the one to say that this is RIDICULOUS THAT ITS BASED ON THE CLIP NAME AND NOT THE STATE
+        if (!abilityManager.currentAttack)
+        {
+            Debug.Log("something weird is happening here ");
+            return;
+        }
         if (abilityManager.currentAttack.startUpAnimation)
         {
             overrideController["DefaultStartUp"] = abilityManager.currentAttack.startUpAnimation;
         }
+        
         if(abilityManager.currentAttack.attackAnimation)
         {
             
@@ -62,7 +67,7 @@ public class CombatAnimator : NetworkBehaviour
 
             }
         }
-        Debug.Log("Did i started2 ");
+        
 
         animator.runtimeAnimatorController = overrideController;
         animator.SetBool("StartUp", true);

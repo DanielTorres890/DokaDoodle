@@ -14,6 +14,7 @@ public class SceneChanger : NetworkBehaviour
     public Image fadeInOut;
     public float fadeInTime;
     public float fadeOutTime;
+    public SceneEventProgressStatus status;
     public static SceneChanger Instance { get; set; }
     private void Awake()
     {
@@ -38,11 +39,12 @@ public class SceneChanger : NetworkBehaviour
     {
         if (sceneName == "Fake") { return; }
 
+        Debug.Log("I am NOT finished loading yet ");
         LoadComplete = false;
         
         loadedPlayers = 0;
         ResetYoStuffAddRpc(sceneName);
-        var status = NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+        status = NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
         if (status != SceneEventProgressStatus.Started)
         {
             Debug.LogWarning($"Failed to load {sceneName} " +
@@ -74,6 +76,7 @@ public class SceneChanger : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+        if(IsHost)
         NetworkManager.SceneManager.OnLoadEventCompleted += OnSceneLoaded;
 
         
@@ -81,11 +84,19 @@ public class SceneChanger : NetworkBehaviour
 
     private void OnSceneLoaded(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
+        Debug.Log("I finished loading this scene " +sceneName);
+
         LoadComplete = true;
-        StartCoroutine(FadeOut());
+        status = SceneEventProgressStatus.None;
+        FadeOutRpc();
     }
 
-    
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    private void FadeOutRpc()
+    {
+        StartCoroutine(FadeOut());
+    }
 
     public bool everyoneLoaded()
     {

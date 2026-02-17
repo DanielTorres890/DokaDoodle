@@ -81,10 +81,10 @@ public class NewCombatManager : NetworkBehaviour
     {
         AudioSource = GetComponent<AudioSource>();
         Cursor.lockState = CursorLockMode.Locked;
-        if (instance != null) { return; }
-        
-
         instance = this;
+
+
+
     }
     private void Update()
     {
@@ -138,6 +138,7 @@ public class NewCombatManager : NetworkBehaviour
 
     private IEnumerator WaitForLoadIn()
     {
+        
         while (!SceneChanger.Instance.everyoneLoaded())
         {
             yield return null;
@@ -156,7 +157,7 @@ public class NewCombatManager : NetworkBehaviour
     {
         if (alreadyDone) { return; }
         alreadyDone = true;
-
+        Debug.Log("Im spawning in entities now");
         int countbcisuck = 1;
         int sideMult = -1;
 
@@ -266,6 +267,7 @@ public class NewCombatManager : NetworkBehaviour
 
 
         Debug.Log("which one did i spawn in? " + whichone);
+        Debug.Log("but but this dont make sense? " + allCombatants.Count);
         Debug.Log("okay so technically it could be that they're spawning in the wrong one? " + allCombatants[whichone - 1].stats.name);
         playerUI.abilityManager = allCombatants[whichone - 1]; //keep in mind that theres already a camera in the scene by default so its off by 1
         playerUI.SetUp();

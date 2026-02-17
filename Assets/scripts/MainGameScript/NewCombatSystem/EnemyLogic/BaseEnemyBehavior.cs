@@ -46,8 +46,14 @@ public class BaseEnemyBehavior : NetworkBehaviour
         animator.runtimeAnimatorController = overrideController;
 
 
-        myManager.onHit.AddListener(FindEnemy);
-        FindEnemy();
+        
+
+        if(IsServer)
+        {
+            myManager.onHit.AddListener(FindEnemy);
+            FindEnemy();
+        }
+        
         
 
        
