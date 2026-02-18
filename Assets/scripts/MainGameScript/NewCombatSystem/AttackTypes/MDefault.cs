@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 public class MDefault : AttackBase
 {
     public float speed;
-    
+    public int pierceCount;
     public override GameObject WeaponEffect(GameObject caster)
     {
         var attack = base.WeaponEffect(caster);
@@ -44,9 +44,8 @@ public class MDefault : AttackBase
         
 
         rigid.position += attack.transform.TransformDirection(rigid.linearVelocity) * (time - NetworkManager.Singleton.ServerTime.TimeAsFloat);
-
-        
         rigid.linearVelocity = attack.transform.TransformDirection(Vector3.forward * speed);
+
         
 
         return attack;

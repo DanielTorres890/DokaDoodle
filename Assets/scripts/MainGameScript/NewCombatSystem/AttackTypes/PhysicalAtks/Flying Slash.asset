@@ -9,17 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1b47e846fecebc48b8df7bd633dae51, type: 3}
-  m_Name: Punch
+  m_Script: {fileID: 11500000, guid: dbba4ab3dd06e7f40adc52594909bc56, type: 3}
+  m_Name: Flying Slash
   m_EditorClassIdentifier: 
-  description: You don't have a weapon so you gotta swing
-  attackName: Punch
-  startUp: 0.4
+  description: Squish someone with your imagination (because you don't know any actual
+    magic)
+  attackName: Flying Slash
+  startUp: 1
   attackDuration: 0
-  endLag: 0
-  cooldown: 0.1
-  lifespan: 0.2
-  energyDrain: 1
+  endLag: 0.1
+  cooldown: 3
+  lifespan: 5
+  energyDrain: 2
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -27,33 +28,21 @@ MonoBehaviour:
   requiredPotency: 0
   dmgPotencyEffect: 2
   sizePotencyEffect: 2
-  stateToBe: 1
-  chargeable: 0
-  attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
+  stateToBe: 0
+  chargeable: 1
+  attackPrefab: {fileID: 2566779757777240371, guid: 0cba597c824bf52449e9cb4a18927155, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   spawnFx: {fileID: 0}
-  offset: {x: -0.5, y: 2, z: 1}
-  ablitySize: {x: 2, y: 0.3, z: 6}
+  offset: {x: 0, y: 1, z: 0.5}
+  ablitySize: {x: 1, y: 0.3, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
-  baseDamage: 2
+  baseDamage: 7
   multipliers:
-  - attribute: 0
-    mult: 0
-  - attribute: 1
-    mult: 0
   - attribute: 2
-    mult: 1
-  - attribute: 3
-    mult: 0
-  - attribute: 4
-    mult: 0
-  - attribute: 5
-    mult: 0
-  - attribute: 6
-    mult: 0
+    mult: 1.5
   defenseMult:
   - attribute: 3
-    mult: 0.7
+    mult: 1
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -69,13 +58,15 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 7400000, guid: 07cf1319332625148b3ed48fac40aa50, type: 2}
-  attackAnimation: {fileID: 7400000, guid: e80fbb1f332456f4abf4cf2a144dba05, type: 2}
+  startUpAnimation: {fileID: 7400000, guid: 942a8f7bb4cb51f4fa9431799def6cc0, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 0b53b682aa49c7a42874092f15b443c4, type: 2}
   animationSpeed: 1
   LevelRequirements: []
-  attackSound: {fileID: 8300000, guid: 51465924abc41df428febd7bbcd57111, type: 3}
+  attackSound: {fileID: 8300000, guid: f8e04c0f92914e34da11e1e75e61e638, type: 3}
   onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
   onHitEffects: []
   targets:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 72
+  speed: 25
+  pierceCount: 0

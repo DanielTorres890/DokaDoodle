@@ -29,6 +29,7 @@ public class MeteorySpawner : NonDamage
             rigid.linearVelocity = new Vector3(Random.Range(-meteorInfo.directionWidth.x, meteorInfo.directionWidth.x), meteorInfo.directionWidth.y, Random.Range(-meteorInfo.directionWidth.z, meteorInfo.directionWidth.z));
 
             meteor.GetComponent<NetworkObject>().Spawn();
+            if(meteorInfo.meteorSound)
             meteor.GetComponent<AttackSoundPlayer>().PlaySoundRpc(NetworkData.Instance.audioDataBase.GetId[meteorInfo.meteorSound]);
             lifetimer = 0;
             spawnedMeteors += 1;

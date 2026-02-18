@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class CombatantHealthBar : MonoBehaviour
@@ -9,6 +10,7 @@ public class CombatantHealthBar : MonoBehaviour
     {
         myManager.onHit.AddListener(UpdateBar);
         UpdateBar();
+        
     }
 
     private void UpdateBar()

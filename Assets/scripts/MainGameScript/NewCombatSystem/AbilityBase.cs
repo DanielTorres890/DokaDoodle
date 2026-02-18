@@ -21,7 +21,7 @@ public abstract class AbilityBase : NetworkBehaviour
     public bool destroyOnWallCollide;
 
     public GameObject hitGameObject;
-    private AudioSource AudioSource;
+    public AudioSource AudioSource;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public abstract class AbilityBase : NetworkBehaviour
         TryGetComponent(out AudioSource);
        
     }
-    public void Update()
+    public virtual void Update()
     {
 
         AbilityAction();

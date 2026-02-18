@@ -46,7 +46,7 @@ public abstract class AttackBase : ScriptableObject
     public GameObject spawnFx;
     public Vector3 offset = Vector3.zero;
     public Vector3 ablitySize = Vector3.one;
-
+    public Vector3 visualRoation = Vector3.zero;
 
     [Header("Damage info")]
     public int baseDamage;

@@ -39,7 +39,7 @@ public class SceneChanger : NetworkBehaviour
     {
         if (sceneName == "Fake") { return; }
 
-        Debug.Log("I am NOT finished loading yet ");
+       
         LoadComplete = false;
         
         loadedPlayers = 0;

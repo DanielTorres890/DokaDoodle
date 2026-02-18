@@ -409,7 +409,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
                 if (mapNumber == 0 && i == 0)
                 {
-                    Debug.Log("Either i set up or im missing vital information ");
+                    
                     for (int j = 0; j < NetworkData.Instance.maxPlayers; j++)
                     {
                         MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].players.Add(j);

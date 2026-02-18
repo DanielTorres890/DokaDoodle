@@ -30,7 +30,7 @@ public class AbilityManager : NetworkBehaviour
 
     [SerializeField] private EntityUIUpdate nameText;
     [SerializeField] private EntityUIUpdate hpText;
-
+    [SerializeField] private GameObject myHealthbar;
     
     public UnityEvent onStatus;
     public UnityEvent onAttack;
@@ -60,8 +60,11 @@ public class AbilityManager : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         //NEWCOMBAT MANAGER HAS TO EXIST ALREADY IT DOES NOT MAKE SENSE IF MANAGER SPAWNS THIS IN HOW COULD IT NOT ALREADY EXIST (we also already wait for everyone to load in)
-        
 
+        NewCombatManager.instance.fricku.Add(gameObject);
+        NewCombatManager.instance.allCombatants.Add(this);
+
+        TryGetComponent(out animator);
 
     }
     public void Start()
@@ -164,7 +167,7 @@ public class AbilityManager : NetworkBehaviour
 
                 
                 PerformAttackRpc(GetCurrentAtkNum(), NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,spawnedAttack.transform.eulerAngles);
-
+                
                 stateDuration = currentAttack.attackDuration;
                 combatantstate = combatantStates.Attacking;
                 if (stateDuration <= 0) //  i'd like to point out that i COULD do a list of states to progress through, then for loop through them but i dont see any usecase for that 
@@ -381,16 +384,19 @@ public class AbilityManager : NetworkBehaviour
     public void UpdateStatsRpc(int combatantNum)
     {
 
-        NewCombatManager.instance.fricku.Add(gameObject);
-        NewCombatManager.instance.allCombatants.Add(this);
-
-        TryGetComponent(out animator);
+        
         stats = PlayerCombatManager.Instance.combatants[combatantNum];
         nameText.AbilityManager = this;
         hpText.AbilityManager = this;
         stats.PostStatusStatCalc();
         nameText.UpdateText();
         hpText.UpdateText();
+        if (myHealthbar && stats is playerData && NetworkData.Instance.IsAllowed((stats as playerData).playerNumber, NetworkManager.Singleton.LocalClientId))
+        {
+            myHealthbar.SetActive(false);
+            nameText.gameObject.SetActive(false);
+            
+        }
 
         foreach (var status in stats.statuses)
         {
