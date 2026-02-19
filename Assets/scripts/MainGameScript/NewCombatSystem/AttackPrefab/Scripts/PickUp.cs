@@ -10,16 +10,17 @@ public class PickUp : AbilityBase
     private float prewarmTimer;
 
 
-
     public GameObject burstHitbox;
     public UnityEvent onStopMove;
 
     public override void OnNetworkSpawn()
     {
-        Debug.Log("Old roation" + transform.rotation);
-        transform.rotation = Quaternion.LookRotation(GetComponent<Rigidbody>().linearVelocity.normalized);
-        Debug.Log("new rotation " + transform.rotation);
-        Debug.Log("what was my intial velocity? " + GetComponent<Rigidbody>().linearVelocity);
+        if(!IsHost) { return; }
+        Rigidbody body = GetComponent<Rigidbody>();
+        transform.rotation = Quaternion.LookRotation(body.linearVelocity.normalized);
+        transform.eulerAngles = new Vector3 (0,transform.eulerAngles.y,0);
+        base.OnNetworkSpawn();
+       
     }
     public override void Update()
     {
@@ -60,18 +61,19 @@ public class PickUp : AbilityBase
         //3 being the floor layer number
         if (other.gameObject.layer == 3)
         {
-            Debug.Log("whomst " + other.gameObject.name);
+           
             GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             onStopMove.Invoke();
         }
-        else if(prewarmDuration <= prewarmTimer)
+        else if(prewarmDuration <= prewarmTimer && other.TryGetComponent(out AbilityManager othersManager))
         {
+            if(othersManager.stats == ownerStats)
             OnHit();
         }
         
 
     }
 
-
+    
 
 }

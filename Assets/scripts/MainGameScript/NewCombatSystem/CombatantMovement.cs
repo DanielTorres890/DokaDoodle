@@ -127,6 +127,7 @@ public class CombatantMovement : NetworkBehaviour
     public void Dash()
     {
         
+        if(abilityManager.stats.isDead) {  return; }
         if (dashCdTimer < dashCd) { return; }
 
         if (abilityManager.CanMoveNotAct()) { return; }
@@ -213,6 +214,8 @@ public class CombatantMovement : NetworkBehaviour
 
     private void Move()
     {
+        if (abilityManager.stats.isDead) { return; }
+
         dashCdTimer += Time.deltaTime;
 
         

@@ -24,7 +24,7 @@ public class MeteorySpawner : NonDamage
             cash.lifespan = meteorInfo.lifespan;
             cash.chargedDuration = chargedDuration;
 
-            meteor.transform.localScale = meteorInfo.ablitySize;
+            meteor.transform.localScale = cash.attackInfo.ablitySize;
             var rigid = meteor.GetComponent<Rigidbody>();
             rigid.linearVelocity = new Vector3(Random.Range(-meteorInfo.directionWidth.x, meteorInfo.directionWidth.x), meteorInfo.directionWidth.y, Random.Range(-meteorInfo.directionWidth.z, meteorInfo.directionWidth.z));
 

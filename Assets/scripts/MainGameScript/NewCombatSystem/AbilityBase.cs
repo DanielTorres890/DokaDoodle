@@ -27,7 +27,14 @@ public abstract class AbilityBase : NetworkBehaviour
     {
         lifetimer = 0f;
         TryGetComponent(out AudioSource);
+        
        
+    }
+    public override void OnNetworkSpawn()
+    {
+        if(!IsServer) { return; }
+        NewCombatManager.instance.onCombatEnd.AddListener(delegate { Destroy(gameObject); });
+
     }
     public virtual void Update()
     {

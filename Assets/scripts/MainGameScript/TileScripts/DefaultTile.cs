@@ -23,9 +23,13 @@ public class DefaultTile : TileScript
         {
             if(enemy.allyOwner == NetworkData.Instance.GetCurrentPlayer().playerNumber) { enemyAlly = true; break;}
         }
+        bool enemyPlayer = false;
+        foreach( var enemy in currentTile.players)
+        {
+            if(enemy != NetworkData.Instance.currentPlayer) { enemyPlayer = true; break;}
+        }
         
-        
-        if (Random.Range(1,11) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly)  
+        if (Random.Range(1,11) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly && !enemyPlayer)  
         {
             int eventToSet = Random.Range(0,events.Length);
             ClientChecks.Instance.SyncEventRpc(eventToSet);
