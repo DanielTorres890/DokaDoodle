@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Weapon Object", menuName = "Inventory System/Items/Weapon")]
 public class WeaponItem : ItemBase
 {
-    public AttackBase attack;
+    public AttackBase[] attack;
     public List<ItemBuff> skillRequirements;
     public override void ItemInfoCheck(int player, int itemId)
     {

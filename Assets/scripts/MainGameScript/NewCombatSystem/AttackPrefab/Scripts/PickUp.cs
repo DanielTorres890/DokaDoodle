@@ -29,9 +29,12 @@ public class PickUp : AbilityBase
     }
     public override void OnHit()
     {
+        foreach(var status in attackInfo.onHitEffects)
+        {
+            ownerStats.GainStatus(status);
+        }
         var burst = Instantiate(burstHitbox);
-        burst.transform.position = owner.transform.position;
-        burst.transform.rotation = owner.transform.rotation;
+        burst.transform.SetPositionAndRotation(owner.transform.position, owner.transform.rotation);
         var cash = burst.GetComponent<AbilityBase>();
         var burstattack = (attackInfo as BurstAtk);
         cash.owner = owner;

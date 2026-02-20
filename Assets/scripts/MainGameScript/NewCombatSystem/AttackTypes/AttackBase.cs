@@ -154,6 +154,10 @@ public abstract class AttackBase : ScriptableObject
         }
         return true;
     }
+    public virtual bool AdditionalCondition(AbilityManager user)
+    {
+        return true;
+    }
 }
 
 [System.Serializable]

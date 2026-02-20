@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -92,18 +93,26 @@ public class PartyMember : EntityStats
         {
             var thisWeapon = NetworkData.Instance.playerInventories[0][1].database.GetItem[weaponsInventory[i]] as WeaponItem;
 
-            if (this.attacks.Contains(thisWeapon.attack)) { continue; }
+            foreach(var attack in thisWeapon.attack)
+            {
+                if (this.attacks.Contains(attack)) { continue; }
+                this.attacks.Add(attack);
+            }
+            
+            
 
 
-            this.attacks.Add(thisWeapon.attack);
+            
         }
         for (int i = 0; i < magicInventory.Count; i++)
         {
             var thisWeapon = NetworkData.Instance.playerInventories[0][2].database.GetItem[magicInventory[i]] as WeaponItem;
-         
-            if (this.attacks.Contains(thisWeapon.attack)) { continue; }
-            this.attacks.Add(thisWeapon.attack);
 
+            foreach (var attack in thisWeapon.attack)
+            {
+                if (this.attacks.Contains(attack)) { continue; }
+                this.attacks.Add(attack);
+            }
         }
 
         this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[allyClass].combatAbility);

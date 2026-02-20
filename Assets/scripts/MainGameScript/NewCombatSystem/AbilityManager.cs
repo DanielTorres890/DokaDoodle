@@ -132,7 +132,7 @@ public class AbilityManager : NetworkBehaviour
         foreach (var atk in  stateManager.Keys) 
         {
             stateManager[atk].cooldown -= Time.deltaTime;
-            if (stateManager[atk].pressed && combatantstate == combatantStates.Free && stateManager[atk].cooldown <= 0)
+            if (stateManager[atk].pressed && combatantstate == combatantStates.Free && stateManager[atk].cooldown <= 0 && atk.AdditionalCondition(this))
             {
                
                 currentAttack = atk;

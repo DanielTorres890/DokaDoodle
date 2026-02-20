@@ -1,3 +1,4 @@
+using System.Linq;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -52,7 +53,7 @@ public class CombatAnimator : NetworkBehaviour
         {
             var weapon = (NetworkData.Instance.playerInventories[playerInfo.playerNumber][1].container[i].item as WeaponItem);
             if(weapon.itemSprite == null) { continue; }
-            if (abilityManager.currentAttack == weapon.attack)
+            if (weapon.attack.Contains(abilityManager.currentAttack))
             {
                 if(weapon.type == ItemType.Weapon)
                 {

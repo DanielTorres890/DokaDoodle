@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -101,21 +102,31 @@ public class playerData : EntityStats
             var thisWeapon = NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem;
 
             if (!UsableItem(thisWeapon)) { continue; }
-            if (!thisWeapon.attack.meetsRequirement(this)) { continue; }
 
-            if (this.attacks.Contains(thisWeapon.attack)) { continue; }
+            foreach (var attack in thisWeapon.attack)
+            {
+                if (!attack.meetsRequirement(this)) { continue; }
 
-           
-            this.attacks.Add(thisWeapon.attack);
+                if (this.attacks.Contains(attack)) { continue; }
+
+
+                this.attacks.Add(attack);
+            }
+            
         }
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][2].container.Count; i++)
         {
             var thisWeapon = NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem;
-            if (!UsableItem(thisWeapon)) { continue; }
+            foreach(var attack in thisWeapon.attack)
+            {
+                if (!attack.meetsRequirement(this)) { continue; }
 
-            if (this.attacks.Contains(thisWeapon.attack)) { continue; }
-            this.attacks.Add(thisWeapon.attack);
-            
+                if (this.attacks.Contains(attack)) { continue; }
+
+
+                this.attacks.Add(attack);
+            }
+
         }
 
         this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[playerClass].combatAbility);

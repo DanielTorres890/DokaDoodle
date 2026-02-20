@@ -5,6 +5,7 @@ public abstract class BuffBase : ScriptableObject
 {
     public int duration;
     public bool combatOnly = false;
+    public bool stackable = false;
     public GameObject buffFx;
     public virtual void OnApply(EntityStats stats)
     {

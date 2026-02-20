@@ -81,7 +81,7 @@ public class EntityStats
         bool alreadyAfflicted = false;
         foreach (var stati in statuses)
         {
-            if(stati.buffId == NetworkData.Instance.buffDataBase.GetId[status])
+            if(stati.buffId == NetworkData.Instance.buffDataBase.GetId[status] && !status.stackable)
             {
                 stati.timeRemaining += status.duration;
                 alreadyAfflicted = true;
