@@ -16,8 +16,8 @@ MonoBehaviour:
   attackName: 20  Sword Throw
   startUp: 1
   attackDuration: 0
-  endLag: 0
-  cooldown: 3
+  endLag: 0.2
+  cooldown: 30
   lifespan: 200
   energyDrain: 1
   maxChargeAtkBuff: 1.2
@@ -40,8 +40,8 @@ MonoBehaviour:
   - attribute: 2
     mult: 2
   defenseMult:
-  - attribute: 5
-    mult: 0.7
+  - attribute: 3
+    mult: 1.2
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -57,8 +57,8 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 7400000, guid: e1550bb209db8cc419b7d05dab48b284, type: 2}
-  attackAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+  startUpAnimation: {fileID: 7400000, guid: a5cbfc290443c0b468bcfa8ca7d38954, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 9b91fc5cf3571324c99b8ce125de5d8b, type: 2}
   animationSpeed: 1
   LevelRequirements: []
   attackSound: {fileID: 0}
