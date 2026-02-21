@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf0310d679029a7458e40fb35d89b149, type: 3}
-  m_Name: 20 Sword Throw
-  m_EditorClassIdentifier: Assembly-CSharp::MeteorShower
-  description: WOOOOOSSHH
-  attackName: 20  Sword Throw
+  m_Script: {fileID: 11500000, guid: dbba4ab3dd06e7f40adc52594909bc56, type: 3}
+  m_Name: ISSThrownSword
+  m_EditorClassIdentifier: 
+  description: Throw swrod
+  attackName: Sword Throw
   startUp: 1
   attackDuration: 0
-  endLag: 0.2
-  cooldown: 30
-  lifespan: 200
-  energyDrain: 1
+  endLag: 0.1
+  cooldown: 3
+  lifespan: 25
+  energyDrain: 2
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -29,19 +29,19 @@ MonoBehaviour:
   sizePotencyEffect: 2
   stateToBe: 0
   chargeable: 1
-  attackPrefab: {fileID: 2566779757777240371, guid: bea8b2ee432e61c4f8291893153acdb1, type: 3}
+  attackPrefab: {fileID: 4958144232811764369, guid: e7c744e417058154fb22baa33e057d1e, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   spawnFx: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
-  ablitySize: {x: 8, y: 0.25, z: 15}
+  offset: {x: 0, y: 0, z: 0.5}
+  ablitySize: {x: 1, y: 1, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
-  baseDamage: 10
+  baseDamage: 7
   multipliers:
   - attribute: 2
     mult: 2
   defenseMult:
-  - attribute: 3
-    mult: 1.2
+  - attribute: 5
+    mult: 1
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -62,15 +62,11 @@ MonoBehaviour:
   animationSpeed: 1
   LevelRequirements: []
   attackSound: {fileID: 0}
-  onHitSound: {fileID: 0}
+  onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
   onHitEffects: []
   targets:
     serializedVersion: 2
-    m_Bits: 0
-  meteorCount: 20
-  meteor: {fileID: 4958144232811764369, guid: b2ffd07f9d4061d4c966b6b0f7f71e76, type: 3}
-  interval: 0
-  meteorInfo: {fileID: 11400000, guid: 7af9f574cc3a1e7419169621c42a1d0e, type: 2}
-  meteorOffset: {x: 0, y: 0, z: 0}
-  directionWidth: {x: 8, y: 20, z: 8}
-  meteorSound: {fileID: 0}
+    m_Bits: 72
+  conditions: []
+  speed: 30
+  pierceCount: 5

@@ -14,34 +14,7 @@ public class StunDebuff : BuffBase
     {
         //means we're in combat
         base.OnApply(stats);
-        if(NewCombatManager.instance)
-        {
-            foreach (var combatant in NewCombatManager.instance.allCombatants)
-            {
-                if (combatant.stats == stats)
-                {
-                    combatant.combatantstate = combatantStates.Endlag;
-                    combatant.stateDuration = 999;
-                    if (!buffFx) { return; }
-                    
-                    var fx = Instantiate(buffFx,combatant.transform);
-                    combatant.onStatus.AddListener(delegate
-                    {
-                        foreach(var status in stats.statuses)
-                        {
-                            if (NetworkData.Instance.buffDataBase.GetItem[status.buffId] == this)
-                            {
-                                return;
-                            }
-                        }
-
-
-                        Destroy(fx);
-                    });
-
-                }
-            }
-        }
+        
     }
 
     public override void OnRemove(EntityStats stats)

@@ -12,7 +12,7 @@ public class PickUp : AbilityBase
 
     public GameObject burstHitbox;
     public UnityEvent onStopMove;
-
+    public int pickupLimit = 3;
     public override void OnNetworkSpawn()
     {
         if(!IsHost) { return; }
@@ -29,25 +29,24 @@ public class PickUp : AbilityBase
     }
     public override void OnHit()
     {
+        int totalStatuses = 0;
+        foreach(var status in ownerStats.statuses)
+        {
+            if (status.buffId == NetworkData.Instance.buffDataBase.GetId[attackInfo.onHitEffects[0]])
+            {
+                totalStatuses++;
+            }
+        }
+        if(totalStatuses >= pickupLimit) { return; }
+
+        int[] onHitIds = new int[attackInfo.onHitEffects.Length];
+        int counter = 0;
         foreach(var status in attackInfo.onHitEffects)
         {
-            ownerStats.GainStatus(status);
+            onHitIds[counter] = NetworkData.Instance.buffDataBase.GetId[status];
+            
         }
-        var burst = Instantiate(burstHitbox);
-        burst.transform.SetPositionAndRotation(owner.transform.position, owner.transform.rotation);
-        var cash = burst.GetComponent<AbilityBase>();
-        var burstattack = (attackInfo as BurstAtk);
-        cash.owner = owner;
-        cash.ownerStats = ownerStats;
-        cash.attackInfo = attackInfo;
-        cash.lifespan = burstattack.burstLifespan;
-        burst.transform.position += burstattack.offset;
-
-        burst.transform.localScale = burstattack.burstSize;
-        cash.hitGameObject = hitGameObject;
-        burst.GetComponent<NetworkObject>().Spawn();
-
-
+        owner.GetComponent<AbilityManager>().IGainedBuffRpc(onHitIds);
         base.OnHit();
     }
     public override void OnTriggerEnter(Collider other)

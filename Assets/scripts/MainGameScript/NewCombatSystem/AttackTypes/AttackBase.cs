@@ -67,8 +67,8 @@ public abstract class AttackBase : ScriptableObject
     public BuffBase[] onHitEffects; //im not really a fan of this one i'll be honest but it makes the most sense in my brain
     //^ Saves me the annoyance of setting them everytime i create a scriptable
     public LayerMask targets;
-
-    
+   
+   public AttackCondition[] conditions; 
     public virtual GameObject WeaponEffect(GameObject caster)
     {
        
@@ -154,10 +154,7 @@ public abstract class AttackBase : ScriptableObject
         }
         return true;
     }
-    public virtual bool AdditionalCondition(AbilityManager user)
-    {
-        return true;
-    }
+    
 }
 
 [System.Serializable]

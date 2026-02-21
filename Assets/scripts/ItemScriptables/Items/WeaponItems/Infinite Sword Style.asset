@@ -10,24 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
-  m_Name: 20 Sword Case
+  m_Name: Infinite Sword Style
   m_EditorClassIdentifier: 
   itemSprite: {fileID: -3166058781739055145, guid: 1e834e05bdb73514682dab921ed10df7, type: 3}
   type: 2
   itemValue: 1000
-  description: 'Throws 20 Swords into the air landing across the battle field. Pick
-    up swords to perform an instant slash
+  description: 'Throws countless into the air landing across the battle field. Pick
+    up swords to make follow up attacks usable. Can throw the swords or perform melee
+    slashes. All swords get used upon using any of the follow up attacks
 
-    Requires: 7 ATK, 7 DEX'
+    Requires:
+    7 ATK, 7 DEX
+
+    One.... Two... Three.... Four....'
   useText: Weapon Equipped
-  itemName: 20 Sword Case
+  itemName: Infinite Sword Style
   buffs:
   - attribute: 2
     value: 10
   attack:
+  - {fileID: 11400000, guid: b11bc6159b408d746b5bcc506c2bc238, type: 2}
+  - {fileID: 11400000, guid: 4d8a60e280cba2b45b07f859ed43c15c, type: 2}
   - {fileID: 11400000, guid: aa9d2ecf097a34b469fce761d9a2e87b, type: 2}
   skillRequirements:
   - attribute: 2
-    value: 7
+    value: 0
   - attribute: 6
-    value: 7
+    value: 0

@@ -9,13 +9,14 @@ public class AbilityDisplay : MonoBehaviour
     public TextMeshProUGUI useKeyText;
     public AttackBase attack;
     public AbilityManager abilityManager;
-
+    public GameObject conditionGreyBox;
 
     public void SetUp() 
     {
         abilityName.text = attack.attackName;
         abilityCooldown.text = Mathf.RoundToInt(abilityManager.stateManager[attack].cooldown).ToString();
-    
+        DisplayConditional();
+        abilityManager.onStatus.AddListener(DisplayConditional);
     }
     // Update is called once per frame
     void Update()
@@ -31,5 +32,16 @@ public class AbilityDisplay : MonoBehaviour
         abilityCooldown.text = Mathf.RoundToInt(abilityManager.stateManager[attack].cooldown).ToString();
 
         
+    }
+    
+    private void DisplayConditional()
+    {
+        bool conditionMet = true;
+        foreach(var condition in attack.conditions)
+        {
+            
+            if(!condition.Condition(abilityManager)) { conditionMet = false; break; }
+        }
+        conditionGreyBox.SetActive(!conditionMet);
     }
 }

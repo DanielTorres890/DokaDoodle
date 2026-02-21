@@ -132,7 +132,9 @@ public class AbilityManager : NetworkBehaviour
         foreach (var atk in  stateManager.Keys) 
         {
             stateManager[atk].cooldown -= Time.deltaTime;
-            if (stateManager[atk].pressed && combatantstate == combatantStates.Free && stateManager[atk].cooldown <= 0 && atk.AdditionalCondition(this))
+            bool meetsConditions = CheckCondition(atk);
+            
+            if (stateManager[atk].pressed && combatantstate == combatantStates.Free && stateManager[atk].cooldown <= 0 && meetsConditions)
             {
                
                 currentAttack = atk;
@@ -346,6 +348,13 @@ public class AbilityManager : NetworkBehaviour
         stats.PostStatusStatCalc();
         onStatus.Invoke();
     }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void ILostBuffRpc(int buffId)
+    {
+        Debug.Log("Did i lose a buff");
+        stats.RemoveStatus(buffId);
+        onStatus.Invoke();
+    }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void UpdateMaterialRpc(int playerNum)
@@ -506,6 +515,15 @@ public class AbilityManager : NetworkBehaviour
     {
         if (animator)
             animator.SetBool("Walking", false);
+    }
+    private bool CheckCondition(AttackBase attack)
+    {
+        bool condition = true;
+        foreach(var conditions  in attack.conditions)
+        {
+            condition = conditions.Condition(this);
+        }
+        return condition;
     }
 
 }

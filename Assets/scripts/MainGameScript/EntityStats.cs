@@ -112,6 +112,19 @@ public class EntityStats
         PostStatusStatCalc();
     }
 
+    public void RemoveStatus(int statusId)
+    {
+        for (int i = statuses.Count - 1; i >= 0; i--)
+        {
+            if (statuses[i].buffId == statusId)
+            {
+                NetworkData.Instance.buffDataBase.GetItem[statuses[i].buffId].OnRemove(this);
+                statuses.RemoveAt(i);
+                PostStatusStatCalc();
+                break;
+            }
+        }
+    }
     public void PostStatusStatCalc()
     {
         Dictionary<Attributes, float> StatusMultipliers = new Dictionary<Attributes, float>

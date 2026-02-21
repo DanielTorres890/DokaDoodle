@@ -9,7 +9,7 @@ public class MeteorShower : AttackBase
     public GameObject meteor;
     [Tooltip("The time between each meteor spawn")]
     public float interval;
-    public BurstAtk meteorInfo;
+    public AttackBase meteorInfo;
     //id like to say that im not a huge fan of the fact i have to do this but it isss what it isss
 
     [Tooltip("how far of a starting offset they should have from the player")]
