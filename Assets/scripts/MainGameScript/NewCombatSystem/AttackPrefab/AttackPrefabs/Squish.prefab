@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkTransformExpanded: 0
-  AuthorityMode: 0
+  AuthorityMode: 1
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
   SyncPositionX: 1
@@ -242,6 +242,8 @@ MonoBehaviour:
   chargedDuration: 0
   destroyOnWallCollide: 1
   hitGameObject: {fileID: 6234742567996364231, guid: 37d78b3a10356db439c86b46fe172b92, type: 3}
+  AudioSource: {fileID: 0}
+  stickInOpponent: 0
 --- !u!198 &-304944850639772182
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -325,7 +327,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -496,7 +498,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.25
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1527,7 +1529,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 0.4575472, b: 0.9928935, a: 1}
-        key1: {r: 1, g: 0, b: 0.92073154, a: 0.8117647}
+        key1: {r: 1, g: 0, b: 0.92073154, a: 0.24313726}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}

@@ -52,18 +52,32 @@ public class CombatAnimator : NetworkBehaviour
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerInfo.playerNumber][1].container.Count; i++)
         {
             var weapon = (NetworkData.Instance.playerInventories[playerInfo.playerNumber][1].container[i].item as WeaponItem);
-            if(weapon.itemSprite == null) { continue; }
+            
             if (weapon.attack.Contains(abilityManager.currentAttack))
             {
-                if(weapon.type == ItemType.Weapon)
+                if (weapon.itemSprite == null) 
+                {
+                    weaponSprite.gameObject.SetActive(false);
+                    shieldSprite.gameObject.SetActive(false);
+                    break; 
+                }
+                if (weapon.type == ItemType.Weapon)
                 {
                     weaponSprite.gameObject.SetActive(true);
                     weaponSprite.sprite = weapon.itemSprite;
+                    shieldSprite.gameObject.SetActive(false);
                 }
-                if (weapon.type == ItemType.Shield) 
+                else if (weapon.type == ItemType.Shield) 
                 {
                     shieldSprite.gameObject.SetActive(true);
                     shieldSprite.sprite = weapon.itemSprite;
+                    weaponSprite.gameObject.SetActive(false);
+                }
+                else
+                {
+                    weaponSprite.gameObject.SetActive(false);
+                    shieldSprite.gameObject.SetActive(false);
+
                 }
 
             }

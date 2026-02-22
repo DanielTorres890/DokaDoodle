@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public abstract class AbilityBase : NetworkBehaviour
@@ -23,6 +23,8 @@ public abstract class AbilityBase : NetworkBehaviour
     public GameObject hitGameObject;
     public AudioSource AudioSource;
 
+    public bool stickInOpponent = false;
+    private bool weaponsHot = true; //whether its still an active hitbox
     private void Awake()
     {
         lifetimer = 0f;
@@ -51,7 +53,9 @@ public abstract class AbilityBase : NetworkBehaviour
             fx.transform.position = transform.position;
             fx.GetComponent<NetworkObject>().Spawn();
         }
-        Destroy(gameObject);
+        if(!stickInOpponent) { Destroy(gameObject); }
+        
+        
     }
     public int DamageCalculator(EntityStats defender)
     {
@@ -79,7 +83,7 @@ public abstract class AbilityBase : NetworkBehaviour
     {
         
         if(!IsServer || other.gameObject == owner) { return; }
-
+        if(!weaponsHot) { return; }
 
         bool isEntity = false;
         
@@ -115,6 +119,18 @@ public abstract class AbilityBase : NetworkBehaviour
         }
         if(isEntity || destroyOnWallCollide)
         {
+            if(stickInOpponent)
+            {
+                StartCoroutine(delay());
+                NetworkObject networkedPart = GetComponent<NetworkObject>();
+                networkedPart.TrySetParent(other.transform);
+                
+                if(networkedPart.TryGetComponent(out NetworkTransform component))
+                {
+                    component.enabled = false;
+                }
+                weaponsHot = false;
+            }
             OnHit();
         }
         
@@ -137,6 +153,12 @@ public abstract class AbilityBase : NetworkBehaviour
 
         }
         lifetimer += Time.deltaTime;
+    }
+
+    private IEnumerator delay()
+    {
+        yield return new WaitForSeconds(.15f);
+        GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
     }
 }
 public enum AttackTypes

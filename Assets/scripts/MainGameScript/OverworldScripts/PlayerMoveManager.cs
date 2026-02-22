@@ -37,7 +37,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
     int diceRoll = 0;
 
-    [SerializeField] private float cameraSpeed = 5f;
+ 
     [SerializeField] private float moveSpeed = 500f;
     [SerializeField] private float autoMoveTime = 0.2f;
     [SerializeField] private float autoMoveSpeed = 0.2f;

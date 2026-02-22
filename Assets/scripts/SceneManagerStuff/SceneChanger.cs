@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class SceneChanger : NetworkBehaviour
 {
    
-    [SerializeField]private int loadedPlayers = 0;
+ 
     private bool LoadComplete;
     public Image fadeInOut;
     public float fadeInTime;
@@ -29,7 +29,7 @@ public class SceneChanger : NetworkBehaviour
         
         if (sceneName == "Fake") { return;  }
         LoadComplete = false;
-        loadedPlayers = 0;
+        
         ResetYoStuffRpc(sceneName);
         
         
@@ -42,7 +42,7 @@ public class SceneChanger : NetworkBehaviour
        
         LoadComplete = false;
         
-        loadedPlayers = 0;
+ 
         ResetYoStuffAddRpc(sceneName);
         status = NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
         if (status != SceneEventProgressStatus.Started)
@@ -62,14 +62,14 @@ public class SceneChanger : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void ResetYoStuffRpc(string scenename)
     {
-        loadedPlayers = 0;
+      
         StartCoroutine(FadeIn(scenename, LoadSceneMode.Single));
     }
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     private void ResetYoStuffAddRpc(string scenename)
     {
-        loadedPlayers = 0;
+
         
     }
 
