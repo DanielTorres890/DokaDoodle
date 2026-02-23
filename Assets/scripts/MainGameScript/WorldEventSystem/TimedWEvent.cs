@@ -7,12 +7,12 @@ public class TimedWEvent : WorldEventBase
 
     public override void OnActivate()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void OnDeactivate()
     {
-        throw new System.NotImplementedException();
+        base.OnDeactivate();
     }
     public override bool Condition(int turns)
     {

@@ -6,6 +6,6 @@ public class CutSceneInfo : ScriptableObject
 {
     public List<string> dialogue;
     public GameObject cutsceneBackground;
-
+    public AudioClip backgroundMusic;
 
 }

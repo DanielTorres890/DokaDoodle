@@ -1659,8 +1659,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000054836, y: -10.6}
-  m_SizeDelta: {x: 256, y: 256}
+  m_AnchoredPosition: {x: -2.9523, y: -17.8523}
+  m_SizeDelta: {x: 213.7154, y: 213.7168}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &444627344
 MonoBehaviour:
@@ -1676,7 +1676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4624,7 +4624,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1247134815}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -6}
+  m_LocalPosition: {x: 0, y: 0, z: -1.08}
   m_LocalScale: {x: 0.024, y: 0.024, z: 2.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4632,7 +4632,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.48, y: 5.19}
+  m_AnchoredPosition: {x: -0.48, y: 5.36}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1247134817
@@ -4713,8 +4713,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 3.28
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -5662,7 +5662,6 @@ MonoBehaviour:
   startButtonY: 500
   startButtonX: 960
   soundSource: {fileID: 0}
-  inScene: 0
 --- !u!114 &1619822624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7354,6 +7353,10 @@ PrefabInstance:
       value: 781689269
       objectReference: {fileID: 0}
     - target: {fileID: 4595340592278050600, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -2329293543622039964, guid: 22718e89c7f16804594437468273926a, type: 3}
+    - target: {fileID: 4595340592278050600, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_SortingLayer
       value: 1
       objectReference: {fileID: 0}
@@ -7385,6 +7388,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.631
       objectReference: {fileID: 0}
+    - target: {fileID: 6540103307456405240, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -684638263742731653, guid: 2c162c80e11be12489d849b5bf72c3af, type: 3}
     - target: {fileID: 6540103307456405240, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_SortingLayer
       value: 1

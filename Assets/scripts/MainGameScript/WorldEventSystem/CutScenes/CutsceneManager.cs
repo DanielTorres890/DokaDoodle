@@ -18,7 +18,9 @@ public class CutsceneManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
     public void BeginCutsceneRPC()
     {
-        
+        if(WorldEventManager.Instance.currentCutscene.backgroundMusic)
+        SFXManager.Instance.PlaySFX(WorldEventManager.Instance.currentCutscene.backgroundMusic);
+
         dialogueBox.whoInControl = NetworkData.Instance.currentPlayer;
         Instantiate(WorldEventManager.Instance.currentCutscene.cutsceneBackground);
         dialogueBox.lines = new List<string>(WorldEventManager.Instance.currentCutscene.dialogue);

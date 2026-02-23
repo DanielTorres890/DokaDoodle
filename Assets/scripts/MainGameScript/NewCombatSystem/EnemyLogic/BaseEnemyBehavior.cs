@@ -111,6 +111,8 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
         
         if (targetManager == null) { return; }
+
+
         InAttackRange = InRange();
 
         if (!InAttackRange) { ChasePlayer();  }
@@ -132,6 +134,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     public virtual void ChasePlayer()
     {
         
+        if(!myManager.CanMove()) { return; }
 
         if (myManager.combatantstate == combatantStates.Free ||  myManager.combatantstate == combatantStates.StartUpFree)
 

@@ -21,7 +21,7 @@ public class StatBuffEvent : EventBase
         string textToAdd = "You Gained ";
         if (buffs.Length > 0)
         {
-            Debug.Log("SHOULD GAINS STATS?");
+           
             foreach (ItemBuff buff in buffs)
             {
                 NetworkData.Instance.players[NetworkData.Instance.currentPlayer].stats[buff.attribute] += buff.value;
