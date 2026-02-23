@@ -3926,8 +3926,9 @@ MonoBehaviour:
   turns: 0
   days: 0
   weeks: 0
-  daysPerWeek: 2
+  daysPerWeek: 5
   firstTime: 0
+  currentCutscene: {fileID: 0}
   roundStartClip: {fileID: 8300000, guid: 5e105de3c6d04c742ae5a856b1a87348, type: 3}
 --- !u!4 &536058873
 Transform:
@@ -10021,7 +10022,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  loadedPlayers: 0
   fadeInOut: {fileID: 428200348}
   fadeInTime: 0.75
   fadeOutTime: 0.75
@@ -10868,7 +10868,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PresetAsset: {fileID: 0}
   m_PresetReference:
-    rid: 4924240381605576809
+    rid: 3278594665427763200
   m_Scenario:
     rid: -2
   m_IsScenarioSettingsFolded: 0
@@ -10878,7 +10878,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 4924240381605576809
+    - rid: 3278594665427763200
       type: {class: NetworkSimulatorPreset, ns: Unity.Multiplayer.Tools.NetworkSimulator.Runtime, asm: Unity.Multiplayer.Tools.NetworkSimulator.Runtime}
       data:
         <Name>k__BackingField: Home Broadband with Congested Network

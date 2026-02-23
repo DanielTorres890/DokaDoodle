@@ -17,15 +17,15 @@ public abstract class BuffBase : ScriptableObject
             var player = NetworkData.Instance.players[i];
             if(player != stats) { continue; }
             var fx = Instantiate(buffFx, NetworkData.Instance.playerSticks[i].transform);
-            Debug.Log("I assigned ");
+           
             player.onStatusProgress.AddListener(delegate
             {
-                Debug.Log("I checked ");
+                
 
                 if (!buffFx) { return; }
                 if (stats is not playerData) { return; }
 
-                Debug.Log("I'm passed the boilers");
+               
 
                 foreach(var status in player.statuses)
                 {
@@ -34,7 +34,7 @@ public abstract class BuffBase : ScriptableObject
                         return;
                     }
                 }
-                Debug.Log("I made it past this? ");
+               
                 Destroy(fx);
                 
             });
@@ -73,8 +73,8 @@ public abstract class BuffBase : ScriptableObject
 
     public virtual void OnRemove(EntityStats stats)
     {
-        
 
+      
     }
     public abstract void BuffEffect(EntityStats whoWon);
 

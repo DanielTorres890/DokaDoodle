@@ -43,6 +43,6 @@ public class MonsterEvent : WorldEventBase
                 player.playerInfo[PlayerInfo.fame] += fameToAward;
             }
         }
-
+        base.OnDeactivate();
     }
 }

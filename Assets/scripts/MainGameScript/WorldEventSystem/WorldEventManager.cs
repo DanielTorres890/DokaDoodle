@@ -8,6 +8,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 {
     public WorldEventDataBase worldDatabase;
 
+
     public WorldAndWeight[] randomEvents;
     public WorldEventBase[] questEvents;
 
@@ -28,7 +29,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     public int daysPerWeek;
     public bool firstTime = false; //im a bum so im sticking duct tape to fix this
 
-
+    public CutSceneInfo currentCutscene;
     public AudioClip roundStartClip;
     private void Awake()
     {
@@ -149,6 +150,15 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
         ClientChecks.Instance.TurnStartChecks();
     }
+
+
+
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void SyncCutsceneRpc(int eventId)
+    {
+        currentCutscene = worldDatabase.GetItem[eventId].cutscene;
+        if(IsHost) { SceneChanger.Instance.loadClientScenesServerRpc("Cutscene Scene"); }
+    }
     private bool AlreadyActive(WorldEventBase eventToCheck)
     {
         
@@ -171,6 +181,8 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
     }
 
+
+
     public void LoadData(GameData data)
     {
         activeWorldEvents = data.worldEvents;
@@ -181,6 +193,8 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
         data.worldEvents = activeWorldEvents;
 
     }
+
+
 }
 [System.Serializable]
 public class WorldAndWeight

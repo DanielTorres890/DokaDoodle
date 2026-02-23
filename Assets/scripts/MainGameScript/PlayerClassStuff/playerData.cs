@@ -26,7 +26,7 @@ public class playerData : EntityStats
     {
         {PlayerInfo.xp, 0 },
         {PlayerInfo.level, 1 },
-        {PlayerInfo.money, 1000 },
+        {PlayerInfo.money, 1500 },
         {PlayerInfo.fame, 0 },
         {PlayerInfo.classCd, 0 },
 

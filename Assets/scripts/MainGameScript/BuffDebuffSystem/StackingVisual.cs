@@ -16,47 +16,7 @@ public class StackingVisual : BuffBase
         if (stats is not playerData) { return; }
 
         float offset = 1.5f;
-        for (int i = 0; i < NetworkData.Instance.players.Count; i++)
-        {
-            var player = NetworkData.Instance.players[i];
-            if (player != stats) { continue; }
-
-
-            var fx = Instantiate(buffFx, NetworkData.Instance.playerSticks[i].transform);
-
-            int existingStatuses = -2;
-            for (int j = 0; j < player.statuses.Count; j++)
-            {
-                if (player.statuses[j].buffId == NetworkData.Instance.buffDataBase.GetId[this])
-                {
-                    existingStatuses++;
-                }
-            }
-            
-            fx.transform.localPosition += Vector3.down * offset;
-            fx.transform.localEulerAngles += new Vector3(0, 0, -45 * existingStatuses);
-            player.onStatusProgress.AddListener(delegate
-            {
-                Debug.Log("I checked ");
-
-                if (!buffFx) { return; }
-                if (stats is not playerData) { return; }
-
-                Debug.Log("I'm passed the boilers");
-
-                foreach (var status in player.statuses)
-                {
-                    if (status.buffId == NetworkData.Instance.buffDataBase.GetId[this])
-                    {
-                        return;
-                    }
-                }
-                Debug.Log("I made it past this? ");
-                Destroy(fx);
-
-            });
-            break;
-        }
+        
         if (NewCombatManager.instance)
         {
             foreach (var combatant in NewCombatManager.instance.allCombatants)

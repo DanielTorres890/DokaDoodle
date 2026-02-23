@@ -449,45 +449,55 @@ public class ClientChecks : NetworkBehaviour
         displayText.lines.Add(WorldEventManager.Instance.eventsToActivate[0].ActivateText);
         worldEventImage.sprite = WorldEventManager.Instance.eventsToActivate[0].eventDisplay;
         worldEventImage.gameObject.SetActive(true);
-        WorldEventManager.Instance.eventsToActivate[0].OnActivate();
+        
         displayText.gameObject.SetActive(true);
         displayText.whoInControl = NetworkData.Instance.currentPlayer;
         WorldEventManager.Instance.activeWorldEvents.Add(new WorldEventWrapper(WorldEventManager.Instance.worldDatabase.GetId[WorldEventManager.Instance.eventsToActivate[0]]));
         displayText.Awake();
+
+        WorldEventManager.Instance.eventsToActivate[0].OnActivate();
+        WorldEventManager.Instance.eventsToActivate.RemoveAt(0);
         while (displayText.gameObject.activeSelf)
         {
             yield return null;
         }
         worldEventImage.gameObject.SetActive(false);
-        WorldEventManager.Instance.eventsToActivate.RemoveAt(0);
+        
         if (WorldEventManager.Instance.eventsToActivate.Count > 0) { StartCoroutine(displayActivateEvent()); }
 
         else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0 ) {  StartCoroutine(displayDeactivateEvent()); }
 
         else { TurnStartChecks(); }
     }
+
     private IEnumerator displayDeactivateEvent()
     {
         displayText.lines.Clear();
         displayText.lines.Add(WorldEventManager.Instance.eventsToDeactivate[0].DeactivateText);
         displayText.gameObject.SetActive(true);
         displayText.whoInControl = NetworkData.Instance.currentPlayer;
-        WorldEventManager.Instance.eventsToDeactivate[0].OnDeactivate();
+        
         displayText.Awake();
-        while (displayText.gameObject.activeSelf)
+        for (int i = WorldEventManager.Instance.activeWorldEvents.Count - 1; i >= 0; i--)
         {
-            yield return null;
-        }
-        for(int i = WorldEventManager.Instance.activeWorldEvents.Count - 1; i >= 0; i--)
-        {
-            if (WorldEventManager.Instance.activeWorldEvents[i].eventId == WorldEventManager.Instance.worldDatabase.GetId[WorldEventManager.Instance.eventsToDeactivate[0]]) 
+            if (WorldEventManager.Instance.activeWorldEvents[i].eventId == WorldEventManager.Instance.worldDatabase.GetId[WorldEventManager.Instance.eventsToDeactivate[0]])
             {
                 WorldEventManager.Instance.activeWorldEvents.RemoveAt(i);
             }
         }
 
+
+        
+
+        while (displayText.gameObject.activeSelf)
+        {
+            yield return null;
+        }
+        //we pray for no desync 
+        WorldEventManager.Instance.eventsToDeactivate[0].OnDeactivate();
         WorldEventManager.Instance.eventsToDeactivate.RemoveAt(0);
-        if (WorldEventManager.Instance.eventsToDeactivate.Count > 0) { StartCoroutine(displayDeactivateEvent()); }
+        if(WorldEventManager.Instance.currentCutscene != null) {  }
+        else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0) { StartCoroutine(displayDeactivateEvent()); }
         else { TurnStartChecks(); }
     }
 

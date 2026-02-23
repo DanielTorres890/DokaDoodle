@@ -283,6 +283,11 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         else { NetworkData.Instance.currentPlayer = 0; }
         
     }
+    public void setBackTurnNum()
+    {
+        if(NetworkData.Instance.currentPlayer > 0) { NetworkData.Instance.currentPlayer -=  1; }
+        else { NetworkData.Instance.currentPlayer = NetworkData.Instance.maxPlayers - 1; }
+    }
     public void ProgressStatus(int player)
     {
         for (int i = 0; i < NetworkData.Instance.players[player].statuses.Count; i++)

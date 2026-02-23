@@ -119,7 +119,7 @@ public class ShopUISync : NetworkBehaviour
         NetworkData.Instance.AddItemToInventory(NetworkData.Instance.currentPlayer, curEvent.itemsSold[itemNum]);
         NetworkData.Instance.GetCurrentPlayer().GainMoney(-Mathf.RoundToInt(curEvent.itemsSold[itemNum].itemValue * NetworkData.Instance.globalShopMultiplier));
         moneyDisplay.StatUpdate();
-
+        buyShopStuff.UpdateDisplay();
         buyShop.SetActive(true);
         hideMenuButtons(buyDontButtons);
     }
