@@ -7,6 +7,7 @@ public class GlobalMoneyEvent : TimedWEvent
     public override void OnActivate()
     {
         NetworkData.Instance.globalShopMultiplier *= multiplier;
+        base.OnActivate();
     }
     public override void OnDeactivate()
     {

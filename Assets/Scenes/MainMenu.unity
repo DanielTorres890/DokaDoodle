@@ -9637,7 +9637,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -9731,7 +9731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4fa2d55466bc014bae6b6552a1645b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SFXManager
-  audioPlayer: {fileID: 0}
+  sfxPlayer: {fileID: 1384306365}
 --- !u!4 &1384306367
 Transform:
   m_ObjectHideFlags: 0
@@ -10513,7 +10513,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1

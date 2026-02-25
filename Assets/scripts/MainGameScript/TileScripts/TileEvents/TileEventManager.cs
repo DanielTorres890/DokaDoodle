@@ -38,12 +38,10 @@ public class TileEventManager : NetworkBehaviour
         dialogueScript.Awake();
         StartCoroutine(completeEvent());
 
-        if (NetworkData.Instance.currentEvent.backgroundMusic && soundSource)
+        if (NetworkData.Instance.currentEvent.backgroundMusic)
         {
-            soundSource.resource = NetworkData.Instance.currentEvent.backgroundMusic;
-            soundSource.volume = SettingsManager.instance.volume;
-            SettingsManager.instance.onBackgroundVolumeChange.AddListener(delegate { soundSource.volume = SettingsManager.instance.volume; });
-            soundSource.Play();
+            BGMManager.instance.PlaySound(NetworkData.Instance.currentEvent.backgroundMusic);
+            
         }
         if(background && NetworkData.Instance.currentEvent.background)
         {

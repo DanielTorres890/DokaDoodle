@@ -19,11 +19,12 @@ public class CutsceneManager : NetworkBehaviour
     public void BeginCutsceneRPC()
     {
         if(WorldEventManager.Instance.currentCutscene.backgroundMusic)
-        SFXManager.Instance.PlaySFX(WorldEventManager.Instance.currentCutscene.backgroundMusic);
+        BGMManager.instance.PlaySound(WorldEventManager.Instance.currentCutscene.backgroundMusic);
 
         dialogueBox.whoInControl = NetworkData.Instance.currentPlayer;
         Instantiate(WorldEventManager.Instance.currentCutscene.cutsceneBackground);
         dialogueBox.lines = new List<string>(WorldEventManager.Instance.currentCutscene.dialogue);
+        WorldEventManager.Instance.currentCutscene = null;
         dialogueBox.gameObject.SetActive(true);
         dialogueBox.startDialogue();
 

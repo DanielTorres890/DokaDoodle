@@ -4,15 +4,15 @@ public class SFXManager : MonoBehaviour
 {
 
     public static SFXManager Instance;
-    public AudioSource audioPlayer;
 
+    public AudioSource sfxPlayer;
 
     public void Awake()
     {
         if(Instance == null)
         {
             Instance = this;
-            audioPlayer = GetComponent<AudioSource>();
+            sfxPlayer = GetComponent<AudioSource>();
         }
         else
         {
@@ -31,12 +31,14 @@ public class SFXManager : MonoBehaviour
 
     private void UpdateVolume()
     {
-        audioPlayer.volume = SettingsManager.instance.SFXVolume;
+       
+        sfxPlayer.volume = SettingsManager.instance.SFXVolume;
 
     }
     public void PlaySFX(AudioClip clip)
     {
-        audioPlayer.clip = clip;
-        audioPlayer.Play();
+        sfxPlayer.clip = clip;
+        sfxPlayer.Play();
     }
+    
 }

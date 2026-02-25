@@ -96,6 +96,7 @@ public class SceneChanger : NetworkBehaviour
     private void FadeOutRpc()
     {
         StartCoroutine(FadeOut());
+        LoadComplete = true;
     }
 
     public bool everyoneLoaded()

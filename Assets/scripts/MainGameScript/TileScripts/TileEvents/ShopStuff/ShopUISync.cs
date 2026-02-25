@@ -27,6 +27,10 @@ public class ShopUISync : NetworkBehaviour
         {
             background.sprite = curEvent.background;
         }
+        if (curEvent.backgroundMusic)
+        {
+            BGMManager.instance.PlaySound(curEvent.backgroundMusic);
+        }
     }
     public void BuyButton()
     {

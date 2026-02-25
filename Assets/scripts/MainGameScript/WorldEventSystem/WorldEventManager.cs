@@ -100,7 +100,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
             //i feel like theres a way to do weekly money gain with events (like on week change) vs this but im not sure since events
             //are kinda preplanned? maybe the special tile event hold could have the function/subscribe here but id need to think more
             PopUpManager.Instance.PerformPopUp(1, true);
-            if (IsHost && Random.Range(0,100) > 30)
+            if (IsHost && Random.Range(0,100) > 50)
             {
                 int totalWeight = 0;
                 foreach(var weighted in randomEvents)
@@ -154,10 +154,16 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
 
     [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
-    public void SyncCutsceneRpc(int eventId)
+    public void SyncFinishCutsceneRpc(int eventId)
     {
-        currentCutscene = worldDatabase.GetItem[eventId].cutscene;
+        currentCutscene = worldDatabase.GetItem[eventId].finishCutscene;
         if(IsHost) { SceneChanger.Instance.loadClientScenesServerRpc("Cutscene Scene"); }
+    }
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void SyncStartCutsceneRpc(int eventId)
+    {
+        currentCutscene = worldDatabase.GetItem[eventId].startCutscene;
+        if (IsHost) { SceneChanger.Instance.loadClientScenesServerRpc("Cutscene Scene"); }
     }
     private bool AlreadyActive(WorldEventBase eventToCheck)
     {

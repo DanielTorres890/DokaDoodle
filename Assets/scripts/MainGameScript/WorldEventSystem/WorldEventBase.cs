@@ -11,18 +11,27 @@ public abstract class WorldEventBase : ScriptableObject
     public Sprite eventDisplay;
 
     [Tooltip("Not required but if it contains will occur")]
-    public CutSceneInfo cutscene;
+    public CutSceneInfo startCutscene;
+    public CutSceneInfo finishCutscene;
 
     [Tooltip("IF this is a quest with a specific condition to occur (ex: quest activating after 10 days) then add a scriptable for it")]
     public QuestCondition MainQuestCondition;
-    public abstract void OnActivate();
+    public virtual void OnActivate()
+    {
+        if (startCutscene)
+        {
+            WorldEventManager.Instance.currentCutscene = startCutscene;
+            if (NetworkManager.Singleton.IsHost) { WorldEventManager.Instance.SyncStartCutsceneRpc(WorldEventManager.Instance.worldDatabase.GetId[this]); }
+
+        }
+    }
 
     public virtual void OnDeactivate()
     {
-        if(cutscene) 
+        if(finishCutscene) 
         { 
-            WorldEventManager.Instance.currentCutscene = cutscene;
-            if (NetworkManager.Singleton.IsHost) { WorldEventManager.Instance.SyncCutsceneRpc(WorldEventManager.Instance.worldDatabase.GetId[this]); }
+            WorldEventManager.Instance.currentCutscene = finishCutscene;
+            if (NetworkManager.Singleton.IsHost) { WorldEventManager.Instance.SyncFinishCutsceneRpc(WorldEventManager.Instance.worldDatabase.GetId[this]); }
             
         }
     }

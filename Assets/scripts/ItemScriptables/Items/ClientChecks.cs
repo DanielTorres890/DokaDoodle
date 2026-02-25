@@ -17,6 +17,7 @@ public class ClientChecks : NetworkBehaviour
 
     public static ClientChecks Instance { get; private set; }
 
+    public List<string> mapNames = new List<string>();
     public DialogueScript displayText;
     public GameObject mainMenuButtons;
     public GameObject cameraControlDisplay;
@@ -81,7 +82,7 @@ public class ClientChecks : NetworkBehaviour
             if(IsHost)
             {
                 NetworkManager.SceneManager.OnLoadEventCompleted += McChickenWrapper;
-                SceneChanger.Instance.loadClientScenesAddidtiveRpc("MainGameScene");
+                SceneChanger.Instance.loadClientScenesAddidtiveRpc(mapNames[NetworkData.Instance.GetCurrentPlayer().curMap]);
             }
         }
         
@@ -455,15 +456,18 @@ public class ClientChecks : NetworkBehaviour
         WorldEventManager.Instance.activeWorldEvents.Add(new WorldEventWrapper(WorldEventManager.Instance.worldDatabase.GetId[WorldEventManager.Instance.eventsToActivate[0]]));
         displayText.Awake();
 
-        WorldEventManager.Instance.eventsToActivate[0].OnActivate();
-        WorldEventManager.Instance.eventsToActivate.RemoveAt(0);
+        
         while (displayText.gameObject.activeSelf)
         {
             yield return null;
         }
         worldEventImage.gameObject.SetActive(false);
-        
-        if (WorldEventManager.Instance.eventsToActivate.Count > 0) { StartCoroutine(displayActivateEvent()); }
+
+        WorldEventManager.Instance.eventsToActivate[0].OnActivate();
+        WorldEventManager.Instance.eventsToActivate.RemoveAt(0);
+        if (WorldEventManager.Instance.currentCutscene != null) { }
+
+        else if (WorldEventManager.Instance.eventsToActivate.Count > 0) { StartCoroutine(displayActivateEvent()); }
 
         else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0 ) {  StartCoroutine(displayDeactivateEvent()); }
 

@@ -15,9 +15,9 @@ MonoBehaviour:
   description: WOOOOOSSHH
   attackName: METEORS
   startUp: 1
-  attackDuration: 0
+  attackDuration: 0.1
   endLag: 0
-  cooldown: 3
+  cooldown: 20
   lifespan: 200
   energyDrain: 1
   maxChargeAtkBuff: 1.2
@@ -31,8 +31,10 @@ MonoBehaviour:
   chargeable: 1
   attackPrefab: {fileID: 2566779757777240371, guid: bea8b2ee432e61c4f8291893153acdb1, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  spawnFx: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 2, y: 2, z: 2}
+  visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 10
   multipliers:
   - attribute: 4
@@ -55,13 +57,17 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 0}
-  attackAnimation: {fileID: 0}
+  startUpAnimation: {fileID: 7400000, guid: 9f5650829fd3d3f48ad8a2594818b5e1, type: 2}
+  attackAnimation: {fileID: 7400000, guid: ce0ba82f428534e4fbf7d38aec46f815, type: 2}
   animationSpeed: 1
   LevelRequirements: []
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
   onHitEffects: []
+  targets:
+    serializedVersion: 2
+    m_Bits: 0
+  conditions: []
   meteorCount: 40
   meteor: {fileID: 4958144232811764369, guid: 4cd5b4fe029e82546b92024f6eab68eb, type: 3}
   interval: 0.5
