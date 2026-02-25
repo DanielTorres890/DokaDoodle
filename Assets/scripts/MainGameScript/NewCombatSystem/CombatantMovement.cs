@@ -18,7 +18,7 @@ public class CombatantMovement : NetworkBehaviour
     [SerializeField] private PlayerInput action;
     [SerializeField] private characterEditor characterEditor;
 
-
+    public CombatAnimator animator;
     private Vector2 move, look,scroll;
     public Vector3 additionalForces;
 
@@ -227,12 +227,13 @@ public class CombatantMovement : NetworkBehaviour
             body.linearVelocity = Vector3.zero;
             
             body.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotationZ;
+            animator.WalkingState(false);
             return;
         }
         body.constraints = RigidbodyConstraints.FreezeRotation;
-
+        
         Vector3 currentVelocity = body.linearVelocity;
-
+        animator.WalkingState(true);
         Vector3 targetVeloctiy;
         targetVeloctiy = new Vector3(move.x, 0, move.y);
         targetVeloctiy *= speed + abilityManager.stats.speedFormula();
@@ -240,7 +241,7 @@ public class CombatantMovement : NetworkBehaviour
 
         if (abilityManager.CanMoveNotAct())
         {
-
+            
             targetVeloctiy = new Vector3(currentVelocity.x - targetVeloctiy.x, 0, currentVelocity.z - targetVeloctiy.z);
         }
 
@@ -252,9 +253,9 @@ public class CombatantMovement : NetworkBehaviour
 
         //if you're not moving U SHOULDNT MOVE (coould change this later)
         if(move.magnitude > 0) { velocityChange += additionalForces; }
+        else { animator.WalkingState(false); }
 
-
-        body.AddForce(velocityChange, ForceMode.VelocityChange);
+            body.AddForce(velocityChange, ForceMode.VelocityChange);
         additionalForces = Vector3.zero;
         body.AddForce(Vector3.down * gravityMult, ForceMode.Acceleration);
 

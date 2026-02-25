@@ -86,6 +86,7 @@ public class CombatAnimator : NetworkBehaviour
 
         animator.runtimeAnimatorController = overrideController;
         animator.SetBool("StartUp", true);
+        
         EndCurrentAttack();
         
         
@@ -98,5 +99,9 @@ public class CombatAnimator : NetworkBehaviour
     {
         animator.SetBool("Attacking", false);
         
+    }
+    public void WalkingState(bool stateToBe)
+    {
+        animator.SetBool("Walking", stateToBe);
     }
 }

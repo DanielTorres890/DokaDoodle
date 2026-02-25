@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Player1 WeaponInventory
   m_EditorClassIdentifier: Assembly-CSharp::InventoryObject
   database: {fileID: 11400000, guid: 3e147e9d0b0c507418d711e94c03df81, type: 2}
-  container: []
-  MAXSIZE: 2
+  container:
+  - Id: 5
+    item: {fileID: 11400000, guid: 6b917bd737117244cba71006fd6fed8e, type: 2}
+  MAXSIZE: 4
