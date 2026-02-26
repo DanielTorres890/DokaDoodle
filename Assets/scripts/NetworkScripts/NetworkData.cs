@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,6 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
     public List<playerData> players = new List<playerData>();
     [SerializeField] public List<GameObject> playerSticks = new List<GameObject>();
-    [SerializeField] private GameObject characterEditor;
 
     [SerializeField] public ClassDataBase classDataBase;
     public BuffDataBase buffDataBase;
@@ -38,6 +38,15 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public EventBase currentEvent;
     public UnityEvent onStatusProgress;
     private bool started;
+    public bool LoadedIn = false;
+
+
+    [Header("\n\nPregameStuff")]
+    [SerializeField] private GameObject editor;
+    [SerializeField] private GameObject previewLoaded;
+    [SerializeField] private GameObject[] playerPreviews;
+    [SerializeField] private GameObject[] playerPreviewsLoaded;
+
     public Dictionary<Attributes, string> attributeStrings = new Dictionary<Attributes, string>
     {
         { Attributes.MaxHealth, "MaxHP" },
@@ -64,18 +73,25 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         playerInventories.Add(player2Inventories);
         playerInventories.Add(player3Inventories);
         playerInventories.Add(player4Inventories);
+        players.Add(new playerData());
+        players.Add(new playerData());
+        players.Add(new playerData());
+        players.Add(new playerData());
         // players.OnListChanged += SyncSticks;
 
     }
     public void LoadData(GameData data)
     {
         players = data.players;
+        maxPlayers = data.maxPlayers;
+        LoadedIn = true;
         InventoriesToDeserialize(data);
     }
     public void SaveData(ref GameData data)
     {
 
         data.players = players;
+        data.maxPlayers = maxPlayers;
         InventoriesToSerialize(ref data);
 
 
@@ -117,30 +133,36 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             SceneManager.UnloadSceneAsync("Settings");
         }
 
-        players.Add(new playerData());
-        players.Add(new playerData());
-        players.Add(new playerData());
-        players.Add(new playerData());
+        
 
         
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
-
+        editor.SetActive(true);
     }
 
     private void OnClientConnected(ulong clientId)
     {
         
         playerCount++;
-        if (clientId == NetworkManager.Singleton.LocalClientId) { characterEditor.SetActive(true); }
-
+        
+        if(NetworkManager.Singleton.ConnectedClientsIds.Count > maxPlayers)
+        {
+            NetworkManager.Singleton.DisconnectClient(clientId);
+            return;
+        }
         if (!IsServer) { return; }
 
         for (int i = 0; i < players.Count; i++)
         {
+           
             SyncSticksClientRpc(i, players[i].name, players[i].playerClass, players[i].playerFace, players[i].playerHair, maxPlayers, players.Count);
         }
-
+        if(LoadedIn)
+        {
+            string dataToStore = JsonConvert.SerializeObject(DataPersistenceManager.instance.GetCurrentGameData(), Formatting.Indented);
+            SyncOtherDataRpc(dataToStore, RpcTarget.Single(clientId, RpcTargetUse.Temp));
+        }
     }
 
     private void OnClientDisconnected(ulong clientId)
@@ -158,6 +180,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public void sendPlayerDataServerRpc(FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair, ServerRpcParams serverRpcParams)
     {
         int playerId = Convert.ToInt32(serverRpcParams.Receive.SenderClientId.ToString());
+        
         players[playerId] =
             new playerData(playerClass, playerName, playerFace, playerHair);
         readyPlayers[playerId] = true;
@@ -186,6 +209,13 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public void SyncSticksClientRpc(int playerId, FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair, int playerCountin, int openSlots)
     {
 
+        if(playerName != "")
+        {
+            playerPreviews[playerId].SetActive(true);
+            playerPreviewsLoaded[playerId].SetActive(true);
+        }
+
+
         players[playerId].name = playerName.ToString();
         players[playerId].playerFace = playerFace;
         players[playerId].playerClass = playerClass;
@@ -195,6 +225,8 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         maxPlayers = playerCountin;
         players[playerId].maxInventorySizes = NetworkData.Instance.classDataBase.GetItem[playerClass].inventorySizes;
 
+
+        
         playerInventories[playerId][0].MAXSIZE = players[playerId].maxInventorySizes[0];
         playerInventories[playerId][1].MAXSIZE = players[playerId].maxInventorySizes[1];
         playerInventories[playerId][2].MAXSIZE = players[playerId].maxInventorySizes[2];
@@ -210,20 +242,45 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             players.RemoveAt(playerCountin-1);
             readyPlayers.RemoveAt(playerCountin-1);
         }
+        if(LoadedIn)
+        {
+           
+            readyPlayers[playerId] = true;
+        }
     }
+
+
+    [Rpc(SendTo.SpecifiedInParams)]
+    public void SyncOtherDataRpc(string jsonString, RpcParams rpcStuff)
+    {
+        DataPersistenceManager.instance.LoadDataFromString(jsonString);
+        LoadedIn = true;
+        editor.SetActive(false);
+        previewLoaded.SetActive(true);
+        for(int i = 0; i < players.Count; i++)
+        {
+            playerPreviews[i].SetActive(true);
+            playerPreviewsLoaded[i].SetActive(true);
+        }
+    }
+
 
     public void startGame()
     {
 
-        foreach (var ready in readyPlayers)
+        for (int i = 0; i < players.Count; i++)
         {
+            
+            bool ready = readyPlayers[i];
             if (!ready) { return; }
 
         }
-        
+       
         if(!started)
         {
+            if(!LoadedIn)
             PlayerClassStatsRpc();
+
             started = true;
             SceneChanger.Instance.loadClientScenesServerRpc("PregameCutScene");
         }

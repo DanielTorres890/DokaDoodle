@@ -29,6 +29,9 @@ public class characterEditor : MonoBehaviour
 
     //i made it a const to be cool 
     private const int defaultHairCount = 7;
+
+    public GameObject previewLoaded;
+    public GameObject editor;
     public void UpdateMaterial()
     {
         myMaterial.mainTexture = myTexture;

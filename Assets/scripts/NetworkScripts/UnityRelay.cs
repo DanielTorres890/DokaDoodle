@@ -16,11 +16,12 @@ using UnityEngine.UI;
 public class UnityRelay : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private Button relayButton;
     [SerializeField] private TMP_Text joinCodeText;
+    [SerializeField] private TMP_Text joinCodeTextLoaded;
     [SerializeField] private TMP_InputField joinCodeInput;
     [SerializeField] private Button submitCode;
     [SerializeField] private GameObject editor;
+    [SerializeField] private GameObject characterPreview;
     private async void Start()
     {
         joinCodeInput.onEndEdit.AddListener(JoinRelay);
@@ -46,14 +47,17 @@ public class UnityRelay : MonoBehaviour
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3);
 
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-            joinCodeText.text = joinCode;
+            joinCodeText.text = "Join Code " + joinCode;
 
 
             RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "dtls");
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
-            NetworkManager.Singleton.StartHost();
+            if(NetworkManager.Singleton.StartHost())
+            {
+                
+            }
             
         }
         catch (RelayServiceException e)
@@ -74,10 +78,20 @@ public class UnityRelay : MonoBehaviour
             RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
-            NetworkManager.Singleton.StartClient(); 
+            if(NetworkManager.Singleton.StartClient() )
+            {         
+
+                    if (NetworkData.Instance.LoadedIn)
+                        characterPreview.SetActive(true);
+                  
+
+            }
+
+
             //editor.SetActive(true);
+            joinCodeTextLoaded.text = "Join Code " + joinCode;
             joinCodeInput.gameObject.SetActive(false);
-            joinCodeText.text = joinCode;
+            joinCodeText.text = "Join Code " + joinCode;
         }
         catch (RelayServiceException e)
         {
@@ -87,4 +101,33 @@ public class UnityRelay : MonoBehaviour
         
     }
 
+    //load saved game
+    public async void CreateRelayLoad()
+    {
+        try
+        {
+
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3);
+
+            string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            joinCodeTextLoaded.text ="Join Code " + joinCode;
+
+
+            RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "dtls");
+
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+            if (NetworkManager.Singleton.StartHost())
+            {
+                
+            }
+
+        }
+        catch (RelayServiceException e)
+        {
+            Debug.Log(e);
+
+        }
+
+    }
 }

@@ -14,4 +14,5 @@ public class GameData
     public SpecialTileEventHold[][] tileEvents;
 
     public int currentPlayer = 0;
+    public int maxPlayers = 4;
 }

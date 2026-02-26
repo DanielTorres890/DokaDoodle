@@ -1,19 +1,20 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 public class DataPersistenceManager : MonoBehaviour
 {
     [Header("File Storage Config")]
-    [SerializeField] private string fileName;
+    public List<string> fileNames;
 
 
 
     private GameData gameData;
     public static DataPersistenceManager instance {  get; private set; }
     private List<IDataPersistance> dataPersistances;
-    private FileDatahandler dataHandler;
+    private List<FileDatahandler> dataHandler = new List<FileDatahandler>();
 
     private void Awake()
     {
@@ -25,7 +26,11 @@ public class DataPersistenceManager : MonoBehaviour
     }
     private void Start()
     {
-        this.dataHandler = new FileDatahandler(Application.persistentDataPath,fileName);
+        foreach(var filename in fileNames)
+        {
+            this.dataHandler.Add(new FileDatahandler(Application.persistentDataPath, filename));
+        }
+        
         this.dataPersistances = FindAllDataPersistanceObjects();
         //LoadGame();
     }
@@ -35,24 +40,24 @@ public class DataPersistenceManager : MonoBehaviour
         this.gameData = new GameData();
     }
 
-    public void LoadGame()
+    public bool LoadGame(int fileNumber)
     {
-        this.gameData = dataHandler.Load();
+        this.gameData = dataHandler[fileNumber].Load();
         if (this.gameData == null)
         {
-            Debug.Log("No Data was found. Initialized data to defaults");
-            NewGame();
+            Debug.Log("No Data was found...");
+            return false;
         }
         foreach (IDataPersistance persistance in dataPersistances)
         {
             persistance.LoadData(gameData);
 
         }
-
+        return true;
 
     }
 
-    public void SaveGame()
+    public void SaveGame(int fileNumber)
     {
         this.gameData = new GameData();
         foreach (IDataPersistance persistance in dataPersistances)
@@ -61,9 +66,33 @@ public class DataPersistenceManager : MonoBehaviour
 
         }
 
-        dataHandler.Save(gameData);
+        dataHandler[fileNumber].Save(gameData);
     }
+    public bool DataExists(int fileNumber)
+    {
+        GameData exists = dataHandler[fileNumber].Load();
+        if(exists == null) { return false; }
+        return true;
+    }
+    public GameData LoadTempData(int fileNumber)
+    {
+        return dataHandler[fileNumber].Load();
+    }
+    
+    public void LoadDataFromString(string jsonString)
+    {
+         gameData = JsonConvert.DeserializeObject<GameData>(jsonString);
+        if (this.gameData == null)
+        {
+            Debug.Log("No Data was found...");
+        }
+        foreach (IDataPersistance persistance in dataPersistances)
+        {
+            persistance.LoadData(gameData);
 
+        }
+
+    }
     private List<IDataPersistance> FindAllDataPersistanceObjects()
     {
         IEnumerable<IDataPersistance> dataPersitstanceObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersistance>();
@@ -72,7 +101,10 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        SaveGame();
+        //SaveGame();
     }
-
+    public GameData GetCurrentGameData()
+    {
+        return gameData;
+    }
 }
