@@ -75,7 +75,10 @@ public class SaveDataDisplay : MonoBehaviour
     public void DisplayGameInfo(int dataNumebr)
     {
         if (tempData[dataNumebr] == null) { return; }
-
+        foreach(var text in playerInfoDisplay)
+        {
+            text.text = "";
+        }
 
         for(int i = 0; i < tempData[dataNumebr].players.Count; i++)
         {

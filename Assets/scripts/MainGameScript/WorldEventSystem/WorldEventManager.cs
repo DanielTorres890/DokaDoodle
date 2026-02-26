@@ -192,12 +192,19 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     public void LoadData(GameData data)
     {
         activeWorldEvents = data.worldEvents;
+        foreach(var id in data.completedEvents)
+        {
+            completeWorldEvents.Add(worldDatabase.GetItem[id]);
+        }
     }
 
     public void SaveData(ref GameData data)
     {
         data.worldEvents = activeWorldEvents;
-
+        foreach(var completedEvent in completeWorldEvents)
+        {
+            data.completedEvents.Add(worldDatabase.GetId[completedEvent]);
+        }
     }
 
 

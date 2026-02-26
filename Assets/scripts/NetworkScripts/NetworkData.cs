@@ -32,6 +32,8 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public int playerCount = -1; //you know i have 0 clue why i did this im a dummy dumb
     public int maxPlayers = 4;
     public int currentPlayer = 0;
+    public int[] clientOrder = new int[4];
+    
     public float globalShopMultiplier = 1;
     private List<bool> readyPlayers = new List<bool>();
 
@@ -77,6 +79,11 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         players.Add(new playerData());
         players.Add(new playerData());
         players.Add(new playerData());
+        clientOrder[0] = 0;
+        clientOrder[1] = -1;
+        clientOrder[2] = -1;
+        clientOrder[3] = -1;
+        readyPlayers[0] = true;
         // players.OnListChanged += SyncSticks;
 
     }
@@ -133,9 +140,10 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             SceneManager.UnloadSceneAsync("Settings");
         }
 
-        
+
 
         
+
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
         editor.SetActive(true);
@@ -161,7 +169,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         if(LoadedIn)
         {
             string dataToStore = JsonConvert.SerializeObject(DataPersistenceManager.instance.GetCurrentGameData(), Formatting.Indented);
-            SyncOtherDataRpc(dataToStore, RpcTarget.Single(clientId, RpcTargetUse.Temp));
+            SyncOtherDataRpc(dataToStore, clientOrder, RpcTarget.Single(clientId, RpcTargetUse.Temp));
         }
     }
 
@@ -242,17 +250,14 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             players.RemoveAt(playerCountin-1);
             readyPlayers.RemoveAt(playerCountin-1);
         }
-        if(LoadedIn)
-        {
-           
-            readyPlayers[playerId] = true;
-        }
+        
     }
 
 
     [Rpc(SendTo.SpecifiedInParams)]
-    public void SyncOtherDataRpc(string jsonString, RpcParams rpcStuff)
+    public void SyncOtherDataRpc(string jsonString,int[] idOrder, RpcParams rpcStuff)
     {
+        clientOrder = idOrder;
         DataPersistenceManager.instance.LoadDataFromString(jsonString);
         LoadedIn = true;
         editor.SetActive(false);
@@ -264,10 +269,18 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         }
     }
 
+    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    public void AddOrderClientRpc(int slotNumber, int clientId)
+    {
+        clientOrder[slotNumber] = clientId;
+        readyPlayers[slotNumber] = true;
+    }
 
     public void startGame()
     {
 
+        Debug.Log("yo who is you" + readyPlayers[0]);
+        Debug.Log("yo who is you two " + readyPlayers[1]);
         for (int i = 0; i < players.Count; i++)
         {
             
@@ -280,8 +293,14 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         {
             if(!LoadedIn)
             PlayerClassStatsRpc();
-
-            started = true;
+            else
+            {
+                for(int i = 0;i < players.Count;i++)
+                {
+                    players[i].playerNumber = clientOrder[i];
+                }
+            }
+                started = true;
             SceneChanger.Instance.loadClientScenesServerRpc("PregameCutScene");
         }
         

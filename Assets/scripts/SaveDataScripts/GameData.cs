@@ -9,6 +9,8 @@ public class GameData
     public List<List<List<int>>> inventoryObjects = new List<List<List<int>>>();
 
     public List<WorldEventWrapper> worldEvents;
+    public List<int> completedEvents;
+
     public List<int> seenPopsUps = new List<int>();
 
     public SpecialTileEventHold[][] tileEvents;
