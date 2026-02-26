@@ -14,7 +14,7 @@ public class JoinSlot : MonoBehaviour
     void Update()
     {
         if(NetworkData.Instance.IsHost) { gameObject.SetActive(false); return; }
-        if(slotNumber >= NetworkData.Instance.clientOrder.Length) { gameObject.SetActive(false); return; }
+        if(slotNumber >= NetworkData.Instance.maxPlayers) { gameObject.SetActive(false); return; }
         foreach(int id in NetworkData.Instance.clientOrder)
         {
             if (id == Convert.ToInt32(NetworkManager.Singleton.LocalClientId))

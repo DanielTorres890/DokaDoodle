@@ -35,7 +35,8 @@ MonoBehaviour:
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 1, z: 0.5}
   ablitySize: {x: 0.4, y: 0.4, z: 0.4}
-  baseDamage: 3
+  visualRoation: {x: 0, y: 0, z: 0}
+  baseDamage: 4
   multipliers:
   - attribute: 4
     mult: 0.7
@@ -67,4 +68,6 @@ MonoBehaviour:
   targets:
     serializedVersion: 2
     m_Bits: 72
+  conditions: []
   speed: 25
+  pierceCount: 0
