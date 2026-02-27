@@ -10,6 +10,7 @@ public class SettingsManager : MonoBehaviour
     public static SettingsManager instance;
     public float volume;
     public float SFXVolume;
+    public float mouseSense;
     public InputActionAsset settings;
     public UnityEvent onSFXVolumeChange;
     public UnityEvent onBackgroundVolumeChange;

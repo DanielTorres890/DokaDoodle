@@ -257,7 +257,11 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     [Rpc(SendTo.SpecifiedInParams)]
     public void SyncOtherDataRpc(string jsonString,int[] idOrder, RpcParams rpcStuff)
     {
+        //sooo client connected includes host
+        if(IsHost) { return; }
+
         clientOrder = idOrder;
+        
         DataPersistenceManager.instance.LoadDataFromString(jsonString);
         LoadedIn = true;
         editor.SetActive(false);
@@ -279,8 +283,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public void startGame()
     {
 
-        Debug.Log("yo who is you" + readyPlayers[0]);
-        Debug.Log("yo who is you two " + readyPlayers[1]);
+        
         for (int i = 0; i < players.Count; i++)
         {
             

@@ -798,14 +798,10 @@ public class NewCombatManager : NetworkBehaviour
 
     private void StartBGM()
     {
-        SettingsManager.instance.onBackgroundVolumeChange.AddListener(UpdateVolume);
 
         if (PlayerCombatManager.Instance.currentEncounter.battleMusic)
         {
-            AudioSource.resource = PlayerCombatManager.Instance.currentEncounter.battleMusic;
-            AudioSource.volume = SettingsManager.instance.volume;
-
-            AudioSource.Play();
+            BGMManager.instance.PlaySound(PlayerCombatManager.Instance.currentEncounter.battleMusic);
         }
 
 
@@ -817,9 +813,8 @@ public class NewCombatManager : NetworkBehaviour
                 var soundCache = PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemy.enemyId].SpecialMusic;
                 if (soundCache)
                 {
-                    AudioSource.resource = soundCache;
-                    AudioSource.volume = SettingsManager.instance.volume;
-                    AudioSource.Play();
+
+                    BGMManager.instance.PlaySound(PlayerCombatManager.Instance.currentEncounter.battleMusic);
                 }
             }
         }

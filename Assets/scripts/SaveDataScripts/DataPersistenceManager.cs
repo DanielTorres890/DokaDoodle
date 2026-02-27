@@ -42,6 +42,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public bool LoadGame(int fileNumber)
     {
+      
         this.gameData = dataHandler[fileNumber].Load();
         if (this.gameData == null)
         {
@@ -81,6 +82,7 @@ public class DataPersistenceManager : MonoBehaviour
     
     public void LoadDataFromString(string jsonString)
     {
+      
          gameData = JsonConvert.DeserializeObject<GameData>(jsonString);
         if (this.gameData == null)
         {

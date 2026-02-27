@@ -192,6 +192,10 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     public void LoadData(GameData data)
     {
         activeWorldEvents = data.worldEvents;
+        turns = data.turns;
+        days = data.days;
+        weeks = data.weeks;
+
         foreach(var id in data.completedEvents)
         {
             completeWorldEvents.Add(worldDatabase.GetItem[id]);

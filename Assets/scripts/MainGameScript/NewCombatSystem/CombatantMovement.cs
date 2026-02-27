@@ -283,22 +283,22 @@ public class CombatantMovement : NetworkBehaviour
         {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0f);
             
-            transform.Rotate(new Vector3(-look.y * sensitivy, look.x * sensitivy, 0));
+            transform.Rotate(new Vector3(-look.y * sensitivy, look.x * sensitivy, 0) * SettingsManager.instance.mouseSense);
             
             if (transform.eulerAngles.x % 360 < 360 + minXCam && transform.eulerAngles.x % 360 > maxXCam)
             {
-                transform.Rotate(new Vector3(look.y * sensitivy, 0, 0));
+                transform.Rotate(new Vector3(look.y * sensitivy, 0, 0) * SettingsManager.instance.mouseSense);
             }
             return;
         }
-        transform.Rotate(new Vector3(0, look.x * sensitivy, 0));
+        transform.Rotate(new Vector3(0, look.x * sensitivy, 0) * SettingsManager.instance.mouseSense);
 
         playerCam.transform.localPosition = new Vector3(playerCam.transform.localPosition.x, playerCam.transform.localPosition.y, Mathf.Clamp(playerCam.transform.localPosition.z + scroll.y, minZoomIn, maxZoomOut));
-        playerCam.transform.parent.transform.Rotate(new Vector3(-look.y * sensitivy, 0, 0));
+        playerCam.transform.parent.transform.Rotate(new Vector3(-look.y * sensitivy, 0, 0) * SettingsManager.instance.mouseSense);
 
         if (playerCam.transform.parent.transform.eulerAngles.x % 360 < 360 + minXCam && playerCam.transform.parent.transform.eulerAngles.x % 360 > maxXCam)
         {
-            playerCam.transform.parent.transform.Rotate(new Vector3(look.y * sensitivy, 0, 0));
+            playerCam.transform.parent.transform.Rotate(new Vector3(look.y * sensitivy, 0, 0) * SettingsManager.instance.mouseSense);
         }
         
         

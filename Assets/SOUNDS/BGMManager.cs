@@ -25,7 +25,7 @@ public class BGMManager : MonoBehaviour
         SettingsManager.instance.onBackgroundVolumeChange.AddListener(OnVolumeChange);
         OnVolumeChange();
         PlaySound(0);
-        SceneManager.sceneLoaded += StopSounds;
+        
     }
 
     private void OnVolumeChange()

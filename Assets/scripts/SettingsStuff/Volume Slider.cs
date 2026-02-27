@@ -7,12 +7,13 @@ public class VolumeSlider : MonoBehaviour
 {
     public TextMeshProUGUI m_TextMeshProUGUI;
     public Slider m_Slider;
-    public VolumeSliderTypes type;
+    public SettingsSliders type;
 
     void Start()
     {
-        if(type == VolumeSliderTypes.BGM) { m_Slider.value = SettingsManager.instance.volume * 100; }
-        if(type == VolumeSliderTypes.SFX) { m_Slider.value = SettingsManager.instance.SFXVolume * 100; }
+        if(type == SettingsSliders.BGM) { m_Slider.value = SettingsManager.instance.volume * 100; m_TextMeshProUGUI.text = SettingsManager.instance.volume.ToString(); }
+        if(type == SettingsSliders.SFX) { m_Slider.value = SettingsManager.instance.SFXVolume * 100; m_TextMeshProUGUI.text = SettingsManager.instance.SFXVolume.ToString(); }
+        if(type == SettingsSliders.Sensitivity) { m_Slider.value = SettingsManager.instance.mouseSense; m_TextMeshProUGUI.text = (Mathf.Round(SettingsManager.instance.mouseSense * 100) / 100).ToString(); }
         
     }
 
@@ -27,8 +28,14 @@ public class VolumeSlider : MonoBehaviour
         SettingsManager.instance.ChangeSFXVolume(Mathf.RoundToInt(value));
         m_TextMeshProUGUI.text = value.ToString();
     }
+    public void SensitivityChanged(float value)
+    {
+        SettingsManager.instance.mouseSense = value;
+        m_TextMeshProUGUI.text = (Mathf.Round(SettingsManager.instance.mouseSense * 100) / 100).ToString();
+    }
 }
-public enum VolumeSliderTypes{
+public enum SettingsSliders{
     BGM,
-    SFX
+    SFX,
+    Sensitivity
 }
