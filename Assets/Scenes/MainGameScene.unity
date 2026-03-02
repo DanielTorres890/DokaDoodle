@@ -1646,7 +1646,7 @@ MonoBehaviour:
   canMove: 0
   cameraMove: 0
   autoMoving: 0
-  forceRoll: 0
+  forceRoll: 1
   forcedRollNum: 5
   moveSpeed: 50
   autoMoveTime: 0.4
@@ -1877,22 +1877,6 @@ MonoBehaviour:
     m_ActionName: 'Player/ClassAbility[/Keyboard/x]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: df6b6081-55b5-4299-bd2d-efcc80596bcc
-    m_ActionName: 'Player/DashRight[/Keyboard/d]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1edf29a3-ef5f-49c6-9c85-3ebc76c9ffdb
-    m_ActionName: 'Player/DashLeft[/Keyboard/a]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 618003e8-7724-415d-9da8-1e6e363fbbe3
-    m_ActionName: 'Player/DashFwd[/Keyboard/w]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b8dda105-e600-4892-92d7-499654de4eb3
-    m_ActionName: 'Player/DashBack[/Keyboard/s]'
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 45acdef1-4532-41ca-bfde-ff9535359d58
     m_ActionName: 'UI/UseKey[/Keyboard/e]'
   - m_PersistentCalls:
@@ -1927,6 +1911,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3475f648-26ed-43d1-8b93-8a63077d419c
     m_ActionName: 'Spectating/Look[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d15ba213-1da5-48d5-b8f8-0bde0ec93246
+    m_ActionName: 'Player/Dash[/Keyboard/leftShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI

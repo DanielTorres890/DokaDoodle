@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MeteorShower
   description: WOOOOOSSHH
   attackName: METEORS
-  startUp: 1
+  startUp: 2
   attackDuration: 0.1
-  endLag: 0
+  endLag: 0.2
   cooldown: 20
   lifespan: 200
   energyDrain: 1
@@ -28,7 +28,7 @@ MonoBehaviour:
   dmgPotencyEffect: 2
   sizePotencyEffect: 2
   stateToBe: 0
-  chargeable: 1
+  chargeable: 0
   attackPrefab: {fileID: 2566779757777240371, guid: bea8b2ee432e61c4f8291893153acdb1, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   spawnFx: {fileID: 0}
@@ -68,10 +68,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   conditions: []
-  meteorCount: 40
+  meteorCount: 50
   meteor: {fileID: 4958144232811764369, guid: 4cd5b4fe029e82546b92024f6eab68eb, type: 3}
-  interval: 0.5
+  interval: 0.3
   meteorInfo: {fileID: 11400000, guid: 53359034ca1725c41b86cbd8a1f2f828, type: 2}
-  meteorOffset: {x: 0, y: 30, z: 0}
+  meteorOffset: {x: 0, y: 45, z: 0}
   directionWidth: {x: 10, y: -25, z: 10}
   meteorSound: {fileID: 8300000, guid: 94142a859f6e12e4f87555790bed4f7c, type: 3}
