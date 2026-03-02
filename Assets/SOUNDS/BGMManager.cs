@@ -34,6 +34,7 @@ public class BGMManager : MonoBehaviour
     }
     public void PlaySound(int soundID)
     {
+        if(BGMSource.resource == BGMDataBase.GetItem[soundID]) { return; }
         BGMSource.resource = BGMDataBase.GetItem[soundID];
         BGMSource.Play();
     }

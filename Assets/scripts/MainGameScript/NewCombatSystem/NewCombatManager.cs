@@ -266,9 +266,7 @@ public class NewCombatManager : NetworkBehaviour
         cameras[whichone].Priority = 10;
 
 
-        Debug.Log("which one did i spawn in? " + whichone);
-        Debug.Log("but but this dont make sense? " + allCombatants.Count);
-        Debug.Log("okay so technically it could be that they're spawning in the wrong one? " + allCombatants[whichone - 1].stats.name);
+        
         playerUI.abilityManager = allCombatants[whichone - 1]; //keep in mind that theres already a camera in the scene by default so its off by 1
         playerUI.SetUp();
 

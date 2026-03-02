@@ -37,7 +37,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
     int diceRoll = 0;
 
- 
+
     [SerializeField] private float moveSpeed = 500f;
     [SerializeField] private float autoMoveTime = 0.2f;
     [SerializeField] private float autoMoveSpeed = 0.2f;
@@ -58,7 +58,7 @@ public class PlayerMoveManager : NetworkBehaviour
     public float AllyDistance;
 
     //DICTIONARIES SOLVE EVERYTHING HOLYYY
-    private List<Dictionary<PartyMember,GameObject>> playerAllies = new List<Dictionary<PartyMember, GameObject>>();
+    private List<Dictionary<PartyMember, GameObject>> playerAllies = new List<Dictionary<PartyMember, GameObject>>();
     private Coroutine activeRoutine;
 
     public void Awake()
@@ -120,11 +120,11 @@ public class PlayerMoveManager : NetworkBehaviour
         for (int i = 0; i < rollMultiplier; i++)
         {
 
-            int randomNum = UnityEngine.Random.Range(0, 100);
+            int randomNum = UnityEngine.Random.Range(0, 101);
 
-            if (randomNum <= 3) { diceRoll = 0; }
+            if (randomNum <= 0) { diceRoll = 0; }
 
-            else { diceRoll = Convert.ToInt32(Math.Ceiling(randomNum / 15f)); }
+            else { diceRoll = (randomNum % 7) + 1; } 
             totalRoll += diceRoll;
         }
 

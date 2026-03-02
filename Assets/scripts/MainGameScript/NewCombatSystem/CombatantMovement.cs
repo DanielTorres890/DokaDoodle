@@ -69,62 +69,62 @@ public class CombatantMovement : NetworkBehaviour
             body.AddForce(Vector3.up * (jumpForce + abilityManager.stats.speedFormula()), ForceMode.VelocityChange);
         }
     }
-    public void DashRight(InputAction.CallbackContext action)
-    {
-        if (lastDashDirection != Vector3.right)
-        {
-            lastDashDirection = Vector3.right;
-            return;
-        }
-        if (grounded && IsOwner)
-        {
-            Dash();
-        }
-    }
-    public void DashLeft(InputAction.CallbackContext action)
-    {
-        if (lastDashDirection != Vector3.left)
-        {
-            lastDashDirection = Vector3.left;
-            return;
-        }
+    //public void DashRight(InputAction.CallbackContext action)
+    //{
+    //    if (lastDashDirection != Vector3.right)
+    //    {
+    //        lastDashDirection = Vector3.right;
+    //        return;
+    //    }
+    //    if (grounded && IsOwner)
+    //    {
+    //        Dash();
+    //    }
+    //}
+    //public void DashLeft(InputAction.CallbackContext action)
+    //{
+    //    if (lastDashDirection != Vector3.left)
+    //    {
+    //        lastDashDirection = Vector3.left;
+    //        return;
+    //    }
       
-        if (grounded && IsOwner)
-        {
-            Dash();
-        }
-    }
+    //    if (grounded && IsOwner)
+    //    {
+    //        Dash();
+    //    }
+    //}
 
-    public void DashFwd(InputAction.CallbackContext action)
-    {
-        if (lastDashDirection != Vector3.forward)
-        {
-            lastDashDirection = Vector3.forward;
-            return;
-        }
+    //public void DashFwd(InputAction.CallbackContext action)
+    //{
+    //    if (lastDashDirection != Vector3.forward)
+    //    {
+    //        lastDashDirection = Vector3.forward;
+    //        return;
+    //    }
        
 
-        if (grounded && IsOwner)
-        {
-            Dash();
-        }
-    }
-    public void DashBack(InputAction.CallbackContext action)
-    {
+    //    if (grounded && IsOwner)
+    //    {
+    //        Dash();
+    //    }
+    //}
+    //public void DashBack(InputAction.CallbackContext action)
+    //{
         
-        if (lastDashDirection != Vector3.back)
-        {
-            lastDashDirection = Vector3.back;
-            return;
-        }
+    //    if (lastDashDirection != Vector3.back)
+    //    {
+    //        lastDashDirection = Vector3.back;
+    //        return;
+    //    }
         
 
-        if (grounded && IsOwner)
-        {
-            Dash();
-        }
-    }
-    public void Dash()
+    //    if (grounded && IsOwner)
+    //    {
+    //        Dash();
+    //    }
+    //}
+    public void Dash(InputAction.CallbackContext action)
     {
         
         if(abilityManager.stats.isDead) {  return; }
@@ -135,21 +135,21 @@ public class CombatantMovement : NetworkBehaviour
         if (abilityManager.currentEnergy < 10 ) { return; }
 
         
-        abilityManager.onEnergyChange.Invoke();
-        float oldTime = lastDashTime;
-        lastDashTime = Time.fixedTime;
-
-        if (!(lastDashTime - oldTime < TimeBetweenDash)) { return; }
-
         if (DashDexRequirement > abilityManager.stats.stats[Attributes.Dexterity]) { return; }
 
+        if(body.linearVelocity.magnitude < .01) { return; }
+
         abilityManager.currentEnergy -= DashEnergyCost;
+        abilityManager.onEnergyChange.Invoke();
         dashCdTimer = 0;
         abilityManager.combatantstate = combatantStates.Dashing;
         abilityManager.stateDuration = .25f;
         if(body)
-        body.AddForce(transform.TransformDirection(new Vector3(move.x, 0, move.y) * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
-        
+        {
+            // body.AddForce(transform.TransformDirection(new Vector3(move.x, 0, move.y) * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
+            body.AddForce(new Vector3(body.linearVelocity.x, 0, body.linearVelocity.z).normalized * abilityManager.stats.dashFormula(), ForceMode.Impulse);
+        }
+
     }
     public override void OnNetworkSpawn()
     {
@@ -241,7 +241,6 @@ public class CombatantMovement : NetworkBehaviour
 
         if (abilityManager.CanMoveNotAct())
         {
-            
             targetVeloctiy = new Vector3(currentVelocity.x - targetVeloctiy.x, 0, currentVelocity.z - targetVeloctiy.z);
         }
 

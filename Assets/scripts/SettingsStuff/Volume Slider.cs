@@ -11,8 +11,8 @@ public class VolumeSlider : MonoBehaviour
 
     void Start()
     {
-        if(type == SettingsSliders.BGM) { m_Slider.value = SettingsManager.instance.volume * 100; m_TextMeshProUGUI.text = SettingsManager.instance.volume.ToString(); }
-        if(type == SettingsSliders.SFX) { m_Slider.value = SettingsManager.instance.SFXVolume * 100; m_TextMeshProUGUI.text = SettingsManager.instance.SFXVolume.ToString(); }
+        if(type == SettingsSliders.BGM) { m_Slider.value = SettingsManager.instance.volume * 100; m_TextMeshProUGUI.text = (Mathf.Round(SettingsManager.instance.volume * 100)).ToString(); }
+        if(type == SettingsSliders.SFX) { m_Slider.value = SettingsManager.instance.SFXVolume * 100; m_TextMeshProUGUI.text = (Mathf.Round(SettingsManager.instance.SFXVolume * 100)).ToString(); }
         if(type == SettingsSliders.Sensitivity) { m_Slider.value = SettingsManager.instance.mouseSense; m_TextMeshProUGUI.text = (Mathf.Round(SettingsManager.instance.mouseSense * 100) / 100).ToString(); }
         
     }

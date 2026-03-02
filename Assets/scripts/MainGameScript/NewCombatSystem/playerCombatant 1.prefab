@@ -665,7 +665,7 @@ MonoBehaviour:
   additionalForces: {x: 0, y: 0, z: 0}
   dashCdTimer: 0
   lastDashDirection: {x: 0, y: 0, z: 0}
-  TimeBetweenDash: 0.2
+  TimeBetweenDash: 0.05
   dashCd: 1
   DashDexRequirement: 10
   DashEnergyCost: 10
@@ -938,6 +938,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3475f648-26ed-43d1-8b93-8a63077d419c
     m_ActionName: 'Spectating/Look[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4780723487593672358}
+        m_TargetAssemblyTypeName: CombatantMovement, Assembly-CSharp
+        m_MethodName: Dash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d15ba213-1da5-48d5-b8f8-0bde0ec93246
+    m_ActionName: 'Player/Dash[/Keyboard/leftShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

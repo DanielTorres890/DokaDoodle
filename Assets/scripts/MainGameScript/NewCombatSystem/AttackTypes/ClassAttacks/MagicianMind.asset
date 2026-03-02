@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: THINK
   attackName: Clear Mind
-  startUp: 0
+  startUp: 0.6
   attackDuration: 0
-  endLag: 1
+  endLag: 0.2
   cooldown: 20
   lifespan: 1
   energyDrain: 1
@@ -30,10 +30,11 @@ MonoBehaviour:
   stateToBe: 0
   chargeable: 0
   attackPrefab: {fileID: 2566779757777240371, guid: 025be11524405ff43871ea2fd91b5485, type: 3}
-  startUpPrefab: {fileID: 0}
+  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 1, y: 1, z: 1}
+  visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 0
   multipliers: []
   defenseMult: []
@@ -52,9 +53,9 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
-  attackAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
-  animationSpeed: 1
+  startUpAnimation: {fileID: 7400000, guid: 061e2d5ac07b8b74b919638b6863c768, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 47ba957347c73df4f9a23e74725cdc29, type: 2}
+  animationSpeed: 1.5
   LevelRequirements: []
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
@@ -62,5 +63,6 @@ MonoBehaviour:
   targets:
     serializedVersion: 2
     m_Bits: 0
+  conditions: []
   StatusEffects:
   - {fileID: 11400000, guid: 5faae344efbb3c249981acc584cf55e1, type: 2}

@@ -192,36 +192,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""DashRight"",
+                    ""name"": ""Dash"",
                     ""type"": ""Button"",
-                    ""id"": ""df6b6081-55b5-4299-bd2d-efcc80596bcc"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""DashLeft"",
-                    ""type"": ""Button"",
-                    ""id"": ""1edf29a3-ef5f-49c6-9c85-3ebc76c9ffdb"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""DashFwd"",
-                    ""type"": ""Button"",
-                    ""id"": ""618003e8-7724-415d-9da8-1e6e363fbbe3"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""DashBack"",
-                    ""type"": ""Button"",
-                    ""id"": ""b8dda105-e600-4892-92d7-499654de4eb3"",
+                    ""id"": ""d15ba213-1da5-48d5-b8f8-0bde0ec93246"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -526,56 +499,23 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""69d4089a-c991-4610-a4c5-31c9913d27f8"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DashRight"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8d27367d-39c6-4ce8-99b2-d41e34cdd591"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DashLeft"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""99c076b6-d2e6-4cd8-ab5c-235d8bf47377"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DashFwd"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""638bbd98-231e-4220-beca-5cc684b20220"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DashBack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""1297cc5c-f693-49b7-99e8-0958e832fcc6"",
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Scrolling"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""01a7c340-b799-4330-a192-462263cb80b0"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1635,10 +1575,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         m_Player_Ability3 = m_Player.FindAction("Ability3", throwIfNotFound: true);
         m_Player_Ability4 = m_Player.FindAction("Ability4", throwIfNotFound: true);
         m_Player_Ability5 = m_Player.FindAction("Ability5", throwIfNotFound: true);
-        m_Player_DashRight = m_Player.FindAction("DashRight", throwIfNotFound: true);
-        m_Player_DashLeft = m_Player.FindAction("DashLeft", throwIfNotFound: true);
-        m_Player_DashFwd = m_Player.FindAction("DashFwd", throwIfNotFound: true);
-        m_Player_DashBack = m_Player.FindAction("DashBack", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Scrolling = m_Player.FindAction("Scrolling", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1757,10 +1694,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Ability3;
     private readonly InputAction m_Player_Ability4;
     private readonly InputAction m_Player_Ability5;
-    private readonly InputAction m_Player_DashRight;
-    private readonly InputAction m_Player_DashLeft;
-    private readonly InputAction m_Player_DashFwd;
-    private readonly InputAction m_Player_DashBack;
+    private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Scrolling;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
@@ -1818,21 +1752,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Ability5 => m_Wrapper.m_Player_Ability5;
         /// <summary>
-        /// Provides access to the underlying input action "Player/DashRight".
+        /// Provides access to the underlying input action "Player/Dash".
         /// </summary>
-        public InputAction @DashRight => m_Wrapper.m_Player_DashRight;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/DashLeft".
-        /// </summary>
-        public InputAction @DashLeft => m_Wrapper.m_Player_DashLeft;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/DashFwd".
-        /// </summary>
-        public InputAction @DashFwd => m_Wrapper.m_Player_DashFwd;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/DashBack".
-        /// </summary>
-        public InputAction @DashBack => m_Wrapper.m_Player_DashBack;
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
         /// <summary>
         /// Provides access to the underlying input action "Player/Scrolling".
         /// </summary>
@@ -1896,18 +1818,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @Ability5.started += instance.OnAbility5;
             @Ability5.performed += instance.OnAbility5;
             @Ability5.canceled += instance.OnAbility5;
-            @DashRight.started += instance.OnDashRight;
-            @DashRight.performed += instance.OnDashRight;
-            @DashRight.canceled += instance.OnDashRight;
-            @DashLeft.started += instance.OnDashLeft;
-            @DashLeft.performed += instance.OnDashLeft;
-            @DashLeft.canceled += instance.OnDashLeft;
-            @DashFwd.started += instance.OnDashFwd;
-            @DashFwd.performed += instance.OnDashFwd;
-            @DashFwd.canceled += instance.OnDashFwd;
-            @DashBack.started += instance.OnDashBack;
-            @DashBack.performed += instance.OnDashBack;
-            @DashBack.canceled += instance.OnDashBack;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
             @Scrolling.started += instance.OnScrolling;
             @Scrolling.performed += instance.OnScrolling;
             @Scrolling.canceled += instance.OnScrolling;
@@ -1955,18 +1868,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @Ability5.started -= instance.OnAbility5;
             @Ability5.performed -= instance.OnAbility5;
             @Ability5.canceled -= instance.OnAbility5;
-            @DashRight.started -= instance.OnDashRight;
-            @DashRight.performed -= instance.OnDashRight;
-            @DashRight.canceled -= instance.OnDashRight;
-            @DashLeft.started -= instance.OnDashLeft;
-            @DashLeft.performed -= instance.OnDashLeft;
-            @DashLeft.canceled -= instance.OnDashLeft;
-            @DashFwd.started -= instance.OnDashFwd;
-            @DashFwd.performed -= instance.OnDashFwd;
-            @DashFwd.canceled -= instance.OnDashFwd;
-            @DashBack.started -= instance.OnDashBack;
-            @DashBack.performed -= instance.OnDashBack;
-            @DashBack.canceled -= instance.OnDashBack;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
             @Scrolling.started -= instance.OnScrolling;
             @Scrolling.performed -= instance.OnScrolling;
             @Scrolling.canceled -= instance.OnScrolling;
@@ -2491,33 +2395,12 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAbility5(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "DashRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDashRight(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "DashLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDashLeft(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "DashFwd" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDashFwd(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "DashBack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDashBack(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Scrolling" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
