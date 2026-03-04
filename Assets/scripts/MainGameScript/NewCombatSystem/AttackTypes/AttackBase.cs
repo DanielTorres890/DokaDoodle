@@ -41,6 +41,9 @@ public abstract class AttackBase : ScriptableObject
     [Header("Prefabs and prefab modifiers")]
     public GameObject attackPrefab;
     public GameObject startUpPrefab; //tea
+    public GameObject weaponPrefab;
+    public Vector3 weaponPosition;
+
 
     [Tooltip("Additional Fx for on spawn just incase")]
     public GameObject spawnFx;
