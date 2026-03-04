@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec8da9418a6bf493e93ef4c7b7575847, type: 3}
+  m_Name: WoodSword Skeleton
+  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SkeletonAsset
+  m_SpriteBones:
+  - m_Name: Spine
+    m_Guid: 79af91754c8af66418d8c4504e7bc16d
+    m_Position: {x: 911.22266, y: 356.7997, z: 0}
+    m_Rotation: {x: 0, y: 0, z: 0.7147733, w: 0.69935626}
+    m_Length: 233.94772
+    m_ParentId: -1
+    m_Color:
+      serializedVersion: 2
+      rgba: 4278190335
+  - m_Name: Head
+    m_Guid: c1cd5b90e3b59a149a7aa7468240d4a1
+    m_Position: {x: 233.94772, y: 0.000011028178, z: 0}
+    m_Rotation: {x: 0, y: 0, z: -0.0033251445, w: 0.9999945}
+    m_Length: 192.382
+    m_ParentId: 0
+    m_Color:
+      serializedVersion: 2
+      rgba: 4278255615
+  - m_Name: UpperRightArm
+    m_Guid: 5bb8766b65f549e4da43d2db996616aa
+    m_Position: {x: 186.64525, y: -7.5852017, z: 0}
+    m_Rotation: {x: 0, y: -0, z: -0.89330965, w: 0.44944176}
+    m_Length: 60.065933
+    m_ParentId: 0
+    m_Color:
+      serializedVersion: 2
+      rgba: 4278255360
+  - m_Name: LowerRightArm
+    m_Guid: 295cf28f1e4dfbb40b9e836a8cb2e116
+    m_Position: {x: 60.065952, y: 0.000019214996, z: 0}
+    m_Rotation: {x: 0, y: 0, z: 0.002995595, w: 0.9999956}
+    m_Length: 40.172943
+    m_ParentId: 2
+    m_Color:
+      serializedVersion: 2
+      rgba: 4294967040
+  - m_Name: UpperLeftArm
+    m_Guid: ec648e9f848f7c54da3543f896a8aadc
+    m_Position: {x: 188.43454, y: 7.3721404, z: 0}
+    m_Rotation: {x: 0, y: -0, z: 0.9135989, w: 0.40661672}
+    m_Length: 59.757435
+    m_ParentId: 0
+    m_Color:
+      serializedVersion: 2
+      rgba: 4294901760
+  - m_Name: LowerLeftArm
+    m_Guid: a4996c4c940b871458ed4647b8156174
+    m_Position: {x: 59.75732, y: -0.000051157007, z: 0}
+    m_Rotation: {x: 0, y: 0, z: -0.007006253, w: 0.99997544}
+    m_Length: 52.542
+    m_ParentId: 4
+    m_Color:
+      serializedVersion: 2
+      rgba: 4294902015
+  - m_Name: UpperRightLeg
+    m_Guid: f3697628469dab54689437d8af99e89c
+    m_Position: {x: 915.8339, y: 349.02542, z: 0}
+    m_Rotation: {x: 0, y: 0, z: -0.47747028, w: 0.8786479}
+    m_Length: 95.4447
+    m_ParentId: -1
+    m_Color:
+      serializedVersion: 2
+      rgba: 4278223103
+  - m_Name: LowerRightLeg
+    m_Guid: 520eeb0d1c34d6040871e3b03318ad9a
+    m_Position: {x: 95.444695, y: 0.000024263885, z: 0}
+    m_Rotation: {x: 0, y: 0, z: 0.0021146308, w: 0.9999978}
+    m_Length: 59.43476
+    m_ParentId: 6
+    m_Color:
+      serializedVersion: 2
+      rgba: 4278255488
+  - m_Name: UpperLeftLeg
+    m_Guid: f8b59118c87a99f4faa86924866c888c
+    m_Position: {x: 905.96063, y: 349.75677, z: 0}
+    m_Rotation: {x: 0, y: 0, z: -0.8552828, w: 0.51816154}
+    m_Length: 82.92579
+    m_ParentId: -1
+    m_Color:
+      serializedVersion: 2
+      rgba: 4286643968
+  - m_Name: LowerLeftLeg
+    m_Guid: 491b9910d8973ee4aa60021d3574b7bc
+    m_Position: {x: 82.925804, y: 0.000054375734, z: 0}
+    m_Rotation: {x: 0, y: 0, z: -0.006142175, w: -0.99998116}
+    m_Length: 59.8551
+    m_ParentId: 8
+    m_Color:
+      serializedVersion: 2
+      rgba: 4294934528

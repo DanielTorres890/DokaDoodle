@@ -395,6 +395,7 @@ public class AbilityManager : NetworkBehaviour
 
         
         stats = PlayerCombatManager.Instance.combatants[combatantNum];
+        Debug.Log("So i got some stats but no attacks? " + stats.attacks.Count);
         nameText.AbilityManager = this;
         hpText.AbilityManager = this;
         stats.PostStatusStatCalc();

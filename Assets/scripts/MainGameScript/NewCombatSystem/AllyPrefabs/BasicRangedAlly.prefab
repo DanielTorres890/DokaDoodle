@@ -593,6 +593,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &5895384546340891188
 MonoBehaviour:
@@ -652,6 +653,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -803,6 +805,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4586887351525352343
 MonoBehaviour:
@@ -862,6 +865,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1743,6 +1747,7 @@ MonoBehaviour:
   currentAttack: {fileID: 0}
   nameText: {fileID: 5664443472795612315}
   hpText: {fileID: 8986250131952043323}
+  myHealthbar: {fileID: 0}
   onStatus:
     m_PersistentCalls:
       m_Calls: []
@@ -1845,6 +1850,9 @@ MonoBehaviour:
   onEnergyChange:
     m_PersistentCalls:
       m_Calls: []
+  onSetUp:
+    m_PersistentCalls:
+      m_Calls: []
   maxEnergy: 100
   currentEnergy: 100
   energyRegen: 1
@@ -1903,6 +1911,8 @@ MonoBehaviour:
   playerClass: 0
   playerFace: 0
   playerHair: 0
+  previewLoaded: {fileID: 0}
+  editor: {fileID: 0}
 --- !u!114 &4294378189048777412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1917,6 +1927,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
   AuthorityMode: 1
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
@@ -1947,10 +1967,11 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305626960793455896}
   m_Enabled: 1
-  m_SortingLayerID: 781689269
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!95 &-4163339753683397056
 Animator:
   serializedVersion: 7
@@ -1986,8 +2007,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  TransitionStateInfoList: []
+  NetworkAnimatorExpanded: 0
+  AuthorityMode: 0
   m_Animator: {fileID: -4163339753683397056}
+  TransitionStateInfoList: []
+  AnimatorParameterEntries:
+    ParameterEntries:
+    - name: Walking
+      NameHash: 1744665739
+      Synchronize: 1
+      ParameterType: 4
+    - name: StartUp
+      NameHash: -1095283256
+      Synchronize: 1
+      ParameterType: 4
+    - name: Attacking
+      NameHash: -2123461723
+      Synchronize: 1
+      ParameterType: 4
+    - name: AnimSpeed
+      NameHash: 1207992894
+      Synchronize: 1
+      ParameterType: 1
+  AnimatorParametersExpanded: 0
 --- !u!82 &8695543771099290480
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2166,6 +2208,7 @@ MonoBehaviour:
   attackAnimations: []
   releaseTimer: 0
   timeToHold: 1
+  baseMoveSpeed: 4
   kiteRange: 4
   kiteAmount: 3
   Precision: 0

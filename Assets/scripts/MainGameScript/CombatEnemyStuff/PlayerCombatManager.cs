@@ -53,6 +53,12 @@ public class PlayerCombatManager : MonoBehaviour
         //Pretty much everything that isn't these two is stuff from the old system
         List<EntityStats> potentialEnemies = new List<EntityStats>(currentTile.tileEnemy);
 
+        foreach(var enemy in currentTile.tileEnemy)
+        {
+            enemy.ResetMyAttacks();
+        }
+
+
         foreach(var ally in currentTile.partyMembers)
         {
             if(ally.allyOwner == NetworkData.Instance.currentPlayer) { continue; }
@@ -100,10 +106,7 @@ public class PlayerCombatManager : MonoBehaviour
             PlayerCombatManager.Instance.combatants.Add(ally);
         }
 
-        Debug.Log("How many combatants? " + Instance.combatants.Count);
-        Debug.Log("How many players? " + currentTile.players.Count);
-        Debug.Log("How many enemies? " + currentTile.tileEnemy.Count);
-        Debug.Log("How many party members? " +currentTile.partyMembers.Count); 
+       
         return encounterName;
     }
 }

@@ -23,17 +23,22 @@ public class EnemyCombat : EntityStats
             base.name = EnemyInfo.enemyName;
         }
 
-        List<AttackBase> attacks = new List<AttackBase>();
-        foreach ( var attack in EnemyInfo.Attackss)
-        {
-            attacks.Add(attack);
-        }
-
-        base.attacks = new List<AttackBase>(attacks);
+       
+       
         base.loyaltyTags = new List<string>(EnemyInfo.loyaltyTags);
     
         base.defenses = EnemyInfo.Defendss;
     
     }
-    
+    public void ResetMyAttacks()
+    {
+        
+        List<AttackBase> attacks = new List<AttackBase>();
+        foreach (var attack in PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemyId].Attackss)
+        {
+            attacks.Add(attack);
+        }
+        Debug.Log("Ive set my attacks " + attacks.Count);
+        base.attacks = new List<AttackBase>(attacks);
+    }
 }
