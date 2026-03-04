@@ -1,4 +1,3 @@
-using Unity.Multiplayer.Playmode;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
@@ -37,7 +36,7 @@ public class StealItemUI : NetworkBehaviour
         SetUpRpc(stealerId, stolenId);
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetUpRpc(int stealerId, int stolenId)
     {
         stealingPlayer = stealerId;
@@ -60,7 +59,7 @@ public class StealItemUI : NetworkBehaviour
 
         StealItemRpc(itemNum, inventoryNum);
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void StealItemRpc(int itemNum, int inventoryNumber)
     {
         stolenItem = itemNum;
@@ -74,7 +73,7 @@ public class StealItemUI : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(stealingPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         GoBackRpc();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void GoBackRpc()
     {
         confirmButtons.SetActive(false);
@@ -85,7 +84,7 @@ public class StealItemUI : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(stealingPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         FinishRpc();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void FinishRpc()
     {
 

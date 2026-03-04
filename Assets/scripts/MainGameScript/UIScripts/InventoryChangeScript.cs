@@ -36,7 +36,7 @@ public class InventoryChangeScript : NetworkBehaviour
             ResetDisplayRpc();
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ResetDisplayRpc(RpcParams rpcstuff = default)
     {
         if (!NetworkData.Instance.IsAllowed(whoInControl, rpcstuff.Receive.SenderClientId)) { return; }
@@ -56,7 +56,7 @@ public class InventoryChangeScript : NetworkBehaviour
             InventoryForwardRpc();
         }
     }
-    [Rpc( SendTo.ClientsAndHost,RequireOwnership = false)]
+    [Rpc( SendTo.ClientsAndHost,InvokePermission = RpcInvokePermission.Everyone)]
     public void InventoryForwardRpc(RpcParams rpcstuff = default)
     {
         if (!NetworkData.Instance.IsAllowed(whoInControl, rpcstuff.Receive.SenderClientId)) { return; }
@@ -73,7 +73,7 @@ public class InventoryChangeScript : NetworkBehaviour
         if (sizeText)
             sizeText.text = inventoryDisplay.inventory.container.Count.ToString() + "/" + inventoryDisplay.inventory.MAXSIZE.ToString();
     }
-   /* [ClientRpc( RequireOwnership = false)]
+   /* [ClientRpc( InvokePermission = RpcInvokePermission.Everyone)]
     private void InventoryForwardClientRpc(int inv)
     {
         currentInventory = inv;
@@ -87,7 +87,7 @@ public class InventoryChangeScript : NetworkBehaviour
             InventoryBackRpc();
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void InventoryBackRpc(RpcParams rpcstuff = default)
     {
         if (!NetworkData.Instance.IsAllowed(whoInControl, rpcstuff.Receive.SenderClientId)) { return; }

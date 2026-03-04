@@ -135,7 +135,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     }
 
     
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void AddEventRpc(int eventId)
     {
 
@@ -144,7 +144,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
         eventsToActivate.Add(worldDatabase.GetItem[eventId]);      
         
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void NoEventRpc()
     {
 
@@ -153,13 +153,13 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
 
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void SyncFinishCutsceneRpc(int eventId)
     {
         currentCutscene = worldDatabase.GetItem[eventId].finishCutscene;
         if(IsHost) { SceneChanger.Instance.loadClientScenesServerRpc("Cutscene Scene"); }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void SyncStartCutsceneRpc(int eventId)
     {
         currentCutscene = worldDatabase.GetItem[eventId].startCutscene;

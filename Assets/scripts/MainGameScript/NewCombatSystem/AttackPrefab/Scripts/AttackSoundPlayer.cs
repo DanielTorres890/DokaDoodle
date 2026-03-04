@@ -21,7 +21,7 @@ public class AttackSoundPlayer : NetworkBehaviour
         
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void PlaySoundRpc(int audioId)
     {
         if(!audioSource) {  return; }

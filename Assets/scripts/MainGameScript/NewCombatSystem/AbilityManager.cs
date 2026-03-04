@@ -200,7 +200,7 @@ public class AbilityManager : NetworkBehaviour
         
 
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SpawnStartFabUpRpc(int whom)
     {
       
@@ -218,7 +218,7 @@ public class AbilityManager : NetworkBehaviour
 
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void DestroyStartUpFabRpc()
     {
         if(startUpEffects != null)
@@ -228,7 +228,7 @@ public class AbilityManager : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.Server, RequireOwnership = false)]
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
     private void PerformAttackRpc(int whom, float time, Vector3 wherewasyou, Vector3 whereyoulookin)
     {
         currentAttack = stats.attacks[whom];
@@ -237,13 +237,13 @@ public class AbilityManager : NetworkBehaviour
         chargeDuration = 0f;
         InvokeOnSpawnAttackRpc();
     }
-    [Rpc(SendTo.Server,RequireOwnership = false)]
+    [Rpc(SendTo.Server,InvokePermission = RpcInvokePermission.Everyone)]
     private void InvokeOnSpawnAttackRpc()
     {
         onSpawnAttack.Invoke();
     }
 
-    [Rpc(SendTo.SpecifiedInParams, RequireOwnership = false)]
+    [Rpc(SendTo.SpecifiedInParams, InvokePermission = RpcInvokePermission.Everyone)]
     public void RealAttackRpc(RpcParams rpcStuff)
     {
         if (spawnedAttack == null) { return ; }
@@ -320,7 +320,7 @@ public class AbilityManager : NetworkBehaviour
     }
    */
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void ImHitRpc(int damageAmt)
     {
         stats.stats[Attributes.Health] -= damageAmt;
@@ -337,7 +337,7 @@ public class AbilityManager : NetworkBehaviour
         
         
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void IGainedBuffRpc(int[] buffId)
     {
         foreach(int i in buffId)
@@ -348,7 +348,7 @@ public class AbilityManager : NetworkBehaviour
         stats.PostStatusStatCalc();
         onStatus.Invoke();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void ILostBuffRpc(int buffId)
     {
         Debug.Log("Did i lose a buff");
@@ -356,7 +356,7 @@ public class AbilityManager : NetworkBehaviour
         onStatus.Invoke();
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void UpdateMaterialRpc(int playerNum)
     {
         /*var render = GetComponentInChildren<MeshRenderer>(); skip for now maybe?
@@ -373,7 +373,7 @@ public class AbilityManager : NetworkBehaviour
         
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void UpdateMyLooksRpc()
     {
         characterEditor characterEdit = GetComponent<characterEditor>();
@@ -389,7 +389,7 @@ public class AbilityManager : NetworkBehaviour
         NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineCamera>());
         
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void UpdateStatsRpc(int combatantNum)
     {
 

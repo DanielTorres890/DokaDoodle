@@ -69,7 +69,7 @@ public class playerLevelUpMnger : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.ClientsAndHost,RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost,InvokePermission = RpcInvokePermission.Everyone)]
     private void IncreaseStatRpc(int stat, RpcParams parm = default)
     {
         
@@ -95,7 +95,7 @@ public class playerLevelUpMnger : NetworkBehaviour
        
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void DecreaseStatRpc(int stat, RpcParams parm = default)
     {
 
@@ -129,7 +129,7 @@ public class playerLevelUpMnger : NetworkBehaviour
         if (NetworkData.Instance.IsAllowed(inControl, NetworkManager.Singleton.LocalClientId) && statsToAllocate <= 0)
         StatUpRpc();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void StatUpRpc()
     {
         foreach (var stat in playerStatIncrease.Keys)

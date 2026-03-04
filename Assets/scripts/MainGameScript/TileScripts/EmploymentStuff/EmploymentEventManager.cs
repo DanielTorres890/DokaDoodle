@@ -86,7 +86,7 @@ public class EmploymentEventManager : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetJobChangeActiveRpc(bool toBe)
     {
         JobChangeObject.SetActive(toBe);
@@ -101,7 +101,7 @@ public class EmploymentEventManager : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetPartyChangeActiveRpc(bool toBe)
     {
         PartyMemberPurchase.SetActive(toBe);
@@ -120,7 +120,7 @@ public class EmploymentEventManager : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetMainMenuChangeActiveRpc(bool toBe)
     {
         MainMenu.SetActive(toBe);
@@ -131,7 +131,7 @@ public class EmploymentEventManager : NetworkBehaviour
         if(!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
         ChangePlayerClassRpc(classId);
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void ChangePlayerClassRpc(int classId)
     {
         NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].GetComponent<characterEditor>().setClass(classId);
@@ -144,7 +144,7 @@ public class EmploymentEventManager : NetworkBehaviour
         LeaveButtonRpc();
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void LeaveButtonRpc()
     {
         confirmLeave.SetActive(true);
@@ -158,7 +158,7 @@ public class EmploymentEventManager : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed()) { return; }
         ConfirmLeaveRpc();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ConfirmLeaveRpc()
     {
         confirmLeave.SetActive(false);
@@ -171,7 +171,7 @@ public class EmploymentEventManager : NetworkBehaviour
 
         DontLeaveRpc();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void DontLeaveRpc()
     {
         confirmLeave.SetActive(false );
@@ -212,7 +212,7 @@ public class EmploymentEventManager : NetworkBehaviour
         GenerateAlliesRpc(newNames,faceIds, allyHair, classId, randomStatBoost1, randomStatBoost2);
 
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void GenerateAlliesRpc(FixedString32Bytes[] names, int[] faceIds, int[] hairId,int[] classId, int[] randoBoost1, int[] randoBoost2 )
     {
         for (int i = 0;i < numOfAllies;i++)
@@ -231,7 +231,7 @@ public class EmploymentEventManager : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
         SelectAllyRpc(index);
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SelectAllyRpc(int index)
     {
         
@@ -259,7 +259,7 @@ public class EmploymentEventManager : NetworkBehaviour
         DontBuyAllyRpc();
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void DontBuyAllyRpc()
     {
         confirmAllyBuy.SetActive(false);
@@ -274,7 +274,7 @@ public class EmploymentEventManager : NetworkBehaviour
         ConfirmAllyBuyRpc();
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ConfirmAllyBuyRpc()
     {
 

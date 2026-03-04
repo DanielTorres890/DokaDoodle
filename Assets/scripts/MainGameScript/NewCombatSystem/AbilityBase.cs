@@ -136,7 +136,7 @@ public abstract class AbilityBase : NetworkBehaviour
         
     }
 
-    [Rpc(SendTo.SpecifiedInParams, RequireOwnership = true)]
+    [Rpc(SendTo.SpecifiedInParams, InvokePermission = RpcInvokePermission.Owner)]
     private void PlayHitSoundRpc(int soundId, RpcParams rpcsend)
     {
         

@@ -116,7 +116,7 @@ public class characterEditor : MonoBehaviour
         {
             playerName = defaultNames[Random.Range(0, defaultNames.Count)];
         }
-        NetworkData.Instance.sendPlayerDataServerRpc(playerName,playerClass,playerFace,playerHair, new ServerRpcParams());
+        NetworkData.Instance.sendPlayerDataServerRpc(playerName,playerClass,playerFace,playerHair, new RpcParams());
         
     }
     

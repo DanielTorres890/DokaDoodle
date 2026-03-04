@@ -22,7 +22,7 @@ public class AllyViewNetwork : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void UpdateDisplayRpc()
     {
         display.UpdateDisplay(NetworkData.Instance.GetCurrentPlayer().partyMembers);
@@ -36,7 +36,7 @@ public class AllyViewNetwork : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void EnterAllyStateMenuRpc(int allyIndex)
     {
         currentAllyIndex = allyIndex;
@@ -51,7 +51,7 @@ public class AllyViewNetwork : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ExitAllyStateMenuRpc()
     {
  
@@ -68,7 +68,7 @@ public class AllyViewNetwork : NetworkBehaviour
         ReturnToOwnerRpc();
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ReturnToOwnerRpc()
     {
         var currentAlly = NetworkData.Instance.GetCurrentPlayer().partyMembers[currentAllyIndex];
@@ -85,7 +85,7 @@ public class AllyViewNetwork : NetworkBehaviour
     }
 
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void PickTileToHoldRpc()
     {
 

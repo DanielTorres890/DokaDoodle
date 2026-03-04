@@ -26,7 +26,7 @@ public class SummonDespawn : AbilityBase
         lifetimer += Time.deltaTime;
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void SpawnInRpc(int entityId)
     {
         EnemyCombat entity = new EnemyCombat(PlayerCombatManager.Instance.EnemyDataBase.GetItem[entityId]);
@@ -43,7 +43,7 @@ public class SummonDespawn : AbilityBase
         
 
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void DespawnRpc()
     {
         NewCombatManager.instance.fricku.Remove(gameObject);

@@ -152,7 +152,7 @@ public class NewCombatManager : NetworkBehaviour
         SetUpRpc();
     }
 
-    [Rpc(SendTo.Server, RequireOwnership = false)]
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetUpRpc()
     {
         if (alreadyDone) { return; }
@@ -252,7 +252,7 @@ public class NewCombatManager : NetworkBehaviour
 
 
     }
-    [Rpc(SendTo.SpecifiedInParams, RequireOwnership = false)]
+    [Rpc(SendTo.SpecifiedInParams, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetNotSpectateRpc(int whichone, RpcParams rpcStuff)
     {
         //fricku[whichone].GetComponent<PlayerInput>();
@@ -399,19 +399,19 @@ public class NewCombatManager : NetworkBehaviour
         return enemy;
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ItemDroppedRpc(int item, int enemyId)
     {
       
         itemsPicked.Add(PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemyId].DroppedItems[item]);
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void PlayerItemDroppedRpc(int item, int itemType)
     {
         itemsPicked.Add(NetworkData.Instance.playerInventories[0][itemType].database.GetItem[item]);
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetUpVictorRpc()
     {
         AbilityManager victor = WhoWon();
@@ -630,7 +630,7 @@ public class NewCombatManager : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void EarlyEndCombatRpc()
     {
         playercontrol.SwitchCurrentActionMap("UI");
@@ -652,7 +652,7 @@ public class NewCombatManager : NetworkBehaviour
       
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void LinesToSyncRpc(string stringToAdd, int turnsDead, int playerNumber)
     {
         endBattleInfo.lines.Add(stringToAdd);
@@ -718,7 +718,7 @@ public class NewCombatManager : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void EndDialogueRpc()
     {
         endBattleInfo.lines.Add("NEXT TIME ON DRAGON BALL Z");

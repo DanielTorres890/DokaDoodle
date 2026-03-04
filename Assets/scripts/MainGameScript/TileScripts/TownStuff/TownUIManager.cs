@@ -39,7 +39,7 @@ public class TownUIManager : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetMainMenuVisibleRpc(bool visibility)
     {
             MainMenu.SetActive(visibility);
@@ -54,7 +54,7 @@ public class TownUIManager : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetInfoTextVisibleRpc(bool visibility)
     {
             mainMenuText.transform.parent.gameObject.SetActive(visibility);
@@ -72,7 +72,7 @@ public class TownUIManager : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetLevelMenuVisibleRpc(bool visibility)
     {
             LevelMenu.SetActive(visibility);
@@ -97,7 +97,7 @@ public class TownUIManager : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetRestMenuVisibleRpc(bool visibility)
     {
         
@@ -123,7 +123,7 @@ public class TownUIManager : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetAttackMenuVisibleRpc(bool visibility)
     {
         
@@ -153,7 +153,7 @@ public class TownUIManager : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void RestRpc()
     {
         if(MapTileSpecialEvents.Instance.GetCurrentTile().tileOwner != NetworkData.Instance.currentPlayer)
@@ -188,7 +188,7 @@ public class TownUIManager : NetworkBehaviour
             AttackRpc();
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void AttackRpc()
     {
         if (MapTileSpecialEvents.Instance.GetCurrentTile().tileOwner == NetworkData.Instance.currentPlayer)
@@ -212,7 +212,7 @@ public class TownUIManager : NetworkBehaviour
             LeaveRpc();
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void LeaveRpc()
     {
         mainMenuText.transform.parent.gameObject.SetActive(false);
@@ -244,7 +244,7 @@ public class TownUIManager : NetworkBehaviour
             infoText.text = DontOwnMessage;
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void MoneyLevelUpDisplayRpc()
     {
         YesNoButtons[0].transform.parent.gameObject.SetActive(true);
@@ -263,7 +263,7 @@ public class TownUIManager : NetworkBehaviour
         
         LevelUpMoneyRpc();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void LevelUpMoneyRpc()
     {
         NetworkData.Instance.GetCurrentPlayer().GainMoney (-Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.townMoneyLevel) + 1) * curTown.townInfo.moneyUpgradeCost));
@@ -292,7 +292,7 @@ public class TownUIManager : NetworkBehaviour
             infoText.text = DontOwnMessage;
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void UnitUpDisplayRpc()
     {
         YesNoButtons[0].transform.parent.gameObject.SetActive(true);
@@ -310,7 +310,7 @@ public class TownUIManager : NetworkBehaviour
 
         LevelUpUnitRpc();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void LevelUpUnitRpc()
     {
         NetworkData.Instance.GetCurrentPlayer().GainMoney(-Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.unitLevel) + 1) * curTown.townInfo.unitUpgradeCost));
@@ -339,7 +339,7 @@ public class TownUIManager : NetworkBehaviour
             Debug.Log("this ish AINT yours");
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void DefenseUpDisplayRpc()
     {
         YesNoButtons[0].transform.parent.gameObject.SetActive(true);
@@ -357,7 +357,7 @@ public class TownUIManager : NetworkBehaviour
 
         LevelUpDefenseRpc();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void LevelUpDefenseRpc()
     {
         NetworkData.Instance.GetCurrentPlayer().GainMoney(-Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.defenseLevel) + 1) * curTown.townInfo.defenseUpgradeCost));
@@ -373,7 +373,7 @@ public class TownUIManager : NetworkBehaviour
         ReturnToLevelUpRpc();
 
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ReturnToLevelUpRpc()
     {
         MainMenu.SetActive(false);

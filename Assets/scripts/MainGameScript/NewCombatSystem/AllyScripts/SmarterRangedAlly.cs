@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SmarterRangedAlly : SmarterRangedLogic
 {
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public override void AttackAnimRpc(int attackIndex)
     {
         selectedAttack = myManager.stats.attacks[attackIndex];

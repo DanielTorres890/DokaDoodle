@@ -41,7 +41,7 @@ public class PVPVictory : NetworkBehaviour
             StealItemButtonRpc();
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void StealItemButtonRpc()
     {
         stealItemUI.SetUp(winner, loser);
@@ -56,7 +56,7 @@ public class PVPVictory : NetworkBehaviour
             StealMoneyButtonRpc();
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void StealMoneyButtonRpc()
     {
         confirmMoneySteal.SetActive(true);
@@ -71,7 +71,7 @@ public class PVPVictory : NetworkBehaviour
             PrankButtonRpc();
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void PrankButtonRpc()
     {
         confirmPrank.SetActive(true);
@@ -88,7 +88,7 @@ public class PVPVictory : NetworkBehaviour
             BackFromStealRpc();
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void BackFromStealRpc()
     {
         stealItem.SetActive(false);
@@ -103,7 +103,7 @@ public class PVPVictory : NetworkBehaviour
             BackFromMoneyRpc();
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void BackFromMoneyRpc()
     {
         confirmMoneySteal.SetActive(false);
@@ -118,7 +118,7 @@ public class PVPVictory : NetworkBehaviour
             BackFromPrankRpc();
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void BackFromPrankRpc()
     {
         confirmPrank.SetActive(false);
@@ -144,7 +144,7 @@ public class PVPVictory : NetworkBehaviour
         }
     
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void FinishVictoryRpc()
     {
         confirmPrank.SetActive(false);
@@ -157,7 +157,7 @@ public class PVPVictory : NetworkBehaviour
         dialogueBox.startDialogue();
         
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void DropTimeRpc()
     {
         stealItem.SetActive(false);
@@ -171,7 +171,7 @@ public class PVPVictory : NetworkBehaviour
             StealMoneyRpc();
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void StealMoneyRpc()
     {
         playerData winnerData = NetworkData.Instance.players[winner];
@@ -189,7 +189,7 @@ public class PVPVictory : NetworkBehaviour
             PrankRpc(prankHairIds[Random.Range(0,prankHairIds.Count)]);
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void PrankRpc(int hairId)
     {
         //does not yet do anything....

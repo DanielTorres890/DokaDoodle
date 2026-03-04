@@ -99,7 +99,7 @@ public class BattleUIManager : NetworkBehaviour
     }
 
   
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void setTurnUIRpc(int order)
     {
         turnOrder = order;
@@ -148,7 +148,7 @@ public class BattleUIManager : NetworkBehaviour
         
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void setCombatantActionRpc(int combatant, int action)
     {
 
@@ -468,7 +468,7 @@ public class BattleUIManager : NetworkBehaviour
         }
         
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void AddEnemyDropRpc(int dropNumber)
     {
         var player = PlayerCombatManager.Instance.combatant1 as playerData;

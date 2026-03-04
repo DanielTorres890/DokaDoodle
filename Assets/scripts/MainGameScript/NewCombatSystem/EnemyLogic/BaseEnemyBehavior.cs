@@ -192,7 +192,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
         selectedAttack = myManager.stats.attacks[0];
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public virtual void AttackAnimRpc(int attackIndex)
     {
         

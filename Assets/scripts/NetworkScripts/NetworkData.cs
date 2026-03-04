@@ -178,14 +178,14 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         playerCount--;
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void unreadyServerRpc(ServerRpcParams serverRpcParams)
+	[Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+	public void unreadyServerRpc(RpcParams serverRpcParams)
     {
         readyPlayers[Convert.ToInt32(serverRpcParams.Receive.SenderClientId.ToString())] = false;
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void sendPlayerDataServerRpc(FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair, ServerRpcParams serverRpcParams)
+	[Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+	public void sendPlayerDataServerRpc(FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair, RpcParams serverRpcParams)
     {
         int playerId = Convert.ToInt32(serverRpcParams.Receive.SenderClientId.ToString());
         
@@ -198,22 +198,22 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     }
 
     //This function actually removes players if i wanted to readd players/add ai i gotta do somethin diffy but until then
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void fillPlayerServerRpc(int index)
     {
         players.RemoveAt(players.Count - 1);
         readyPlayers.RemoveAt(readyPlayers.Count - 1);
-        maxPlayers--;
+        maxPlayers--;   
 
 
     }
-    [ServerRpc(RequireOwnership = false)]
-    public void removePlayerServerRpc(int index)
+	[Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+	public void removePlayerServerRpc(int index)
     {
-        readyPlayers[index] = false;
+        readyPlayers[index] = false;    
         playerCount--;
     }
-    [ClientRpc(RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void SyncSticksClientRpc(int playerId, FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair, int playerCountin, int openSlots)
     {
 
@@ -258,14 +258,16 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public void SyncOtherDataRpc(string jsonString,int[] idOrder, RpcParams rpcStuff)
     {
         //sooo client connected includes host
-        if(IsHost) { return; }
+        
 
         clientOrder = idOrder;
+		LoadedIn = true;
+		editor.SetActive(false);
+		previewLoaded.SetActive(true);
+
+		if (IsHost) { return; }
+		DataPersistenceManager.instance.LoadDataFromString(jsonString);
         
-        DataPersistenceManager.instance.LoadDataFromString(jsonString);
-        LoadedIn = true;
-        editor.SetActive(false);
-        previewLoaded.SetActive(true);
         for(int i = 0; i < players.Count; i++)
         {
             playerPreviews[i].SetActive(true);
@@ -273,7 +275,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         }
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void AddOrderClientRpc(int slotNumber, int clientId)
     {
         clientOrder[slotNumber] = clientId;
@@ -320,7 +322,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         return IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId);
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void PlayerClassStatsRpc()
     {
         for (int i = 0; i < players.Count; i++)
@@ -345,7 +347,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     }
 
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void LoseItemRpc(int playerid, int itemNum, int inventoryNum)
     {
   
@@ -411,7 +413,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         }
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void AddItemToAllyRpc(int playerNum, int allyNum, int itemNum)
     {
         players[playerNum].partyMembers[allyNum].AddAbility(itemNum);

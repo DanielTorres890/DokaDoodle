@@ -29,7 +29,7 @@ public class CombatAnimator : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void SelectCurrentAttackRpc()
     {
 

@@ -155,21 +155,21 @@ public class PlayerMoveManager : NetworkBehaviour
         AddPathRpc(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
 
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void AddPathRpc(int tileId)
     {
         takenPath.Add(mapTiles[tileId].gameObject);
         NetworkData.Instance.GetCurrentPlayer().curTileId = tileId;
         SetFollowingMembersToCurTile();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void RemovePathRpc()
     {
         takenPath.RemoveAt(takenPath.Count - 1);
         NetworkData.Instance.GetCurrentPlayer().curTileId = takenPath[takenPath.Count - 1].GetComponent<TileScript>().tileId;
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SyncDiceRollServerRpc(int num)
     {
         
@@ -314,7 +314,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
 
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SyncPlayerTileServerRpc(int id)
     {
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = id;
@@ -324,7 +324,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
 
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void PlayerMoverRpc(float speed, int tildid, RpcParams rpcstuff = default)
     {
         if (rpcstuff.Receive.SenderClientId == NetworkManager.Singleton.LocalClientId) { return; }
@@ -335,7 +335,7 @@ public class PlayerMoveManager : NetworkBehaviour
         activeRoutine = StartCoroutine(playerMover(speed, tildid));
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetNextTurnServerRpc()
     {
         PerformAllyMoves();
@@ -356,7 +356,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void NextTurnRpc()
     {
         NetworkData.Instance.setNextTurnNum();
@@ -511,7 +511,7 @@ public class PlayerMoveManager : NetworkBehaviour
         FreeMover.Instance.FreeCamera();
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void FreeCameraRpc()
     {
         cameraMove = true;
@@ -536,7 +536,7 @@ public class PlayerMoveManager : NetworkBehaviour
         FreeMover.Instance.EndFreeCamera();
         UnfreeCameraRpc();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void UnfreeCameraRpc()
     {
         
@@ -834,7 +834,7 @@ public class PlayerMoveManager : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void AllyActionsRpc(int randomNum)
     {
         

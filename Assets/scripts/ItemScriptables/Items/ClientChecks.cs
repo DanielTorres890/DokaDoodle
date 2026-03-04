@@ -98,7 +98,7 @@ public class ClientChecks : NetworkBehaviour
         
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void EveryoneLockInRpc()
     {
         StartCoroutine(WaitUntilLocalLoaded());
@@ -198,7 +198,7 @@ public class ClientChecks : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void ConfirmBuffRpc(int player, int itemId, int inventoryNum)
     {
 
@@ -217,7 +217,7 @@ public class ClientChecks : NetworkBehaviour
         onItemUse.Invoke();
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void RandomizedItemSelectRpc(int player, int itemId, int inventoryType)
     {
         var playerinfo = NetworkData.Instance.players[player];
@@ -239,7 +239,7 @@ public class ClientChecks : NetworkBehaviour
         
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void SyncEnemyRpc(int encounterId)
     {
 
@@ -253,7 +253,7 @@ public class ClientChecks : NetworkBehaviour
         
         StartCoroutine(previewFight());
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void SyncEventRpc(int eventNum)
     {
         
@@ -261,7 +261,7 @@ public class ClientChecks : NetworkBehaviour
         SceneChanger.Instance.loadClientScenesServerRpc(NetworkData.Instance.currentEvent.SceneToGoTo);
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void WorldEventRpc()
     {
         Debug.Log("Step 3");
@@ -269,7 +269,7 @@ public class ClientChecks : NetworkBehaviour
         else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0) { StartCoroutine(displayDeactivateEvent()); }
 
     }
-    /* [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    /* [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
      public void InitiateFightRpc()
      {
          combatPreview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();
@@ -287,7 +287,7 @@ public class ClientChecks : NetworkBehaviour
          StartCoroutine(previewFight());
      } */
 
-    [Rpc(SendTo.ClientsAndHost,RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost,InvokePermission = RpcInvokePermission.Everyone)]
     public void DisplayDeadRpc()
     {
         displayText.lines.Clear();
@@ -298,7 +298,7 @@ public class ClientChecks : NetworkBehaviour
         
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void DisplayGainedClassRpc(int classId)
     {
         displayText.lines.Clear();
@@ -306,20 +306,20 @@ public class ClientChecks : NetworkBehaviour
         StartCoroutine(displayClassGained());
 
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void DeployTrapRpc(int tileId, int trapId)
     {
         MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][tileId].trapIds.Add(trapId);
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void UseClassAbilityRpc(int randomNum = 0)
     {
 
         NetworkData.Instance.classDataBase.GetItem[NetworkData.Instance.GetCurrentPlayer().playerClass].ClassAction(NetworkData.Instance.GetCurrentPlayer(), randomNum);
 
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void CompleteClassAbilityRpc()
     {
         displayText.lines.Clear();
@@ -328,7 +328,7 @@ public class ClientChecks : NetworkBehaviour
         StartCoroutine(usedAbility());
         onClassAbilityUse.Invoke();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void ActivateTrapsRpc()
     {
         StartCoroutine(TrapActivates());
@@ -550,7 +550,7 @@ public class ClientChecks : NetworkBehaviour
     }
 
     //specifically for undoing finder
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void UndoItemUseRpc()
     {
         display.gameObject.SetActive(true);

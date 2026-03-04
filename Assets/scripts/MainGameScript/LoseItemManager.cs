@@ -42,7 +42,7 @@ public class LoseItemManager : NetworkBehaviour
         SetUpRpc(playerId, inventoryNumber);
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetUpRpc(int playerId, int inventoryNumber)
     {
     
@@ -63,7 +63,7 @@ public class LoseItemManager : NetworkBehaviour
         LoseItemRpc(itemNum, inventoryNumber);
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void LoseItemRpc(int itemNum, int inventoryNumber)
     {
         
@@ -78,7 +78,7 @@ public class LoseItemManager : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         GoBackRpc();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void GoBackRpc()
     {
         confirmButtons.SetActive(false);
@@ -89,7 +89,7 @@ public class LoseItemManager : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         FinishRpc();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void FinishRpc()
     {
         NetworkData.Instance.playerInventories[currentPlayer][inventoryNum].RemoveItem(itemToLose);

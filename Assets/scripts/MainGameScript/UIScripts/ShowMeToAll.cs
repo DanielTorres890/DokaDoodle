@@ -18,15 +18,15 @@ public class ShowMeToAll : NetworkBehaviour
         ShowUIToAllServerRpc();
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void ShowUIToAllServerRpc()
+	[Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+	public void ShowUIToAllServerRpc()
     {
 
         ShowUIToAllClientRpc();
     }
 
-    [ClientRpc(RequireOwnership = false)]
-    public void ShowUIToAllClientRpc()
+	[Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+	public void ShowUIToAllClientRpc()
     {
         menuUI.SetActive(true);
         
@@ -38,15 +38,15 @@ public class ShowMeToAll : NetworkBehaviour
         HideUiFromAllServerRpc();
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void HideUiFromAllServerRpc()
+	[Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+	private void HideUiFromAllServerRpc()
     {
         
         HideUiFromAllClientRpc();
     }
-    [ClientRpc(RequireOwnership = false)]
+	[Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
 
-    private void HideUiFromAllClientRpc()
+	private void HideUiFromAllClientRpc()
     {
         menuUI.SetActive(false);
     }

@@ -57,7 +57,7 @@ public class DialogueScript : NetworkBehaviour
     // Update is called once per frame
 
 
-    [Rpc(SendTo.Server, RequireOwnership = false)]
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
     public void contCutsceneServerRpc(RpcParams rpcstuff = default)
     {
 

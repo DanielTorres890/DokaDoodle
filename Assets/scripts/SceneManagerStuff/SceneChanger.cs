@@ -23,7 +23,7 @@ public class SceneChanger : NetworkBehaviour
         
     }
 
-    [Rpc(SendTo.Server, RequireOwnership = false)]
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
     public void loadClientScenesServerRpc(string sceneName)
     {
         
@@ -34,7 +34,7 @@ public class SceneChanger : NetworkBehaviour
         
         
     }
-    [Rpc(SendTo.Server, RequireOwnership = false)]
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
     public void loadClientScenesAddidtiveRpc(string sceneName)
     {
         if (sceneName == "Fake") { return; }
@@ -53,20 +53,20 @@ public class SceneChanger : NetworkBehaviour
 
     }
 
-    [Rpc(SendTo.Server, RequireOwnership = false)]
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
     public void UnloadClientScenesRpc(string sceneName)
     {
         
         NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(sceneName));
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ResetYoStuffRpc(string scenename)
     {
       
         StartCoroutine(FadeIn(scenename, LoadSceneMode.Single));
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ResetYoStuffAddRpc(string scenename)
     {
 
@@ -92,7 +92,7 @@ public class SceneChanger : NetworkBehaviour
     }
 
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void FadeOutRpc()
     {
         StartCoroutine(FadeOut());

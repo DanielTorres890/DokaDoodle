@@ -101,7 +101,7 @@ public class TileEventManager : NetworkBehaviour
             return;
         RandomSyncRpc(Random.Range(0, amount));
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void RandomSyncRpc(int num)
     {
         rando = num;
@@ -122,13 +122,13 @@ public class TileEventManager : NetworkBehaviour
             DoSomethingRpc();
         }
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void DoNothingRpc()
     {
         (NetworkData.Instance.currentEvent as TwoChoiceEvent).doNothing();
         DestroyButtons();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void DoSomethingRpc()
     {
         (NetworkData.Instance.currentEvent as TwoChoiceEvent).doSomething();

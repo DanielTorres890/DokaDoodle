@@ -38,7 +38,7 @@ public class ShopUISync : NetworkBehaviour
         ShowShopRpc();
 
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ShowShopRpc()
     {
         buyShopStuff.UpdateDisplay();
@@ -50,7 +50,7 @@ public class ShopUISync : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         ShowSellRpc();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ShowSellRpc()
     {
         sellUIManager.CreateDisplay(NetworkData.Instance.currentPlayer);
@@ -64,7 +64,7 @@ public class ShopUISync : NetworkBehaviour
         EndShopRpc();
 
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void EndShopRpc()
     {
         hideMenuButtons(mainMenuButtons);
@@ -86,7 +86,7 @@ public class ShopUISync : NetworkBehaviour
         setUpBuyRpc(itemNum);
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void setUpBuyRpc(int itemNum)
     {
         var playerInv = NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][curEvent.itemsSold[itemNum].determineType()];
@@ -116,7 +116,7 @@ public class ShopUISync : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         purchaseItemRpc(itemNum);
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void purchaseItemRpc(int itemNum)
     {
         
@@ -136,7 +136,7 @@ public class ShopUISync : NetworkBehaviour
         dontPurchaseRpc();
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void dontPurchaseRpc()
     {
         buyShop.SetActive(true);
@@ -150,7 +150,7 @@ public class ShopUISync : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         setUpSellRpc(itemNum, inventoryNum);
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void setUpSellRpc(int itemNum, int inventoryNum)
     {
 
@@ -177,7 +177,7 @@ public class ShopUISync : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         sellItemRpc(itemNum, inventoryNum);
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void sellItemRpc(int itemNum, int inventoryNum)
     {
         hideMenuButtons(sellDontButtons);
@@ -216,7 +216,7 @@ public class ShopUISync : NetworkBehaviour
         returnToMainRpc();
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void returnToMainRpc()
     {
         hideMenuButtons(mainMenuButtons, true);

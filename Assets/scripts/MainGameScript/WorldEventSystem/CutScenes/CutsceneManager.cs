@@ -15,7 +15,7 @@ public class CutsceneManager : NetworkBehaviour
         if(IsHost) { StartCoroutine(awaitClients()); }
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void BeginCutsceneRPC()
     {
         if(WorldEventManager.Instance.currentCutscene.backgroundMusic)

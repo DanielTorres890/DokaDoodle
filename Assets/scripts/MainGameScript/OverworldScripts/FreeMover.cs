@@ -57,7 +57,7 @@ public class FreeMover : NetworkBehaviour
     }
 
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SyncTranformRpc(Vector3 newPos)
     {
         transform.position = newPos;
@@ -94,7 +94,7 @@ public class FreeMover : NetworkBehaviour
         
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SelectTileRpc(int tileId)
     {
       
@@ -108,7 +108,7 @@ public class FreeMover : NetworkBehaviour
         FreeCameraRpc();
     }
 
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void FreeCameraRpc(RpcParams paramys = default)
     {
         gameObject.SetActive(true);
@@ -130,7 +130,7 @@ public class FreeMover : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         EndFreeCameraRpc();
     }
-    [Rpc(SendTo.ClientsAndHost, RequireOwnership = false)]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void EndFreeCameraRpc(RpcParams paramys = default)
     {
         
