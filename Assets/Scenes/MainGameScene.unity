@@ -511,6 +511,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 863783235}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: leftTile
+      value: 
+      objectReference: {fileID: 1735755685}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: rightTile
       value: 
       objectReference: {fileID: 0}
@@ -847,7 +851,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.99313915, g: 1, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -1433,6 +1437,7 @@ Transform:
   - {fileID: 1489792917}
   - {fileID: 334834893}
   - {fileID: 213240764}
+  - {fileID: 1735755683}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &334834891
@@ -1637,6 +1642,7 @@ MonoBehaviour:
   - {fileID: 1489792919}
   - {fileID: 334834894}
   - {fileID: 213240766}
+  - {fileID: 1735755684}
   rollNum: {fileID: 0}
   takenPath: []
   playerSticks: []
@@ -1646,8 +1652,8 @@ MonoBehaviour:
   canMove: 0
   cameraMove: 0
   autoMoving: 0
-  forceRoll: 0
-  forcedRollNum: 5
+  forceRoll: 1
+  forcedRollNum: 8
   moveSpeed: 50
   autoMoveTime: 0.4
   autoMoveSpeed: 37.5
@@ -1692,7 +1698,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -6574,6 +6580,103 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
   m_PrefabInstance: {fileID: 1520450001}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1735755682
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 333774127}
+    m_Modifications:
+    - target: {fileID: -6587754183726193978, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: rightTile
+      value: 
+      objectReference: {fileID: 142024823}
+    - target: {fileID: 3735387054086767184, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.87947
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4275375762089989838, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_Name
+      value: GoToMapTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255355776989548959, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_text
+      value: Malding Den
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255355776989548959, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_fontSize
+      value: 15.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255355776989548959, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9159908173666570597, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+--- !u!4 &1735755683 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3735387054086767184, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+  m_PrefabInstance: {fileID: 1735755682}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1735755684 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -6587754183726193978, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+  m_PrefabInstance: {fileID: 1735755682}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735755685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200b4d3564071ec478f539999f1ccb2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChangeMapTile
+--- !u!1 &1735755685 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4275375762089989838, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+  m_PrefabInstance: {fileID: 1735755682}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1751924492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8531,7 +8634,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1

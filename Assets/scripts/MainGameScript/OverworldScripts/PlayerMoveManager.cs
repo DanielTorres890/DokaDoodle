@@ -725,8 +725,18 @@ public class PlayerMoveManager : NetworkBehaviour
         
         for (int i = 0; i < NetworkData.Instance.players.Count; i++)
         {
-            
-            int playersOnTile = MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[i].curTileId].players.Count;
+            playerSticks[i].SetActive(true);
+            if (mapNumber != NetworkData.Instance.players[i].curMap)
+            {
+                playerSticks[i].SetActive(false);
+                return;
+            }
+                
+
+           
+
+
+                int playersOnTile = MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[i].curTileId].players.Count;
 
             int intIndex = 0;
             foreach (var playerId in MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[i].curTileId].players)
@@ -737,7 +747,7 @@ public class PlayerMoveManager : NetworkBehaviour
             int stagger = 1;
 
             if(intIndex > 1) { stagger = -1; }
-
+            
             playerSticks[i].transform.position = mapTiles[NetworkData.Instance.players[i].curTileId].transform.position;
             playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + intIndex % 2, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z - 2 + 1f * stagger);
                         

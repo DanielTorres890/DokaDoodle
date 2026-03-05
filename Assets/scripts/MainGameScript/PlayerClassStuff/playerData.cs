@@ -37,6 +37,7 @@ public class playerData : EntityStats
     public int tillRevive;
 
     public int playerSpawnTile;
+    public int playerSpawnMap;
 
     //this may get scrapped at somep point
     public Dictionary<ItemType, int> equipItems = new Dictionary<ItemType, int>
@@ -175,7 +176,8 @@ public class playerData : EntityStats
             
             bool success = MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Remove(playerNumber);
             
-            this.curTileId = this.playerSpawnTile;    
+            this.curTileId = this.playerSpawnTile;
+            this.curMap = this.playerSpawnMap;
 
         }
 

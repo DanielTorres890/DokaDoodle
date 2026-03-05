@@ -26,7 +26,7 @@ public class EnemyCombat : EntityStats
        
        
         base.loyaltyTags = new List<string>(EnemyInfo.loyaltyTags);
-    
+        ResetMyAttacks();
         base.defenses = EnemyInfo.Defendss;
     
     }
