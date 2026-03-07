@@ -1396,7 +1396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1592287177966329176, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1472938738338902295, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
       propertyPath: m_Layer
@@ -1726,7 +1726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2967414060
+  GlobalObjectIdHash: 2054981637
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -2243,6 +2243,13 @@ MonoBehaviour:
   avoiding: 0
   KiteAttackDelta: 6
   minimumRange: 15
+  spawnedWeapon: {fileID: 0}
+  WeaponTransform: {fileID: 3490191080601003723}
+--- !u!4 &3490191080601003723 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2708613195247864430, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+  m_PrefabInstance: {fileID: 1583379286521998501}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8292266084096716652
 PrefabInstance:
   m_ObjectHideFlags: 0
