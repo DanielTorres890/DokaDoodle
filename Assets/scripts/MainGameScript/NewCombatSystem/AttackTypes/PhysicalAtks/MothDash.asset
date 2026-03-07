@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c70905539cf5dbf419736cae7168ff11, type: 3}
+  m_Name: MothDash
+  m_EditorClassIdentifier: 
+  description: 
+  attackName: Sword Draw
+  startUp: 0.75
+  attackDuration: 0.2
+  endLag: 0.2
+  cooldown: 10
+  lifespan: 0.2
+  energyDrain: 1
+  maxChargeAtkBuff: 1.2
+  maxChargeSizeBuff: 1.2
+  maxChargeSpeedBuff: 1.1
+  maxChargeDuration: 3
+  requiredPotency: 0
+  dmgPotencyEffect: 2
+  sizePotencyEffect: 2
+  stateToBe: 0
+  chargeable: 1
+  attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
+  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
+  spawnFx: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
+  ablitySize: {x: 3, y: 5, z: 3}
+  visualRoation: {x: 0, y: 0, z: 0}
+  baseDamage: 5
+  multipliers:
+  - attribute: 2
+    mult: 1
+  defenseMult:
+  - attribute: 3
+    mult: 0.7
+  antiGuardMultipliers:
+  - attribute: 0
+    mult: 1
+  - attribute: 1
+    mult: 1
+  - attribute: 2
+    mult: 1
+  - attribute: 3
+    mult: 1
+  - attribute: 4
+    mult: 1
+  - attribute: 5
+    mult: 1
+  - attribute: 6
+    mult: 1
+  startUpAnimation: {fileID: 7400000, guid: 07cf1319332625148b3ed48fac40aa50, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+  animationSpeed: 1
+  LevelRequirements: []
+  attackSound: {fileID: 8300000, guid: f8e04c0f92914e34da11e1e75e61e638, type: 3}
+  onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
+  onHitEffects: []
+  targets:
+    serializedVersion: 2
+    m_Bits: 0
+  conditions: []
+  dashDirection: {x: 0, y: 0, z: 1}
+  dashSpeed: 200

@@ -35,11 +35,13 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
     public float baseMoveSpeed = 4f;
 
+    [DoNotSerialize] public Rigidbody rb; 
     public override void OnNetworkSpawn()
     {
         agent = GetComponent<NavMeshAgent>();
         myManager = GetComponent<AbilityManager>();
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
 
         overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         overrideController["DefaultWalking"] = walkingAnimation;
@@ -98,9 +100,15 @@ public class BaseEnemyBehavior : NetworkBehaviour
     public virtual void Update()
     {
         if(myManager.stats.isDead) { agent.enabled = false; return; }
+        if(myManager.CanWalk()) { agent.enabled = true; }
+        else { agent.enabled = false; }
 
 
-        if(!IsServer) { return;}
+        if (myManager.combatantstate == combatantStates.Attacking && rb) { rb.isKinematic = false; }
+        else if (rb) { rb.isKinematic = true; }
+
+
+        if (!IsServer) { return; }
         AttackHold();
 
         if (NewCombatManager.instance.fightOver) { return; }
@@ -134,13 +142,13 @@ public class BaseEnemyBehavior : NetworkBehaviour
     public virtual void ChasePlayer()
     {
         
-        if(!myManager.CanMove()) { return; }
+        if(!myManager.CanWalk()) { return; }
 
         if (myManager.combatantstate == combatantStates.Free ||  myManager.combatantstate == combatantStates.StartUpFree)
 
         agent.speed = myManager.stats.speedFormula() + baseMoveSpeed;
         agent.SetDestination(targetManager.gameObject.transform.position);
-
+        Debug.Log("I AM CHASING");
 
         if (!IsServer) { return; }
 
@@ -168,6 +176,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
         {
             
             selectAttack();
+            if (myManager.stateManager[selectedAttack].cooldown > 0) { return; }
             for (int i = 0; i < myManager.stats.attacks.Count; i++)
             {
                 if (myManager.stats.attacks[i] == selectedAttack)
@@ -175,20 +184,20 @@ public class BaseEnemyBehavior : NetworkBehaviour
                     AttackAnimRpc(i);
                 }
             }
-            
+           
             myManager.stateManager[selectedAttack].pressed = true;
+            
         }
-        
 
-        if (!myManager.CanMove())
-        {
-            agent.SetDestination(transform.position);
-        }
-        
+        if (rb) { rb.isKinematic = false; }
+
+
+
     }
 
     public virtual void selectAttack()
     {
+        Debug.Log("I have selected attacks dont I? " + myManager.stats.attacks.Count);
         selectedAttack = myManager.stats.attacks[0];
     }
 

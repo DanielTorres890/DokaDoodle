@@ -6,7 +6,8 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
     public float kiteRange;
     public float kiteAmount;
 
-    public float Precision;
+    [Tooltip("How much it'll look around to find an open area \nthink of it like 1 meaning itll turn 1 degree until it finds an open area to run to")]
+    public float Precision = 1f;
     public float StopKitingDistance;
 
     
@@ -22,7 +23,8 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
 
     public override void Update()
     {
-        if (myManager.CanMove() && targetManager != null && !myManager.stats.isDead)
+
+        if (myManager.CanWalk() && targetManager != null && !myManager.stats.isDead)
         {
             
             kiteFinish();
@@ -46,15 +48,15 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
     
     public override void selectAttack()
     {
+        selectedAttack = myManager.stats.attacks[0];
         foreach (var key in myManager.stats.attacks)
         {
             
             if (myManager.stateManager[key].cooldown > 0) { continue; }
 
-            if (key.attackPrefab.TryGetComponent(out RangedAbility ranged))
-            {
-                selectedAttack = key;
-            }
+        
+            selectedAttack = key;
+            
             
             
         }
@@ -62,6 +64,7 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
     
     public void KiteAway()
     {
+        agent.enabled = true;
         Quaternion NOJANK = gameObject.transform.rotation;
         SetAttackingAnim(false);
         SetStartUpAnim(false);
@@ -76,6 +79,7 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
             freeme = NavMesh.Raycast(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.back) * kiteAmount, out NavMeshHit hit, NavMesh.AllAreas);
         }
 
+        Debug.Log("RUN AWAYYYY");
         agent.SetDestination(gameObject.transform.TransformDirection(Vector3.back) * kiteAmount);
         avoiding = true;
         gameObject.transform.rotation = NOJANK;
