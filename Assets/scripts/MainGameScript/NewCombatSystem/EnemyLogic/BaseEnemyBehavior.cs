@@ -100,12 +100,12 @@ public class BaseEnemyBehavior : NetworkBehaviour
     public virtual void Update()
     {
         if(myManager.stats.isDead) { agent.enabled = false; return; }
-        if(myManager.CanWalk()) { agent.enabled = true; }
+        if(myManager.CanWalk()) { agent.enabled = true; rb.isKinematic = true; }
         else { agent.enabled = false; }
 
 
-        if (myManager.combatantstate == combatantStates.Attacking && rb) { rb.isKinematic = false; }
-        else if (rb) { rb.isKinematic = true; }
+   
+        
 
 
         if (!IsServer) { return; }
@@ -128,7 +128,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
         
 
-        if (InAttackRange) { AttackPlayer(); }
+        if (InAttackRange || myManager.combatantstate == combatantStates.Attacking) { AttackPlayer(); }
         
         
         
@@ -148,7 +148,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
         agent.speed = myManager.stats.speedFormula() + baseMoveSpeed;
         agent.SetDestination(targetManager.gameObject.transform.position);
-        Debug.Log("I AM CHASING");
+       
 
         if (!IsServer) { return; }
 

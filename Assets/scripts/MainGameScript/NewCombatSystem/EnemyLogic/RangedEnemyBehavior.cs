@@ -48,6 +48,7 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
     
     public override void selectAttack()
     {
+        Debug.Log("Im attacking");
         selectedAttack = myManager.stats.attacks[0];
         foreach (var key in myManager.stats.attacks)
         {
@@ -64,7 +65,12 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
     
     public void KiteAway()
     {
-        agent.enabled = true;
+        if(!agent.enabled)
+        {
+           
+            agent.enabled = true;
+        }
+        
         Quaternion NOJANK = gameObject.transform.rotation;
         SetAttackingAnim(false);
         SetStartUpAnim(false);
@@ -79,7 +85,7 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
             freeme = NavMesh.Raycast(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.back) * kiteAmount, out NavMeshHit hit, NavMesh.AllAreas);
         }
 
-        Debug.Log("RUN AWAYYYY");
+        
         agent.SetDestination(gameObject.transform.TransformDirection(Vector3.back) * kiteAmount);
         avoiding = true;
         gameObject.transform.rotation = NOJANK;
