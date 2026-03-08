@@ -212,9 +212,10 @@ public class PlayerMoveManager : NetworkBehaviour
 
         var direction = action.action.ReadValue<Vector2>();
         var curTile = mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
+        var thisMapSpecial = MapTileSpecialEvents.Instance.mapTiles[mapNumber];
 
-
-        if (direction == Vector2.up && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].upTile != null)
+        
+        if (direction == Vector2.up && mapTiles[curTile.tileId].upTile != null && thisMapSpecial[mapTiles[curTile.tileId].upTile.GetComponent<TileScript>().tileId].passable)
         {
 
 
@@ -235,7 +236,7 @@ public class PlayerMoveManager : NetworkBehaviour
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.upTile.GetComponent<TileScript>().tileId;
 
         }
-        if (direction == Vector2.down && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].downTile != null)
+        if (direction == Vector2.down && mapTiles[curTile.tileId].downTile != null && thisMapSpecial[mapTiles[curTile.tileId].downTile.GetComponent<TileScript>().tileId].passable)
         {
 
             if (((takenPath.Count <= 1 && diceRoll > 0) || (takenPath[takenPath.Count - 2] != curTile.downTile)) && diceRoll > 0)
@@ -253,7 +254,7 @@ public class PlayerMoveManager : NetworkBehaviour
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.downTile.GetComponent<TileScript>().tileId;
         }
 
-        if (direction == Vector2.right && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].rightTile != null)
+        if (direction == Vector2.right && mapTiles[curTile.tileId].rightTile != null && thisMapSpecial[mapTiles[curTile.tileId].rightTile.GetComponent<TileScript>().tileId].passable)
         {
 
             if (((takenPath.Count <= 1 && diceRoll > 0) || (takenPath[takenPath.Count - 2] != curTile.rightTile)) && diceRoll > 0)
@@ -271,7 +272,7 @@ public class PlayerMoveManager : NetworkBehaviour
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.rightTile.GetComponent<TileScript>().tileId;
         }
 
-        if (direction == Vector2.left && mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].leftTile != null)
+        if (direction == Vector2.left && mapTiles[curTile.tileId].leftTile != null && thisMapSpecial[mapTiles[curTile.tileId].leftTile.GetComponent<TileScript>().tileId].passable)
         {
 
             if (((takenPath.Count <= 1 && diceRoll > 0) || (takenPath[takenPath.Count - 2] != curTile.leftTile)) && diceRoll > 0)
@@ -407,30 +408,34 @@ public class PlayerMoveManager : NetworkBehaviour
                     battleArea = PlayerMoveManager.Instance.mapTiles[i].battleEnvironment
                 };
 
+
+                var thisTile = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i];
+                thisTile.passable = Instance.mapTiles[i].initiallyPassable;
+
                 if (mapNumber == 0 && i == 0)
                 {
                     
                     for (int j = 0; j < NetworkData.Instance.maxPlayers; j++)
                     {
-                        MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].players.Add(j);
+                        thisTile.players.Add(j);
                     }
                 }
                 //id like to say that im not super happy about this but things are getting messy
                 //they NEED to know their town id right away otherwise its really unintuitive
                 if (PlayerMoveManager.Instance.mapTiles[i] is TownTile)
                 {
-                    MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].townId = NetworkData.Instance.TownInfoDataBase.GetId[(PlayerMoveManager.Instance.mapTiles[i] as TownTile).Info];
+                    thisTile.townId = NetworkData.Instance.TownInfoDataBase.GetId[(PlayerMoveManager.Instance.mapTiles[i] as TownTile).Info];
                     foreach (var enemy in Instance.mapTiles[i].defaultTileEnemies.enemies)
                     {
                         var enemystats = new EnemyCombat(enemy);
                         enemystats.persistant = true;
-                        MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].tileEnemy.Add(enemystats);
+                        thisTile.tileEnemy.Add(enemystats);
                     }
 
                 }
                 else
                 {
-                    MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][i].townId = -1;
+                    thisTile.townId = -1;
                 }
             }
         }
@@ -573,6 +578,7 @@ public class PlayerMoveManager : NetworkBehaviour
     //maybe some optimization where if multiple tiles share the same path (which can and does happen) they could use the same prior path or something but not needed i dont think
     private void PossibleTiles(TileScript tile, int rollLeft, TileScript previousTile, ref List<PathWrapper> takenTilePath, List<TileScript> thisPath)
     {
+        //
         if (rollLeft == 0)
         {
             if (possibleEndTiles.Contains(tile)) { return; }
@@ -584,10 +590,17 @@ public class PlayerMoveManager : NetworkBehaviour
         }
 
         thisPath.Add(tile);
-        if (tile.upTile && tile.upTile != previousTile.gameObject) { PossibleTiles(tile.upTile.GetComponent<TileScript>(), rollLeft - 1, tile, ref takenTilePath, new List<TileScript>(thisPath)); }
-        if (tile.downTile && tile.downTile != previousTile.gameObject) { PossibleTiles(tile.downTile.GetComponent<TileScript>(), rollLeft - 1, tile, ref takenTilePath, new List<TileScript>(thisPath)); }
-        if (tile.rightTile && tile.rightTile != previousTile.gameObject) { PossibleTiles(tile.rightTile.GetComponent<TileScript>(), rollLeft - 1, tile, ref takenTilePath, new List<TileScript>(thisPath)); }
-        if (tile.leftTile && tile.leftTile != previousTile.gameObject) { PossibleTiles(tile.leftTile.GetComponent<TileScript>(), rollLeft - 1, tile, ref takenTilePath, new List<TileScript>(thisPath)); }
+        if (tile.upTile && tile.upTile != previousTile.gameObject && MapTileSpecialEvents.Instance.mapTiles[mapNumber][tile.upTile.GetComponent<TileScript>().tileId].passable) 
+        { PossibleTiles(tile.upTile.GetComponent<TileScript>(), rollLeft - 1, tile, ref takenTilePath, new List<TileScript>(thisPath)); }
+
+        if (tile.downTile && tile.downTile != previousTile.gameObject && MapTileSpecialEvents.Instance.mapTiles[mapNumber][tile.downTile.GetComponent<TileScript>().tileId].passable) 
+        { PossibleTiles(tile.downTile.GetComponent<TileScript>(), rollLeft - 1, tile, ref takenTilePath, new List<TileScript>(thisPath)); }
+
+        if (tile.rightTile && tile.rightTile != previousTile.gameObject && MapTileSpecialEvents.Instance.mapTiles[mapNumber][tile.rightTile.GetComponent<TileScript>().tileId].passable) 
+        { PossibleTiles(tile.rightTile.GetComponent<TileScript>(), rollLeft - 1, tile, ref takenTilePath, new List<TileScript>(thisPath)); }
+
+        if (tile.leftTile && tile.leftTile != previousTile.gameObject && MapTileSpecialEvents.Instance.mapTiles[mapNumber][tile.leftTile.GetComponent<TileScript>().tileId].passable) 
+        { PossibleTiles(tile.leftTile.GetComponent<TileScript>(), rollLeft - 1, tile, ref takenTilePath, new List<TileScript>(thisPath)); }
 
     }
 

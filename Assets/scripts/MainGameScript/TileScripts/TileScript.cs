@@ -20,6 +20,8 @@ public abstract class TileScript : MonoBehaviour
 
     [Tooltip("When the game first first begins this is what would be spawned in on certain tiles")]
     public EnemyEncounter defaultTileEnemies;
+    public bool initiallyPassable = true;
+
 
     public static bool DrawTrails = true;
     public static float TrailOffset = 2f;

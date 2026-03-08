@@ -379,6 +379,12 @@ public class NewCombatManager : NetworkBehaviour
         return didWin;
     }
 
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void RemoveCombatantRpc(int index)
+    {
+        allCombatants.RemoveAt(index);
+    }
     private AbilityManager WhoWon()
     {
         AbilityManager enemy = allCombatants[0];
@@ -677,10 +683,11 @@ public class NewCombatManager : NetworkBehaviour
         for(int i = tilereadCache.tileEnemy.Count - 1; i >= 0; i--)
         {
             
-            if (tilereadCache.tileEnemy[i].isDead)
+            if (tilereadCache.tileEnemy[i].isDead || !tilereadCache.tileEnemy[i].persistant)
             {
                 tilereadCache.tileEnemy.RemoveAt(i);
             }
+
         }
         List<int> deadPlayer = new List<int>();
         for (int i = tilereadCache.players.Count - 1; i >= 0; i--)

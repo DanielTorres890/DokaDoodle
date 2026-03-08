@@ -17,8 +17,12 @@ public class SpecialTileEventHold
     public List<int> trapIds = new List<int>();//traps active on this
 
     public string battleArea;
+
+    public bool passable = true;
     public int xpOnTile;
     public int moneyOnTile;
+
+
 
     public int tileOwner = -1;
     public int townId;
