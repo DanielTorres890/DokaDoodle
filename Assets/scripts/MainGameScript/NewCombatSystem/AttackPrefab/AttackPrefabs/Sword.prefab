@@ -109,6 +109,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
   AuthorityMode: 1
   TickSyncChildren: 1
   UseUnreliableDeltas: 0
@@ -347,8 +357,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClientNetAnim
   ShowTopMostFoldoutHeaderGroup: 1
-  TransitionStateInfoList: []
+  NetworkAnimatorExpanded: 0
+  AuthorityMode: 0
   m_Animator: {fileID: 7512252984518372177}
+  TransitionStateInfoList: []
+  AnimatorParameterEntries:
+    ParameterEntries:
+    - name: Hit Ground
+      NameHash: 1745983958
+      Synchronize: 1
+      ParameterType: 4
+  AnimatorParametersExpanded: 0
 --- !u!114 &2046966893823227350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,7 +471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5636708789470549714, guid: 4902fb5fe1e6b034cae23e5a6841f233, type: 3}
       propertyPath: m_CastShadows
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5636708789470549714, guid: 4902fb5fe1e6b034cae23e5a6841f233, type: 3}
       propertyPath: m_StaticShadowCaster
@@ -460,7 +479,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8032750206264916975, guid: 4902fb5fe1e6b034cae23e5a6841f233, type: 3}
       propertyPath: m_CastShadows
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8032750206264916975, guid: 4902fb5fe1e6b034cae23e5a6841f233, type: 3}
       propertyPath: m_StaticShadowCaster
@@ -472,7 +491,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7844fd7d13f1b03478010ca547a87caa, type: 2}
     - target: {fileID: 8084854973141751649, guid: 4902fb5fe1e6b034cae23e5a6841f233, type: 3}
       propertyPath: m_CastShadows
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8084854973141751649, guid: 4902fb5fe1e6b034cae23e5a6841f233, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

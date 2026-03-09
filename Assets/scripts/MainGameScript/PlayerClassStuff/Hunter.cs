@@ -14,6 +14,8 @@ public class Hunter : PlayerClassBase
         FreeMover.Instance.onTileSelect.AddListener(HunterTrap.DeployTrap);
         FreeMover.Instance.onTileSelect.AddListener(delegate { base.ClassAction(player, randomNum); });
         FreeMover.Instance.onTileSelect.AddListener(delegate { FreeMover.Instance.EndFreeCamera(); });
+        FreeMover.Instance.onUndoFree.AddListener(delegate { ClientChecks.Instance.UndoClassAbilityRpc(); });
+        
     }
     public override bool UnlockCondition(playerData player)
     {

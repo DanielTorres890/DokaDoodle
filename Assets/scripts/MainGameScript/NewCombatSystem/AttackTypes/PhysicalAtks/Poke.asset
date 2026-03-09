@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: A small stab
   attackName: Poke
-  startUp: 0.4
+  startUp: 0.3
   attackDuration: 0
   endLag: 0.1
   cooldown: 0
   lifespan: 0.2
   energyDrain: 1
+  initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -35,14 +36,14 @@ MonoBehaviour:
   weaponPosition: {x: 0.541, y: 0.277, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: -0.5, y: 2, z: 0}
-  ablitySize: {x: 2, y: 0.3, z: 6}
+  ablitySize: {x: 2, y: 0.3, z: 7}
   visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 3
   multipliers:
   - attribute: 2
     mult: 1
   - attribute: 6
-    mult: 0.3
+    mult: 0.5
   defenseMult:
   - attribute: 3
     mult: 0.5

@@ -134,9 +134,9 @@ public class AbilityManager : NetworkBehaviour
             stateManager[atk].cooldown -= Time.deltaTime;
             bool meetsConditions = CheckCondition(atk);
             
-            if (stateManager[atk].pressed && combatantstate == combatantStates.Free && stateManager[atk].cooldown <= 0 && meetsConditions)
+            if (stateManager[atk].pressed && combatantstate == combatantStates.Free && stateManager[atk].cooldown <= 0 && meetsConditions && atk.initialEnergyCost <= currentEnergy)
             {
-               
+                currentEnergy -= atk.initialEnergyCost;
                 currentAttack = atk;
                 combatantstate = atk.stateToBe;
                 stateDuration = currentAttack.startUp;

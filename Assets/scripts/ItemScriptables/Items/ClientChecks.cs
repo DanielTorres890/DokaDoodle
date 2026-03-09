@@ -555,4 +555,21 @@ public class ClientChecks : NetworkBehaviour
     {
         display.gameObject.SetActive(true);
     }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void UndoClassAbilityRpc()
+    {
+        StartCoroutine(WaitUntilBoxGone());
+    }
+
+    //mickeymouse unlucky
+    private IEnumerator WaitUntilBoxGone()
+    {
+        while (displayText.gameObject.activeSelf)
+        {
+            yield return null;
+        }
+
+        mainMenuButtons.gameObject.SetActive(true);
+    }
 }

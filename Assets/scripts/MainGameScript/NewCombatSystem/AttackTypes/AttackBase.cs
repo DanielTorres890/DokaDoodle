@@ -22,7 +22,7 @@ public abstract class AttackBase : ScriptableObject
 
     [Header("Charging info")]
     public float energyDrain = 1f;
-
+    public float initialEnergyCost = 0f;
     [Tooltip("Max charge refers to an attack charged by whatever the duration of MaxChargeDuration is\nThis is BEFORE its affected by potency ")]
     public float maxChargeAtkBuff = 1.2f; 
     public float maxChargeSizeBuff = 1.2f;

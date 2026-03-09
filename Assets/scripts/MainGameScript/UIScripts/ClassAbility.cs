@@ -7,7 +7,9 @@ public class ClassAbility : MonoBehaviour
 
     public void Start()
     {
-        ClientChecks.Instance.onRoundStart.AddListener(delegate { setButtonText(); });   
+        
+        ClientChecks.Instance.onRoundStart.AddListener(delegate { setButtonText(); });
+        setButtonText();
     }
     public void setButtonText()
     {

@@ -189,7 +189,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
             
         }
 
-        if (rb) { rb.isKinematic = false; }
+        if (rb && !myManager.CanMove()) { rb.isKinematic = false; }
 
 
 

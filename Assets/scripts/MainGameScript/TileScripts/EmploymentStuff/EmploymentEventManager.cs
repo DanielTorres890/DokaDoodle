@@ -28,7 +28,7 @@ public class EmploymentEventManager : NetworkBehaviour
     private List<FixedString32Bytes> randomNames = new List<FixedString32Bytes>()
     {
         "Aaliyah", "Aaron", "Abigail", "Adrian", "Aiden", "Alexander", "Amelia", 
-        "Andrew", "Angel", "Anna", "Anthony", "Aria", "Asher", "Ashley", "Aubrey",
+        "Andrew", "Angel", "Anna", "Anthony", "Anthony","Asher", "Ashley", "Aubrey",
         "Austin", "Ava", "Axel", "Bella", "Benjamin", "Bennett", "Brooks", "Caleb", 
         "Camila", "Cameron", "Caroline", "Carson", "Carter", "Charlotte", "Chloe", 
         "Christian", "Christopher", "Claire", "Colton", "Connor", "Cooper", "Daniel", 
@@ -36,7 +36,7 @@ public class EmploymentEventManager : NetworkBehaviour
         "Ella", "Emily", "Emma", "Ethan", "Eva", "Everett", "Ezra", 
         "Ezekiel", "Gabriel", "Genesis", "Gianna", "Grace", "Grayson", "Greyson", 
         "Hannah", "Harper", "Hazel", "Henry", "Hudson", "Hunter", "Ian", "Isaac", 
-        "Isabella", "Isaiah", "Ivy", "Jack", "Jackson", "Jacob", "James", "Jameson", 
+        "Isabella", "Isaiah", "Ivy", "Jack", "Jackson", "James", "Jameson", 
         "Jaxon", "Jayden", "Jeremiah", "John", "Jonathan", "Jordan", "Jose", "Joseph", 
         "Josiah", "Joshua", "Julia", "Julian", "Kai", "Landon", "Layla", "Leah", "Leo", 
         "Leonardo", "Levi", "Liam", "Lillian", "Lily", "Lincoln", "Logan", "Luca", "Lucas", 
@@ -44,7 +44,7 @@ public class EmploymentEventManager : NetworkBehaviour
         "Mila", "Miles", "Natalie", "Nathan", "Nicholas", "Noah", "Nolan", "Nora", "Nova", 
         "Olivia", "Oliver", "Owen", "Paisley", "Parker", "Penelope", "Pat", "Robert", "Roman", 
         "Ruby", "Ryan", "Samantha", "Samuel", "Santiago", "Scarlett", "Sebastian", "Silas", 
-        "Sofia", "Sophia", "Stella", "Theodore", "Thomas", "Violet", "Waylon", "Wesley", "Weston", 
+        "Sofia", "Sophia", "Stella", "Theodore", "Thomas", "Violet", "Vero", "Waylon", "Wesley", "Weston", 
         "William", "Willow", "Wyatt", "Zoe"
     };
     public SpriteLibraryAsset spriteLibrary;
