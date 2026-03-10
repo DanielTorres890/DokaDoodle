@@ -42,8 +42,8 @@ public abstract class ItemBase : ScriptableObject
     public string useText;
     public string itemName;
     public ItemBuff[] buffs;
-    
 
+    public bool battleItem = false;
     public abstract void ItemInfoCheck(int player, int itemId);
     public abstract void PerformItemEffect(int player, InventoryObject inventory);
     public int determineType ()

@@ -18,6 +18,7 @@ public class playerData : EntityStats
     public int curTileId;
     public int curMap;
 
+    public int battleSlotItemId;
 
     public int[] maxInventorySizes = new int[3];
 
@@ -76,6 +77,7 @@ public class playerData : EntityStats
         curTileId = 0;
         curMap = 0;
         playerSpawnTile = 0;
+        battleSlotItemId = -1;
    
     }
     public playerData(int PlayerClass, FixedString32Bytes PlayerName, int PlayerFace, int PlayerHair)
@@ -87,8 +89,8 @@ public class playerData : EntityStats
         curTileId = 0;
         curMap = 0;
         playerSpawnTile = 0;
-        
-        
+        battleSlotItemId = -1;
+
     } 
     
     public void setCombatActions()

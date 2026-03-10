@@ -210,6 +210,17 @@ public class ClientChecks : NetworkBehaviour
     {
         display.gameObject.SetActive(false);
         confirmButtons.SetActive(true);
+
+        if (!NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].battleItem)
+        {
+            confirmButtons.transform.GetChild(1).gameObject.SetActive(false);
+        }
+        else
+        {
+            confirmButtons.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        
+        
         currentInvNumber = inventoryNum;
         currentItemId = itemId;
         currentPlayerLook = player;
@@ -267,7 +278,25 @@ public class ClientChecks : NetworkBehaviour
         onItemUse.Invoke();
     }
 
+
+    public void SlotBattleItem()
+    {
+        if (!NetworkData.Instance.IsAllowed()) { return; }
+        SlotBattleItemRpc();
+    }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void SlotBattleItemRpc()
+    {
+        NetworkData.Instance.players[currentPlayerLook].battleSlotItemId = currentItemId;
+        confirmButtons.SetActive(false);
+        changeScript.ResetDisplay();
+        display.gameObject.SetActive(true);
+        display.transform.parent.gameObject.SetActive(true);
+
+    }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+
     public void RandomizedItemSelectRpc(int player, int itemId, int inventoryType)
     {
         var playerinfo = NetworkData.Instance.players[player];
