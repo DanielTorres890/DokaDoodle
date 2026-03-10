@@ -17,7 +17,7 @@ public class FoodItem : ItemBase
     {
         if (!NetworkData.Instance.IsAllowed(player, NetworkManager.Singleton.LocalClientId)) { return; }
 
-        ClientChecks.Instance.ConfirmBuffRpc(player, itemId, 0);
+        ClientChecks.Instance.ShowConfirmItemButtonsRpc(player, itemId, 0);
     }
 
     public override void PerformItemEffect(int player, InventoryObject inventory)

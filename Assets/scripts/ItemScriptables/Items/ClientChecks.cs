@@ -14,6 +14,7 @@ public class ClientChecks : NetworkBehaviour
 {
     [SerializeField] private DisplayInventory display;
     [SerializeField] private InventoryChangeScript changeScript;
+    [SerializeField] private GameObject confirmButtons;
 
     public static ClientChecks Instance { get; private set; }
 
@@ -36,6 +37,11 @@ public class ClientChecks : NetworkBehaviour
 
     public RandomItemSelect randomItemPickup;
 
+
+    //i dont like this but i also cant imagine making it more robust would be a better use of time
+    private int currentPlayerLook;
+    private int currentItemId;
+    private int currentInvNumber;
     //im gonna be so fr this whole thingy i have going on with this class is some big buns and im sorry to anyone who looks at this
     //(the main issue is im doing wayyy to much in here in the worst ways possible
    
@@ -198,10 +204,37 @@ public class ClientChecks : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    public void ConfirmBuffRpc(int player, int itemId, int inventoryNum)
-    {
 
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void ShowConfirmItemButtonsRpc(int player, int itemId, int inventoryNum)
+    {
+        display.gameObject.SetActive(false);
+        confirmButtons.SetActive(true);
+        currentInvNumber = inventoryNum;
+        currentItemId = itemId;
+        currentPlayerLook = player;
+
+    }
+    public void ReturnToInv()
+    {
+        if(!NetworkData.Instance.IsAllowed()) { return; }
+        ReturnToInvRpc();
+    }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void ReturnToInvRpc()
+    {
+        display.gameObject.SetActive(true);
+        confirmButtons.SetActive(false);
+    }
+
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void ConfirmBuffRpc()
+    {
+        confirmButtons.SetActive(false);
+        int player = currentPlayerLook;
+        int itemId = currentItemId;
+        int inventoryNum = currentInvNumber;
 
         NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
         displayText.lines.Clear();
@@ -210,6 +243,23 @@ public class ClientChecks : NetworkBehaviour
 
         display.gameObject.SetActive(false);
         
+
+        displayText.lines.Add(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].useText);
+        StartCoroutine(usedItem());
+
+        onItemUse.Invoke();
+    }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void ConfirmBuffRpc(int player, int itemId, int inventoryNum)
+    {
+
+        NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
+        displayText.lines.Clear();
+
+        changeScript.ResetDisplay();
+
+        display.gameObject.SetActive(false);
+        display.transform.parent.gameObject.SetActive(false);
 
         displayText.lines.Add(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].useText);
         StartCoroutine(usedItem());
@@ -401,6 +451,8 @@ public class ClientChecks : NetworkBehaviour
     }
     private IEnumerator usedItem()
     {
+        display.transform.parent.gameObject.SetActive(false);
+        display.gameObject.SetActive(false);
         displayText.gameObject.SetActive(true);
         displayText.whoInControl = NetworkData.Instance.currentPlayer;
         displayText.Awake();
@@ -409,9 +461,10 @@ public class ClientChecks : NetworkBehaviour
             
             yield return null;
         }
-        
+
+        Debug.Log("am i showing early?");
+        display.transform.parent.gameObject.SetActive(true);
         display.gameObject.SetActive(true);
-        
     }
     private IEnumerator displayClassGained()
     {
@@ -553,6 +606,8 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void UndoItemUseRpc()
     {
+        if(displayText.gameObject.activeSelf) { return; }
+        display.transform.parent.gameObject.SetActive(true);
         display.gameObject.SetActive(true);
     }
 
@@ -572,4 +627,6 @@ public class ClientChecks : NetworkBehaviour
 
         mainMenuButtons.gameObject.SetActive(true);
     }
+
+   
 }

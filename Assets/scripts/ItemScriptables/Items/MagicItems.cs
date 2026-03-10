@@ -10,7 +10,7 @@ public class MagicItems : ItemBase
 
         if (!NetworkData.Instance.IsAllowed(player, NetworkManager.Singleton.LocalClientId)) { return; }
 
-        ClientChecks.Instance.ConfirmBuffRpc(player, itemId, 1);
+        ClientChecks.Instance.ShowConfirmItemButtonsRpc(player, itemId, 1);
     }
     public override void PerformItemEffect(int player, InventoryObject inventory)
     {

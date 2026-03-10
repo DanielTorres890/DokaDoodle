@@ -19,7 +19,7 @@ public class WeaponItem : ItemBase
         {
             tmp = 2;
         }
-        ClientChecks.Instance.ConfirmBuffRpc(player, itemId, tmp);
+        ClientChecks.Instance.ShowConfirmItemButtonsRpc(player, itemId, tmp);
     }
     public override void PerformItemEffect(int player, InventoryObject inventory)
     {
