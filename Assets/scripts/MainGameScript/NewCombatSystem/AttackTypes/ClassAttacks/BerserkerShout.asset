@@ -21,6 +21,7 @@ MonoBehaviour:
   cooldown: 7
   lifespan: 0.3
   energyDrain: 1
+  initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -30,10 +31,14 @@ MonoBehaviour:
   sizePotencyEffect: 2
   stateToBe: 0
   chargeable: 0
-  attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
+  attackPrefab: {fileID: 2566779757777240371, guid: 84a2f44ab20caeb42b34d1f04dcb43a7, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
+  spawnFx: {fileID: 0}
   offset: {x: 0, y: -2, z: 0}
-  ablitySize: {x: 30, y: 10, z: 30}
+  ablitySize: {x: 50, y: 10, z: 50}
+  visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 0
   multipliers:
   - attribute: 2
@@ -64,3 +69,7 @@ MonoBehaviour:
   onHitSound: {fileID: 0}
   onHitEffects:
   - {fileID: 11400000, guid: 166b0df7ab835a14bb41d969f83ee3b1, type: 2}
+  targets:
+    serializedVersion: 2
+    m_Bits: 0
+  conditions: []
