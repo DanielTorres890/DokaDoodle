@@ -44,6 +44,9 @@ public abstract class ItemBase : ScriptableObject
     public ItemBuff[] buffs;
 
     public bool battleItem = false;
+    public bool overworldItem = true;
+    public AudioClip useClip;
+
     public abstract void ItemInfoCheck(int player, int itemId);
     public abstract void PerformItemEffect(int player, InventoryObject inventory);
     public int determineType ()
@@ -58,6 +61,10 @@ public abstract class ItemBase : ScriptableObject
     public virtual bool CanUse(int player)
     {
         return true;
+    }
+    public virtual void InCombatAction(AbilityManager user)
+    {
+
     }
 }
 [System.Serializable]

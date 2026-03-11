@@ -39,6 +39,7 @@ public class AbilityManager : NetworkBehaviour
     public UnityEvent onHit;
     public UnityEvent onEnergyChange;
     public UnityEvent onSetUp;
+    public UnityEvent onItemUse;
 
     private Animator animator;
 
@@ -265,6 +266,8 @@ public class AbilityManager : NetworkBehaviour
         actions.actions["Move"].performed += StartWalking;
         actions.actions["Move"].canceled += StopWalking;
 
+        actions.actions["BattleItem"].performed += UseItem;
+
         inputToInt.Add(actions.actions["M1Attack"].controls[0], 0);
         stateManager.Add(stats.attacks[0], new AbilityStates());
         orderedAttacks.Add(stats.attacks[0]);
@@ -461,6 +464,26 @@ public class AbilityManager : NetworkBehaviour
 
     }
 
+    private void UseItem(InputAction.CallbackContext action)
+    {
+        if(!IsOwner) { return; }
+        if((stats as playerData).battleSlotItemId == -1) { return; }
+        UseItemRpc();
+
+
+    }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void UseItemRpc()
+    {
+        
+        playerData thisPlayer = (stats as playerData);
+        ItemBase ourItem = NetworkData.Instance.playerInventories[thisPlayer.playerNumber][0].database.GetItem[thisPlayer.battleSlotItemId];
+        ourItem.InCombatAction(this);
+        NetworkData.Instance.playerInventories[thisPlayer.playerNumber][0].RemoveItem(ourItem);
+        thisPlayer.battleSlotItemId = -1;
+        onItemUse.Invoke();
+    }
 
     private int GetCurrentAtkNum()
     {

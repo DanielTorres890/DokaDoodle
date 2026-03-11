@@ -42,4 +42,17 @@ public class StatusItem : ItemBase
         }
         return true;
     }
+
+    public override void InCombatAction(AbilityManager user)
+    {
+        if(useClip) { AudioSource.PlayClipAtPoint(useClip, user.transform.position,SettingsManager.instance.SFXVolume); }
+        if(!user.IsOwner) { return; }
+        int[] buffids = new int[StatusEffects.Length];
+        for(int i = 0; i < buffids.Length; i++)
+        {
+            buffids[i] = NetworkData.Instance.buffDataBase.GetId[StatusEffects[i]];
+        }
+
+        user.IGainedBuffRpc(buffids);
+    }
 }

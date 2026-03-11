@@ -7,6 +7,7 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField] private GameObject abilityDisplayPrefab;
     [SerializeField] private healthbar playerHealthBar;
     [SerializeField] private energybar playerEnergyBar;
+    [SerializeField] private CombatItemUI itemDisplay;
     public int X_Start;
     public int Y_Start;
     public int X_SPACE_BETWEEN_ITEM;
@@ -23,6 +24,10 @@ public class PlayerUIManager : MonoBehaviour
 
         playerHealthBar.manager = abilityManager;
         playerEnergyBar.manager = abilityManager;
+        itemDisplay.myManager = abilityManager;
+
+        itemDisplay.gameObject.SetActive(true);
+        itemDisplay.SetUp();
         playerHealthBar.gameObject.SetActive(true);
         playerHealthBar.SetUp();
         playerEnergyBar.gameObject.SetActive(true);

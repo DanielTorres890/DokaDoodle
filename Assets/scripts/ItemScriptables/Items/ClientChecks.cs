@@ -208,10 +208,14 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void ShowConfirmItemButtonsRpc(int player, int itemId, int inventoryNum)
     {
+        bool usableInBattle = NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].battleItem;
+        bool usableInWorld = NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].overworldItem;
+
+        if(!(usableInBattle || usableInWorld)) { return; }
         display.gameObject.SetActive(false);
         confirmButtons.SetActive(true);
 
-        if (!NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].battleItem)
+        if (!usableInBattle)
         {
             confirmButtons.transform.GetChild(1).gameObject.SetActive(false);
         }
@@ -219,8 +223,15 @@ public class ClientChecks : NetworkBehaviour
         {
             confirmButtons.transform.GetChild(1).gameObject.SetActive(true);
         }
-        
-        
+        if (!usableInWorld)
+        {
+            confirmButtons.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        else
+        {
+            confirmButtons.transform.GetChild(0).gameObject.SetActive(true);
+        }
+
         currentInvNumber = inventoryNum;
         currentItemId = itemId;
         currentPlayerLook = player;

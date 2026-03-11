@@ -53,8 +53,17 @@
                 },
                 {
                     "name": "ClassAbility",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "e6e9170c-7107-46f3-8902-a82550979934",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "BattleItem",
+                    "type": "Button",
+                    "id": "81d95f22-b998-4b50-881c-2ba12ce8155f",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -100,6 +109,15 @@
                     "name": "Ability5",
                     "type": "Button",
                     "id": "db4a5c9c-47d2-45f5-8128-095f6b040a06",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability6",
+                    "type": "Button",
+                    "id": "5c84d88b-ab19-4eec-aa6e-d74d390cd9dc",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -358,6 +376,17 @@
                 },
                 {
                     "name": "",
+                    "id": "568f2354-04ad-46c6-ba02-9f8b700cce0c",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "BattleItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4bfcfc5f-7421-4a00-910a-4055a2a42ad2",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -408,6 +437,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Ability5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bb2c39cb-f12d-471a-9f8d-b563b407dfa9",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Ability6",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
