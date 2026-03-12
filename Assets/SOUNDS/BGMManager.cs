@@ -49,4 +49,8 @@ public class BGMManager : MonoBehaviour
         if(type == LoadSceneMode.Additive) { return; }
         BGMSource.Stop();
     }
+    public void StopSounds()
+    {
+        BGMSource.Stop();
+    }
 }

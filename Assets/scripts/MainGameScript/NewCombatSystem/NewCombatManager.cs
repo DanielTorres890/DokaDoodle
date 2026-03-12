@@ -76,6 +76,9 @@ public class NewCombatManager : NetworkBehaviour
     public DashCdDisplay dashCdDisplay;
 
     public List<AllyAIWrapper> allyPrefabs;
+
+    public AudioClip victoryMusic;
+    public AudioClip loseSfx;
    
     private void Awake()
     {
@@ -420,14 +423,23 @@ public class NewCombatManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetUpVictorRpc()
     {
+        fightOver = true;
+        StartCoroutine(delayTime());
+        
+
+
+    }
+    //this thing right here is pandoras box i pray you never open it 
+    private void BattleOverCalculations()
+    {
         AbilityManager victor = WhoWon();
         Debug.Log("I AM THE WINNER " + victor.stats.name);
         onCombatEnd.Invoke();
         playercontrol.SwitchCurrentActionMap("UI");
-        fightOver = true;
+        
         Cursor.lockState = CursorLockMode.None;
         var cache = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
-        for(int i = cache.tileEnemy.Count - 1; i >= 0; i--)
+        for (int i = cache.tileEnemy.Count - 1; i >= 0; i--)
         {
             if (!cache.tileEnemy[i].persistant)
             {
@@ -439,16 +451,25 @@ public class NewCombatManager : NetworkBehaviour
         //if player win any dead allies should survive at 1 and vice versa
         victor = SaveEntities(victor);
 
+        playerData localPlayer = NetworkData.Instance.players[NetworkData.Instance.ClientNumToPlayerNum(NetworkManager.Singleton.LocalClientId)];
+        if (PlayerCombatManager.Instance.combatants.Contains(localPlayer) && localPlayer != victor.stats || victor.stats is EnemyCombat)
+        {
+            SFXManager.Instance.PlaySFX(loseSfx);
+            BGMManager.instance.StopSounds();
+        }
+        else
+        {
+            BGMManager.instance.PlaySound(victoryMusic);
+        }
 
-
-        List<int> deadPlayers = RemoveDeadEntities();
+            List<int> deadPlayers = RemoveDeadEntities();
         if (victor.stats is playerData)
         {
             playerData player = (playerData)victor.stats;
 
             List<int> partyLevelsGained = new List<int>();
             //its implied that if combat ends the only ones left would be your allies
-            foreach(var partyMember in cache.partyMembers)
+            foreach (var partyMember in cache.partyMembers)
             {
                 int levelsGained = partyMember.gainXp(cache.xpOnTile / cache.partyMembers.Count + 1);
                 partyLevelsGained.Add(levelsGained);
@@ -458,10 +479,10 @@ public class NewCombatManager : NetworkBehaviour
 
             player.GainMoney(moneyHarvested + cache.moneyOnTile);
 
-           
+
             if (cache.townId != -1 && cache.tileOwner != player.playerNumber)
             {
-                
+
                 NetworkData.Instance.players[player.playerNumber].GainTown(cache);
             }
 
@@ -470,32 +491,32 @@ public class NewCombatManager : NetworkBehaviour
             bool partyLevelUp = partyLevelsGained.Count > 0;
             int itemType = -1;
 
-            foreach(var item in  itemsPicked)
+            foreach (var item in itemsPicked)
             {
-                if(NetworkData.Instance.AddItemToInventory(player.playerNumber, item))
+                if (NetworkData.Instance.AddItemToInventory(player.playerNumber, item))
                 {
                     isFull = true;
                     itemType = item.determineType();
                 }
             }
-            
+
             endBattleInfo.lines.Add(player.name + " has gained <color=blue>" + (cache.xpOnTile) + "</color> xp ");
-            if(cache.partyMembers.Count > 0) { endBattleInfo.lines[endBattleInfo.lines.Count - 1] += "(split between you and your allies)"; }
+            if (cache.partyMembers.Count > 0) { endBattleInfo.lines[endBattleInfo.lines.Count - 1] += "(split between you and your allies)"; }
 
 
-            if(leveledUp)
+            if (leveledUp)
             {
-                endBattleInfo.lines[endBattleInfo.lines.Count-1] += " and they've leveled up <color=blue>" + levels + "</color> times";
-                
+                endBattleInfo.lines[endBattleInfo.lines.Count - 1] += " and they've leveled up <color=blue>" + levels + "</color> times";
+
                 levelUpUI.statsToAllocate += levels * NetworkData.Instance.statsPerLevel;
                 levelUpUI.inControl = player.playerNumber;
                 levelUpUI.playerWhoLevel = player;
-                
-                
+
+
             }
-            if(partyLevelUp)
+            if (partyLevelUp)
             {
-                for(int i = 0; i < partyLevelsGained.Count; i ++)
+                for (int i = 0; i < partyLevelsGained.Count; i++)
                 {
                     if (partyLevelsGained[i] <= 0) { continue; }
                     endBattleInfo.lines.Add(cache.partyMembers[i].name + "(ally) has leveled up <color=green>" + partyLevelsGained[i].ToString() + "</color> times");
@@ -511,9 +532,9 @@ public class NewCombatManager : NetworkBehaviour
             if (itemsPicked.Count > 0)
             {
                 string itemString = "You've picked up ";
-                for(int i = 0; i < itemsPicked.Count; i++)
+                for (int i = 0; i < itemsPicked.Count; i++)
                 {
-                    if(i == itemsPicked.Count - 1 && itemsPicked.Count > 1)
+                    if (i == itemsPicked.Count - 1 && itemsPicked.Count > 1)
                     {
                         itemString += " and a <color=blue>" + itemsPicked[i].name + "</color>";
 
@@ -524,16 +545,16 @@ public class NewCombatManager : NetworkBehaviour
                         if (i != itemsPicked.Count - 1) { itemString += "</color>, "; }
                     }
                 }
-                
+
                 endBattleInfo.lines.Add(itemString);
             }
             //okay so this logic is mickey mouse but free me bru it cant be that deep
             bool pvpWin = deadPlayers.Count > 0;
-            
+
             //LEMME MAKE THIS REAL CLEAR I KNOW I COULD IMPLEMENT SOME KIND OF QUEUE BUT LORD THAT SOUNDS LIKE A LOT OF THINKING
             //AND ITS 4 AM AND IM TIRED ANDF THISLL DO FRICK U
-            if(leveledUp || isFull || pvpWin) 
-            { 
+            if (leveledUp || isFull || pvpWin)
+            {
                 endBattleInfo.endEvent.RemoveAllListeners();
                 endBattleInfo.endEvent.AddListener(delegate { endBattleInfo.gameObject.SetActive(false); });
             }
@@ -545,17 +566,17 @@ public class NewCombatManager : NetworkBehaviour
             }
             if (isFull)
             {
-                if(leveledUp)
+                if (leveledUp)
                 {
                     levelUpUI.onFinishLevelUp.RemoveAllListeners();
-                    if(IsHost)
-                    levelUpUI.onFinishLevelUp.AddListener(delegate { dropItem.SetUp(player.playerNumber, itemType); });
+                    if (IsHost)
+                        levelUpUI.onFinishLevelUp.AddListener(delegate { dropItem.SetUp(player.playerNumber, itemType); });
 
                 }
                 else
                 {
                     if (IsHost)
-                    endBattleInfo.endEvent.AddListener(delegate { dropItem.SetUp(player.playerNumber, itemType); });
+                        endBattleInfo.endEvent.AddListener(delegate { dropItem.SetUp(player.playerNumber, itemType); });
                 }
                 dropItem.finishLose.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI"); });
             }
@@ -568,7 +589,7 @@ public class NewCombatManager : NetworkBehaviour
                     dropItem.finishLose.AddListener(delegate { pvpVictory.SetUp(deadPlayers[0], player.playerNumber); });
 
                 }
-                else if(leveledUp)
+                else if (leveledUp)
                 {
                     levelUpUI.onFinishLevelUp.RemoveAllListeners();
                     levelUpUI.onFinishLevelUp.AddListener(delegate { pvpVictory.SetUp(deadPlayers[0], player.playerNumber); });
@@ -578,63 +599,64 @@ public class NewCombatManager : NetworkBehaviour
                 {
                     endBattleInfo.endEvent.AddListener(delegate { pvpVictory.SetUp(deadPlayers[0], player.playerNumber); });
                 }
-                
+
             }
-            
 
-           
 
-            
-       
-            
+
+
+
+
+
             endBattleInfo.gameObject.SetActive(true);
             endBattleInfo.startDialogue();
             endBattleInfo.whoInControl = player.playerNumber;
-            
+
 
         }
         else if (victor.stats is EnemyCombat || victor.stats is PartyMember)
         {
-            
+
             endBattleInfo.lines.Add("Every player (in this combat) has been defeated");
 
-            if(victor.stats is EnemyCombat)
+            if (victor.stats is EnemyCombat)
             {
                 if ((victor.stats as EnemyCombat).persistant && cache.townId != -1 & cache.tileOwner != -1)
                 {
                     NetworkData.Instance.players[cache.tileOwner].LoseTown(cache);
                 }
             }
-            
+
             foreach (var combat in allCombatants)
             {
                 if (combat.stats is playerData)
                 {
                     var current = combat.stats as playerData;
-                    
-                    
+
+
                     current.GainMoney(-current.playerInfo[PlayerInfo.money] / 2);
-                    
+
                 }
             }
             endBattleInfo.gameObject.SetActive(true);
             endBattleInfo.startDialogue();
             endBattleInfo.whoInControl = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber;
 
-            
+
 
         }
-        
-        PlayerCombatManager.Instance.combatants.Clear(); 
+
+        PlayerCombatManager.Instance.combatants.Clear();
         statUI.gameObject.SetActive(false);
         NetworkData.Instance.setNextTurnNum();
         endBattleInfo.gameObject.GetComponentInChildren<Button>().Select();
-      
+
 
         cache.xpOnTile = 0;
         cache.moneyOnTile = 0;
 
     }
+
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void EarlyEndCombatRpc()
@@ -897,6 +919,14 @@ public class NewCombatManager : NetworkBehaviour
 
         }
         return winner;
+    }
+
+
+    private IEnumerator delayTime()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+
+        BattleOverCalculations();
     }
 }
 

@@ -201,8 +201,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2060943822}
   m_HandleRect: {fileID: 2060943821}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.573307
+  m_Value: 1.0000002
+  m_Size: 0.57330704
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -500,6 +500,8 @@ MonoBehaviour:
     prefab: {fileID: 1305626960793455896, guid: ba75b4e5eb9e21442b0044e3aa93439d, type: 3}
   - type: 1
     prefab: {fileID: 1305626960793455896, guid: 688b2bf8ccb70ce45ad47815acca4fce, type: 3}
+  victoryMusic: {fileID: 8300000, guid: d4167cfd5c6f72e47a1f79f3709a36ae, type: 3}
+  loseSfx: {fileID: 8300000, guid: 588d7a229a9a3bc49a403e9362970718, type: 3}
 --- !u!1 &125516499
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,22 +1650,6 @@ MonoBehaviour:
     m_ActionName: 'Player/Ability5[/Keyboard/c]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: df6b6081-55b5-4299-bd2d-efcc80596bcc
-    m_ActionName: 'Player/DashRight[/Keyboard/d]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1edf29a3-ef5f-49c6-9c85-3ebc76c9ffdb
-    m_ActionName: 'Player/DashLeft[/Keyboard/a]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 618003e8-7724-415d-9da8-1e6e363fbbe3
-    m_ActionName: 'Player/DashFwd[/Keyboard/w]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b8dda105-e600-4892-92d7-499654de4eb3
-    m_ActionName: 'Player/DashBack[/Keyboard/s]'
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 1c95a7b6-7c52-40df-882b-d6b6a35de6dd
     m_ActionName: 'Player/Scrolling[/Mouse/scroll]'
   - m_PersistentCalls:
@@ -1794,6 +1780,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3475f648-26ed-43d1-8b93-8a63077d419c
     m_ActionName: 'Spectating/Look[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 81d95f22-b998-4b50-881c-2ba12ce8155f
+    m_ActionName: 'Player/BattleItem[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5c84d88b-ab19-4eec-aa6e-d74d390cd9dc
+    m_ActionName: 'Player/Ability6[/Keyboard/v]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d15ba213-1da5-48d5-b8f8-0bde0ec93246
+    m_ActionName: 'Player/Dash[/Keyboard/leftShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Spectating
@@ -10244,8 +10242,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5730783073344226212}
   m_HandleRect: {fileID: 7015598941243253903}
   m_Direction: 2
-  m_Value: 1.0000005
-  m_Size: 0.7658827
+  m_Value: 1
+  m_Size: 0.76588273
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11320,8 +11318,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2823756615207272415}
   m_HandleRect: {fileID: 2364310356152762339}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.9999999
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

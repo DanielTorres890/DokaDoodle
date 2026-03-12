@@ -162,7 +162,7 @@ public class CombatantMovement : NetworkBehaviour
         
         if (NewCombatManager.instance.fightOver || !IsOwner) 
         {
-            body.constraints = RigidbodyConstraints.FreezeAll; 
+            
             return; 
         }
 
