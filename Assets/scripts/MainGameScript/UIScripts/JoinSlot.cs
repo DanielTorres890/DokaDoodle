@@ -31,7 +31,7 @@ public class JoinSlot : MonoBehaviour
     }
     public void PickSlot()
     {
-        NetworkData.Instance.AddOrderClientRpc(slotNumber, Convert.ToInt32(NetworkManager.Singleton.LocalClientId));
-        NetworkData.Instance.clientOrder[slotNumber] = Convert.ToInt32(NetworkManager.Singleton.LocalClientId);
+        NetworkData.Instance.AddOrderClientRpc(slotNumber, NetworkManager.Singleton.LocalClientId);
+
     }
 }

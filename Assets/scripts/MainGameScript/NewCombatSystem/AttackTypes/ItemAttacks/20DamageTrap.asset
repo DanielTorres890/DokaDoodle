@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbba4ab3dd06e7f40adc52594909bc56, type: 3}
-  m_Name: HuntersTrap
+  m_Name: 20DamageTrap
   m_EditorClassIdentifier: Assembly-CSharp::MDefault
   description: 
   attackName: Hunter Trap
@@ -38,10 +38,10 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 2, y: 0.2, z: 2}
   visualRoation: {x: 0, y: 0, z: 0}
-  baseDamage: 10
+  baseDamage: 20
   multipliers:
   - attribute: 6
-    mult: 1
+    mult: 0
   defenseMult: []
   antiGuardMultipliers:
   - attribute: 0
@@ -70,4 +70,4 @@ MonoBehaviour:
     m_Bits: 0
   conditions: []
   speed: 1
-  pierceCount: 1
+  pierceCount: 0

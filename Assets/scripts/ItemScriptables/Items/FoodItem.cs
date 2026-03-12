@@ -39,8 +39,8 @@ public class FoodItem : ItemBase
             
         }
 
-
-        inventory.RemoveItem(this);
+        base.PerformItemEffect(player, inventory);
+        
         
     }
 }

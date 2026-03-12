@@ -257,8 +257,12 @@ public class ClientChecks : NetworkBehaviour
         int player = currentPlayerLook;
         int itemId = currentItemId;
         int inventoryNum = currentInvNumber;
+        onItemUse.Invoke();
+        ItemBase thisItem = NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId];
+        if (thisItem.interrupt) { return; }
 
-        NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
+
+        thisItem.PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
         displayText.lines.Clear();
 
         changeScript.ResetDisplay();
@@ -266,10 +270,10 @@ public class ClientChecks : NetworkBehaviour
         display.gameObject.SetActive(false);
         
 
-        displayText.lines.Add(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].useText);
+        displayText.lines.Add(thisItem.useText);
         StartCoroutine(usedItem());
 
-        onItemUse.Invoke();
+        
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void ConfirmBuffRpc(int player, int itemId, int inventoryNum)

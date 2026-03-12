@@ -22,8 +22,8 @@ public class StatusItem : ItemBase
         {
             NetworkData.Instance.players[player].GainStatus(buff);
         }
-        
-        inventory.RemoveItem(this);
+
+        base.PerformItemEffect(player, inventory);
     }
 
     //im probably gonna regret this later but im tired boss

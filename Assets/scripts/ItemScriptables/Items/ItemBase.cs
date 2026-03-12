@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -47,8 +48,23 @@ public abstract class ItemBase : ScriptableObject
     public bool overworldItem = true;
     public AudioClip useClip;
 
+    public bool interrupt = false;
     public abstract void ItemInfoCheck(int player, int itemId);
-    public abstract void PerformItemEffect(int player, InventoryObject inventory);
+    public virtual void PerformItemEffect(int player, InventoryObject inventory)
+    {
+        if(battleItem)
+        {
+            foreach (var item in NetworkData.Instance.playerInventories[player][0].container)
+            {
+                if (item.item == this)
+                {
+                    NetworkData.Instance.players[player].battleSlotItemId = -1;
+                }
+            }
+        }
+        
+        inventory.RemoveItem(this);
+    }
     public int determineType ()
     {
         if (this.type == ItemType.Food) {return 0; }

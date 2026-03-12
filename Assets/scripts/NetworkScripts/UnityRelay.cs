@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.Netcode;
@@ -77,6 +78,7 @@ public class UnityRelay : MonoBehaviour
 
             RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+            
 
             if(NetworkManager.Singleton.StartClient() )
             {         

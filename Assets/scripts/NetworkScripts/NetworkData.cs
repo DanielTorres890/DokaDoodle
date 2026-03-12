@@ -6,6 +6,7 @@ using Unity.Collections;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -33,7 +34,14 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public int maxPlayers = 4;
     public int currentPlayer = 0;
     public int[] clientOrder = new int[4];
-    
+
+    public Dictionary<ulong,string> clientIdToGuid = new Dictionary<ulong,string>();
+    public Dictionary<string, ulong> GuidToClientId = new Dictionary<string, ulong>();
+
+
+    public string[] currentGuids = new string[4];
+
+
     public float globalShopMultiplier = 1;
     private List<bool> readyPlayers = new List<bool>();
 
@@ -49,6 +57,8 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     [SerializeField] private GameObject[] playerPreviews;
     [SerializeField] private GameObject[] playerPreviewsLoaded;
 
+    public Guid localUniqueId;
+    
     public Dictionary<Attributes, string> attributeStrings = new Dictionary<Attributes, string>
     {
         { Attributes.MaxHealth, "MaxHP" },
@@ -84,6 +94,20 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         clientOrder[2] = -1;
         clientOrder[3] = -1;
         readyPlayers[0] = true;
+
+
+        if(!PlayerPrefs.HasKey("uniqueId") || true)
+        {
+            localUniqueId = Guid.NewGuid();
+            Debug.Log("My inque id is " + localUniqueId.ToString());
+            PlayerPrefs.SetString("uniqueId", localUniqueId.ToString());
+            PlayerPrefs.Save();
+
+        }
+        else
+        {
+            localUniqueId = new Guid(PlayerPrefs.GetString("uniqueId"));
+        }
         // players.OnListChanged += SyncSticks;
 
     }
@@ -140,7 +164,13 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             SceneManager.UnloadSceneAsync("Settings");
         }
 
-
+        if(IsHost)
+        {
+            clientIdToGuid.Add(0, localUniqueId.ToString());
+            currentGuids[0] = localUniqueId.ToString();
+            GuidToClientId.Add(localUniqueId.ToString(),0);
+            Debug.Log("The host has mapped their unque id " + currentGuids[0].ToString());
+        }
 
         
 
@@ -154,17 +184,31 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         
         playerCount++;
         
+        if(!IsHost)
+        {
+            Debug.Log("Map my Id");
+            SendGuidRpc(localUniqueId.ToString());
+        }
+        
         if(NetworkManager.Singleton.ConnectedClientsIds.Count > maxPlayers)
         {
+            playerCount--;
             NetworkManager.Singleton.DisconnectClient(clientId);
             return;
         }
+
         if (!IsServer) { return; }
 
         for (int i = 0; i < players.Count; i++)
         {
            
             SyncSticksClientRpc(i, players[i].name, players[i].playerClass, players[i].playerFace, players[i].playerHair, maxPlayers, players.Count);
+        }
+        foreach(var key in GuidToClientId)
+        {
+            if (ClientNumToPlayerNum(key.Value) == -1) { continue; }
+            
+            SyncGuidsRpc(key.Key, key.Value, ClientNumToPlayerNum(key.Value));
         }
         if(LoadedIn)
         {
@@ -176,18 +220,70 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     private void OnClientDisconnected(ulong clientId)
     {
         playerCount--;
+        for(int i = currentGuids.Length - 1;  i >= 0; i--)
+        {
+            if (currentGuids[i] == clientIdToGuid[clientId])
+            {
+                currentGuids[i] = null;
+                break;
+            }
+        }
+
+
     }
 
-	[Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+    private void SendGuidRpc(string GuidAsString, RpcParams senderInfo = default)
+    {
+
+        
+        foreach(var key in clientIdToGuid.Keys)
+        {
+            Debug.Log(key);
+        }
+
+        if(clientIdToGuid.ContainsKey(senderInfo.Receive.SenderClientId)) { Debug.Log(senderInfo.Receive.SenderClientId.ToString() + " has Already been mapped "); return; }
+        clientIdToGuid.Add(senderInfo.Receive.SenderClientId, GuidAsString);
+
+        if (GuidToClientId.ContainsKey(GuidAsString)) { GuidToClientId[GuidAsString] = senderInfo.Receive.SenderClientId; }
+        else { GuidToClientId.Add(GuidAsString, senderInfo.Receive.SenderClientId); }
+            
+        for(int i = 0;  i < currentGuids.Length; i++)
+        {
+            //frick u unity serialization
+            if(currentGuids[i] == null || currentGuids[i] == "")
+            {
+                
+                currentGuids[i] = GuidAsString;
+                SendGuidToClientsRpc(GuidAsString, senderInfo.Receive.SenderClientId, i);
+                break;
+            }
+        }
+        
+    }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void SendGuidToClientsRpc(string GuidAsString, ulong key, int index)
+    {
+        currentGuids[index] = GuidAsString;
+        if (clientIdToGuid.ContainsKey(key)) {  return; }
+
+        clientIdToGuid.Add(key, GuidAsString);
+
+        if (GuidToClientId.ContainsKey(GuidAsString)) { GuidToClientId[GuidAsString] = key; }
+        else { GuidToClientId.Add(GuidAsString, key); }
+
+    }
+
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
 	public void unreadyServerRpc(RpcParams serverRpcParams)
     {
-        readyPlayers[Convert.ToInt32(serverRpcParams.Receive.SenderClientId.ToString())] = false;
+        readyPlayers[ClientNumToPlayerNum(serverRpcParams.Receive.SenderClientId)] = false;
     }
 
 	[Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
 	public void sendPlayerDataServerRpc(FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair, RpcParams serverRpcParams)
     {
-        int playerId = Convert.ToInt32(serverRpcParams.Receive.SenderClientId.ToString());
+        int playerId = ClientNumToPlayerNum(serverRpcParams.Receive.SenderClientId);
         
         players[playerId] =
             new playerData(playerClass, playerName, playerFace, playerHair);
@@ -216,7 +312,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void SyncSticksClientRpc(int playerId, FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair, int playerCountin, int openSlots)
     {
-
+        
         if(playerName != "")
         {
             playerPreviews[playerId].SetActive(true);
@@ -275,10 +371,32 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         }
     }
 
-    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    public void AddOrderClientRpc(int slotNumber, int clientId)
+    [Rpc(SendTo.ClientsAndHost)]
+    public void SyncGuidsRpc(string guid, ulong key, int index)
     {
-        clientOrder[slotNumber] = clientId;
+        Debug.Log("Im trying to sync this info " + guid);
+        Debug.Log(key);
+        Debug.Log(index);
+        currentGuids[index] = guid;
+        if (clientIdToGuid.ContainsKey(key)) { return; }
+
+        
+        clientIdToGuid.Add(key, guid);
+        if (GuidToClientId.ContainsKey(guid))
+        {
+            GuidToClientId[guid] = key;
+        }
+        else
+        {
+            GuidToClientId.Add(guid, key);
+        }
+    }
+
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void AddOrderClientRpc(int slotNumber,  ulong clientId)
+    {
+        clientOrder[slotNumber] = ClientNumToPlayerNum(clientId);
         readyPlayers[slotNumber] = true;
     }
 
@@ -313,7 +431,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public bool IsAllowed(int playerNum, ulong playerId)
     {
 
-        if (playerNum != Convert.ToInt32(playerId)) { return false; }
+        if (playerNum != ClientNumToPlayerNum(playerId)) { return false; }
 
         return true;
     }
@@ -411,6 +529,19 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             }
             
         }
+    }
+    public int ClientNumToPlayerNum(ulong playerId)
+    {
+        string Guid = clientIdToGuid[playerId];
+        for(int i = 0; i < currentGuids.Length; i++)
+        {
+            if(Guid == currentGuids[i])
+            {
+                return i;
+            }
+        }
+        Debug.Log("this should never happened EVERY player id should be mapped to identifier");
+        return -1;
     }
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]

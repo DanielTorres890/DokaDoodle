@@ -56,6 +56,11 @@ public class InventoryChangeScript : NetworkBehaviour
             battleSlotImage.sprite = battleItem.itemSprite;
             battleSlotText.text = battleItem.itemName;
         }
+        else
+        {
+            battleSlotImage.sprite = null;
+            battleSlotText.text = "Empty Slot";
+        }
     }
 
     //for some god forsaken reason my button keeps forcing itself to subscribe to inventory forward which makes 0 sense

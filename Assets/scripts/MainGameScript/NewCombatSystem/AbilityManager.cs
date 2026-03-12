@@ -468,6 +468,8 @@ public class AbilityManager : NetworkBehaviour
     {
         if(!IsOwner) { return; }
         if((stats as playerData).battleSlotItemId == -1) { return; }
+        if(combatantstate != combatantStates.Free) { return; }
+
         UseItemRpc();
 
 
