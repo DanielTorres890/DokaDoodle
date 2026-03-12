@@ -46,8 +46,7 @@ public abstract class BuffBase : ScriptableObject
             {
                 if (combatant.stats == stats)
                 {
-                    combatant.combatantstate = combatantStates.Endlag;
-                    combatant.stateDuration = 999;
+                    
                     if (!buffFx) { return; }
 
                     var fx = Instantiate(buffFx, combatant.transform);

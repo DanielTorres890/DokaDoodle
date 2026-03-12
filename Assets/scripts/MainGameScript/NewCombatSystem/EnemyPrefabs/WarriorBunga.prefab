@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.59, y: 6.65}
+  m_AnchoredPosition: {x: -0.59, y: 6.11}
   m_SizeDelta: {x: 9.1, y: 2.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3969007259573072807
@@ -86,6 +86,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &922452301317382085
 MonoBehaviour:
@@ -145,6 +146,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -296,6 +298,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6620878384931336894
 MonoBehaviour:
@@ -355,6 +358,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -766,7 +770,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 3, y: 7, z: 0.1}
-  m_Center: {x: -0.2, y: 0.5, z: 0}
+  m_Center: {x: -0.2, y: 0, z: 0}
 --- !u!114 &1951428160628325734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -824,6 +828,7 @@ MonoBehaviour:
   currentAttack: {fileID: 0}
   nameText: {fileID: 3739204426491887481}
   hpText: {fileID: 6777006063724304396}
+  myHealthbar: {fileID: 0}
   onStatus:
     m_PersistentCalls:
       m_Calls: []
@@ -881,6 +886,9 @@ MonoBehaviour:
   onSetUp:
     m_PersistentCalls:
       m_Calls: []
+  onItemUse:
+    m_PersistentCalls:
+      m_Calls: []
   maxEnergy: 100
   currentEnergy: 100
   energyRegen: 1
@@ -899,6 +907,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
   AuthorityMode: 0
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
@@ -956,10 +974,11 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804880954259114146}
   m_Enabled: 1
-  m_SortingLayerID: 781689269
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!195 &3358961221082085050
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -979,7 +998,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 7.18
-  m_BaseOffset: 3
+  m_BaseOffset: 3.4
   m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!114 &-8106719395968188378
@@ -1018,6 +1037,7 @@ MonoBehaviour:
   releaseTimer: 0
   timeToHold: 0
   baseMoveSpeed: 4
+  rb: {fileID: 0}
 --- !u!95 &-2458163416096458169
 Animator:
   serializedVersion: 7
@@ -1053,8 +1073,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  TransitionStateInfoList: []
+  NetworkAnimatorExpanded: 0
+  AuthorityMode: 0
   m_Animator: {fileID: -2458163416096458169}
+  TransitionStateInfoList: []
+  AnimatorParameterEntries:
+    ParameterEntries:
+    - name: Walking
+      NameHash: 1744665739
+      Synchronize: 1
+      ParameterType: 4
+    - name: StartUp
+      NameHash: -1095283256
+      Synchronize: 1
+      ParameterType: 4
+    - name: Attacking
+      NameHash: -2123461723
+      Synchronize: 1
+      ParameterType: 4
+    - name: AnimSpeed
+      NameHash: 1207992894
+      Synchronize: 1
+      ParameterType: 1
+  AnimatorParametersExpanded: 0
 --- !u!1001 &2434013826783101499
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1063,6 +1104,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 703723169880527041}
     m_Modifications:
+    - target: {fileID: 4103663188643984842, guid: 00f7579ca051bb04cadf537b0f226d26, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103663188643984842, guid: 00f7579ca051bb04cadf537b0f226d26, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5090703921820710391, guid: 00f7579ca051bb04cadf537b0f226d26, type: 3}
       propertyPath: m_Name
       value: WarriorBunga
@@ -1139,7 +1188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2670810907346738424, guid: cdf446f8dd9ffee459744f5f5c4eea2b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 4.46
       objectReference: {fileID: 0}
     - target: {fileID: 2670810907346738424, guid: cdf446f8dd9ffee459744f5f5c4eea2b, type: 3}
       propertyPath: m_LocalPosition.z

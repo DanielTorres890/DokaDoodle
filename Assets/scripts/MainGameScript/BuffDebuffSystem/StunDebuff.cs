@@ -13,6 +13,19 @@ public class StunDebuff : BuffBase
     public override void OnApply(EntityStats stats)
     {
         //means we're in combat
+
+        if (NewCombatManager.instance)
+        {
+            foreach (var combatant in NewCombatManager.instance.allCombatants)
+            {
+                if (combatant.stats == stats)
+                {
+                    combatant.combatantstate = combatantStates.Endlag;
+                    combatant.stateDuration = 999;
+
+                }
+            }
+        }
         base.OnApply(stats);
         
     }

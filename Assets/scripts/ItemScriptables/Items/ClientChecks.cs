@@ -272,8 +272,8 @@ public class ClientChecks : NetworkBehaviour
 
         displayText.lines.Add(thisItem.useText);
         StartCoroutine(usedItem());
+        onItemUse.Invoke();
 
-        
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void ConfirmBuffRpc(int player, int itemId, int inventoryNum)

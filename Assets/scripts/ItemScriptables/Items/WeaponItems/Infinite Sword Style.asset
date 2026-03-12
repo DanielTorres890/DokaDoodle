@@ -20,23 +20,22 @@ MonoBehaviour:
     melee slashes. All swords get used upon using any of the follow up attacks
 
     Requires:
-    10 ATK, 10 DEX
+    8 ATK, 8 DEX
 
     Onnnee... Twwooo... Thhrreee.... Foouurrr....'
   useText: Weapon Equipped
   itemName: Infinite Sword Style
-  buffs:
-  - attribute: 2
-    value: 10
+  buffs: []
   battleItem: 0
   overworldItem: 0
   useClip: {fileID: 0}
+  interrupt: 0
   attack:
   - {fileID: 11400000, guid: b11bc6159b408d746b5bcc506c2bc238, type: 2}
   - {fileID: 11400000, guid: 4d8a60e280cba2b45b07f859ed43c15c, type: 2}
   - {fileID: 11400000, guid: aa9d2ecf097a34b469fce761d9a2e87b, type: 2}
   skillRequirements:
   - attribute: 2
-    value: 10
+    value: 8
   - attribute: 6
-    value: 10
+    value: 8

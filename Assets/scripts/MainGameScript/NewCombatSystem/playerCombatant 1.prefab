@@ -893,6 +893,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d15ba213-1da5-48d5-b8f8-0bde0ec93246
     m_ActionName: 'Player/Dash[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 81d95f22-b998-4b50-881c-2ba12ce8155f
+    m_ActionName: 'Player/BattleItem[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5c84d88b-ab19-4eec-aa6e-d74d390cd9dc
+    m_ActionName: 'Player/Ability6[/Keyboard/v]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1014,6 +1022,9 @@ MonoBehaviour:
   onSetUp:
     m_PersistentCalls:
       m_Calls: []
+  onItemUse:
+    m_PersistentCalls:
+      m_Calls: []
   maxEnergy: 100
   currentEnergy: 100
   energyRegen: 1
@@ -1128,8 +1139,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305626960793455896}
   m_Enabled: 1
-  m_SortingLayerID: 781689269
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0

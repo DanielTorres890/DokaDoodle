@@ -20,6 +20,7 @@ MonoBehaviour:
   cooldown: 0.1
   lifespan: 0.2
   energyDrain: 1
+  initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -37,7 +38,7 @@ MonoBehaviour:
   offset: {x: -0.5, y: 2, z: 1}
   ablitySize: {x: 2, y: 0.3, z: 6}
   visualRoation: {x: 0, y: 0, z: 0}
-  baseDamage: 2
+  baseDamage: 3
   multipliers:
   - attribute: 0
     mult: 0

@@ -52,8 +52,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8768855973896495488, guid: d4efbdb9cf856b64d859003e3b5ef784, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: d4efbdb9cf856b64d859003e3b5ef784, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4918763884034455193}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: d4efbdb9cf856b64d859003e3b5ef784, type: 3}
+--- !u!1 &5090703921820710391 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8653719598885068355, guid: d4efbdb9cf856b64d859003e3b5ef784, type: 3}
+  m_PrefabInstance: {fileID: 4702356012396516426}
+  m_PrefabAsset: {fileID: 0}
+--- !u!210 &4918763884034455193
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5090703921820710391}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
