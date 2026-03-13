@@ -22,6 +22,8 @@ public class EmploymentEventManager : NetworkBehaviour
     public GameObject MainMenu;
     public GameObject confirmAllyBuy;
 
+    public GameObject confirmClassSwap;
+    private int currentClassLook;
 
     public List<PartyMember> availableAllies = new List<PartyMember>();
 
@@ -134,10 +136,40 @@ public class EmploymentEventManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void ChangePlayerClassRpc(int classId)
     {
-        NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].GetComponent<characterEditor>().setClass(classId);
-        NetworkData.Instance.GetCurrentPlayer().ChangeClass(NetworkData.Instance.classDataBase.GetItem[classId]);
+        currentClassLook = classId;
+        confirmClassSwap.SetActive(true);
+        JobChangeObject.SetActive(false);
+    }
+    
+    public void ChangePlayerClassFr()
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
+        ChangePlayerClassFrRpc();
+
     }
 
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void ChangePlayerClassFrRpc()
+    {
+
+        NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].GetComponent<characterEditor>().setClass(currentClassLook);
+        NetworkData.Instance.GetCurrentPlayer().ChangeClass(NetworkData.Instance.classDataBase.GetItem[currentClassLook]);
+    }
+
+    public void ReturnToJobMenu()
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
+        ReturnToJobMenuRpc();
+    }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void ReturnToJobMenuRpc()
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
+        confirmClassSwap.SetActive(false);
+        JobChangeObject.SetActive(true);
+
+    }
     public void LeaveButton()
     {
         if (!NetworkData.Instance.IsAllowed()) { return; }
