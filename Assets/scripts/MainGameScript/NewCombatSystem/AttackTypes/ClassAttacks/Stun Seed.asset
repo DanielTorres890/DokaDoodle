@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbba4ab3dd06e7f40adc52594909bc56, type: 3}
-  m_Name: Stunna
+  m_Name: Stun Seed
   m_EditorClassIdentifier: 
   description: Fires a stunning blast of magic (man i hope stuns work)
   attackName: Stun Seed
-  startUp: 0.4
+  startUp: 1
   attackDuration: 0
   endLag: 0.2
-  cooldown: 1
-  lifespan: 2
+  cooldown: 15
+  lifespan: 5
   energyDrain: 2
+  initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -31,16 +32,19 @@ MonoBehaviour:
   chargeable: 0
   attackPrefab: {fileID: 4958144232811764369, guid: b291f8a5d740c1948bc1edc46c5e3b6f, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 1, z: 0}
   ablitySize: {x: 1, y: 1, z: 1}
+  visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 2
   multipliers:
   - attribute: 4
     mult: 0.4
   defenseMult:
   - attribute: 5
-    mult: 1.2
+    mult: 1
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -56,8 +60,8 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
-  attackAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+  startUpAnimation: {fileID: 7400000, guid: f64d6d7e3bdc57b458f0a1cc813896b6, type: 2}
+  attackAnimation: {fileID: 7400000, guid: aa9f5a52ea2e22148bbdb7b400c0d41d, type: 2}
   animationSpeed: 1
   LevelRequirements: []
   attackSound: {fileID: 0}
@@ -67,4 +71,6 @@ MonoBehaviour:
   targets:
     serializedVersion: 2
     m_Bits: 0
+  conditions: []
   speed: 13
+  pierceCount: 0

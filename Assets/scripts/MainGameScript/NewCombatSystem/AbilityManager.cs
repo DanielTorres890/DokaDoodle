@@ -343,6 +343,7 @@ public class AbilityManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void IGainedBuffRpc(int[] buffId)
     {
+        
         foreach(int i in buffId)
         {
             stats.GainStatus(NetworkData.Instance.buffDataBase.GetItem[i]);

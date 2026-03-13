@@ -219,7 +219,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     }
     public void AttackHold()
     {
-        if (!myManager.CanMove())
+        if (!myManager.CanMove() && selectedAttack)
         {
             releaseTimer += Time.deltaTime;
            

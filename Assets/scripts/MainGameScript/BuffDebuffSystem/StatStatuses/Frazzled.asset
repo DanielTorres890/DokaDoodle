@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb569ca7c8d1084cb6c6ee6d9f1a173, type: 3}
   m_Name: Frazzled
   m_EditorClassIdentifier: Assembly-CSharp::StatStatusEffect
-  duration: 3
+  duration: 10
   combatOnly: 1
-  buffFx: {fileID: 0}
+  stackable: 0
+  buffFx: {fileID: 5232324863387366882, guid: 38a5b2cf3fc4c6a459204513c215b572, type: 3}
   stats:
   - attribute: 2
     value: -50

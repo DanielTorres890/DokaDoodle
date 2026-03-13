@@ -11,35 +11,39 @@ public abstract class BuffBase : ScriptableObject
     {
         
         if(!buffFx) { return; }
-        if(stats is not playerData) { return; }
-        for(int i = 0; i < NetworkData.Instance.players.Count;i++)
+        if(stats is playerData) 
         {
-            var player = NetworkData.Instance.players[i];
-            if(player != stats) { continue; }
-            var fx = Instantiate(buffFx, NetworkData.Instance.playerSticks[i].transform);
-           
-            player.onStatusProgress.AddListener(delegate
+            for (int i = 0; i < NetworkData.Instance.players.Count; i++)
             {
-                
+                var player = NetworkData.Instance.players[i];
+                if (player != stats) { continue; }
+                var fx = Instantiate(buffFx, NetworkData.Instance.playerSticks[i].transform);
 
-                if (!buffFx) { return; }
-                if (stats is not playerData) { return; }
-
-               
-
-                foreach(var status in player.statuses)
+                player.onStatusProgress.AddListener(delegate
                 {
-                    if(status.buffId == NetworkData.Instance.buffDataBase.GetId[this])
+
+
+                    if (!buffFx) { return; }
+                    if (stats is not playerData) { return; }
+
+
+
+                    foreach (var status in player.statuses)
                     {
-                        return;
+                        if (status.buffId == NetworkData.Instance.buffDataBase.GetId[this])
+                        {
+                            return;
+                        }
                     }
-                }
-               
-                Destroy(fx);
-                
-            });
-            break;
+
+                    Destroy(fx);
+
+                });
+                break;
+            }
+
         }
+       
         if (NewCombatManager.instance)
         {
             foreach (var combatant in NewCombatManager.instance.allCombatants)
