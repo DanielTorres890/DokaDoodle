@@ -16,6 +16,7 @@ public class PVPVictory : NetworkBehaviour
 
     //im not a huge fan but i started with the sprite library so i gotta ride with it i fear
     public List<int> prankHairIds;
+    public List<int> prankFaceIds;
     public override void OnNetworkSpawn()
     {
        
@@ -186,17 +187,19 @@ public class PVPVictory : NetworkBehaviour
     {
         if (NetworkData.Instance.IsAllowed(winner, NetworkManager.Singleton.LocalClientId))
         {
-            PrankRpc(prankHairIds[Random.Range(0,prankHairIds.Count)]);
+            PrankRpc(prankHairIds[Random.Range(0,prankHairIds.Count)], prankFaceIds[Random.Range(0,prankFaceIds.Count)]);
         }
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    private void PrankRpc(int hairId)
+    private void PrankRpc(int hairId, int faceId)
     {
         //does not yet do anything....
         characterEditor loserEditor = NetworkData.Instance.playerSticks[loser].GetComponent<characterEditor>();
         loserEditor.setHair(hairId);
+        loserEditor.setFace(faceId);
         playerData loserData = NetworkData.Instance.players[loser];
         loserData.playerHair = hairId;
+        loserData.playerFace = faceId;
        
         if (IsHost) { FinishVictoryRpc(); }
     }
