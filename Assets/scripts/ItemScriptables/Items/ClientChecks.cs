@@ -208,6 +208,7 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void ShowConfirmItemButtonsRpc(int player, int itemId, int inventoryNum)
     {
+        Debug.Log("item id");
         bool usableInBattle = NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].battleItem;
         bool usableInWorld = NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].overworldItem;
 

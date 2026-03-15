@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
-  m_Name: Spear
+  m_Name: Thrust
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 2377075296524610544, guid: d845a94b58bd907489fda5c1af32cbcf, type: 3}
-  type: 2
+  type: 3
   itemValue: 500
-  description: "A standard spear, performs a thrusting ( \u0361\xB0 \u035C\u0296
-    \u0361\xB0) attack with longer reach but more narrow and dealing Medium damage"
+  description: "Performs a thrusting ( \u0361\xB0 \u035C\u0296 \u0361\xB0) attack
+    with longer reach but more narrow and dealing Medium damage"
   useText: You equip the spear
-  itemName: Spear
-  buffs:
-  - attribute: 2
-    value: 10
+  itemName: Thrust
+  buffs: []
   battleItem: 0
   overworldItem: 0
   useClip: {fileID: 0}
+  interrupt: 0
   attack:
   - {fileID: 11400000, guid: a5b01c26d5c4cc1408fb60cf8603268c, type: 2}
   skillRequirements: []

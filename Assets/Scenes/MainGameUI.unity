@@ -4461,8 +4461,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3588070724742875768, guid: de82f8dcfc1c9a249a66b939a2983c03, type: 3}
       propertyPath: m_text
-      value: 'How much space THIS inventory has. Since there''s 3 total inventories
-        1 for weapons 1 '
+      value: "How much space THIS inventory has, since there's 4 different inventories
+        each with their own inventory space\n "
       objectReference: {fileID: 0}
     - target: {fileID: 3588070724742875768, guid: de82f8dcfc1c9a249a66b939a2983c03, type: 3}
       propertyPath: m_fontSize
@@ -11353,17 +11353,25 @@ MonoBehaviour:
   inventoryDisplay: {fileID: 503531568}
   inventoryNames:
   - Items
-  - Weapons
-  - Magic
+  - Physicals
+  - Magics
+  - Equipment
   nameText: {fileID: 1284068552}
   inventoryToolTips:
   - These are general items, most can be used for various purposes
-  - "These are weapons, in combat each weapon will give you a different skill to
-    use in combat, some stronger weapons have stat requirements. \nYou don't have
-    to equip weapons, as long as they're in your inventory they'll appear in combat"
-  - "These are magics, in combat each  magic will give you a different skill to use
-    in combat, some stronger magics have stat requirements. \nYou don't have to equip
-    magics, as long as they're in your inventory they'll appear in combat"
+  - 'These are physical abilities, they mainly focus on ATK as their damage stat.
+
+    As
+    long as you meet the stat requirements all physical abilities will be active
+    in combat'
+  - 'These are magic abilities, they mainly focus on MAG as their damage stat.
+
+    As
+    long as you meet the stat requirements all magic abilities will be active in
+    combat'
+  - "These are equipment items, you can have 1 equipped at a time to provide extra
+    stats. \nSome items may contain a special ability that is only active if you
+    have it equipped"
   mouseOverText: {fileID: 1712460201}
   sizeText: {fileID: 10237841}
   battleSlotImage: {fileID: 266887523}

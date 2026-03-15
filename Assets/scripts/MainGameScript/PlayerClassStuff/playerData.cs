@@ -20,7 +20,7 @@ public class playerData : EntityStats
 
     public int battleSlotItemId;
 
-    public int[] maxInventorySizes = new int[3];
+    public int[] maxInventorySizes = new int[4];
 
 
     public Dictionary<PlayerInfo, int> playerInfo = new Dictionary<PlayerInfo, int>
@@ -44,10 +44,8 @@ public class playerData : EntityStats
     public Dictionary<ItemType, int> equipItems = new Dictionary<ItemType, int>
     {
         { ItemType.Equipment , -1 },
-        { ItemType.Weapon,  -1},
-        { ItemType.Magic , -1 },
         { ItemType.Shield, -1 },
-        { ItemType.MagicGuard, -1 }
+     
 
 
     };
@@ -99,6 +97,14 @@ public class playerData : EntityStats
         //bool hasOffense = false;
      
         this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[playerClass].basicAttackAbility);
+        if (equipItems[ItemType.Equipment] != -1)
+        {
+            foreach(var attack in (NetworkData.Instance.playerInventories[playerNumber][3].database.GetItem[equipItems[ItemType.Equipment]] as WeaponItem).attack)
+            {
+                this.attacks.Add(attack);
+            }
+        }
+
 
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
         {
@@ -248,7 +254,7 @@ public class playerData : EntityStats
         NetworkData.Instance.players[playerNumber].equipItems[type] = 0;
 
         InventoryObject temp2;
-        if (type == ItemType.Magic || type == ItemType.MagicGuard)
+        if (type == ItemType.Magic)
         {
             temp2 = NetworkData.Instance.playerInventories[playerNumber][2];
         }
@@ -314,6 +320,7 @@ public class playerData : EntityStats
     public void ChangeClass(PlayerClassBase classChangeTo)
     {
         var currentClass = NetworkData.Instance.classDataBase.GetItem[playerClass];
+        maxInventorySizes = currentClass.inventorySizes;
         foreach(var attrib in currentClass.stats)
         {
             stats[attrib.attribute] -= attrib.value;
@@ -323,6 +330,11 @@ public class playerData : EntityStats
             stats[attrib.attribute] += attrib.value;
         }
         playerClass = NetworkData.Instance.classDataBase.GetId[classChangeTo];
+        maxInventorySizes = classChangeTo.inventorySizes;
+        for(int i = 0; i < maxInventorySizes.Length; i++)
+        {
+            NetworkData.Instance.playerInventories[playerNumber][i].MAXSIZE = maxInventorySizes[i];
+        }
     }
 }
 public enum PlayerInfo

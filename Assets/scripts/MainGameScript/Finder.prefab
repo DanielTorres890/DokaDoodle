@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 1986753185701723329}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.05, z: 0}
+  m_LocalPosition: {x: 0, y: 5.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -94,6 +94,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &4409050368782928911
 BoxCollider:
@@ -181,22 +182,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: db4a5c9c-47d2-45f5-8128-095f6b040a06
     m_ActionName: 'Player/Ability5[/Keyboard/c]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: df6b6081-55b5-4299-bd2d-efcc80596bcc
-    m_ActionName: 'Player/DashRight[/Keyboard/d]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1edf29a3-ef5f-49c6-9c85-3ebc76c9ffdb
-    m_ActionName: 'Player/DashLeft[/Keyboard/a]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 618003e8-7724-415d-9da8-1e6e363fbbe3
-    m_ActionName: 'Player/DashFwd[/Keyboard/w]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b8dda105-e600-4892-92d7-499654de4eb3
-    m_ActionName: 'Player/DashBack[/Keyboard/s]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3277649163424500733}
@@ -321,6 +306,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3475f648-26ed-43d1-8b93-8a63077d419c
     m_ActionName: 'Spectating/Look[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 81d95f22-b998-4b50-881c-2ba12ce8155f
+    m_ActionName: 'Player/BattleItem[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5c84d88b-ab19-4eec-aa6e-d74d390cd9dc
+    m_ActionName: 'Player/Ability6[/Keyboard/v]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d15ba213-1da5-48d5-b8f8-0bde0ec93246
+    m_ActionName: 'Player/Dash[/Keyboard/leftShift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
@@ -518,6 +515,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &4837660458430685755
 CapsuleCollider:

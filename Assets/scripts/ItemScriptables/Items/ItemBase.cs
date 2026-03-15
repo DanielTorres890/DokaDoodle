@@ -9,9 +9,9 @@ public enum ItemType
     Food,
     Equipment,
     Weapon,
+    PhysicalAbility,
     Shield,
     Magic,
-    MagicGuard,
     Default
 
 }
@@ -69,9 +69,12 @@ public abstract class ItemBase : ScriptableObject
     {
         if (this.type == ItemType.Food) {return 0; }
 
-        if (this.type == ItemType.Weapon || this.type == ItemType.Shield) { return 1; }
+        if (this.type == ItemType.PhysicalAbility || this.type == ItemType.Shield) { return 1; }
 
-        if (this.type == ItemType.Magic || this.type == ItemType.Equipment) { return 2; }
+        if (this.type == ItemType.Magic ) { return 2; }
+
+        if (this.type == ItemType.Equipment) { return 3; }
+
         return -1;
     }
     public virtual bool CanUse(int player)

@@ -8,12 +8,14 @@ public class WeaponItem : ItemBase
 {
     public AttackBase[] attack;
     public List<ItemBuff> skillRequirements;
+
+    public Sprite inHandSprite;
     public override void ItemInfoCheck(int player, int itemId)
     {
 
          if (!NetworkData.Instance.IsAllowed(player, NetworkManager.Singleton.LocalClientId)) { return; }
 
-        var tmp = 1;
+        var tmp = 3;
        
         if ( this.type == ItemType.Magic)
         {
@@ -23,14 +25,14 @@ public class WeaponItem : ItemBase
     }
     public override void PerformItemEffect(int player, InventoryObject inventory)
     {
-
-        if (NetworkData.Instance.players[player].equipItems[this.type] <= 1)
+        playerData thisPlayer = NetworkData.Instance.players[player];
+        if (thisPlayer.equipItems[this.type] < 0)
         {
 
-            NetworkData.Instance.players[player].equipItems[this.type] = inventory.database.GetId[this];
+           
             foreach (var attrib in base.buffs)
             {
-                NetworkData.Instance.players[player].stats[attrib.attribute] += attrib.value;
+                thisPlayer.stats[attrib.attribute] += attrib.value;
                
             }
             
@@ -40,34 +42,37 @@ public class WeaponItem : ItemBase
         else
         {
     
-            var temp = NetworkData.Instance.players[player].equipItems[this.type];
-            NetworkData.Instance.players[player].equipItems[this.type] = inventory.database.GetId[this];
-           
+            var temp = thisPlayer.equipItems[this.type];
             foreach (var attrib in inventory.database.GetItem[temp].buffs)
             {
-                NetworkData.Instance.players[player].stats[attrib.attribute] -= attrib.value;
+                thisPlayer.stats[attrib.attribute] -= attrib.value;
                 
             }
             foreach (var attrib in base.buffs)
             {
-                NetworkData.Instance.players[player].stats[attrib.attribute] += attrib.value;
+                thisPlayer.stats[attrib.attribute] += attrib.value;
               
             }
      
         }
+        thisPlayer.equipItems[this.type] = inventory.database.GetId[this];
         inventory.ToFront(this);
-        if(this.type == ItemType.Weapon)
+        thisPlayer.PostStatusStatCalc();
+        var tmp = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform.GetChild(0);
+        if (inHandSprite)
         {
-            var tmp = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform.GetChild(0);
-            tmp.gameObject.SetActive(true);
-            tmp.GetComponent<SpriteRenderer>().sprite = this.itemSprite;
+            if (this.type == ItemType.Equipment)
+            {
+                tmp.gameObject.SetActive(true);
+                tmp.GetComponent<SpriteRenderer>().sprite = inHandSprite;
+            }
+            
         }
-        if(this.type == ItemType.Shield)
+        else
         {
-            var tmp = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform.GetChild(1);
-            tmp.gameObject.SetActive(true);
-            tmp.GetComponent<SpriteRenderer>().sprite = this.itemSprite;
+            tmp.gameObject.SetActive(false);
         }
-        NetworkData.Instance.players[player].setCombatActions();
+
+            NetworkData.Instance.players[player].setCombatActions();
     }
 }

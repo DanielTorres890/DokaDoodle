@@ -77,7 +77,7 @@ public class InventoryChangeScript : NetworkBehaviour
     {
         if (!NetworkData.Instance.IsAllowed(whoInControl, rpcstuff.Receive.SenderClientId)) { return; }
 
-        if (currentInventory >= 2) { return; }
+        if (currentInventory >= 3) { return; }
         
         currentInventory += 1;
         if (nameText)

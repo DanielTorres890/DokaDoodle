@@ -10,25 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
-  m_Name: Katana
+  m_Name: Infinite Sword Style
   m_EditorClassIdentifier: 
   itemSprite: {fileID: -928417237600903484, guid: 98785a5040b76de4381faea2a3b4b228, type: 3}
-  type: 2
-  itemValue: 750
-  description: 'Performs an attack that dashes forward cutting anything you pass
-    through dealing light damage
-
-    Requires: 7 ATK'
+  type: 3
+  itemValue: 1000
+  description: "Throws countless swords into the air landing across the battle field.
+    Pick up swords to make follow up attacks available. \nRequires: 8 ATK, 8 DEX\nOnnnee...
+    Twwooo... Thhrreee.... Foouurrr...."
   useText: Weapon Equipped
-  itemName: Katana
-  buffs:
-  - attribute: 2
-    value: 10
+  itemName: Infinite Sword Style
+  buffs: []
   battleItem: 0
   overworldItem: 0
   useClip: {fileID: 0}
+  interrupt: 0
   attack:
-  - {fileID: 11400000, guid: ffa5a809d7479794ba87d08d7a51802b, type: 2}
+  - {fileID: 11400000, guid: b11bc6159b408d746b5bcc506c2bc238, type: 2}
+  - {fileID: 11400000, guid: 4d8a60e280cba2b45b07f859ed43c15c, type: 2}
+  - {fileID: 11400000, guid: aa9d2ecf097a34b469fce761d9a2e87b, type: 2}
   skillRequirements:
   - attribute: 2
-    value: 7
+    value: 8
+  - attribute: 6
+    value: 8

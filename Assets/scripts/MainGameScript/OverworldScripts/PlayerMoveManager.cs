@@ -331,7 +331,11 @@ public class PlayerMoveManager : NetworkBehaviour
         if (rpcstuff.Receive.SenderClientId == NetworkManager.Singleton.LocalClientId) { return; }
 
         if(activeRoutine != null)
-        StopCoroutine(activeRoutine);
+        {
+            StopCoroutine(activeRoutine);
+            Debug.Log("am i getting gimped?");
+        }
+        
 
         activeRoutine = StartCoroutine(playerMover(speed, tildid));
     }
@@ -374,10 +378,16 @@ public class PlayerMoveManager : NetworkBehaviour
         var currentPartyMembers = NetworkData.Instance.GetCurrentPlayer().partyMembers;
 
         int curPlayerIndex = NetworkData.Instance.currentPlayer;
+        
+        
         while (Vector3.Distance(playerSticks[curPlayerIndex].transform.position, mapTiles[tildId].gameObject.transform.position) > 0.01f)
         {
+            
             var tilePos = mapTiles[tildId].gameObject.transform.position;
+
+
             playerSticks[NetworkData.Instance.currentPlayer].transform.position =
+
         Vector3.MoveTowards(playerSticks[curPlayerIndex].transform.position, new Vector3(tilePos.x, tilePos.y + 3, tilePos.z) , speed * Time.deltaTime);
 
             int memberCount = 0;
@@ -718,13 +728,13 @@ public class PlayerMoveManager : NetworkBehaviour
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = allPaths[finishTile].takenPath[startingTileIndex].tileId;
             SetFollowingMembersToCurTile();
 
-
-
+            if(activeRoutine != null) { StopCoroutine(activeRoutine); }
+            
             activeRoutine = StartCoroutine(playerMover(autoMoveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId));
             PlayerMoverRpc(autoMoveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
             startingTileIndex++;
             SyncDiceRollServerRpc(diceRoll-1);
-            yield return new WaitForSeconds(autoMoveTime);
+            yield return new WaitForSecondsRealtime(autoMoveTime);
 
 
         }

@@ -10,25 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
-  m_Name: Manamune
+  m_Name: Wood Sword
   m_EditorClassIdentifier: 
   itemSprite: {fileID: -928417237600903484, guid: 98785a5040b76de4381faea2a3b4b228, type: 3}
-  type: 2
-  itemValue: 400
-  description: 'A special blade capable of sending flying slash towards your opponent
+  type: 1
+  itemValue: 200
+  description: 'A wooden sword, not very sharp it does hurt
 
-    Requires:
-    12 ATK'
+    ATK: 4'
   useText: You equip the wooden sword
-  itemName: Manamune
+  itemName: Wood Sword
   buffs:
   - attribute: 2
-    value: 10
+    value: 4
   battleItem: 0
-  overworldItem: 0
+  overworldItem: 1
   useClip: {fileID: 0}
-  attack:
-  - {fileID: 11400000, guid: bed26ac80a853e540a6be19304275f80, type: 2}
-  skillRequirements:
-  - attribute: 2
-    value: 12
+  interrupt: 0
+  attack: []
+  skillRequirements: []

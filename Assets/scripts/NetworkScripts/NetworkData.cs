@@ -334,7 +334,9 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         playerInventories[playerId][0].MAXSIZE = players[playerId].maxInventorySizes[0];
         playerInventories[playerId][1].MAXSIZE = players[playerId].maxInventorySizes[1];
         playerInventories[playerId][2].MAXSIZE = players[playerId].maxInventorySizes[2];
-        
+        playerInventories[playerId][3].MAXSIZE = players[playerId].maxInventorySizes[3];
+
+
 
         characterEditor curStickEdit = playerSticks[playerId].GetComponent<characterEditor>();
         curStickEdit.setClass(players[playerId].playerClass);

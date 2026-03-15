@@ -10,21 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
-  m_Name: WoodSword
+  m_Name: BungaStaff
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 2377075296524610544, guid: d845a94b58bd907489fda5c1af32cbcf, type: 3}
-  type: 2
-  itemValue: 400
-  description: A basic Wooden Sword, performs a bigger stronger slash dealing Medium
-    damage
-  useText: You equip the wooden sword
-  itemName: Wood Sword
+  itemSprite: {fileID: -6949942432564977425, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
+  type: 1
+  itemValue: 1500
+  description: 'A staff of questionably magical power that allows you to summon a
+    Bunga
+
+    Gives MAG: 2'
+  useText: SUMMON
+  itemName: Bunga Staff
   buffs:
-  - attribute: 2
-    value: 10
+  - attribute: 4
+    value: 2
   battleItem: 0
   overworldItem: 0
   useClip: {fileID: 0}
+  interrupt: 0
   attack:
-  - {fileID: 11400000, guid: 8b8cda6fa69d3ca47884150c60cc9e8d, type: 2}
+  - {fileID: 11400000, guid: cd872b4baf811dc46976b6df02e67835, type: 2}
   skillRequirements: []
