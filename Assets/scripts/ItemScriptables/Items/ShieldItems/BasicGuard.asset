@@ -10,17 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
-  m_Name: Hide Shield
+  m_Name: BasicGuard
   m_EditorClassIdentifier: 
   itemSprite: {fileID: -7493233965603510204, guid: 3cea656da20611144b1c89c025626911, type: 3}
   type: 3
   itemValue: 100
-  description: A basic shield that allows the user to guard, reducing physical damage
+  description: A basic type of guard that blocks 30% of physical damage when held
   useText: 
-  itemName: Hide Shield
-  buffs:
-  - attribute: 3
-    value: 8
+  itemName: Basic Guard
+  buffs: []
+  battleItem: 0
+  overworldItem: 0
+  useClip: {fileID: 0}
+  interrupt: 0
   attack:
   - {fileID: 11400000, guid: d99c090114319a74e880597b6cde0a76, type: 2}
   skillRequirements: []
+  inHandSprite: {fileID: 0}

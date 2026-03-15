@@ -13,20 +13,22 @@ MonoBehaviour:
   m_Name: Meteor Staff
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 21300000, guid: c5a2b0519ac2f4d48ab34ff988ff6fef, type: 3}
-  type: 4
+  type: 5
   itemValue: 1000
   description: 'Allows you to summon a meteor shower on your location doing heavy
     damage to anyone hit
 
-    Req: 15 MAG'
+    REQ: 15 MAG'
   useText: 
-  itemName: MeteorShower
+  itemName: Meteor Shower
   buffs: []
   battleItem: 0
   overworldItem: 0
   useClip: {fileID: 0}
+  interrupt: 0
   attack:
   - {fileID: 11400000, guid: 8bec3afc25eaf064ab10931aba6d9284, type: 2}
   skillRequirements:
   - attribute: 4
     value: 1
+  inHandSprite: {fileID: 0}

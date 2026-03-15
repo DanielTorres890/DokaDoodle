@@ -57,6 +57,9 @@ public class EmploymentEventManager : NetworkBehaviour
     public UIStatUpdate moneyDisplay;
 
     public TextMeshProUGUI maxAllyDisplay;
+
+    public int[] possibleHairs;
+    public int[] possibleFaces;
     public void Awake()
     {
         instance = this;
@@ -234,8 +237,9 @@ public class EmploymentEventManager : NetworkBehaviour
         for (int i = 0; i < numOfAllies; i++)
         {
             newNames[i] = randomNames[Random.Range(0, randomNames.Count)];
-            faceIds[i] = Random.Range(0, spriteLibrary.GetCategoryLabelNames("face").ToList().Count);
-            allyHair[i] = Random.Range(0,spriteLibrary.GetCategoryLabelNames("hair").ToList().Count);
+            faceIds[i] = possibleFaces[Random.Range(0, possibleFaces.Length)];
+            allyHair[i] = possibleHairs[Random.Range(0, possibleFaces.Length)];
+
             classId[i] = Random.Range(0, 3);
             randomStatBoost1[i] = Random.Range(2, attributesLength);
             randomStatBoost2[i] = Random.Range(2, attributesLength);
