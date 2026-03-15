@@ -334,6 +334,7 @@ public class AbilityManager : NetworkBehaviour
         {
             stats.isDead = true;
             stats.stats[Attributes.Health] = 0;
+            if(NewCombatManager.instance.allCombatants.Contains(this))
             NewCombatManager.instance.KILL(this);
         }
         onHit.Invoke();

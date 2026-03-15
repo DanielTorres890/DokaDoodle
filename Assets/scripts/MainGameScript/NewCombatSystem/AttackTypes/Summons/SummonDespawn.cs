@@ -17,7 +17,7 @@ public class SummonDespawn : AbilityBase
     public new void Update()
     {
         if (!IsServer) { return; }
-        if (lifespan < lifetimer)
+        if (lifespan < lifetimer || ownerStats.isDead)
         {
             DespawnRpc();
             Destroy(gameObject);
@@ -31,7 +31,7 @@ public class SummonDespawn : AbilityBase
     {
         EnemyCombat entity = new EnemyCombat(PlayerCombatManager.Instance.EnemyDataBase.GetItem[entityId]);
         entity.loyaltyTags.Clear();
-        
+        entity.name += "(" + ownerStats.name + ")"; 
 
         PlayerCombatManager.Instance.combatants.Add(entity);
         Debug.Log("I've been added");

@@ -395,7 +395,7 @@ public class NewCombatManager : NetworkBehaviour
         for (int i = 0; i < allCombatants.Count; i++)
         {
 
-           
+            if (allCombatants[i].gameObject.TryGetComponent(out SummonDespawn amsummon)) { continue; }
             if (enemy.stats.isDead) { enemy = allCombatants[i]; }
             if (!allCombatants[i].stats.isDead)
             {
@@ -666,7 +666,7 @@ public class NewCombatManager : NetworkBehaviour
         fightOver = true;
         Cursor.lockState = CursorLockMode.None;
         endBattleInfo.whoInControl = NetworkData.Instance.currentPlayer;
-        List<int> deadPlayers = RemoveDeadEntities();
+        List<int> deadPlayers = RemoveDeadEntities(false);
         
         
         if(IsHost)
@@ -687,7 +687,7 @@ public class NewCombatManager : NetworkBehaviour
         //NetworkData.Instance.players[playerNumber].death(turnsDead, false);
     }
 
-    private List<int> RemoveDeadEntities() //Removes them from the database that stores all enemy info (it probably shouldn't be accessible all the time but fml
+    private List<int> RemoveDeadEntities(bool combatOver = true) //Removes them from the database that stores all enemy info (it probably shouldn't be accessible all the time but fml
     {
         var tilereadCache = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
 
@@ -705,7 +705,7 @@ public class NewCombatManager : NetworkBehaviour
         for(int i = tilereadCache.tileEnemy.Count - 1; i >= 0; i--)
         {
             
-            if (tilereadCache.tileEnemy[i].isDead || !tilereadCache.tileEnemy[i].persistant)
+            if (tilereadCache.tileEnemy[i].isDead || (combatOver && tilereadCache.tileEnemy[i].persistant))
             {
                 tilereadCache.tileEnemy.RemoveAt(i);
             }
