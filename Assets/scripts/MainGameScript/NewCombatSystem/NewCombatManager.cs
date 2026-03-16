@@ -469,13 +469,14 @@ public class NewCombatManager : NetworkBehaviour
 
             List<int> partyLevelsGained = new List<int>();
             //its implied that if combat ends the only ones left would be your allies
-            int totalXpToGain = cache.xpOnTile * (1 + (cache.partyMembers.Count/(cache.partyMembers.Count + 1))   );
+            int totalXpToGain = Mathf.CeilToInt(cache.xpOnTile * (1 + ((float)cache.partyMembers.Count/(cache.partyMembers.Count + 1))   ));
+            
             foreach (var partyMember in cache.partyMembers)
             {
-                int levelsGained = partyMember.gainXp(cache.xpOnTile / cache.partyMembers.Count + 1);
+                int levelsGained = partyMember.gainXp(totalXpToGain / cache.partyMembers.Count + 1);
                 partyLevelsGained.Add(levelsGained);
             }
-            int levels = player.gainXp(cache.xpOnTile / (cache.partyMembers.Count + 1));
+            int levels = player.gainXp(totalXpToGain / (cache.partyMembers.Count + 1));
             bool gainedClassLevel = player.gainClassXp(cache.xpOnTile) > 0;
 
             player.GainMoney(moneyHarvested + cache.moneyOnTile);
