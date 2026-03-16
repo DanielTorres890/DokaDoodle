@@ -10,25 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
-  m_Name: Dagger
+  m_Name: Wooden Staff
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: -5627004156740874650, guid: 2f4450d824a915949ae07e63820da3c5, type: 3}
+  itemSprite: {fileID: 21300000, guid: cc4f8a0f386ebd14d94c367ca57d39be, type: 3}
   type: 1
-  itemValue: 500
-  description: 'A light dagger
+  itemValue: 1000
+  description: 'A staff made of wood making it slightly easier to conduct magic
 
-    GIVES ATK: 2, DEX: 2'
-  useText: You equip the dagger
-  itemName: Dagger
+    GIVES
+    MAG: 4'
+  useText: You equip the staff, i hope it doesnt give you splinters
+  itemName: Wooden Staff
   buffs:
-  - attribute: 2
-    value: 2
-  - attribute: 6
-    value: 2
+  - attribute: 4
+    value: 4
   battleItem: 0
   overworldItem: 1
   useClip: {fileID: 0}
   interrupt: 0
   attack: []
   skillRequirements: []
-  inHandSprite: {fileID: -5627004156740874650, guid: 2f4450d824a915949ae07e63820da3c5, type: 3}
+  inHandSprite: {fileID: 21300000, guid: cc4f8a0f386ebd14d94c367ca57d39be, type: 3}
