@@ -469,6 +469,7 @@ public class NewCombatManager : NetworkBehaviour
 
             List<int> partyLevelsGained = new List<int>();
             //its implied that if combat ends the only ones left would be your allies
+            int totalXpToGain = cache.xpOnTile * (1 + (cache.partyMembers.Count/(cache.partyMembers.Count + 1))   );
             foreach (var partyMember in cache.partyMembers)
             {
                 int levelsGained = partyMember.gainXp(cache.xpOnTile / cache.partyMembers.Count + 1);
@@ -500,7 +501,7 @@ public class NewCombatManager : NetworkBehaviour
                 }
             }
 
-            endBattleInfo.lines.Add(player.name + " has gained <color=blue>" + (cache.xpOnTile) + "</color> xp ");
+            endBattleInfo.lines.Add(player.name + " has gained <color=blue>" + (totalXpToGain) + "</color> xp ");
             if (cache.partyMembers.Count > 0) { endBattleInfo.lines[endBattleInfo.lines.Count - 1] += "(split between you and your allies)"; }
 
 
@@ -705,7 +706,7 @@ public class NewCombatManager : NetworkBehaviour
         for(int i = tilereadCache.tileEnemy.Count - 1; i >= 0; i--)
         {
             
-            if (tilereadCache.tileEnemy[i].isDead || (combatOver && tilereadCache.tileEnemy[i].persistant))
+            if (tilereadCache.tileEnemy[i].isDead || (combatOver && !tilereadCache.tileEnemy[i].persistant))
             {
                 tilereadCache.tileEnemy.RemoveAt(i);
             }
@@ -715,7 +716,10 @@ public class NewCombatManager : NetworkBehaviour
         for (int i = tilereadCache.players.Count - 1; i >= 0; i--)
         {
             
+            if(combatOver || NetworkData.Instance.players[tilereadCache.players[i]].isDead)
             NetworkData.Instance.players[tilereadCache.players[i]].ClearCombatStatuses();
+
+
             if (NetworkData.Instance.players[tilereadCache.players[i]].isDead)
             {
                 deadPlayer.Add(tilereadCache.players[i]);
@@ -837,11 +841,12 @@ public class NewCombatManager : NetworkBehaviour
             if (entity is EnemyCombat)
             {
                 var enemy = entity as EnemyCombat;
+            
                 var soundCache = PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemy.enemyId].SpecialMusic;
                 if (soundCache)
                 {
 
-                    BGMManager.instance.PlaySound(PlayerCombatManager.Instance.currentEncounter.battleMusic);
+                    BGMManager.instance.PlaySound(soundCache);
                 }
             }
         }

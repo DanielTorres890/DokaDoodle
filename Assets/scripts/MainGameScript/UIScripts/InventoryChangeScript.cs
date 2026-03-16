@@ -83,8 +83,13 @@ public class InventoryChangeScript : NetworkBehaviour
         if (nameText)
         {
             nameText.text = inventoryNames[currentInventory];
+            
+        }
+        if (mouseOverText)
+        {
             mouseOverText.text = inventoryToolTips[currentInventory];
         }
+        
         inventoryDisplay.CreateDisplay( whomsInventory, currentInventory);
         if (sizeText)
             sizeText.text = inventoryDisplay.inventory.container.Count.ToString() + "/" + inventoryDisplay.inventory.MAXSIZE.ToString();
@@ -114,9 +119,13 @@ public class InventoryChangeScript : NetworkBehaviour
         if(nameText)
         {
             nameText.text = inventoryNames[currentInventory];
+            
+        }
+        if (mouseOverText)
+        {
             mouseOverText.text = inventoryToolTips[currentInventory];
         }
-        
+
         inventoryDisplay.CreateDisplay(whomsInventory, currentInventory);
         if (sizeText)
             sizeText.text = inventoryDisplay.inventory.container.Count.ToString() + "/" + inventoryDisplay.inventory.MAXSIZE.ToString();

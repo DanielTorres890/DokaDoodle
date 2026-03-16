@@ -390,6 +390,8 @@ public class PlayerMoveManager : NetworkBehaviour
 
         Vector3.MoveTowards(playerSticks[curPlayerIndex].transform.position, new Vector3(tilePos.x, tilePos.y + 3, tilePos.z) , speed * Time.deltaTime);
 
+            
+
             int memberCount = 0;
             for(int i = 0; i < currentPartyMembers.Count; i++)
             {
@@ -728,8 +730,13 @@ public class PlayerMoveManager : NetworkBehaviour
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = allPaths[finishTile].takenPath[startingTileIndex].tileId;
             SetFollowingMembersToCurTile();
 
-            if(activeRoutine != null) { StopCoroutine(activeRoutine); }
-            
+            if(activeRoutine != null) 
+            {
+                Debug.Log("I SHOULD BE STOPPING THE PREVIOUS ONE MF");
+                StopCoroutine(activeRoutine); 
+                activeRoutine = null; 
+            }
+            Debug.Log("I should be moving to this tile " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
             activeRoutine = StartCoroutine(playerMover(autoMoveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId));
             PlayerMoverRpc(autoMoveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
             startingTileIndex++;

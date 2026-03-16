@@ -46,7 +46,7 @@ public class StealItemUI : NetworkBehaviour
         inventoryDisplay.inventory = NetworkData.Instance.playerInventories[stolenId][0];
         inventoryChangeScript.whomsInventory = stolenId;
         inventoryChangeScript.whoInControl = stealingPlayer;
-        Debug.Log("I should be created also i exist frick u " + StealItemUI.instance.gameObject);
+        
 
         inventoryDisplay.CreateDisplay(stolenId, stolenItemInv);
         gameObject.SetActive(true);
@@ -95,7 +95,8 @@ public class StealItemUI : NetworkBehaviour
 
         bool success = stealingPlayerInventory.AddItem(stolenPlayerInventory[stolenItem].item);
 
-        stolenPlayerInventory.RemoveAt(stolenItem);
+        if(IsHost)
+        NetworkData.Instance.LoseItemRpc(stolenPlayer, stolenItem, stolenItemInv);
         finishSteal.Invoke(success, stolenItemInv);
         gameObject.SetActive(false);
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gust
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 21300000, guid: 8f80f23259bc67140807f1ba0e651512, type: 3}
-  type: 4
+  type: 5
   itemValue: 10
   description: A small gust of wind to knock over your opponent
   useText: 
@@ -22,6 +22,8 @@ MonoBehaviour:
   battleItem: 0
   overworldItem: 0
   useClip: {fileID: 0}
+  interrupt: 0
   attack:
   - {fileID: 0}
   skillRequirements: []
+  inHandSprite: {fileID: 0}

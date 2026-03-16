@@ -38,7 +38,7 @@ public class EnemyCombat : EntityStats
         {
             attacks.Add(attack);
         }
-        Debug.Log("Ive set my attacks " + attacks.Count);
+        
         base.attacks = new List<AttackBase>(attacks);
     }
 }

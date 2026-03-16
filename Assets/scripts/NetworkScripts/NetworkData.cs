@@ -470,9 +470,15 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void LoseItemRpc(int playerid, int itemNum, int inventoryNum)
     {
-  
 
-       
+
+        if (inventoryNum == 3)
+        {
+            if (NetworkData.Instance.players[playerid].equipItems[ItemType.Equipment] == itemNum)
+            {
+                NetworkData.Instance.players[playerid].UnequipItem(ItemType.Equipment);
+            }
+        }
         NetworkData.Instance.playerInventories[playerid][inventoryNum].container.RemoveAt(itemNum);
        
     }

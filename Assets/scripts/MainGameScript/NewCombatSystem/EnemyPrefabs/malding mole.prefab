@@ -85,6 +85,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &922452301317382085
 MonoBehaviour:
@@ -144,6 +145,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -282,6 +284,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &8955726977099971653
 MonoBehaviour:
@@ -341,6 +344,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -638,7 +642,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 5, y: 9, z: 0.1}
-  m_Center: {x: -0.2, y: 1, z: 0}
+  m_Center: {x: -0.2, y: 0.7, z: 0}
 --- !u!114 &1951428160628325734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,7 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4096378082
+  GlobalObjectIdHash: 2909432039
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -694,6 +698,7 @@ MonoBehaviour:
   currentAttack: {fileID: 0}
   nameText: {fileID: 3739204426491887481}
   hpText: {fileID: 7127914750893081339}
+  myHealthbar: {fileID: 0}
   onStatus:
     m_PersistentCalls:
       m_Calls: []
@@ -751,6 +756,9 @@ MonoBehaviour:
   onSetUp:
     m_PersistentCalls:
       m_Calls: []
+  onItemUse:
+    m_PersistentCalls:
+      m_Calls: []
   maxEnergy: 100
   currentEnergy: 100
   energyRegen: 1
@@ -769,6 +777,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
   AuthorityMode: 0
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
@@ -826,10 +844,11 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804880954259114146}
   m_Enabled: 1
-  m_SortingLayerID: 781689269
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!195 &3358961221082085050
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -896,6 +915,7 @@ MonoBehaviour:
   releaseTimer: 0
   timeToHold: 0
   baseMoveSpeed: 4
+  rb: {fileID: 0}
 --- !u!95 &7378447743338620645
 Animator:
   serializedVersion: 7
@@ -931,8 +951,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  TransitionStateInfoList: []
+  NetworkAnimatorExpanded: 0
+  AuthorityMode: 0
   m_Animator: {fileID: 7378447743338620645}
+  TransitionStateInfoList: []
+  AnimatorParameterEntries:
+    ParameterEntries:
+    - name: Walking
+      NameHash: 1744665739
+      Synchronize: 1
+      ParameterType: 4
+    - name: StartUp
+      NameHash: -1095283256
+      Synchronize: 1
+      ParameterType: 4
+    - name: Attacking
+      NameHash: -2123461723
+      Synchronize: 1
+      ParameterType: 4
+    - name: AnimSpeed
+      NameHash: 1207992894
+      Synchronize: 1
+      ParameterType: 1
+  AnimatorParametersExpanded: 0
 --- !u!1001 &4995332460312475130
 PrefabInstance:
   m_ObjectHideFlags: 0

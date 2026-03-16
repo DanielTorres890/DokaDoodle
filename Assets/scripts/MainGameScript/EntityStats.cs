@@ -177,11 +177,15 @@ public class EntityStats
         for(int i = statuses.Count - 1; i >= 0; i--)
         {
             var status = statuses[i];
+
             if (NetworkData.Instance.buffDataBase.GetItem[status.buffId].combatOnly)
             {
+                
+                NetworkData.Instance.buffDataBase.GetItem[status.buffId].OnRemove(this);
                 statuses.RemoveAt(i);
             }
         }
+        onStatusProgress.Invoke();
         PostStatusStatCalc();
     }
 }

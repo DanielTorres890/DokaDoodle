@@ -15,7 +15,8 @@ public class EntityUIUpdate : MonoBehaviour
     public bool faceTowards = false;
     public void UpdateText()
     {
-    
+       
+
         if (whomToUpdate.ToLower() == "name")
         {
             textMeshProUGUI.text = AbilityManager.stats.name;
@@ -30,9 +31,9 @@ public class EntityUIUpdate : MonoBehaviour
         else
         {
             string color = "<color=black>";
-            if (attributeToWhom != Attributes.Health && attributeToWhom != Attributes.MaxHealth && NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attributeToWhom] > NetworkData.Instance.players[NetworkData.Instance.currentPlayer].stats[attributeToWhom])
+            if (attributeToWhom != Attributes.Health && attributeToWhom != Attributes.MaxHealth && AbilityManager.stats.postStatusStats[attributeToWhom] > AbilityManager.stats.stats[attributeToWhom])
                 color = "<color=#1abf3a>";
-            if (attributeToWhom != Attributes.Health && attributeToWhom != Attributes.MaxHealth && NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attributeToWhom] < NetworkData.Instance.players[NetworkData.Instance.currentPlayer].stats[attributeToWhom])
+            if (attributeToWhom != Attributes.Health && attributeToWhom != Attributes.MaxHealth && AbilityManager.stats.postStatusStats[attributeToWhom] < AbilityManager.stats.stats[attributeToWhom])
                 color = "<color=red>";
 
 

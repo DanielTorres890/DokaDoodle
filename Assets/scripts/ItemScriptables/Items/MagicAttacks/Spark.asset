@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Spark
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 21300000, guid: c5a2b0519ac2f4d48ab34ff988ff6fef, type: 3}
-  type: 4
+  type: 5
   itemValue: 200
   description: A small spark of electricity but it does do sting
   useText: 
@@ -22,6 +22,8 @@ MonoBehaviour:
   battleItem: 0
   overworldItem: 0
   useClip: {fileID: 0}
+  interrupt: 0
   attack:
   - {fileID: 11400000, guid: 18bb598afd91e6049b885d8b7cf60a4d, type: 2}
   skillRequirements: []
+  inHandSprite: {fileID: 0}

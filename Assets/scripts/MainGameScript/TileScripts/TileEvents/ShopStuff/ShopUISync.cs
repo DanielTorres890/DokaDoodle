@@ -183,7 +183,7 @@ public class ShopUISync : NetworkBehaviour
         hideMenuButtons(sellDontButtons);
         sellShop.SetActive(true);
         ItemBase whoToSell = NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][inventoryNum].getItem(itemNum);
-        if (inventoryNum != 0)
+        if (inventoryNum == 3)
         {
             if (NetworkData.Instance.playerInventories[0][inventoryNum].database.GetId[whoToSell] == NetworkData.Instance.players[NetworkData.Instance.currentPlayer].equipItems[whoToSell.type] ) 
             {
