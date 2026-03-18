@@ -756,6 +756,10 @@ PrefabInstance:
       propertyPath: 'enemies.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: 46447445cb16d584fa46980745d7dad0, type: 2}
+    - target: {fileID: 8042277779629054814, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1664,12 +1668,12 @@ MonoBehaviour:
   canMove: 0
   cameraMove: 0
   autoMoving: 0
-  forceRoll: 0
+  forceRoll: 1
   forcedRollNum: 5
   moveSpeed: 50
   autoMoveTime: 0.4
   autoMoveSpeed: 37.5
-  enemyDistance: {x: 2, y: 1}
+  enemyDistance: {x: 2, y: -2}
   BGM: {fileID: 8300000, guid: aafae79c16d68a347acbe1b7ae424f6a, type: 3}
   possibleEndTiles: []
   allPaths: []

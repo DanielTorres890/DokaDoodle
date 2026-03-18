@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 033b1a170e7894644b33abada5c309bc, type: 2}
+  - {fileID: 2100000, guid: 0dd80cc68d7243b40b73777ecda8984b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,6 +89,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &3643740422300259387
 CapsuleCollider:
@@ -170,6 +171,7 @@ MonoBehaviour:
   battleEnvironment: TestArena
   playersOnTile: 00000000
   defaultTileEnemies: {fileID: 0}
+  initiallyPassable: 1
   enemies:
   - {fileID: 11400000, guid: df61bc776fba047479f85c388cc42091, type: 2}
   - {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
@@ -231,6 +233,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5787286071275415355
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -276,6 +279,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -3247799530336995193, guid: a0f0711c764247b4c91469a7676b5c39, type: 3}
   m_Color: {r: 0.8113208, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -285,5 +289,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0

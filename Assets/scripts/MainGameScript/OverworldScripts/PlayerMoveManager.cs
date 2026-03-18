@@ -472,7 +472,7 @@ public class PlayerMoveManager : NetworkBehaviour
         {
             var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemies[i].enemyId].enemyNonCombatPrefab);
             enemy.transform.position = mapTiles[tileId].transform.position;
-            enemy.transform.position = new Vector3(enemy.transform.position.x + (enemyDistance.x * (i % Mathf.CeilToInt(Mathf.Sqrt(enemies.Count)))) - 1.5f, enemy.transform.position.y + 3, enemy.transform.position.z + (-enemyDistance.y * (i / Mathf.CeilToInt(Mathf.Sqrt(enemies.Count)))));
+            enemy.transform.position = new Vector3(enemy.transform.position.x + (enemyDistance.x * (i % Mathf.CeilToInt(Mathf.Sqrt(enemies.Count)))) - 1f, enemy.transform.position.y + 1.5f, enemy.transform.position.z + (-enemyDistance.y * (i / Mathf.CeilToInt(Mathf.Sqrt(enemies.Count)))));
             enemy.transform.localScale = new Vector3(1, 1, 1);
 
         }
