@@ -143,7 +143,7 @@ public class EntityStats
         {
             if (NetworkData.Instance.buffDataBase.GetItem[status.buffId] is StatStatusEffect)
             {
-                foreach (var buff in (NetworkData.Instance.buffDataBase.GetItem[status.buffId] as StatStatusEffect).stats) 
+                foreach (var buff in (NetworkData.Instance.buffDataBase.GetItem[status.buffId] as StatStatusEffect).GetStats()) 
                 {
                     StatusMultipliers[buff.attribute] += buff.value / 100f;
                 }

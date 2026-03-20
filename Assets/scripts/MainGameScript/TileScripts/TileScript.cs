@@ -30,7 +30,7 @@ public abstract class TileScript : MonoBehaviour
 
 
     public static bool DrawTrails = true;
-    public static float TrailOffset = 1f;
+    public static float TrailOffset = 0.5f;
 
     public void Start()
     {
@@ -47,7 +47,10 @@ public abstract class TileScript : MonoBehaviour
                 trailPositions[1] = new Vector3(upTile.transform.position.x + TrailOffset, upTile.transform.position.y, upTile.transform.position.z - TrailOffset);
                 upRenderer.SetPositions(trailPositions);
             }
-
+            else
+            {
+                upRenderer.enabled = false;
+            }
             //to down tile
             if (downTile)
             {
@@ -56,7 +59,10 @@ public abstract class TileScript : MonoBehaviour
                 trailPositions[1] = new Vector3(downTile.transform.position.x - TrailOffset, downTile.transform.position.y, downTile.transform.position.z + TrailOffset);
                 downRenderer.SetPositions(trailPositions);
             }
-
+            else
+            {
+                downRenderer.enabled = false;
+            }
             //to right tile
             if (rightTile)
             {
@@ -67,15 +73,22 @@ public abstract class TileScript : MonoBehaviour
                 trailPositions[1] = new Vector3(rightTile.transform.position.x - TrailOffset, rightTile.transform.position.y, rightTile.transform.position.z - TrailOffset);
                 rightRenderer.SetPositions(trailPositions);
             }
-            
+            else
+            {
+                rightRenderer.enabled = false;
+            }
             //to left tile
-            if(leftTile)
+            if (leftTile)
             {
                 Debug.DrawLine(new Vector3(transform.position.x - TrailOffset, transform.position.y, transform.position.z + TrailOffset), new Vector3(leftTile.transform.position.x + TrailOffset, leftTile.transform.position.y, leftTile.transform.position.z + TrailOffset), Color.blue, 99999);
                 trailPositions[0] = new Vector3(transform.position.x - TrailOffset, transform.position.y, transform.position.z + TrailOffset);
                 trailPositions[1] = new Vector3(leftTile.transform.position.x + TrailOffset, leftTile.transform.position.y, leftTile.transform.position.z + TrailOffset);
                 leftRenderer.SetPositions(trailPositions);
 
+            }
+            else
+            {
+                leftRenderer.enabled = false;
             }
 
         }

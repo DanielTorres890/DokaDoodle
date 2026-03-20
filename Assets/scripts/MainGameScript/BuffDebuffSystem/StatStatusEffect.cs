@@ -19,6 +19,10 @@ public class StatStatusEffect : BuffBase
     {
         
     }
+    public virtual ItemBuff[] GetStats()
+    {
+        return stats;
+    }
 
     public override void OnRemove(EntityStats stats)
     {
