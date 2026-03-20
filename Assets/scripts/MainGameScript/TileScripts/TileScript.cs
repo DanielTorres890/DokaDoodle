@@ -11,7 +11,13 @@ public abstract class TileScript : MonoBehaviour
     public GameObject leftTile;
 
     public GameObject myArrow;
-    
+
+    public LineRenderer upRenderer;
+    public LineRenderer rightRenderer;
+    public LineRenderer downRenderer;
+    public LineRenderer leftRenderer;
+
+
     public bool canFight = true;
     [Tooltip("This isn't meant to be set manually as their id is decided \nby whatever their place is in the PlayerMoveManager script (bc i cant be bothered to set them manually")]
     public int tileId;
@@ -24,28 +30,54 @@ public abstract class TileScript : MonoBehaviour
 
 
     public static bool DrawTrails = true;
-    public static float TrailOffset = 2f;
+    public static float TrailOffset = 1f;
 
     public void Start()
     {
-
+        
         if(DrawTrails)
         {
+            Vector3[] trailPositions = new Vector3[2];
+            
             //to up tile
             if(upTile)
-            Debug.DrawLine(new Vector3(transform.position.x + TrailOffset,transform.position.y,transform.position.z + TrailOffset), new Vector3(upTile.transform.position.x+TrailOffset, upTile.transform.position.y, upTile.transform.position.z - TrailOffset),Color.blue,99999); 
+            {
+                Debug.DrawLine(new Vector3(transform.position.x + TrailOffset, transform.position.y, transform.position.z + TrailOffset), new Vector3(upTile.transform.position.x + TrailOffset, upTile.transform.position.y, upTile.transform.position.z - TrailOffset), Color.blue, 99999);
+                trailPositions[0] = new Vector3(transform.position.x + TrailOffset, transform.position.y, transform.position.z + TrailOffset);
+                trailPositions[1] = new Vector3(upTile.transform.position.x + TrailOffset, upTile.transform.position.y, upTile.transform.position.z - TrailOffset);
+                upRenderer.SetPositions(trailPositions);
+            }
 
             //to down tile
-            if(downTile)
-            Debug.DrawLine(new Vector3(transform.position.x - TrailOffset, transform.position.y, transform.position.z - TrailOffset), new Vector3(downTile.transform.position.x - TrailOffset, downTile.transform.position.y, downTile.transform.position.z + TrailOffset), Color.blue, 99999);
+            if (downTile)
+            {
+                Debug.DrawLine(new Vector3(transform.position.x - TrailOffset, transform.position.y, transform.position.z - TrailOffset), new Vector3(downTile.transform.position.x - TrailOffset, downTile.transform.position.y, downTile.transform.position.z + TrailOffset), Color.blue, 99999);
+                trailPositions[0] = new Vector3(transform.position.x - TrailOffset, transform.position.y, transform.position.z - TrailOffset);
+                trailPositions[1] = new Vector3(downTile.transform.position.x - TrailOffset, downTile.transform.position.y, downTile.transform.position.z + TrailOffset);
+                downRenderer.SetPositions(trailPositions);
+            }
 
             //to right tile
-            if(rightTile)
-            Debug.DrawLine(new Vector3(transform.position.x + TrailOffset, transform.position.y, transform.position.z - TrailOffset), new Vector3(rightTile.transform.position.x - TrailOffset, rightTile.transform.position.y, rightTile.transform.position.z - TrailOffset), Color.blue, 99999);
+            if (rightTile)
+            {
 
+                Debug.DrawLine(new Vector3(transform.position.x + TrailOffset, transform.position.y, transform.position.z - TrailOffset), new Vector3(rightTile.transform.position.x - TrailOffset, rightTile.transform.position.y, rightTile.transform.position.z - TrailOffset), Color.blue, 99999);
+
+                trailPositions[0] = new Vector3(transform.position.x + TrailOffset, transform.position.y, transform.position.z - TrailOffset);
+                trailPositions[1] = new Vector3(rightTile.transform.position.x - TrailOffset, rightTile.transform.position.y, rightTile.transform.position.z - TrailOffset);
+                rightRenderer.SetPositions(trailPositions);
+            }
+            
             //to left tile
             if(leftTile)
-            Debug.DrawLine(new Vector3(transform.position.x - TrailOffset, transform.position.y, transform.position.z + TrailOffset), new Vector3(leftTile.transform.position.x + TrailOffset, leftTile.transform.position.y, leftTile.transform.position.z + TrailOffset), Color.blue, 99999);
+            {
+                Debug.DrawLine(new Vector3(transform.position.x - TrailOffset, transform.position.y, transform.position.z + TrailOffset), new Vector3(leftTile.transform.position.x + TrailOffset, leftTile.transform.position.y, leftTile.transform.position.z + TrailOffset), Color.blue, 99999);
+                trailPositions[0] = new Vector3(transform.position.x - TrailOffset, transform.position.y, transform.position.z + TrailOffset);
+                trailPositions[1] = new Vector3(leftTile.transform.position.x + TrailOffset, leftTile.transform.position.y, leftTile.transform.position.z + TrailOffset);
+                leftRenderer.SetPositions(trailPositions);
+
+            }
+
         }
     }
 

@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.Cinemachine;
+using Unity.Mathematics;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
@@ -31,7 +33,7 @@ public class AbilityManager : NetworkBehaviour
     [SerializeField] private EntityUIUpdate nameText;
     [SerializeField] private EntityUIUpdate hpText;
     [SerializeField] private GameObject myHealthbar;
-    
+    [SerializeField] private GameObject damageNumber;
     public UnityEvent onStatus;
     public UnityEvent onAttack;
     public UnityEvent onSpawnAttack; //bc im dumb and dont feel like changing the labels rn
@@ -51,6 +53,9 @@ public class AbilityManager : NetworkBehaviour
     private float updateStatsTimer = 0f;
     private float whenToUpdate = 1f;
 
+
+    private float minFontSize = 5;
+    private float maxFontSize = 30;
     
     private void Awake()
     {
@@ -338,6 +343,16 @@ public class AbilityManager : NetworkBehaviour
             NewCombatManager.instance.KILL(this);
         }
         onHit.Invoke();
+        GameObject dmgNum = Instantiate(damageNumber);
+        dmgNum.transform.position = transform.position;
+        dmgNum.transform.position += new Vector3(UnityEngine.Random.Range(-.5f, .5f), UnityEngine.Random.Range(-.5f, .5f), UnityEngine.Random.Range(-.5f, .5f));
+        var textComponent = dmgNum.GetComponent<TextMeshPro>();
+        textComponent.text = damageAmt.ToString();
+        textComponent.fontSize = Mathf.Clamp(100f * damageAmt / stats.stats[Attributes.MaxHealth], minFontSize, maxFontSize);
+        if(NetworkData.Instance.players[NetworkData.Instance.ClientNumToPlayerNum(NetworkManager.Singleton.LocalClientId)] == stats)
+        {
+            textComponent.color = Color.red;
+        }
         
         
     }

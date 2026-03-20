@@ -1748,6 +1748,7 @@ MonoBehaviour:
   nameText: {fileID: 5664443472795612315}
   hpText: {fileID: 8986250131952043323}
   myHealthbar: {fileID: 0}
+  damageNumber: {fileID: 4463619591557501442, guid: 02f67b88892d09040bcc911d7c9992da, type: 3}
   onStatus:
     m_PersistentCalls:
       m_Calls: []
@@ -1815,6 +1816,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onSetUp:
+    m_PersistentCalls:
+      m_Calls: []
+  onItemUse:
     m_PersistentCalls:
       m_Calls: []
   maxEnergy: 100
@@ -2173,6 +2177,7 @@ MonoBehaviour:
   releaseTimer: 0
   timeToHold: 0
   baseMoveSpeed: 4
+  rb: {fileID: 0}
 --- !u!1001 &8292266084096716652
 PrefabInstance:
   m_ObjectHideFlags: 0
