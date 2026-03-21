@@ -10,6 +10,9 @@ public class WeaponItem : ItemBase
     public List<ItemBuff> skillRequirements;
 
     public Sprite inHandSprite;
+
+    public BuffBase[] onEquipBuffs;
+
     public override void ItemInfoCheck(int player, int itemId)
     {
 
@@ -26,35 +29,34 @@ public class WeaponItem : ItemBase
     public override void PerformItemEffect(int player, InventoryObject inventory)
     {
         playerData thisPlayer = NetworkData.Instance.players[player];
-        if (thisPlayer.equipItems[this.type] < 0)
+        if (thisPlayer.equipItems[this.type] != -1)
         {
 
-           
-            foreach (var attrib in base.buffs)
-            {
-                thisPlayer.stats[attrib.attribute] += attrib.value;
-               
-            }
-            
-           
-           
-        }
-        else
-        {
-    
             var temp = thisPlayer.equipItems[this.type];
             foreach (var attrib in inventory.database.GetItem[temp].buffs)
             {
                 thisPlayer.stats[attrib.attribute] -= attrib.value;
-                
+
             }
-            foreach (var attrib in base.buffs)
+            foreach(var status in (inventory.database.GetItem[temp] as WeaponItem).onEquipBuffs)
             {
-                thisPlayer.stats[attrib.attribute] += attrib.value;
-              
+                Debug.Log("Did i remove this " + status.name);
+                thisPlayer.RemoveStatus(NetworkData.Instance.buffDataBase.GetId[status]);
             }
-     
+            
+
+
         }
+        foreach (var attrib in base.buffs)
+        {
+            thisPlayer.stats[attrib.attribute] += attrib.value;
+
+        }
+        foreach (var status in onEquipBuffs)
+        {
+            thisPlayer.GainStatus(status);
+        }
+
         thisPlayer.equipItems[this.type] = inventory.database.GetId[this];
         inventory.ToFront(this);
         thisPlayer.PostStatusStatCalc();

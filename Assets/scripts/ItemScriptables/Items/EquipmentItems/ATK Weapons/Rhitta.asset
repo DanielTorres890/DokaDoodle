@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
+  m_Name: Rhitta
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: -928417237600903484, guid: 98785a5040b76de4381faea2a3b4b228, type: 3}
+  type: 1
+  itemValue: 500
+  description: Divine Axe Rhitta
+  useText: WHo decided that
+  itemName: Rhitta
+  buffs:
+  - attribute: 2
+    value: 4
+  battleItem: 0
+  overworldItem: 1
+  useClip: {fileID: 0}
+  interrupt: 0
+  attack: []
+  skillRequirements: []
+  inHandSprite: {fileID: -928417237600903484, guid: 98785a5040b76de4381faea2a3b4b228, type: 3}
+  onEquipBuffs:
+  - {fileID: 11400000, guid: 9b0096887185cb54e8873a86137810b3, type: 2}

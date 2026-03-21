@@ -124,6 +124,7 @@ public class EntityStats
                 break;
             }
         }
+        onStatusProgress.Invoke();
     }
     public void PostStatusStatCalc()
     {

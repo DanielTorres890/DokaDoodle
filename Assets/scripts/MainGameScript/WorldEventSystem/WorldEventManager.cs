@@ -31,6 +31,9 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
     public CutSceneInfo currentCutscene;
     public AudioClip roundStartClip;
+
+    [DoNotSerialize] public string[] daysOfTheWeek =  {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+
     private void Awake()
     {
         if(Instance == null) 
