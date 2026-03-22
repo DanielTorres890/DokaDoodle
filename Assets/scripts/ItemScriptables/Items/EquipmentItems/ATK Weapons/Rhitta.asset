@@ -12,21 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
   m_Name: Rhitta
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: -928417237600903484, guid: 98785a5040b76de4381faea2a3b4b228, type: 3}
+  itemSprite: {fileID: -3214193344681200299, guid: 9680eab46b8954f4aaef4dae1596e26d, type: 3}
   type: 1
-  itemValue: 500
-  description: Divine Axe Rhitta
-  useText: WHo decided that
+  itemValue: 2000
+  description: 'The divine axe whose power grows until a peak on wednesday. Using
+    the axe may cause weakness if wielded too far from wednesday
+
+    Also grants
+    the Ability Cruel Sun
+
+    GIVES: 5 ATK
+
+'
+  useText: You feel the power of Sunshine flow through you
   itemName: Rhitta
   buffs:
   - attribute: 2
-    value: 4
+    value: 5
   battleItem: 0
   overworldItem: 1
   useClip: {fileID: 0}
   interrupt: 0
-  attack: []
+  attack:
+  - {fileID: 11400000, guid: 7724cee8f2e43504cb58b6b1d3154299, type: 2}
   skillRequirements: []
-  inHandSprite: {fileID: -928417237600903484, guid: 98785a5040b76de4381faea2a3b4b228, type: 3}
+  inHandSprite: {fileID: -8716658653877872290, guid: 99606f734482977409af581b7c8aa136, type: 3}
   onEquipBuffs:
   - {fileID: 11400000, guid: 9b0096887185cb54e8873a86137810b3, type: 2}

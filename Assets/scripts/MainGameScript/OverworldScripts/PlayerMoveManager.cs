@@ -328,7 +328,7 @@ public class PlayerMoveManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void PlayerMoverRpc(float speed, int tildid, RpcParams rpcstuff = default)
     {
-        if (rpcstuff.Receive.SenderClientId == NetworkManager.Singleton.LocalClientId) { return; }
+       
 
         if(activeRoutine != null)
         {
@@ -730,14 +730,7 @@ public class PlayerMoveManager : NetworkBehaviour
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = allPaths[finishTile].takenPath[startingTileIndex].tileId;
             SetFollowingMembersToCurTile();
 
-            if(activeRoutine != null) 
-            {
-                Debug.Log("I SHOULD BE STOPPING THE PREVIOUS ONE MF");
-                StopCoroutine(activeRoutine); 
-                activeRoutine = null; 
-            }
-            Debug.Log("I should be moving to this tile " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
-            activeRoutine = StartCoroutine(playerMover(autoMoveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId));
+           
             PlayerMoverRpc(autoMoveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
             startingTileIndex++;
             SyncDiceRollServerRpc(diceRoll-1);
@@ -754,6 +747,7 @@ public class PlayerMoveManager : NetworkBehaviour
     {
         float xoffset = 0;
         
+
         for (int i = 0; i < NetworkData.Instance.players.Count; i++)
         {
             playerSticks[i].SetActive(true);
@@ -764,12 +758,9 @@ public class PlayerMoveManager : NetworkBehaviour
             }
                 
 
-           
-
-
-                int playersOnTile = MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[i].curTileId].players.Count;
-
+            int playersOnTile = MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[i].curTileId].players.Count;
             int intIndex = 0;
+
             foreach (var playerId in MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[i].curTileId].players)
             {
                 if (playerId == i) { break; }

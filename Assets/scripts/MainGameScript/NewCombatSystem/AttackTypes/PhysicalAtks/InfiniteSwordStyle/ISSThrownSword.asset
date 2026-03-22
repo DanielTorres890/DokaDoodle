@@ -41,10 +41,10 @@ MonoBehaviour:
   baseDamage: 5
   multipliers:
   - attribute: 2
-    mult: 1.4
-  defenseMult:
-  - attribute: 5
     mult: 1
+  defenseMult:
+  - attribute: 3
+    mult: 0.8
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -71,5 +71,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   conditions: []
-  speed: 30
+  speed: 50
   pierceCount: 5

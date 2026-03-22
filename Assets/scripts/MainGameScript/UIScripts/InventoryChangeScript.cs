@@ -46,6 +46,7 @@ public class InventoryChangeScript : NetworkBehaviour
 
         
         inventoryDisplay.CreateDisplay(whomsInventory, currentInventory);
+        mouseOverText.text = "";
         if(sizeText)
         sizeText.text = inventoryDisplay.inventory.container.Count.ToString() + "/" + inventoryDisplay.inventory.MAXSIZE.ToString();
 

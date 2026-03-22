@@ -114,11 +114,12 @@ public class ClientChecks : NetworkBehaviour
         //im really not sure if this is the best way, its basically saying maps dont exist until someone sees them but surely that cant be good
 
         NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
-        NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
 
+        
         onRoundStart.Invoke();
         WorldEventManager.Instance.ProgressDay();
         
+
 
     }
     private void Awake()
@@ -136,8 +137,9 @@ public class ClientChecks : NetworkBehaviour
     
     public void TurnStartChecks()
     {
-
+        NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
         bool rumble = false;
+
         //at some point im probably gonna have to make this a different event but frick u
         onRoundStart.Invoke();
 

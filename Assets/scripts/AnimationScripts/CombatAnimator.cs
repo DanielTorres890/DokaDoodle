@@ -25,6 +25,12 @@ public class CombatAnimator : NetworkBehaviour
         TryGetComponent(out abilityManager);
         playerInfo = abilityManager.stats as playerData;
       
+        if(playerInfo.equipItems[ItemType.Equipment] != -1)
+        {
+            weaponSprite.sprite = (NetworkData.Instance.playerInventories[playerInfo.playerNumber][3].database.GetItem[playerInfo.equipItems[ItemType.Equipment]] as WeaponItem).inHandSprite;
+            weaponSprite.gameObject.SetActive(true);
+        }
+
         overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
 
     }

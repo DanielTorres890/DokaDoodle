@@ -10,8 +10,12 @@ public class Sunshine : StatStatusEffect
         {
             stats2[i] = new ItemBuff(0);
 
-            if(WorldEventManager.Instance.daysPerWeek - 1 != 0)
-            stats2[i].value = Mathf.RoundToInt(stats[i].value * -Mathf.Cos((float)WorldEventManager.Instance.days  / (WorldEventManager.Instance.daysPerWeek - 1) * 2 * Mathf.PI));
+            if(WorldEventManager.Instance.daysPerWeek - 1 != 0) 
+            {
+                
+                stats2[i].value = Mathf.RoundToInt(stats[i].value * -Mathf.Cos((float)WorldEventManager.Instance.days / (WorldEventManager.Instance.daysPerWeek - 1) * 2 * Mathf.PI));
+                
+            }
             stats2[i].attribute = stats[i].attribute;
 
 

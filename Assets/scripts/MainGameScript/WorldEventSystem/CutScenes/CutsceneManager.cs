@@ -20,7 +20,7 @@ public class CutsceneManager : NetworkBehaviour
     {
         if(WorldEventManager.Instance.currentCutscene.backgroundMusic)
         BGMManager.instance.PlaySound(WorldEventManager.Instance.currentCutscene.backgroundMusic);
-
+        WorldEventManager.Instance.days -= 1;
         dialogueBox.whoInControl = NetworkData.Instance.currentPlayer;
         Instantiate(WorldEventManager.Instance.currentCutscene.cutsceneBackground);
         dialogueBox.lines = new List<string>(WorldEventManager.Instance.currentCutscene.dialogue);
