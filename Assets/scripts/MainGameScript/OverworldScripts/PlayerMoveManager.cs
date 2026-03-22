@@ -177,6 +177,10 @@ public class PlayerMoveManager : NetworkBehaviour
         SetAllyAnimator(true);
 
         diceRoll = num;
+
+        var curTile = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
+
+        curTile.players.Remove(NetworkData.Instance.currentPlayer);
         //id like to say that while this is not the most beautiful thing in the world i cant hate it
         ClientChecks.Instance.rollNum.text = diceRoll.ToString();
         ClientChecks.Instance.rollNum.transform.parent.gameObject.SetActive(true);
@@ -318,6 +322,11 @@ public class PlayerMoveManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void SyncPlayerTileServerRpc(int id)
     {
+        if(activeRoutine != null)
+        {
+            StopCoroutine(activeRoutine);
+            activeRoutine = null;
+        }
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = id;
         SetFollowingMembersToCurTile();
 
@@ -326,15 +335,10 @@ public class PlayerMoveManager : NetworkBehaviour
 
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    private void PlayerMoverRpc(float speed, int tildid, RpcParams rpcstuff = default)
+    private void PlayerMoverRpc(float speed, int tildid)
     {
        
 
-        if(activeRoutine != null)
-        {
-            StopCoroutine(activeRoutine);
-            Debug.Log("am i getting gimped?");
-        }
         
 
         activeRoutine = StartCoroutine(playerMover(speed, tildid));
@@ -378,9 +382,9 @@ public class PlayerMoveManager : NetworkBehaviour
         var currentPartyMembers = NetworkData.Instance.GetCurrentPlayer().partyMembers;
 
         int curPlayerIndex = NetworkData.Instance.currentPlayer;
+       
         
-        
-        while (Vector3.Distance(playerSticks[curPlayerIndex].transform.position, mapTiles[tildId].gameObject.transform.position) > 0.01f)
+        while (Vector3.Distance(playerSticks[curPlayerIndex].transform.position, mapTiles[tildId].gameObject.transform.position) > 3.1f)
         {
             
             var tilePos = mapTiles[tildId].gameObject.transform.position;
@@ -391,7 +395,7 @@ public class PlayerMoveManager : NetworkBehaviour
         Vector3.MoveTowards(playerSticks[curPlayerIndex].transform.position, new Vector3(tilePos.x, tilePos.y + 3, tilePos.z) , speed * Time.deltaTime);
 
             
-
+            SetFollowingMembersToCurTile();
             int memberCount = 0;
             for(int i = 0; i < currentPartyMembers.Count; i++)
             {
@@ -402,7 +406,7 @@ public class PlayerMoveManager : NetworkBehaviour
             }
             yield return null;
         }
-
+       
     }
 
     //id like to say that in an ideal world id be able to directly set up a lot of these things in the inspector
@@ -728,9 +732,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
             
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = allPaths[finishTile].takenPath[startingTileIndex].tileId;
-            SetFollowingMembersToCurTile();
-
-           
+            
             PlayerMoverRpc(autoMoveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
             startingTileIndex++;
             SyncDiceRollServerRpc(diceRoll-1);

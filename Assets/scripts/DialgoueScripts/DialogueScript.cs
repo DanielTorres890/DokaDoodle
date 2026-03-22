@@ -57,6 +57,7 @@ public class DialogueScript : NetworkBehaviour
     // Update is called once per frame
 
 
+
     [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
     public void contCutsceneServerRpc(RpcParams rpcstuff = default)
     {
@@ -66,7 +67,7 @@ public class DialogueScript : NetworkBehaviour
         contCutsceneClientRpc();
     }
 
-    [ClientRpc]
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void contCutsceneClientRpc()
     {
         if (textComponent.maxVisibleCharacters >= lines[index].Length - 1 - charsToIgnore)

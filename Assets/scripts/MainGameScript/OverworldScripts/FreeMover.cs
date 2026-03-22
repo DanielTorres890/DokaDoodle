@@ -47,7 +47,7 @@ public class FreeMover : NetworkBehaviour
         if(!IsOwner || !gameObject.activeSelf) { return; }
         var oldpos = transform.position;
 
-        transform.position += new Vector3(move.x * speed,0,move.y * speed);
+        transform.position += new Vector3(move.x * speed,0,move.y * speed) * Time.deltaTime;
 
         if(Vector3.Distance(transform.position,oldpos) > needToMove)
         {

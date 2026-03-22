@@ -167,7 +167,7 @@ public class ClientChecks : NetworkBehaviour
         if ((potentialCombatants.Count == 0 && !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
         {
 
-            curTile.players.Remove(NetworkData.Instance.currentPlayer);
+            
             PlayerMoveManager.Instance.playerCam.Follow = PlayerMoveManager.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
             
             
