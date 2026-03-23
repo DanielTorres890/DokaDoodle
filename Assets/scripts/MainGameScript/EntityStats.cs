@@ -27,7 +27,7 @@ public class EntityStats
         {Attributes.Magic, 0 },
         {Attributes.MDefense, 0 },
         {Attributes.Dexterity, 0 },
-        {Attributes.Potency, 0 }
+    
 
 
     };
@@ -40,7 +40,7 @@ public class EntityStats
         {Attributes.Magic, 0 },
         {Attributes.MDefense, 0 },
         {Attributes.Dexterity, 0},
-        {Attributes.Potency, 0 }
+        
         
 
     };
@@ -137,7 +137,7 @@ public class EntityStats
         {Attributes.Magic, 0 },
         {Attributes.MDefense, 0 },
         {Attributes.Dexterity, 0},
-        {Attributes.Potency, 0 }
+   
         };
 
         foreach (var status in statuses)

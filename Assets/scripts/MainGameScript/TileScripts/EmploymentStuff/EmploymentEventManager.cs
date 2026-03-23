@@ -168,7 +168,7 @@ public class EmploymentEventManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ReturnToJobMenuRpc()
     {
-        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
+        
         confirmClassSwap.SetActive(false);
         JobChangeObject.SetActive(true);
 
@@ -328,6 +328,7 @@ public class EmploymentEventManager : NetworkBehaviour
         moneyDisplay.StatUpdate();
         availableAllies.RemoveAt(currentAllyBuy);
         allyDisplay.UpdateDisplay(availableAllies);
+
         confirmAllyBuy.SetActive(false);
         PartyMemberPurchase.SetActive(true);
         UpdateMaxAllyDisplay();

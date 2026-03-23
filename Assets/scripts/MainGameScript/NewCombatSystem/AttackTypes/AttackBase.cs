@@ -138,13 +138,9 @@ public abstract class AttackBase : ScriptableObject
         {
             chargeDuration = maxChargeDuration;
         }
-        int usedPotency = entity.stats[Attributes.Potency];
-        if(usedPotency > requiredPotency)
-        {
-            usedPotency = requiredPotency;
-        }
+        
 
-        return 1 + (usedPotency + 1) / (requiredPotency + 1) * (chargeDuration / maxChargeDuration);
+        return 1 + chargeDuration;
     }
     public bool meetsRequirement(EntityStats entity)
     {

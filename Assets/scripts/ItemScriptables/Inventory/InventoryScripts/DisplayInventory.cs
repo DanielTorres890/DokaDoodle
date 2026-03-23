@@ -74,6 +74,13 @@ public class DisplayInventory : MonoBehaviour
             obj.transform.SetAsFirstSibling();
             obj.transform.GetComponent<Image>().sprite = inventory.container[i].item.itemSprite;
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
+
+
+            if(i >= inventory.MAXSIZE)
+            {
+                var panel = obj.transform.GetChild(0).GetComponent<Image>();
+                panel.color = new Color(panel.color.a, panel.color.g, panel.color.b, 0.5f);
+            }
             //u know im not happy about this but lowkey it just seems easier to reuse this ngl
             if (displayType == InvDisplayType.Inventory)
             {

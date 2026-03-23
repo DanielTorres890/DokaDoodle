@@ -1945,6 +1945,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5c84d88b-ab19-4eec-aa6e-d74d390cd9dc
     m_ActionName: 'Player/Ability6[/Keyboard/v]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 361615208}
+        m_TargetAssemblyTypeName: PlayerMoveManager, Assembly-CSharp
+        m_MethodName: InspectTile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e418b02e-38f9-4a5b-8bb5-e33e10b0e4bd
+    m_ActionName: 'UI/Inspect[/Keyboard/i]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI

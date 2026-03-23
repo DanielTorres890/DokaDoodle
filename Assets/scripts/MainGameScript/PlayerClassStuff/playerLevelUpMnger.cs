@@ -28,7 +28,7 @@ public class playerLevelUpMnger : NetworkBehaviour
         {Attributes.Magic, 0 },
         {Attributes.MDefense, 0 },
         {Attributes.Dexterity, 0},
-        {Attributes.Potency, 0 },
+        
 
     };
     private List<Attributes> playerAttributes = new List<Attributes>
@@ -39,7 +39,7 @@ public class playerLevelUpMnger : NetworkBehaviour
         Attributes.Magic,
         Attributes.MDefense,
         Attributes.Dexterity,
-        Attributes.Potency,
+      
     };
 
     public override void OnNetworkSpawn()

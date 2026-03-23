@@ -22,6 +22,8 @@ public class FreeMover : NetworkBehaviour
 
     public float needToMove;
 
+    public Vector3 followOffset;
+
     public void Awake()
     {
         if(Instance == null) { Instance = this; }
@@ -101,6 +103,8 @@ public class FreeMover : NetworkBehaviour
         onTileSelect.Invoke(tileId);
     
     }
+
+
     public void FreeCamera()
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
@@ -118,6 +122,8 @@ public class FreeMover : NetworkBehaviour
 
         onBeginFree.Invoke();
         playerCam.Follow = gameObject.transform;
+
+        playerCam.GetComponent<CinemachineFollow>().FollowOffset += followOffset;
         if (IsServer)
         {
             gameObject.GetComponent<NetworkObject>().ChangeOwnership(paramys.Receive.SenderClientId);
@@ -140,6 +146,8 @@ public class FreeMover : NetworkBehaviour
         onTileSelect.RemoveAllListeners();
         onUndoFree.RemoveAllListeners();
         playerCam.Follow = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
+
+        playerCam.GetComponent<CinemachineFollow>().FollowOffset -= followOffset;
         if (IsServer)
         {
             gameObject.GetComponent<NetworkObject>().ChangeOwnership(0);

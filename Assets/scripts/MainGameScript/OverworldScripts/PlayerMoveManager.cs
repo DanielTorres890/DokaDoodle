@@ -543,7 +543,7 @@ public class PlayerMoveManager : NetworkBehaviour
         allPaths.Clear();
         if (NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId))
             FreeMover.Instance.onTileSelect.AddListener(GoToTile);
-
+        
         int lookback = 1;
         if(takenPath.Count > 1) { lookback = 2; }
         PossibleTiles(mapTiles[currrentPlayer.curTileId], diceRoll, takenPath[takenPath.Count-lookback].GetComponent<TileScript>(), ref allPaths, new List<TileScript>());
@@ -568,6 +568,21 @@ public class PlayerMoveManager : NetworkBehaviour
         }
     }
 
+    public void InspectTile()
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        if (!canMove) { return; }
+        if (!cameraMove) { return; }
+        if(!FreeMover.Instance.baseTile) { return; }
+        InspectTileRpc(FreeMover.Instance.baseTile.tileId);
+    }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void InspectTileRpc(int tileId)
+    {
+        ClientChecks.Instance.tileInfoDisplay.UpdateText(mapTiles[tileId]);
+        ClientChecks.Instance.tileInfoDisplay.gameObject.SetActive(true);
+    }
     public void GoToTile(int TileId)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
@@ -769,7 +784,7 @@ public class PlayerMoveManager : NetworkBehaviour
                 intIndex += 1;
             }
             int stagger = 1;
-
+            Debug.Log("who up indexing " + intIndex);
             if(intIndex > 1) { stagger = -1; }
             
             playerSticks[i].transform.position = mapTiles[NetworkData.Instance.players[i].curTileId].transform.position;

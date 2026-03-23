@@ -22,7 +22,7 @@ public class ClientChecks : NetworkBehaviour
     public DialogueScript displayText;
     public GameObject mainMenuButtons;
     public GameObject cameraControlDisplay;
-
+    public TileInfoDisplay tileInfoDisplay;
 
 
     private TextMeshProUGUI displayTxt;
@@ -143,6 +143,16 @@ public class ClientChecks : NetworkBehaviour
         //at some point im probably gonna have to make this a different event but frick u
         onRoundStart.Invoke();
 
+        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
+        if (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
+        {
+            mainMenuButtons.SetActive(false);
+
+            if (IsServer) { ClientChecks.Instance.DisplayDeadRpc(); }
+            return;
+        }
+
+
         var curTile = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
         foreach (var players in curTile.players)
         {
@@ -167,6 +177,7 @@ public class ClientChecks : NetworkBehaviour
         if ((potentialCombatants.Count == 0 && !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
         {
 
+           
             
             PlayerMoveManager.Instance.playerCam.Follow = PlayerMoveManager.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
             
@@ -190,13 +201,7 @@ public class ClientChecks : NetworkBehaviour
         else
         {
 
-            if (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
-            {
-                mainMenuButtons.SetActive(false);
-
-                if (IsServer) { ClientChecks.Instance.DisplayDeadRpc(); }
-                return;
-            }
+            
 
 
             mainMenuButtons.SetActive(false);
@@ -268,7 +273,7 @@ public class ClientChecks : NetworkBehaviour
         thisItem.PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
         displayText.lines.Clear();
 
-        changeScript.ResetDisplay();
+        
 
         display.gameObject.SetActive(false);
         
@@ -276,6 +281,7 @@ public class ClientChecks : NetworkBehaviour
         displayText.lines.Add(thisItem.useText);
         StartCoroutine(usedItem());
         onItemUse.Invoke();
+        changeScript.ResetDisplay();
 
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
@@ -285,15 +291,16 @@ public class ClientChecks : NetworkBehaviour
         NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
         displayText.lines.Clear();
 
-        changeScript.ResetDisplay();
-
+        
         display.gameObject.SetActive(false);
         display.transform.parent.gameObject.SetActive(false);
 
         displayText.lines.Add(NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].useText);
         StartCoroutine(usedItem());
+        
 
         onItemUse.Invoke();
+        changeScript.ResetDisplay();
     }
 
 
@@ -307,9 +314,11 @@ public class ClientChecks : NetworkBehaviour
     {
         NetworkData.Instance.players[currentPlayerLook].battleSlotItemId = currentItemId;
         confirmButtons.SetActive(false);
-        changeScript.ResetDisplay();
+        
         display.gameObject.SetActive(true);
         display.transform.parent.gameObject.SetActive(true);
+
+        changeScript.ResetDisplay();
 
     }
 
@@ -388,7 +397,7 @@ public class ClientChecks : NetworkBehaviour
     public void DisplayDeadRpc()
     {
         displayText.lines.Clear();
-        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
+        
         displayText.lines.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name + " is dead for <color=red>" + (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].tillRevive + 1) + "</color> turns");
         
         StartCoroutine(displayItem(false,0,0,0));//man im lazy

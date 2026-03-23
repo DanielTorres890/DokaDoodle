@@ -68,7 +68,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         { Attributes.Magic, "MAG" },
         { Attributes.MDefense, "MDEF" },
         { Attributes.Dexterity, "DEX" }, 
-        { Attributes.Potency, "POT" }
+        
 
     };
 

@@ -26,7 +26,7 @@ public enum Attributes
     Magic,
     MDefense,
     Dexterity,
-    Potency,
+
     PDmgReduction,
     MDmgReduction
 
@@ -37,9 +37,9 @@ public abstract class ItemBase : ScriptableObject
     public ItemType type;
     public int itemValue;
 
-    [TextArea(15,20)]
+    [TextArea(5,20)]
     public string description;
-    [TextArea(15, 10)]
+    [TextArea(5, 10)]
     public string useText;
     public string itemName;
     public ItemBuff[] buffs;

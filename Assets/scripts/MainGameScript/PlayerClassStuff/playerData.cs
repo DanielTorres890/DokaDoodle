@@ -186,6 +186,7 @@ public class playerData : EntityStats
             
             this.curTileId = this.playerSpawnTile;
             this.curMap = this.playerSpawnMap;
+            MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Add(playerNumber);
 
         }
 
@@ -198,7 +199,7 @@ public class playerData : EntityStats
     public void progressDeath()
     {
         this.tillRevive--;
-        if (tillRevive <= 0)
+        if (tillRevive < 0)
         {
 
             isDead = false;

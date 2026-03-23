@@ -313,7 +313,7 @@ public class NewCombatManager : NetworkBehaviour
             info.isDead = true;
             whoded.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             whoded.GetComponent<Rigidbody>().AddForce(whoded.transform.TransformDirection(Vector3.back) * 10, ForceMode.Impulse);
-            Debug.Log(info.name + " did i die: " + info.isDead);
+            
 
             if (whoded.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId)
             {

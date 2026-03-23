@@ -26,6 +26,13 @@ public class PVPVictory : NetworkBehaviour
 
     public void SetUp(int loserId, int winnerId)
     {
+        SetUpRpc(loserId, winnerId);
+    }
+
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void SetUpRpc(int loserId, int winnerId)
+    {
         gameObject.SetActive(true);
         mainButtons.SetActive(true);
         stealItemUI = stealItem.GetComponent<StealItemUI>();
@@ -34,6 +41,7 @@ public class PVPVictory : NetworkBehaviour
         winner = winnerId;
         loser = loserId;
     }
+
 
     public void StealItemButton()
     {

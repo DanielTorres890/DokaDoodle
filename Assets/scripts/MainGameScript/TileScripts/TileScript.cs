@@ -28,6 +28,8 @@ public abstract class TileScript : MonoBehaviour
     public EnemyEncounter defaultTileEnemies;
     public bool initiallyPassable = true;
 
+    [TextArea(2,5)]
+    public string tileDescription;
 
     public static bool DrawTrails = true;
     public static float TrailOffset = 0.5f;

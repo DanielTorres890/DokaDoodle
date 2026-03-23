@@ -593,6 +593,15 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Inspect"",
+                    ""type"": ""Button"",
+                    ""id"": ""e418b02e-38f9-4a5b-8bb5-e33e10b0e4bd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""9d91ee1b-af16-42f7-9e97-89c96797c3e4"",
@@ -1438,6 +1447,17 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""action"": ""Settings"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9fb8ee01-26dc-41d4-9466-5f82e5c3aafe"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Inspect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1624,6 +1644,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
         m_UI_UseKey = m_UI.FindAction("UseKey", throwIfNotFound: true);
+        m_UI_Inspect = m_UI.FindAction("Inspect", throwIfNotFound: true);
         m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
         m_UI_Point = m_UI.FindAction("Point", throwIfNotFound: true);
         m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
@@ -1978,6 +1999,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Navigate;
     private readonly InputAction m_UI_Submit;
     private readonly InputAction m_UI_UseKey;
+    private readonly InputAction m_UI_Inspect;
     private readonly InputAction m_UI_Cancel;
     private readonly InputAction m_UI_Point;
     private readonly InputAction m_UI_Click;
@@ -2013,6 +2035,10 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/UseKey".
         /// </summary>
         public InputAction @UseKey => m_Wrapper.m_UI_UseKey;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/Inspect".
+        /// </summary>
+        public InputAction @Inspect => m_Wrapper.m_UI_Inspect;
         /// <summary>
         /// Provides access to the underlying input action "UI/Cancel".
         /// </summary>
@@ -2096,6 +2122,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @UseKey.started += instance.OnUseKey;
             @UseKey.performed += instance.OnUseKey;
             @UseKey.canceled += instance.OnUseKey;
+            @Inspect.started += instance.OnInspect;
+            @Inspect.performed += instance.OnInspect;
+            @Inspect.canceled += instance.OnInspect;
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
@@ -2152,6 +2181,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @UseKey.started -= instance.OnUseKey;
             @UseKey.performed -= instance.OnUseKey;
             @UseKey.canceled -= instance.OnUseKey;
+            @Inspect.started -= instance.OnInspect;
+            @Inspect.performed -= instance.OnInspect;
+            @Inspect.canceled -= instance.OnInspect;
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
@@ -2515,6 +2547,13 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnUseKey(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Inspect" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInspect(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Cancel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
