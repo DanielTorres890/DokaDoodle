@@ -71,6 +71,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         
 
     };
+    public List<int> seenEnemies = new List<int>();
 
     public int statsPerLevel = 2;
     public const string BattleScene = "NewBattleArea";
@@ -116,6 +117,8 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         players = data.players;
         maxPlayers = data.maxPlayers;
         LoadedIn = true;
+        seenEnemies = data.seenEnemies;
+
         InventoriesToDeserialize(data);
     }
     public void SaveData(ref GameData data)
@@ -123,6 +126,8 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
         data.players = players;
         data.maxPlayers = maxPlayers;
+        data.seenEnemies = seenEnemies;
+
         InventoriesToSerialize(ref data);
 
 

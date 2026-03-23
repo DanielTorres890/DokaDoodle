@@ -106,7 +106,14 @@ public class PlayerCombatManager : MonoBehaviour
             PlayerCombatManager.Instance.combatants.Add(ally);
         }
 
-       
+       foreach(var combatant in PlayerCombatManager.Instance.combatants)
+       {
+            if(combatant is not EnemyCombat) { continue; }
+            if(NetworkData.Instance.seenEnemies.Contains((combatant as EnemyCombat).enemyId)) { continue; }
+
+            NetworkData.Instance.seenEnemies.Add((combatant as EnemyCombat).enemyId);
+
+       }
         return encounterName;
     }
 }

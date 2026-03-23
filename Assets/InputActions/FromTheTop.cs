@@ -679,7 +679,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""id"": ""5f304cee-ff02-4fc6-a47c-3446c3f38663"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {

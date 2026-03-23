@@ -13,6 +13,7 @@ public class GameData
 
     public List<int> seenPopsUps = new List<int>();
 
+    public List<int> seenEnemies = new List<int>();
 
     public int currentPlayer = 0;
     public int maxPlayers = 4;

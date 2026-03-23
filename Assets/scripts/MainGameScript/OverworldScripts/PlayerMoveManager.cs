@@ -28,6 +28,8 @@ public class PlayerMoveManager : NetworkBehaviour
     public bool canMove = false;
     public bool cameraMove = false;
     public bool autoMoving = false;
+    public bool inspectingTile = false;
+
 
     [Tooltip("DEBUG OPTION forces a number to be rolled")]
     public bool forceRoll;
@@ -524,7 +526,8 @@ public class PlayerMoveManager : NetworkBehaviour
 
         if (!canMove) { return; }
 
-        if (!action.performed) { return; }
+        if (!action.started) { return; }
+        if (cameraMove) { return; }
 
 
         FreeCameraRpc();
@@ -549,11 +552,13 @@ public class PlayerMoveManager : NetworkBehaviour
         PossibleTiles(mapTiles[currrentPlayer.curTileId], diceRoll, takenPath[takenPath.Count-lookback].GetComponent<TileScript>(), ref allPaths, new List<TileScript>());
 
     }
-    public void UnfreeCamera()
+    public void UnfreeCamera(InputAction.CallbackContext action)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         if (!canMove) { return; }
         if (!cameraMove) { return; }
+        if (inspectingTile) { return; }
+        if (!action.started) { return; }
 
         FreeMover.Instance.EndFreeCamera();
         UnfreeCameraRpc();
@@ -568,20 +573,44 @@ public class PlayerMoveManager : NetworkBehaviour
         }
     }
 
-    public void InspectTile()
+    public void InspectTile(InputAction.CallbackContext action)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         if (!canMove) { return; }
         if (!cameraMove) { return; }
         if(!FreeMover.Instance.baseTile) { return; }
+        if(!action.started) { return; }
+        if (inspectingTile) { return; }
         InspectTileRpc(FreeMover.Instance.baseTile.tileId);
     }
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void InspectTileRpc(int tileId)
     {
+
+        inspectingTile = true;
         ClientChecks.Instance.tileInfoDisplay.UpdateText(mapTiles[tileId]);
         ClientChecks.Instance.tileInfoDisplay.gameObject.SetActive(true);
+        FreeMover.Instance.gameObject.SetActive(false);
+    }
+    public void StopInspect(InputAction.CallbackContext action)
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        if (!canMove) { return; }
+        if (!cameraMove) { return; }
+        if (!FreeMover.Instance.baseTile) { return; }
+        if (!action.started) { return; }
+        if (!inspectingTile) { return; }
+        StopInspectRpc();
+    }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void StopInspectRpc()
+    {
+        inspectingTile = false;
+        ClientChecks.Instance.tileInfoDisplay.gameObject.SetActive(false);
+        FreeMover.Instance.gameObject.SetActive(true);
+
     }
     public void GoToTile(int TileId)
     {
