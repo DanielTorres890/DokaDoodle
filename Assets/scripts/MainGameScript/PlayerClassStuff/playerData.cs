@@ -33,7 +33,7 @@ public class playerData : EntityStats
 
     };
     
-    
+    public List<int> seenPopups = new List<int>();
 
     public int tillRevive;
 

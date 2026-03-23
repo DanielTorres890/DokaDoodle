@@ -15,9 +15,12 @@ MonoBehaviour:
   itemSprite: {fileID: -928417237600903484, guid: 98785a5040b76de4381faea2a3b4b228, type: 3}
   type: 1
   itemValue: 500
-  description: 'A wooden sword, not very sharp it does hurt
+  description: '(EQUIPMENT)
 
-    GIVES ATK: 4'
+    A wooden sword, not very sharp it does hurt
+
+    GIVES
+    ATK: 4'
   useText: You equip the wooden sword
   itemName: Wood Sword
   buffs:
@@ -30,3 +33,4 @@ MonoBehaviour:
   attack: []
   skillRequirements: []
   inHandSprite: {fileID: -928417237600903484, guid: 98785a5040b76de4381faea2a3b4b228, type: 3}
+  onEquipBuffs: []

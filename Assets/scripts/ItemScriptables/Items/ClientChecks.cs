@@ -180,9 +180,13 @@ public class ClientChecks : NetworkBehaviour
            
             
             PlayerMoveManager.Instance.playerCam.Follow = PlayerMoveManager.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
+
+
             
-            
-            PopUpManager.Instance.PerformPopUp(0);
+            int initialPopUp = 0;
+            int dashUnlockPopUp = 2;
+            PopUpManager.Instance.PerformPopUp(initialPopUp);
+            if (NetworkData.Instance.GetCurrentPlayer().stats[Attributes.Dexterity] >= 10) { PopUpManager.Instance.PerformPopUp(dashUnlockPopUp, true, true);}
 
             var unlockedClassId = NetworkData.Instance.checkUnlockedClass(NetworkData.Instance.currentPlayer);
             if(unlockedClassId == -1)

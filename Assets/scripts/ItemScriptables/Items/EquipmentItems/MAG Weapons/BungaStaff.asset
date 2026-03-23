@@ -15,15 +15,17 @@ MonoBehaviour:
   itemSprite: {fileID: 21300000, guid: cc4f8a0f386ebd14d94c367ca57d39be, type: 3}
   type: 1
   itemValue: 2000
-  description: 'A staff of questionably magical power that allows you to summon a
-    Bunga
+  description: '(EQUIPMENT)
 
-    GIVES MAG: 2'
+    A staff of questionably magical power that allows
+    you to summon a Bunga
+
+    GIVES MAG: 3, (ABILITY) Summon Bunga'
   useText: You equip the staff, it feels.... bungaly
   itemName: Bunga Staff
   buffs:
   - attribute: 4
-    value: 2
+    value: 3
   battleItem: 0
   overworldItem: 1
   useClip: {fileID: 0}
@@ -32,3 +34,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cd872b4baf811dc46976b6df02e67835, type: 2}
   skillRequirements: []
   inHandSprite: {fileID: 21300000, guid: cc4f8a0f386ebd14d94c367ca57d39be, type: 3}
+  onEquipBuffs: []

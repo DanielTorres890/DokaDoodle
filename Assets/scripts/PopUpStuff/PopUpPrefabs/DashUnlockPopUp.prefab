@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7652243791222431089}
   - component: {fileID: 3111912104405964214}
   m_Layer: 5
-  m_Name: TestPopUp
+  m_Name: DashUnlockPopUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,18 +211,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'There''s only one main goal of this demo and thats to SLAY MALDING MOLE
-    (assuming nothing breaks before then)
+  m_text: 'You''ve unlocked DASHING in combat!!
 
+    Press left shift in combat to
+    dash in whatever direction you''re holding
 
-    If you''re ever confused/want to
-    know more you can hover over most things to learn more (or yell at me if you
-    think something should be hoverable)
-
-
-    Once you''re ready click on this pop
-    up to make it go away (keep in mind only whoevers turn it is can make the pop
-    up go away)'
+    Keep in mind it uses energy so
+    dont spam it too much (or do i cant stop you)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -249,7 +244,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 67.35
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

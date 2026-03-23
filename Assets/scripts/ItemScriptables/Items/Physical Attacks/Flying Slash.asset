@@ -15,10 +15,12 @@ MonoBehaviour:
   itemSprite: {fileID: 21300000, guid: db1dfcea11c347b4da447fc300a54fbf, type: 3}
   type: 3
   itemValue: 400
-  description: 'Swing with enough force to send a slash flying through the air
+  description: '(PHYSICAL ABILITY)
 
-    Requires:
-    12 ATK'
+    Swing with enough force to send a slash flying
+    through the air
+
+    Requires: 12 ATK'
   useText: You equip the wooden sword
   itemName: Flying Slash
   buffs:
@@ -34,3 +36,4 @@ MonoBehaviour:
   - attribute: 2
     value: 12
   inHandSprite: {fileID: 0}
+  onEquipBuffs: []

@@ -24,6 +24,7 @@ public class FreeMover : NetworkBehaviour
 
     public Vector3 followOffset;
 
+    private Vector3 oldpos;
     public void Awake()
     {
         if(Instance == null) { Instance = this; }
@@ -47,12 +48,14 @@ public class FreeMover : NetworkBehaviour
     public void Update()
     {
         if(!IsOwner || !gameObject.activeSelf) { return; }
-        var oldpos = transform.position;
+       
 
         transform.position += new Vector3(move.x * speed,0,move.y * speed) * Time.deltaTime;
-
+        
+        
         if(Vector3.Distance(transform.position,oldpos) > needToMove)
         {
+            oldpos = transform.position;
             SyncTranformRpc(transform.position);
         }
 
@@ -63,6 +66,7 @@ public class FreeMover : NetworkBehaviour
     private void SyncTranformRpc(Vector3 newPos)
     {
         transform.position = newPos;
+        
     }
     public void OnTriggerEnter(Collider other)
     {

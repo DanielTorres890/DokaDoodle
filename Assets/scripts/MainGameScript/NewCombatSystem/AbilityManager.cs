@@ -389,7 +389,7 @@ public class AbilityManager : NetworkBehaviour
         characterEdit.setHair(NetworkData.Instance.players[playerNum].playerHair);
 
 
-        NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineCamera>());
+        
         
     }
 
@@ -421,6 +421,12 @@ public class AbilityManager : NetworkBehaviour
         stats.PostStatusStatCalc();
         nameText.UpdateText();
         hpText.UpdateText();
+
+        CinemachineCamera cam = gameObject.GetComponentInChildren<CinemachineCamera>();
+        if (cam)
+        {
+            NewCombatManager.instance.cameras.Add(cam);
+        }
         if (myHealthbar && stats is playerData && NetworkData.Instance.IsAllowed((stats as playerData).playerNumber, NetworkManager.Singleton.LocalClientId))
         {
             myHealthbar.SetActive(false);

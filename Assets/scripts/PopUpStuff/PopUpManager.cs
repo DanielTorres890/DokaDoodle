@@ -18,13 +18,17 @@ public class PopUpManager : MonoBehaviour, IDataPersistance
 
     
 
-    public void PerformPopUp(int popUpId, bool repeating = false)
+    public void PerformPopUp(int popUpId, bool repeating = false, bool perPlayer = false)
     {
 
         if (seenPopUpIds.Contains(popUpId) && !repeating) { return; }
+        if(perPlayer && NetworkData.Instance.GetCurrentPlayer().seenPopups.Contains(popUpId)) { return; }
+
+        Debug.Log("Which pop up am i zooing " +  popUpId);
         currentPopUp = PopUpDatabase.GetItem[popUpId];
         seenPopUpIds.Add(popUpId);
 
+        if(perPlayer) { NetworkData.Instance.GetCurrentPlayer().seenPopups.Add(popUpId); }
 
         
         if (SceneChanger.Instance.IsServer)

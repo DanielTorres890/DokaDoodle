@@ -15,9 +15,12 @@ MonoBehaviour:
   itemSprite: {fileID: 21300000, guid: 2d51076cef181f94e86aa9f3fd4795b8, type: 3}
   type: 1
   itemValue: 1000
-  description: 'A spear, usually used by warrior bungas
+  description: '(EQUIPMENT)
 
-    GIVES ATK: 6, DEF: 2'
+    A spear, usually used by warrior bungas
+
+    GIVES
+    ATK: 6, DEF: 2'
   useText: You equip the spear
   itemName: Spear
   buffs:
@@ -32,3 +35,4 @@ MonoBehaviour:
   attack: []
   skillRequirements: []
   inHandSprite: {fileID: 2377075296524610544, guid: d845a94b58bd907489fda5c1af32cbcf, type: 3}
+  onEquipBuffs: []

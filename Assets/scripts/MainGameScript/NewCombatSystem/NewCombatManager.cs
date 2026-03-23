@@ -424,8 +424,22 @@ public class NewCombatManager : NetworkBehaviour
     private void SetUpVictorRpc()
     {
         fightOver = true;
-        StartCoroutine(delayTime());
+        currentSpec = 1;
         
+
+        StartCoroutine(delayTime());
+
+        //and its down here to hopefully avoid possible brick
+        AbilityManager victor = WhoWon();
+        for (int i = 0; i < allCombatants.Count; i++)
+        {
+            if (victor == allCombatants[i])
+            {
+                //+1 bc of the overhead cam
+                cameras[i + 1].Priority = 10;
+                break;
+            }
+        }
 
 
     }

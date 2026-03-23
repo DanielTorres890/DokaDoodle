@@ -671,7 +671,7 @@ MonoBehaviour:
   TimeBetweenDash: 0.05
   dashCd: 1
   DashDexRequirement: 10
-  DashEnergyCost: 10
+  DashEnergyCost: 20
   grounded: 1
   gravityMult: 15
   minZoomIn: -25
@@ -901,6 +901,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5c84d88b-ab19-4eec-aa6e-d74d390cd9dc
     m_ActionName: 'Player/Ability6[/Keyboard/v]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e418b02e-38f9-4a5b-8bb5-e33e10b0e4bd
+    m_ActionName: 'UI/Inspect[/Keyboard/i]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

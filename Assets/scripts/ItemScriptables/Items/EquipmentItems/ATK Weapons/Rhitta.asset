@@ -15,19 +15,21 @@ MonoBehaviour:
   itemSprite: {fileID: -3214193344681200299, guid: 9680eab46b8954f4aaef4dae1596e26d, type: 3}
   type: 1
   itemValue: 2000
-  description: 'The divine axe whose power grows until a peak on wednesday. Using
-    the axe may cause weakness if wielded too far from wednesday
+  description: '(EQUIPMENT)
 
-    Also grants
-    the Ability Cruel Sun
+    The divine axe whose power grows until a peak on
+    wednesday. Using the axe may cause weakness if wielded too far from wednesday
 
-    GIVES: 5 ATK
+    GIVES:
+    5 ATK, 5 MAG, (ABILITY) Cruel Sun
 
 '
   useText: You feel the power of Sunshine flow through you
   itemName: Rhitta
   buffs:
   - attribute: 2
+    value: 5
+  - attribute: 4
     value: 5
   battleItem: 0
   overworldItem: 1
