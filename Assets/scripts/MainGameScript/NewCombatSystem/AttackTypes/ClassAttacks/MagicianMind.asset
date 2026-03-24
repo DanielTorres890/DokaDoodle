@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9e8e5e37139cd41a8ee66fbf64b3f7, type: 3}
   m_Name: MagicianMind
   m_EditorClassIdentifier: 
-  description: THINK
+  description: Meditate for a moment, increasing your MAG stat by 50% for 12 seconds
   attackName: Clear Mind
   startUp: 0.6
   attackDuration: 0
@@ -20,6 +20,7 @@ MonoBehaviour:
   cooldown: 20
   lifespan: 1
   energyDrain: 1
+  initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -31,6 +32,8 @@ MonoBehaviour:
   chargeable: 0
   attackPrefab: {fileID: 2566779757777240371, guid: 025be11524405ff43871ea2fd91b5485, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 1, y: 1, z: 1}

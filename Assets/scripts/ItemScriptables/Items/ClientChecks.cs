@@ -23,7 +23,7 @@ public class ClientChecks : NetworkBehaviour
     public GameObject mainMenuButtons;
     public GameObject cameraControlDisplay;
     public TileInfoDisplay tileInfoDisplay;
-
+    
 
     private TextMeshProUGUI displayTxt;
     public TextMeshProUGUI rollNum;

@@ -64,6 +64,7 @@ public abstract class AttackBase : ScriptableObject
     public float animationSpeed = 1f;
     public ItemBuff[] LevelRequirements;
 
+    public AudioClip startUpNoise;
     public AudioClip attackSound;
     public AudioClip onHitSound;
 

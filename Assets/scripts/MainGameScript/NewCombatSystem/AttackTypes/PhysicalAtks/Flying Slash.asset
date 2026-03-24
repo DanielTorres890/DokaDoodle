@@ -21,6 +21,7 @@ MonoBehaviour:
   cooldown: 3
   lifespan: 5
   energyDrain: 2
+  initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -41,7 +42,7 @@ MonoBehaviour:
   baseDamage: 7
   multipliers:
   - attribute: 2
-    mult: 1.5
+    mult: 1.1
   defenseMult:
   - attribute: 3
     mult: 1
@@ -64,8 +65,9 @@ MonoBehaviour:
   attackAnimation: {fileID: 7400000, guid: 0b53b682aa49c7a42874092f15b443c4, type: 2}
   animationSpeed: 1
   LevelRequirements: []
-  attackSound: {fileID: 8300000, guid: f8e04c0f92914e34da11e1e75e61e638, type: 3}
-  onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
+  startUpNoise: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: e137a57f645ec3346bb7b8539ae31da7, type: 3}
+  onHitSound: {fileID: 8300000, guid: fd57dea2003a26744954854993a44824, type: 3}
   onHitEffects: []
   targets:
     serializedVersion: 2

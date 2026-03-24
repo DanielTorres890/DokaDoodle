@@ -212,6 +212,8 @@ public class AbilityManager : NetworkBehaviour
       
         currentAttack = stats.attacks[whom];
 
+        if(currentAttack.startUpNoise)
+        AudioSource.PlayClipAtPoint(currentAttack.startUpNoise, transform.position);
 
         
         onAttack.Invoke();

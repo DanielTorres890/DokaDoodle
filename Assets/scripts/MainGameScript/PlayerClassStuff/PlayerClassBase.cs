@@ -8,7 +8,7 @@ public abstract class PlayerClassBase : ScriptableObject
     public string className;
 
     [TextArea(1, 5)] public string classDescription;
-
+    [TextArea(1, 5)] public string overworldAbilityDescription;
 
     public ItemBuff[] stats;
 

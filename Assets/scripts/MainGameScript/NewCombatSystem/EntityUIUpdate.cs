@@ -32,7 +32,7 @@ public class EntityUIUpdate : MonoBehaviour
         {
             string color = "<color=black>";
             if (attributeToWhom != Attributes.Health && attributeToWhom != Attributes.MaxHealth && AbilityManager.stats.postStatusStats[attributeToWhom] > AbilityManager.stats.stats[attributeToWhom])
-                color = "<color=#1abf3a>";
+                color = "<color=#05FF31>";
             if (attributeToWhom != Attributes.Health && attributeToWhom != Attributes.MaxHealth && AbilityManager.stats.postStatusStats[attributeToWhom] < AbilityManager.stats.stats[attributeToWhom])
                 color = "<color=red>";
 

@@ -298,9 +298,15 @@ public class CombatantMovement : NetworkBehaviour
         if (playerCam.transform.parent.transform.eulerAngles.x % 360 < 360 + minXCam && playerCam.transform.parent.transform.eulerAngles.x % 360 > maxXCam)
         {
             playerCam.transform.parent.transform.Rotate(new Vector3(look.y * sensitivy, 0, 0) * SettingsManager.instance.mouseSense);
+            if (playerCam.transform.parent.transform.eulerAngles.x % 360 < 360 + minXCam && playerCam.transform.parent.transform.eulerAngles.x % 360 > maxXCam)
+            {
+                playerCam.transform.parent.transform.eulerAngles = Vector3.zero;
+            }
+
+
         }
-        
-        
+
+
         //lookRotation += (-look.y * sensitivy);
 
         //playerCam.transform.eulerAngles = new Vector3 (lookRotation, playerCam.transform.eulerAngles.y, playerCam.transform.eulerAngles.z);
