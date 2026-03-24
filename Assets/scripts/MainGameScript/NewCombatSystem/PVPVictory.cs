@@ -208,7 +208,9 @@ public class PVPVictory : NetworkBehaviour
         playerData loserData = NetworkData.Instance.players[loser];
         loserData.playerHair = hairId;
         loserData.playerFace = faceId;
-       
+        if(!loserData.unlockedHairIds.Contains(hairId)) { loserData.unlockedHairIds.Add(hairId);}
+        if(!loserData.unlockedFaceIds.Contains(faceId)) { loserData.unlockedFaceIds.Add(faceId);}
+
         if (IsHost) { FinishVictoryRpc(); }
     }
 }

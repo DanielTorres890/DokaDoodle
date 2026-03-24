@@ -34,6 +34,14 @@ public class playerData : EntityStats
     };
     
     public List<int> seenPopups = new List<int>();
+    public List<int> unlockedHairIds = new List<int>
+    {
+        0, 1, 2, 3, 4, 5, 6, 7
+    };
+    public List<int> unlockedFaceIds = new List<int>
+    {
+        0, 1, 2, 3, 4, 5, 6
+    };
 
     public int tillRevive;
 
