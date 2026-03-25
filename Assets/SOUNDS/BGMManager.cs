@@ -44,6 +44,12 @@ public class BGMManager : MonoBehaviour
         BGMSource.resource = soundClip;
         BGMSource.Play();
     }
+    public void PlaySoundDelayed(AudioClip soundClip, float delay)
+    {
+
+        BGMSource.resource = soundClip;
+        BGMSource.PlayDelayed(delay);
+    }
     public void StopSounds(Scene scene, LoadSceneMode type)
     {
         if(type == LoadSceneMode.Additive) { return; }

@@ -79,7 +79,9 @@ public class NewCombatManager : NetworkBehaviour
 
     public AudioClip victoryMusic;
     public AudioClip loseSfx;
-   
+
+    private CinemachineBrain mainCam;
+    private float musicDelay = .5f;
     private void Awake()
     {
         AudioSource = GetComponent<AudioSource>();
@@ -114,6 +116,11 @@ public class NewCombatManager : NetworkBehaviour
         foreach (var camera in FindObjectsByType<CinemachineCamera>(FindObjectsSortMode.None))
         {
             cameras.Add(camera);
+        }
+        var main = FindObjectsByType<CinemachineBrain>(FindObjectsSortMode.None);
+        if (main.Length > 0)
+        {
+            mainCam = main[0];
         }
 
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("NewBattleArea"));
@@ -427,26 +434,51 @@ public class NewCombatManager : NetworkBehaviour
         currentSpec = 1;
         
 
-        StartCoroutine(delayTime());
+        
 
         //and its down here to hopefully avoid possible brick
         AbilityManager victor = WhoWon();
+        victor = SaveEntities(victor);
+
+        playerData localPlayer = NetworkData.Instance.players[NetworkData.Instance.ClientNumToPlayerNum(NetworkManager.Singleton.LocalClientId)];
+        if (PlayerCombatManager.Instance.combatants.Contains(localPlayer) && localPlayer != victor.stats || victor.stats is EnemyCombat)
+        {
+            SFXManager.Instance.PlaySfxDeplayed(loseSfx, musicDelay);
+            BGMManager.instance.StopSounds();
+        }
+        else
+        {
+            BGMManager.instance.PlaySoundDelayed(victoryMusic, musicDelay);
+        }
+
         for (int i = 0; i < allCombatants.Count; i++)
         {
             if (victor == allCombatants[i])
             {
                 //+1 bc of the overhead cam
+                mainCam.DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Styles.EaseInOut, 0f);
                 cameras[i + 1].Priority = 10;
+                
+                if (victor.stats is playerData)
+                {
+
+                    victor.GetComponent<CombatAnimator>().VictoryAnimState(true);
+
+                }
+
+
                 break;
             }
         }
 
 
+        StartCoroutine(delayTime(victor));
+
     }
     //this thing right here is pandoras box i pray you never open it 
-    private void BattleOverCalculations()
+    private void BattleOverCalculations(AbilityManager victor)
     {
-        AbilityManager victor = WhoWon();
+        
         Debug.Log("I AM THE WINNER " + victor.stats.name);
         onCombatEnd.Invoke();
         playercontrol.SwitchCurrentActionMap("UI");
@@ -463,20 +495,9 @@ public class NewCombatManager : NetworkBehaviour
 
 
         //if player win any dead allies should survive at 1 and vice versa
-        victor = SaveEntities(victor);
+        
 
-        playerData localPlayer = NetworkData.Instance.players[NetworkData.Instance.ClientNumToPlayerNum(NetworkManager.Singleton.LocalClientId)];
-        if (PlayerCombatManager.Instance.combatants.Contains(localPlayer) && localPlayer != victor.stats || victor.stats is EnemyCombat)
-        {
-            SFXManager.Instance.PlaySFX(loseSfx);
-            BGMManager.instance.StopSounds();
-        }
-        else
-        {
-            BGMManager.instance.PlaySound(victoryMusic);
-        }
-
-            List<int> deadPlayers = RemoveDeadEntities();
+        List<int> deadPlayers = RemoveDeadEntities();
         if (victor.stats is playerData)
         {
             playerData player = (playerData)victor.stats;
@@ -942,11 +963,11 @@ public class NewCombatManager : NetworkBehaviour
     }
 
 
-    private IEnumerator delayTime()
+    private IEnumerator delayTime(AbilityManager victor)
     {
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(4f);
 
-        BattleOverCalculations();
+        BattleOverCalculations(victor);
     }
 }
 

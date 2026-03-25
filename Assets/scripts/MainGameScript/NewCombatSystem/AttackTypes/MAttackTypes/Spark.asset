@@ -15,11 +15,11 @@ MonoBehaviour:
   description: Squish someone with your imagination (because you don't know any actual
     magic)
   attackName: Spark
-  startUp: 0.15
+  startUp: 0.2
   attackDuration: 0
   endLag: 0.1
   cooldown: 1
-  lifespan: 1
+  lifespan: 0.75
   energyDrain: 2
   initialEnergyCost: 6
   maxChargeAtkBuff: 1.2
@@ -65,6 +65,7 @@ MonoBehaviour:
   attackAnimation: {fileID: 7400000, guid: e80fbb1f332456f4abf4cf2a144dba05, type: 2}
   animationSpeed: 1.5
   LevelRequirements: []
+  startUpNoise: {fileID: 0}
   attackSound: {fileID: 0}
   onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
   onHitEffects: []

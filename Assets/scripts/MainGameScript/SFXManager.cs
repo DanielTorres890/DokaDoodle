@@ -39,6 +39,13 @@ public class SFXManager : MonoBehaviour
     {
         sfxPlayer.clip = clip;
         sfxPlayer.Play();
+       
     }
     
+    public void PlaySfxDeplayed(AudioClip clip, float delay)
+    {
+        sfxPlayer.clip = clip;
+        sfxPlayer.PlayDelayed(delay);
+    }
+
 }

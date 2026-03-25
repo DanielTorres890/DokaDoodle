@@ -340,7 +340,10 @@ public class PlayerMoveManager : NetworkBehaviour
     private void PlayerMoverRpc(float speed, int tildid)
     {
        
-
+        if (activeRoutine != null)
+        {
+            StopCoroutine(activeRoutine);
+        }
         
 
         activeRoutine = StartCoroutine(playerMover(speed, tildid));
@@ -395,7 +398,7 @@ public class PlayerMoveManager : NetworkBehaviour
             playerSticks[NetworkData.Instance.currentPlayer].transform.position =
 
         Vector3.MoveTowards(playerSticks[curPlayerIndex].transform.position, new Vector3(tilePos.x, tilePos.y + 3, tilePos.z) , speed * Time.deltaTime);
-
+            Debug.Log("Active Routine");
             
             SetFollowingMembersToCurTile();
             int memberCount = 0;

@@ -15,6 +15,8 @@ public class playerData : EntityStats
     public int playerFace;
     public int playerHair;
     public int playerNumber;
+    public int victoryAnimId;
+
     public int curTileId;
     public int curMap;
 
@@ -42,7 +44,10 @@ public class playerData : EntityStats
     {
         0, 1, 2, 3, 4, 5, 6
     };
-
+    public List<int> unlockedWinIds = new List<int>
+    {
+        0, 1
+    };
     public int tillRevive;
 
     public int playerSpawnTile;

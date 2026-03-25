@@ -32,7 +32,7 @@ public class CombatAnimator : NetworkBehaviour
         }
 
         overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
-
+        overrideController["DefaultVictory"] = NetworkData.Instance.victoryAnimDatabase.GetItem[playerInfo.victoryAnimId];
     }
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
@@ -120,5 +120,9 @@ public class CombatAnimator : NetworkBehaviour
     public void WalkingState(bool stateToBe)
     {
         animator.SetBool("Walking", stateToBe);
+    }
+    public void VictoryAnimState(bool animStateToBe)
+    {
+        animator.SetBool("Victory", animStateToBe);
     }
 }
