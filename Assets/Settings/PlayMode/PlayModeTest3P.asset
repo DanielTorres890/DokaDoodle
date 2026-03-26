@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 15024, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: PlayModeTest
+  m_Name: PlayModeTest3P
   m_EditorClassIdentifier: UnityEditor.MultiplayerModule.dll::Unity.Multiplayer.PlayMode.Editor.ScenarioConfig
   m_Description: Full 4 player test
   m_EnableEditors: 1
@@ -40,15 +40,6 @@ MonoBehaviour:
     m_Nodes:
     - Player 3|2_run
     - Player 3|2_deploy
-    m_Role: 1
-    m_PlayerTag: 
-    m_InitialScene: {fileID: 0}
-    m_AdvancedConfiguration:
-      StreamLogsToMainEditor: 0
-      LogsColor: {r: 0.3643, g: 0.581, b: 0.8679, a: 1}
-  - Name: Player 4
-    <CorrespondingNodeId>k__BackingField: 
-    m_Nodes: []
     m_Role: 1
     m_PlayerTag: 
     m_InitialScene: {fileID: 0}

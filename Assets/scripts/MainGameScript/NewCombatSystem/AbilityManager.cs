@@ -51,6 +51,7 @@ public class AbilityManager : NetworkBehaviour
     public float energyRegen = 1f;
     public float chargeDuration = 0f;
 
+    public GameObject visualsParent;
     private float updateStatsTimer = 0f;
     private float whenToUpdate = 1f;
 
@@ -513,14 +514,34 @@ public class AbilityManager : NetworkBehaviour
         onItemUse.Invoke();
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    public void TeleportMeRpc(Vector3 location, Vector3 eulerAngles)
+    public void TeleportMeRpc(Vector3 location, Vector3 eulerAngles, NetworkObjectReference whom)
     {
-        Debug.Log("Who am i " + gameObject.name);
-        Debug.Log("Where should i be? " + location);
+        
         transform.position = location;
         if(IsOwner)
-        transform.GetComponent<NetworkTransform>().Teleport(location, Quaternion.Euler(eulerAngles.x,eulerAngles.y,eulerAngles.z),transform.localScale);
-        Debug.Log("where am i now? " + transform.position);
+        {
+            transform.GetComponent<NetworkTransform>().Teleport(location, Quaternion.Euler(eulerAngles.x, eulerAngles.y, eulerAngles.z), transform.localScale);
+            if(whom.TryGet(out NetworkObject obj))
+            {
+                if (obj.gameObject == transform.gameObject) { return;}
+
+                AbilityManager other = obj.GetComponent<AbilityManager>();
+                if(other.visualsParent)
+                other.DelayActive();
+
+            }
+        }
+        
+        
+    }
+
+    public void DelayActive()
+    {
+        float delay = .25f;
+        if(NetworkManager.Singleton.IsHost) { delay = .175f; }
+        if(OwnerClientId == 0) { delay = .175f; }
+
+        StartCoroutine(delayShowBack(delay));
     }
     private int GetCurrentAtkNum()
     {
@@ -589,7 +610,12 @@ public class AbilityManager : NetworkBehaviour
         }
         return condition;
     }
-
+    private IEnumerator delayShowBack(float duration = .15f)
+    {
+        visualsParent.SetActive(false);
+        yield return new WaitForSeconds(duration);
+        visualsParent.SetActive(true);
+    }
 }
 public class AbilityStates
 {

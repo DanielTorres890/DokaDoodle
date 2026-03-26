@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
@@ -19,13 +20,22 @@ public class BoogieWoogie : AttackBase
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
 
-            RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction, Mathf.Infinity, targets);
+            RaycastHit[] hits = Physics.SphereCastAll(caster.transform.position, buffer, caster.transform.forward, Mathf.Infinity, targets);
 
             foreach (var hit in hits)
             {
                 if (hit.transform.gameObject == caster) { continue; }
 
                 attack.transform.LookAt(hit.point);
+
+                if(hit.transform.gameObject.TryGetComponent(out AbilityManager entity))
+                {
+                    if(entity.visualsParent != null && Vector2.Distance(caster.transform.position, hit.transform.position) > 5)
+                    entity.DelayActive();
+                    
+                }
+                
+                
                 break;
             }
 
@@ -55,14 +65,14 @@ public class BoogieWoogie : AttackBase
             //hit.collider.transform.GetComponent<Rigidbody>().position = caster.transform.position + Vector3.up;
             
             //it.collider.transform.position = caster.transform.position + Vector3.up;
-            hit.transform.GetComponent<AbilityManager>().TeleportMeRpc(caster.transform.position + Vector3.up, hit.transform.eulerAngles);
+            hit.transform.GetComponent<AbilityManager>().TeleportMeRpc(caster.transform.position + Vector3.up, hit.transform.eulerAngles, caster.transform.GetComponent<NetworkObject>());
             
             Rigidbody rb = caster.transform.GetComponent<Rigidbody>();
 
             
            
             //casterRigid.position = oldPos + Vector3.up;
-            caster.transform.GetComponent<AbilityManager>().TeleportMeRpc(oldPos + Vector3.up, caster.transform.eulerAngles += Vector3.up * 180f);
+            caster.transform.GetComponent<AbilityManager>().TeleportMeRpc(oldPos + Vector3.up, caster.transform.eulerAngles += Vector3.up * 180f, caster.transform.GetComponent<NetworkObject>());
             Physics.SyncTransforms();
             break;
         }
@@ -71,4 +81,6 @@ public class BoogieWoogie : AttackBase
 
         return attack;
     }
+
+    
 }
