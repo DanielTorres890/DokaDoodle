@@ -18,7 +18,7 @@ public class RangedBurstAbility : RangedAbility
         cash.attackInfo = attackInfo;
         cash.lifespan = burstattack.burstLifespan;
 
-        burst.transform.localScale = burstattack.burstSize;
+        burst.transform.localScale = burstattack.burstSize * chargedDuration;
         cash.hitGameObject = hitGameObject;
         burst.GetComponent<NetworkObject>().Spawn();
         

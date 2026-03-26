@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.VFX;
 
 public abstract class AttackBase : ScriptableObject
 {
@@ -72,7 +74,9 @@ public abstract class AttackBase : ScriptableObject
     //^ Saves me the annoyance of setting them everytime i create a scriptable
     public LayerMask targets;
    
-   public AttackCondition[] conditions; 
+   public AttackCondition[] conditions;
+
+    public bool colorByWeapon = false;
     public virtual GameObject WeaponEffect(GameObject caster)
     {
        
@@ -80,12 +84,16 @@ public abstract class AttackBase : ScriptableObject
         attack.transform.position = caster.transform.position + caster.transform.TransformDirection(offset);
         attack.transform.rotation = caster.transform.rotation;
         attack.transform.localScale = ablitySize;
-
+        
         var info = attack.GetComponent<AbilityBase>();
 
         info.owner = caster;
         info.lifespan = lifespan;
         info.ownerStats = caster.GetComponent<AbilityManager>().stats;
+
+
+        
+
         return attack; 
         
 
@@ -126,6 +134,16 @@ public abstract class AttackBase : ScriptableObject
         info.ownerStats = casterManager;
        
         info.attackInfo = this;
+
+
+        var childColor = attack.transform.GetComponentInChildren<WeaponColorUpdate>();
+        if (childColor)
+        {
+            childColor.WeaponColor();
+        }
+        
+
+
         return attack;
     }
     public virtual void OnStartUp(GameObject caster)

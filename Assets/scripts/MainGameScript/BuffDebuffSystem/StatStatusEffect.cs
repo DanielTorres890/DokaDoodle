@@ -19,7 +19,7 @@ public class StatStatusEffect : BuffBase
     {
         
     }
-    public virtual ItemBuff[] GetStats()
+    public virtual ItemBuff[] GetStats(EntityStats holder)
     {
         return stats;
     }

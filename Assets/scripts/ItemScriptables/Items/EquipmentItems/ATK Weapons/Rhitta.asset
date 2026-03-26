@@ -21,9 +21,7 @@ MonoBehaviour:
     wednesday. Using the axe may cause weakness if wielded too far from wednesday
 
     GIVES:
-    5 ATK, 5 MAG, (ABILITY) Cruel Sun
-
-'
+    5 ATK, 5 MAG, (ABILITY) Cruel Sun, (ABILITY) Release'
   useText: You feel the power of Sunshine flow through you
   itemName: Rhitta
   buffs:
@@ -37,7 +35,9 @@ MonoBehaviour:
   interrupt: 0
   attack:
   - {fileID: 11400000, guid: 7724cee8f2e43504cb58b6b1d3154299, type: 2}
+  - {fileID: 11400000, guid: 678c900fbb66ffe4da2ec5ea4995b9e3, type: 2}
   skillRequirements: []
   inHandSprite: {fileID: -8716658653877872290, guid: 99606f734482977409af581b7c8aa136, type: 3}
   onEquipBuffs:
   - {fileID: 11400000, guid: 9b0096887185cb54e8873a86137810b3, type: 2}
+  weaponColor: {r: 6.883181, g: 1.829252, b: 0, a: 1}

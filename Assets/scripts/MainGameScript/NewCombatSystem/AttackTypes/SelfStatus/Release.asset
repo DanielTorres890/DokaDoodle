@@ -9,16 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1b47e846fecebc48b8df7bd633dae51, type: 3}
-  m_Name: Poke
+  m_Script: {fileID: 11500000, guid: fa9e8e5e37139cd41a8ee66fbf64b3f7, type: 3}
+  m_Name: Release
   m_EditorClassIdentifier: 
-  description: A small stab
-  attackName: Poke
-  startUp: 0.3
+  description: Releases the power of Rhitta, temporarily giving you the full power
+    of Rhitta as if it were wednesday
+  attackName: Release
+  startUp: 0.6
   attackDuration: 0
-  endLag: 0.1
-  cooldown: 0
-  lifespan: 0.2
+  endLag: 0.2
+  cooldown: 1
+  lifespan: 1
   energyDrain: 1
   initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
@@ -28,25 +29,19 @@ MonoBehaviour:
   requiredPotency: 0
   dmgPotencyEffect: 2
   sizePotencyEffect: 2
-  stateToBe: 1
-  chargeable: 1
-  attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
+  stateToBe: 0
+  chargeable: 0
+  attackPrefab: {fileID: 2566779757777240371, guid: 025be11524405ff43871ea2fd91b5485, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   weaponPrefab: {fileID: 0}
-  weaponPosition: {x: 0.541, y: 0.277, z: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
-  offset: {x: -0.5, y: 2, z: 1}
-  ablitySize: {x: 2, y: 0.3, z: 7}
+  offset: {x: 0, y: 0, z: 0}
+  ablitySize: {x: 1, y: 1, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
-  baseDamage: 3
-  multipliers:
-  - attribute: 2
-    mult: 0.8
-  - attribute: 6
-    mult: 0.5
-  defenseMult:
-  - attribute: 3
-    mult: 0.5
+  baseDamage: 0
+  multipliers: []
+  defenseMult: []
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -62,16 +57,18 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 7400000, guid: 07cf1319332625148b3ed48fac40aa50, type: 2}
-  attackAnimation: {fileID: 7400000, guid: e80fbb1f332456f4abf4cf2a144dba05, type: 2}
+  startUpAnimation: {fileID: 7400000, guid: 602941fcae800f440a205e0dcb1c2ab9, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 601848516adb0e24b9a25624628b3853, type: 2}
   animationSpeed: 1.5
   LevelRequirements: []
-  startUpNoise: {fileID: 0}
-  attackSound: {fileID: 8300000, guid: f8e04c0f92914e34da11e1e75e61e638, type: 3}
-  onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
+  startUpNoise: {fileID: 8300000, guid: fe5b0379a8902664cb324f9689b437c8, type: 3}
+  attackSound: {fileID: 0}
+  onHitSound: {fileID: 0}
   onHitEffects: []
   targets:
     serializedVersion: 2
     m_Bits: 0
   conditions: []
-  colorByWeapon: 1
+  colorByWeapon: 0
+  StatusEffects:
+  - {fileID: 11400000, guid: 3bb160f92afc42c45ac9b1182fb128ad, type: 2}

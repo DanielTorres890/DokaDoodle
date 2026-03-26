@@ -14,6 +14,11 @@ public class DayOfWeekDisplay : MonoBehaviour
     // Update is called once per frame
     private void UpdateText()
     {
+        if(WorldEventManager.Instance.days >= WorldEventManager.Instance.daysPerWeek)
+        {
+            dayText.text = WorldEventManager.Instance.daysOfTheWeek[0];
+            return;
+        }
         dayText.text = WorldEventManager.Instance.daysOfTheWeek[WorldEventManager.Instance.days];
     }
 }

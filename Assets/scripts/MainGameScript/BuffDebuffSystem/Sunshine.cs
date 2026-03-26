@@ -3,9 +3,25 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Status Database", menuName = "StatusEffects/Special/Sunshine")]
 public class Sunshine : StatStatusEffect
 {
-    public override ItemBuff[] GetStats()
+    public BuffBase releaseInfo;
+
+    public override ItemBuff[] GetStats(EntityStats holder)
     {
         ItemBuff[] stats2 = new ItemBuff[stats.Length];
+
+        bool hasRelease = false;
+        foreach(var status in holder.statuses)
+        {
+            
+            if (NetworkData.Instance.buffDataBase.GetItem[status.buffId] == releaseInfo) { hasRelease = true; break; }
+        }
+
+        if(hasRelease)
+        {
+            return stats;
+        }
+
+
         for(int i = 0; i < stats.Length; i++)
         {
             stats2[i] = new ItemBuff(0);

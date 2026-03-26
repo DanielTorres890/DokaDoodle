@@ -82,4 +82,6 @@ public abstract class BuffBase : ScriptableObject
     public abstract void BuffEffect(EntityStats whoWon);
 
     public virtual void OnEveryTick(AbilityManager stats) { }
+
+    public virtual int GetDuration(EntityStats stats) { return duration; }
 }

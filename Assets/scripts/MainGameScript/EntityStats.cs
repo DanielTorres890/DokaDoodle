@@ -83,7 +83,7 @@ public class EntityStats
         {
             if(stati.buffId == NetworkData.Instance.buffDataBase.GetId[status] && !status.stackable)
             {
-                stati.timeRemaining += status.duration;
+                stati.timeRemaining += status.GetDuration(this);
                 alreadyAfflicted = true;
                 break;
             }
@@ -91,7 +91,7 @@ public class EntityStats
         }
         if(!alreadyAfflicted)
         {
-            statuses.Add(new BuffHolder(status.duration, NetworkData.Instance.buffDataBase.GetId[status]));
+            statuses.Add(new BuffHolder(status.GetDuration(this), NetworkData.Instance.buffDataBase.GetId[status]));
             status.OnApply(this);
         }
 
@@ -144,7 +144,7 @@ public class EntityStats
         {
             if (NetworkData.Instance.buffDataBase.GetItem[status.buffId] is StatStatusEffect)
             {
-                foreach (var buff in (NetworkData.Instance.buffDataBase.GetItem[status.buffId] as StatStatusEffect).GetStats()) 
+                foreach (var buff in (NetworkData.Instance.buffDataBase.GetItem[status.buffId] as StatStatusEffect).GetStats(this)) 
                 {
                     StatusMultipliers[buff.attribute] += buff.value / 100f;
                 }

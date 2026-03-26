@@ -398,8 +398,7 @@ public class PlayerMoveManager : NetworkBehaviour
             playerSticks[NetworkData.Instance.currentPlayer].transform.position =
 
         Vector3.MoveTowards(playerSticks[curPlayerIndex].transform.position, new Vector3(tilePos.x, tilePos.y + 3, tilePos.z) , speed * Time.deltaTime);
-            Debug.Log("Active Routine");
-            
+        
             SetFollowingMembersToCurTile();
             int memberCount = 0;
             for(int i = 0; i < currentPartyMembers.Count; i++)

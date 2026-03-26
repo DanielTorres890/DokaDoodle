@@ -13,6 +13,9 @@ public class WeaponItem : ItemBase
 
     public BuffBase[] onEquipBuffs;
 
+    [Tooltip("Influences melee attack colors")]
+    [ColorUsage(true, true)]
+    public Color weaponColor;
     public override void ItemInfoCheck(int player, int itemId)
     {
 

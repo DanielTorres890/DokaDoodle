@@ -48,7 +48,7 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
     
     public override void selectAttack()
     {
-        Debug.Log("Im attacking");
+       
         selectedAttack = myManager.stats.attacks[0];
         foreach (var key in myManager.stats.attacks)
         {

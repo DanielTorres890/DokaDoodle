@@ -197,7 +197,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
     public virtual void selectAttack()
     {
-        Debug.Log("I have selected attacks dont I? " + myManager.stats.attacks.Count);
+      
         selectedAttack = myManager.stats.attacks[0];
     }
 

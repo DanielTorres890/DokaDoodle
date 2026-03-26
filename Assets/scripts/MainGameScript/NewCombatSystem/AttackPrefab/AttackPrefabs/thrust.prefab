@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: 6108078154759522805}
   - component: {fileID: 640994878737569190}
   - component: {fileID: 2337518357784217134}
+  - component: {fileID: 3409003878500512915}
   m_Layer: 0
   m_Name: fx
   m_TagString: Untagged
@@ -439,3 +440,18 @@ VFXRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
+--- !u!114 &3409003878500512915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6280009128921261832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45cee7ff11fc124691b1fdd000651a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponColorUpdate
+  ShowTopMostFoldoutHeaderGroup: 1
+  effect: {fileID: 640994878737569190}
+  ability: {fileID: 3893951003391152421}

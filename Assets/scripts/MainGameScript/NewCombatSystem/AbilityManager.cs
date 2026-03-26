@@ -6,6 +6,7 @@ using TMPro;
 using Unity.Cinemachine;
 using Unity.Mathematics;
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -511,7 +512,16 @@ public class AbilityManager : NetworkBehaviour
         thisPlayer.battleSlotItemId = -1;
         onItemUse.Invoke();
     }
-
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void TeleportMeRpc(Vector3 location, Vector3 eulerAngles)
+    {
+        Debug.Log("Who am i " + gameObject.name);
+        Debug.Log("Where should i be? " + location);
+        transform.position = location;
+        if(IsOwner)
+        transform.GetComponent<NetworkTransform>().Teleport(location, Quaternion.Euler(eulerAngles.x,eulerAngles.y,eulerAngles.z),transform.localScale);
+        Debug.Log("where am i now? " + transform.position);
+    }
     private int GetCurrentAtkNum()
     {
         int foundu = 0;

@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1b47e846fecebc48b8df7bd633dae51, type: 3}
-  m_Name: Slash
-  m_EditorClassIdentifier: 
-  description: A standard sword slash
-  attackName: Slash
-  startUp: 0.4
+  m_Script: {fileID: 11500000, guid: f470539caa27fc0409b343f1bb46b6c4, type: 3}
+  m_Name: Boogie Woogie
+  m_EditorClassIdentifier: Assembly-CSharp::BoogieWoogie
+  description: we ALL know what this one does
+  attackName: Boogie Woogie
+  startUp: 0.2
   attackDuration: 0
-  endLag: 0.1
-  cooldown: 0
-  lifespan: 0.3
+  endLag: 0
+  cooldown: 2
+  lifespan: 0.07
   energyDrain: 1
   initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
@@ -30,21 +30,31 @@ MonoBehaviour:
   sizePotencyEffect: 2
   stateToBe: 0
   chargeable: 0
-  attackPrefab: {fileID: 2566779757777240371, guid: b4fd0f87d4129aa4681b4392e0d9a122, type: 3}
-  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  attackPrefab: {fileID: 2566779757777240371, guid: 84a2f44ab20caeb42b34d1f04dcb43a7, type: 3}
+  startUpPrefab: {fileID: 0}
   weaponPrefab: {fileID: 0}
-  weaponPosition: {x: 0.541, y: 0.277, z: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
-  offset: {x: -0.5, y: 2, z: 2}
-  ablitySize: {x: 4, y: 0.2, z: 10}
+  offset: {x: 0, y: 0, z: 0}
+  ablitySize: {x: 1, y: 1, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
-  baseDamage: 5
+  baseDamage: 0
   multipliers:
+  - attribute: 0
+    mult: 0
+  - attribute: 1
+    mult: 0
   - attribute: 2
-    mult: 1.3
-  defenseMult:
+    mult: 0
   - attribute: 3
-    mult: 1
+    mult: 0
+  - attribute: 4
+    mult: 0
+  - attribute: 5
+    mult: 0
+  - attribute: 6
+    mult: 0
+  defenseMult: []
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -60,16 +70,17 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 7400000, guid: 38968a5220cd7c743b74e5f43feb60b8, type: 2}
-  attackAnimation: {fileID: 7400000, guid: d585247d598aae64691119972c0367bf, type: 2}
-  animationSpeed: 1.2
+  startUpAnimation: {fileID: 7400000, guid: 602941fcae800f440a205e0dcb1c2ab9, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 601848516adb0e24b9a25624628b3853, type: 2}
+  animationSpeed: 1
   LevelRequirements: []
   startUpNoise: {fileID: 0}
-  attackSound: {fileID: 8300000, guid: e137a57f645ec3346bb7b8539ae31da7, type: 3}
-  onHitSound: {fileID: 8300000, guid: fd57dea2003a26744954854993a44824, type: 3}
+  attackSound: {fileID: 0}
+  onHitSound: {fileID: 0}
   onHitEffects: []
   targets:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   conditions: []
-  colorByWeapon: 1
+  colorByWeapon: 0
+  buffer: 3

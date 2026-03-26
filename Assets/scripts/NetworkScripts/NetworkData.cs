@@ -384,9 +384,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     [Rpc(SendTo.ClientsAndHost)]
     public void SyncGuidsRpc(string guid, ulong key, int index)
     {
-        Debug.Log("Im trying to sync this info " + guid);
-        Debug.Log(key);
-        Debug.Log(index);
+       
         currentGuids[index] = guid;
         if (clientIdToGuid.ContainsKey(key)) { return; }
 
