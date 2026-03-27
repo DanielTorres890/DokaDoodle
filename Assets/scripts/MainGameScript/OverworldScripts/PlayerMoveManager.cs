@@ -344,8 +344,8 @@ public class PlayerMoveManager : NetworkBehaviour
         {
             StopCoroutine(activeRoutine);
         }
-        
 
+        Debug.Log("how fast? ");
         activeRoutine = StartCoroutine(playerMover(speed, tildid));
     }
 

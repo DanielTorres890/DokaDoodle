@@ -18,7 +18,7 @@ MonoBehaviour:
   startUp: 0.2
   attackDuration: 0
   endLag: 0.1
-  cooldown: 1
+  cooldown: 0.75
   lifespan: 0.75
   energyDrain: 2
   initialEnergyCost: 6
@@ -73,5 +73,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   conditions: []
+  colorByWeapon: 0
   speed: 25
   pierceCount: 0

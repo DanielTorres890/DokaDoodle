@@ -520,8 +520,9 @@ public class AbilityManager : NetworkBehaviour
         transform.position = location;
         if(IsOwner)
         {
+            Debug.Log("I own this? " + gameObject.name);
             transform.GetComponent<NetworkTransform>().Teleport(location, Quaternion.Euler(eulerAngles.x, eulerAngles.y, eulerAngles.z), transform.localScale);
-            if(whom.TryGet(out NetworkObject obj))
+            if(whom.TryGet(out NetworkObject obj) && !obj.IsOwner)
             {
                 if (obj.gameObject == transform.gameObject) { return;}
 
@@ -540,6 +541,8 @@ public class AbilityManager : NetworkBehaviour
         float delay = .25f;
         if(NetworkManager.Singleton.IsHost) { delay = .175f; }
         if(OwnerClientId == 0) { delay = .175f; }
+        if(NetworkManager.Singleton.IsHost && OwnerClientId == 0) { delay = .03f; }
+
 
         StartCoroutine(delayShowBack(delay));
     }

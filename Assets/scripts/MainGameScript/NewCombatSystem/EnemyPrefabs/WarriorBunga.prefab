@@ -1679,6 +1679,7 @@ MonoBehaviour:
   currentEnergy: 100
   energyRegen: 1
   chargeDuration: 0
+  visualsParent: {fileID: 7449669098512086988}
 --- !u!114 &-7284265792361973657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1947,6 +1948,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00f7579ca051bb04cadf537b0f226d26, type: 3}
+--- !u!1 &7449669098512086988 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5090703921820710391, guid: 00f7579ca051bb04cadf537b0f226d26, type: 3}
+  m_PrefabInstance: {fileID: 2434013826783101499}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8622866373524008879 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6227855866855746964, guid: 00f7579ca051bb04cadf537b0f226d26, type: 3}

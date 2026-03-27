@@ -41,6 +41,7 @@ public class CombatAnimator : NetworkBehaviour
 
         //i would like to be the one to say that this is RIDICULOUS THAT ITS BASED ON THE CLIP NAME AND NOT THE STATE
         AttackBase currentAttack = abilityManager.currentAttack;
+        Debug.Log("Whomst " + currentAttack.attackName);
         if (!currentAttack) { return; }
         if(spawnedWeapon != null) { Destroy(spawnedWeapon); }
        
