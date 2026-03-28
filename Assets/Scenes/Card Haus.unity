@@ -877,29 +877,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StylistManager, Assembly-CSharp
-        m_MethodName: SetMainMenuChangeActive
-        m_Mode: 6
+      - m_Target: {fileID: 1640118838}
+        m_TargetAssemblyTypeName: CardHausManager, Assembly-CSharp
+        m_MethodName: PickBet
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 5000
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StylistManager, Assembly-CSharp
-        m_MethodName: SetHeadChanger
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &314370062
 MonoBehaviour:
@@ -1023,6 +1011,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 577593318}
+  - component: {fileID: 577593319}
   m_Layer: 5
   m_Name: CardMenu
   m_TagString: Untagged
@@ -1046,9 +1035,33 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -7.1505, y: 22.7923}
+  m_SizeDelta: {x: 729.2454, y: 345.799}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &577593319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577593317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GridLayoutGroup
+  m_Padding:
+    m_Left: 50
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 60, y: 80}
+  m_Spacing: {x: 60, y: 25}
+  m_Constraint: 1
+  m_ConstraintCount: 5
 --- !u!1 &587201961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,7 +1422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6716826549839537717, guid: 862aca850e549a3428bdc4b209d02b7d, type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3478514736
+      value: 3042437925
       objectReference: {fileID: 0}
     - target: {fileID: 6716826549839537717, guid: 862aca850e549a3428bdc4b209d02b7d, type: 3}
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
@@ -3295,6 +3308,24 @@ MonoBehaviour:
   BetMenu: {fileID: 1949771321}
   CardMenu: {fileID: 577593317}
   displayText: {fileID: 759966482}
+  cardIcons:
+  - {fileID: 21300000, guid: 51cfd2d6ca7d2f94e8bd391e5152da1f, type: 3}
+  - {fileID: -3214193344681200299, guid: 9680eab46b8954f4aaef4dae1596e26d, type: 3}
+  - {fileID: 21300000, guid: 1ea089e30c5f88c44a71f2e4a90ed28a, type: 3}
+  - {fileID: 21300000, guid: db1dfcea11c347b4da447fc300a54fbf, type: 3}
+  - {fileID: 21300000, guid: 5387d20b2ae5db649b2e713ff3f7604c, type: 3}
+  - {fileID: 21300000, guid: 1534d47b4ea45db4eb18f984676b9b11, type: 3}
+  - {fileID: 21300000, guid: 295f98bfa3e4e8d43bec1cfc86c9ce17, type: 3}
+  - {fileID: 21300000, guid: 27f0602c1de70304ea5579c8ec806f18, type: 3}
+  - {fileID: 21300000, guid: 2d51076cef181f94e86aa9f3fd4795b8, type: 3}
+  - {fileID: 21300000, guid: 8f80f23259bc67140807f1ba0e651512, type: 3}
+  cardPrefab: {fileID: 5185504692449952887, guid: 298e198204620234cbf1c187a5bceba1, type: 3}
+  cardsParent: {fileID: 577593318}
+  editorValues: []
+  guessedLocations:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  currentGuess: 0
 --- !u!1 &1680367134
 GameObject:
   m_ObjectHideFlags: 0
@@ -3609,29 +3640,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StylistManager, Assembly-CSharp
-        m_MethodName: SetMainMenuChangeActive
-        m_Mode: 6
+      - m_Target: {fileID: 1640118838}
+        m_TargetAssemblyTypeName: CardHausManager, Assembly-CSharp
+        m_MethodName: PickBet
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2500
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StylistManager, Assembly-CSharp
-        m_MethodName: SetHeadChanger
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1783437843
 MonoBehaviour:
@@ -3836,26 +3855,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StylistManager, Assembly-CSharp
-        m_MethodName: SetMainMenuChangeActive
-        m_Mode: 6
+      - m_Target: {fileID: 1640118838}
+        m_TargetAssemblyTypeName: CardHausManager, Assembly-CSharp
+        m_MethodName: PickBet
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StylistManager, Assembly-CSharp
-        m_MethodName: SetHeadChanger
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1000
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
