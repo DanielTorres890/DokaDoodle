@@ -30,12 +30,15 @@ public class UnityRelay : MonoBehaviour
         
         await UnityServices.InitializeAsync();
 
-
-        AuthenticationService.Instance.SignedIn += () =>
+        if(!AuthenticationService.Instance.IsSignedIn)
         {
-            Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
-        };
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            AuthenticationService.Instance.SignedIn += () =>
+            {
+                Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
+            };
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        }
+        
         
         
     }

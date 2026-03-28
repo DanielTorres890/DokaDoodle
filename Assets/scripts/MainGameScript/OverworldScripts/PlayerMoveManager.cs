@@ -344,7 +344,7 @@ public class PlayerMoveManager : NetworkBehaviour
             StopCoroutine(activeRoutine);
         }
 
-        Debug.Log("how fast? " + speed);
+      
         activeRoutine = StartCoroutine(playerMover(speed, tildid));
     }
 
@@ -386,7 +386,7 @@ public class PlayerMoveManager : NetworkBehaviour
         var currentPartyMembers = NetworkData.Instance.GetCurrentPlayer().partyMembers;
 
         int curPlayerIndex = NetworkData.Instance.currentPlayer;
-        Debug.Log("how fast am I? " + speed);
+   
         
         while (Vector3.Distance(playerSticks[curPlayerIndex].transform.position, mapTiles[tildId].gameObject.transform.position) > 3.1f)
         {

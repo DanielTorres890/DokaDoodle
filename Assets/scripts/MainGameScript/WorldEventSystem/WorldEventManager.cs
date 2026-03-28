@@ -49,7 +49,15 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     {
         
     }
+    public override void OnNetworkSpawn()
+    {
+        NetworkManager.Singleton.OnClientDisconnectCallback += destroyself;
+    }
 
+    private void destroyself(ulong id)
+    {
+        Destroy(gameObject);
+    }
     // Update is called once per frame
     void Update()
     {

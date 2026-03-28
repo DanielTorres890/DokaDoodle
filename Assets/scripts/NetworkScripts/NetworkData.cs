@@ -80,7 +80,15 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public const string BattleScene = "NewBattleArea";
     public void Awake()
     {
-        Instance = this;
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        
+        else
+        {
+            Destroy(gameObject);
+        }
         readyPlayers.Add(false);
         readyPlayers.Add(false);
         readyPlayers.Add(false);
@@ -228,7 +236,8 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     private void OnClientDisconnected(ulong clientId)
     {
         playerCount--;
-        for(int i = currentGuids.Length - 1;  i >= 0; i--)
+        
+        for (int i = currentGuids.Length - 1;  i >= 0; i--)
         {
             if (currentGuids[i] == clientIdToGuid[clientId])
             {
@@ -236,10 +245,20 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
                 break;
             }
         }
-
+        Destroy(gameObject);
+        for(int i = playerSticks.Count - 1; i >= 0; i--)
+        {
+            Destroy(playerSticks[i]);
+        }
+        if (clientId == NetworkManager.Singleton.LocalClientId)
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
+            NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnected;
+            SceneManager.LoadScene("MainMenu");
+        }
 
     }
-
+    
     [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
     private void SendGuidRpc(string GuidAsString, RpcParams senderInfo = default)
     {
@@ -434,6 +453,14 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
                 started = true;
             SceneChanger.Instance.loadClientScenesServerRpc("PregameCutScene");
         }
+        
+    }
+    public void ResetGame()
+    {
+        if (!IsHost)
+            NetworkManager.Singleton.DisconnectClient(NetworkManager.Singleton.LocalClientId);
+        else
+            NetworkManager.Singleton.Shutdown();
         
     }
     public bool IsAllowed(int playerNum, ulong playerId)

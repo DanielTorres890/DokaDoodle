@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.VFX;
+
 
 public abstract class AttackBase : ScriptableObject
 {

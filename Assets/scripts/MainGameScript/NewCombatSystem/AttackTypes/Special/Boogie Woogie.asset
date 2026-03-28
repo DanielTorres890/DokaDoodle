@@ -17,7 +17,7 @@ MonoBehaviour:
   startUp: 0.2
   attackDuration: 0
   endLag: 0
-  cooldown: 2
+  cooldown: 10
   lifespan: 0.07
   energyDrain: 1
   initialEnergyCost: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
   attackAnimation: {fileID: 7400000, guid: 2f0bfdd6b3b24c5478deec051ee7493f, type: 2}
   animationSpeed: 1
   LevelRequirements: []
-  startUpNoise: {fileID: 0}
+  startUpNoise: {fileID: 8300000, guid: 9f22f24bc0ff3c14fbfe78994e94ae38, type: 3}
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
   onHitEffects: []
