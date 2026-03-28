@@ -285,16 +285,13 @@ public class CombatantMovement : NetworkBehaviour
         {
 
 
-            body.rotation = Quaternion.identity * Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0f);
 
-            body.rotation *= Quaternion.Euler(-look.y * sensitivy * SettingsManager.instance.mouseSense, look.x * sensitivy * SettingsManager.instance.mouseSense, 0);
+            transform.Rotate(new Vector3(-look.y * sensitivy, look.x * sensitivy, 0) * SettingsManager.instance.mouseSense);
 
-            
-            if (body.rotation.eulerAngles.x % 360 < 360 + minXCam && body.rotation.eulerAngles.x % 360 > maxXCam)
-            {
-                body.rotation *= Quaternion.Euler(look.y * sensitivy * SettingsManager.instance.mouseSense, 0, 0);
+            if (transform.eulerAngles.x % 360 < 360 + minXCam && transform.eulerAngles.x % 360 > maxXCam)
+                transform.Rotate(new Vector3(look.y * sensitivy, 0, 0) * SettingsManager.instance.mouseSense);
 
-            }
             return;
         }
         transform.Rotate(new Vector3(0, look.x * sensitivy, 0) * SettingsManager.instance.mouseSense);
