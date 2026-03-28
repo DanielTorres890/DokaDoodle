@@ -36,11 +36,10 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
     private void Awake()
     {
-        if(Instance == null) 
-        { 
-            Instance = this;
+        
+         Instance = this;
             //bc me noob and dont know how to actually handle this
-        }
+        
         
         
 

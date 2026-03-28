@@ -21,6 +21,7 @@ public class DataPersistenceManager : MonoBehaviour
         if (instance != null)
         {
             Debug.Log("More than one persistance manager?");
+            Destroy(gameObject);
         }
         instance = this;
     }

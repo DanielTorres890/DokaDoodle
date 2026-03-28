@@ -80,15 +80,9 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public const string BattleScene = "NewBattleArea";
     public void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
         
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
+        
         readyPlayers.Add(false);
         readyPlayers.Add(false);
         readyPlayers.Add(false);
@@ -245,6 +239,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
                 break;
             }
         }
+        EmptyInventories();
         Destroy(gameObject);
         for(int i = playerSticks.Count - 1; i >= 0; i--)
         {
@@ -562,14 +557,19 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     }
     public void OnApplicationQuit()
     {
-        foreach(var inventories in playerInventories)
+        EmptyInventories();
+    }
+    private void EmptyInventories()
+    {
+        foreach (var inventories in playerInventories)
         {
-            foreach(var inventory in inventories)
+            foreach (var inventory in inventories)
             {
                 inventory.container.Clear();
             }
-            
+
         }
+
     }
     public int ClientNumToPlayerNum(ulong playerId)
     {
