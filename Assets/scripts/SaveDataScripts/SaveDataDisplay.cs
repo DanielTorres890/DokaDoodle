@@ -90,6 +90,7 @@ public class SaveDataDisplay : MonoBehaviour
 
     public void LoadData()
     {
+        
         DataPersistenceManager.instance.LoadGame(currentLook);
         confirmSave.SetActive(false);
         parentSaveFile.SetActive(false);

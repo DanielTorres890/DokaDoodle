@@ -110,7 +110,7 @@ public abstract class AbilityBase : NetworkBehaviour
             if (AudioSource && attackInfo.onHitSound)
             {
                 if(ownerStats is playerData)
-                PlayHitSoundRpc(NetworkData.Instance.audioDataBase.GetId[attackInfo.onHitSound], RpcTarget.Single((ulong)(ownerStats as playerData).playerNumber, RpcTargetUse.Temp));
+                PlayHitSoundRpc(NetworkData.Instance.audioDataBase.GetId[attackInfo.onHitSound], RpcTarget.Single((ulong)NetworkData.Instance.PlayerNumToClientId((ownerStats as playerData).playerNumber), RpcTargetUse.Temp));
                 
             }
             else

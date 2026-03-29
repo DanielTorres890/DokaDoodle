@@ -202,14 +202,14 @@ public class NewCombatManager : NetworkBehaviour
                     var playerfab = Instantiate(playerPrefab);
                     playerfab.gameObject.transform.position = new Vector3(spawnPoint.x + Mathf.Cos(circleIncrement * counter) * distanceFromCenter, spawnPoint.y, sideMult * spawnPoint.z + (i * zDistanceBetween) + (Mathf.Sin(circleIncrement * counter) * distanceFromCenter));
                     playerfab.transform.LookAt(spawnPoint);
-                    playerfab.GetComponent<NetworkObject>().SpawnWithOwnership((ulong)player.playerNumber, true);
+                    playerfab.GetComponent<NetworkObject>().SpawnWithOwnership(NetworkData.Instance.PlayerNumToClientId(player.playerNumber), true);
 
 
                     var abilitiyManage = playerfab.GetComponent<AbilityManager>();
                     abilitiyManage.UpdateMaterialRpc(player.playerNumber);
 
                     abilitiyManage.UpdateStatsRpc(PlayerCombatManager.Instance.combatants.IndexOf(entity));
-                    SetNotSpectateRpc(countbcisuck, RpcTarget.Single((ulong)player.playerNumber, RpcTargetUse.Temp));
+                    SetNotSpectateRpc(countbcisuck, RpcTarget.Single(NetworkData.Instance.PlayerNumToClientId(player.playerNumber), RpcTargetUse.Temp));
 
                     
                 }
@@ -461,8 +461,10 @@ public class NewCombatManager : NetworkBehaviour
                 
                 if (victor.stats is playerData)
                 {
-
-                    victor.GetComponent<CombatAnimator>().VictoryAnimState(true);
+                    CombatAnimator winAnimator = victor.GetComponent<CombatAnimator>();
+                    winAnimator.VictoryAnimState(true);
+                    winAnimator.StartUpAnimState(false);
+                    winAnimator.WalkingState(false);
 
                 }
 

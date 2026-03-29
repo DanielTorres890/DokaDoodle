@@ -13,26 +13,40 @@ public class DataPersistenceManager : MonoBehaviour
 
     private GameData gameData;
     public static DataPersistenceManager instance {  get; private set; }
-    private List<IDataPersistance> dataPersistances;
+    public List<IDataPersistance> dataPersistances;
     private List<FileDatahandler> dataHandler = new List<FileDatahandler>();
 
     private void Awake()
     {
-        if (instance != null)
+        if (instance != null && instance != this)
         {
-            Debug.Log("More than one persistance manager?");
             Destroy(gameObject);
+            return;
         }
+
         instance = this;
+
     }
     private void Start()
     {
-        foreach(var filename in fileNames)
+
+        
+        foreach (var filename in fileNames)
         {
             this.dataHandler.Add(new FileDatahandler(Application.persistentDataPath, filename));
         }
         
         this.dataPersistances = FindAllDataPersistanceObjects();
+        Debug.Log("How many persistances are there? " + this.dataPersistances.Count);
+        foreach(var data in this.dataPersistances)
+        {
+            
+            Debug.Log((data as MonoBehaviour).name + " " + (data as MonoBehaviour).GetInstanceID());
+       
+        }
+
+        
+
         //LoadGame();
     }
 
@@ -43,15 +57,26 @@ public class DataPersistenceManager : MonoBehaviour
 
     public bool LoadGame(int fileNumber)
     {
-      
+
+        this.dataPersistances = FindAllDataPersistanceObjects();
+        Debug.Log("How many persistances are there? " + this.dataPersistances.Count);
+        foreach (var data in this.dataPersistances)
+        {
+
+            Debug.Log((data as MonoBehaviour).name + " " + (data as MonoBehaviour).GetInstanceID());
+
+        }
+
         this.gameData = dataHandler[fileNumber].Load();
         if (this.gameData == null)
         {
             Debug.Log("No Data was found...");
             return false;
         }
+        
         foreach (IDataPersistance persistance in dataPersistances)
         {
+            
             persistance.LoadData(gameData);
 
         }
@@ -61,6 +86,15 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void SaveGame(int fileNumber)
     {
+        this.dataPersistances = FindAllDataPersistanceObjects();
+        Debug.Log("How many persistances are there? " + this.dataPersistances.Count);
+        foreach (var data in this.dataPersistances)
+        {
+
+            Debug.Log((data as MonoBehaviour).name + " " + (data as MonoBehaviour).GetInstanceID());
+
+        }
+
         this.gameData = new GameData();
         foreach (IDataPersistance persistance in dataPersistances)
         {
@@ -83,7 +117,8 @@ public class DataPersistenceManager : MonoBehaviour
     
     public void LoadDataFromString(string jsonString)
     {
-      
+
+        Debug.Log("I shouldnt be loading from here...");
          gameData = JsonConvert.DeserializeObject<GameData>(jsonString);
         if (this.gameData == null)
         {
@@ -98,10 +133,14 @@ public class DataPersistenceManager : MonoBehaviour
     }
     private List<IDataPersistance> FindAllDataPersistanceObjects()
     {
-        IEnumerable<IDataPersistance> dataPersitstanceObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersistance>();
+
+        IEnumerable<IDataPersistance> dataPersitstanceObjects =
+        FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
+        .OfType<IDataPersistance>()
+        .Where(x => x != null);
         return new List<IDataPersistance>(dataPersitstanceObjects);
     }
-
+    
     private void OnApplicationQuit()
     {
         //SaveGame();

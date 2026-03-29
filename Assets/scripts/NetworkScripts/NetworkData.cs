@@ -80,9 +80,16 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public const string BattleScene = "NewBattleArea";
     public void Awake()
     {
+        var previousNetwork = Instance;
+        if(previousNetwork != null)
+        {
+            Destroy(previousNetwork);
+            Destroy(previousNetwork.gameObject);
+            
+        }
         
-        Instance = this;
-        
+        NetworkData.Instance = this;
+
         readyPlayers.Add(false);
         readyPlayers.Add(false);
         readyPlayers.Add(false);
@@ -119,16 +126,19 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     }
     public void LoadData(GameData data)
     {
+        if(Instance == this)
+        Debug.Log("Did i get called twice? ");
         players = data.players;
         maxPlayers = data.maxPlayers;
         LoadedIn = true;
         seenEnemies = data.seenEnemies;
-
+        Debug.Log(Instance.players.Count);
+        
         InventoriesToDeserialize(data);
     }
     public void SaveData(ref GameData data)
     {
-
+        
         data.players = players;
         data.maxPlayers = maxPlayers;
         data.seenEnemies = seenEnemies;
@@ -140,18 +150,23 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
     private void InventoriesToSerialize(ref GameData data)
     {
+        //this is a work around bc for some reason data is being called to load twice? (now that i think i think this was an issue previously)
+        List<List<List<int>>> serializedInventories = new List<List<List<int>>>(); 
         for (int i = 0; i < playerInventories.Count; i++)
         {
-            data.inventoryObjects.Add(new List<List<int>>());
+            serializedInventories.Add(new List<List<int>>());
+            
             for (int j = 0; j < playerInventories[i].Count; j++)
             {
-                data.inventoryObjects[i].Add(playerInventories[i][j].serializeInventory());
+                serializedInventories[i].Add(playerInventories[i][j].serializeInventory());
             }
 
         }
+        data.inventoryObjects = serializedInventories;
     }
     private void InventoriesToDeserialize(GameData data)
     {
+
         for (int i = 0; i < data.inventoryObjects.Count; i++)
         {
 
@@ -160,6 +175,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
                 for (int k = 0; k < data.inventoryObjects[i][j].Count; k++)
                 {
+                    Debug.Log("Im being added " + playerInventories[i][j].database.GetItem[data.inventoryObjects[i][j][k]].itemName);
                     playerInventories[i][j].AddItem(playerInventories[i][j].database.GetItem[data.inventoryObjects[i][j][k]]);
                 }
 
@@ -222,6 +238,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         }
         if(LoadedIn)
         {
+            Debug.Log("WHO GOES THERE ");
             string dataToStore = JsonConvert.SerializeObject(DataPersistenceManager.instance.GetCurrentGameData(), Formatting.Indented);
             SyncOtherDataRpc(dataToStore, clientOrder, RpcTarget.Single(clientId, RpcTargetUse.Temp));
         }
@@ -239,14 +256,16 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
                 break;
             }
         }
-        EmptyInventories();
-        Destroy(gameObject);
-        for(int i = playerSticks.Count - 1; i >= 0; i--)
-        {
-            Destroy(playerSticks[i]);
-        }
+        
         if (clientId == NetworkManager.Singleton.LocalClientId)
         {
+            EmptyInventories();
+
+            //Destroy(gameObject);
+            for (int i = playerSticks.Count - 1; i >= 0; i--)
+            {
+                Destroy(playerSticks[i]);
+            }
             NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnected;
             SceneManager.LoadScene("MainMenu");
@@ -584,10 +603,14 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         Debug.Log("this should never happened EVERY player id should be mapped to identifier");
         return -1;
     }
-
+    public ulong PlayerNumToClientId(int playerNum)
+    {
+        return GuidToClientId[currentGuids[playerNum]];
+    }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void AddItemToAllyRpc(int playerNum, int allyNum, int itemNum)
     {
         players[playerNum].partyMembers[allyNum].AddAbility(itemNum);
     }
+    
 }

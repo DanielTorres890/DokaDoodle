@@ -85,6 +85,7 @@ public class SceneChanger : NetworkBehaviour
 
     private void destroyself(ulong id)
     {
+        NetworkManager.Singleton.OnClientDisconnectCallback -= destroyself;
         Destroy(gameObject);
     }
     private void OnSceneLoaded(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)

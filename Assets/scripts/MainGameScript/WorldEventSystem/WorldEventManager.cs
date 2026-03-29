@@ -36,12 +36,15 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
     private void Awake()
     {
-        
-         Instance = this;
-            //bc me noob and dont know how to actually handle this
-        
-        
-        
+
+        if (Instance == null)
+            Instance = this;
+        else
+        {
+            Destroy(Instance.gameObject);
+            Instance = this;
+        }
+
 
     }
     void Start()
@@ -55,6 +58,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
     private void destroyself(ulong id)
     {
+        NetworkManager.Singleton.OnClientDisconnectCallback -= destroyself;
         Destroy(gameObject);
     }
     // Update is called once per frame

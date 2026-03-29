@@ -14,9 +14,15 @@ public class MapTileSpecialEvents : NetworkBehaviour, IDataPersistance
     // Start is called before the first frame update
     public void Awake()
     {
-        Debug.Log("I should be setup");
+        if(Instance == null)       
         Instance = this;
-        this.mapTiles = new SpecialTileEventHold[10][];
+        else
+        {
+            Destroy(Instance);
+            Destroy(Instance.gameObject);
+            Instance = this;
+        }
+            this.mapTiles = new SpecialTileEventHold[10][];
     }
     public override void OnNetworkSpawn()
     {
@@ -25,6 +31,7 @@ public class MapTileSpecialEvents : NetworkBehaviour, IDataPersistance
 
     private void destroyself(ulong id)
     {
+        NetworkManager.Singleton.OnClientDisconnectCallback -= destroyself;
         Destroy(gameObject);
     }
     public SpecialTileEventHold GetCurrentTile()

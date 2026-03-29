@@ -58,9 +58,6 @@ public class playerData : EntityStats
     {
         { ItemType.Equipment , -1 },
         { ItemType.Shield, -1 },
-     
-
-
     };
 
     public Dictionary<int,int> ownedTowns = new Dictionary<int, int>();

@@ -167,6 +167,8 @@ public class CombatantMovement : NetworkBehaviour
         if (NewCombatManager.instance.fightOver)
         {
             body.constraints = RigidbodyConstraints.FreezeAll;
+            
+            
             return;
         }
         Move();
