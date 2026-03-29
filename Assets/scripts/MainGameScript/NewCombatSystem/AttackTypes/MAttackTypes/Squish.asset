@@ -21,6 +21,7 @@ MonoBehaviour:
   cooldown: 3
   lifespan: 5
   energyDrain: 2
+  initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -32,9 +33,12 @@ MonoBehaviour:
   chargeable: 1
   attackPrefab: {fileID: 4958144232811764369, guid: 07ef62aac639ab244b16d4857df2888f, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0.5}
+  offset: {x: 0, y: 1.5, z: 0.5}
   ablitySize: {x: 0.8, y: 0.8, z: 0.8}
+  visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 7
   multipliers:
   - attribute: 4
@@ -61,10 +65,14 @@ MonoBehaviour:
   attackAnimation: {fileID: 7400000, guid: 3e62947b840ca624daeb0ec60a4fa90e, type: 2}
   animationSpeed: 1
   LevelRequirements: []
+  startUpNoise: {fileID: 0}
   attackSound: {fileID: 0}
   onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
   onHitEffects: []
   targets:
     serializedVersion: 2
     m_Bits: 72
+  conditions: []
+  colorByWeapon: 0
   speed: 15
+  pierceCount: 0

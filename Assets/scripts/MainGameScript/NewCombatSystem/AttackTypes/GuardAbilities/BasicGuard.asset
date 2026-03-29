@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc5d19f0eeeab664a8fc827576ce68d4, type: 3}
   m_Name: BasicGuard
   m_EditorClassIdentifier: 
-  description: A basic block against physical attacks
+  description: A basic block against attacks
   attackName: Light Guard
   startUp: 0.3
   attackDuration: 0
-  endLag: 0
-  cooldown: 0
+  endLag: 0.01
+  cooldown: 5
   lifespan: 0
   energyDrain: 1
+  initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -31,9 +32,12 @@ MonoBehaviour:
   chargeable: 1
   attackPrefab: {fileID: 2566779757777240371, guid: 025be11524405ff43871ea2fd91b5485, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: d30fb8d46573a0b4fa0533056fb8a641, type: 3}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 1, y: 1, z: 1}
+  visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 0
   multipliers:
   - attribute: 0
@@ -66,15 +70,18 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 7400000, guid: e1550bb209db8cc419b7d05dab48b284, type: 2}
-  attackAnimation: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+  startUpAnimation: {fileID: 7400000, guid: d91319901cd5403499d40df4be1eeb56, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 2ce51c24898fdaf4e9c635e66fde8a45, type: 2}
   animationSpeed: 1
   LevelRequirements: []
+  startUpNoise: {fileID: 0}
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
   onHitEffects: []
   targets:
     serializedVersion: 2
     m_Bits: 0
-  PDmgReduction: 30
-  MDmgReduction: 0
+  conditions: []
+  colorByWeapon: 0
+  gainStatus:
+  - {fileID: 11400000, guid: 9f6f37e05bef12b4f8572cc9e75cea5d, type: 2}

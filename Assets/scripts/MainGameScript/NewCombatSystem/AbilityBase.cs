@@ -70,8 +70,9 @@ public abstract class AbilityBase : NetworkBehaviour
         {
             totalDamge -= defense.mult * defender.postStatusStats[defense.attribute];
         }
-        
-        totalDamge *= (1 - defender.dmgReduction[attackType]/100f);
+
+        Debug.Log("How much reduction? " + defender.postStatusDmgReduction[attackType]);
+        totalDamge *= (1 - defender.postStatusDmgReduction[attackType]/100f);
         totalDamge *= attackInfo.ChargeMultiplier(ownerStats, chargedDuration) * attackInfo.maxChargeAtkBuff;
         if (totalDamge < 0)
             return 0;

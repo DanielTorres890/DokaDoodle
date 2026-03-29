@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c31152a8aadf7a0498fb4414af92f704, type: 3}
+  m_Name: BasicGuard
+  m_EditorClassIdentifier: Assembly-CSharp::GuardBuff
+  duration: 999
+  combatOnly: 1
+  stackable: 0
+  buffFx: {fileID: 0}
+  stats:
+  - attribute: 7
+    value: 30
+  - attribute: 8
+    value: 30
+  parryWindow: 0.25
+  parryNoise: {fileID: 8300000, guid: eb4c919c5314f624e978ccd16dd90fb3, type: 3}
+  guardNoise: {fileID: 8300000, guid: ddac4f11c2f8b504b8f318d37c712b31, type: 3}

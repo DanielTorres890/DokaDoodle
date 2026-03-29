@@ -50,6 +50,12 @@ public class EntityStats
         { AttackTypes.Magic, 0}
 
     };
+    public Dictionary<AttackTypes, int> postStatusDmgReduction = new Dictionary<AttackTypes, int>
+    {
+        { AttackTypes.Physical, 0},
+        { AttackTypes.Magic, 0}
+
+    };
 
     [JsonIgnore][SerializeField] public List<AttackBase> attacks = new List<AttackBase>();
     [JsonIgnore][SerializeField] public DefenseBase[] defenses = new DefenseBase[4];
@@ -126,6 +132,18 @@ public class EntityStats
         }
         onStatusProgress.Invoke();
     }
+    public BuffHolder GetStatus(int statusId)
+    {
+        for (int i = statuses.Count - 1; i >= 0; i--)
+        {
+            if (statuses[i].buffId == statusId)
+            {
+                return statuses[i];
+            }
+        }
+
+       return null;
+    }
     public void PostStatusStatCalc()
     {
         Dictionary<Attributes, float> StatusMultipliers = new Dictionary<Attributes, float>
@@ -139,6 +157,12 @@ public class EntityStats
         {Attributes.Dexterity, 0},
    
         };
+        Dictionary<AttackTypes, int> GuardMultipliers = new Dictionary<AttackTypes, int>
+        {
+        {AttackTypes.Physical, 0 },
+        {AttackTypes.Magic, 0 },
+        
+        };
 
         foreach (var status in statuses)
         {
@@ -146,7 +170,14 @@ public class EntityStats
             {
                 foreach (var buff in (NetworkData.Instance.buffDataBase.GetItem[status.buffId] as StatStatusEffect).GetStats(this)) 
                 {
+                    if(buff.attribute != Attributes.PDmgReduction && buff.attribute != Attributes.MDmgReduction)
                     StatusMultipliers[buff.attribute] += buff.value / 100f;
+
+                    else if(buff.attribute == Attributes.PDmgReduction)
+                        GuardMultipliers[AttackTypes.Physical] += buff.value;
+                    else
+                        GuardMultipliers[AttackTypes.Magic] += buff.value;
+
                 }
             }
         }
@@ -154,6 +185,10 @@ public class EntityStats
         {
             
             postStatusStats[attrib] = Mathf.RoundToInt(stats[attrib] * (1 + StatusMultipliers[attrib]));
+        }
+        foreach(var attrib in GuardMultipliers.Keys)
+        {
+            postStatusDmgReduction[attrib] = dmgReduction[attrib] + GuardMultipliers[attrib];
         }
     }
     public bool healHp(int hp) //note this will work for dmg too ig

@@ -52,6 +52,8 @@ public class AbilityManager : NetworkBehaviour
     public float chargeDuration = 0f;
 
     public GameObject visualsParent;
+
+    
     private float updateStatsTimer = 0f;
     private float whenToUpdate = 1f;
 
@@ -173,7 +175,7 @@ public class AbilityManager : NetworkBehaviour
                 spawnedAttack = currentAttack.WeaponEffect(gameObject);
 
                 
-                onSpawnAttack.Invoke();
+                
 
                 
                 PerformAttackRpc(GetCurrentAtkNum(), NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,spawnedAttack.transform.eulerAngles);
@@ -247,7 +249,7 @@ public class AbilityManager : NetworkBehaviour
         chargeDuration = 0f;
         InvokeOnSpawnAttackRpc();
     }
-    [Rpc(SendTo.Server,InvokePermission = RpcInvokePermission.Everyone)]
+    [Rpc(SendTo.ClientsAndHost,InvokePermission = RpcInvokePermission.Everyone)]
     private void InvokeOnSpawnAttackRpc()
     {
         onSpawnAttack.Invoke();
@@ -338,6 +340,25 @@ public class AbilityManager : NetworkBehaviour
         stats.stats[Attributes.Health] -= damageAmt;
         
         stats.PostStatusStatCalc();
+
+        for(int i = 0; i < stats.statuses.Count; i++)
+        {
+            BuffBase currentBuff = NetworkData.Instance.buffDataBase.GetItem[stats.statuses[i].buffId];
+            if (currentBuff is GuardBuff)
+            {
+                Debug.Log("I was guarding mf");
+                GuardBuff guard = (GuardBuff)currentBuff;
+                if(guard.withinParryWindow(stats))
+                {
+                    AudioSource.PlayClipAtPoint(guard.parryNoise, transform.position, SettingsManager.instance.SFXVolume);
+                }
+                else
+                {
+                    AudioSource.PlayClipAtPoint(guard.guardNoise, transform.position, SettingsManager.instance.SFXVolume);
+                }
+                break;
+            }
+        }
         hpText.UpdateText();
         if (stats.stats[Attributes.Health] <= 0 && !stats.isDead)
         {

@@ -16,12 +16,12 @@ MonoBehaviour:
   type: 5
   itemValue: 1000
   description: 'Perform a quick clap, swapping locations with whoever you''re looking
-    at
+    at. If you aren''t looking at anyone it wont swap
 
-    If you aren''t looking at anyone it wont swap
+    REQ: 6 MAG, 6 DEX
 
-    (Cmon son we all know
-    what this one does already)'
+    (Cmon
+    son we all know what this one does already)'
   useText: 
   itemName: Boogie Woogie
   buffs: []
@@ -31,7 +31,11 @@ MonoBehaviour:
   interrupt: 0
   attack:
   - {fileID: 11400000, guid: cc057eedc187aac4ca2fdce6ecd619ac, type: 2}
-  skillRequirements: []
+  skillRequirements:
+  - attribute: 4
+    value: 6
+  - attribute: 6
+    value: 6
   inHandSprite: {fileID: 0}
   onEquipBuffs: []
   weaponColor: {r: 0, g: 0, b: 0, a: 0}

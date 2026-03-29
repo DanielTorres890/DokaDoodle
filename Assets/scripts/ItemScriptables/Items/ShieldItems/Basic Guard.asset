@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
-  m_Name: BasicGuard
+  m_Name: Basic Guard
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: -7493233965603510204, guid: 3cea656da20611144b1c89c025626911, type: 3}
+  itemSprite: {fileID: 21300000, guid: 2ad9bb69f93c54e4eabea0d5490ff502, type: 3}
   type: 3
-  itemValue: 100
-  description: A basic type of guard that blocks 30% of physical damage when held
+  itemValue: 600
+  description: 'A basic guard, allow you to defend a small amount of any damage
+
+    Guarding
+    right before an attack lands blocks more damage'
   useText: 
   itemName: Basic Guard
   buffs: []
@@ -27,3 +30,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d99c090114319a74e880597b6cde0a76, type: 2}
   skillRequirements: []
   inHandSprite: {fileID: 0}
+  onEquipBuffs: []
+  weaponColor: {r: 0, g: 0, b: 0, a: 0}
