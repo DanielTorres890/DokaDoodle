@@ -24,7 +24,7 @@ public class PlayerCombatManager : MonoBehaviour
             return; }
         Instance = this;
     }
-    
+
     public string BattleSetUp(int encounterId)
     {
         PlayerCombatManager.Instance.combatants.Clear();
@@ -36,12 +36,12 @@ public class PlayerCombatManager : MonoBehaviour
 
         var currentTile = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
         bool rumble = false; //is there another player that we fight
-       
+
         foreach (var players in currentTile.players)
         {
             if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
             {
-              
+
                 PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[players]);
                 NetworkData.Instance.players[players].setCombatActions();
                 rumble = true;
@@ -53,15 +53,15 @@ public class PlayerCombatManager : MonoBehaviour
         //Pretty much everything that isn't these two is stuff from the old system
         List<EntityStats> potentialEnemies = new List<EntityStats>(currentTile.tileEnemy);
 
-        foreach(var enemy in currentTile.tileEnemy)
+        foreach (var enemy in currentTile.tileEnemy)
         {
             enemy.ResetMyAttacks();
         }
 
 
-        foreach(var ally in currentTile.partyMembers)
+        foreach (var ally in currentTile.partyMembers)
         {
-            if(ally.allyOwner == NetworkData.Instance.currentPlayer) { continue; }
+            if (ally.allyOwner == NetworkData.Instance.currentPlayer) { continue; }
 
             potentialEnemies.Add(ally);
         }
@@ -77,7 +77,7 @@ public class PlayerCombatManager : MonoBehaviour
                     encounterName = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].EncounterName;
                     PlayerCombatManager.Instance.combatants.Add(temp);
                     currentTile.tileEnemy.Add(temp);
-                    
+
 
                 }
 
@@ -87,7 +87,7 @@ public class PlayerCombatManager : MonoBehaviour
         }
         else
         {
-            
+
 
         }
         foreach (var enemyy in potentialEnemies)
@@ -95,7 +95,15 @@ public class PlayerCombatManager : MonoBehaviour
             PlayerCombatManager.Instance.combatants.Add(enemyy);
             encounterName = enemyy.name;
         }
-        
+
+        if (potentialEnemies[potentialEnemies.Count - 1] is PartyMember)
+        {
+            PartyMember lastEntity = potentialEnemies[potentialEnemies.Count - 1] as PartyMember;
+            if(potentialEnemies.Contains(NetworkData.Instance.players[lastEntity.allyOwner]))
+            {
+                encounterName = NetworkData.Instance.players[lastEntity.allyOwner].name;
+            }
+        }
 
         if (potentialEnemies.Count > 1)
         {
