@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 568081090260898386}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.030843573, y: -0.7064338, z: -0.030843573, w: 0.7064338}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 15.38, z: 4}
+  m_LocalScale: {x: 2, y: 2, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8101303593615582343}
-  m_LocalEulerAnglesHint: {x: -5, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: -90, z: 0}
 --- !u!2083052967 &4693636904367501402
 VisualEffect:
   m_ObjectHideFlags: 0
@@ -41,7 +41,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 568081090260898386}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: bd430761035bfe84e9b118cbe7531c6e, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: a2951893191ce4846a07301d4c17b1c3, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -56,7 +56,10 @@ VisualEffect:
     m_Vector3f:
       m_Array: []
     m_Vector4f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 1.2074182, y: 1.2777936, z: 1.4142135, w: 1}
+        m_Name: Color
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:
@@ -137,7 +140,7 @@ GameObject:
   - component: {fileID: 3619696693334635195}
   - component: {fileID: 2407726312777866801}
   m_Layer: 0
-  m_Name: flyingSlash
+  m_Name: Constant Flux
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -270,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3718837137
+  GlobalObjectIdHash: 2742427330
   InScenePlacedSourceGlobalObjectIdHash: 3718837137
   DeferredDespawnTick: 0
   Ownership: 1

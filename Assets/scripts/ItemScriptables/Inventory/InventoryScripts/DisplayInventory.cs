@@ -100,7 +100,8 @@ public class DisplayInventory : MonoBehaviour
             {
                 obj.GetComponent<Button>().onClick.AddListener(delegate { ShopUISync.instance.setUpSell(tempId, inventoryType); });
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0, -13} {1}", inventory.container[tempId].item.name, inventory.container[tempId].item.itemValue / 2);
-                
+                AddEvent(obj, EventTriggerType.PointerExit, delegate { displayText.SetText("Pick an item tpo drop lil guy your inventory full \n(green items are the items you just picked up)"); });
+
             }
             else if(displayType == InvDisplayType.DropItem)
             {
@@ -114,12 +115,12 @@ public class DisplayInventory : MonoBehaviour
             }
                 AddEvent(obj, EventTriggerType.Select, delegate { displayText.SetText(inventory.container[tempId].item.description); });
             AddEvent(obj, EventTriggerType.PointerEnter, delegate { displayText.SetText(inventory.container[tempId].item.description); });
-
+            
             //UnityAction<GameObject> action = new UnityAction<GameObject>(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
             //UnityEventTools.AddObjectPersistentListener<GameObject>(obj.GetComponent<Button>().onClick, action, obj);
-            
 
-            
+
+
 
             itemsDisplayed.Add(inventory.container[i], obj);  
             

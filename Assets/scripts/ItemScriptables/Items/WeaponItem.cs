@@ -27,6 +27,10 @@ public class WeaponItem : ItemBase
         {
             tmp = 2;
         }
+        if (this.type == ItemType.PhysicalAbility)
+        {
+            tmp = 1;
+        }
         ClientChecks.Instance.ShowConfirmItemButtonsRpc(player, itemId, tmp);
     }
     public override void PerformItemEffect(int player, InventoryObject inventory)

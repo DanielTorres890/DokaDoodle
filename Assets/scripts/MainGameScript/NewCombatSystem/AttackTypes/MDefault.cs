@@ -27,6 +27,7 @@ public class MDefault : AttackBase
                 if (hit.transform.gameObject == caster) { continue; }
 
                 attack.transform.LookAt(hit.point);
+                
                 break;
             }
 

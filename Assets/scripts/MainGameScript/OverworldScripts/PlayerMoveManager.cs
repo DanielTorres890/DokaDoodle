@@ -193,11 +193,11 @@ public class PlayerMoveManager : NetworkBehaviour
     {
 
         if (!canMove) { return; }
-
+        if(autoMoving) { return; }
         if (diceRoll <= 0)
         {
 
-
+            Debug.Log("How did i get here");
             canMove = false;
 
             SyncPlayerTileServerRpc(NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
@@ -392,7 +392,7 @@ public class PlayerMoveManager : NetworkBehaviour
         {
             
             var tilePos = mapTiles[tildId].gameObject.transform.position;
-
+            Debug.Log(Vector3.Distance(playerSticks[curPlayerIndex].transform.position, mapTiles[tildId].gameObject.transform.position));
 
             playerSticks[NetworkData.Instance.currentPlayer].transform.position =
 
@@ -409,7 +409,7 @@ public class PlayerMoveManager : NetworkBehaviour
             }
             yield return null;
         }
-       
+        Debug.Log("Final distance " + Vector3.Distance(playerSticks[curPlayerIndex].transform.position, mapTiles[tildId].gameObject.transform.position));
     }
 
     //id like to say that in an ideal world id be able to directly set up a lot of these things in the inspector
@@ -781,12 +781,13 @@ public class PlayerMoveManager : NetworkBehaviour
             PlayerMoverRpc(autoMoveSpeed, NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId);
             startingTileIndex++;
             SyncDiceRollServerRpc(diceRoll-1);
-            yield return new WaitForSecondsRealtime(autoMoveTime);
-
+            yield return new WaitForSeconds(autoMoveTime);
+            Debug.Log("I didnt wait that long");
 
         }
 
         autoMoving = false;
+        Debug.Log("but did i get here? ");
         confirmMove(new InputAction.CallbackContext());
     }
 
@@ -794,6 +795,7 @@ public class PlayerMoveManager : NetworkBehaviour
     {
         float xoffset = 0;
         
+
 
         for (int i = 0; i < NetworkData.Instance.players.Count; i++)
         {
@@ -819,8 +821,17 @@ public class PlayerMoveManager : NetworkBehaviour
             
             playerSticks[i].transform.position = mapTiles[NetworkData.Instance.players[i].curTileId].transform.position;
             playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + intIndex % 2, playerSticks[i].transform.position.y + 3, playerSticks[i].transform.position.z - 2 + 1f * stagger);
-                        
-            xoffset += 1;
+            if (i != NetworkData.Instance.currentPlayer && NetworkData.Instance.GetCurrentPlayer().curTileId == NetworkData.Instance.players[i].curTileId)
+            {
+                playerSticks[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            }
+            else
+            {
+                playerSticks[i].transform.localScale = Vector3.one;
+            }
+
+
+                xoffset += 1;
             
         }
     }
@@ -1000,19 +1011,32 @@ public class PlayerMoveManager : NetworkBehaviour
         int memberCount = 0;
         for (int i = 0; i < NetworkData.Instance.players.Count; i++)
         {
+
+
+            Vector3 allySize = new Vector3(0.5f, 0.5f, 0.5f);
             
+
+
             foreach (var member in playerAllies[i])
             {
-                if(member.Key.boardMovementState == PlayerFollowingStates.WithOwner)
+
+                if (NetworkData.Instance.currentPlayer != i && member.Key.curTileId == NetworkData.Instance.GetCurrentPlayer().curTileId)
                 {
-                    GameObject allyGameObject = member.Value;
+                    allySize = new Vector3(.4f, .4f, .4f);
+                }
+
+                GameObject allyGameObject = member.Value;
+                allyGameObject.transform.localScale = allySize;
+                if (member.Key.boardMovementState == PlayerFollowingStates.WithOwner)
+                {
+                    
                     Debug.Log("I just positioned you ");
                     allyGameObject.transform.position = new Vector3(playerSticks[i].transform.position.x - 0.5f + memberCount * AllyDistance, playerSticks[i].transform.position.y, playerSticks[i].transform.position.z - .5f);
                     
                 }
                 else
                 {
-                    GameObject allyGameObject = member.Value;
+                    
                     allyGameObject.transform.position = new Vector3(mapTiles[member.Key.curTileId].transform.position.x - 0.5f + memberCount * AllyDistance, mapTiles[member.Key.curTileId].transform.position.y, mapTiles[member.Key.curTileId].transform.position.z - .5f);
 
                 }

@@ -139,11 +139,11 @@ public class ClientChecks : NetworkBehaviour
     {
         NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
         bool rumble = false;
-
+        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
         //at some point im probably gonna have to make this a different event but frick u
         onRoundStart.Invoke();
 
-        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
+        
         if (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
         {
             mainMenuButtons.SetActive(false);
@@ -191,6 +191,8 @@ public class ClientChecks : NetworkBehaviour
             var unlockedClassId = NetworkData.Instance.checkUnlockedClass(NetworkData.Instance.currentPlayer);
             if(unlockedClassId == -1)
             {
+                onRoundStart.Invoke();
+                onRoundStart.Invoke();
                 mainMenuButtons.SetActive(true);
                 rollNum.gameObject.transform.parent.gameObject.SetActive(false);
             }
@@ -525,6 +527,10 @@ public class ClientChecks : NetworkBehaviour
         Debug.Log("am i showing early?");
         display.transform.parent.gameObject.SetActive(true);
         display.gameObject.SetActive(true);
+
+        int dashUnlockPopUp = 2;
+        if (NetworkData.Instance.GetCurrentPlayer().stats[Attributes.Dexterity] >= 10) { PopUpManager.Instance.PerformPopUp(dashUnlockPopUp, true, true); }
+
     }
     private IEnumerator displayClassGained()
     {

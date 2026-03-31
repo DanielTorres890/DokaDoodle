@@ -6,7 +6,7 @@ using UnityEngine;
 public class RangedAbility : AbilityBase
 {
 
-    private int pierceCounter = 0;
+    public int pierceCounter = 0;
     // Update is called once per frame
     private void Start()
     {
@@ -27,6 +27,7 @@ public class RangedAbility : AbilityBase
 
             var fx = Instantiate(hitGameObject);
             fx.transform.position = transform.position;
+            fx.transform.localScale = transform.localScale;
             fx.GetComponent<NetworkObject>().Spawn();
         }
         if(pierceCounter >= (attackInfo as MDefault).pierceCount)

@@ -9,7 +9,7 @@ public class PlayerInfoDisplay : MonoBehaviour
     public TextMeshProUGUI className;
     public TextMeshProUGUI overworldAbilityDescription;
     public TextMeshProUGUI inCombatAbilityDescription;
-    
+    public TextMeshProUGUI classLevel;
     
     public TextMeshProUGUI weaponName;
     public Image weaponSprite;
@@ -40,7 +40,7 @@ public class PlayerInfoDisplay : MonoBehaviour
         className.text = "Class: " + thisClass.className;
         overworldAbilityDescription.text = thisClass.overworldAbilityDescription;
         inCombatAbilityDescription.text = thisClass.combatAbility.description;
-
+        classLevel.text = "Class Level: " + (NetworkData.Instance.players[playerNumber].playerClassProgress[NetworkData.Instance.classDataBase.GetId[thisClass]].level + 1).ToString();
 
 
         if (thisPlayer.equipItems[ItemType.Equipment] != -1)

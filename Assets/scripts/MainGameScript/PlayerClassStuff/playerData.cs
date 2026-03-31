@@ -208,6 +208,7 @@ public class playerData : EntityStats
     }
     public void progressDeath()
     {
+        if(!isDead ) { return; }
         this.tillRevive--;
         if (tillRevive < 0)
         {

@@ -1,7 +1,9 @@
 using PrimeTween;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,8 +38,13 @@ public class CardHausManager : NetworkBehaviour
     public int currentGuess;
     public int remainingGuesses;
 
+    public int[] betAmounts;
+    public TextMeshProUGUI[] betTexts;
+
     private int totalGuesses;
     private int bet;
+    private List<string> endDialogue;
+
 
     private int rewardTier;
     private int xCardCount = 5;
@@ -47,6 +54,15 @@ public class CardHausManager : NetworkBehaviour
     public void Start()
     {
         totalGuesses = remainingGuesses;
+
+        for(int i = 0; i < betAmounts.Length; i++)
+        {
+            if (betAmounts[i] > NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.money])
+            {
+                betTexts[i].color = Color.red;
+            }
+        }
+
     }
     public void SetMainMenuChangeActive(bool toBe)
     {
@@ -115,24 +131,24 @@ public class CardHausManager : NetworkBehaviour
         displayText.transform.parent.gameObject.SetActive(true);
     }
 
-    public void PickBet(int amount)
+    public void PickBet(int index)
     {
         if (!NetworkData.Instance.IsAllowed()) { return; }
-        if (NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.money] < amount) { return; }
+        if (NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.money] < betAmounts[index]) { return; }
 
-        PickBetRpc(amount);
+        PickBetRpc(index);
 
     }
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    private void PickBetRpc(int amount)
+    private void PickBetRpc(int index)
     {
         remainingGuessText.text = "Guesses: " + remainingGuesses.ToString();
-        bet = amount;
+        bet = betAmounts[index];
         displayText.transform.parent.gameObject.SetActive(false);
         BetMenu.SetActive(false);
         CardMenu.SetActive(true);
-        NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.money] -= amount;
+        NetworkData.Instance.GetCurrentPlayer().GainMoney( -betAmounts[index]);
         if (IsHost)
         GenerateRandomCards();
     }
@@ -296,7 +312,8 @@ public class CardHausManager : NetworkBehaviour
                     Tween.Delay(duration: 0.5f, () => Lose());
                 }
             }
-
+            guessedLocations[0] = new Vector2Int(-1,-1);
+            guessedLocations[1] = new Vector2Int(-1, -1);
         }
 
     }
@@ -305,7 +322,11 @@ public class CardHausManager : NetworkBehaviour
     private void Win()
     {
         CardMenu.SetActive(false);
-        TileEventManager.Instance.dialogueScript.lines = DetermineRewards();
+        bool dropItems = DetermineRewards();
+        if (dropItems)
+        {
+            return;
+        }
         TileEventManager.Instance.EndEvent();
         
 
@@ -340,15 +361,16 @@ public class CardHausManager : NetworkBehaviour
         Tween.Rotation(card.transform, endValue: rotation, duration: 0.5f);
     }
 
-    private List<string> DetermineRewards()
+    private bool DetermineRewards()
     {
         List<string> spoilsDetails = new();
-        NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.money] += bet * 2;
+        NetworkData.Instance.GetCurrentPlayer().GainMoney(bet * 2);
         spoilsDetails.Add("You won " + (bet * 2).ToString() + " money congrats");
         
         if (remainingGuesses == 0) 
         {
-            return spoilsDetails; 
+            TileEventManager.Instance.dialogueScript.lines = spoilsDetails;
+            return false;
         }
 
         ItemBase[] bonusRewards = bonusRewardsT1;
@@ -366,13 +388,32 @@ public class CardHausManager : NetworkBehaviour
         int itemIndex = Mathf.CeilToInt(remainingGuesses / ((float)totalGuesses/bonusRewards.Length)) - 1;
         string[] possibleEnds = new string[] {"good!", "extra good", "GREAT", "AMAZING ", "PERFECT"};
 
-        NetworkData.Instance.AddItemToInventory(NetworkData.Instance.currentPlayer, bonusRewards[itemIndex]);
+        bool shouldDrop = NetworkData.Instance.AddItemToInventory(NetworkData.Instance.currentPlayer, bonusRewards[itemIndex]);
         
         spoilsDetails.Add("You also won a " + bonusRewards[itemIndex].itemName + " as a bonus for doing " + possibleEnds[itemIndex]);
+        TileEventManager.Instance.dialogueScript.lines = spoilsDetails;
         
-        return spoilsDetails;
-    }
+        if(shouldDrop)
+        {
 
+            TileEventManager.Instance.dialogueScript.endEvent.AddListener(delegate { LoseItemManager.instance.SetUp(NetworkData.Instance.currentPlayer, bonusRewards[itemIndex].determineType()); });
+            TileEventManager.Instance.dialogueScript.gameObject.SetActive(true);
+            TileEventManager.Instance.dialogueScript.startDialogue();
+
+            
+            LoseItemManager.instance.finishLose.AddListener(finishLose);
+        }
+        
+        return shouldDrop;
+    }
+    
+    private void finishLose()
+    {
+        TileEventManager.Instance.dialogueScript.endEvent.RemoveAllListeners();
+        TileEventManager.Instance.dialogueScript.lines.Clear();
+        TileEventManager.Instance.dialogueScript.lines.Add("Congrats on winning! ");
+        TileEventManager.Instance.EndEvent();
+    }
 }
 
 

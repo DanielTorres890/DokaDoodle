@@ -41,7 +41,7 @@ public class PlayerCombatManager : MonoBehaviour
         {
             if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
             {
-                Debug.Log("i set this player up " +  players);
+              
                 PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[players]);
                 NetworkData.Instance.players[players].setCombatActions();
                 rumble = true;
@@ -95,6 +95,8 @@ public class PlayerCombatManager : MonoBehaviour
             PlayerCombatManager.Instance.combatants.Add(enemyy);
             encounterName = enemyy.name;
         }
+        
+
         if (potentialEnemies.Count > 1)
         {
             encounterName = "More than 1 guy";

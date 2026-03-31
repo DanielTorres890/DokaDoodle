@@ -18,13 +18,26 @@ public class RangedBurstAbility : RangedAbility
         cash.attackInfo = attackInfo;
         cash.lifespan = burstattack.burstLifespan;
 
-        burst.transform.localScale = burstattack.burstSize * chargedDuration;
+        burst.transform.localScale = burstattack.burstSize * burstattack.ChargeMultiplier(owner.GetComponent<AbilityManager>().stats, chargedDuration) * burstattack.maxChargeSizeBuff;
         cash.hitGameObject = hitGameObject;
         burst.GetComponent<NetworkObject>().Spawn();
-        
 
-        base.OnHit();
+
+        if (hitGameObject)
+        {
+
+            var fx = Instantiate(hitGameObject);
+            fx.transform.position = transform.position;
+            fx.transform.localScale = burst.transform.localScale;
+            fx.GetComponent<NetworkObject>().Spawn();
+        }
+        if (pierceCounter >= (attackInfo as MDefault).pierceCount)
+        {
+            Destroy(gameObject);
+        }
+        pierceCounter++;
     }
+
     public override void OnTriggerEnter(Collider other)
     {
 

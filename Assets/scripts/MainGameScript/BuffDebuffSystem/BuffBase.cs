@@ -9,9 +9,20 @@ public abstract class BuffBase : ScriptableObject
     public GameObject buffFx;
     public virtual void OnApply(EntityStats stats)
     {
-        
-        if(!buffFx) { return; }
-        if(stats is playerData) 
+
+        ApplyBuffFx(stats);
+
+    }
+
+    public virtual void OnRemove(EntityStats stats)
+    {
+
+      
+    }
+    public virtual void ApplyBuffFx(EntityStats stats)
+    {
+        if (!buffFx) { return; }
+        if (stats is playerData)
         {
             for (int i = 0; i < NetworkData.Instance.players.Count; i++)
             {
@@ -43,14 +54,14 @@ public abstract class BuffBase : ScriptableObject
             }
 
         }
-       
+
         if (NewCombatManager.instance)
         {
             foreach (var combatant in NewCombatManager.instance.allCombatants)
             {
                 if (combatant.stats == stats)
                 {
-                    
+
                     if (!buffFx) { return; }
 
                     var fx = Instantiate(buffFx, combatant.transform);
@@ -71,13 +82,6 @@ public abstract class BuffBase : ScriptableObject
                 }
             }
         }
-
-    }
-
-    public virtual void OnRemove(EntityStats stats)
-    {
-
-      
     }
     public abstract void BuffEffect(EntityStats whoWon);
 

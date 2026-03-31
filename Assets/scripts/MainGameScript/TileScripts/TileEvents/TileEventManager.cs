@@ -68,13 +68,14 @@ public class TileEventManager : NetworkBehaviour
 
     public void EndEvent()
     {
+        NetworkData.Instance.setNextTurnNum();
         dialogue.SetActive(true);
         dialogueScript.startDialogue();
         StartCoroutine(additionalDialogue());
     }
     private IEnumerator additionalDialogue()
     {
-        NetworkData.Instance.setNextTurnNum();
+        
         while (dialogue.activeSelf)
         {
             yield return null;

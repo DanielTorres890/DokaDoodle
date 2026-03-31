@@ -40,6 +40,7 @@ public class LoseItemManager : NetworkBehaviour
         if (!IsHost) { return; }
 
         SetUpRpc(playerId, inventoryNumber);
+        Debug.Log("Set up drop item");
     }
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]

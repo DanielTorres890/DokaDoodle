@@ -51,6 +51,7 @@ public abstract class AbilityBase : NetworkBehaviour
           
             var fx = Instantiate(hitGameObject);
             fx.transform.position = transform.position;
+            fx.transform.localScale = transform.localScale;
             fx.GetComponent<NetworkObject>().Spawn();
         }
         if(!stickInOpponent) { Destroy(gameObject); }
@@ -71,7 +72,7 @@ public abstract class AbilityBase : NetworkBehaviour
             totalDamge -= defense.mult * defender.postStatusStats[defense.attribute];
         }
 
-        Debug.Log("How much reduction? " + defender.postStatusDmgReduction[attackType]);
+     
         totalDamge *= (1 - defender.postStatusDmgReduction[attackType]/100f);
         totalDamge *= attackInfo.ChargeMultiplier(ownerStats, chargedDuration) * attackInfo.maxChargeAtkBuff;
         if (totalDamge < 0)
@@ -99,7 +100,7 @@ public abstract class AbilityBase : NetworkBehaviour
                 return;
             }
 
-            Debug.Log("OUCHIESSS");
+         
             hitby.ImHitRpc(DamageCalculator(hitby.stats));
             int[] buffIds = new int[attackInfo.onHitEffects.Length];
             for (int i = 0; i < attackInfo.onHitEffects.Length; i++)

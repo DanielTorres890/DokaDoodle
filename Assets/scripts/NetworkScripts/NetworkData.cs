@@ -133,7 +133,14 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         LoadedIn = true;
         seenEnemies = data.seenEnemies;
         Debug.Log(Instance.players.Count);
-        
+        foreach (var player in data.players)
+        {
+            foreach(var status in player.statuses)
+            {
+                (NetworkData.Instance.buffDataBase.GetItem[status.buffId]).ApplyBuffFx(player);
+            }
+
+        }
         InventoriesToDeserialize(data);
     }
     public void SaveData(ref GameData data)

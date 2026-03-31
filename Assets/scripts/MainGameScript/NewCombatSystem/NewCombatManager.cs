@@ -313,6 +313,7 @@ public class NewCombatManager : NetworkBehaviour
             rigid.constraints = RigidbodyConstraints.None;
             rigid.isKinematic = false;
             rigid.AddForce(rigid.transform.TransformDirection(Vector3.back) * 10, ForceMode.Impulse);
+
         }
         if (whoded.stats is playerData)
         {
@@ -481,7 +482,7 @@ public class NewCombatManager : NetworkBehaviour
     private void BattleOverCalculations(AbilityManager victor)
     {
         
-        Debug.Log("I AM THE WINNER " + victor.stats.name);
+        
         onCombatEnd.Invoke();
         playercontrol.SwitchCurrentActionMap("UI");
         
@@ -801,8 +802,8 @@ public class NewCombatManager : NetworkBehaviour
     }
     public void RightSpec(InputAction.CallbackContext action)
     {
-        if(!action.started) { return; }
-        Debug.Log("Im shifting left ");
+        if(!action.started || fightOver) { return; }
+        
         cameras[currentSpec].Priority = 1;
         if (currentSpec < cameras.Count - 1)
         {
@@ -817,8 +818,8 @@ public class NewCombatManager : NetworkBehaviour
     }
     public void LeftSpec(InputAction.CallbackContext action)
     {
-        if (!action.started) { return; }
-        Debug.Log("Im shifting left ");
+        if (!action.started || fightOver) { return; }
+        
         cameras[currentSpec].Priority = 1;
         if (currentSpec > 0)
         {
