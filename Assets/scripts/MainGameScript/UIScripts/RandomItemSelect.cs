@@ -7,7 +7,7 @@ public class RandomItemSelect : MonoBehaviour
 {
     public ItemBase[] items;
     public GameObject[] itemDisplay;
-    public int numberOfJumps;
+    public int numberOfCycles = 5;
     public float TimeBetweenJumps;
     public float finalJump;
     //now that i think about it it doesn't have to be generated at run time ..... :)
@@ -35,14 +35,20 @@ public class RandomItemSelect : MonoBehaviour
 
     private IEnumerator ShuffleInRealTime(int randoIndex,ItemBase selectedItem)
     {
-        int counter = numberOfJumps;
-        while (counter > 0)
+        int counter = 0;
+        int cycleCounter = 0;
+        while (counter != randoIndex || cycleCounter != numberOfCycles)
         {
-            int previousRandom = Random.Range(0, itemDisplay.Length - 1);
-            itemDisplay[previousRandom].transform.SetAsLastSibling();
+            
+            itemDisplay[counter].transform.SetAsLastSibling();
             yield return new WaitForSeconds(TimeBetweenJumps);
-            itemDisplay[previousRandom].transform.SetAsFirstSibling();
-            counter--;
+            itemDisplay[counter].transform.SetAsFirstSibling();
+            counter++;
+            if(counter >= items.Length)
+            {
+                counter = 0;
+                cycleCounter += 1;
+            }
         }
 
         itemDisplay[randoIndex].transform.SetAsLastSibling();
