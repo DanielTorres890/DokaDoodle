@@ -1703,6 +1703,7 @@ MonoBehaviour:
   currentEnergy: 100
   energyRegen: 1
   chargeDuration: 0
+  visualsParent: {fileID: 0}
 --- !u!114 &-7284265792361973657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1868,6 +1869,10 @@ MonoBehaviour:
       NameHash: 1207992894
       Synchronize: 1
       ParameterType: 1
+    - name: Victory
+      NameHash: -1090111034
+      Synchronize: 1
+      ParameterType: 4
   AnimatorParametersExpanded: 0
 --- !u!114 &1123123703392993105
 MonoBehaviour:
@@ -1898,6 +1903,7 @@ MonoBehaviour:
   animator: {fileID: -2458163416096458169}
   overrideController: {fileID: 0}
   walkingAnimation: {fileID: 7400000, guid: df4c2d9c4c815ce46b1b280ac51ab45d, type: 2}
+  victoryAnimation: {fileID: 7400000, guid: df4c2d9c4c815ce46b1b280ac51ab45d, type: 2}
   attackAnimations:
   - startUp: {fileID: 7400000, guid: df4c2d9c4c815ce46b1b280ac51ab45d, type: 2}
     attack: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}

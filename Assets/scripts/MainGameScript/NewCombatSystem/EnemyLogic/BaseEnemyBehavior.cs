@@ -26,6 +26,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     [DoNotSerialize]public AnimatorOverrideController overrideController;
 
     public AnimationClip walkingAnimation;
+    public AnimationClip victoryAnimation;
 
     [Tooltip("This array works under the assumption that every attack has both a startUp and attack Animation")]
     public AttackAnimation[] attackAnimations; 
@@ -48,9 +49,11 @@ public class BaseEnemyBehavior : NetworkBehaviour
         animator.runtimeAnimatorController = overrideController;
 
 
-        
+        overrideController["DefaultVictory"] = victoryAnimation;
 
-        if(IsServer)
+
+
+        if (IsServer)
         {
             myManager.onHit.AddListener(FindEnemy);
             FindEnemy();
@@ -111,7 +114,18 @@ public class BaseEnemyBehavior : NetworkBehaviour
         if (!IsServer) { return; }
         AttackHold();
 
-        if (NewCombatManager.instance.fightOver) { return; }
+        if (NewCombatManager.instance.fightOver) 
+        {
+            
+            SetWalkingAnim(false);
+            SetAttackingAnim(false);
+            SetStartUpAnim(false);
+            if(!myManager.stats.isDead)
+            {
+                rb.linearVelocity = Vector3.zero;
+            }
+            return; 
+        }
 
         
 
@@ -244,6 +258,10 @@ public class BaseEnemyBehavior : NetworkBehaviour
     public void SetWalkingAnim(bool whatDo)
     {
         animator.SetBool("Walking", whatDo);
+    }
+    public void SetVictoryAnim(bool whatDo)
+    {
+        animator.SetBool("Victory", whatDo);
     }
 }
 

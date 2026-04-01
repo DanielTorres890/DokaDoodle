@@ -133,10 +133,10 @@ public class PartyMember : EntityStats
         while (this.allyInfo[PlayerInfo.xp] > 24 * Mathf.Pow((float)this.allyInfo[PlayerInfo.level], 2f))
         {
             this.allyInfo[PlayerInfo.level] += 1;
-            Debug.Log("What is my thingy " + allyInfo[PlayerInfo.level] % GainMoveLevel);
+           
             if (allyInfo[PlayerInfo.level] % GainMoveLevel == 0)
             {
-                Debug.Log("Step 2");
+                
                 int counter = 0;
                 foreach (var member in NetworkData.Instance.GetCurrentPlayer().partyMembers)
                 {

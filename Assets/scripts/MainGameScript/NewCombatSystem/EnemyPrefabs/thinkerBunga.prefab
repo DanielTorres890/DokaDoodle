@@ -966,6 +966,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   overrideController: {fileID: 0}
   walkingAnimation: {fileID: 7400000, guid: 43806e93d47f4b747ab76d6f26760938, type: 2}
+  victoryAnimation: {fileID: 7400000, guid: acf3ca9e5a6cb554889c6bc115dafbc1, type: 2}
   attackAnimations:
   - startUp: {fileID: 7400000, guid: a469e2b1b6fe4b0488463ae5ae581556, type: 2}
     attack: {fileID: 7400000, guid: 35d5925d0acd6f841836b444b0e86fb3, type: 2}
@@ -1038,6 +1039,10 @@ MonoBehaviour:
       NameHash: 1207992894
       Synchronize: 1
       ParameterType: 1
+    - name: Victory
+      NameHash: -1090111034
+      Synchronize: 1
+      ParameterType: 4
   AnimatorParametersExpanded: 0
 --- !u!1 &2347518614000943600
 GameObject:

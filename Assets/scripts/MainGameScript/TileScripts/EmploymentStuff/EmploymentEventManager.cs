@@ -238,8 +238,8 @@ public class EmploymentEventManager : NetworkBehaviour
         {
             newNames[i] = randomNames[Random.Range(0, randomNames.Count)];
             faceIds[i] = possibleFaces[Random.Range(0, possibleFaces.Length)];
-            allyHair[i] = possibleHairs[Random.Range(0, possibleFaces.Length)];
-
+            allyHair[i] = possibleHairs[Random.Range(0, possibleHairs.Length)];
+            
             classId[i] = Random.Range(0, 3);
             randomStatBoost1[i] = Random.Range(2, attributesLength);
             randomStatBoost2[i] = Random.Range(2, attributesLength);

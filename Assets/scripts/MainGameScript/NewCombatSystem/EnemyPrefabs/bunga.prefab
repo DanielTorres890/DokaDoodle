@@ -832,7 +832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 500146776
+  GlobalObjectIdHash: 960931276
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1069,6 +1069,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   overrideController: {fileID: 0}
   walkingAnimation: {fileID: 7400000, guid: 43806e93d47f4b747ab76d6f26760938, type: 2}
+  victoryAnimation: {fileID: 0}
   attackAnimations:
   - startUp: {fileID: 7400000, guid: 0932244beecc6de498f250e440086b15, type: 2}
     attack: {fileID: 7400000, guid: 0932244beecc6de498f250e440086b15, type: 2}
@@ -1134,6 +1135,10 @@ MonoBehaviour:
       NameHash: 1207992894
       Synchronize: 1
       ParameterType: 1
+    - name: Victory
+      NameHash: -1090111034
+      Synchronize: 1
+      ParameterType: 4
   AnimatorParametersExpanded: 0
 --- !u!1 &1985773246293574916
 GameObject:

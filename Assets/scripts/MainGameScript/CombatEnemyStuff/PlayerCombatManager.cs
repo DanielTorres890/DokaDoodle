@@ -96,7 +96,7 @@ public class PlayerCombatManager : MonoBehaviour
             encounterName = enemyy.name;
         }
 
-        if (potentialEnemies[potentialEnemies.Count - 1] is PartyMember)
+        if (potentialEnemies.Count > 0 && potentialEnemies[potentialEnemies.Count - 1] is PartyMember)
         {
             PartyMember lastEntity = potentialEnemies[potentialEnemies.Count - 1] as PartyMember;
             if(potentialEnemies.Contains(NetworkData.Instance.players[lastEntity.allyOwner]))

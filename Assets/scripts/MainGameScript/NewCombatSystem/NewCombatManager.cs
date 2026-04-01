@@ -456,21 +456,35 @@ public class NewCombatManager : NetworkBehaviour
         {
             if (victor == allCombatants[i])
             {
-                //+1 bc of the overhead cam
                 mainCam.DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Styles.EaseInOut, 0f);
                 cameras[i + 1].Priority = 10;
+            }
+            
+            if (!allCombatants[i].stats.isDead)
+            {
+                //+1 bc of the overhead cam
                 
-                if (victor.stats is playerData)
+                
+                if (allCombatants[i].stats is playerData)
                 {
-                    CombatAnimator winAnimator = victor.GetComponent<CombatAnimator>();
+
+                    CombatAnimator winAnimator = allCombatants[i].GetComponent<CombatAnimator>();
                     winAnimator.VictoryAnimState(true);
                     winAnimator.StartUpAnimState(false);
                     winAnimator.WalkingState(false);
 
                 }
+                else
+                {
+                    Debug.Log("I shouldve seen this " + allCombatants[i].stats.name);
+                    BaseEnemyBehavior nonPlayer = allCombatants[i].GetComponent<BaseEnemyBehavior>();
+                    nonPlayer.SetVictoryAnim(true);
+                    nonPlayer.SetStartUpAnim(false);
+                    nonPlayer.SetAttackingAnim(false);
+                    nonPlayer.SetWalkingAnim(false);
+                }
 
-
-                break;
+               
             }
         }
 
@@ -511,7 +525,7 @@ public class NewCombatManager : NetworkBehaviour
             
             foreach (var partyMember in cache.partyMembers)
             {
-                int levelsGained = partyMember.gainXp(totalXpToGain / cache.partyMembers.Count + 1);
+                int levelsGained = partyMember.gainXp(totalXpToGain / (cache.partyMembers.Count + 1));
                 partyLevelsGained.Add(levelsGained);
             }
             int levels = player.gainXp(totalXpToGain / (cache.partyMembers.Count + 1));
@@ -933,7 +947,7 @@ public class NewCombatManager : NetworkBehaviour
                 }
             }
 
-            Debug.Log("Who wonned " + winner.stats.name);
+        
             
 
             

@@ -1665,7 +1665,7 @@ CapsuleCollider:
   m_Radius: 0.57
   m_Height: 5.93
   m_Direction: 1
-  m_Center: {x: 0, y: 2.4, z: 0}
+  m_Center: {x: 0, y: 1.9, z: 0}
 --- !u!65 &5509087306482488691
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1726,7 +1726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2967414060
+  GlobalObjectIdHash: 2054981637
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -2060,6 +2060,10 @@ MonoBehaviour:
       NameHash: 1207992894
       Synchronize: 1
       ParameterType: 1
+    - name: Victory
+      NameHash: -1090111034
+      Synchronize: 1
+      ParameterType: 4
   AnimatorParametersExpanded: 0
 --- !u!82 &8695543771099290480
 AudioSource:
@@ -2204,7 +2208,7 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 5.66
-  m_BaseOffset: 0.29
+  m_BaseOffset: 1
   m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!114 &5143126193848974289
@@ -2235,6 +2239,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   overrideController: {fileID: 0}
   walkingAnimation: {fileID: 7400000, guid: 73249539e6c7fac4894f7033f33fc7f0, type: 2}
+  victoryAnimation: {fileID: 7400000, guid: acf3ca9e5a6cb554889c6bc115dafbc1, type: 2}
   attackAnimations: []
   releaseTimer: 0
   timeToHold: 0

@@ -392,7 +392,7 @@ public class PlayerMoveManager : NetworkBehaviour
         {
             
             var tilePos = mapTiles[tildId].gameObject.transform.position;
-            Debug.Log(Vector3.Distance(playerSticks[curPlayerIndex].transform.position, mapTiles[tildId].gameObject.transform.position));
+          
 
             playerSticks[NetworkData.Instance.currentPlayer].transform.position =
 
@@ -409,7 +409,7 @@ public class PlayerMoveManager : NetworkBehaviour
             }
             yield return null;
         }
-        Debug.Log("Final distance " + Vector3.Distance(playerSticks[curPlayerIndex].transform.position, mapTiles[tildId].gameObject.transform.position));
+   
     }
 
     //id like to say that in an ideal world id be able to directly set up a lot of these things in the inspector
