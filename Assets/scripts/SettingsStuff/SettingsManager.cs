@@ -57,12 +57,15 @@ public class SettingsManager : MonoBehaviour
         }
         else
         {
+
             settingsOpen = true;
             previousMode = Cursor.lockState;
             Cursor.lockState = CursorLockMode.None;
             SceneManager.LoadSceneAsync("Settings", LoadSceneMode.Additive);
         }
+
     }
+   
     public void ChangeSFXVolume(int value)
     {
         SFXVolume = value / 100f;

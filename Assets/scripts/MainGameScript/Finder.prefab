@@ -201,7 +201,7 @@ MonoBehaviour:
       - m_Target: {fileID: 3277649163424500733}
         m_TargetAssemblyTypeName: FreeMover, Assembly-CSharp
         m_MethodName: EndFreeCamera
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -260,6 +260,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: d15ba213-1da5-48d5-b8f8-0bde0ec93246
     m_ActionName: 'Player/Dash[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e418b02e-38f9-4a5b-8bb5-e33e10b0e4bd
+    m_ActionName: 'UI/Inspect[/Keyboard/i]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI

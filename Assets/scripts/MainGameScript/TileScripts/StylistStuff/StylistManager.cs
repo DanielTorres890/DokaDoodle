@@ -1,5 +1,6 @@
 using System.Linq;
 using TMPro;
+using Unity.Multiplayer.PlayMode;
 using Unity.Netcode;
 using Unity.Services.Authentication;
 using UnityEngine;
@@ -182,6 +183,7 @@ public class StylistManager : NetworkBehaviour
 
         currentEditor.setHair(currentHairLook);
         hairText.text = spriteLibrary.GetCategoryLabelNames("hair").ToList()[currentHairLook];
+        currentPlayer.playerHair = currentHairLook;
     }
 
     public void PreviousHair()
@@ -197,7 +199,7 @@ public class StylistManager : NetworkBehaviour
         else { currentHairLook -= 1; }
         currentEditor.setHair(currentHairLook);
         hairText.text = spriteLibrary.GetCategoryLabelNames("hair").ToList()[currentHairLook];
-
+        currentPlayer.playerHair = currentHairLook;
     }
     public void NextFace()
     {
@@ -212,6 +214,7 @@ public class StylistManager : NetworkBehaviour
 
         currentEditor.setFace(currentFaceLook);
         faceText.text = spriteLibrary.GetCategoryLabelNames("face").ToList()[currentFaceLook];
+        currentPlayer.playerFace = currentFaceLook;
 
     }
 
@@ -228,7 +231,7 @@ public class StylistManager : NetworkBehaviour
         else { currentFaceLook -= 1; }
         currentEditor.setFace(currentFaceLook);
         faceText.text = spriteLibrary.GetCategoryLabelNames("face").ToList()[currentFaceLook];
-        
+        currentPlayer.playerFace = currentFaceLook;
 
     }
     public void NextWinAnim()

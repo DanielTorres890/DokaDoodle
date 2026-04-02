@@ -526,7 +526,6 @@ public class PlayerMoveManager : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
 
         if (!canMove) { return; }
-
         if (!action.started) { return; }
         if (cameraMove) { return; }
 
@@ -561,13 +560,14 @@ public class PlayerMoveManager : NetworkBehaviour
         if (inspectingTile) { return; }
         if (!action.started) { return; }
 
-        FreeMover.Instance.EndFreeCamera();
+ 
+       
         UnfreeCameraRpc();
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void UnfreeCameraRpc()
     {
-        
+    
         foreach (var tile in possibleEndTiles)
         {
             tile.ArrowChange(false);
@@ -577,18 +577,18 @@ public class PlayerMoveManager : NetworkBehaviour
     public void InspectTile(InputAction.CallbackContext action)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
-        if (!canMove) { return; }
-        if (!cameraMove) { return; }
         if(!FreeMover.Instance.baseTile) { return; }
-        if(!action.started) { return; }
         if (inspectingTile) { return; }
+        if(!cameraMove) { return; }
+        if (!action.started) { return; }
+
         InspectTileRpc(FreeMover.Instance.baseTile.tileId);
     }
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void InspectTileRpc(int tileId)
     {
-
+        Debug.Log("i inspected ");
         inspectingTile = true;
         ClientChecks.Instance.tileInfoDisplay.UpdateText(mapTiles[tileId]);
         ClientChecks.Instance.tileInfoDisplay.gameObject.SetActive(true);
@@ -597,10 +597,7 @@ public class PlayerMoveManager : NetworkBehaviour
     public void StopInspect(InputAction.CallbackContext action)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
-        if (!canMove) { return; }
-        if (!cameraMove) { return; }
         if (!FreeMover.Instance.baseTile) { return; }
-        if (!action.started) { return; }
         if (!inspectingTile) { return; }
         StopInspectRpc();
     }

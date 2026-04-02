@@ -6,6 +6,7 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Unity.Netcode.NetworkSceneManager;
@@ -191,7 +192,7 @@ public class ClientChecks : NetworkBehaviour
             var unlockedClassId = NetworkData.Instance.checkUnlockedClass(NetworkData.Instance.currentPlayer);
             if(unlockedClassId == -1)
             {
-                onRoundStart.Invoke();
+           
                 onRoundStart.Invoke();
                 mainMenuButtons.SetActive(true);
                 rollNum.gameObject.transform.parent.gameObject.SetActive(false);
@@ -445,6 +446,42 @@ public class ClientChecks : NetworkBehaviour
     {
         StartCoroutine(TrapActivates());
     }
+
+
+    
+    public void FreeCameraMap()
+    {
+        if (!NetworkData.Instance.IsAllowed()) { return; }
+
+        FreeCameraMapRpc();
+        FreeMover.Instance.FreeCamera();
+        
+    }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void FreeCameraMapRpc()
+    {
+        mainMenuButtons.SetActive(false);
+        PlayerMoveManager.Instance.cameraMove = true;
+        if (!NetworkData.Instance.IsAllowed()) { return; }
+        FreeMover.Instance.onUndoFree.AddListener(UnfreeCameraMap);
+
+    }
+
+    public void UnfreeCameraMap()
+    {
+        if (!NetworkData.Instance.IsAllowed()) { return; }
+      
+        UnfreeCameraMapRpc();
+    }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void UnfreeCameraMapRpc()
+    {
+   
+        PlayerMoveManager.Instance.cameraMove = false;
+        mainMenuButtons.SetActive(true);
+    }
+
     private IEnumerator previewFight()
     {
 

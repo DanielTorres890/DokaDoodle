@@ -119,9 +119,10 @@ public class playerData : EntityStats
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][1].container.Count; i++)
         {
             var thisWeapon = NetworkData.Instance.playerInventories[playerNumber][1].getItem(i) as WeaponItem;
-
+         
             if (!UsableItem(thisWeapon)) { continue; }
 
+ 
             foreach (var attack in thisWeapon.attack)
             {
                 if (!attack.meetsRequirement(this)) { continue; }
@@ -136,7 +137,10 @@ public class playerData : EntityStats
         for (int i = 0; i < NetworkData.Instance.playerInventories[playerNumber][2].container.Count; i++)
         {
             var thisWeapon = NetworkData.Instance.playerInventories[playerNumber][2].getItem(i) as WeaponItem;
-            foreach(var attack in thisWeapon.attack)
+        
+            if (!UsableItem(thisWeapon)) { continue; }
+
+            foreach (var attack in thisWeapon.attack)
             {
                 if (!attack.meetsRequirement(this)) { continue; }
 
@@ -284,9 +288,13 @@ public class playerData : EntityStats
     }
     private bool UsableItem(WeaponItem item)
     {
+
         bool canUse = true;
+        Debug.Log("The item " + item.itemName);
         foreach (var attribs in item.skillRequirements)
         {
+            Debug.Log("Who is you " + attribs.value);
+            Debug.Log("Or you " + stats[attribs.attribute]);
             if (stats[attribs.attribute] < attribs.value) { canUse = false; break; }
         }
         return canUse;

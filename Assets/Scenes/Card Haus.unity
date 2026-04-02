@@ -5166,7 +5166,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3375740347626062927}
-  - component: {fileID: 7048905230022439229}
   - component: {fileID: 6394473507414055121}
   - component: {fileID: 534314426388015065}
   m_Layer: 5
@@ -5228,7 +5227,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3170753389429609284}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5814,8 +5813,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1597916520154434321}
   m_HandleRect: {fileID: 7011457736660913762}
   m_Direction: 2
-  m_Value: -0.00000021725263
-  m_Size: 0.7658826
+  m_Value: -0.000005648571
+  m_Size: 0.7658827
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6137,7 +6136,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 70.23523}
+  m_AnchoredPosition: {x: 0, y: 70.235565}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &5548375464284970145
@@ -6519,31 +6518,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7048905230022439229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2206244199214018864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3874582093
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!224 &7081849567318912005
 RectTransform:
   m_ObjectHideFlags: 0

@@ -431,7 +431,8 @@ public class AbilityManager : NetworkBehaviour
         characterEdit.setHair(myStats.allyHair);
 
 
-        NewCombatManager.instance.cameras.Add(gameObject.GetComponentInChildren<CinemachineCamera>());
+        if(TryGetComponent(out CinemachineCamera cam )&& !NewCombatManager.instance.cameras.Contains(cam))
+        NewCombatManager.instance.cameras.Add(cam);
         
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
@@ -448,10 +449,11 @@ public class AbilityManager : NetworkBehaviour
         hpText.UpdateText();
 
         CinemachineCamera cam = gameObject.GetComponentInChildren<CinemachineCamera>();
-        if (cam)
+        if (cam && !NewCombatManager.instance.cameras.Contains(cam))
         {
             NewCombatManager.instance.cameras.Add(cam);
         }
+
         if (myHealthbar && stats is playerData && NetworkData.Instance.IsAllowed((stats as playerData).playerNumber, NetworkManager.Singleton.LocalClientId))
         {
             myHealthbar.SetActive(false);

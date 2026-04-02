@@ -140,6 +140,12 @@ public class FreeMover : NetworkBehaviour
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         EndFreeCameraRpc();
     }
+    public void EndFreeCamera(InputAction.CallbackContext action)
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        if (!action.started) { return; }
+        EndFreeCameraRpc();
+    }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void EndFreeCameraRpc(RpcParams paramys = default)
     {
@@ -152,6 +158,7 @@ public class FreeMover : NetworkBehaviour
         playerCam.Follow = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
 
         playerCam.GetComponent<CinemachineFollow>().FollowOffset -= followOffset;
+       
         if (IsServer)
         {
             gameObject.GetComponent<NetworkObject>().ChangeOwnership(0);

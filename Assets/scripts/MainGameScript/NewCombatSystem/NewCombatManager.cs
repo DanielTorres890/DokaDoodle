@@ -209,6 +209,7 @@ public class NewCombatManager : NetworkBehaviour
                     abilitiyManage.UpdateMaterialRpc(player.playerNumber);
 
                     abilitiyManage.UpdateStatsRpc(PlayerCombatManager.Instance.combatants.IndexOf(entity));
+                    Debug.Log("Who is you " + countbcisuck);
                     SetNotSpectateRpc(countbcisuck, RpcTarget.Single(NetworkData.Instance.PlayerNumToClientId(player.playerNumber), RpcTargetUse.Temp));
 
                     
@@ -276,7 +277,6 @@ public class NewCombatManager : NetworkBehaviour
         cameras[whichone].Priority = 10;
 
 
-        
         playerUI.abilityManager = allCombatants[whichone - 1]; //keep in mind that theres already a camera in the scene by default so its off by 1
         playerUI.SetUp();
 
