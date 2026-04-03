@@ -1740,6 +1740,7 @@ GameObject:
   - component: {fileID: 176985018}
   - component: {fileID: 176985020}
   - component: {fileID: 176985019}
+  - component: {fileID: 176985021}
   m_Layer: 5
   m_Name: MenuManager
   m_TagString: Untagged
@@ -1901,6 +1902,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HostOnly
   toShow: {fileID: 1806826424}
+--- !u!114 &176985021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176985010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c7d90fd15a200b4ba7f29653024d169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShowMeToAll
+  ShowTopMostFoldoutHeaderGroup: 1
+  menuUI: {fileID: 425365415}
 --- !u!1 &210913411
 GameObject:
   m_ObjectHideFlags: 0
@@ -2428,7 +2443,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &246460424
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4740,6 +4755,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 423021585}
   m_CullTransparentMesh: 1
+--- !u!1 &425365415
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 425365416}
+  - component: {fileID: 425365417}
+  m_Layer: 5
+  m_Name: DiceVisual
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &425365416
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425365415}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 481410156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -120, y: 236}
+  m_SizeDelta: {x: 541.9075, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &425365417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425365415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &453417066
 GameObject:
   m_ObjectHideFlags: 0
@@ -4912,6 +4989,7 @@ RectTransform:
   - {fileID: 655395202}
   - {fileID: 246460424}
   - {fileID: 1910398183}
+  - {fileID: 425365416}
   - {fileID: 875596864}
   - {fileID: 301103366}
   - {fileID: 395932640}
@@ -9346,7 +9424,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -289.1785, y: -225.58806}
+  m_AnchoredPosition: {x: -265, y: -228}
   m_SizeDelta: {x: 330.2429, y: 74.9139}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &972234480
@@ -9418,6 +9496,18 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 176985014}
+        m_TargetAssemblyTypeName: ShowMeToAll, Assembly-CSharp
+        m_MethodName: HideUIFromAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 176985021}
         m_TargetAssemblyTypeName: ShowMeToAll, Assembly-CSharp
         m_MethodName: HideUIFromAll
         m_Mode: 1
@@ -11748,6 +11838,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1222805382}
+        m_TargetAssemblyTypeName: ClientChecks, Assembly-CSharp
+        m_MethodName: SpawnDiceVisual
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 176985021}
+        m_TargetAssemblyTypeName: ShowMeToAll, Assembly-CSharp
+        m_MethodName: ShowUIToAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1171955986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12243,6 +12357,9 @@ MonoBehaviour:
       m_Calls: []
   worldEventImage: {fileID: 2000756986}
   randomItemPickup: {fileID: 1896124179}
+  diceParent: {fileID: 425365416}
+  diceVisualPrefab: {fileID: 899085287007286615, guid: c94818a76d35fe3428d260aba772ed9c, type: 3}
+  spawnedDice: []
 --- !u!114 &1222805383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17819,7 +17936,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 16.329, y: 19.581}
+  m_AnchoredPosition: {x: -100, y: -4.945}
   m_SizeDelta: {x: 370.5999, y: 109.89}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1910398184
@@ -20085,7 +20202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2623396731086010025, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}
       propertyPath: m_Value
-      value: 0.99999976
+      value: 1.0000052
       objectReference: {fileID: 0}
     - target: {fileID: 3472634996971899538, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}
       propertyPath: m_Pivot.x

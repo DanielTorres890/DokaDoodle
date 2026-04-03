@@ -38,6 +38,9 @@ public class ClientChecks : NetworkBehaviour
 
     public RandomItemSelect randomItemPickup;
 
+    public Transform diceParent;
+    public GameObject diceVisualPrefab;
+    public List<GameObject> spawnedDice = new List<GameObject>();
 
     //i dont like this but i also cant imagine making it more robust would be a better use of time
     private int currentPlayerLook;
@@ -218,6 +221,47 @@ public class ClientChecks : NetworkBehaviour
         }
     }
 
+    public void SpawnDiceVisual()
+    {
+        if (!NetworkData.Instance.IsAllowed()) { return; }
+        SpawnDiceVisualRpc();
+    }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void SpawnDiceVisualRpc()
+    {
+        int rollMultiplier = 1;
+
+        int forcedRoll = -1;
+        foreach (var status in NetworkData.Instance.GetCurrentPlayer().statuses)
+        {
+            var currentBuff = NetworkData.Instance.buffDataBase.GetItem[status.buffId];
+            if (currentBuff is RollBuff)
+            {
+
+                rollMultiplier = (currentBuff as RollBuff).rollMultiplier;
+                break;
+            }
+            if(currentBuff is ForceRollBuff)
+            {
+                rollMultiplier = 1;
+                forcedRoll = (currentBuff as ForceRollBuff).forcedNumber;
+                break;
+            }
+        }
+        for(int i = spawnedDice.Count - 1; i >= 0; i--)
+        {
+            spawnedDice.RemoveAt(i);
+        }
+
+        for(int i = 0; i < rollMultiplier; i++)
+        {
+            GameObject fab = Instantiate(diceVisualPrefab, diceParent);
+            if(forcedRoll > -1) { fab.GetComponent<DiceRollerVisual>().Complete(forcedRoll); }
+
+            spawnedDice.Add(fab);
+        }
+
+    }
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void ShowConfirmItemButtonsRpc(int player, int itemId, int inventoryNum)

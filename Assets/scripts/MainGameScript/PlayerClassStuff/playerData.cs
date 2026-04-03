@@ -216,10 +216,11 @@ public class playerData : EntityStats
         this.tillRevive--;
         if (tillRevive < 0)
         {
-
+            Debug.Log("You have revived");
             isDead = false;
             tillRevive = 0;
             this.stats[Attributes.Health] = this.stats[Attributes.MaxHealth];
+            PostStatusStatCalc();
         }
     }
 

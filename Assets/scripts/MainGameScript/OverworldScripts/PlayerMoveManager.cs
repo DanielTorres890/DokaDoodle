@@ -1,3 +1,4 @@
+using PrimeTween;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -119,6 +120,7 @@ public class PlayerMoveManager : NetworkBehaviour
         }
 
         int totalRoll = 0;
+        int[] singleRolls = new int[rollMultiplier];
         for (int i = 0; i < rollMultiplier; i++)
         {
 
@@ -128,28 +130,34 @@ public class PlayerMoveManager : NetworkBehaviour
 
             else { diceRoll = (randomNum % 7) + 1; } 
             totalRoll += diceRoll;
+            singleRolls[i] = diceRoll;
+            Debug.Log("How many roles? ");
         }
 
-
+        
         foreach (var status in NetworkData.Instance.GetCurrentPlayer().statuses)
         {
             var currentBuff = NetworkData.Instance.buffDataBase.GetItem[status.buffId];
+            Debug.Log("i did look at " + currentBuff.name);
             if (currentBuff is ForceRollBuff)
             {
+                Debug.Log("I should have forced the roll ");
                 totalRoll = (currentBuff as ForceRollBuff).forcedNumber;
+                singleRolls[0] = totalRoll;
                 break;
             }
         }
 
 
-        canMove = true;
+        
         if (forceRoll)
         {
+            Debug.Log("Is this whats happening? ");
             SyncDiceRollServerRpc(forcedRollNum);//can force die roll with this
         }
         else
         {
-            SyncDiceRollServerRpc(totalRoll);
+            SyncDiceRollServerRpc(singleRolls);
         }
 
         takenPath.Clear();
@@ -183,15 +191,45 @@ public class PlayerMoveManager : NetworkBehaviour
         var curTile = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
 
         curTile.players.Remove(NetworkData.Instance.currentPlayer);
+        
         //id like to say that while this is not the most beautiful thing in the world i cant hate it
         ClientChecks.Instance.rollNum.text = diceRoll.ToString();
         ClientChecks.Instance.rollNum.transform.parent.gameObject.SetActive(true);
     }
 
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void SyncDiceRollServerRpc(int[] num)
+    {
 
+        stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", true);
+        SetAllyAnimator(true);
+
+        int total = 0;
+        for(int i = 0; i < num.Length; i++)
+        {
+            total += num[i];
+            ClientChecks.Instance.spawnedDice[i].GetComponent<DiceRollerVisual>().Complete(num[i]);
+        }
+        diceRoll = total;
+
+        var curTile = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
+
+        curTile.players.Remove(NetworkData.Instance.currentPlayer);
+        //id like to say that while this is not the most beautiful thing in the world i cant hate it
+        ClientChecks.Instance.rollNum.text = diceRoll.ToString();
+
+        if(NetworkData.Instance.IsAllowed())
+        Tween.Delay(1f, delegate { canMove = true; });
+
+        Tween.Delay(1f, delegate { ClientChecks.Instance.rollNum.transform.parent.gameObject.SetActive(true); });
+        Tween.Delay(1f, delegate { ClientChecks.Instance.diceParent.gameObject.SetActive(false); });
+        
+    }
     public void confirmMove(InputAction.CallbackContext action)
     {
 
+
+                    
         if (!canMove) { return; }
         if(autoMoving) { return; }
         if (diceRoll <= 0)

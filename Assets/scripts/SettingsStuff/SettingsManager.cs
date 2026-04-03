@@ -65,7 +65,29 @@ public class SettingsManager : MonoBehaviour
         }
 
     }
-   
+
+    public void OnApplicationFocus(bool focus)
+    {
+        int number = 12;
+        if (number > 10 &&  number < 20)
+        {
+            //MULTI CONDITIONAL
+        }
+        // && means and
+        // || means or
+
+        if(!settingsOpen) { previousMode = Cursor.lockState; }
+
+        if(!focus) { return; }
+        if(settingsOpen)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = previousMode;
+        }
+    }
     public void ChangeSFXVolume(int value)
     {
         SFXVolume = value / 100f;
