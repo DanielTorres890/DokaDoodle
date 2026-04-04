@@ -72,8 +72,8 @@ public class AllyViewNetwork : NetworkBehaviour
     private void ReturnToOwnerRpc()
     {
         var currentAlly = NetworkData.Instance.GetCurrentPlayer().partyMembers[currentAllyIndex];
-        currentAlly.boardMovementState = PlayerFollowingStates.FollowingOwner;
-        if(currentAlly.curTileId == NetworkData.Instance.GetCurrentPlayer().curTileId) { currentAlly.boardMovementState = PlayerFollowingStates.WithOwner; }
+        currentAlly.SetFollowingState(PlayerFollowingStates.FollowingOwner);
+        if(currentAlly.curTileId == NetworkData.Instance.GetCurrentPlayer().curTileId) { currentAlly.SetFollowingState(PlayerFollowingStates.WithOwner); }
         ExitAllyStateMenu();
     }
 
@@ -104,6 +104,6 @@ public class AllyViewNetwork : NetworkBehaviour
     public void LinkedToTile(int tileId)
     {
         NetworkData.Instance.GetCurrentPlayer().partyMembers[currentAllyIndex].targetTile = tileId;
-        NetworkData.Instance.GetCurrentPlayer().partyMembers[currentAllyIndex].boardMovementState = PlayerFollowingStates.HoldTile;
+        NetworkData.Instance.GetCurrentPlayer().partyMembers[currentAllyIndex].SetFollowingState (PlayerFollowingStates.HoldTile);
     }
 }

@@ -12,6 +12,7 @@ public abstract class EventBase : ScriptableObject
     public string SceneToGoTo;
     public AudioClip backgroundMusic;
 
+    public GameObject environment;
     public abstract void SetUpBg();
     public abstract void FireEvent();
 

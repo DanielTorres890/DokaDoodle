@@ -14,7 +14,7 @@ public class TileEventManager : NetworkBehaviour
     public DialogueScript dialogueScript;
     public Image background;
 
-
+    public Transform cam;
     [SerializeField] private float spaceBetweenButtons;
     [SerializeField] private float startButtonY;
     [SerializeField] private float startButtonX;
@@ -46,6 +46,10 @@ public class TileEventManager : NetworkBehaviour
         if(background && NetworkData.Instance.currentEvent.background)
         {
             background.sprite = NetworkData.Instance.currentEvent.background;
+        }
+        if(cam && NetworkData.Instance.currentEvent.environment)
+        {
+            Instantiate(NetworkData.Instance.currentEvent.environment, cam);
         }
     }
 

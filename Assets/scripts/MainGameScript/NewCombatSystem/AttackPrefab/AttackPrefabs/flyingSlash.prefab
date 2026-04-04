@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8752398753730281960}
   - component: {fileID: 4693636904367501402}
   - component: {fileID: 4508866538780098518}
+  - component: {fileID: 8099195380807400830}
   m_Layer: 0
   m_Name: slashfx
   m_TagString: Untagged
@@ -118,6 +119,21 @@ VFXRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
+--- !u!114 &8099195380807400830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568081090260898386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45cee7ff11fc124691b1fdd000651a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponColorUpdate
+  ShowTopMostFoldoutHeaderGroup: 1
+  effect: {fileID: 4693636904367501402}
+  ability: {fileID: 3619696693334635195}
 --- !u!1 &2566779757777240371
 GameObject:
   m_ObjectHideFlags: 0

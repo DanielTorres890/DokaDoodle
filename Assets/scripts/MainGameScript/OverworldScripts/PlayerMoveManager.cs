@@ -945,7 +945,7 @@ public class PlayerMoveManager : NetworkBehaviour
                 MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Remove(member);          
                 member.curTileId = targetTileId;
                 MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Add(member);
-                if (member.boardMovementState == PlayerFollowingStates.FollowingOwner) { member.boardMovementState = PlayerFollowingStates.WithOwner; }
+                if (member.boardMovementState == PlayerFollowingStates.FollowingOwner) { member.SetFollowingState(PlayerFollowingStates.WithOwner); }
                 continue;
 
             }

@@ -242,6 +242,34 @@ public class PartyMember : EntityStats
         
         return allyDead;
     }
+
+    public void SetFollowingState(PlayerFollowingStates toBe)
+    {
+
+        boardMovementState = toBe;
+        if(boardMovementState == PlayerFollowingStates.WithOwner)
+        {
+            foreach(var status in NetworkData.Instance.players[allyOwner].statuses)
+            {
+                if (NetworkData.Instance.buffDataBase.GetItem[status.buffId] is Inspire)
+                {
+                    Inspire buff = NetworkData.Instance.buffDataBase.GetItem[status.buffId] as Inspire;
+                    buff.OnApply(NetworkData.Instance.players[allyOwner]);
+                }
+            }
+        }
+        if (boardMovementState != PlayerFollowingStates.WithOwner)
+        {
+            foreach (var status in NetworkData.Instance.players[allyOwner].statuses)
+            {
+                if (NetworkData.Instance.buffDataBase.GetItem[status.buffId] is Inspire)
+                {
+                    RemoveStatus(status.buffId);
+                
+                }
+            }
+        }
+    }
 }
 public enum PlayerFollowingStates
 {

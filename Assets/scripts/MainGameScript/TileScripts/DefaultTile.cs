@@ -8,7 +8,8 @@ public class DefaultTile : TileScript
     public EnemyEncounter[] enemies;
     
     public EventBase[] events;
-    
+
+    private static bool forceEvent = false;
     public override void TileEvent()
     {
         
@@ -29,7 +30,7 @@ public class DefaultTile : TileScript
             if(enemy != NetworkData.Instance.currentPlayer) { enemyPlayer = true; break;}
         }
         
-        if (Random.Range(1,11) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly && !enemyPlayer)  
+        if ((Random.Range(1,11) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly && !enemyPlayer) || forceEvent)  
         {
             int eventToSet = Random.Range(0,events.Length);
             ClientChecks.Instance.SyncEventRpc(eventToSet);
