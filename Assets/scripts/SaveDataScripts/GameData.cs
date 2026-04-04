@@ -23,7 +23,7 @@ public class GameData
 
 
 
-
+    public Dictionary<TutorialStates, bool> tutorialStates = new Dictionary<TutorialStates, bool>();
     public SpecialTileEventHold[][] tileEvents;
 
     

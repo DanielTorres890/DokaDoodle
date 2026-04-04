@@ -51,7 +51,7 @@ public class UnityRelay : MonoBehaviour
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3);
 
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-            joinCodeText.text = "Join Code " + joinCode;
+            joinCodeText.text = joinCode;
 
 
             RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "dtls");
@@ -94,9 +94,9 @@ public class UnityRelay : MonoBehaviour
 
 
             //editor.SetActive(true);
-            joinCodeTextLoaded.text = "Join Code " + joinCode;
+            joinCodeTextLoaded.text =  joinCode;
             joinCodeInput.gameObject.SetActive(false);
-            joinCodeText.text = "Join Code " + joinCode;
+            joinCodeText.text =  joinCode;
         }
         catch (RelayServiceException e)
         {
@@ -115,7 +115,7 @@ public class UnityRelay : MonoBehaviour
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3);
 
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-            joinCodeTextLoaded.text ="Join Code " + joinCode;
+            joinCodeTextLoaded.text = joinCode;
 
 
             RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "dtls");

@@ -16,7 +16,11 @@ public class FlashingRed : MonoBehaviour
     void Update()
     {
         if(IsLow())
-        whiteImage.color = new Color(255, Mathf.Sin( flashSpeed * Time.time),Mathf.Sin(flashSpeed * Time.time));
+        whiteImage.color = new Color(255, (Mathf.Sin(flashSpeed * Time.time) + 1) / 2, (Mathf.Sin(flashSpeed * Time.time) + 1) / 2);
+        else if(whiteImage.color != Color.white)
+        {
+          whiteImage.color = Color.white; 
+        }
     }
 
     private bool IsLow()

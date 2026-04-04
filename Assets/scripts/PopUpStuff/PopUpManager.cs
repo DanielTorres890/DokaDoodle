@@ -10,6 +10,13 @@ public class PopUpManager : MonoBehaviour, IDataPersistance
     public GameObject currentPopUp;
     public List<int> seenPopUpIds;
 
+    public Dictionary<TutorialStates, bool> tutorialState = new Dictionary<TutorialStates, bool>
+    { 
+        {TutorialStates.FirstCameraUse, false },
+        {TutorialStates.FirstTileInspect, false },
+
+    };
+
     public void Awake()
     {
         if (Instance != null) { Destroy(this); Destroy(this.gameObject); return; }
@@ -43,11 +50,19 @@ public class PopUpManager : MonoBehaviour, IDataPersistance
     public void LoadData(GameData data)
     {
         seenPopUpIds = data.seenPopsUps;
+        tutorialState = data.tutorialStates;
     }
     public void SaveData(ref GameData data)
     {
         data.seenPopsUps = seenPopUpIds;
+        data.tutorialStates = tutorialState;
     }
     // Update is called once per frame
  
+}
+
+public enum TutorialStates
+{
+    FirstCameraUse,
+    FirstTileInspect
 }

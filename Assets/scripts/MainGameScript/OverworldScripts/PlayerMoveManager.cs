@@ -131,17 +131,17 @@ public class PlayerMoveManager : NetworkBehaviour
             else { diceRoll = (randomNum % 7) + 1; } 
             totalRoll += diceRoll;
             singleRolls[i] = diceRoll;
-            Debug.Log("How many roles? ");
+   
         }
 
         
         foreach (var status in NetworkData.Instance.GetCurrentPlayer().statuses)
         {
             var currentBuff = NetworkData.Instance.buffDataBase.GetItem[status.buffId];
-            Debug.Log("i did look at " + currentBuff.name);
+           
             if (currentBuff is ForceRollBuff)
             {
-                Debug.Log("I should have forced the roll ");
+      
                 totalRoll = (currentBuff as ForceRollBuff).forcedNumber;
                 singleRolls[0] = totalRoll;
                 break;
@@ -152,7 +152,8 @@ public class PlayerMoveManager : NetworkBehaviour
         
         if (forceRoll)
         {
-            Debug.Log("Is this whats happening? ");
+            
+            canMove = true;
             SyncDiceRollServerRpc(forcedRollNum);//can force die roll with this
         }
         else
@@ -219,10 +220,10 @@ public class PlayerMoveManager : NetworkBehaviour
         ClientChecks.Instance.rollNum.text = diceRoll.ToString();
 
         if(NetworkData.Instance.IsAllowed())
-        Tween.Delay(1f, delegate { canMove = true; });
+        Tween.Delay(1.25f, delegate { canMove = true; });
 
-        Tween.Delay(1f, delegate { ClientChecks.Instance.rollNum.transform.parent.gameObject.SetActive(true); });
-        Tween.Delay(1f, delegate { ClientChecks.Instance.diceParent.gameObject.SetActive(false); });
+        Tween.Delay(1.25f, delegate { ClientChecks.Instance.rollNum.transform.parent.gameObject.SetActive(true); });
+        Tween.Delay(1.25f, delegate { ClientChecks.Instance.diceParent.gameObject.SetActive(false); });
         
     }
     public void confirmMove(InputAction.CallbackContext action)
@@ -577,6 +578,7 @@ public class PlayerMoveManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void FreeCameraRpc()
     {
+        PopUpManager.Instance.tutorialState[TutorialStates.FirstCameraUse] = true;
         cameraMove = true;
         possibleEndTiles.Clear();
         var currrentPlayer = NetworkData.Instance.GetCurrentPlayer();
@@ -626,7 +628,7 @@ public class PlayerMoveManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void InspectTileRpc(int tileId)
     {
-        Debug.Log("i inspected ");
+        PopUpManager.Instance.tutorialState[TutorialStates.FirstTileInspect] = true;
         inspectingTile = true;
         ClientChecks.Instance.tileInfoDisplay.UpdateText(mapTiles[tileId]);
         ClientChecks.Instance.tileInfoDisplay.gameObject.SetActive(true);
