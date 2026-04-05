@@ -51,6 +51,11 @@ public class TileEventManager : NetworkBehaviour
         {
             Instantiate(NetworkData.Instance.currentEvent.environment, cam);
         }
+
+        for (int i = 0; i < NetworkData.Instance.playerSticks.Count; i++)
+        {
+            NetworkData.Instance.playerSticks[i].transform.position = new Vector3(-1000 + i * 1000, -1000, -1000);
+        }
     }
 
     // Update is called once per frame

@@ -53,7 +53,54 @@ public class TileInfoDisplay : MonoBehaviour
             spawnedChildren.Add(instance);
         }
 
+        for (int i = 0; i < thisTile.players.Count; i++)
+        {
+
+            var thisPlayer = NetworkData.Instance.players[thisTile.players[i]];
+            GameObject instance = Instantiate(enemyText, textParent);
+
+            instance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "LVL " + thisPlayer.playerInfo[PlayerInfo.level] + ": " + thisPlayer.name;
 
 
+
+            var enemyAttributes = thisPlayer.stats;
+
+            
+            instance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "HP: " + enemyAttributes[Attributes.Health].ToString() + "/" + enemyAttributes[Attributes.MaxHealth].ToString();
+            instance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "ATK: " + enemyAttributes[Attributes.Attack].ToString();
+            instance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "DEF: " + enemyAttributes[Attributes.Defense].ToString();
+            instance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "MAG: " + enemyAttributes[Attributes.Magic].ToString();
+            instance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "MDEF: " + enemyAttributes[Attributes.MDefense].ToString();
+            instance.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = "DEX: " + enemyAttributes[Attributes.Dexterity].ToString();
+
+            
+
+            spawnedChildren.Add(instance);
+        }
+
+        for (int i = 0; i < thisTile.partyMembers.Count; i++)
+        {
+
+            var thisPartyMemeber = thisTile.partyMembers[i];
+            GameObject instance = Instantiate(enemyText, textParent);
+
+            instance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "LVL " + thisPartyMemeber.allyInfo[PlayerInfo.level] + ": " + thisPartyMemeber.name;
+
+
+
+            var enemyAttributes = thisPartyMemeber.stats;
+
+
+            instance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "HP: " + enemyAttributes[Attributes.Health].ToString() + "/" + enemyAttributes[Attributes.MaxHealth].ToString();
+            instance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "ATK: " + enemyAttributes[Attributes.Attack].ToString();
+            instance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "DEF: " + enemyAttributes[Attributes.Defense].ToString();
+            instance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "MAG: " + enemyAttributes[Attributes.Magic].ToString();
+            instance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "MDEF: " + enemyAttributes[Attributes.MDefense].ToString();
+            instance.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = "DEX: " + enemyAttributes[Attributes.Dexterity].ToString();
+
+
+
+            spawnedChildren.Add(instance);
+        }
     }
 }

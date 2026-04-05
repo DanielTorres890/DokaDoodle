@@ -325,6 +325,8 @@ public class EmploymentEventManager : NetworkBehaviour
 
         curPlayer.partyMembers.Add(availableAllies[currentAllyBuy]);
         curPlayer.playerInfo[PlayerInfo.money] -= CalculateAllyCost(availableAllies[currentAllyBuy]);
+
+        MapTileSpecialEvents.Instance.GetCurrentTile().partyMembers.Add(availableAllies[currentAllyBuy]);
         moneyDisplay.StatUpdate();
         availableAllies.RemoveAt(currentAllyBuy);
         allyDisplay.UpdateDisplay(availableAllies);

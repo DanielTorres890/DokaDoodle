@@ -853,11 +853,11 @@ public class PlayerMoveManager : NetworkBehaviour
                 intIndex += 1;
             }
             int stagger = 1;
-            Debug.Log("who up indexing " + intIndex);
+            
             if(intIndex > 1) { stagger = -1; }
             
             playerSticks[i].transform.position = mapTiles[NetworkData.Instance.players[i].curTileId].transform.position;
-            playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + intIndex % 2, playerSticks[i].transform.position.y + 3, playerSticks[i].transform.position.z - 2 + 1f * stagger);
+            playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + intIndex % 2, playerSticks[i].transform.position.y + 2.25f, playerSticks[i].transform.position.z - 2 + 1f * stagger);
             if (i != NetworkData.Instance.currentPlayer && NetworkData.Instance.GetCurrentPlayer().curTileId == NetworkData.Instance.players[i].curTileId)
             {
                 playerSticks[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
