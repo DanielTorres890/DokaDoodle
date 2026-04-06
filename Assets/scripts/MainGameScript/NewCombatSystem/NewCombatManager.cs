@@ -748,13 +748,7 @@ public class NewCombatManager : NetworkBehaviour
         tilereadCache.xpOnTile += xpHarvested;
         tilereadCache.moneyOnTile += moneyHarvested;
 
-        for(int i = tilereadCache.partyMembers.Count -1; i >= 0; i--)
-        {
-            if (tilereadCache.partyMembers[i].isDead)
-            {
-                tilereadCache.partyMembers[i].Die();
-            }
-        }
+        
 
         for(int i = tilereadCache.tileEnemy.Count - 1; i >= 0; i--)
         {
@@ -779,8 +773,26 @@ public class NewCombatManager : NetworkBehaviour
                 NetworkData.Instance.players[tilereadCache.players[i]].death(1);
 
             }
+            else
+            {
+                for (int j = tilereadCache.partyMembers.Count - 1; j >= 0; j--)
+                {
+                    if (tilereadCache.partyMembers[j].isDead && tilereadCache.partyMembers[j].allyOwner == NetworkData.Instance.players[tilereadCache.players[i]].playerNumber)
+                    {
+                        tilereadCache.partyMembers[j].isDead = false;
+                        tilereadCache.partyMembers[j].stats[Attributes.Health] = 1;
+                    }
+                }
+            }
         }
 
+        for (int i = tilereadCache.partyMembers.Count - 1; i >= 0; i--)
+        {
+            if (tilereadCache.partyMembers[i].isDead)
+            {
+                tilereadCache.partyMembers[i].Die();
+            }
+        }
         return deadPlayer;
     }
     

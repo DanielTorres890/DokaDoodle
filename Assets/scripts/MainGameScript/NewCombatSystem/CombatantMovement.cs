@@ -1,3 +1,4 @@
+using PrimeTween;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -38,6 +39,7 @@ public class CombatantMovement : NetworkBehaviour
     [SerializeField] private float gravityMult = 2;
     [SerializeField] private float minZoomIn, maxZoomOut;
 
+    private bool finished = false;
     public void Start()
     {
         
@@ -282,7 +284,19 @@ public class CombatantMovement : NetworkBehaviour
 
     private void LateUpdate()
     {
-        if (NewCombatManager.instance.fightOver || !IsOwner) { return; }
+        if (!IsOwner) { return; }
+
+        if(NewCombatManager.instance.fightOver)
+        {
+            if(playerCam.transform.parent.transform.eulerAngles != Vector3.zero && !finished)
+            {
+                Tween.LocalRotation(playerCam.transform.parent.transform, Vector3.zero, 0.2f);
+                finished = true;
+            }
+            
+            return;
+        }
+
         if (!abilityManager.CanMove() )
         {
 

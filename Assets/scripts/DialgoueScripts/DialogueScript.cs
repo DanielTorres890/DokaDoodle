@@ -129,7 +129,7 @@ public class DialogueScript : NetworkBehaviour
             
             //once again fmcl
             
-            gameObject.SetActive(false);
+            
 
             if (NetworkData.Instance.IsAllowed(whoInControl, NetworkManager.Singleton.LocalClientId))
                 EndEventRpc();
@@ -140,7 +140,7 @@ public class DialogueScript : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void EndEventRpc()
     {
-
+        gameObject.SetActive(false);
         endEvent.Invoke();
     }
 }

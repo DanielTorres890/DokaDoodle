@@ -29,7 +29,7 @@ public class Release :  BuffBase
         }
         if(!hasSunshine) { return 0; }
 
-        int difference = (sunshine.duration - Mathf.RoundToInt(boof.timeRemaining)) * 2;
+        int difference = (sunshine.duration - Mathf.RoundToInt(boof.timeRemaining)) * 5;
 
         Debug.Log("What is this? " + boof.timeRemaining);
         Debug.Log("For how long? " + (sunshine.duration - Mathf.RoundToInt(boof.timeRemaining)));

@@ -62,7 +62,7 @@ public class SceneChanger : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ResetYoStuffRpc(string scenename)
     {
-      
+        
         StartCoroutine(FadeIn(scenename, LoadSceneMode.Single));
     }
 
@@ -92,15 +92,21 @@ public class SceneChanger : NetworkBehaviour
     {
         Debug.Log("I finished loading this scene " +sceneName);
 
+        
+
         LoadComplete = true;
         status = SceneEventProgressStatus.None;
+
+        if(loadSceneMode != LoadSceneMode.Additive)
         FadeOutRpc();
+
     }
 
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void FadeOutRpc()
     {
+       
         StartCoroutine(FadeOut());
         LoadComplete = true;
     }

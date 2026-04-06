@@ -78,6 +78,8 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
     public int statsPerLevel = 2;
     public const string BattleScene = "NewBattleArea";
+    public int dashDexReq = 15;
+
     public void Awake()
     {
         var previousNetwork = Instance;
@@ -517,6 +519,11 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     {
         
         int type = item.determineType();
+
+
+        int firstEquipmentPopUpId = 3;
+        if(type == 3) { PopUpManager.Instance.PerformPopUp(firstEquipmentPopUpId, true, true); }
+
         return playerInventories[playerId][type].AddItem(item);
     }
 

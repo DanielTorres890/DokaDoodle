@@ -51,7 +51,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -292,6 +292,7 @@ MonoBehaviour:
   hitGameObject: {fileID: 0}
   AudioSource: {fileID: 0}
   stickInOpponent: 0
+  pierceCounter: 0
 --- !u!1001 &9205341099952227882
 PrefabInstance:
   m_ObjectHideFlags: 0

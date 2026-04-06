@@ -77,7 +77,9 @@ public class TileEventManager : NetworkBehaviour
 
     public void EndEvent()
     {
+        if(!dialogue.activeSelf)
         NetworkData.Instance.setNextTurnNum();
+
         dialogue.SetActive(true);
         dialogueScript.startDialogue();
         StartCoroutine(additionalDialogue());

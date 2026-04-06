@@ -190,7 +190,7 @@ public class ClientChecks : NetworkBehaviour
             int initialPopUp = 0;
             int dashUnlockPopUp = 2;
             PopUpManager.Instance.PerformPopUp(initialPopUp);
-            if (NetworkData.Instance.GetCurrentPlayer().stats[Attributes.Dexterity] >= 10) { PopUpManager.Instance.PerformPopUp(dashUnlockPopUp, true, true);}
+            if (NetworkData.Instance.GetCurrentPlayer().stats[Attributes.Dexterity] >= NetworkData.Instance.dashDexReq) { PopUpManager.Instance.PerformPopUp(dashUnlockPopUp, true, true);}
 
             var unlockedClassId = NetworkData.Instance.checkUnlockedClass(NetworkData.Instance.currentPlayer);
             if(unlockedClassId == -1)
@@ -250,6 +250,7 @@ public class ClientChecks : NetworkBehaviour
         }
         for(int i = spawnedDice.Count - 1; i >= 0; i--)
         {
+            Destroy(spawnedDice[i]);
             spawnedDice.RemoveAt(i);
         }
 
@@ -610,7 +611,7 @@ public class ClientChecks : NetworkBehaviour
         display.gameObject.SetActive(true);
 
         int dashUnlockPopUp = 2;
-        if (NetworkData.Instance.GetCurrentPlayer().stats[Attributes.Dexterity] >= 10) { PopUpManager.Instance.PerformPopUp(dashUnlockPopUp, true, true); }
+        if (NetworkData.Instance.GetCurrentPlayer().stats[Attributes.Dexterity] >= NetworkData.Instance.dashDexReq) { PopUpManager.Instance.PerformPopUp(dashUnlockPopUp, true, true); }
 
     }
     private IEnumerator displayClassGained()
