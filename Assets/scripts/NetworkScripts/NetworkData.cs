@@ -4,12 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Netcode;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.U2D.Animation;
 
 public class NetworkData : NetworkBehaviour, IDataPersistance
 {
@@ -23,7 +22,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public AudioDataBase audioDataBase;
     public TownInfoDataBase TownInfoDataBase;
     public AnimationDatabase victoryAnimDatabase;
-
+    public SpriteLibraryAsset playerSpriteLibrary;
 
     //BEFORE U @ ME FOR THIS ITS BC UNITY DOESNT ALLOW U TO SERIALIZE 2D LIST SO THIS IS MY WORK AROUND SO I CAN ADD THEM IN THE INSPECTOR
     public List<List<InventoryObject>> playerInventories = new List<List<InventoryObject>>();

@@ -34,7 +34,7 @@ public abstract class TileScript : MonoBehaviour
     public static bool DrawTrails = true;
     public static float TrailOffset = 0.5f;
 
-    public void Start()
+    public virtual void Start()
     {
         
         if(DrawTrails)
