@@ -1425,6 +1425,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1528831159}
   - {fileID: 1754340242}
   - {fileID: 1237367528}
   - {fileID: 1805213951}
@@ -1635,6 +1636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   mapTiles:
+  - {fileID: 1528831160}
   - {fileID: 1754340243}
   - {fileID: 1237367529}
   - {fileID: 1805213952}
@@ -1686,8 +1688,8 @@ MonoBehaviour:
   cameraMove: 0
   autoMoving: 0
   inspectingTile: 0
-  forceRoll: 0
-  forcedRollNum: 6
+  forceRoll: 1
+  forcedRollNum: 0
   moveSpeed: 80
   autoMoveTime: 0.5
   autoMoveSpeed: 70
@@ -6553,6 +6555,91 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8689756fc52dd44b9fdb163035e2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1528831157
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 333774127}
+    m_Modifications:
+    - target: {fileID: 964784369748876675, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+      propertyPath: upTile
+      value: 
+      objectReference: {fileID: 1754340241}
+    - target: {fileID: 3735387054086767184, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735387054086767184, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4275375762089989838, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+      propertyPath: m_Name
+      value: Castle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6448335165222256447, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+--- !u!1 &1528831158 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4275375762089989838, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+  m_PrefabInstance: {fileID: 1528831157}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1528831159 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3735387054086767184, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+  m_PrefabInstance: {fileID: 1528831157}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1528831160 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 964784369748876675, guid: 5af1f3346d7ef97428e1507f41149252, type: 3}
+  m_PrefabInstance: {fileID: 1528831157}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528831158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4522dce7348f88d4dbc2d9ff24586b41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1566178564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7045,7 +7132,7 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1528831158}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 2

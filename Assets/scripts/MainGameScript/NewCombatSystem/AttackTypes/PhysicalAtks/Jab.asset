@@ -45,7 +45,7 @@ MonoBehaviour:
   - attribute: 1
     mult: 0
   - attribute: 2
-    mult: 0.3
+    mult: 0.4
   - attribute: 3
     mult: 0
   - attribute: 4
@@ -53,7 +53,7 @@ MonoBehaviour:
   - attribute: 5
     mult: 0
   - attribute: 6
-    mult: 0.3
+    mult: 0.2
   defenseMult:
   - attribute: 3
     mult: 0.7
@@ -76,6 +76,7 @@ MonoBehaviour:
   attackAnimation: {fileID: 7400000, guid: e80fbb1f332456f4abf4cf2a144dba05, type: 2}
   animationSpeed: 1.33
   LevelRequirements: []
+  startUpNoise: {fileID: 0}
   attackSound: {fileID: 8300000, guid: 51465924abc41df428febd7bbcd57111, type: 3}
   onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
   onHitEffects: []
@@ -83,3 +84,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   conditions: []
+  colorByWeapon: 0

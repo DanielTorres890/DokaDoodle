@@ -102,7 +102,6 @@ public class TownUIManager : NetworkBehaviour
     {
         
             RestMenu.SetActive(visibility);
-  
 
     }
 
