@@ -123,9 +123,10 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
                 }
                 
                 int randomWeight = Random.Range(0, totalWeight);
-                int currentWeight = randomEvents[0].weight;
+                int currentWeight = 0;
                 foreach(var weighted in randomEvents)
                 {
+                    currentWeight += weighted.weight;
                     if(randomWeight < currentWeight)
                     {
                         AddEventRpc(worldDatabase.GetId[weighted.worldEvent]);

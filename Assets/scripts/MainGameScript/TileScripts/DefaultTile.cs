@@ -7,9 +7,9 @@ public class DefaultTile : TileScript
 {
     public EnemyEncounter[] enemies;
     
-    public EventBase[] events;
+    public EventWrapper[] events;
 
-    private static bool forceEvent = false;
+    private static bool forceEvent = true;
     public override void TileEvent()
     {
         
@@ -32,8 +32,30 @@ public class DefaultTile : TileScript
         
         if ((Random.Range(1,11) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly && !enemyPlayer) || forceEvent)  
         {
-            int eventToSet = Random.Range(0,events.Length);
-            ClientChecks.Instance.SyncEventRpc(eventToSet);
+            EventBase selectedEvent = events[0].tileEvent;
+            int totalWeight = 0;
+            foreach (var weighted in events)
+            {
+                totalWeight += weighted.weight;
+            }
+
+            int randomWeight = Random.Range(0, totalWeight);
+            int currentWeight = 0;
+            int eventIndex = 0;
+            foreach (var weighted in events)
+            {
+                currentWeight += weighted.weight;
+                if (randomWeight < currentWeight)
+                {
+                    selectedEvent = weighted.tileEvent;
+                    break;
+                }
+                eventIndex += 1;
+
+            }
+
+            
+            ClientChecks.Instance.SyncEventRpc(eventIndex);
 
         }
         else
@@ -44,4 +66,11 @@ public class DefaultTile : TileScript
             ClientChecks.Instance.SyncEnemyRpc(encounterId);
         }
     }
+}
+
+[System.Serializable]
+public class EventWrapper
+{
+    public EventBase tileEvent;
+    public int weight;
 }

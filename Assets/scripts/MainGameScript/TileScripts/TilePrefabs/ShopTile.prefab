@@ -354,7 +354,8 @@ MonoBehaviour:
   tileDescription: A place that will sell you items for gold
   enemies: []
   events:
-  - {fileID: 11400000, guid: 0a0cf92a146435e49baa995a79760ae9, type: 2}
+  - tileEvent: {fileID: 11400000, guid: 0a0cf92a146435e49baa995a79760ae9, type: 2}
+    weight: 0
 --- !u!65 &4895860937114150886
 BoxCollider:
   m_ObjectHideFlags: 0

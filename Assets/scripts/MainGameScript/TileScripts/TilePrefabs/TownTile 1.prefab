@@ -1548,7 +1548,7 @@ MonoBehaviour:
   tileId: 0
   battleEnvironment: TestArena
   playersOnTile: 00000000
-  defaultTileEnemies: {fileID: 0}
+  defaultTileEnemies: {fileID: 11400000, guid: 2117904ba6163cd4789b7743fb3b49e4, type: 2}
   initiallyPassable: 1
   tileDescription: 'A town tile where if you own the tile will generate you some
     money amongst other things
@@ -1557,7 +1557,8 @@ MonoBehaviour:
     yours'
   enemies: []
   events:
-  - {fileID: 11400000, guid: ad37bd25625e6de4f814cd40aa229fb5, type: 2}
+  - tileEvent: {fileID: 11400000, guid: ad37bd25625e6de4f814cd40aa229fb5, type: 2}
+    weight: 1
   Info: {fileID: 11400000, guid: 8c52c8bf4c71006479ab534f3cdab4f4, type: 2}
   flag: {fileID: 4504229174137976822}
 --- !u!114 &4473689092190788943

@@ -364,8 +364,9 @@ public class CardHausManager : NetworkBehaviour
     private bool DetermineRewards()
     {
         List<string> spoilsDetails = new();
-        NetworkData.Instance.GetCurrentPlayer().GainMoney(bet * 2);
-        spoilsDetails.Add("You won " + (bet * 2).ToString() + " money congrats");
+        int gainedMoney = Mathf.RoundToInt(bet * (1 + (remainingGuesses * remainingGuesses) / (float)totalGuesses)) * (WorldEventManager.Instance.weeks + 1);
+        NetworkData.Instance.GetCurrentPlayer().GainMoney(gainedMoney);
+        spoilsDetails.Add("You won " + gainedMoney.ToString() + " money congrats");
         
         if (remainingGuesses == 0) 
         {

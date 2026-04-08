@@ -24,6 +24,9 @@ public class FreeMover : NetworkBehaviour
 
     public Vector3 followOffset;
 
+
+    public Vector3 minPositions, maxPositions;
+
     private Vector3 oldpos;
     public void Awake()
     {
@@ -52,8 +55,12 @@ public class FreeMover : NetworkBehaviour
 
         transform.position += new Vector3(move.x * speed,0,move.y * speed) * Time.deltaTime;
         
-        
-        if(Vector3.Distance(transform.position,oldpos) > needToMove)
+        if(transform.position.x < minPositions.x || transform.position.x > maxPositions.x) { transform.position -= new Vector3(move.x * speed, 0, move.y * speed) * Time.deltaTime; }
+
+        if (transform.position.z < minPositions.z || transform.position.z > maxPositions.z) { transform.position -= new Vector3(move.x * speed, 0, move.y * speed) * Time.deltaTime; }
+
+
+        if (Vector3.Distance(transform.position,oldpos) > needToMove)
         {
             oldpos = transform.position;
             SyncTranformRpc(transform.position);
