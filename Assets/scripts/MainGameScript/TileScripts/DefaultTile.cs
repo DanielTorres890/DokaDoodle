@@ -9,7 +9,7 @@ public class DefaultTile : TileScript
     
     public EventWrapper[] events;
 
-    private static bool forceEvent = true;
+    private static bool forceEvent = false;
     public override void TileEvent()
     {
         

@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa9e8e5e37139cd41a8ee66fbf64b3f7, type: 3}
-  m_Name: MagicianMind
-  m_EditorClassIdentifier: 
-  description: Meditate for a moment, increasing your MAG stat by 50% for 12 seconds
-  attackName: Clear Mind
-  startUp: 0.6
+  m_Script: {fileID: 11500000, guid: 764e3de1e22c9ce48935adef327be1dd, type: 3}
+  m_Name: EnergyCharge
+  m_EditorClassIdentifier: Assembly-CSharp::ChargeEnergy
+  description: Restores all your energy (that little blue bar you see in combat)
+  attackName: Energy Charge
+  startUp: 1
   attackDuration: 0
-  endLag: 0.2
+  endLag: 0.1
   cooldown: 20
-  lifespan: 1
-  energyDrain: 1
+  lifespan: 0
+  energyDrain: 0
   initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
@@ -30,7 +30,7 @@ MonoBehaviour:
   sizePotencyEffect: 2
   stateToBe: 0
   chargeable: 0
-  attackPrefab: {fileID: 2566779757777240371, guid: 025be11524405ff43871ea2fd91b5485, type: 3}
+  attackPrefab: {fileID: 2566779757777240371, guid: 84a2f44ab20caeb42b34d1f04dcb43a7, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0, y: 0, z: 0}
@@ -39,7 +39,21 @@ MonoBehaviour:
   ablitySize: {x: 1, y: 1, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 0
-  multipliers: []
+  multipliers:
+  - attribute: 0
+    mult: 0
+  - attribute: 1
+    mult: 0
+  - attribute: 2
+    mult: 0
+  - attribute: 3
+    mult: 0
+  - attribute: 4
+    mult: 0
+  - attribute: 5
+    mult: 0
+  - attribute: 6
+    mult: 0
   defenseMult: []
   antiGuardMultipliers:
   - attribute: 0
@@ -58,8 +72,9 @@ MonoBehaviour:
     mult: 1
   startUpAnimation: {fileID: 7400000, guid: 061e2d5ac07b8b74b919638b6863c768, type: 2}
   attackAnimation: {fileID: 7400000, guid: 47ba957347c73df4f9a23e74725cdc29, type: 2}
-  animationSpeed: 1.5
+  animationSpeed: 1
   LevelRequirements: []
+  startUpNoise: {fileID: 0}
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
   onHitEffects: []
@@ -67,5 +82,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   conditions: []
-  StatusEffects:
-  - {fileID: 11400000, guid: 5faae344efbb3c249981acc584cf55e1, type: 2}
+  colorByWeapon: 0
+  StatusEffects: []
+  ChargePercent: 100

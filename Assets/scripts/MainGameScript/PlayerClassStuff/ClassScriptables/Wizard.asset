@@ -16,8 +16,8 @@ MonoBehaviour:
   classDescription: A more experienced spellcaster that allows them more versatility.
     Out of combat they can perform a special spell that will give them a random buff.
     In combat their special attack can stun enemies
-  overworldAbilityDescription: Provides a random buff,  increasing offense, defense
-    or all of your stats
+  overworldAbilityDescription: 'Conjures some dice, giving you up to 4 dice on your
+    next roll '
   stats:
   - attribute: 0
     value: 60
@@ -53,9 +53,9 @@ MonoBehaviour:
   classXpRequirements: 64000000c80000002c010000
   baseSalary: 500
   recommendedItems: []
-  AIType: 0
+  AIType: 1
   prerequisiteClass: {fileID: 11400000, guid: 404d7d52c43f2c3469d9d3c8c3e57b3e, type: 2}
   possibleBuffs:
-  - {fileID: 11400000, guid: 25c827c2aee2ce746bdafeea473d680f, type: 2}
-  - {fileID: 11400000, guid: 8d7db574446928743bcd7c3f1ef651a0, type: 2}
-  - {fileID: 11400000, guid: 29b4d7b6eeb87b04c80e63d437204380, type: 2}
+  - {fileID: 11400000, guid: 69ac216c9f595574dac87cc650ea9c08, type: 2}
+  - {fileID: 11400000, guid: f78b76fe4eeaca241aa544734a1eb94d, type: 2}
+  - {fileID: 11400000, guid: f3e349aaa263a30438fba9677661f377, type: 2}

@@ -600,7 +600,13 @@ public class AbilityManager : NetworkBehaviour
         return combatantstate == combatantStates.Free || combatantstate == combatantStates.StartUpFree;
     }
    
-
+    public void ChangeEnergy(float change)
+    {
+        currentEnergy += change;
+        if(currentEnergy > maxEnergy) { currentEnergy= maxEnergy; }
+        if(currentEnergy < 0) { currentEnergy = 0; }
+        onEnergyChange.Invoke();
+    }
     /* private void Ability1(InputAction.CallbackContext action)
      {
          if (!IsOwner) { return; }
