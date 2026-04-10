@@ -9,6 +9,8 @@ public class DefaultTile : TileScript
     
     public EventWrapper[] events;
 
+    public ConditionalCombat[] conditionalCombats;
+
     private static bool forceEvent = false;
     public override void TileEvent()
     {
@@ -60,8 +62,17 @@ public class DefaultTile : TileScript
         }
         else
         {
+            List<EnemyEncounter> combinedEncounter = new List<EnemyEncounter>();
+            foreach(var encounter in enemies)
+            {
+                combinedEncounter.Add(encounter);
+            }
+            foreach(var encounter in conditionalCombats)
+            {
+                if(encounter.condition.CanBeginQuest()) { combinedEncounter.Add(encounter.encounter); }
+            }
 
-            int encounterId = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetId[enemies[Random.Range(0, enemies.Length)]];
+            int encounterId = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetId[combinedEncounter[Random.Range(0, combinedEncounter.Count)]];
 
             ClientChecks.Instance.SyncEnemyRpc(encounterId);
         }
@@ -73,4 +84,12 @@ public class EventWrapper
 {
     public EventBase tileEvent;
     public int weight;
+}
+
+[System.Serializable]
+public class ConditionalCombat
+{
+    public EnemyEncounter encounter;
+    public QuestCondition condition;
+
 }

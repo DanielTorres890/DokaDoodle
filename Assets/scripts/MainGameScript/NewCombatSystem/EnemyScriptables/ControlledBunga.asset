@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42e542e6897b1b49a5085f063ea70bd, type: 3}
+  m_Name: ControlledBunga
+  m_EditorClassIdentifier: 
+  enemyName: Controlled Bunga
+  enemyPrefab: {fileID: 1804880954259114146, guid: d15b70f8591e3d442834c9e4dc75c2c6, type: 3}
+  enemyNonCombatPrefab: {fileID: 8877116059168452238, guid: f218b4c8a0f02be4ca5e1336c2d02377, type: 3}
+  Stats:
+  - attribute: 0
+    value: 120
+  - attribute: 1
+    value: 100
+  - attribute: 2
+    value: 3
+  - attribute: 3
+    value: 10
+  - attribute: 4
+    value: 1
+  - attribute: 5
+    value: 10
+  - attribute: 6
+    value: 3
+  loyaltyTags:
+  - EvilBunga
+  Attackss:
+  - {fileID: 11400000, guid: 624f23ed2bf8f504eb4aa48a590b999f, type: 2}
+  Defendss:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 06cc93f9a8465e9499eff7bb9c2e0268, type: 2}
+  DroppedItems:
+  - {fileID: 11400000, guid: bebd64a7aeba88e429d6425780ad4e4e, type: 2}
+  - {fileID: 11400000, guid: ec8bc0525fbdc9f408970bfd20fc9713, type: 2}
+  - {fileID: 11400000, guid: a9b93fcac5e86da48a315e89c55b7d70, type: 2}
+  probability: 320000001900000019000000
+  enemyLevel: 1
+  droppedXp: 30
+  droppedMoney: 100
+  droppedFame: 0
+  SpecialMusic: {fileID: 0}
