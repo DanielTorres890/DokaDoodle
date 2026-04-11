@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DefaultTile : TileScript
 {
-    public EnemyEncounter[] enemies;
+    public EncounterWrapper[] enemies;
     
     public EventWrapper[] events;
 
@@ -62,17 +62,46 @@ public class DefaultTile : TileScript
         }
         else
         {
-            List<EnemyEncounter> combinedEncounter = new List<EnemyEncounter>();
+            List<EncounterWrapper> combinedEncounter = new List<EncounterWrapper>();
+            
             foreach(var encounter in enemies)
             {
                 combinedEncounter.Add(encounter);
             }
+
             foreach(var encounter in conditionalCombats)
             {
-                if(encounter.condition.CanBeginQuest()) { combinedEncounter.Add(encounter.encounter); }
+                if(encounter.condition.CanBeginQuest()) 
+                {
+                    var wrapper = new EncounterWrapper();
+                    wrapper.encounter = encounter.encounter;
+                    wrapper.weight = encounter.weight;
+                    combinedEncounter.Add(wrapper); 
+
+                }
+            }
+            EnemyEncounter selectedEncounter = combinedEncounter[0].encounter;
+
+            int totalWeight = 0;
+            foreach (var weighted in combinedEncounter)
+            {
+                totalWeight += weighted.weight;
             }
 
-            int encounterId = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetId[combinedEncounter[Random.Range(0, combinedEncounter.Count)]];
+            int randomWeight = Random.Range(0, totalWeight);
+            int currentWeight = 0;
+            foreach (var weighted in combinedEncounter)
+            {
+                currentWeight += weighted.weight;
+                if (randomWeight < currentWeight)
+                {
+                    selectedEncounter = weighted.encounter;
+                    break;
+                }
+             
+
+            }
+            int encounterId = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetId[selectedEncounter];
 
             ClientChecks.Instance.SyncEnemyRpc(encounterId);
         }
@@ -87,9 +116,17 @@ public class EventWrapper
 }
 
 [System.Serializable]
+public class EncounterWrapper
+{
+    public EnemyEncounter encounter;
+    public int weight = 25;
+}
+
+[System.Serializable]
 public class ConditionalCombat
 {
     public EnemyEncounter encounter;
     public QuestCondition condition;
+    public int weight = 25;
 
 }

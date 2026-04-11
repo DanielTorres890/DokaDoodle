@@ -609,13 +609,16 @@ MonoBehaviour:
   tileDescription: A basic tile where you might encounter an enemy, or perhaps a
     random event
   enemies:
-  - {fileID: 11400000, guid: df61bc776fba047479f85c388cc42091, type: 2}
-  - {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
+  - encounter: {fileID: 11400000, guid: df61bc776fba047479f85c388cc42091, type: 2}
+    weight: 25
+  - encounter: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
+    weight: 25
   events:
   - tileEvent: {fileID: 11400000, guid: 0ac6f7f3cf76c894e956db167295538c, type: 2}
     weight: 25
   - tileEvent: {fileID: 11400000, guid: 610245ded8046074db7453fcfca6f6a8, type: 2}
     weight: 25
+  conditionalCombats: []
 --- !u!65 &8911332467590070977
 BoxCollider:
   m_ObjectHideFlags: 0

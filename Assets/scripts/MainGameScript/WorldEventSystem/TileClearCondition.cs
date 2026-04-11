@@ -10,18 +10,18 @@ public class TileClearCondition : QuestCondition
     public bool shouldContain;
     public override bool CanBeginQuest()
     {
-        if (MapTileSpecialEvents.Instance.mapTiles.Length <= mapId) { return false; }
+        if (MapTileSpecialEvents.Instance.mapTiles.Length <= mapId) { return !shouldContain; }
 
-        if (MapTileSpecialEvents.Instance.mapTiles[mapId] == null) { return false; }
+        if (MapTileSpecialEvents.Instance.mapTiles[mapId] == null) { return !shouldContain; }
 
-        if (MapTileSpecialEvents.Instance.mapTiles[mapId][tileId] == null) { return false; }
+        if (MapTileSpecialEvents.Instance.mapTiles[mapId][tileId] == null) { return !shouldContain; }
 
         foreach (var enemy in MapTileSpecialEvents.Instance.mapTiles[mapId][tileId].tileEnemy)
         {
-            if (PlayerCombatManager.Instance.EnemyDataBase.GetId[enemyCheck] == enemy.enemyId) {  return false; }
+            if (PlayerCombatManager.Instance.EnemyDataBase.GetId[enemyCheck] == enemy.enemyId) {  return !shouldContain; }
         }
 
-        return true;
+        return shouldContain;
 
     }
 }

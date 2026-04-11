@@ -294,6 +294,7 @@ public class AbilityManager : NetworkBehaviour
             actions.actions["Ability" + i.ToString()].canceled += M1AttackReleased;
             inputToInt.Add(actions.actions["Ability" + i.ToString()].controls[0], i);
             stateManager.Add(stats.attacks[i], new AbilityStates());
+            stateManager[stats.attacks[i]].cooldown = stats.attacks[i].startCooldown;
             orderedAttacks.Add(stats.attacks[i]);
         }
 
@@ -301,6 +302,7 @@ public class AbilityManager : NetworkBehaviour
         actions.actions["ClassAbility"].canceled += M1AttackReleased;
         inputToInt.Add(actions.actions["ClassAbility"].controls[0], stats.attacks.Count-1);
         stateManager.Add(stats.attacks[stats.attacks.Count - 1], new AbilityStates());
+        stateManager[stats.attacks[stats.attacks.Count - 1]].cooldown = stats.attacks[stats.attacks.Count - 1].startCooldown;
         orderedAttacks.Add(stats.attacks[stats.attacks.Count - 1]);
         maxEnergy = 100;
         energyRegen = 1;
@@ -313,7 +315,7 @@ public class AbilityManager : NetworkBehaviour
             if (i >= stats.attacks.Count) { break; }
             stateManager.Add(stats.attacks[i], new AbilityStates());
             orderedAttacks.Add(stats.attacks[i]);
-
+            stateManager[stats.attacks[i]].cooldown = stats.attacks[i].startCooldown;
         }
     }
    /* 

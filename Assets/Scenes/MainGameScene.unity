@@ -846,6 +846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  mapTileParent: {fileID: 333774127}
   mapTiles:
   - {fileID: 1528831160}
   - {fileID: 1754340243}
@@ -1891,6 +1892,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 333774127}
     m_Modifications:
+    - target: {fileID: -6587754183726193978, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: mapGoTo
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -6587754183726193978, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
       propertyPath: downTile
       value: 
@@ -5451,7 +5456,7 @@ PrefabInstance:
       objectReference: {fileID: 440241229}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -5459,6 +5464,10 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 736daab8bd6a64a4cbbc60bfb7e5e755, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[1].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}

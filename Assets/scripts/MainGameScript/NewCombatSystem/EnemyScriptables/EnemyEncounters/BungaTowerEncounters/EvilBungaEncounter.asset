@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78c2557df5d130047a7d234ee66c9158, type: 3}
-  m_Name: Single C. Bunga
+  m_Name: EvilBungaEncounter
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 11400000, guid: cec905ade464b5041a3564e7d9b7238f, type: 2}
-  EncounterName: Controlled Bunga
+  - {fileID: 11400000, guid: cec905ade464b5041a3564e7d9b7238f, type: 2}
+  - {fileID: 11400000, guid: e916d340b256ae2468a0e940207c66ef, type: 2}
+  EncounterName: Evil Bunga
   battleMusic: {fileID: 8300000, guid: 496d541f7647fc74fa64a40c2d41382e, type: 3}

@@ -284,7 +284,11 @@ public class playerData : EntityStats
         foreach (var attrib in temp2.database.GetItem[temp].buffs)
         {
             NetworkData.Instance.players[playerNumber].stats[attrib.attribute] -= attrib.value;
+        }
 
+        foreach(var status in (temp2.database.GetItem[temp] as WeaponItem).onEquipBuffs)
+        {
+            NetworkData.Instance.players[playerNumber].RemoveStatus(NetworkData.Instance.buffDataBase.GetId[status]);
         }
     }
     private bool UsableItem(WeaponItem item)

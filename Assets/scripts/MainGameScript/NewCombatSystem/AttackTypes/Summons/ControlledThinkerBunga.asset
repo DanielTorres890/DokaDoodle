@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ae98cf5b6728964ab395e75de68d948, type: 3}
+  m_Name: ControlledThinkerBunga
+  m_EditorClassIdentifier: 
+  description: Summons a bunga to fight for you. Despawns after 10 secs or on defeat
+  attackName: Summon Bunga
+  startUp: 2
+  attackDuration: 0
+  endLag: 0.2
+  startCooldown: 5
+  cooldown: 15
+  lifespan: 10
+  energyDrain: 1
+  initialEnergyCost: 0
+  maxChargeAtkBuff: 1.2
+  maxChargeSizeBuff: 1.2
+  maxChargeSpeedBuff: 1.1
+  maxChargeDuration: 3
+  requiredPotency: 0
+  dmgPotencyEffect: 2
+  sizePotencyEffect: 2
+  stateToBe: 0
+  chargeable: 0
+  attackPrefab: {fileID: 1804880954259114146, guid: aee79a3dde08af746bcbd154dc5f690b, type: 3}
+  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
+  spawnFx: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
+  ablitySize: {x: 1, y: 1, z: 1}
+  visualRoation: {x: 0, y: 0, z: 0}
+  baseDamage: 0
+  multipliers:
+  - attribute: 0
+    mult: 0
+  - attribute: 1
+    mult: 0
+  - attribute: 2
+    mult: 0
+  - attribute: 3
+    mult: 0
+  - attribute: 4
+    mult: 0
+  - attribute: 5
+    mult: 0
+  - attribute: 6
+    mult: 0
+  defenseMult: []
+  antiGuardMultipliers:
+  - attribute: 0
+    mult: 1
+  - attribute: 1
+    mult: 1
+  - attribute: 2
+    mult: 1
+  - attribute: 3
+    mult: 1
+  - attribute: 4
+    mult: 1
+  - attribute: 5
+    mult: 1
+  - attribute: 6
+    mult: 1
+  startUpAnimation: {fileID: 7400000, guid: 602941fcae800f440a205e0dcb1c2ab9, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 601848516adb0e24b9a25624628b3853, type: 2}
+  animationSpeed: 1
+  LevelRequirements: []
+  startUpNoise: {fileID: 0}
+  attackSound: {fileID: 0}
+  onHitSound: {fileID: 0}
+  onHitEffects: []
+  targets:
+    serializedVersion: 2
+    m_Bits: 0
+  conditions: []
+  colorByWeapon: 0
+  summonSO: {fileID: 11400000, guid: 6c82ff8274a161d49bbce9d99e5412d3, type: 2}

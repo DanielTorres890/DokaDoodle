@@ -13,7 +13,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class PlayerMoveManager : NetworkBehaviour
 {
-
+    public Transform mapTileParent;
     [SerializeField] public List<TileScript> mapTiles = new List<TileScript>();
 
     public TMP_Text rollNum;
@@ -66,11 +66,13 @@ public class PlayerMoveManager : NetworkBehaviour
 
     public void Awake()
     {
-
-        for (int i = 0; i < mapTiles.Count; i++)
+        mapTiles.Clear();
+        for (int i = 0; i < mapTileParent.childCount; i++)
         {
+            mapTiles.Add(mapTileParent.GetChild(i).gameObject.GetComponent<TileScript>());
             mapTiles[i].tileId = i;
         }
+      
         Instance = this;
 
         if (BGM) { BGMManager.instance.PlaySound(BGM); }
@@ -481,16 +483,19 @@ public class PlayerMoveManager : NetworkBehaviour
                 }
                 //id like to say that im not super happy about this but things are getting messy
                 //they NEED to know their town id right away otherwise its really unintuitive
-                if (PlayerMoveManager.Instance.mapTiles[i] is TownTile)
+                if(Instance.mapTiles[i].defaultTileEnemies)
                 {
-                    thisTile.townId = NetworkData.Instance.TownInfoDataBase.GetId[(PlayerMoveManager.Instance.mapTiles[i] as TownTile).Info];
                     foreach (var enemy in Instance.mapTiles[i].defaultTileEnemies.enemies)
                     {
                         var enemystats = new EnemyCombat(enemy);
                         enemystats.persistant = true;
                         thisTile.tileEnemy.Add(enemystats);
                     }
+                }
 
+                if (PlayerMoveManager.Instance.mapTiles[i] is TownTile)
+                {
+                    thisTile.townId = NetworkData.Instance.TownInfoDataBase.GetId[(PlayerMoveManager.Instance.mapTiles[i] as TownTile).Info];
                 }
                 else
                 {
@@ -1018,8 +1023,9 @@ public class PlayerMoveManager : NetworkBehaviour
 
                     List<EntityStats> enemyList = new List<EntityStats>();
 
+                    
 
-                    foreach (var enemy in defaultT.enemies[randomNum % defaultT.enemies.Length].enemies)
+                    foreach (var enemy in defaultT.enemies[randomNum % defaultT.enemies.Length].encounter.enemies)
                     {
 
                         enemyList.Add(new EnemyCombat(enemy));

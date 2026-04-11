@@ -10,6 +10,9 @@ public class MonsterEvent : WorldEventBase
     public int fameToAward;
     public override bool Condition(int turns)
     {
+
+       if(MapTileSpecialEvents.Instance.mapTiles[mapToSpawn] == null) { return false; }
+
        foreach (var enemys in MapTileSpecialEvents.Instance.mapTiles[mapToSpawn][tileIdToSpawn].tileEnemy)
         {
             if (enemys.enemyId == PlayerCombatManager.Instance.EnemyDataBase.GetId[enemy])
@@ -29,8 +32,13 @@ public class MonsterEvent : WorldEventBase
             enemyspawn
         };
 
-        MapTileSpecialEvents.Instance.mapTiles[mapToSpawn][tileIdToSpawn].tileEnemy.Add(enemyspawn);
-        if(mapToSpawn == PlayerMoveManager.Instance.mapNumber) { PlayerMoveManager.Instance.spawnEnemyOverworld(tileIdToSpawn, enemies); }
+        if(MapTileSpecialEvents.Instance.mapTiles[mapToSpawn] != null) 
+        {
+            MapTileSpecialEvents.Instance.mapTiles[mapToSpawn][tileIdToSpawn].tileEnemy.Add(enemyspawn);
+            if (mapToSpawn == PlayerMoveManager.Instance.mapNumber) { PlayerMoveManager.Instance.spawnEnemyOverworld(tileIdToSpawn, enemies); }
+
+        }
+        
         base.OnActivate();
         //maybe add another check but im p sure events should only occur on the overworld
     }
