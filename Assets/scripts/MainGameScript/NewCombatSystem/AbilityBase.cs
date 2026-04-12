@@ -74,7 +74,7 @@ public abstract class AbilityBase : NetworkBehaviour
 
      
         totalDamge *= (1 - defender.postStatusDmgReduction[attackType]/100f);
-        totalDamge *= attackInfo.ChargeMultiplier(ownerStats, chargedDuration) * attackInfo.maxChargeAtkBuff;
+        totalDamge *= Mathf.Clamp(attackInfo.ChargeMultiplier(ownerStats, chargedDuration) * (attackInfo.maxChargeAtkBuff), 1,999);
         if (totalDamge < 0)
             return 0;
         else

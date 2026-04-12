@@ -155,9 +155,9 @@ public abstract class AttackBase : ScriptableObject
         {
             chargeDuration = maxChargeDuration;
         }
+        var normalizedCharge = chargeDuration / maxChargeDuration;
         
-
-        return 1 + chargeDuration;
+        return normalizedCharge;
     }
     public bool meetsRequirement(EntityStats entity)
     {

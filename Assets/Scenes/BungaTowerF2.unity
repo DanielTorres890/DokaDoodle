@@ -1090,9 +1090,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1651733950}
   - {fileID: 238918817}
   - {fileID: 524964723}
-  - {fileID: 1651733950}
   - {fileID: 66438838}
   - {fileID: 1255990634}
   - {fileID: 117726365}
@@ -1156,8 +1156,8 @@ MonoBehaviour:
   cameraMove: 0
   autoMoving: 0
   inspectingTile: 0
-  forceRoll: 0
-  forcedRollNum: 5
+  forceRoll: 1
+  forcedRollNum: 8
   moveSpeed: 80
   autoMoveTime: 0.4
   autoMoveSpeed: 70
@@ -1321,6 +1321,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 361615208}
         m_TargetAssemblyTypeName: PlayerMoveManager, Assembly-CSharp
+        m_MethodName: InspectTile
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 361615208}
+        m_TargetAssemblyTypeName: PlayerMoveManager, Assembly-CSharp
         m_MethodName: FreeCamera
         m_Mode: 0
         m_Arguments:
@@ -1342,7 +1354,19 @@ MonoBehaviour:
       - m_Target: {fileID: 361615208}
         m_TargetAssemblyTypeName: PlayerMoveManager, Assembly-CSharp
         m_MethodName: UnfreeCamera
-        m_Mode: 1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 361615208}
+        m_TargetAssemblyTypeName: PlayerMoveManager, Assembly-CSharp
+        m_MethodName: StopInspect
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

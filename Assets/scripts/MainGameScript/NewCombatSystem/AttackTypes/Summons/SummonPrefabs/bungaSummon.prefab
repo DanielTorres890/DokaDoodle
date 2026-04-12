@@ -350,7 +350,7 @@ MonoBehaviour:
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 12
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -734,7 +734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3881925590
+  GlobalObjectIdHash: 1912866371
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -780,6 +780,7 @@ MonoBehaviour:
   nameText: {fileID: 3739204426491887481}
   hpText: {fileID: 8740027357902417080}
   myHealthbar: {fileID: 1233289219213068217}
+  damageNumber: {fileID: 0}
   onStatus:
     m_PersistentCalls:
       m_Calls: []
@@ -832,6 +833,7 @@ MonoBehaviour:
   currentEnergy: 100
   energyRegen: 1
   chargeDuration: 0
+  visualsParent: {fileID: 0}
 --- !u!114 &-7284265792361973657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -969,6 +971,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   overrideController: {fileID: 0}
   walkingAnimation: {fileID: 7400000, guid: 43806e93d47f4b747ab76d6f26760938, type: 2}
+  victoryAnimation: {fileID: 0}
   attackAnimations:
   - startUp: {fileID: 7400000, guid: 0932244beecc6de498f250e440086b15, type: 2}
     attack: {fileID: 7400000, guid: 0932244beecc6de498f250e440086b15, type: 2}
@@ -1034,6 +1037,10 @@ MonoBehaviour:
       NameHash: 1207992894
       Synchronize: 1
       ParameterType: 1
+    - name: Victory
+      NameHash: -1090111034
+      Synchronize: 1
+      ParameterType: 4
   AnimatorParametersExpanded: 0
 --- !u!114 &6195173706930362816
 MonoBehaviour:

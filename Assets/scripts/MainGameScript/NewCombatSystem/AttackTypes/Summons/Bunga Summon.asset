@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae98cf5b6728964ab395e75de68d948, type: 3}
   m_Name: Bunga Summon
   m_EditorClassIdentifier: 
-  description: Summons a bunga to fight for you. Despawns after 10 secs or on defeat
+  description: Summons a bunga to fight for you. Despawns after 15 secs or on defeat
   attackName: Summon Bunga
   startUp: 2
   attackDuration: 0
   endLag: 0.2
+  startCooldown: 0
   cooldown: 20
-  lifespan: 10
+  lifespan: 15
   energyDrain: 1
   initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
-  maxChargeSizeBuff: 1.2
+  maxChargeSizeBuff: 1
   maxChargeSpeedBuff: 1.1
   maxChargeDuration: 3
   requiredPotency: 0
@@ -36,7 +37,7 @@ MonoBehaviour:
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
-  ablitySize: {x: 1, y: 1, z: 1}
+  ablitySize: {x: 0.8, y: 0.8, z: 0.8}
   visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 0
   multipliers:
@@ -74,6 +75,7 @@ MonoBehaviour:
   attackAnimation: {fileID: 7400000, guid: 601848516adb0e24b9a25624628b3853, type: 2}
   animationSpeed: 1
   LevelRequirements: []
+  startUpNoise: {fileID: 0}
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
   onHitEffects: []
@@ -81,4 +83,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   conditions: []
+  colorByWeapon: 0
   summonSO: {fileID: 11400000, guid: 46447445cb16d584fa46980745d7dad0, type: 2}

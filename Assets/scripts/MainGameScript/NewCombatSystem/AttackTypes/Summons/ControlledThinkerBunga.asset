@@ -19,11 +19,11 @@ MonoBehaviour:
   endLag: 0.2
   startCooldown: 5
   cooldown: 15
-  lifespan: 10
+  lifespan: 99
   energyDrain: 1
   initialEnergyCost: 0
-  maxChargeAtkBuff: 1.2
-  maxChargeSizeBuff: 1.2
+  maxChargeAtkBuff: 1
+  maxChargeSizeBuff: 1
   maxChargeSpeedBuff: 1.1
   maxChargeDuration: 3
   requiredPotency: 0
@@ -31,13 +31,13 @@ MonoBehaviour:
   sizePotencyEffect: 2
   stateToBe: 0
   chargeable: 0
-  attackPrefab: {fileID: 1804880954259114146, guid: aee79a3dde08af746bcbd154dc5f690b, type: 3}
+  attackPrefab: {fileID: 1804880954259114146, guid: 19df8e76f28b6fd44975142fff196201, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
-  ablitySize: {x: 1, y: 1, z: 1}
+  ablitySize: {x: 0.8, y: 0.8, z: 0.8}
   visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 0
   multipliers:
