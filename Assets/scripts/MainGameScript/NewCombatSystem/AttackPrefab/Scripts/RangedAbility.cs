@@ -7,10 +7,11 @@ public class RangedAbility : AbilityBase
 {
 
     public int pierceCounter = 0;
+    public Rigidbody body;
     // Update is called once per frame
-    private void Start()
+    private void Awake()
     {
-        
+        body = GetComponent<Rigidbody>();
     }
 
     private new void Update()

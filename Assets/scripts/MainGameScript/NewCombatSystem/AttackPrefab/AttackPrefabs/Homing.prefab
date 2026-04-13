@@ -17,9 +17,9 @@ GameObject:
   - component: {fileID: 6448711870588041357}
   - component: {fileID: -1555188018097761370}
   - component: {fileID: 4530846087990267634}
-  - component: {fileID: 6329192147158506808}
+  - component: {fileID: 8236604606995024818}
   m_Layer: 0
-  m_Name: Flare
+  m_Name: Homing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2687475355
+  GlobalObjectIdHash: 672395724
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -334,7 +334,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6329192147158506808
+--- !u!114 &8236604606995024818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -343,9 +343,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4958144232811764369}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f90dae59f8064c418cacbea0518d534, type: 3}
+  m_Script: {fileID: 11500000, guid: 8862734e8f04c3c42b6d3715458e11e8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::HomingBurst
   ShowTopMostFoldoutHeaderGroup: 1
   owner: {fileID: 0}
   attackInfo: {fileID: 0}
@@ -366,10 +366,16 @@ MonoBehaviour:
   lifespan: 12
   lifetimer: 0
   chargedDuration: 0
-  destroyOnWallCollide: 1
+  destroyOnWallCollide: 0
   hitGameObject: {fileID: 6234742567996364231, guid: a8533bd6af56b8140956a638fa7b75df, type: 3}
   AudioSource: {fileID: 0}
   stickInOpponent: 0
   pierceCounter: 0
-  body: {fileID: 0}
+  body: {fileID: 7537594205642929553}
   burstHitbox: {fileID: 2566779757777240371, guid: 84a2f44ab20caeb42b34d1f04dcb43a7, type: 3}
+  target: {fileID: 0}
+  detectionRadius: 30
+  trackingSpeed: 0.5
+  targets:
+    serializedVersion: 2
+    m_Bits: 64

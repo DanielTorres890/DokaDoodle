@@ -8,17 +8,21 @@ public class RangedBurstAbility : RangedAbility
 
     public override void OnHit()
     {
+        Debug.Log("BRUH IM HITTING FRICK U");
+
+        
         var burst = Instantiate(burstHitbox);
         burst.transform.position = gameObject.transform.position;
 
         var cash = burst.GetComponent<AbilityBase>();
+        Debug.Log("bru who is this " + attackInfo.attackName);
         var burstattack = (attackInfo as BurstAtk);
         cash.owner = owner;
         cash.ownerStats = ownerStats;
         cash.attackInfo = attackInfo;
         cash.lifespan = burstattack.burstLifespan;
 
-        burst.transform.localScale = burstattack.burstSize * burstattack.ChargeMultiplier(owner.GetComponent<AbilityManager>().stats, chargedDuration) * burstattack.maxChargeSizeBuff;
+        burst.transform.localScale = burstattack.burstSize * Mathf.Clamp(burstattack.ChargeMultiplier(ownerStats, chargedDuration) * burstattack.maxChargeSizeBuff, 1, 99999);
         cash.hitGameObject = hitGameObject;
         burst.GetComponent<NetworkObject>().Spawn();
 
