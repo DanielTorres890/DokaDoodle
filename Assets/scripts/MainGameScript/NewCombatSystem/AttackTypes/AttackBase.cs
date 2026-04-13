@@ -107,7 +107,7 @@ public abstract class AttackBase : ScriptableObject
 
         attack.transform.position = whereiscaster +  Quaternion.Euler(casterLooking) * offset;
         attack.transform.rotation = caster.transform.rotation;
-        attack.transform.localScale = ChargeMultiplier(manager.stats, chargedDuration) * maxChargeSizeBuff * ablitySize;
+        attack.transform.localScale = Mathf.Clamp(ChargeMultiplier(manager.stats, chargedDuration) * maxChargeSizeBuff, 1, 99999) * ablitySize;
 
 
         attack.GetComponent<NetworkObject>().Spawn(true);
@@ -117,7 +117,7 @@ public abstract class AttackBase : ScriptableObject
             var fx = Instantiate(spawnFx);
             fx.transform.position = caster.transform.position;
             fx.transform.rotation = caster.transform.rotation;
-            fx.transform.localScale = ChargeMultiplier(manager.stats, chargedDuration) * maxChargeSizeBuff * ablitySize;
+            fx.transform.localScale = Mathf.Clamp(ChargeMultiplier(manager.stats, chargedDuration) * maxChargeSizeBuff, 1, 99999) * ablitySize;
             fx.GetComponent<NetworkObject>().Spawn(true);
         }
         

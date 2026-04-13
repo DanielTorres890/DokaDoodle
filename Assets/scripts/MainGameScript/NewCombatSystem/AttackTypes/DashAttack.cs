@@ -9,7 +9,7 @@ public class DashAttack : AttackBase
     public override GameObject WeaponEffect(GameObject caster)
     {
 
-        caster.GetComponent<Rigidbody>().AddForce(caster.transform.TransformDirection(Vector3.forward * dashSpeed), ForceMode.Impulse);
+        caster.GetComponent<Rigidbody>().AddForce(caster.transform.TransformDirection(dashDirection * dashSpeed), ForceMode.Impulse);
         
         return base.WeaponEffect(caster);
     }

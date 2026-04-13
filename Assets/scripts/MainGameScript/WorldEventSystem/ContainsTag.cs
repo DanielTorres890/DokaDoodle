@@ -4,9 +4,10 @@ using UnityEngine;
 public class ContainsTag : QuestCondition
 {
     public string loyaltyTag;
+    public bool shouldContain = true;
     public override bool CanBeginQuest()
     {
-       return NetworkData.Instance.GetCurrentPlayer().loyaltyTags.Contains(loyaltyTag);
+       return NetworkData.Instance.GetCurrentPlayer().loyaltyTags.Contains(loyaltyTag) == shouldContain;
     }
 
     
