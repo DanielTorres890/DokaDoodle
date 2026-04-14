@@ -295,11 +295,10 @@ public class playerData : EntityStats
     {
 
         bool canUse = true;
-        Debug.Log("The item " + item.itemName);
+      
         foreach (var attribs in item.skillRequirements)
         {
-            Debug.Log("Who is you " + attribs.value);
-            Debug.Log("Or you " + stats[attribs.attribute]);
+            
             if (stats[attribs.attribute] < attribs.value) { canUse = false; break; }
         }
         return canUse;

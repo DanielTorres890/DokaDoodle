@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88423fa34ea4c3b4d8d7661c8e38dca6, type: 3}
-  m_Name: Homing
+  m_Name: Seeker
   m_EditorClassIdentifier: 
-  description: Fires an attack which creates a bigger burst hitbox at the end of
-    its lifespan
-  attackName: Homing
+  description: Fires an attack that homes on enemies
+  attackName: Seeker
   startUp: 1
   attackDuration: 0
   endLag: 0.1
@@ -40,13 +39,13 @@ MonoBehaviour:
   offset: {x: 0, y: 2, z: 0}
   ablitySize: {x: 0.5, y: 0.5, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
-  baseDamage: 0
+  baseDamage: 3
   multipliers:
   - attribute: 4
-    mult: 1.3
+    mult: 0.8
   defenseMult:
   - attribute: 5
-    mult: 0.7
+    mult: 0.8
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -66,7 +65,7 @@ MonoBehaviour:
   attackAnimation: {fileID: 7400000, guid: 9d86687d1b83a2d4580f364ebcc217f5, type: 2}
   animationSpeed: 1
   LevelRequirements: []
-  startUpNoise: {fileID: 0}
+  startUpNoise: {fileID: 8300000, guid: 404dd756e9ce6dd499cde96e9de35e7d, type: 3}
   attackSound: {fileID: 8300000, guid: f25a327ac15456a4a84f118c0ae58eda, type: 3}
   onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
   onHitEffects: []

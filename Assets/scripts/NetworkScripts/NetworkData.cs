@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEditor;
@@ -79,6 +80,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public const string BattleScene = "NewBattleArea";
     public int dashDexReq = 15;
 
+    private StringBuilder recievedGameData = new StringBuilder();
     public void Awake()
     {
         var previousNetwork = Instance;
@@ -246,9 +248,23 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         }
         if(LoadedIn)
         {
+            
             Debug.Log("WHO GOES THERE ");
+            SyncOtherDataRpc(clientOrder, RpcTarget.Single(clientId, RpcTargetUse.Temp));
+           
             string dataToStore = JsonConvert.SerializeObject(DataPersistenceManager.instance.GetCurrentGameData(), Formatting.Indented);
-            SyncOtherDataRpc(dataToStore, clientOrder, RpcTarget.Single(clientId, RpcTargetUse.Temp));
+            int chunkSize = 1000;
+            int totalChunks = (dataToStore.Length + chunkSize - 1) / chunkSize;
+            for(int i = 0;i < totalChunks;i++)
+            {
+                int start = i * chunkSize;
+                int length = Mathf.Min(chunkSize, dataToStore.Length - start);
+                string chunk = dataToStore.Substring(start, length);
+
+                RecieveGameDataRpc(chunk, i, totalChunks, RpcTarget.Single(clientId, RpcTargetUse.Temp));
+            }
+
+            
         }
     }
 
@@ -402,7 +418,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
 
     [Rpc(SendTo.SpecifiedInParams)]
-    public void SyncOtherDataRpc(string jsonString,int[] idOrder, RpcParams rpcStuff)
+    public void SyncOtherDataRpc(int[] idOrder, RpcParams rpcStuff)
     {
         //sooo client connected includes host
         
@@ -413,13 +429,42 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 		previewLoaded.SetActive(true);
 
 		if (IsHost) { return; }
-		DataPersistenceManager.instance.LoadDataFromString(jsonString);
-        
-        for(int i = 0; i < players.Count; i++)
+		
+    }
+
+    [Rpc(SendTo.SpecifiedInParams)]
+    public void RecieveGameDataRpc(string chunk, int index, int total, RpcParams rpcStuff)
+    {
+        if(recievedGameData == null) { recievedGameData = new StringBuilder(); }
+        recievedGameData.Append(chunk);
+        if(index == total - 1)
         {
-            playerPreviews[i].SetActive(true);
-            playerPreviewsLoaded[i].SetActive(true);
+            if(!IsHost)
+            DataPersistenceManager.instance.LoadDataFromString(recievedGameData.ToString());
+
+            for (int i = 0; i < players.Count; i++)
+            {
+                playerPreviews[i].SetActive(true);
+                playerPreviewsLoaded[i].SetActive(true);
+            }
+            for (int i = 0; i < players.Count; i++)
+            {
+                characterEditor curStickEdit = playerSticks[i].GetComponent<characterEditor>();
+                curStickEdit.setClass(players[i].playerClass);
+                curStickEdit.setFace(players[i].playerFace);
+                curStickEdit.setHair(players[i].playerHair);
+                Debug.Log("I should have fixed up the player");
+                if (players[i].equipItems[ItemType.Equipment] != -1)
+                {
+                    Debug.Log(" ANNDD equipped their weapon");
+                    (playerInventories[i][3].database.GetItem[players[i].equipItems[ItemType.Equipment]] as WeaponItem).PerformItemEffect(i, playerInventories[i][3]);
+                }
+
+            }
+            recievedGameData = null;
         }
+
+
     }
 
     [Rpc(SendTo.ClientsAndHost)]

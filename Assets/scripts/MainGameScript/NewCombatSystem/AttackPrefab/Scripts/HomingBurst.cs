@@ -7,14 +7,14 @@ public class HomingBurst : RangedBurstAbility
     public float detectionRadius = 15f;
     public float trackingSpeed = 3f;
     public LayerMask targets;
-   
 
+    private AbilityManager targetManager;
     // Update is called once per frame
     private void FixedUpdate()
     {
         if(!IsServer) { return; }
 
-        if(target == null)
+        if(target == null || targetManager.stats.isDead)
         {
             var hits = Physics.OverlapSphere(transform.position, detectionRadius, targets);
             if(hits.Length <= 0) { return; }
@@ -22,11 +22,12 @@ public class HomingBurst : RangedBurstAbility
 
             foreach (var hit in hits)
             {
-                if (hit != owner && hit.TryGetComponent(out AbilityManager entity))
+                if (hit != owner && hit.TryGetComponent(out AbilityManager entity) && !entity.stats.isDead)
                 {
                     if (!entity.stats.loyaltyTags.Intersect(ownerStats.loyaltyTags).Any())
                     {
                         target = hit.transform;
+                        targetManager = entity;
                         break;
                     }
                 }
@@ -36,7 +37,7 @@ public class HomingBurst : RangedBurstAbility
 
         }
 
-        if(target == null) { return; }
+        if(target == null || targetManager == null || targetManager.stats.isDead) { return; }
         Vector3 targetDirection = target.position - transform.position + (Vector3.up * 1.5f);
 
 

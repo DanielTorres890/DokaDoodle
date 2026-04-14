@@ -134,7 +134,7 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: upTile
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 956296645}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: canFight
       value: 0
@@ -1032,8 +1032,8 @@ MonoBehaviour:
   cameraMove: 0
   autoMoving: 0
   inspectingTile: 0
-  forceRoll: 1
-  forcedRollNum: 1
+  forceRoll: 0
+  forcedRollNum: 10
   moveSpeed: 80
   autoMoveTime: 0.5
   autoMoveSpeed: 70
@@ -2804,7 +2804,7 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: rightTile
       value: 
-      objectReference: {fileID: 1089818428}
+      objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
@@ -3182,6 +3182,10 @@ PrefabInstance:
       value: Magic
       objectReference: {fileID: 0}
     - target: {fileID: 8411114968111328955, guid: a02719ae27ebb044594c2ac19558444f, type: 3}
+      propertyPath: downTile
+      value: 
+      objectReference: {fileID: 96964115}
+    - target: {fileID: 8411114968111328955, guid: a02719ae27ebb044594c2ac19558444f, type: 3}
       propertyPath: rightTile
       value: 
       objectReference: {fileID: 745874591}
@@ -3362,7 +3366,7 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: leftTile
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1415606994}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: rightTile
       value: 
@@ -3584,7 +3588,7 @@ PrefabInstance:
     - target: {fileID: 8411114968111328955, guid: a02719ae27ebb044594c2ac19558444f, type: 3}
       propertyPath: leftTile
       value: 
-      objectReference: {fileID: 902741094}
+      objectReference: {fileID: 0}
     - target: {fileID: 8411114968111328955, guid: a02719ae27ebb044594c2ac19558444f, type: 3}
       propertyPath: rightTile
       value: 

@@ -95,6 +95,12 @@ public class LoseItemManager : NetworkBehaviour
     {
         NetworkData.Instance.playerInventories[currentPlayer][inventoryNum].RemoveItem(itemToLose);
 
+        //inventory num == 0 meaning its a potential battle item
+        if(NetworkData.Instance.GetCurrentPlayer().battleSlotItemId == itemToLose && inventoryNum == 0)
+        {
+            NetworkData.Instance.GetCurrentPlayer().battleSlotItemId = -1;
+        }
+
         for(int i = 0; i < NetworkData.Instance.playerInventories[currentPlayer].Count; i++)
         {
             var inventory = NetworkData.Instance.playerInventories[currentPlayer][i];

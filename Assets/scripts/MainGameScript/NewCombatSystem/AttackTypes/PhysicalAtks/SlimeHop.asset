@@ -18,7 +18,7 @@ MonoBehaviour:
   attackDuration: 0.8
   endLag: 0.167
   startCooldown: 0
-  cooldown: 2
+  cooldown: 1.5
   lifespan: 0.8
   energyDrain: 1
   initialEnergyCost: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
     mult: 1
   defenseMult:
   - attribute: 3
-    mult: 0.7
+    mult: 0.3
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -75,4 +75,4 @@ MonoBehaviour:
   conditions: []
   colorByWeapon: 1
   dashDirection: {x: 0, y: 0.2, z: 1}
-  dashSpeed: 25
+  dashSpeed: 20
