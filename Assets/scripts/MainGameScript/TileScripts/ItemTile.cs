@@ -9,17 +9,16 @@ using UnityEngine.InputSystem;
 
 public class ItemTile : TileScript
 {
-    public ItemBase[] items;
-    private int itemType;
+    public ItemTileRewards[] items;
   
     public override void TileEvent()
     {
        
         if (!NetworkManager.Singleton.IsServer) { return; }
         int rando = UnityEngine.Random.Range(0,items.Length);
-        itemType = items[rando].determineType();
+        
 
-        ClientChecks.Instance.RandomizedItemSelectRpc(NetworkData.Instance.currentPlayer, NetworkData.Instance.playerInventories[0][itemType].database.GetId[items[rando]], itemType);
+        ClientChecks.Instance.RandomizedItemSelectRpc(NetworkData.Instance.currentPlayer, rando);
         
     }
 

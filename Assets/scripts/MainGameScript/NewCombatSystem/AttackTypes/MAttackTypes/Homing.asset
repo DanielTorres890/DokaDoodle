@@ -38,7 +38,7 @@ MonoBehaviour:
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 2, z: 0}
-  ablitySize: {x: 1, y: 1, z: 1}
+  ablitySize: {x: 0.5, y: 0.5, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 0
   multipliers:
@@ -62,8 +62,8 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 7400000, guid: 6714484de2d644441850d03ca9a0a223, type: 2}
-  attackAnimation: {fileID: 7400000, guid: 516d7771e496e0c4ba2bda07a8d3607b, type: 2}
+  startUpAnimation: {fileID: 7400000, guid: 0e0b45186657694438ec8c32bdc00552, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 9d86687d1b83a2d4580f364ebcc217f5, type: 2}
   animationSpeed: 1
   LevelRequirements: []
   startUpNoise: {fileID: 0}
@@ -77,5 +77,5 @@ MonoBehaviour:
   colorByWeapon: 0
   speed: 25
   pierceCount: 0
-  burstLifespan: 25
-  burstSize: {x: 2, y: 2, z: 2}
+  burstLifespan: 0.1
+  burstSize: {x: 1.25, y: 1.25, z: 1.25}

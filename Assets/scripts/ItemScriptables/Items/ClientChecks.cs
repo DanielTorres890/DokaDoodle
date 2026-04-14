@@ -376,11 +376,11 @@ public class ClientChecks : NetworkBehaviour
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
 
-    public void RandomizedItemSelectRpc(int player, int itemId, int inventoryType)
+    public void RandomizedItemSelectRpc(int player, int itemId)
     {
         var playerinfo = NetworkData.Instance.players[player];
         rollNum.gameObject.transform.parent.gameObject.SetActive(false);
-        randomItemPickup.ShuffleDisplay((PlayerMoveManager.Instance.mapTiles[playerinfo.curTileId] as ItemTile).items, itemId, inventoryType);
+        randomItemPickup.ShuffleDisplay((PlayerMoveManager.Instance.mapTiles[playerinfo.curTileId] as ItemTile).items, itemId);
     }
 
     public void ConfirmItemPickup(int player, int itemId, int inventoryNum)
@@ -396,6 +396,30 @@ public class ClientChecks : NetworkBehaviour
         
         
     }
+    public void GotOuchie(int damageTaken)
+    {
+        displayText.lines.Clear();
+
+        displayText.lines.Add("You took <color=red>" + damageTaken.ToString() + "</color> damage");
+        if(NetworkData.Instance.GetCurrentPlayer().isDead)
+        {
+            displayText.lines.Add("Man you're deaddd");
+        }
+        StartCoroutine(GetOuchDisplay());
+    }
+    public void GetMoney(int moneyChange)
+    {
+        displayText.lines.Clear();
+
+        if(moneyChange > 0)
+            displayText.lines.Add("You gained <color=green>" + moneyChange.ToString() + "</color> money");
+
+        else
+            displayText.lines.Add("You lost <color=red>" + moneyChange.ToString() + "</color> money");
+
+        StartCoroutine(GetOuchDisplay());
+    }
+
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void SyncEnemyRpc(int encounterId)
@@ -591,6 +615,22 @@ public class ClientChecks : NetworkBehaviour
                 
         }
         
+
+    }
+    private IEnumerator GetOuchDisplay()
+    {
+
+        displayText.gameObject.SetActive(true);
+        displayText.whoInControl = NetworkData.Instance.currentPlayer;
+        displayText.Awake();
+        while (displayText.gameObject.activeSelf)
+        {
+
+            yield return null;
+        }
+
+        PlayerMoveManager.Instance.NextTurnRpc();
+
 
     }
     private IEnumerator usedItem()
