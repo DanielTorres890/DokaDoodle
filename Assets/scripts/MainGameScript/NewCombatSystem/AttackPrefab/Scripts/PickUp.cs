@@ -13,6 +13,9 @@ public class PickUp : AbilityBase
     public GameObject burstHitbox;
     public UnityEvent onStopMove;
     public int pickupLimit = 3;
+  
+
+
     public override void OnNetworkSpawn()
     {
         if(!IsHost) { return; }

@@ -24,6 +24,7 @@ public abstract class AbilityBase : NetworkBehaviour
     public AudioSource AudioSource;
 
     public bool stickInOpponent = false;
+   
     private bool weaponsHot = true; //whether its still an active hitbox
     private void Awake()
     {
