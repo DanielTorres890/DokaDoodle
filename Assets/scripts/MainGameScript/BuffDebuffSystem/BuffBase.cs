@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public abstract class BuffBase : ScriptableObject
 {
-    public int duration;
+    public float duration;
     public bool combatOnly = false;
     public bool stackable = false;
     public GameObject buffFx;
@@ -87,5 +87,5 @@ public abstract class BuffBase : ScriptableObject
 
     public virtual void OnEveryTick(AbilityManager stats) { }
 
-    public virtual int GetDuration(EntityStats stats) { return duration; }
+    public virtual float GetDuration(EntityStats stats) { return duration; }
 }

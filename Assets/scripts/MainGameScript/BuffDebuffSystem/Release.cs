@@ -16,7 +16,7 @@ public class Release :  BuffBase
         base.OnApply(stats);
     }
 
-    public override int GetDuration(EntityStats stats)
+    public override float GetDuration(EntityStats stats)
     {
         bool hasSunshine = false;
 
@@ -29,7 +29,7 @@ public class Release :  BuffBase
         }
         if(!hasSunshine) { return 0; }
 
-        int difference = (sunshine.duration - Mathf.RoundToInt(boof.timeRemaining)) * 5;
+        float difference = (sunshine.duration - Mathf.RoundToInt(boof.timeRemaining)) * 5;
 
         Debug.Log("What is this? " + boof.timeRemaining);
         Debug.Log("For how long? " + (sunshine.duration - Mathf.RoundToInt(boof.timeRemaining)));

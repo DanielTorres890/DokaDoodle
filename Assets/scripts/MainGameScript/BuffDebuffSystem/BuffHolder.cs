@@ -5,7 +5,7 @@ public class BuffHolder
 
     public float timeRemaining;
     public int buffId;
-    public BuffHolder(int time, int buffId)
+    public BuffHolder(float time, int buffId)
     {
         this.timeRemaining = time;
         this.buffId = buffId;   

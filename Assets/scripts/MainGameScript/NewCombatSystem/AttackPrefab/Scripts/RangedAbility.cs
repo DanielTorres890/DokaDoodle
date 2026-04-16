@@ -31,10 +31,14 @@ public class RangedAbility : AbilityBase
             fx.transform.localScale = transform.localScale;
             fx.GetComponent<NetworkObject>().Spawn();
         }
-        if(pierceCounter >= (attackInfo as MDefault).pierceCount)
+        if(attackInfo is MDefault)
         {
-            Destroy(gameObject);
+            if (pierceCounter >= (attackInfo as MDefault).pierceCount)
+            {
+                Destroy(gameObject);
+            }
         }
+        
         pierceCounter++;
     }
     /*public void OnTriggerEnter(Collider other)

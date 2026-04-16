@@ -20,7 +20,7 @@ public class StunDebuff : BuffBase
             {
                 if (combatant.stats == stats)
                 {
-                    combatant.combatantstate = combatantStates.Endlag;
+                    combatant.combatantstate = combatantStates.Attacking;
                     combatant.stateDuration = 999;
 
                 }
@@ -46,15 +46,5 @@ public class StunDebuff : BuffBase
         }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

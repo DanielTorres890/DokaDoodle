@@ -102,13 +102,14 @@ public class BaseEnemyBehavior : NetworkBehaviour
     }
     public virtual void Update()
     {
+        
         if(myManager.stats.isDead) { agent.enabled = false; return; }
         if(myManager.CanWalk()) { agent.enabled = true; rb.isKinematic = true; }
         else { agent.enabled = false; }
-
-
-   
+        if (!agent.isOnNavMesh) { agent.enabled = false; }
         
+
+
 
 
         if (!IsServer) { return; }
