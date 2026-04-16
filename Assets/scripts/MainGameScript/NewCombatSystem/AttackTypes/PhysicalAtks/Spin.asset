@@ -9,43 +9,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dad25ee879166e24dbb53dd668d87936, type: 3}
-  m_Name: ThunderBolt
-  m_EditorClassIdentifier: Assembly-CSharp::PlacedAttack
-  description: Placed A thunderbolt at your cursor
-  attackName: ThunderBolt
-  startUp: 1
+  m_Script: {fileID: 11500000, guid: e1b47e846fecebc48b8df7bd633dae51, type: 3}
+  m_Name: Spin
+  m_EditorClassIdentifier: 
+  description: Spin in a circle, damaging all enemies around you
+  attackName: Slash
+  startUp: 0.5
   attackDuration: 0
   endLag: 0.1
   startCooldown: 0
-  cooldown: 0
-  lifespan: 4
-  energyDrain: 1
+  cooldown: 2
+  lifespan: 0.3
+  energyDrain: 10
   initialEnergyCost: 0
-  maxChargeAtkBuff: 1.2
-  maxChargeSizeBuff: 1.2
+  maxChargeAtkBuff: 1.3
+  maxChargeSizeBuff: 1.4
   maxChargeSpeedBuff: 1.1
   maxChargeDuration: 3
   requiredPotency: 0
   dmgPotencyEffect: 2
   sizePotencyEffect: 2
   stateToBe: 0
-  chargeable: 0
-  attackPrefab: {fileID: 2566779757777240371, guid: 22bec2fad858f9b40937e97a9c354e13, type: 3}
+  chargeable: 1
+  attackPrefab: {fileID: 2566779757777240371, guid: dd5a84e69503e8c46a0b97383c01e783, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   weaponPrefab: {fileID: 0}
-  weaponPosition: {x: 0, y: 0, z: 0}
+  weaponPosition: {x: 0.541, y: 0.277, z: 0}
   spawnFx: {fileID: 0}
-  offset: {x: 1, y: 3, z: 0}
-  ablitySize: {x: 5, y: 5, z: 5}
+  offset: {x: -0.5, y: 1, z: 0}
+  ablitySize: {x: 10, y: 0.2, z: 10}
   visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 5
   multipliers:
-  - attribute: 4
+  - attribute: 2
     mult: 1
   defenseMult:
-  - attribute: 5
-    mult: 0.5
+  - attribute: 3
+    mult: 1
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -61,18 +61,16 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 0}
-  attackAnimation: {fileID: 0}
+  startUpAnimation: {fileID: 7400000, guid: 38968a5220cd7c743b74e5f43feb60b8, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 9d0b4a80161530a40926328247ad7c25, type: 2}
   animationSpeed: 1
   LevelRequirements: []
   startUpNoise: {fileID: 0}
-  attackSound: {fileID: 0}
-  onHitSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: e137a57f645ec3346bb7b8539ae31da7, type: 3}
+  onHitSound: {fileID: 8300000, guid: fd57dea2003a26744954854993a44824, type: 3}
   onHitEffects: []
   targets:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   conditions: []
-  colorByWeapon: 0
-  timeTillActive: 3
-  activatedSound: {fileID: 8300000, guid: eeb59cded7d09aa4aac960bc29bff620, type: 3}
+  colorByWeapon: 1

@@ -114,7 +114,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
             //i feel like theres a way to do weekly money gain with events (like on week change) vs this but im not sure since events
             //are kinda preplanned? maybe the special tile event hold could have the function/subscribe here but id need to think more
             PopUpManager.Instance.PerformPopUp(1, true);
-            if (IsHost && Random.Range(0,100) > 50)
+            if (IsHost && Random.Range(50,100) > 50)
             {
                 int totalWeight = 0;
                 foreach(var weighted in randomEvents)

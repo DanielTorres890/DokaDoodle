@@ -4949,7 +4949,9 @@ MonoBehaviour:
   worldDatabase: {fileID: 11400000, guid: 214e79b9240cbe841868c0d00d9fa8f8, type: 2}
   randomEvents:
   - worldEvent: {fileID: 11400000, guid: 992397582746616458a7570784a9fbe3, type: 2}
-    weight: 10
+    weight: 25
+  - worldEvent: {fileID: 11400000, guid: 43aa8cf97b742334185c39a88e27365e, type: 2}
+    weight: 25
   questEvents:
   - {fileID: 11400000, guid: 0b0b706af1edd6147b4e30a99006e119, type: 2}
   - {fileID: 11400000, guid: 58af29bb9363f034591c0c9171d438d3, type: 2}
@@ -6218,6 +6220,7 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+  spawnRadius: 0
 --- !u!4 &674227508
 Transform:
   m_ObjectHideFlags: 0

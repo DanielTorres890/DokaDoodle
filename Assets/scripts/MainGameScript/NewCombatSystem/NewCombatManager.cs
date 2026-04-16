@@ -87,7 +87,7 @@ public class NewCombatManager : NetworkBehaviour
         AudioSource = GetComponent<AudioSource>();
         Cursor.lockState = CursorLockMode.Locked;
         instance = this;
-
+        distanceFromCenter = PlayerCombatManager.Instance.spawnRadius;
 
 
     }

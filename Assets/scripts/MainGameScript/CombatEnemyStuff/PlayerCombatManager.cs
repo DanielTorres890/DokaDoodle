@@ -15,7 +15,8 @@ public class PlayerCombatManager : MonoBehaviour
     public EnemyEncounter currentEncounter;
     public EntityStats combatant1;//LEGACY STUFF RIGHT HERE
     public EntityStats combatant2;
-    
+
+    public float spawnRadius;//this is a weird way to get information to newcombnatmanager
     private void Awake()
     {
         if (Instance != null) 

@@ -51,14 +51,20 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 12
+        m_Name: Voronoi Scale
+        m_Overridden: 1
+      - m_Value: 0.3
+        m_Name: Size
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 2.0930276, y: 2.0930276, z: 2.0930276, w: 1}
+      - m_Value: {x: 7.3772097, y: 7.3772097, z: 7.3772097, w: 1}
         m_Name: Color
         m_Overridden: 1
     m_Uint:
@@ -68,7 +74,33 @@ VisualEffect:
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
-      m_Array: []
+      m_Array:
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.3
+            value: 360
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: ZOverTime
+        m_Overridden: 1
     m_Gradient:
       m_Array: []
     m_NamedObject:
@@ -154,7 +186,7 @@ GameObject:
   - component: {fileID: 3893951003391152421}
   - component: {fileID: -6985951634538730933}
   m_Layer: 0
-  m_Name: basicSlash
+  m_Name: 360Slash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,14 +200,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2566779757777240371}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.11425093, y: -0, z: -0, w: 0.99345195}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.871, y: 1.653, z: 0}
-  m_LocalScale: {x: 2, y: 0.15, z: 1}
+  m_LocalScale: {x: 1, y: 0.15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8752398753730281960}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -13.121, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8650583383479270826
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -266,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 722569079
+  GlobalObjectIdHash: 1047416004
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1

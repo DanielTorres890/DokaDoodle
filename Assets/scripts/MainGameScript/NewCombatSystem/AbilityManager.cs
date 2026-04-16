@@ -84,6 +84,11 @@ public class AbilityManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(stats.isDead)
+        {
+            if (startUpEffects != null)
+                Destroy(startUpEffects);
+        }
         if(NewCombatManager.instance.fightOver || stats.isDead) { return; }
         //i got mixed opinions on this being out here but w/e
 

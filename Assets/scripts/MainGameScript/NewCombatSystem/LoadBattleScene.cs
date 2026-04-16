@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class LoadBattleScene : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float spawnRadius = 30f;
     void Start()
     {
+        PlayerCombatManager.Instance.spawnRadius = spawnRadius;
         if (NetworkData.Instance.IsHost)
         {
             StartCoroutine(AwaitPlayers());

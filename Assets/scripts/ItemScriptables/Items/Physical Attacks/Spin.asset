@@ -10,31 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
-  m_Name: Sword Draw
+  m_Name: Spin
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 21300000, guid: db1dfcea11c347b4da447fc300a54fbf, type: 3}
   type: 3
-  itemValue: 750
+  itemValue: 800
   description: '(PHYSICAL ABILITY)
 
-    Performs an attack that dashes forward cutting
-    anything you pass through dealing light damage
+    Spin in a circle, damaging all enemies around
+    you
 
-    Requires: 13 ATK'
-  useText: Weapon Equipped
-  itemName: Sword Draw
-  buffs:
-  - attribute: 2
-    value: 10
+    REQ: 9 ATK'
+  useText: You equip the wooden sword
+  itemName: Spin
+  buffs: []
   battleItem: 0
   overworldItem: 0
   useClip: {fileID: 0}
   interrupt: 0
   attack:
-  - {fileID: 11400000, guid: ffa5a809d7479794ba87d08d7a51802b, type: 2}
-  skillRequirements:
-  - attribute: 2
-    value: 13
+  - {fileID: 11400000, guid: b4a28674452c61347896807a96ddb8be, type: 2}
+  skillRequirements: []
   inHandSprite: {fileID: 0}
   onEquipBuffs: []
-  weaponColor: {r: 0, g: 0, b: 0, a: 0}
+  weaponColor: {r: 1, g: 1, b: 1, a: 0}
