@@ -300,7 +300,7 @@ public class NewCombatManager : NetworkBehaviour
             EnemyCombat info = (EnemyCombat)whoded.stats;
             info.isDead = true;
             xpHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].droppedXp;
-            moneyHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].droppedMoney;
+            moneyHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].GetDroppedMoney();
 
             if (IsServer)
             {

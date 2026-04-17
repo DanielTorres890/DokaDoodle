@@ -25,7 +25,7 @@ public class EnemyBase : ScriptableObject, ISerializationCallbackReceiver
     public int droppedXp;
     public int droppedMoney;
     public int droppedFame;
-
+    public bool scalingMoney = false;
     [Tooltip("If the enemy should override the bgm insert this")]
     public AudioClip SpecialMusic;
     public void OnAfterDeserialize()
@@ -55,7 +55,11 @@ public class EnemyBase : ScriptableObject, ISerializationCallbackReceiver
         }
         return -1;
     }
-
+    public int GetDroppedMoney()
+    {
+        if (scalingMoney) { return droppedMoney * (WorldEventManager.Instance.weeks + 1); } else { return droppedMoney; }
+    
+    }
 }
     
 

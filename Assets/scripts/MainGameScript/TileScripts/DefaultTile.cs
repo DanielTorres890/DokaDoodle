@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -31,8 +32,21 @@ public class DefaultTile : TileScript
         {
             if(enemy != NetworkData.Instance.currentPlayer) { enemyPlayer = true; break;}
         }
-        
-        if ((Random.Range(1,11) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly && !enemyPlayer) || forceEvent)  
+
+        bool noRealEnemies = true;
+        foreach( var enemy in currentTile.tileEnemy)
+        {
+            if(!enemy.loyaltyTags.Intersect(NetworkData.Instance.GetCurrentPlayer().loyaltyTags).Any()) 
+            {
+                Debug.Log("There was a not matching tag...");
+                noRealEnemies = false;
+            }
+        }
+        if(noRealEnemies && !enemyAlly && !enemyPlayer)
+        {
+            ClientChecks.Instance.NoEnemiesToFightRpc(tileId);
+        }
+        else if ((Random.Range(1,11) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly && !enemyPlayer) || forceEvent)  
         {
             EventBase selectedEvent = events[0].tileEvent;
             int totalWeight = 0;

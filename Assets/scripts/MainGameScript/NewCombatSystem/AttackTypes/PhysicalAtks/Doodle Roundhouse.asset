@@ -36,13 +36,13 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0.541, y: 0.277, z: 0}
   spawnFx: {fileID: 0}
-  offset: {x: -0.5, y: 1, z: 2}
+  offset: {x: -0.5, y: 1, z: 0}
   ablitySize: {x: 4, y: 0.2, z: 10}
   visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 5
   multipliers:
   - attribute: 2
-    mult: 1
+    mult: 1.5
   defenseMult:
   - attribute: 3
     mult: 1
@@ -66,7 +66,7 @@ MonoBehaviour:
   animationSpeed: 1.2
   LevelRequirements: []
   startUpNoise: {fileID: 0}
-  attackSound: {fileID: 8300000, guid: e137a57f645ec3346bb7b8539ae31da7, type: 3}
+  attackSound: {fileID: 8300000, guid: 51465924abc41df428febd7bbcd57111, type: 3}
   onHitSound: {fileID: 8300000, guid: fd57dea2003a26744954854993a44824, type: 3}
   onHitEffects:
   - {fileID: 11400000, guid: 0467320fe04ad0d4d9c062f1decabe81, type: 2}
@@ -74,4 +74,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   conditions: []
-  colorByWeapon: 1
+  colorByWeapon: 0

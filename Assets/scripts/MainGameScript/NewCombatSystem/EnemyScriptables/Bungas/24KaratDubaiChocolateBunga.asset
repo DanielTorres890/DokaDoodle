@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42e542e6897b1b49a5085f063ea70bd, type: 3}
+  m_Name: 24KaratDubaiChocolateBunga
+  m_EditorClassIdentifier: 
+  enemyName: 24 Karat Bunga
+  enemyPrefab: {fileID: 1804880954259114146, guid: 537d65e3303c14046832b3f75c4307a3, type: 3}
+  enemyNonCombatPrefab: {fileID: 5321021961389390782, guid: 7905fde2503a53b4e8af9db3757c0ba8, type: 3}
+  Stats:
+  - attribute: 0
+    value: 40
+  - attribute: 1
+    value: 40
+  - attribute: 2
+    value: 3
+  - attribute: 3
+    value: 4
+  - attribute: 4
+    value: 1
+  - attribute: 5
+    value: 4
+  - attribute: 6
+    value: 100
+  loyaltyTags:
+  - 24 Karat Bunga
+  Attackss:
+  - {fileID: 11400000, guid: 624f23ed2bf8f504eb4aa48a590b999f, type: 2}
+  Defendss: []
+  DroppedItems:
+  - {fileID: 11400000, guid: bebd64a7aeba88e429d6425780ad4e4e, type: 2}
+  - {fileID: 11400000, guid: ec8bc0525fbdc9f408970bfd20fc9713, type: 2}
+  - {fileID: 11400000, guid: a9b93fcac5e86da48a315e89c55b7d70, type: 2}
+  probability: 320000001900000019000000
+  enemyLevel: 1
+  droppedXp: 300
+  droppedMoney: 2500
+  droppedFame: 0
+  scalingMoney: 1
+  SpecialMusic: {fileID: 0}

@@ -442,6 +442,15 @@ public class ClientChecks : NetworkBehaviour
         NetworkData.Instance.currentEvent = (PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId] as DefaultTile).events[eventNum].tileEvent;
         SceneChanger.Instance.loadClientScenesServerRpc(NetworkData.Instance.currentEvent.SceneToGoTo);
     }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void NoEnemiesToFightRpc(int tildId)
+    {
+        displayText.lines.Clear();
+
+        displayText.lines.Add("You took talked it out with everyone so they went home");
+        MapTileSpecialEvents.Instance.GetCurrentTile().tileEnemy.Clear();
+        StartCoroutine(NothingHappened());
+    }
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void WorldEventRpc()
@@ -630,6 +639,22 @@ public class ClientChecks : NetworkBehaviour
         }
 
         PlayerMoveManager.Instance.NextTurnRpc();
+
+
+    }
+    private IEnumerator NothingHappened()
+    {
+
+        displayText.gameObject.SetActive(true);
+        displayText.whoInControl = NetworkData.Instance.currentPlayer;
+        displayText.Awake();
+        while (displayText.gameObject.activeSelf)
+        {
+
+            yield return null;
+        }
+
+        PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.GetCurrentPlayer().curTileId].TileEvent();
 
 
     }

@@ -24,11 +24,31 @@ public class TownTile : EventTIle
     }
     public override void TileEvent()
     {
-        
-        if (MapTileSpecialEvents.Instance.GetCurrentTile().tileOwner == -1 && MapTileSpecialEvents.Instance.GetCurrentTile().tileEnemy.Count <= 0)
+        var tileInfo = MapTileSpecialEvents.Instance.GetCurrentTile();
+        if (tileInfo.tileEnemy.Count > 0)
         {
+            bool noRealEnemies = true;
+            foreach (var enemy in tileInfo.tileEnemy)
+            {
 
-            NetworkData.Instance.GetCurrentPlayer().GainTown(MapTileSpecialEvents.Instance.GetCurrentTile());
+                if (!enemy.loyaltyTags.Intersect(NetworkData.Instance.GetCurrentPlayer().loyaltyTags).Any())
+                {
+                    Debug.Log("There was a not matching tag...");
+                    noRealEnemies = false;
+                }
+            }
+
+            if (noRealEnemies)
+            {
+                ClientChecks.Instance.NoEnemiesToFightRpc(tileId);
+                return;
+            }
+
+        }
+
+        if (tileInfo.tileOwner == -1 && tileInfo.tileEnemy.Count <= 0)
+        {
+            NetworkData.Instance.GetCurrentPlayer().GainTown(tileInfo);
         }
         base.TileEvent();
     }

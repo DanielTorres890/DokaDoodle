@@ -16,6 +16,7 @@ public abstract class WorldEventBase : ScriptableObject
 
     [Tooltip("IF this is a quest with a specific condition to occur (ex: quest activating after 10 days) then add a scriptable for it")]
     public QuestCondition MainQuestCondition;
+ 
     public virtual void OnActivate()
     {
         if (startCutscene)
@@ -35,8 +36,8 @@ public abstract class WorldEventBase : ScriptableObject
             
         }
     }
-
     public abstract bool Condition(int turns);
+    
 }
 
 
