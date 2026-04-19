@@ -1068,7 +1068,7 @@ MonoBehaviour:
   cameraMove: 0
   autoMoving: 0
   inspectingTile: 0
-  forceRoll: 1
+  forceRoll: 0
   forcedRollNum: 0
   moveSpeed: 80
   autoMoveTime: 0.5
@@ -2236,6 +2236,13 @@ PrefabInstance:
       propertyPath: downTile
       value: 
       objectReference: {fileID: 1400342679}
+    - target: {fileID: -6587754183726193978, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: tileDescription
+      value: 'The tower belonging to the bungas, though recently its been taken by
+        an evil bunga...
+
+        Reccomended Level-6'
+      objectReference: {fileID: 0}
     - target: {fileID: 874385839135505558, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 2.54
@@ -5062,7 +5069,7 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: defaultTileEnemies
       value: 
-      objectReference: {fileID: 11400000, guid: 38fedf6230845c54693ec17e95caa5b8, type: 2}
+      objectReference: {fileID: 11400000, guid: 5d7e0bdd7e081a64da1ec8d642425797, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
@@ -7124,6 +7131,13 @@ PrefabInstance:
       propertyPath: rightTile
       value: 
       objectReference: {fileID: 915124141}
+    - target: {fileID: -6587754183726193978, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: tileDescription
+      value: 'A small cave home to a mole who may or may not be malding
+
+        Reccomended
+        Level - 10'
+      objectReference: {fileID: 0}
     - target: {fileID: 3735387054086767184, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -70
@@ -7166,7 +7180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4275375762089989838, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
       propertyPath: m_Name
-      value: GoToMapTile
+      value: MaldingCave
       objectReference: {fileID: 0}
     - target: {fileID: 8255355776989548959, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
       propertyPath: m_text

@@ -80,12 +80,15 @@ public class SmarterMeleeEnemy : BaseEnemyBehavior
     }
     private void CalculateAttackRanges()
     {
-        if(myManager.stats.attacks.Count == 0) { return; }
+        if(myManager.stats.attacks.Count <= 0) { return; }
+
 
         attackRanges = new float[myManager.stats.attacks.Count];
         
         for(int i = 0; i < attackRanges.Length; i++)
         {
+            
+         
             attackRanges[i] = (myManager.stats.attacks[i].ablitySize.z / 2) + myManager.stats.attacks[i].offset.z - 1;
             if (myManager.stats.attacks[i] is MDefault)
             {
@@ -96,7 +99,7 @@ public class SmarterMeleeEnemy : BaseEnemyBehavior
             {
                 attackRanges[i] = 100f;
             }
-            attackRanges[i] = Mathf.Clamp(attackRanges[i], minimumRange, 10000);
+            attackRanges[i] = Mathf.Max(attackRanges[i], minimumRange);
         }
 
     }

@@ -269,11 +269,11 @@ GameObject:
   - component: {fileID: -1730922337866841109}
   - component: {fileID: -7128470321392012826}
   - component: {fileID: 3358961221082085050}
-  - component: {fileID: -8106719395968188378}
   - component: {fileID: -2458163416096458169}
   - component: {fileID: -4653431707481497001}
+  - component: {fileID: 2929501466932049693}
   m_Layer: 6
-  m_Name: controlledBunga
+  m_Name: dodgingEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3634984220
+  GlobalObjectIdHash: 3762249956
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -382,7 +382,7 @@ MonoBehaviour:
   onAttack:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8106719395968188378}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BaseEnemyBehavior, Assembly-CSharp
         m_MethodName: SetStartUpAnim
         m_Mode: 6
@@ -397,7 +397,7 @@ MonoBehaviour:
   onSpawnAttack:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8106719395968188378}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BaseEnemyBehavior, Assembly-CSharp
         m_MethodName: SetAttackingAnim
         m_Mode: 6
@@ -537,44 +537,6 @@ NavMeshAgent:
   m_BaseOffset: 0.96
   m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
---- !u!114 &-8106719395968188378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1804880954259114146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdb28464ba1cf494fb526ebbb502160e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  targetManager: {fileID: 0}
-  agent: {fileID: 3358961221082085050}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 8
-  whatIsPLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  myManager: {fileID: 3257693015704149352}
-  selectedAttack: {fileID: 0}
-  attackRanges:
-  - 5
-  InAttackRange: 0
-  animator: {fileID: 0}
-  overrideController: {fileID: 0}
-  walkingAnimation: {fileID: 7400000, guid: 3c2caa86dee916c4984b96f8a76de857, type: 2}
-  victoryAnimation: {fileID: 0}
-  attackAnimations:
-  - startUp: {fileID: 7400000, guid: 4dbd41581e9e68a4ab2116722306c9ad, type: 2}
-    attack: {fileID: 7400000, guid: c4bf9fb35026a744e9611687abba746c, type: 2}
-    animationSpeed: 0.75
-  releaseTimer: 0
-  timeToHold: 0
-  baseMoveSpeed: 4
-  rb: {fileID: 0}
 --- !u!95 &-2458163416096458169
 Animator:
   serializedVersion: 7
@@ -637,6 +599,48 @@ MonoBehaviour:
       Synchronize: 1
       ParameterType: 4
   AnimatorParametersExpanded: 0
+--- !u!114 &2929501466932049693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804880954259114146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948518b35d7643149b5f5d5e98344854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmartDodgeBehavior
+  ShowTopMostFoldoutHeaderGroup: 1
+  targetManager: {fileID: 0}
+  agent: {fileID: 3358961221082085050}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
+  whatIsPLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  myManager: {fileID: 3257693015704149352}
+  selectedAttack: {fileID: 0}
+  attackRanges: []
+  InAttackRange: 0
+  animator: {fileID: -2458163416096458169}
+  overrideController: {fileID: 0}
+  walkingAnimation: {fileID: 7400000, guid: 3c2caa86dee916c4984b96f8a76de857, type: 2}
+  victoryAnimation: {fileID: 0}
+  attackAnimations:
+  - startUp: {fileID: 7400000, guid: 4dbd41581e9e68a4ab2116722306c9ad, type: 2}
+    attack: {fileID: 7400000, guid: c4bf9fb35026a744e9611687abba746c, type: 2}
+    animationSpeed: 1
+  releaseTimer: 0
+  timeToHold: 0
+  baseMoveSpeed: 4
+  rb: {fileID: -1730922337866841109}
+  minimumRange: 3
+  dashDuration: 0.25
+  timeToChaseDash: 3
+  dashCost: 0
+  dodgeAwayChance: 100
 --- !u!1 &1985773246293574916
 GameObject:
   m_ObjectHideFlags: 0

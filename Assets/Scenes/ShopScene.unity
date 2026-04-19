@@ -258,6 +258,7 @@ MonoBehaviour:
   buttons: []
   dialogueScript: {fileID: 1133836644}
   background: {fileID: 0}
+  cam: {fileID: 919033535}
   spaceBetweenButtons: 90
   startButtonY: 500
   startButtonX: 960
@@ -1205,6 +1206,10 @@ PrefabInstance:
       value: -6.0000153
       objectReference: {fileID: 0}
     - target: {fileID: 1719111245264205569, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745644097453286596, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
