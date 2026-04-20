@@ -283,5 +283,6 @@ public enum PlayerFollowingStates
 public enum PartyAITypes
 {
     basicMelee,
-    basicMagic
+    basicMagic,
+    basicDash
 }

@@ -38,15 +38,16 @@ public abstract class BuffBase : ScriptableObject
                     if (stats is not playerData) { return; }
 
 
-
+                  
                     foreach (var status in player.statuses)
                     {
                         if (status.buffId == NetworkData.Instance.buffDataBase.GetId[this])
                         {
+                            
                             return;
                         }
                     }
-
+                    
                     Destroy(fx);
 
                 });
@@ -86,6 +87,7 @@ public abstract class BuffBase : ScriptableObject
     public abstract void BuffEffect(EntityStats whoWon);
 
     public virtual void OnEveryTick(AbilityManager stats) { }
+    public virtual void OnEverySecond(AbilityManager whom) { }
 
     public virtual float GetDuration(EntityStats stats) { return duration; }
 }

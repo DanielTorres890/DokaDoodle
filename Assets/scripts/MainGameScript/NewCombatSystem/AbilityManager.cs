@@ -57,7 +57,7 @@ public class AbilityManager : NetworkBehaviour
     private float updateStatsTimer = 0f;
     private float whenToUpdate = 1f;
 
-
+    private float onEverySecondTimer = 1f;
     private float minFontSize = 5;
     private float maxFontSize = 30;
     
@@ -100,6 +100,17 @@ public class AbilityManager : NetworkBehaviour
             
 
         }
+        onEverySecondTimer -= Time.deltaTime;
+        if(onEverySecondTimer < 0f)
+        {
+            onEverySecondTimer = 1;
+            foreach(var status in stats.statuses)
+            {
+                NetworkData.Instance.buffDataBase.GetItem[status.buffId].OnEverySecond(this);
+            }
+
+        }
+
         updateStatsTimer += Time.deltaTime;
         if (updateStatsTimer > whenToUpdate)
         {

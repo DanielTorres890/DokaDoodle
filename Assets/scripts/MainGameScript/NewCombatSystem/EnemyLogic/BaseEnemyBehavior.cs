@@ -36,13 +36,15 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
     public float baseMoveSpeed = 4f;
 
-    [DoNotSerialize] public Rigidbody rb; 
+    [DoNotSerialize] public Rigidbody rb;
+    [DoNotSerialize] public AudioSource source;
     public override void OnNetworkSpawn()
     {
         agent = GetComponent<NavMeshAgent>();
         myManager = GetComponent<AbilityManager>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        source = GetComponent<AudioSource>();
 
         overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         overrideController["DefaultWalking"] = walkingAnimation;
@@ -229,6 +231,12 @@ public class BaseEnemyBehavior : NetworkBehaviour
         animator.SetFloat("AnimSpeed", attackAnimations[attackIndex].animationSpeed);
         animator.runtimeAnimatorController = overrideController;
         animator.SetBool("Walking", false);
+        if(selectedAttack.attackSound)
+        {
+            source.volume = SettingsManager.instance.SFXVolume;
+            source.clip = selectedAttack.attackSound;
+            source.Play();
+        }
         
         
     }

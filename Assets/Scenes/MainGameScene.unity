@@ -136,10 +136,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1359295850414936902}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
       objectReference: {fileID: 0}
@@ -324,10 +320,6 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: upTile
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
@@ -813,10 +805,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1759345398}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
       objectReference: {fileID: 1649862028}
@@ -1068,8 +1056,8 @@ MonoBehaviour:
   cameraMove: 0
   autoMoving: 0
   inspectingTile: 0
-  forceRoll: 0
-  forcedRollNum: 0
+  forceRoll: 1
+  forcedRollNum: 6
   moveSpeed: 80
   autoMoveTime: 0.5
   autoMoveSpeed: 70
@@ -1533,10 +1521,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1267572177}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
       objectReference: {fileID: 0}
@@ -1718,10 +1702,6 @@ PrefabInstance:
       propertyPath: upTile
       value: 
       objectReference: {fileID: 2044655107}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
@@ -2045,10 +2025,6 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: upTile
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
@@ -2427,10 +2403,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
       objectReference: {fileID: 0}
@@ -2706,10 +2678,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1547469803}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
       objectReference: {fileID: 1359295850281415103}
@@ -2896,10 +2864,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1594121881}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
       objectReference: {fileID: 0}
@@ -3084,10 +3048,6 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: upTile
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
@@ -3384,10 +3344,6 @@ PrefabInstance:
       propertyPath: upTile
       value: 
       objectReference: {fileID: 302659599}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
@@ -3872,10 +3828,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
       objectReference: {fileID: 0}
@@ -4200,10 +4152,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1649862028}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
       objectReference: {fileID: 440241229}
@@ -4389,10 +4337,6 @@ PrefabInstance:
       propertyPath: upTile
       value: 
       objectReference: {fileID: 1973256999}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
@@ -4675,10 +4619,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 651555862}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
       objectReference: {fileID: 789251035}
@@ -4859,10 +4799,6 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: upTile
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
@@ -5049,10 +4985,6 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: upTile
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
@@ -5492,10 +5424,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1754340241}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
       objectReference: {fileID: 870352418}
@@ -5676,10 +5604,6 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: upTile
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
@@ -5867,10 +5791,6 @@ PrefabInstance:
       propertyPath: upTile
       value: 
       objectReference: {fileID: 394011699}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
@@ -6364,10 +6284,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
       objectReference: {fileID: 0}
@@ -6552,10 +6468,6 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: upTile
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
@@ -6852,6 +6764,14 @@ PrefabInstance:
       propertyPath: leftTile
       value: 
       objectReference: {fileID: 1359295850281415103}
+    - target: {fileID: 964784369748876675, guid: b2f312edd53891442b89802cf9f6ab12, type: 3}
+      propertyPath: events.Array.data[0].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 964784369748876675, guid: b2f312edd53891442b89802cf9f6ab12, type: 3}
+      propertyPath: events.Array.data[0].tileEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 775f39d8efc26e4449c2c2d413e05ff5, type: 2}
     - target: {fileID: 3735387054086767184, guid: b2f312edd53891442b89802cf9f6ab12, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20
@@ -6940,10 +6860,6 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: upTile
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
@@ -7593,10 +7509,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile
       value: 
       objectReference: {fileID: 0}
@@ -7781,10 +7693,6 @@ PrefabInstance:
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: upTile
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-      propertyPath: canFight
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: downTile

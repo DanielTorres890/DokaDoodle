@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d42e542e6897b1b49a5085f063ea70bd, type: 3}
-  m_Name: Dodger
+  m_Name: Gremlin
   m_EditorClassIdentifier: 
-  enemyName: Dodger
+  enemyName: Gremlin
   enemyPrefab: {fileID: 1804880954259114146, guid: 26a3e978a640df04781171661274c712, type: 3}
-  enemyNonCombatPrefab: {fileID: 5321021961389390782, guid: 7905fde2503a53b4e8af9db3757c0ba8, type: 3}
+  enemyNonCombatPrefab: {fileID: 6457392848719385595, guid: 1c2d19cf46bc7f143a2ff1e327f08f8b, type: 3}
   Stats:
   - attribute: 0
     value: 40
@@ -31,7 +31,7 @@ MonoBehaviour:
   - attribute: 6
     value: 15
   loyaltyTags:
-  - Bunga
+  - Gremlin
   Attackss:
   - {fileID: 11400000, guid: 8b8cda6fa69d3ca47884150c60cc9e8d, type: 2}
   Defendss: []
@@ -40,7 +40,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ec8bc0525fbdc9f408970bfd20fc9713, type: 2}
   - {fileID: 11400000, guid: a9b93fcac5e86da48a315e89c55b7d70, type: 2}
   probability: 320000001900000019000000
-  enemyLevel: 1
+  enemyLevel: 4
   droppedXp: 30
   droppedMoney: 100
   droppedFame: 0

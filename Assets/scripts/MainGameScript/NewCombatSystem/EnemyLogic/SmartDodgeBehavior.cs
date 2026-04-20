@@ -31,9 +31,17 @@ public class SmartDodgeBehavior : SmarterMeleeEnemy
         base.ChasePlayer();
 
     }
-    public void Dash(Vector3 direction)
+    public override void AttackPlayer()
     {
         timeToChaseDashTimer = 0;
+        base.AttackPlayer();
+    }
+    public void Dash(Vector3 direction)
+    {
+
+        timeToChaseDashTimer = 0;
+        if (myManager.currentEnergy < dashCost) { return; }
+        
         myManager.currentEnergy -= dashCost;
         myManager.combatantstate = combatantStates.Dashing;
         agent.enabled = false;
@@ -48,4 +56,5 @@ public class SmartDodgeBehavior : SmarterMeleeEnemy
             Dash(transform.TransformDirection(Vector3.back));
         }
     }
+
 }

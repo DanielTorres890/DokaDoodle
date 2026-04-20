@@ -17,6 +17,10 @@ public class Drunken : BuffBase
         //yo ngl this is some bs with how i did this icl
         stats.PostStatusStatCalc();
         base.OnApply(stats);
+        
+        
+            
+
     }
 
   

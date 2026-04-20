@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b47e846fecebc48b8df7bd633dae51, type: 3}
+  m_Name: PoisonCloud
+  m_EditorClassIdentifier: 
+  description: A standard sword slash
+  attackName: Slash
+  startUp: 0.4
+  attackDuration: 0
+  endLag: 0.1
+  startCooldown: 0
+  cooldown: 2
+  lifespan: 0.3
+  energyDrain: 1
+  initialEnergyCost: 0
+  maxChargeAtkBuff: 1.2
+  maxChargeSizeBuff: 1.2
+  maxChargeSpeedBuff: 1.1
+  maxChargeDuration: 3
+  requiredPotency: 0
+  dmgPotencyEffect: 2
+  sizePotencyEffect: 2
+  stateToBe: 0
+  chargeable: 0
+  attackPrefab: {fileID: 2566779757777240371, guid: b4fd0f87d4129aa4681b4392e0d9a122, type: 3}
+  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0.541, y: 0.277, z: 0}
+  spawnFx: {fileID: 0}
+  offset: {x: -0.5, y: 2, z: 2}
+  ablitySize: {x: 4, y: 0.2, z: 10}
+  visualRoation: {x: 0, y: 0, z: 0}
+  baseDamage: 5
+  multipliers:
+  - attribute: 4
+    mult: 1
+  defenseMult:
+  - attribute: 3
+    mult: 1
+  antiGuardMultipliers:
+  - attribute: 0
+    mult: 1
+  - attribute: 1
+    mult: 1
+  - attribute: 2
+    mult: 1
+  - attribute: 3
+    mult: 1
+  - attribute: 4
+    mult: 1
+  - attribute: 5
+    mult: 1
+  - attribute: 6
+    mult: 1
+  startUpAnimation: {fileID: 7400000, guid: 38968a5220cd7c743b74e5f43feb60b8, type: 2}
+  attackAnimation: {fileID: 7400000, guid: d585247d598aae64691119972c0367bf, type: 2}
+  animationSpeed: 1.2
+  LevelRequirements: []
+  startUpNoise: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: e137a57f645ec3346bb7b8539ae31da7, type: 3}
+  onHitSound: {fileID: 8300000, guid: fd57dea2003a26744954854993a44824, type: 3}
+  onHitEffects:
+  - {fileID: 11400000, guid: 42a00654f82ae9744882a912d7b431bd, type: 2}
+  targets:
+    serializedVersion: 2
+    m_Bits: 0
+  conditions: []
+  colorByWeapon: 1

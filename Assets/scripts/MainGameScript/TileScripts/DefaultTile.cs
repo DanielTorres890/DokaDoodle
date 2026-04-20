@@ -25,7 +25,7 @@ public class DefaultTile : TileScript
         bool enemyAlly = false;
         foreach( var enemy in currentTile.partyMembers )
         {
-            if(enemy.allyOwner == NetworkData.Instance.GetCurrentPlayer().playerNumber) { enemyAlly = true; break;}
+            if(enemy.allyOwner != NetworkData.Instance.GetCurrentPlayer().playerNumber) { enemyAlly = true; break;}
         }
         bool enemyPlayer = false;
         foreach( var enemy in currentTile.players)
@@ -34,19 +34,25 @@ public class DefaultTile : TileScript
         }
 
         bool noRealEnemies = true;
-        foreach( var enemy in currentTile.tileEnemy)
+        if(currentTile.tileEnemy.Count > 0)
         {
-            if(!enemy.loyaltyTags.Intersect(NetworkData.Instance.GetCurrentPlayer().loyaltyTags).Any()) 
+            foreach (var enemy in currentTile.tileEnemy)
             {
-                Debug.Log("There was a not matching tag...");
-                noRealEnemies = false;
+                if (!enemy.loyaltyTags.Intersect(NetworkData.Instance.GetCurrentPlayer().loyaltyTags).Any())
+                {
+                    Debug.Log("There was a not matching tag...");
+                    noRealEnemies = false;
+                }
             }
         }
-        if(noRealEnemies && !enemyAlly && !enemyPlayer)
+        else { noRealEnemies = false; }
+
+
+        if (noRealEnemies && !enemyAlly && !enemyPlayer)
         {
             ClientChecks.Instance.NoEnemiesToFightRpc(tileId);
         }
-        else if ((Random.Range(1,11) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly && !enemyPlayer) || forceEvent)  
+        else if ((Random.Range(1, 11) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly && !enemyPlayer) || forceEvent)
         {
             EventBase selectedEvent = events[0].tileEvent;
             int totalWeight = 0;
@@ -70,27 +76,27 @@ public class DefaultTile : TileScript
 
             }
 
-            
+
             ClientChecks.Instance.SyncEventRpc(eventIndex);
 
         }
         else
         {
             List<EncounterWrapper> combinedEncounter = new List<EncounterWrapper>();
-            
-            foreach(var encounter in enemies)
+
+            foreach (var encounter in enemies)
             {
                 combinedEncounter.Add(encounter);
             }
 
-            foreach(var encounter in conditionalCombats)
+            foreach (var encounter in conditionalCombats)
             {
-                if(encounter.condition.CanBeginQuest()) 
+                if (encounter.condition.CanBeginQuest())
                 {
                     var wrapper = new EncounterWrapper();
                     wrapper.encounter = encounter.encounter;
                     wrapper.weight = encounter.weight;
-                    combinedEncounter.Add(wrapper); 
+                    combinedEncounter.Add(wrapper);
 
                 }
             }
@@ -112,7 +118,7 @@ public class DefaultTile : TileScript
                     selectedEncounter = weighted.encounter;
                     break;
                 }
-             
+
 
             }
             int encounterId = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetId[selectedEncounter];
