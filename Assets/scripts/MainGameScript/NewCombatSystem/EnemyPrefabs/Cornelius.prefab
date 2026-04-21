@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2301979989
+  GlobalObjectIdHash: 647743784
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -671,26 +671,26 @@ MonoBehaviour:
   myManager: {fileID: 3257693015704149352}
   selectedAttack: {fileID: 0}
   attackRanges:
-  - 20
+  - 10
   InAttackRange: 0
   animator: {fileID: 0}
   overrideController: {fileID: 0}
-  walkingAnimation: {fileID: 7400000, guid: 43806e93d47f4b747ab76d6f26760938, type: 2}
+  walkingAnimation: {fileID: 7400000, guid: 87ef01ed74677884b83e86342408194f, type: 2}
   victoryAnimation: {fileID: 7400000, guid: acf3ca9e5a6cb554889c6bc115dafbc1, type: 2}
   attackAnimations:
-  - startUp: {fileID: 7400000, guid: a469e2b1b6fe4b0488463ae5ae581556, type: 2}
-    attack: {fileID: 7400000, guid: 35d5925d0acd6f841836b444b0e86fb3, type: 2}
-    animationSpeed: 1
+  - startUp: {fileID: 7400000, guid: 48d29d842b63ef24d84271071415e3f1, type: 2}
+    attack: {fileID: 7400000, guid: d3014160ca0b64844af36c8c2f0788eb, type: 2}
+    animationSpeed: 1.25
   releaseTimer: 0
   timeToHold: 1
   baseMoveSpeed: 4
   rb: {fileID: 0}
   source: {fileID: 0}
-  kiteRange: 10
-  kiteAmount: 10
+  kiteRange: 100
+  kiteAmount: 15
   Precision: 10
   StopKitingDistance: 4
-  failedEscapeAmount: 4
+  failedEscapeAmount: 1
   inKiteRange: 0
   avoiding: 0
 --- !u!95 &491297887085645620

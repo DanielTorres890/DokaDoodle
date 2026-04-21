@@ -24,6 +24,11 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
     public override void Update()
     {
 
+        if (myManager.stats.isDead) { agent.enabled = false; return; }
+        if (myManager.CanWalk()) { agent.enabled = true; rb.isKinematic = true; }
+        else { agent.enabled = false; }
+        if (!agent.isOnNavMesh) { agent.enabled = false; }
+
         if (myManager.CanWalk() && targetManager != null && !myManager.stats.isDead)
         {
             
@@ -38,9 +43,13 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
                 KiteAway();
                 return;
             }
+            
+        }
+        selectAttack();
+        if (myManager.stateManager[selectedAttack].cooldown > 0)
+        {
             failedEscapeCounter = 0;
         }
-        
         
         base.Update();
     }
@@ -100,5 +109,10 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
             avoiding = false;
            
         }
+    }
+    public override void AttackPlayer()
+    {
+        failedEscapeCounter = 0;
+        base.AttackPlayer();
     }
 }
