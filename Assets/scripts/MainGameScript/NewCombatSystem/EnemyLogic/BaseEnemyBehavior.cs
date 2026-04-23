@@ -231,14 +231,25 @@ public class BaseEnemyBehavior : NetworkBehaviour
         animator.SetFloat("AnimSpeed", attackAnimations[attackIndex].animationSpeed);
         animator.runtimeAnimatorController = overrideController;
         animator.SetBool("Walking", false);
-        if(selectedAttack.attackSound)
+        if(selectedAttack.startUpNoise)
+        {
+            source.volume = SettingsManager.instance.SFXVolume;
+            source.clip = selectedAttack.startUpNoise;
+            source.Play();
+        }
+        
+        
+    }
+    public void PlayAttackSound()
+    {
+        if(selectedAttack == null) return;
+
+        if (selectedAttack.attackSound)
         {
             source.volume = SettingsManager.instance.SFXVolume;
             source.clip = selectedAttack.attackSound;
             source.Play();
         }
-        
-        
     }
     public void AttackHold()
     {

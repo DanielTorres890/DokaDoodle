@@ -69,7 +69,7 @@ public class EmploymentEventManager : NetworkBehaviour
     {
         for(int i = 0; i < NetworkData.Instance.playerSticks.Count; i++)
         {
-            NetworkData.Instance.playerSticks[i].transform.position = new Vector3(50 * i, 100, 100);
+            NetworkData.Instance.playerSticks[i].transform.position = new Vector3(50 * i, 100, 1000);
         }
         
         playerDisplay.texture = playerTextures[NetworkData.Instance.currentPlayer];

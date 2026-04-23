@@ -383,10 +383,22 @@ MonoBehaviour:
   onAttack:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BaseEnemyBehavior, Assembly-CSharp
+      - m_Target: {fileID: 2929501466932049693}
+        m_TargetAssemblyTypeName: SmartDodgeBehavior, Assembly-CSharp
         m_MethodName: SetStartUpAnim
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2929501466932049693}
+        m_TargetAssemblyTypeName: SmartDodgeBehavior, Assembly-CSharp
+        m_MethodName: PlayAttackSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -398,8 +410,20 @@ MonoBehaviour:
   onSpawnAttack:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BaseEnemyBehavior, Assembly-CSharp
+      - m_Target: {fileID: 2929501466932049693}
+        m_TargetAssemblyTypeName: SmartDodgeBehavior, Assembly-CSharp
+        m_MethodName: SetStartUpAnim
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2929501466932049693}
+        m_TargetAssemblyTypeName: SmartDodgeBehavior, Assembly-CSharp
         m_MethodName: SetAttackingAnim
         m_Mode: 6
         m_Arguments:
@@ -412,7 +436,31 @@ MonoBehaviour:
         m_CallState: 2
   onEndAttack:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2929501466932049693}
+        m_TargetAssemblyTypeName: SmartDodgeBehavior, Assembly-CSharp
+        m_MethodName: SetStartUpAnim
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2929501466932049693}
+        m_TargetAssemblyTypeName: SmartDodgeBehavior, Assembly-CSharp
+        m_MethodName: SetAttackingAnim
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onHit:
     m_PersistentCalls:
       m_Calls: []
@@ -630,8 +678,8 @@ MonoBehaviour:
   walkingAnimation: {fileID: 7400000, guid: 300f5a21cc15f104bb2f81c72fd6ab68, type: 2}
   victoryAnimation: {fileID: 0}
   attackAnimations:
-  - startUp: {fileID: 7400000, guid: c332cc923890bd847a691e9bc9aa7f45, type: 2}
-    attack: {fileID: 7400000, guid: c4bf9fb35026a744e9611687abba746c, type: 2}
+  - startUp: {fileID: 7400000, guid: 772938f06302a0a49a84b5c16ba93079, type: 2}
+    attack: {fileID: 7400000, guid: c332cc923890bd847a691e9bc9aa7f45, type: 2}
     animationSpeed: 1
   releaseTimer: 0
   timeToHold: 0

@@ -153,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 238918816}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -164,8 +164,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -189,6 +193,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -223,6 +231,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -30
@@ -340,7 +356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -351,8 +367,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -376,6 +396,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -410,6 +434,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10
@@ -527,7 +559,7 @@ PrefabInstance:
       objectReference: {fileID: 764405672}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -538,8 +570,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -563,6 +599,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -597,6 +637,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -30
@@ -841,7 +889,7 @@ PrefabInstance:
       objectReference: {fileID: 524964722}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -852,8 +900,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -877,6 +929,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -911,6 +967,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20
@@ -1028,7 +1092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -1039,8 +1103,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -1064,6 +1132,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -1098,6 +1170,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10
@@ -1620,7 +1700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -1631,8 +1711,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -1656,6 +1740,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -1690,6 +1778,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10
@@ -1886,7 +1982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -1897,8 +1993,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -1922,6 +2022,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -1956,6 +2060,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10
@@ -2073,7 +2185,7 @@ PrefabInstance:
       objectReference: {fileID: 250763081}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -2084,8 +2196,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -2109,6 +2225,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -2143,6 +2263,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20
@@ -2373,7 +2501,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -2384,8 +2512,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -2409,6 +2541,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -2443,6 +2579,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -30
@@ -2560,7 +2704,7 @@ PrefabInstance:
       objectReference: {fileID: 115271794}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -2571,8 +2715,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -2596,6 +2744,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -2630,6 +2782,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20
@@ -2842,7 +3002,7 @@ PrefabInstance:
       objectReference: {fileID: 1650003731}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -2853,8 +3013,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -2878,6 +3042,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -2912,6 +3080,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -30
@@ -3029,7 +3205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -3040,8 +3216,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -3065,6 +3245,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -3099,6 +3283,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10
@@ -3216,7 +3408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -3227,8 +3419,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -3252,6 +3448,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -3286,6 +3486,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20
@@ -3407,7 +3615,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 08f91f1b2c5a1524b971b0692338cddb, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -3418,8 +3626,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -3443,6 +3655,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -3477,6 +3693,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20
@@ -3684,7 +3908,7 @@ PrefabInstance:
       objectReference: {fileID: 1261487280}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: 'enemies.Array.data[0]'
@@ -3695,8 +3919,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cb8fef52158ff64d91c049d249a3aaa, type: 2}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: enemies.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.data[0].encounter
@@ -3720,6 +3948,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[3].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].weight
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
@@ -3754,6 +3986,14 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[3].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 3cb87d0f9299f404f900547ba5614bdb, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -30

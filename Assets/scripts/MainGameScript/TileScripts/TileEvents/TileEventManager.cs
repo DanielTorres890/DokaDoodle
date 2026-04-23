@@ -54,7 +54,7 @@ public class TileEventManager : NetworkBehaviour
 
         for (int i = 0; i < NetworkData.Instance.playerSticks.Count; i++)
         {
-            NetworkData.Instance.playerSticks[i].transform.position = new Vector3(-1000 + i * 1000, -1000, -1000);
+            NetworkData.Instance.playerSticks[i].transform.position = new Vector3(-1000 + i * 1000, -1000, 1000);
         }
     }
 
