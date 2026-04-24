@@ -19,9 +19,9 @@ public class GuardAbility : AttackBase
         
     }
 
-    public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargeDuration)
+    public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargeDuration, Vector3 origin, Vector3 direction)
     {
         var stats = caster.GetComponent<AbilityManager>();
-        return base.WeaponEffect(caster, time, whereiscaster, casterLooking, chargeDuration);
+        return base.WeaponEffect(caster, time, whereiscaster, casterLooking, chargeDuration, origin, direction);
     }
 }

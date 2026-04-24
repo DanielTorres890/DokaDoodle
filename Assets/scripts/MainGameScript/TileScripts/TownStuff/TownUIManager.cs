@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Multiplayer.PlayMode;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,6 +22,8 @@ public class TownUIManager : NetworkBehaviour
     public TextMeshProUGUI mainMenuText;
 
     public string attackedSelfMsg, DontOwnMessage, BrokeMsg;
+
+    private int maxLevel = 5;
     private void Start()
     {
         curTown = NetworkData.Instance.currentEvent as TownEvent;
@@ -226,13 +229,17 @@ public class TownUIManager : NetworkBehaviour
     }
     public void MoneyLevelUpDisplay()
     {
+        var currentPlayer = NetworkData.Instance.GetCurrentPlayer();
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) {  return; }
-        if (!NetworkData.Instance.GetCurrentPlayer().CanAfford(Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.townMoneyLevel) + 1) * curTown.townInfo.moneyUpgradeCost))) 
+        if (!currentPlayer.CanAfford(Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.townMoneyLevel) + 1) * curTown.townInfo.moneyUpgradeCost))) 
         {
             infoText.text = BrokeMsg;
             return; 
         }
-
+        if (MapTileSpecialEvents.Instance.mapTiles[currentPlayer.curMap][currentPlayer.curTileId].townMoneyLevel >= maxLevel)
+        {
+            infoText.text = "Already Max Level";
+        }
 
         if (curTownTile.tileOwner == NetworkData.Instance.currentPlayer)
         {
@@ -257,9 +264,14 @@ public class TownUIManager : NetworkBehaviour
     }
     public void LevelUpMoney()
     {
+        var currentPlayer = NetworkData.Instance.GetCurrentPlayer();
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
-        if (!NetworkData.Instance.GetCurrentPlayer().CanAfford(Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.townMoneyLevel) + 1) * curTown.townInfo.moneyUpgradeCost))) { return;  } //technically redundant but idgaf
-        
+        if (!currentPlayer.CanAfford(Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.townMoneyLevel) + 1) * curTown.townInfo.moneyUpgradeCost))) { return;  } //technically redundant but idgaf
+        if (MapTileSpecialEvents.Instance.mapTiles[currentPlayer.curMap][currentPlayer.curTileId].townMoneyLevel >= maxLevel)
+        {
+            infoText.text = "Already Max Level";
+            return;
+        }
         LevelUpMoneyRpc();
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
@@ -274,13 +286,18 @@ public class TownUIManager : NetworkBehaviour
     }
     public void UnitUpDisplay()
     {
+        var currentPlayer = NetworkData.Instance.GetCurrentPlayer();
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
-        if (!NetworkData.Instance.GetCurrentPlayer().CanAfford(Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.unitLevel) + 1) * curTown.townInfo.unitUpgradeCost)))
+        if (!currentPlayer.CanAfford(Mathf.RoundToInt(((curTown.townInfo.upgradeCostMultiplier * curTownTile.unitLevel) + 1) * curTown.townInfo.unitUpgradeCost)))
         {
             infoText.text = BrokeMsg;
             return;
         }
-
+        if (MapTileSpecialEvents.Instance.mapTiles[currentPlayer.curMap][currentPlayer.curTileId].townMoneyLevel >= maxLevel)
+        {
+            infoText.text = "Already Max Level";
+            return;
+        }
 
         if (curTownTile.tileOwner == NetworkData.Instance.currentPlayer)
         {

@@ -68,13 +68,7 @@ public class SettingsManager : MonoBehaviour
 
     public void OnApplicationFocus(bool focus)
     {
-        int number = 12;
-        if (number > 10 &&  number < 20)
-        {
-            //MULTI CONDITIONAL
-        }
-        // && means and
-        // || means or
+       
 
         if(!settingsOpen) { previousMode = Cursor.lockState; }
 

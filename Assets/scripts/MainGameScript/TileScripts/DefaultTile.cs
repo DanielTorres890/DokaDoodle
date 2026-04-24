@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 public class DefaultTile : TileScript
@@ -91,14 +92,17 @@ public class DefaultTile : TileScript
 
             foreach (var encounter in conditionalCombats)
             {
-                if (encounter.condition.CanBeginQuest())
+                bool metCondition = true;
+                foreach(var condition in encounter.condition)
                 {
-                    var wrapper = new EncounterWrapper();
-                    wrapper.encounter = encounter.encounter;
-                    wrapper.weight = encounter.weight;
-                    combinedEncounter.Add(wrapper);
-
+                    if(!condition.CanBeginQuest()) { metCondition = false; break; }
                 }
+                if(!metCondition) { continue; }
+
+                var wrapper = new EncounterWrapper();
+                wrapper.encounter = encounter.encounter;
+                wrapper.weight = encounter.weight;
+                combinedEncounter.Add(wrapper);
             }
             EnemyEncounter selectedEncounter = combinedEncounter[0].encounter;
 
@@ -146,7 +150,7 @@ public class EncounterWrapper
 public class ConditionalCombat
 {
     public EnemyEncounter encounter;
-    public QuestCondition condition;
+    public QuestCondition[] condition;
     public int weight = 25;
 
 }

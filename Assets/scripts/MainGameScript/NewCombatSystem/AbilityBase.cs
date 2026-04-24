@@ -26,6 +26,7 @@ public abstract class AbilityBase : NetworkBehaviour
     public bool stickInOpponent = false;
    
     private bool weaponsHot = true; //whether its still an active hitbox
+    private List<GameObject> hitEntities = new List<GameObject>();
     private void Awake()
     {
         lifetimer = 0f;
@@ -102,8 +103,11 @@ public abstract class AbilityBase : NetworkBehaviour
             {
                 return;
             }
+           
+            if(hitEntities.Contains(other.gameObject)) { return; }
+           
 
-         
+            hitEntities.Add(other.gameObject);
             hitby.ImHitRpc(DamageCalculator(hitby.stats));
             int[] buffIds = new int[attackInfo.onHitEffects.Length];
             for (int i = 0; i < attackInfo.onHitEffects.Length; i++)

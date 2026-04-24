@@ -40,7 +40,7 @@ public class TrapItem : ItemBase
     public override void InCombatAction(AbilityManager user)
     {
         if(!NetworkManager.Singleton.IsHost) { return; }
-        inCombatAttack.WeaponEffect(user.gameObject, Time.time, user.transform.position, user.transform.eulerAngles, 0f);
+        inCombatAttack.WeaponEffect(user.gameObject, Time.time, user.transform.position, user.transform.eulerAngles, 0f, user.transform.position, user.transform.eulerAngles);
     }
     private void Subscribe(int player, int itemId)
     {

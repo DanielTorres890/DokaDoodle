@@ -194,7 +194,7 @@ public class AbilityManager : NetworkBehaviour
                 
 
                 
-                PerformAttackRpc(GetCurrentAtkNum(), NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,spawnedAttack.transform.eulerAngles);
+                PerformAttackRpc(GetCurrentAtkNum(), NetworkManager.Singleton.LocalTime.TimeAsFloat, gameObject.transform.position,spawnedAttack.transform.eulerAngles, rayer.origin,rayer.direction);
                 
                 stateDuration = currentAttack.attackDuration;
                 combatantstate = combatantStates.Attacking;
@@ -257,11 +257,11 @@ public class AbilityManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
-    private void PerformAttackRpc(int whom, float time, Vector3 wherewasyou, Vector3 whereyoulookin)
+    private void PerformAttackRpc(int whom, float time, Vector3 wherewasyou, Vector3 whereyoulookin, Vector3 origin, Vector3 direction)
     {
         currentAttack = stats.attacks[whom];
         
-        currentAttack.WeaponEffect(gameObject,time, wherewasyou, whereyoulookin, chargeDuration);
+        currentAttack.WeaponEffect(gameObject,time, wherewasyou, whereyoulookin, chargeDuration, origin, direction);
         chargeDuration = 0f;
         InvokeOnSpawnAttackRpc();
     }

@@ -152,6 +152,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 238918816}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -200,6 +204,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -239,6 +247,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -30
@@ -355,6 +419,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -403,6 +471,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -442,6 +514,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10
@@ -558,6 +686,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 764405672}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -606,6 +738,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -645,6 +781,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -30
@@ -888,6 +1080,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 524964722}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -936,6 +1132,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -975,6 +1175,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20
@@ -1091,6 +1347,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1139,6 +1399,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -1178,6 +1442,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10
@@ -1699,6 +2019,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1747,6 +2071,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -1786,6 +2114,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10
@@ -1981,6 +2365,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -2029,6 +2417,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -2068,6 +2460,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10
@@ -2184,6 +2632,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 250763081}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -2232,6 +2684,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -2271,6 +2727,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20
@@ -2500,6 +3012,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -2548,6 +3064,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -2587,6 +3107,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -30
@@ -2703,6 +3279,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 115271794}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -2751,6 +3331,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -2790,6 +3374,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20
@@ -3001,6 +3641,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1650003731}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -3049,6 +3693,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -3088,6 +3736,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -30
@@ -3204,6 +3908,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -3252,6 +3960,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -3291,6 +4003,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10
@@ -3407,6 +4175,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -3455,6 +4227,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -3494,6 +4270,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20
@@ -3610,6 +4442,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 700960876}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: defaultTileEnemies
       value: 
       objectReference: {fileID: 11400000, guid: 08f91f1b2c5a1524b971b0692338cddb, type: 2}
@@ -3662,6 +4498,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -3701,6 +4541,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20
@@ -3802,7 +4698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6587754183726193978, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
       propertyPath: tileGoTo
-      value: 39
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: -6587754183726193978, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
       propertyPath: rightTile
@@ -3907,6 +4803,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1261487280}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: battleEnvironment
+      value: BungaTowerArena
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -3955,6 +4855,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].weight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: conditionalCombats.Array.data[0].condition
       value: 
       objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
@@ -3994,6 +4898,62 @@ PrefabInstance:
       propertyPath: conditionalCombats.Array.data[4].encounter
       value: 
       objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].encounter
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d4c01d2daa0c3d43aa8ecfbd0b3bffe, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[0].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[1].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[2].condition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[3].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[4].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: conditionalCombats.Array.data[5].condition.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[0].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[1].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[2].condition.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b14feb6c317b3d44c99f35208665260e, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[3].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f4f37991b27497344a4a3bc6520c2a16, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[4].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
+    - target: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
+      propertyPath: 'conditionalCombats.Array.data[5].condition.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 561d37eaf75e04d4faf066b5e8cdfa4b, type: 2}
     - target: {fileID: 3735387054086767184, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -30

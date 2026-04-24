@@ -26,6 +26,8 @@ public class MDefault : AttackBase
             {
                 if (hit.transform.gameObject == caster) { continue; }
 
+
+
                 attack.transform.LookAt(hit.point);
                 
                 break;
@@ -35,11 +37,11 @@ public class MDefault : AttackBase
         return attack;
 
     }
-    public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargeDuration)
+    public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargeDuration, Vector3 origin, Vector3 direction)
 
     {
         
-        var attack = base.WeaponEffect(caster, time, whereiscaster, casterLooking, chargeDuration);
+        var attack = base.WeaponEffect(caster, time, whereiscaster, casterLooking, chargeDuration, origin, direction);
         
         var rigid = attack.GetComponent<Rigidbody>();
         

@@ -39,7 +39,7 @@ public class SwordAtkSpawner : NonDamage
         {
             
             var meteorInfo = (attackInfo as MeteorShower);
-            var mainAttack = meteorInfo.meteorInfo.WeaponEffect(owner, NetworkManager.Singleton.LocalTime.TimeAsFloat, owner.transform.position, owner.transform.eulerAngles, 1);
+            var mainAttack = meteorInfo.meteorInfo.WeaponEffect(owner, NetworkManager.Singleton.LocalTime.TimeAsFloat, owner.transform.position, owner.transform.eulerAngles, 1,owner.transform.position, owner.transform.eulerAngles);
          
             didISpawn = 0;
         }
@@ -50,7 +50,7 @@ public class SwordAtkSpawner : NonDamage
         {
             Debug.Log("I spawned even more");
             var meteorInfo = (attackInfo as MeteorShower);
-            var mainAttack = meteorInfo.meteorInfo.WeaponEffect(owner, NetworkManager.Singleton.LocalTime.TimeAsFloat, owner.transform.position, owner.transform.eulerAngles, 1);
+            var mainAttack = meteorInfo.meteorInfo.WeaponEffect(owner, NetworkManager.Singleton.LocalTime.TimeAsFloat, owner.transform.position, owner.transform.eulerAngles, 1, owner.transform.position, owner.transform.eulerAngles);
             mainAttack.transform.position += seperateCounterChud * alternate * Vector3.right * attackGap;
             mainAttack.transform.eulerAngles += new Vector3(0, 0, 180 / counter * seperateCounterChud * alternate);
             alternate *= -1;

@@ -52,15 +52,22 @@ public class AllyMainViewer : MonoBehaviour
             obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.classDataBase.GetItem[entity.allyClass].className;
 
             var stateChild = obj.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
-            if(entity.boardMovementState == PlayerFollowingStates.WithOwner) { stateChild.text = "With you"; }
-            if(entity.boardMovementState == PlayerFollowingStates.FollowingOwner) { stateChild.text = "Going to you"; }
-            if(entity.boardMovementState == PlayerFollowingStates.HoldTile) { stateChild.text = "Going to tile"; }
-            if(entity.boardMovementState == PlayerFollowingStates.HoldTile && entity.curTileId == entity.targetTile) { stateChild.text = "Holding tile"; }
+            stateChild.text = "Current Action: \n";
+            if(entity.boardMovementState == PlayerFollowingStates.WithOwner) { stateChild.text += "With you"; }
+            if(entity.boardMovementState == PlayerFollowingStates.FollowingOwner) { stateChild.text += "Going to you"; }
+            if(entity.boardMovementState == PlayerFollowingStates.HoldTile) { stateChild.text += "Going to tile"; }
+            if(entity.boardMovementState == PlayerFollowingStates.HoldTile && entity.curTileId == entity.targetTile) { stateChild.text += "Holding tile"; }
 
             int childCounter = 4;
-            foreach(var stat in entity.stats)
+            Attributes[] orderedAttributes = new Attributes[] {Attributes.Health,Attributes.Attack, Attributes.Defense, Attributes.Magic, Attributes.MDefense, Attributes.Dexterity};
+            foreach(var stat in orderedAttributes)
             {
-                obj.transform.GetChild(childCounter).GetComponent<TextMeshProUGUI>().text = $" {stat.Value,-4}";
+                obj.transform.GetChild(childCounter).GetComponent<TextMeshProUGUI>().text = $"{NetworkData.Instance.attributeStrings[stat]} {entity.stats[stat],4}";
+                if(stat == Attributes.Health)
+                {
+                    obj.transform.GetChild(childCounter).GetComponent<TextMeshProUGUI>().text = $"{NetworkData.Instance.attributeStrings[stat]} {entity.stats[stat]}/{entity.stats[Attributes.MaxHealth]}";
+                }
+                
                 childCounter += 1;
             }
             displayedGameObjects.Add(obj);

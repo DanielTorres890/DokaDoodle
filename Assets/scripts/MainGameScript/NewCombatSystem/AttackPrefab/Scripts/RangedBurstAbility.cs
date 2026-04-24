@@ -4,13 +4,14 @@ using UnityEngine;
 public class RangedBurstAbility : RangedAbility
 {
     public GameObject burstHitbox;
-
+    private bool alreadyExploded;
 
     public override void OnHit()
     {
         Debug.Log("BRUH IM HITTING FRICK U");
+        if(alreadyExploded) { return; }
 
-        
+        alreadyExploded = true;
         var burst = Instantiate(burstHitbox);
         burst.transform.position = gameObject.transform.position;
 

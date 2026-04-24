@@ -34,7 +34,7 @@ public class DelayedActive : AbilityBase
 
         if (!IsServer) { return; }
         if (!activated) { return; }
-
+        Debug.Log("Did something already enter? ");
         base.OnTriggerEnter(other);
     }
 

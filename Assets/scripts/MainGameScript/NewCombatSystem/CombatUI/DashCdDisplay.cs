@@ -17,7 +17,7 @@ public class DashCdDisplay : MonoBehaviour
     public void SetUp()
     {
 
-        gameObject.SetActive(playerMovement.DashDexRequirement <= manager.stats.stats[Attributes.Dexterity]);
+        gameObject.SetActive(NetworkData.Instance.dashDexReq <= manager.stats.stats[Attributes.Dexterity]);
 
     }
 

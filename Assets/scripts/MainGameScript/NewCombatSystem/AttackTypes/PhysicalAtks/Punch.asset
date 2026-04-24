@@ -17,6 +17,7 @@ MonoBehaviour:
   startUp: 0.4
   attackDuration: 0
   endLag: 0
+  startCooldown: 0
   cooldown: 0.1
   lifespan: 0.2
   energyDrain: 1
@@ -76,6 +77,7 @@ MonoBehaviour:
   attackAnimation: {fileID: 7400000, guid: e80fbb1f332456f4abf4cf2a144dba05, type: 2}
   animationSpeed: 1
   LevelRequirements: []
+  startUpNoise: {fileID: 0}
   attackSound: {fileID: 8300000, guid: 51465924abc41df428febd7bbcd57111, type: 3}
   onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
   onHitEffects: []
@@ -83,3 +85,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   conditions: []
+  colorByWeapon: 0

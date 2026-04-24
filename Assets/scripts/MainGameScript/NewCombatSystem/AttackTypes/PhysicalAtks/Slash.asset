@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: A standard sword slash
   attackName: Slash
-  startUp: 0.4
+  startUp: 0.3
   attackDuration: 0
   endLag: 0.1
   startCooldown: 0
-  cooldown: 2
+  cooldown: 3
   lifespan: 0.3
   energyDrain: 1
   initialEnergyCost: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
     mult: 1
   defenseMult:
   - attribute: 3
-    mult: 1
+    mult: 0.8
   antiGuardMultipliers:
   - attribute: 0
     mult: 1

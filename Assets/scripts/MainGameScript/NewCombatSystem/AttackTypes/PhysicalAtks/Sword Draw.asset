@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: 
   attackName: Sword Draw
-  startUp: 0.5
+  startUp: 4
   attackDuration: 0.2
   endLag: 0.2
-  cooldown: 10
+  startCooldown: 0
+  cooldown: 12
   lifespan: 0.2
   energyDrain: 1
   initialEnergyCost: 0
@@ -44,7 +45,7 @@ MonoBehaviour:
     mult: 1
   defenseMult:
   - attribute: 3
-    mult: 0.7
+    mult: 0.8
   antiGuardMultipliers:
   - attribute: 0
     mult: 1

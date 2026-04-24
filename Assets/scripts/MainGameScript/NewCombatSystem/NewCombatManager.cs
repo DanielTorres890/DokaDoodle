@@ -501,6 +501,7 @@ public class NewCombatManager : NetworkBehaviour
         playercontrol.SwitchCurrentActionMap("UI");
         
         Cursor.lockState = CursorLockMode.None;
+        SettingsManager.instance.previousMode = CursorLockMode.None;
         var cache = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
         for (int i = cache.tileEnemy.Count - 1; i >= 0; i--)
         {

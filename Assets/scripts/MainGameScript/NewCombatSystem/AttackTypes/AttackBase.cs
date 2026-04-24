@@ -96,7 +96,7 @@ public abstract class AttackBase : ScriptableObject
         
 
     }
-    public virtual GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargedDuration)
+    public virtual GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargedDuration, Vector3 origin, Vector3 direction)
     {
         var manager = caster.GetComponent<AbilityManager>();
         var attack = Instantiate(attackPrefab);

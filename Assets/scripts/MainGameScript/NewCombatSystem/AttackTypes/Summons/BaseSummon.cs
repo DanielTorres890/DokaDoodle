@@ -14,10 +14,10 @@ public class BaseSummon : AttackBase
         
         return attack;
     }
-    public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargeDuration)
+    public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargeDuration, Vector3 origin, Vector3 direction)
     {
         
-        var npcfab =  base.WeaponEffect(caster, time, whereiscaster, casterLooking, chargeDuration);
+        var npcfab =  base.WeaponEffect(caster, time, whereiscaster, casterLooking, chargeDuration, origin, direction);
         npcfab.GetComponent<SummonDespawn>().SpawnInRpc(PlayerCombatManager.Instance.EnemyDataBase.GetId[summonSO]);
         return npcfab;
     }

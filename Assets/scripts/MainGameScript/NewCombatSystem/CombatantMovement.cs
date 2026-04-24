@@ -40,6 +40,10 @@ public class CombatantMovement : NetworkBehaviour
     [SerializeField] private float minZoomIn, maxZoomOut;
 
     private bool finished = false;
+    private void Awake()
+    {
+        DashDexRequirement = NetworkData.Instance.dashDexReq;
+    }
     public void Start()
     {
         
