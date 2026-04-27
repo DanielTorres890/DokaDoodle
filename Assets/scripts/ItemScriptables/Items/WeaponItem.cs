@@ -67,7 +67,7 @@ public class WeaponItem : ItemBase
         thisPlayer.equipItems[this.type] = inventory.database.GetId[this];
         inventory.ToFront(this);
         thisPlayer.PostStatusStatCalc();
-        var tmp = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform.GetChild(0);
+        var tmp = NetworkData.Instance.playerSticks[player].transform.GetChild(0);
         if (inHandSprite)
         {
             if (this.type == ItemType.Equipment)

@@ -22,7 +22,7 @@ public class RangedBurstAbility : RangedAbility
         cash.ownerStats = ownerStats;
         cash.attackInfo = attackInfo;
         cash.lifespan = burstattack.burstLifespan;
-
+        cash.chargedDuration = chargedDuration;
         burst.transform.localScale = Mathf.Clamp(burstattack.ChargeMultiplier(ownerStats, chargedDuration) * (burstattack.maxChargeSizeBuff - 1) + 1, 1, 99999) * burstattack.burstSize;
         cash.hitGameObject = hitGameObject;
         burst.GetComponent<NetworkObject>().Spawn();

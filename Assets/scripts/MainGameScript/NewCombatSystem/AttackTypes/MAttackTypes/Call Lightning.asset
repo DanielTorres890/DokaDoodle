@@ -18,12 +18,12 @@ MonoBehaviour:
   attackDuration: 0
   endLag: 0.1
   startCooldown: 0
-  cooldown: 0
+  cooldown: 10
   lifespan: 2.5
   energyDrain: 10
   initialEnergyCost: 0
   maxChargeAtkBuff: 1.5
-  maxChargeSizeBuff: 2
+  maxChargeSizeBuff: 2.5
   maxChargeSpeedBuff: 1.1
   maxChargeDuration: 3
   requiredPotency: 0
@@ -76,3 +76,4 @@ MonoBehaviour:
   colorByWeapon: 0
   timeTillActive: 2
   activatedSound: {fileID: 8300000, guid: eeb59cded7d09aa4aac960bc29bff620, type: 3}
+  temporaryPosition: {x: 0, y: 0, z: 0}

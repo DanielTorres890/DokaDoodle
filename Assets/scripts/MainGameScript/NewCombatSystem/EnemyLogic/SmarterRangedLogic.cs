@@ -26,6 +26,9 @@ public class SmarterRangedLogic : RangedEnemyBehavior
     //but the closer an enemy is the higher weight damage will have
     public override void selectAttack()
     {
+        if(attackRanges.Length <= 0) { CalculateAttackRanges(); }
+        if (attackRanges.Length <= 0) { return; }
+
         AttackBase bestAttack = myManager.stats.attacks[0];
         float bestScore = CalculateDamage(bestAttack,myManager.stats) * (10 - Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position));
         bestScore += (bestAttack.ablitySize.x + bestAttack.ablitySize.y + bestAttack.ablitySize.z) * 3;
@@ -36,6 +39,7 @@ public class SmarterRangedLogic : RangedEnemyBehavior
         {
             bestScore += (bestAttack as MDefault).speed * Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position) / 10;
         }
+
 
         foreach (var key in myManager.stats.attacks)
         {

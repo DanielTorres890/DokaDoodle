@@ -126,8 +126,9 @@ public abstract class AttackBase : ScriptableObject
         
         info.owner = caster;
         info.lifespan = lifespan - (time - NetworkManager.Singleton.ServerTime.TimeAsFloat);
-        info.chargedDuration = chargedDuration;
         
+        info.chargedDuration = chargedDuration;
+        Debug.Log("You are charged for this long " + info.chargedDuration);
         manager.RealAttackRpc(caster.GetComponent<NetworkObject>().NetworkManager.RpcTarget.Single(caster.GetComponent<NetworkObject>().OwnerClientId, RpcTargetUse.Temp));
         info.ownerStats = casterManager;
        

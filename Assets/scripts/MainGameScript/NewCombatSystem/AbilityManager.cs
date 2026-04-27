@@ -55,6 +55,8 @@ public class AbilityManager : NetworkBehaviour
 
     
     private float updateStatsTimer = 0f;
+
+
     private float whenToUpdate = 1f;
 
     private float onEverySecondTimer = 1f;
@@ -243,6 +245,10 @@ public class AbilityManager : NetworkBehaviour
             startUpEffects = Instantiate(currentAttack.startUpPrefab);
             startUpEffects.transform.position = gameObject.transform.position;
             startUpEffects.transform.SetParent(gameObject.transform);
+            if(startUpEffects.TryGetComponent(out MaxChargeBurst vfx))
+            {
+                vfx.maxChargeTime = currentAttack.maxChargeDuration;
+            }
 
         }
     }

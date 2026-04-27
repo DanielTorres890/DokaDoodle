@@ -453,10 +453,10 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
                 curStickEdit.setClass(players[i].playerClass);
                 curStickEdit.setFace(players[i].playerFace);
                 curStickEdit.setHair(players[i].playerHair);
-                Debug.Log("I should have fixed up the player");
+                
                 if (players[i].equipItems[ItemType.Equipment] != -1)
                 {
-                    Debug.Log(" ANNDD equipped their weapon");
+                    Debug.Log(" who did i find something for? " + players[i].name);
                     (playerInventories[i][3].database.GetItem[players[i].equipItems[ItemType.Equipment]] as WeaponItem).PerformItemEffect(i, playerInventories[i][3]);
                 }
 

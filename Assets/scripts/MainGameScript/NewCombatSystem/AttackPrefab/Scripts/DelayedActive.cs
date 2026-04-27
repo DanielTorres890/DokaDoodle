@@ -66,9 +66,5 @@ public class DelayedActive : AbilityBase
     public override void OnHit()
     {
 
-        foreach (var collider in myColliders)
-        {
-            collider.enabled = false;
-        }
     }
 }

@@ -74,10 +74,10 @@ public abstract class AbilityBase : NetworkBehaviour
             totalDamge -= defense.mult * defender.postStatusStats[defense.attribute];
         }
 
-     
+        
         totalDamge *= (1 - defender.postStatusDmgReduction[attackType]/100f);
-
-       
+        Debug.Log("but im charged for how long here? " + chargedDuration);
+        Debug.Log("and the calcs are off " + attackInfo.ChargeMultiplier(ownerStats, chargedDuration));
         totalDamge *= Mathf.Clamp(attackInfo.ChargeMultiplier(ownerStats, chargedDuration) * (attackInfo.maxChargeAtkBuff - 1) + 1, 1, 99999);
         if (totalDamge < 0)
             return 0;

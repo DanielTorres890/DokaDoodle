@@ -440,6 +440,7 @@ public class ClientChecks : NetworkBehaviour
     {
         
         NetworkData.Instance.currentEvent = (PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId] as DefaultTile).events[eventNum].tileEvent;
+        if(IsHost)
         SceneChanger.Instance.loadClientScenesServerRpc(NetworkData.Instance.currentEvent.SceneToGoTo);
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
