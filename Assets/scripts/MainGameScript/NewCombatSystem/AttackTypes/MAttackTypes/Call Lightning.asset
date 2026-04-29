@@ -18,7 +18,7 @@ MonoBehaviour:
   attackDuration: 0
   endLag: 0.1
   startCooldown: 0
-  cooldown: 10
+  cooldown: 7
   lifespan: 2.5
   energyDrain: 10
   initialEnergyCost: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   stateToBe: 0
   chargeable: 1
   attackPrefab: {fileID: 2566779757777240371, guid: 22bec2fad858f9b40937e97a9c354e13, type: 3}
-  startUpPrefab: {fileID: 2566779757777240371, guid: 27496a114ae7ac740b70266944ed658c, type: 3}
+  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
@@ -42,10 +42,10 @@ MonoBehaviour:
   baseDamage: 5
   multipliers:
   - attribute: 4
-    mult: 1.5
+    mult: 2
   defenseMult:
   - attribute: 5
-    mult: 0.5
+    mult: 1
   antiGuardMultipliers:
   - attribute: 0
     mult: 1

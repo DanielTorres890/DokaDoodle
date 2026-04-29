@@ -842,10 +842,12 @@ public class PlayerMoveManager : NetworkBehaviour
         for (int i = 0; i < NetworkData.Instance.players.Count; i++)
         {
             playerSticks[i].SetActive(true);
+
             if (mapNumber != NetworkData.Instance.players[i].curMap)
             {
+                Debug.Log(NetworkData.Instance.players[i].name + "Is not on the current map ");
                 playerSticks[i].SetActive(false);
-                return;
+                continue;
             }
                 
 
