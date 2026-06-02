@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29463ce1cc31604db7be0b2d0174bec, type: 3}
   m_Name: Economic Crisis
   m_EditorClassIdentifier: 
-  ActivateText: trump tariffs have struck the economy
+  ActivateText:
+  - The economy sux rn prices are bad
   DeactivateText: the economy has recovered
   eventDisplay: {fileID: -780819173, guid: 1ed0a7793cf71ba42ad9a3b2cfce0cec, type: 3}
+  startCutscene: {fileID: 0}
+  finishCutscene: {fileID: 0}
   MainQuestCondition: {fileID: 0}
   duration: 5
   multiplier: 1.2

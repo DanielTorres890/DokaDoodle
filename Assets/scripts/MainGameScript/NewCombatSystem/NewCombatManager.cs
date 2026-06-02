@@ -20,7 +20,7 @@ public class NewCombatManager : NetworkBehaviour
 
     [DoNotSerialize] public List<GameObject> fricku = new List<GameObject>();
     [DoNotSerialize] public List<AbilityManager> allCombatants = new List<AbilityManager>();
-
+    
     public playerLevelUpMnger levelUpUI;
     // Start is called before the first frame update
 
@@ -36,6 +36,9 @@ public class NewCombatManager : NetworkBehaviour
 
     public float combatTimer = 30;
     [SerializeField] private TextMeshProUGUI timerText;
+
+
+    public Dictionary<EntityStats, int> contributions = new Dictionary<EntityStats, int>();
 
     [DoNotSerialize] public bool fightOver = false;
 
@@ -94,6 +97,7 @@ public class NewCombatManager : NetworkBehaviour
     private void Update()
     {
 
+        if(!PlayerCombatManager.Instance.isRaid)
         combatTimer -= Time.deltaTime;
 
 
@@ -162,6 +166,15 @@ public class NewCombatManager : NetworkBehaviour
         SetUpRpc();
     }
 
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void FillContributionsRpc()
+    {
+        foreach(var combatant in PlayerCombatManager.Instance.combatants)
+        {
+            contributions.Add(combatant, 0);
+        }
+    }
+
     [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
     private void SetUpRpc()
     {
@@ -171,17 +184,19 @@ public class NewCombatManager : NetworkBehaviour
         int countbcisuck = 1;
         int sideMult = -1;
 
+
+        FillContributionsRpc();
         Dictionary<string, List<EntityStats>> spawnGroups = new Dictionary<string, List<EntityStats>>();
         foreach (var combatant in PlayerCombatManager.Instance.combatants)
         {
             
-            if (!spawnGroups.ContainsKey(combatant.loyaltyTags[0]))
+            if (!spawnGroups.ContainsKey(combatant.loyaltyTags[combatant.loyaltyTags.Count - 1]))
             {
-                spawnGroups.Add(combatant.loyaltyTags[0], new List<EntityStats>());
+                spawnGroups.Add(combatant.loyaltyTags[combatant.loyaltyTags.Count - 1], new List<EntityStats>());
 
             }
 
-            spawnGroups[combatant.loyaltyTags[0]].Add(combatant);
+            spawnGroups[combatant.loyaltyTags[combatant.loyaltyTags.Count - 1]].Add(combatant);
         }
         int counter = 0;
         float circleIncrement = 360f / spawnGroups.Keys.Count;
@@ -255,11 +270,7 @@ public class NewCombatManager : NetworkBehaviour
             }
             counter++;
         }
-        for (int i = 0; i < PlayerCombatManager.Instance.combatants.Count; i++)
-        {
-
-
-        }
+        
 
 
     }
@@ -407,8 +418,14 @@ public class NewCombatManager : NetworkBehaviour
             if (enemy.stats.isDead) { enemy = allCombatants[i]; }
             if (!allCombatants[i].stats.isDead)
             {
-                Debug.Log("Im not dead and i could be the winner " + enemy.name);
-                enemy = allCombatants[i];
+                if(!contributions.ContainsKey(enemy.stats) || !contributions.ContainsKey(allCombatants[i].stats)) { continue; }
+
+                
+                if (contributions[allCombatants[i].stats] > contributions[enemy.stats])
+                {
+                    enemy = allCombatants[i];
+                }
+                
             }
 
         }
@@ -998,6 +1015,35 @@ public class NewCombatManager : NetworkBehaviour
         yield return new WaitForSecondsRealtime(4f);
 
         BattleOverCalculations(victor);
+    }
+    public void AddContribution(EntityStats who, int amount)
+    {
+        if(contributions.ContainsKey(who))
+        {
+            
+            contributions[who] += amount;
+            
+        }
+        else
+        {
+            
+            for(int i = 0; i < allCombatants.Count; i++)
+            {
+                if (allCombatants[i].stats == who)
+                {
+                    if (fricku[i].TryGetComponent(out SummonDespawn summon))
+                    {
+                       
+                        contributions[summon.ownerStats] += amount;
+                        
+                    }    
+
+                }
+
+            }
+
+        }
+
     }
 }
 

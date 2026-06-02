@@ -16,6 +16,7 @@ public class PlayerCombatManager : MonoBehaviour
     public EntityStats combatant1;//LEGACY STUFF RIGHT HERE
     public EntityStats combatant2;
 
+    public bool isRaid;
     public float spawnRadius;//this is a weird way to get information to newcombnatmanager
     private void Awake()
     {
@@ -38,6 +39,9 @@ public class PlayerCombatManager : MonoBehaviour
         var currentTile = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
         bool rumble = false; //is there another player that we fight
 
+        isRaid = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].isRaid;
+
+        Debug.Log("Am i raid? " + isRaid);
         foreach (var players in currentTile.players)
         {
             if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
@@ -69,7 +73,7 @@ public class PlayerCombatManager : MonoBehaviour
 
         if (potentialEnemies.Count == 0)
         {
-            if (!rumble)
+            if (!rumble || isRaid)
             {
                 foreach (var enemy in PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].enemies)
                 {

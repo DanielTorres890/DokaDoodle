@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dad25ee879166e24dbb53dd668d87936, type: 3}
+  m_Name: Root Grab
+  m_EditorClassIdentifier: Assembly-CSharp::PlacedAttack
+  description: Places a root at your cursor, stunning whoever is hit
+  attackName: Root Grab
+  startUp: 1
+  attackDuration: 0
+  endLag: 0.1
+  startCooldown: 0
+  cooldown: 7
+  lifespan: 2.5
+  energyDrain: 10
+  initialEnergyCost: 0
+  maxChargeAtkBuff: 1.5
+  maxChargeSizeBuff: 2.5
+  maxChargeSpeedBuff: 1.1
+  maxChargeDuration: 3
+  requiredPotency: 0
+  dmgPotencyEffect: 2
+  sizePotencyEffect: 2
+  stateToBe: 0
+  chargeable: 1
+  attackPrefab: {fileID: 2566779757777240371, guid: cb4bf673c2a1c03458cf2ba3143c6681, type: 3}
+  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
+  spawnFx: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
+  ablitySize: {x: 5, y: 5, z: 5}
+  visualRoation: {x: 0, y: 0, z: 0}
+  baseDamage: 5
+  multipliers:
+  - attribute: 4
+    mult: 2
+  defenseMult:
+  - attribute: 5
+    mult: 1
+  antiGuardMultipliers:
+  - attribute: 0
+    mult: 1
+  - attribute: 1
+    mult: 1
+  - attribute: 2
+    mult: 1
+  - attribute: 3
+    mult: 1
+  - attribute: 4
+    mult: 1
+  - attribute: 5
+    mult: 1
+  - attribute: 6
+    mult: 1
+  startUpAnimation: {fileID: 7400000, guid: c8b2c725735f6cc418b91b4eb55a4a57, type: 2}
+  attackAnimation: {fileID: 7400000, guid: fbf4ea55045f1c54dbf7b1ad43729e82, type: 2}
+  animationSpeed: 1
+  LevelRequirements: []
+  startUpNoise: {fileID: 0}
+  attackSound: {fileID: 0}
+  onHitSound: {fileID: 0}
+  onHitEffects:
+  - {fileID: 11400000, guid: 1a01dc004d166a44cb43f31912803b5b, type: 2}
+  targets:
+    serializedVersion: 2
+    m_Bits: 8
+  conditions: []
+  colorByWeapon: 0
+  timeTillActive: 2
+  activatedSound: {fileID: 8300000, guid: eeb59cded7d09aa4aac960bc29bff620, type: 3}
+  temporaryPosition: {x: 0, y: 0, z: 0}

@@ -41,6 +41,7 @@ public class DelayedActive : AbilityBase
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Owner)]
     private void ActivateRpc(int soundId)
     {
+        
         onActive.Invoke();
         if (soundId != -1)
         {

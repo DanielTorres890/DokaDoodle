@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
 public abstract class WorldEventBase : ScriptableObject
 {
-    [TextArea(5,15)]
-    public string ActivateText;
+    
+    public List<string> ActivateText;
     [TextArea(5, 15)]
     public string DeactivateText;
 

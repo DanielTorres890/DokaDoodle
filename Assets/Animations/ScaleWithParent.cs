@@ -7,6 +7,8 @@ public class ScaleWithParent : MonoBehaviour
     [SerializeField] private Vector3[] additionalPoints;
     private int index = 0;
     public UnityEvent visualFinish;
+
+    public bool scaleSize = true;
     void Start()
     {
         
@@ -17,6 +19,7 @@ public class ScaleWithParent : MonoBehaviour
     {
         if(line == null) return;
 
+        if(scaleSize)
         line.startWidth = (transform.parent.localScale.x + transform.parent.localScale.z) / 2;
     }
     public void beginPoints()

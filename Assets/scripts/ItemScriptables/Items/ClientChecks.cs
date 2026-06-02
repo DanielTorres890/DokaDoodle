@@ -141,6 +141,9 @@ public class ClientChecks : NetworkBehaviour
     
     public void TurnStartChecks()
     {
+        //i dont like this much but it is what it is
+        if(PlayerCombatManager.Instance.isRaid) { return; }
+        
         NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
         bool rumble = false;
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
@@ -714,7 +717,7 @@ public class ClientChecks : NetworkBehaviour
     {
    
         displayText.lines.Clear();
-        displayText.lines.Add(WorldEventManager.Instance.eventsToActivate[0].ActivateText);
+        displayText.lines = new List<string>(WorldEventManager.Instance.eventsToActivate[0].ActivateText);
         worldEventImage.sprite = WorldEventManager.Instance.eventsToActivate[0].eventDisplay;
         worldEventImage.gameObject.SetActive(true);
         

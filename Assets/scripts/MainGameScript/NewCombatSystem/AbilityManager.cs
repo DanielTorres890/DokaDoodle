@@ -86,12 +86,13 @@ public class AbilityManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(stats.isDead)
+        if(NewCombatManager.instance.fightOver || stats.isDead)
         {
             if (startUpEffects != null)
                 Destroy(startUpEffects);
+            return;
         }
-        if(NewCombatManager.instance.fightOver || stats.isDead) { return; }
+        
         //i got mixed opinions on this being out here but w/e
 
         for (int i = stats.statuses.Count - 1; i >= 0; i--)
@@ -362,7 +363,9 @@ public class AbilityManager : NetworkBehaviour
     public void ImHitRpc(int damageAmt)
     {
         stats.stats[Attributes.Health] -= damageAmt;
-        
+
+        NewCombatManager.instance.AddContribution(stats, damageAmt / stats.stats[Attributes.MaxHealth] * 10);
+
         stats.PostStatusStatCalc();
 
         for(int i = 0; i < stats.statuses.Count; i++)

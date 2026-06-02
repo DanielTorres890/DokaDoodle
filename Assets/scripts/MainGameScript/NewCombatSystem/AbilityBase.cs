@@ -108,6 +108,9 @@ public abstract class AbilityBase : NetworkBehaviour
            
 
             hitEntities.Add(other.gameObject);
+            NewCombatManager.instance.AddContribution(ownerStats, DamageCalculator(hitby.stats));
+            
+            
             hitby.ImHitRpc(DamageCalculator(hitby.stats));
             int[] buffIds = new int[attackInfo.onHitEffects.Length];
             for (int i = 0; i < attackInfo.onHitEffects.Length; i++)

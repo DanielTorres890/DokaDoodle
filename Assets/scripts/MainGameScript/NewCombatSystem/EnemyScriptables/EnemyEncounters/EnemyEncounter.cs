@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyEncounter : ScriptableObject
 {
     public EnemyBase[] enemies;
+    public bool isRaid = false;
     public string EncounterName;
     public AudioClip battleMusic;
 

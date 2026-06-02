@@ -105,7 +105,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4958144232811764369}
   serializedVersion: 5
-  m_Mass: 0.5
+  m_Mass: 25
   m_LinearDamping: 0
   m_AngularDamping: 0.01
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -131,7 +131,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4958144232811764369}
-  m_Material: {fileID: 13400000, guid: dfd2c86d8f889734a8ff5396e9ae270d, type: 2}
+  m_Material: {fileID: 13400000, guid: f16a8a672ee19844fbe8fc3e08d0ab7b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 8
@@ -252,7 +252,12 @@ MonoBehaviour:
   hitGameObject: {fileID: 0}
   AudioSource: {fileID: 0}
   stickInOpponent: 0
+  pierceCounter: 0
+  body: {fileID: 0}
   burstHitbox: {fileID: 2566779757777240371, guid: 6036f61670e4de94d8c1392d33a0d3d0, type: 3}
+  firstBounceExtraGravity: 0
+  hitGround: 0
+  trueBounce: {x: 0, y: 0, z: 0}
 --- !u!82 &-9091006942078656989
 AudioSource:
   m_ObjectHideFlags: 0
