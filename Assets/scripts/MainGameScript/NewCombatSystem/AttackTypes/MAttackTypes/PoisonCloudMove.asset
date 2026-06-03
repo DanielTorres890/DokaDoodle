@@ -9,42 +9,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd2ed02f6724d90478468751439f3776, type: 3}
-  m_Name: ThwompingRoots
-  m_EditorClassIdentifier: Assembly-CSharp::MultiBurst
-  description: 
-  attackName: Root Grabs
+  m_Script: {fileID: 11500000, guid: dbba4ab3dd06e7f40adc52594909bc56, type: 3}
+  m_Name: PoisonCloudMove
+  m_EditorClassIdentifier: 
+  description: Squish someone with your imagination (because you don't know any actual
+    magic)
+  attackName: Moving Poison Cloud
   startUp: 0.5
   attackDuration: 0
   endLag: 0.1
   startCooldown: 0
-  cooldown: 0
-  lifespan: 3
-  energyDrain: 1
+  cooldown: 3
+  lifespan: 20
+  energyDrain: 10
   initialEnergyCost: 0
-  maxChargeAtkBuff: 1.2
-  maxChargeSizeBuff: 1.2
+  maxChargeAtkBuff: 1.5
+  maxChargeSizeBuff: 3
   maxChargeSpeedBuff: 1.1
   maxChargeDuration: 3
   requiredPotency: 0
   dmgPotencyEffect: 2
   sizePotencyEffect: 2
   stateToBe: 0
-  chargeable: 0
-  attackPrefab: {fileID: 2566779757777240371, guid: bb8ef4c0e7602c243a1240413e704080, type: 3}
+  chargeable: 1
+  attackPrefab: {fileID: 2566779757777240371, guid: 12657d3ee137bcd4c81dd2a9bf813684, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
-  ablitySize: {x: 1, y: 1, z: 1}
+  offset: {x: 0, y: 1.5, z: 0.5}
+  ablitySize: {x: 0.8, y: 0.8, z: 0.8}
   visualRoation: {x: 0, y: 0, z: 0}
-  baseDamage: 15
+  baseDamage: 7
   multipliers:
   - attribute: 4
-    mult: 2
+    mult: 1.2
   defenseMult:
-  - attribute: 3
+  - attribute: 5
     mult: 1
   antiGuardMultipliers:
   - attribute: 0
@@ -61,26 +62,18 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 0}
-  attackAnimation: {fileID: 0}
+  startUpAnimation: {fileID: 7400000, guid: 1ec7acfd85869694d875f8336f0ff19e, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 3e62947b840ca624daeb0ec60a4fa90e, type: 2}
   animationSpeed: 1
   LevelRequirements: []
   startUpNoise: {fileID: 0}
   attackSound: {fileID: 0}
-  onHitSound: {fileID: 0}
+  onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
   onHitEffects: []
   targets:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 72
   conditions: []
   colorByWeapon: 0
-  attacksPerBurst: 3
-  totalBursts: 2
-  individualAttack: {fileID: 2566779757777240371, guid: cb4bf673c2a1c03458cf2ba3143c6681, type: 3}
-  interval: 2
-  intervalRotation: 5
-  attackInfo: {fileID: 11400000, guid: 430e900c5a1028e499ade75d418e8e5a, type: 2}
-  attackOffset: {x: 0, y: 25, z: 0}
-  attackRadius: 10
-  individualAttackSound: {fileID: 0}
-  targetMode: 1
+  speed: 8
+  pierceCount: 20

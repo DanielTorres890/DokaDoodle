@@ -1962,12 +1962,20 @@ MonoBehaviour:
   selectedAttack: {fileID: 0}
   attackRanges:
   - 0
+  - 0
+  - 0
   InAttackRange: 0
   animator: {fileID: 0}
   overrideController: {fileID: 0}
   walkingAnimation: {fileID: 0}
   victoryAnimation: {fileID: 0}
   attackAnimations:
+  - startUp: {fileID: 7400000, guid: e1550bb209db8cc419b7d05dab48b284, type: 2}
+    attack: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+    animationSpeed: 1
+  - startUp: {fileID: 7400000, guid: e1550bb209db8cc419b7d05dab48b284, type: 2}
+    attack: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+    animationSpeed: 1
   - startUp: {fileID: 7400000, guid: e1550bb209db8cc419b7d05dab48b284, type: 2}
     attack: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
     animationSpeed: 1

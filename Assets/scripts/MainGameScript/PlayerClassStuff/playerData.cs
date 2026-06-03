@@ -196,11 +196,7 @@ public class playerData : EntityStats
         {
 
             
-            bool success = MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Remove(playerNumber);
-            
-            this.curTileId = this.playerSpawnTile;
-            this.curMap = this.playerSpawnMap;
-            MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Add(playerNumber);
+           TeleportPlayer(this.playerSpawnMap, this.playerSpawnTile);
 
         }
 
@@ -210,6 +206,7 @@ public class playerData : EntityStats
         }
 
     }
+    
     public void progressDeath()
     {
         if(!isDead ) { return; }
@@ -360,6 +357,14 @@ public class playerData : EntityStats
         {
             NetworkData.Instance.playerInventories[playerNumber][i].MAXSIZE = maxInventorySizes[i];
         }
+    }
+    public void TeleportPlayer(int targetMap, int targetTile)
+    {
+        bool success = MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Remove(playerNumber);
+
+        this.curTileId = targetTile;
+        this.curMap = targetMap;
+        MapTileSpecialEvents.Instance.mapTiles[targetMap][targetTile].players.Add(playerNumber);
     }
 }
 public enum PlayerInfo

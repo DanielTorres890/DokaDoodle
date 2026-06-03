@@ -33,8 +33,8 @@ public class RaidEvent : WorldEventBase
             {
                 player.progressDeath();
             }
-            player.curMap = raids[raidIndex].mapId;
-            player.curTileId = raids[raidIndex].tileId;
+            player.TeleportPlayer(raids[raidIndex].mapId, raids[raidIndex].tileId);
+
 
         }
         

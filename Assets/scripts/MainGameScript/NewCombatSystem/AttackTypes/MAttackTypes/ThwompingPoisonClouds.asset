@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd2ed02f6724d90478468751439f3776, type: 3}
-  m_Name: ThwompingRoots
+  m_Name: ThwompingPoisonClouds
   m_EditorClassIdentifier: Assembly-CSharp::MultiBurst
   description: 
-  attackName: Root Grabs
+  attackName: Apple Throws
   startUp: 0.5
   attackDuration: 0
   endLag: 0.1
@@ -74,13 +74,13 @@ MonoBehaviour:
     m_Bits: 0
   conditions: []
   colorByWeapon: 0
-  attacksPerBurst: 3
+  attacksPerBurst: 6
   totalBursts: 2
-  individualAttack: {fileID: 2566779757777240371, guid: cb4bf673c2a1c03458cf2ba3143c6681, type: 3}
+  individualAttack: {fileID: 2566779757777240371, guid: 12657d3ee137bcd4c81dd2a9bf813684, type: 3}
   interval: 2
-  intervalRotation: 5
-  attackInfo: {fileID: 11400000, guid: 430e900c5a1028e499ade75d418e8e5a, type: 2}
-  attackOffset: {x: 0, y: 25, z: 0}
-  attackRadius: 10
+  intervalRotation: 20
+  attackInfo: {fileID: 11400000, guid: 3dcb8874e6f074749b17408135f0d18c, type: 2}
+  attackOffset: {x: 0, y: 0, z: 0}
+  attackRadius: 5
   individualAttackSound: {fileID: 0}
-  targetMode: 1
+  targetMode: 0

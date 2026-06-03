@@ -85,7 +85,7 @@ public class BurstSpawner : NonDamage
         cash.owner = owner;
         cash.ownerStats = ownerStats;
         cash.attackInfo = burstInfo.attackInfo;
-        cash.lifespan = burstInfo.lifespan;
+        cash.lifespan = burstInfo.attackInfo.lifespan;
         cash.chargedDuration = chargedDuration;
         individual.transform.localScale = cash.attackInfo.ablitySize;
         return individual;

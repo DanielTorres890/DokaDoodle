@@ -36,6 +36,7 @@ public class ThwompingTreeLogic : BaseEnemyBehavior
     }
     public override void Update()
     {
+        if(!IsServer) { return; }
         agent.enabled = false;
         if (myManager.stats.isDead) {  return; }
         

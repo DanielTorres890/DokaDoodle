@@ -41,12 +41,12 @@ public class PlayerCombatManager : MonoBehaviour
 
         isRaid = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].isRaid;
 
-        Debug.Log("Am i raid? " + isRaid);
+        
         foreach (var players in currentTile.players)
         {
-            if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight)
+            if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && (PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight || isRaid))
             {
-
+                Debug.Log("added player " + players);
                 PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[players]);
                 NetworkData.Instance.players[players].setCombatActions();
                 rumble = true;

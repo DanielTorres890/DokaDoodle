@@ -28,7 +28,7 @@ public class NewCombatManager : NetworkBehaviour
 
     [SerializeField] private PlayerUIManager playerUI;
     [SerializeField] private StatUIDisplay statUI;
-
+    
     private int xpHarvested;
     private int moneyHarvested;
 
@@ -77,7 +77,7 @@ public class NewCombatManager : NetworkBehaviour
     public GameObject spectateUI;
     public GameObject inCombatUI;
     public DashCdDisplay dashCdDisplay;
-
+    [SerializeField] private healthbar BossHealthBar;
     public List<AllyAIWrapper> allyPrefabs;
 
     public AudioClip victoryMusic;
@@ -99,7 +99,23 @@ public class NewCombatManager : NetworkBehaviour
 
         if(!PlayerCombatManager.Instance.isRaid)
         combatTimer -= Time.deltaTime;
-
+        
+        //im not a fan of this but i dont really have a finished spawning event
+        if(PlayerCombatManager.Instance.isRaid && BossHealthBar.manager == null)
+        {
+            AbilityManager boss = allCombatants[0];
+            foreach(var combatant in allCombatants)
+            {
+                if(combatant.stats is EnemyCombat)
+                {
+                    boss = combatant;
+                    break;
+                }
+            }
+            BossHealthBar.manager = boss;
+            BossHealthBar.SetUp();
+            BossHealthBar.gameObject.SetActive(true);
+        }
 
         timerText.text = "Time Remaining: " + Mathf.RoundToInt(combatTimer).ToString();
 
@@ -171,6 +187,7 @@ public class NewCombatManager : NetworkBehaviour
     {
         foreach(var combatant in PlayerCombatManager.Instance.combatants)
         {
+            if(!contributions.ContainsKey(combatant))
             contributions.Add(combatant, 0);
         }
     }
@@ -294,6 +311,7 @@ public class NewCombatManager : NetworkBehaviour
         statUI.abilityManager = allCombatants[whichone - 1];
         statUI.SetUp();
 
+        
 
         dashCdDisplay.manager = allCombatants[whichone - 1];
         dashCdDisplay.playerMovement = allCombatants[whichone - 1].gameObject.GetComponent<CombatantMovement>();
