@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd2ed02f6724d90478468751439f3776, type: 3}
-  m_Name: ThwompingAppleThrow
+  m_Name: ThwompingLeaves
   m_EditorClassIdentifier: Assembly-CSharp::MultiBurst
   description: 
   attackName: Apple Throws
-  startUp: 1.5
-  attackDuration: 1
-  endLag: 0.2
+  startUp: 0.5
+  attackDuration: 0
+  endLag: 0.1
   startCooldown: 0
   cooldown: 0
   lifespan: 3
@@ -74,13 +74,13 @@ MonoBehaviour:
     m_Bits: 0
   conditions: []
   colorByWeapon: 0
-  attacksPerBurst: 25
-  totalBursts: 3
-  individualAttack: {fileID: 4958144232811764369, guid: 7136fb6ff143f9f49a7172ce29484c86, type: 3}
-  interval: 3
-  intervalRotation: 5
-  attackInfo: {fileID: 11400000, guid: 6de350747d71ae648acffd50d078fa1f, type: 2}
-  attackOffset: {x: 0, y: 25, z: 0}
-  attackRadius: 10
+  attacksPerBurst: 1
+  totalBursts: 8
+  individualAttack: {fileID: 4958144232811764369, guid: 81a60128c27499343b01d718f32458ca, type: 3}
+  interval: 0.25
+  intervalRotation: 0
+  attackInfo: {fileID: 11400000, guid: 5bd2672161822c64e9d6aa48ecd58e5c, type: 2}
+  attackOffset: {x: 0, y: 10, z: 0}
+  attackRadius: 0
   individualAttackSound: {fileID: 0}
   targetMode: 0

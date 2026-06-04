@@ -1223,6 +1223,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8233359430261954058}
     m_Modifications:
+    - target: {fileID: 208475494973035018, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427251880356378898, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3725137572382692352, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1231,10 +1239,18 @@ PrefabInstance:
       propertyPath: m_LightProbeUsage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5137427445999551678, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -20.4605
+      objectReference: {fileID: 0}
     - target: {fileID: 6056675833493310472, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4bba314f34298fe43ad0bcfee220e4dd, type: 2}
+    - target: {fileID: 6179751476551971293, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6675009210378831584, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -1626,20 +1642,8 @@ MonoBehaviour:
   onSpawnAttack:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BaseEnemyBehavior, Assembly-CSharp
-        m_MethodName: SetAttackingAnim
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MaldingMoleLogic, Assembly-CSharp
+      - m_Target: {fileID: 1907926080894466521}
+        m_TargetAssemblyTypeName: ThwompingTreeLogic, Assembly-CSharp
         m_MethodName: SetStartUpAnim
         m_Mode: 6
         m_Arguments:
@@ -1649,6 +1653,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1907926080894466521}
+        m_TargetAssemblyTypeName: ThwompingTreeLogic, Assembly-CSharp
+        m_MethodName: SetAttackingAnim
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
   onEndAttack:
     m_PersistentCalls:
@@ -1970,14 +1986,14 @@ MonoBehaviour:
   walkingAnimation: {fileID: 0}
   victoryAnimation: {fileID: 0}
   attackAnimations:
-  - startUp: {fileID: 7400000, guid: e1550bb209db8cc419b7d05dab48b284, type: 2}
-    attack: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+  - startUp: {fileID: 7400000, guid: 62744a605633d334daff68b6e5a3141e, type: 2}
+    attack: {fileID: 7400000, guid: ac14635c6834c4b47af9585c752d79de, type: 2}
     animationSpeed: 1
   - startUp: {fileID: 7400000, guid: e1550bb209db8cc419b7d05dab48b284, type: 2}
     attack: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
     animationSpeed: 1
-  - startUp: {fileID: 7400000, guid: e1550bb209db8cc419b7d05dab48b284, type: 2}
-    attack: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+  - startUp: {fileID: 7400000, guid: 240612c5e3802fd4aa85ce8cd06ebf66, type: 2}
+    attack: {fileID: 7400000, guid: 3342522c7edeef041a73a959299eb20b, type: 2}
     animationSpeed: 1
   releaseTimer: 0
   timeToHold: 0

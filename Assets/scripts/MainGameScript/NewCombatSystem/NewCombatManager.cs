@@ -103,6 +103,7 @@ public class NewCombatManager : NetworkBehaviour
         //im not a fan of this but i dont really have a finished spawning event
         if(PlayerCombatManager.Instance.isRaid && BossHealthBar.manager == null)
         {
+            if(allCombatants.Count == 0) { return; }
             AbilityManager boss = allCombatants[0];
             foreach(var combatant in allCombatants)
             {

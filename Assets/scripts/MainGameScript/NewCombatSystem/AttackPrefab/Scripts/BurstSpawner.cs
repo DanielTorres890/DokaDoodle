@@ -7,14 +7,16 @@ public class BurstSpawner : NonDamage
 {
     public int spawnedBursts;
 
-    
+    public bool instaSpawn = false;
+    private bool spawned = false;
     public override void AbilityAction()
     {
         if (!IsServer) { return; }
         lifetimer += Time.deltaTime;
 
-        if (lifetimer > (attackInfo as MultiBurst).interval)
+        if (lifetimer > (attackInfo as MultiBurst).interval || (instaSpawn && !spawned))
         {
+            spawned = true;
             var burstInfo = (attackInfo as MultiBurst);
 
             Vector3[] targetPositions = new Vector3[burstInfo.attacksPerBurst];

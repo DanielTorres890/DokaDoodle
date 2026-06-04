@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 4130751179687581138}
   - component: {fileID: 75812615710440331}
   m_Layer: 0
-  m_Name: RootGrab
+  m_Name: RootStab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2421172331
+  GlobalObjectIdHash: 366829052
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -299,7 +299,7 @@ MonoBehaviour:
   lifetimer: 0
   chargedDuration: 0
   destroyOnWallCollide: 0
-  hitGameObject: {fileID: 6234742567996364231, guid: e6ebcc721d5ff9d41a21cf5a15289840, type: 3}
+  hitGameObject: {fileID: 6234742567996364231, guid: 9cdded04d43367f41949610c90e0ac94, type: 3}
   AudioSource: {fileID: 4928155443056925180}
   stickInOpponent: 0
   prewarmDuration: 3
@@ -462,7 +462,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 0.4}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 3
+    widthMultiplier: 5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -593,15 +593,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 278805526897893615, guid: 21060d9857835864c9d592d399efd2c4, type: 3}
       propertyPath: m_Color.b
-      value: 0.024402402
+      value: 0.09825561
       objectReference: {fileID: 0}
     - target: {fileID: 278805526897893615, guid: 21060d9857835864c9d592d399efd2c4, type: 3}
       propertyPath: m_Color.g
-      value: 0.5283019
+      value: 0.19396226
       objectReference: {fileID: 0}
     - target: {fileID: 278805526897893615, guid: 21060d9857835864c9d592d399efd2c4, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 0.3018868
       objectReference: {fileID: 0}
     - target: {fileID: 2335203366555521811, guid: 21060d9857835864c9d592d399efd2c4, type: 3}
       propertyPath: m_LocalScale.x
@@ -663,13 +663,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: sparkMagicCircle
       objectReference: {fileID: 0}
+    - target: {fileID: 4676116766649026059, guid: 21060d9857835864c9d592d399efd2c4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6408999277973968603, guid: 21060d9857835864c9d592d399efd2c4, type: 3}
       propertyPath: m_Color.b
-      value: 0.30588233
+      value: 0.06933072
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408999277973968603, guid: 21060d9857835864c9d592d399efd2c4, type: 3}
+      propertyPath: m_Color.g
+      value: 0.19463333
       objectReference: {fileID: 0}
     - target: {fileID: 6408999277973968603, guid: 21060d9857835864c9d592d399efd2c4, type: 3}
       propertyPath: m_Color.r
-      value: 0.31963974
+      value: 0.3584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391029941895616524, guid: 21060d9857835864c9d592d399efd2c4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391029941895616524, guid: 21060d9857835864c9d592d399efd2c4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.27450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391029941895616524, guid: 21060d9857835864c9d592d399efd2c4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.5882353
       objectReference: {fileID: 0}
     - target: {fileID: 7620477147208772337, guid: 21060d9857835864c9d592d399efd2c4, type: 3}
       propertyPath: m_Enabled

@@ -51,7 +51,7 @@ public class CombatantMovement : NetworkBehaviour
 
     public void moveForward(InputAction.CallbackContext action)
     {
-
+        
         move = action.action.ReadValue<Vector2>();
 
     }
@@ -245,13 +245,17 @@ public class CombatantMovement : NetworkBehaviour
         
         Vector3 currentVelocity = body.linearVelocity;
         animator.WalkingState(true);
-        Vector3 targetVeloctiy;
+        Vector3 targetVeloctiy ;
         targetVeloctiy = new Vector3(move.x, 0, move.y);
         targetVeloctiy *= speed + abilityManager.stats.speedFormula();
         targetVeloctiy = transform.TransformDirection(targetVeloctiy);
 
         if (abilityManager.CanMoveNotAct())
         {
+            if ((Mathf.Abs(currentVelocity.x) - Mathf.Abs(targetVeloctiy.x)) < 0)
+                targetVeloctiy = new Vector3(0, 0, targetVeloctiy.z);
+            if ((Mathf.Abs(currentVelocity.z) - Mathf.Abs(targetVeloctiy.z)) < 0)
+                targetVeloctiy = new Vector3(targetVeloctiy.x, 0, 0);
             targetVeloctiy = new Vector3(currentVelocity.x - targetVeloctiy.x, 0, currentVelocity.z - targetVeloctiy.z);
         }
 

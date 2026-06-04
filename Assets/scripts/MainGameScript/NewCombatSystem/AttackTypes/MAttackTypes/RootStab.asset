@@ -9,42 +9,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd2ed02f6724d90478468751439f3776, type: 3}
-  m_Name: ThwompingAppleThrow
-  m_EditorClassIdentifier: Assembly-CSharp::MultiBurst
-  description: 
-  attackName: Apple Throws
-  startUp: 1.5
-  attackDuration: 1
-  endLag: 0.2
+  m_Script: {fileID: 11500000, guid: dad25ee879166e24dbb53dd668d87936, type: 3}
+  m_Name: RootStab
+  m_EditorClassIdentifier: Assembly-CSharp::PlacedAttack
+  description: Places a root at your cursor, stunning whoever is hit
+  attackName: RootStab
+  startUp: 1
+  attackDuration: 0
+  endLag: 0.1
   startCooldown: 0
-  cooldown: 0
-  lifespan: 3
-  energyDrain: 1
+  cooldown: 7
+  lifespan: 2.5
+  energyDrain: 10
   initialEnergyCost: 0
-  maxChargeAtkBuff: 1.2
-  maxChargeSizeBuff: 1.2
+  maxChargeAtkBuff: 1.5
+  maxChargeSizeBuff: 2.5
   maxChargeSpeedBuff: 1.1
   maxChargeDuration: 3
   requiredPotency: 0
   dmgPotencyEffect: 2
   sizePotencyEffect: 2
   stateToBe: 0
-  chargeable: 0
-  attackPrefab: {fileID: 2566779757777240371, guid: bb8ef4c0e7602c243a1240413e704080, type: 3}
+  chargeable: 1
+  attackPrefab: {fileID: 2566779757777240371, guid: fec7783ef5d50b54fa813aca5121b2f8, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
-  ablitySize: {x: 1, y: 1, z: 1}
+  ablitySize: {x: 5, y: 5, z: 5}
   visualRoation: {x: 0, y: 0, z: 0}
-  baseDamage: 15
+  baseDamage: 5
   multipliers:
   - attribute: 4
     mult: 2
   defenseMult:
-  - attribute: 3
+  - attribute: 5
     mult: 1
   antiGuardMultipliers:
   - attribute: 0
@@ -61,8 +61,8 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 0}
-  attackAnimation: {fileID: 0}
+  startUpAnimation: {fileID: 7400000, guid: c8b2c725735f6cc418b91b4eb55a4a57, type: 2}
+  attackAnimation: {fileID: 7400000, guid: fbf4ea55045f1c54dbf7b1ad43729e82, type: 2}
   animationSpeed: 1
   LevelRequirements: []
   startUpNoise: {fileID: 0}
@@ -71,16 +71,9 @@ MonoBehaviour:
   onHitEffects: []
   targets:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   conditions: []
   colorByWeapon: 0
-  attacksPerBurst: 25
-  totalBursts: 3
-  individualAttack: {fileID: 4958144232811764369, guid: 7136fb6ff143f9f49a7172ce29484c86, type: 3}
-  interval: 3
-  intervalRotation: 5
-  attackInfo: {fileID: 11400000, guid: 6de350747d71ae648acffd50d078fa1f, type: 2}
-  attackOffset: {x: 0, y: 25, z: 0}
-  attackRadius: 10
-  individualAttackSound: {fileID: 0}
-  targetMode: 0
+  timeTillActive: 2
+  activatedSound: {fileID: 8300000, guid: eeb59cded7d09aa4aac960bc29bff620, type: 3}
+  temporaryPosition: {x: 0, y: 0, z: 0}
