@@ -82,6 +82,11 @@ public class PlayerCombatManager : MonoBehaviour
                     encounterName = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].EncounterName;
                     PlayerCombatManager.Instance.combatants.Add(temp);
                     currentTile.tileEnemy.Add(temp);
+                    if(isRaid)
+                    {
+                        temp.stats[Attributes.Health] *= Mathf.Clamp(NetworkData.Instance.players.Count / 2, 1, 2);
+                        temp.stats[Attributes.MaxHealth] *= Mathf.Clamp(NetworkData.Instance.players.Count / 2, 1, 2);
+                    }
 
 
                 }

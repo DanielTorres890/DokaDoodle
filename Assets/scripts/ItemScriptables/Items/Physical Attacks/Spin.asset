@@ -30,7 +30,9 @@ MonoBehaviour:
   interrupt: 0
   attack:
   - {fileID: 11400000, guid: b4a28674452c61347896807a96ddb8be, type: 2}
-  skillRequirements: []
+  skillRequirements:
+  - attribute: 2
+    value: 9
   inHandSprite: {fileID: 0}
   onEquipBuffs: []
   weaponColor: {r: 1, g: 1, b: 1, a: 0}

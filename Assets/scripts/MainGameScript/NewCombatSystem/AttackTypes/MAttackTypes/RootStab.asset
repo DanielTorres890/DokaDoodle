@@ -37,15 +37,15 @@ MonoBehaviour:
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
-  ablitySize: {x: 5, y: 5, z: 5}
+  ablitySize: {x: 6, y: 6, z: 6}
   visualRoation: {x: 0, y: 0, z: 0}
-  baseDamage: 5
+  baseDamage: 15
   multipliers:
   - attribute: 4
     mult: 2
   defenseMult:
   - attribute: 5
-    mult: 1
+    mult: 0.5
   antiGuardMultipliers:
   - attribute: 0
     mult: 1

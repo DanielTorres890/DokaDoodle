@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbba4ab3dd06e7f40adc52594909bc56, type: 3}
   m_Name: PoisonCloudMove
   m_EditorClassIdentifier: 
-  description: Squish someone with your imagination (because you don't know any actual
-    magic)
+  description: 
   attackName: Moving Poison Cloud
   startUp: 0.5
   attackDuration: 0
   endLag: 0.1
   startCooldown: 0
   cooldown: 3
-  lifespan: 20
+  lifespan: 40
   energyDrain: 10
   initialEnergyCost: 0
   maxChargeAtkBuff: 1.5
@@ -75,5 +74,5 @@ MonoBehaviour:
     m_Bits: 72
   conditions: []
   colorByWeapon: 0
-  speed: 8
+  speed: 6
   pierceCount: 20

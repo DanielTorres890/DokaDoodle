@@ -900,6 +900,61 @@ Transform:
   - {fileID: 7480610199554532303}
   m_Father: {fileID: 703723169880527041}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6138093848978497854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1239374778160396408}
+  - component: {fileID: 5885649934251314041}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1239374778160396408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6138093848978497854}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 703723169880527041}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &5885649934251314041
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6138093848978497854}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4.94
+  m_Height: 26.74
+  m_Direction: 1
+  m_Center: {x: 0, y: 8, z: 1.36}
 --- !u!1 &6870469217588071151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1486,6 +1541,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -7552582706839291426, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8233359430261954058}
+    - targetCorrespondingSourceObject: {fileID: -7552582706839291426, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1239374778160396408}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 8b90b3697bdb0ed4fbdf64a3c36f36ca, type: 3}
       insertIndex: -1
@@ -1986,11 +2044,17 @@ MonoBehaviour:
   walkingAnimation: {fileID: 0}
   victoryAnimation: {fileID: 0}
   attackAnimations:
+  - startUp: {fileID: 7400000, guid: 240612c5e3802fd4aa85ce8cd06ebf66, type: 2}
+    attack: {fileID: 7400000, guid: 3342522c7edeef041a73a959299eb20b, type: 2}
+    animationSpeed: 1
+  - startUp: {fileID: 7400000, guid: 240612c5e3802fd4aa85ce8cd06ebf66, type: 2}
+    attack: {fileID: 7400000, guid: 3342522c7edeef041a73a959299eb20b, type: 2}
+    animationSpeed: 1
   - startUp: {fileID: 7400000, guid: 62744a605633d334daff68b6e5a3141e, type: 2}
     attack: {fileID: 7400000, guid: ac14635c6834c4b47af9585c752d79de, type: 2}
     animationSpeed: 1
-  - startUp: {fileID: 7400000, guid: e1550bb209db8cc419b7d05dab48b284, type: 2}
-    attack: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+  - startUp: {fileID: 7400000, guid: 240612c5e3802fd4aa85ce8cd06ebf66, type: 2}
+    attack: {fileID: 7400000, guid: 3342522c7edeef041a73a959299eb20b, type: 2}
     animationSpeed: 1
   - startUp: {fileID: 7400000, guid: 240612c5e3802fd4aa85ce8cd06ebf66, type: 2}
     attack: {fileID: 7400000, guid: 3342522c7edeef041a73a959299eb20b, type: 2}
@@ -2000,8 +2064,9 @@ MonoBehaviour:
   baseMoveSpeed: 4
   rb: {fileID: 0}
   source: {fileID: 0}
-  cooldownBetweenAttacks: 5
+  cooldownBetweenAttacks: 4
   attackCooldownTimer: 0
+  closeProximity: 15
 --- !u!1001 &4995332460312475130
 PrefabInstance:
   m_ObjectHideFlags: 0
