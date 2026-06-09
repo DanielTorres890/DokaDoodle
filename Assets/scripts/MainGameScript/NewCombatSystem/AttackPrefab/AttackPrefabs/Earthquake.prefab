@@ -95,6 +95,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &7789837592679030976
 BoxCollider:
@@ -156,6 +157,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
   AuthorityMode: 0
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
@@ -212,6 +223,8 @@ MonoBehaviour:
   chargedDuration: 0
   destroyOnWallCollide: 0
   hitGameObject: {fileID: 2566779757777240371, guid: b9c36f9ed4535284fb776f68b1a59ebf, type: 3}
+  AudioSource: {fileID: 0}
+  stickInOpponent: 0
 --- !u!82 &4928155443056925180
 AudioSource:
   m_ObjectHideFlags: 0
@@ -232,7 +245,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 50
   MaxDistance: 500
   Pan2D: 0
@@ -393,3 +406,4 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0

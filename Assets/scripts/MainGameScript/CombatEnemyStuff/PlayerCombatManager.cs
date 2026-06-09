@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class PlayerCombatManager : MonoBehaviour
 {
@@ -69,6 +70,7 @@ public class PlayerCombatManager : MonoBehaviour
             if (ally.allyOwner == NetworkData.Instance.currentPlayer) { continue; }
 
             potentialEnemies.Add(ally);
+            ally.setCombatActions();
         }
 
         if (potentialEnemies.Count == 0)
@@ -84,8 +86,11 @@ public class PlayerCombatManager : MonoBehaviour
                     currentTile.tileEnemy.Add(temp);
                     if(isRaid)
                     {
-                        temp.stats[Attributes.Health] *= Mathf.Clamp(NetworkData.Instance.players.Count / 2, 1, 2);
-                        temp.stats[Attributes.MaxHealth] *= Mathf.Clamp(NetworkData.Instance.players.Count / 2, 1, 2);
+                        temp.stats[Attributes.Health] *= Mathf.Clamp(Mathf.CeilToInt(NetworkData.Instance.players.Count / 2f), 1, 2);
+                        temp.stats[Attributes.MaxHealth] *= Mathf.Clamp(Mathf.CeilToInt(NetworkData.Instance.players.Count / 2f), 1, 2);
+                        temp.stats[Attributes.Attack] *= Mathf.Clamp(Mathf.CeilToInt(NetworkData.Instance.players.Count / 2f), 1, 2);
+                        temp.stats[Attributes.Magic] *= Mathf.Clamp(Mathf.CeilToInt(NetworkData.Instance.players.Count / 2f), 1, 2);
+
                     }
 
 
@@ -103,6 +108,7 @@ public class PlayerCombatManager : MonoBehaviour
         foreach (var enemyy in potentialEnemies)
         {
             PlayerCombatManager.Instance.combatants.Add(enemyy);
+           
             encounterName = enemyy.name;
         }
 
@@ -124,6 +130,7 @@ public class PlayerCombatManager : MonoBehaviour
         {
             if (ally.allyOwner != NetworkData.Instance.currentPlayer) { continue; }
             PlayerCombatManager.Instance.combatants.Add(ally);
+            ally.setCombatActions();
         }
 
        foreach(var combatant in PlayerCombatManager.Instance.combatants)

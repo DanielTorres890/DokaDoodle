@@ -24,7 +24,7 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
     public override void Update()
     {
         
-        if (myManager.stats.isDead) { agent.enabled = false; return; }
+        if (myManager.stats.isDead || NewCombatManager.instance.fightOver) { agent.enabled = false; return; }
         if (myManager.CanWalk()) { agent.enabled = true; rb.isKinematic = true; }
         else { agent.enabled = false; }
         if (!agent.isOnNavMesh) { agent.enabled = false; }
@@ -60,7 +60,7 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
     {
        
         selectedAttack = myManager.stats.attacks[0];
-        foreach (var key in myManager.stats.attacks)
+        foreach (var key in myManager.stateManager.Keys)
         {
             
             if (myManager.stateManager[key].cooldown > 0) { continue; }

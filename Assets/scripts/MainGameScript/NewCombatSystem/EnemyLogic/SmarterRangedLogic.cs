@@ -41,7 +41,7 @@ public class SmarterRangedLogic : RangedEnemyBehavior
         }
 
 
-        foreach (var key in myManager.stats.attacks)
+        foreach (var key in myManager.stateManager.Keys)
         {
             counter++;
             if (myManager.stateManager[key].cooldown > 0) { continue; }

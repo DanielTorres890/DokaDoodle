@@ -95,6 +95,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!54 &7537594205642929553
 Rigidbody:
@@ -183,6 +184,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
   AuthorityMode: 0
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
@@ -239,7 +250,15 @@ MonoBehaviour:
   chargedDuration: 0
   destroyOnWallCollide: 0
   hitGameObject: {fileID: 0}
+  AudioSource: {fileID: 0}
+  stickInOpponent: 0
+  pierceCounter: 0
+  body: {fileID: 0}
   burstHitbox: {fileID: 2566779757777240371, guid: 6036f61670e4de94d8c1392d33a0d3d0, type: 3}
+  firstBounceExtraGravity: 0
+  maxYVelocity: 0
+  hitGround: 0
+  trueBounce: {x: 0, y: 0, z: 0}
 --- !u!82 &-9091006942078656989
 AudioSource:
   m_ObjectHideFlags: 0
@@ -260,7 +279,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 10
   MaxDistance: 500
   Pan2D: 0

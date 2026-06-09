@@ -46,6 +46,7 @@ public class RaidEvent : WorldEventBase
     }
     public override void OnDeactivate()
     {
+        PlayerCombatManager.Instance.isRaid = false;
         foreach (var player in NetworkData.Instance.players)
         {
             player.loyaltyTags.Remove("Raid");

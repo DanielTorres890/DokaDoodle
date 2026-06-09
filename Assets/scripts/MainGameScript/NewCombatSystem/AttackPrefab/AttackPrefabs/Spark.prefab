@@ -255,6 +255,8 @@ MonoBehaviour:
   hitGameObject: {fileID: 0}
   AudioSource: {fileID: 0}
   stickInOpponent: 0
+  pierceCounter: 0
+  body: {fileID: 0}
 --- !u!198 &-304944850639772182
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5087,7 +5089,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 50
   MaxDistance: 500
   Pan2D: 0

@@ -401,11 +401,12 @@ public class NewCombatManager : NetworkBehaviour
         for (int i = 0; i < allCombatants.Count; i++)
         {
             if (allCombatants[i].stats.isDead) { continue; }
+            if (allCombatants[i].TryGetComponent(out SummonDespawn summon)) { continue; }
 
             for (int j = 0; j < allCombatants.Count; j++)
             {
                 if (allCombatants[j].stats.isDead) { continue; }
-
+                if (allCombatants[j].TryGetComponent(out SummonDespawn summon2)) { continue; }
                 if (!allCombatants[i].stats.loyaltyTags.Intersect(allCombatants[j].stats.loyaltyTags).Any())
                 {
 
@@ -1050,7 +1051,7 @@ public class NewCombatManager : NetworkBehaviour
             {
                 if (allCombatants[i].stats == who)
                 {
-                    if (fricku[i].TryGetComponent(out SummonDespawn summon))
+                    if (allCombatants[i].TryGetComponent(out SummonDespawn summon))
                     {
                        
                         contributions[summon.ownerStats] += amount;

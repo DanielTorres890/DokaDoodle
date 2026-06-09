@@ -151,7 +151,7 @@ public class ThwompingTreeLogic : BaseEnemyBehavior
             if(selectedAttack is MultiBurst)
             {
                 var cachedAtk = (selectedAttack as MultiBurst);
-                attackCooldownTimer += cachedAtk.interval * cachedAtk.totalBursts;
+                attackCooldownTimer += cachedAtk.interval * (cachedAtk.totalBursts - 1);
             } 
             for (int i = 0; i < myManager.stats.attacks.Count; i++)
             {

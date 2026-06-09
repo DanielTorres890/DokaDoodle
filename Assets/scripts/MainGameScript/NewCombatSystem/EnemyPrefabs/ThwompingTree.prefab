@@ -1282,6 +1282,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1090975797935040750, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1427251880356378898, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 0
@@ -1306,10 +1310,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6410591426237621833, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6675009210378831584, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4bba314f34298fe43ad0bcfee220e4dd, type: 2}
+    - target: {fileID: 7219282781567435366, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7479503514201466774, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: m_Name
       value: ThwompingTree
@@ -1353,6 +1365,10 @@ PrefabInstance:
     - target: {fileID: 7820316575989497132, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7820316575989497132, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1935,10 +1951,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 5
+  MaxDistance: 50
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -1971,7 +1987,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2044,11 +2060,11 @@ MonoBehaviour:
   walkingAnimation: {fileID: 0}
   victoryAnimation: {fileID: 0}
   attackAnimations:
-  - startUp: {fileID: 7400000, guid: 240612c5e3802fd4aa85ce8cd06ebf66, type: 2}
-    attack: {fileID: 7400000, guid: 3342522c7edeef041a73a959299eb20b, type: 2}
+  - startUp: {fileID: 7400000, guid: b349bcf2d22a0ba45804e7c9b467a487, type: 2}
+    attack: {fileID: 7400000, guid: f32c4250599a0004b8bdc41e2997b493, type: 2}
     animationSpeed: 1
-  - startUp: {fileID: 7400000, guid: 240612c5e3802fd4aa85ce8cd06ebf66, type: 2}
-    attack: {fileID: 7400000, guid: 3342522c7edeef041a73a959299eb20b, type: 2}
+  - startUp: {fileID: 7400000, guid: b349bcf2d22a0ba45804e7c9b467a487, type: 2}
+    attack: {fileID: 7400000, guid: f32c4250599a0004b8bdc41e2997b493, type: 2}
     animationSpeed: 1
   - startUp: {fileID: 7400000, guid: 62744a605633d334daff68b6e5a3141e, type: 2}
     attack: {fileID: 7400000, guid: ac14635c6834c4b47af9585c752d79de, type: 2}
