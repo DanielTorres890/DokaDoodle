@@ -282,7 +282,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -1193,6 +1193,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 036c043dffb49864785e0332007d9082, type: 3}
+    - target: {fileID: 897970594209390706, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 036c043dffb49864785e0332007d9082, type: 3}
     - target: {fileID: 1308386026424737571, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1231,7 +1235,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1824883183280169692, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1913617710232462458, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1519,6 +1523,18 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: -17
       objectReference: {fileID: 0}
+    - target: {fileID: 4576548897301976635, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576548897301976635, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576548897301976635, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4947192107334825939, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1533,11 +1549,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5108693883717057987, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5108693883717057987, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5108693883717057987, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_AnchorMin.y
@@ -1557,11 +1573,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5714072172304794975, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -220.8138
       objectReference: {fileID: 0}
     - target: {fileID: 5714072172304794975, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5714072172304794975, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1619,6 +1635,10 @@ PrefabInstance:
       propertyPath: m_enableAutoSizing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7032244530104296372, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 036c043dffb49864785e0332007d9082, type: 3}
     - target: {fileID: 7350415264662358473, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: Y_Start
       value: 520
@@ -1627,6 +1647,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShopStuff
       objectReference: {fileID: 0}
+    - target: {fileID: 8247243794988310987, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 036c043dffb49864785e0332007d9082, type: 3}
+    - target: {fileID: 8547737306460038655, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 036c043dffb49864785e0332007d9082, type: 3}
     - target: {fileID: 8760661594831694606, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 101

@@ -124,8 +124,32 @@ public class ShopUISync : NetworkBehaviour
         NetworkData.Instance.GetCurrentPlayer().GainMoney(-Mathf.RoundToInt(curEvent.itemsSold[itemNum].itemValue * NetworkData.Instance.globalShopMultiplier));
         moneyDisplay.StatUpdate();
         buyShopStuff.UpdateDisplay();
-        buyShop.SetActive(true);
-        hideMenuButtons(buyDontButtons);
+
+
+        if(curEvent.itemsSold[itemNum].determineType() != 3)
+        {
+            hideMenuButtons(buyDontButtons);
+            buyShop.SetActive(true);
+        }
+        else
+        {
+            buyDontButtons[0].SetActive(true);
+            buyDontButtons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Equip Bought Equipment";
+            var button = buyDontButtons[0].GetComponent<Button>();
+            button.Select();
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(delegate { EquipItem(itemNum); });
+
+            buyDontButtons[1].SetActive(true);
+            var button2 = buyDontButtons[1].GetComponent<Button>();
+            buyDontButtons[1].GetComponentInChildren<TextMeshProUGUI>().text = "Dont Equip";
+            button2.onClick.RemoveAllListeners();
+            button2.onClick.AddListener(delegate { dontPurchase(); });
+            buyShop.SetActive(false);
+        }
+           
+
+        
     }
 
 
@@ -223,5 +247,19 @@ public class ShopUISync : NetworkBehaviour
         hideMenuButtons(buyDontButtons);
         buyShop.SetActive(false);
         sellShop.SetActive(false);
+    }
+
+    public void EquipItem(int itemIndex)
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        EquipItemRpc(itemIndex);
+    }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void EquipItemRpc(int itemIndex)
+    {
+        WeaponItem toEquip = curEvent.itemsSold[itemIndex] as WeaponItem;
+        toEquip.PerformItemEffect(NetworkData.Instance.currentPlayer, NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][3]);
+        hideMenuButtons(buyDontButtons);
+        buyShop.SetActive(true);
     }
 }

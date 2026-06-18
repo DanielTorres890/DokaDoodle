@@ -47,7 +47,7 @@ public class WeaponItem : ItemBase
             }
             foreach(var status in (inventory.database.GetItem[temp] as WeaponItem).onEquipBuffs)
             {
-                Debug.Log("Did i remove this " + status.name);
+                
                 thisPlayer.RemoveStatus(NetworkData.Instance.buffDataBase.GetId[status]);
             }
             
