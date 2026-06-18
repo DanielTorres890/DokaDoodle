@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
+  m_Name: Malding Claw
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: 5043594053797773230, guid: 43a2f1b3693df69449d7c48603c03c2a, type: 3}
+  type: 1
+  itemValue: 3000
+  description: '(EQUIPMENT)
+
+    The Claw of a Malding Mole allowing you to create
+    earthquakes
+
+    GIVES: 12 ATK, (ABILITY) Quake'
+  useText: You feel the power of Sunshine flow through you
+  itemName: Malding Claw
+  buffs:
+  - attribute: 2
+    value: 12
+  battleItem: 0
+  overworldItem: 1
+  useClip: {fileID: 0}
+  interrupt: 0
+  attack:
+  - {fileID: 11400000, guid: 63a6bec49a3ee2642ac87bfdbcb12f49, type: 2}
+  skillRequirements: []
+  inHandSprite: {fileID: 552131183936278053, guid: 65a5fa1aa43ac9c448b7571286259440, type: 3}
+  onEquipBuffs: []
+  weaponColor: {r: 1.498039, g: 1.498039, b: 1.498039, a: 1}

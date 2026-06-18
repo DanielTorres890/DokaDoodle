@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1b47e846fecebc48b8df7bd633dae51, type: 3}
-  m_Name: Ground Pound
+  m_Name: MaldingQuake
   m_EditorClassIdentifier: 
   description: Wind up and SMACK the ground
   attackName: Quake
   startUp: 3
   attackDuration: 0
   endLag: 1
+  startCooldown: 0
   cooldown: 7
   lifespan: 0.2
   energyDrain: 1
+  initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -31,9 +33,12 @@ MonoBehaviour:
   chargeable: 1
   attackPrefab: {fileID: 2566779757777240371, guid: 9d2c0a74166dccc44956f94ebe3523cd, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 2566779757777240371, guid: b9c36f9ed4535284fb776f68b1a59ebf, type: 3}
   offset: {x: 0, y: -2, z: 0}
   ablitySize: {x: 35, y: 0.2, z: 35}
+  visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 20
   multipliers:
   - attribute: 2
@@ -60,9 +65,12 @@ MonoBehaviour:
   attackAnimation: {fileID: 0}
   animationSpeed: 1
   LevelRequirements: []
+  startUpNoise: {fileID: 0}
   attackSound: {fileID: 0}
   onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
   onHitEffects: []
   targets:
     serializedVersion: 2
     m_Bits: 0
+  conditions: []
+  colorByWeapon: 0

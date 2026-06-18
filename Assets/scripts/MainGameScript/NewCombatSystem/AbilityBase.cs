@@ -38,6 +38,8 @@ public abstract class AbilityBase : NetworkBehaviour
     {
         if(!IsServer) { return; }
         NewCombatManager.instance.onCombatEnd.AddListener(delegate { Destroy(gameObject); });
+        if (attackInfo.parentToPlayer)
+        NetworkObject.TrySetParent(owner);
 
     }
     public virtual void Update()

@@ -36,10 +36,10 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
-  offset: {x: -0.5, y: 2, z: 1}
+  offset: {x: -0.5, y: 2, z: 1.5}
   ablitySize: {x: 2, y: 0.3, z: 6}
   visualRoation: {x: 0, y: 0, z: 0}
-  baseDamage: 3
+  baseDamage: 4
   multipliers:
   - attribute: 0
     mult: 0
@@ -86,3 +86,4 @@ MonoBehaviour:
     m_Bits: 0
   conditions: []
   colorByWeapon: 0
+  parentToPlayer: 1

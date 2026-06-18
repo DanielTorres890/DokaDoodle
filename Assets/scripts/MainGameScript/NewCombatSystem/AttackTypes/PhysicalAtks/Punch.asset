@@ -19,7 +19,7 @@ MonoBehaviour:
   endLag: 0
   startCooldown: 0
   cooldown: 0.1
-  lifespan: 0.2
+  lifespan: 0.267
   energyDrain: 1
   initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
@@ -36,8 +36,8 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
-  offset: {x: -0.5, y: 2, z: 1}
-  ablitySize: {x: 2, y: 0.3, z: 6}
+  offset: {x: -0.5, y: 2, z: 1.5}
+  ablitySize: {x: 3, y: 0.3, z: 6}
   visualRoation: {x: 0, y: 0, z: 0}
   baseDamage: 3
   multipliers:
@@ -86,3 +86,4 @@ MonoBehaviour:
     m_Bits: 0
   conditions: []
   colorByWeapon: 0
+  parentToPlayer: 1

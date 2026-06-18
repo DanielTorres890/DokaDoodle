@@ -18,7 +18,9 @@ MonoBehaviour:
   description: '(PHYSICAL ABILITY)
 
     Performs a roundhouse kick knocking back
-    opponents'
+    opponents
+
+    REQ: 12 ATK'
   useText: You equip the wooden sword
   itemName: Doodle Roundhouse
   buffs: []
@@ -28,7 +30,9 @@ MonoBehaviour:
   interrupt: 0
   attack:
   - {fileID: 11400000, guid: 4ebd382920cb66647a7e805555bb54bd, type: 2}
-  skillRequirements: []
+  skillRequirements:
+  - attribute: 2
+    value: 12
   inHandSprite: {fileID: 0}
   onEquipBuffs: []
   weaponColor: {r: 1, g: 1, b: 1, a: 0}

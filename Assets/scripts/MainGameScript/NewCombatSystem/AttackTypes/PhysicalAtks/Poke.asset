@@ -17,8 +17,9 @@ MonoBehaviour:
   startUp: 0.3
   attackDuration: 0
   endLag: 0.1
+  startCooldown: 0
   cooldown: 0
-  lifespan: 0.2
+  lifespan: 0.267
   energyDrain: 1
   initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
@@ -75,3 +76,4 @@ MonoBehaviour:
     m_Bits: 0
   conditions: []
   colorByWeapon: 1
+  parentToPlayer: 1

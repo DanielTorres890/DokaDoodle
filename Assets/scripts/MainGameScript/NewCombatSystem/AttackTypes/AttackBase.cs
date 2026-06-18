@@ -75,10 +75,13 @@ public abstract class AttackBase : ScriptableObject
    public AttackCondition[] conditions;
 
     public bool colorByWeapon = false;
+
+    public bool parentToPlayer = false;
     public virtual GameObject WeaponEffect(GameObject caster)
     {
        
         var attack = Instantiate(attackPrefab);
+       
         attack.transform.position = caster.transform.position + caster.transform.TransformDirection(offset);
         attack.transform.rotation = caster.transform.rotation;
         attack.transform.localScale = ablitySize;
@@ -99,7 +102,8 @@ public abstract class AttackBase : ScriptableObject
     public virtual GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargedDuration, Vector3 origin, Vector3 direction)
     {
         var manager = caster.GetComponent<AbilityManager>();
-        var attack = Instantiate(attackPrefab);
+        GameObject attack = Instantiate(attackPrefab);
+        
         var casterManager = caster.GetComponent<AbilityManager>().stats;
 
 
@@ -110,9 +114,23 @@ public abstract class AttackBase : ScriptableObject
         attack.transform.localScale = Mathf.Clamp(ChargeMultiplier(manager.stats, chargedDuration) * (maxChargeSizeBuff - 1) + 1, 1, 99999) * ablitySize;
 
 
+        var info = attack.GetComponent<AbilityBase>();
+
+        info.owner = caster;
+        info.lifespan = lifespan - (time - NetworkManager.Singleton.ServerTime.TimeAsFloat);
+
+        info.chargedDuration = chargedDuration;
+        Debug.Log("You are charged for this long " + info.chargedDuration);
+
+        info.ownerStats = casterManager;
+
+        info.attackInfo = this;
+
         attack.GetComponent<NetworkObject>().Spawn(true);
 
-        if(spawnFx)
+        
+
+        if (spawnFx)
         {
             var fx = Instantiate(spawnFx);
             fx.transform.position = caster.transform.position;
@@ -122,19 +140,9 @@ public abstract class AttackBase : ScriptableObject
         }
         
 
-        var info = attack.GetComponent<AbilityBase>();
         
-        info.owner = caster;
-        info.lifespan = lifespan - (time - NetworkManager.Singleton.ServerTime.TimeAsFloat);
-        
-        info.chargedDuration = chargedDuration;
-        Debug.Log("You are charged for this long " + info.chargedDuration);
+
         manager.RealAttackRpc(caster.GetComponent<NetworkObject>().NetworkManager.RpcTarget.Single(caster.GetComponent<NetworkObject>().OwnerClientId, RpcTargetUse.Temp));
-        info.ownerStats = casterManager;
-       
-        info.attackInfo = this;
-
-
         var childColor = attack.transform.GetComponentInChildren<WeaponColorUpdate>();
         if (childColor)
         {

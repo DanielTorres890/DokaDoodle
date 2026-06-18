@@ -566,7 +566,10 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
 
         int firstEquipmentPopUpId = 3;
+        int firstSkillPopUpId = 4;
         if(type == 3) { PopUpManager.Instance.PerformPopUp(firstEquipmentPopUpId, true, true); }
+
+        if(type == 1 || type == 2) { PopUpManager.Instance.PerformPopUp(firstSkillPopUpId, true, true); }
 
         return playerInventories[playerId][type].AddItem(item);
     }
