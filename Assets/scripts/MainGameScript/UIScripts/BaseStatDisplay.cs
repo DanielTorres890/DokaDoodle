@@ -31,7 +31,7 @@ public class BaseStatDisplay : MonoBehaviour
     {
 
         string color = "<color=black>";
-
+        Debug.Log("what is equipped? ");
         if(NetworkData.Instance.GetCurrentPlayer().equipItems[ItemType.Equipment] != -1)
         {
             foreach (var buff in NetworkData.Instance.playerInventories[0][3].database.GetItem[NetworkData.Instance.GetCurrentPlayer().equipItems[ItemType.Equipment]].buffs)

@@ -266,18 +266,21 @@ public class playerData : EntityStats
     public void UnequipItem(ItemType type)
     {
         var temp = NetworkData.Instance.players[playerNumber].equipItems[type];
-        NetworkData.Instance.players[playerNumber].equipItems[type] = 0;
+        NetworkData.Instance.players[playerNumber].equipItems[type] = -1;
 
         InventoryObject temp2;
         if (type == ItemType.Magic)
         {
             temp2 = NetworkData.Instance.playerInventories[playerNumber][2];
         }
-        else
+        else if(type == ItemType.PhysicalAbility)
         {
             temp2 = NetworkData.Instance.playerInventories[playerNumber][1];
         }
-
+        else
+        {
+            temp2 = NetworkData.Instance.playerInventories[playerNumber][3];
+        }
         foreach (var attrib in temp2.database.GetItem[temp].buffs)
         {
             NetworkData.Instance.players[playerNumber].stats[attrib.attribute] -= attrib.value;
