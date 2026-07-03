@@ -202,7 +202,7 @@ public class playerData : EntityStats
 
         if (turnsDead == -1)
         {
-            this.tillRevive = Random.Range(2, 2); //man random numbers suck buns
+            this.tillRevive = Random.Range(1,1); //man random numbers suck buns
         }
 
     }

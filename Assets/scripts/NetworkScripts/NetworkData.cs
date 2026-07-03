@@ -272,11 +272,23 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     {
         playerCount--;
         
+        //for(int i = 0; i < clientOrder.Length; i++)
+        //{
+        //    var id = clientOrder[i];
+        //    if(id == ClientNumToPlayerNum(clientId))
+        //    {
+        //        clientOrder[i] = -1;
+        //        return;
+        //    }
+        //}
+
         for (int i = currentGuids.Length - 1;  i >= 0; i--)
         {
             if (currentGuids[i] == clientIdToGuid[clientId])
             {
                 currentGuids[i] = null;
+                readyPlayers[i] = false;
+                clientOrder[i] = -1;
                 break;
             }
         }
@@ -286,10 +298,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             EmptyInventories();
 
             //Destroy(gameObject);
-            for (int i = playerSticks.Count - 1; i >= 0; i--)
-            {
-                Destroy(playerSticks[i]);
-            }
+            
             NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnected;
             SceneManager.LoadScene("MainMenu");
@@ -373,6 +382,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     {
         readyPlayers[index] = false;    
         playerCount--;
+
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void SyncSticksClientRpc(int playerId, FixedString32Bytes playerName, int playerClass, int playerFace, int playerHair, int playerCountin, int openSlots)
@@ -492,6 +502,20 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     {
         clientOrder[slotNumber] = ClientNumToPlayerNum(clientId);
         readyPlayers[slotNumber] = true;
+        if(clientIdToGuid[clientId] != currentGuids[slotNumber])
+        {
+            int prevIndex = -1;
+            for(int i = 0; i < currentGuids.Length; i++)
+            {
+                if (currentGuids[i] == clientIdToGuid[clientId]) { prevIndex = i; break; }
+            }
+
+            var cache = currentGuids[slotNumber];
+            currentGuids[slotNumber] = clientIdToGuid[clientId];
+            currentGuids[prevIndex] = cache;
+
+
+        }
     }
 
     public void startGame()
@@ -514,7 +538,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
             {
                 for(int i = 0;i < players.Count;i++)
                 {
-                    players[i].playerNumber = clientOrder[i];
+                    //players[i].playerNumber = clientOrder[i];
                 }
             }
                 started = true;
@@ -674,4 +698,36 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         players[playerNum].partyMembers[allyNum].AddAbility(itemNum);
     }
     
+
+    public int[] GetPlayerPlaceOrder()
+    {
+        int[] playerOrder = new int[maxPlayers];
+        int[] sortedFame = new int[maxPlayers];
+        for(int i = 0; i < maxPlayers;i++)
+        {
+            playerOrder[i] = players[i].playerNumber;
+            sortedFame[i] = players[i].playerInfo[PlayerInfo.fame];
+        }
+
+        for(int i = 0;i < sortedFame.Length;i++)
+        {
+
+            for(int j = 0; j < sortedFame.Length - 1; j++)
+            {
+                if (sortedFame[j] < sortedFame[j + 1])
+                {
+                    var hold = sortedFame[j];
+                    var holder2 = playerOrder[j];
+
+                    sortedFame[j] = sortedFame[j + 1];
+                    playerOrder[j] = playerOrder[j + 1];
+
+                    sortedFame[j + 1] = hold;
+                    playerOrder[j + 1] = holder2;
+                }
+            }
+
+        }
+        return playerOrder;
+    }
 }

@@ -46,6 +46,7 @@ public class FreeMover : NetworkBehaviour
     {
 
         move = action.action.ReadValue<Vector2>();
+
     }
 
     public void Update()

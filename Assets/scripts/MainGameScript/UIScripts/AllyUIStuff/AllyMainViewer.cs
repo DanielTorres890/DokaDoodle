@@ -53,10 +53,10 @@ public class AllyMainViewer : MonoBehaviour
 
             var stateChild = obj.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
             stateChild.text = "Current Action: \n";
-            if(entity.boardMovementState == PlayerFollowingStates.WithOwner) { stateChild.text += "With you"; }
-            if(entity.boardMovementState == PlayerFollowingStates.FollowingOwner) { stateChild.text += "Going to you"; }
-            if(entity.boardMovementState == PlayerFollowingStates.HoldTile) { stateChild.text += "Going to tile"; }
-            if(entity.boardMovementState == PlayerFollowingStates.HoldTile && entity.curTileId == entity.targetTile) { stateChild.text += "Holding tile"; }
+            if(entity.boardMovementState == PlayerFollowingStates.WithOwner) { stateChild.text += "<color=blue>With you</color>"; }
+            if(entity.boardMovementState == PlayerFollowingStates.FollowingOwner) { stateChild.text += "<color=yellow>Going to you</color>"; }
+            if(entity.boardMovementState == PlayerFollowingStates.HoldTile) { stateChild.text += "<color=yellow>Going to tile</color>"; }
+            if(entity.boardMovementState == PlayerFollowingStates.HoldTile && entity.curTileId == entity.targetTile) { stateChild.text += "<color=green>Holding tile</color>"; }
 
             int childCounter = 4;
             Attributes[] orderedAttributes = new Attributes[] {Attributes.Health,Attributes.Attack, Attributes.Defense, Attributes.Magic, Attributes.MDefense, Attributes.Dexterity};

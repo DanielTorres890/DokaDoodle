@@ -43,15 +43,17 @@ public class PlayerCombatManager : MonoBehaviour
         isRaid = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].isRaid;
 
         
-        foreach (var players in currentTile.players)
+        foreach (var players in NetworkData.Instance.players)
         {
-            if (players != NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber && (PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight || isRaid))
+            if(players.curMap != NetworkData.Instance.GetCurrentPlayer().curMap || players.curMap != NetworkData.Instance.GetCurrentPlayer().curTileId) { continue; }
+
+            if ((PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight || isRaid))
             {
-                Debug.Log("added player " + players);
-                PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[players]);
-                NetworkData.Instance.players[players].setCombatActions();
+                Debug.Log("added player " + players.name);
+                PlayerCombatManager.Instance.combatants.Add(players);
+                players.setCombatActions();
                 rumble = true;
-                encounterName = NetworkData.Instance.players[players].name;
+                encounterName = players.name;
             }
 
         }
@@ -79,7 +81,7 @@ public class PlayerCombatManager : MonoBehaviour
             {
                 foreach (var enemy in PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].enemies)
                 {
-
+                    Debug.Log("enemy " + enemy.enemyName + "has been added to combat ");
                     var temp = new EnemyCombat(enemy);
                     encounterName = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].EncounterName;
                     PlayerCombatManager.Instance.combatants.Add(temp);

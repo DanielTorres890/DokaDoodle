@@ -1086,11 +1086,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   mapTileParent: {fileID: 333774127}
-  mapTiles:
-  - {fileID: 646351859}
-  - {fileID: 6574301873681927556}
-  - {fileID: 1246515324}
-  - {fileID: 0}
+  mapTiles: []
   rollNum: {fileID: 0}
   takenPath: []
   playerSticks: []
@@ -1106,7 +1102,7 @@ MonoBehaviour:
   moveSpeed: 80
   autoMoveTime: 0.4
   autoMoveSpeed: 70
-  enemyDistance: {x: 2, y: 1}
+  enemyDistance: {x: 2, y: -2}
   BGM: {fileID: 8300000, guid: aafae79c16d68a347acbe1b7ae424f6a, type: 3}
   possibleEndTiles: []
   allPaths: []
@@ -1961,17 +1957,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4275375762089989838, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
   m_PrefabInstance: {fileID: 646351856}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &646351859 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -6587754183726193978, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
-  m_PrefabInstance: {fileID: 646351856}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 646351858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 200b4d3564071ec478f539999f1ccb2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ChangeMapTile
 --- !u!1 &653189196
 GameObject:
   m_ObjectHideFlags: 0
@@ -3818,17 +3803,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4275375762089989838, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
   m_PrefabInstance: {fileID: 1246515320}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1246515324 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-  m_PrefabInstance: {fileID: 1246515320}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246515322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f8689756fc52dd44b9fdb163035e2d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1281126752
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6291,17 +6265,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
---- !u!114 &6574301873681927556 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1883014145887561916, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}
-  m_PrefabInstance: {fileID: 6574301873681927555}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6574301873681927557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f8689756fc52dd44b9fdb163035e2d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6574301873681927557 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4275375762089989838, guid: e7bdf0b1e8cebf74d9207b55aad5ea0e, type: 3}

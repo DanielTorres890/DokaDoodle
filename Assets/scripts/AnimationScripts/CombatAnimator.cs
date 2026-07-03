@@ -125,4 +125,13 @@ public class CombatAnimator : NetworkBehaviour
     {
         animator.SetBool("Victory", animStateToBe);
     }
+    public void DashingState(bool stateToBe, Vector2 dashDirection)
+    {
+        Debug.Log("I caught this vector " + dashDirection);
+        animator.SetFloat("HorizontalDirection", dashDirection.x);
+        animator.SetFloat("VerticalDirection", dashDirection.y);
+        animator.SetBool("Dashing", stateToBe);
+
+
+    }
 }

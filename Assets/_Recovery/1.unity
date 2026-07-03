@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1081447020
+  GlobalObjectIdHash: 2072923654
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -389,7 +389,7 @@ MonoBehaviour:
   - {fileID: 173997777}
   seenEnemies: 
   statsPerLevel: 2
-  dashDexReq: 20
+  dashDexReq: 15
 --- !u!1 &69542996 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2023640745959093136, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
@@ -5008,7 +5008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 701662447
+  GlobalObjectIdHash: 1720941690
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -5514,8 +5514,6 @@ GameObject:
   m_Component:
   - component: {fileID: 609517427}
   - component: {fileID: 609517426}
-  - component: {fileID: 609517429}
-  - component: {fileID: 609517428}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -5561,44 +5559,6 @@ Transform:
   - {fileID: 1492627001}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &609517428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 609517425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98510bb0804e803499e8cb212e793ade, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ResetOnEndNetwork
-  ShowTopMostFoldoutHeaderGroup: 1
---- !u!114 &609517429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 609517425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1337239958
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 0
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!1 &615423710
 GameObject:
   m_ObjectHideFlags: 0
@@ -6178,7 +6138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 429326687
+  GlobalObjectIdHash: 3834054265
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -9149,8 +9109,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11.0229, y: -173.56981}
-  m_SizeDelta: {x: 130.3159, y: 47.981}
+  m_AnchoredPosition: {x: 5, y: -174}
+  m_SizeDelta: {x: 204.3111, y: 47.1206}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1026711492
 MonoBehaviour:
@@ -9204,7 +9164,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 12
-  m_fontSizeMax: 36
+  m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
@@ -9238,7 +9198,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 1.4868202, y: 0, z: -1.476635, w: 0}
+  m_margin: {x: 16.974144, y: 0, z: 7.987816, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -10051,8 +10011,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.5734, y: -173.2906}
-  m_SizeDelta: {x: 142.5152, y: 42.2982}
+  m_AnchoredPosition: {x: 6.8525, y: -172}
+  m_SizeDelta: {x: 195.8606, y: 44.8794}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1103754618
 MonoBehaviour:
@@ -10101,12 +10061,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.45
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 12
-  m_fontSizeMax: 36
+  m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
@@ -10140,7 +10100,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 1.4547691, y: 0, z: 1.0725632, w: 0}
+  m_margin: {x: 22.964981, y: 0, z: 13.978615, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -12729,8 +12689,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.2678, y: -174.598}
-  m_SizeDelta: {x: 144.7416, y: 49.8824}
+  m_AnchoredPosition: {x: 5, y: -178.9}
+  m_SizeDelta: {x: 188.6223, y: 51.6032}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1369535139
 MonoBehaviour:
@@ -12818,7 +12778,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 3.271614, y: 0, z: -0.37210083, w: 0}
+  m_margin: {x: 4.9924088, y: 0, z: 15.975616, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -13696,7 +13656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1787498860
+  GlobalObjectIdHash: 4116959520
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -14666,7 +14626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PresetAsset: {fileID: 0}
   m_PresetReference:
-    rid: 5230476941143048607
+    rid: 5756320640070058374
   m_Scenario:
     rid: -2
   m_IsScenarioSettingsFolded: 0
@@ -14676,7 +14636,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5230476941143048607
+    - rid: 5756320640070058374
       type: {class: NetworkSimulatorPreset, ns: Unity.Multiplayer.Tools.NetworkSimulator.Runtime, asm: Unity.Multiplayer.Tools.NetworkSimulator.Runtime}
       data:
         <Name>k__BackingField: Home Broadband with Congested Network
@@ -15483,7 +15443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1244282299
+  GlobalObjectIdHash: 2047625941
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -15973,8 +15933,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9.6253, y: -171.9188}
-  m_SizeDelta: {x: 136.6577, y: 44.8794}
+  m_AnchoredPosition: {x: 5.4318, y: -174.5}
+  m_SizeDelta: {x: 190.8635, y: 44.8794}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1897467817
 MonoBehaviour:
@@ -16062,7 +16022,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 1.9969559, y: 0, z: 0.7323532, w: 0}
+  m_margin: {x: 1.9969559, y: 0, z: 23.963432, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

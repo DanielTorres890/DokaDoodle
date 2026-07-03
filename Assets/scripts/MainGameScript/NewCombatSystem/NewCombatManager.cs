@@ -207,7 +207,7 @@ public class NewCombatManager : NetworkBehaviour
         Dictionary<string, List<EntityStats>> spawnGroups = new Dictionary<string, List<EntityStats>>();
         foreach (var combatant in PlayerCombatManager.Instance.combatants)
         {
-            
+            Debug.Log("I found this combatant " + combatant.name);
             if (!spawnGroups.ContainsKey(combatant.loyaltyTags[combatant.loyaltyTags.Count - 1]))
             {
                 spawnGroups.Add(combatant.loyaltyTags[combatant.loyaltyTags.Count - 1], new List<EntityStats>());

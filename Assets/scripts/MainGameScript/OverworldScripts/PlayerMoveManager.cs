@@ -846,7 +846,7 @@ public class PlayerMoveManager : NetworkBehaviour
             if (mapNumber != NetworkData.Instance.players[i].curMap)
             {
                 Debug.Log(NetworkData.Instance.players[i].name + "Is not on the current map ");
-                playerSticks[i].SetActive(false);
+                playerSticks[i].transform.position += Vector3.down * -200;
                 continue;
             }
                 

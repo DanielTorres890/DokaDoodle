@@ -38,6 +38,7 @@ public class CombatantMovement : NetworkBehaviour
     [SerializeField] private bool grounded;
     [SerializeField] private float gravityMult = 2;
     [SerializeField] private float minZoomIn, maxZoomOut;
+    private float dashDuration = 0.25f;
 
     private bool finished = false;
     private void Awake()
@@ -149,11 +150,20 @@ public class CombatantMovement : NetworkBehaviour
         abilityManager.onEnergyChange.Invoke();
         dashCdTimer = 0;
         abilityManager.combatantstate = combatantStates.Dashing;
-        abilityManager.stateDuration = .25f;
+        abilityManager.stateDuration = dashDuration;
         if(body)
         {
+
             // body.AddForce(transform.TransformDirection(new Vector3(move.x, 0, move.y) * (jumpForce + abilityManager.stats.dashFormula())), ForceMode.Impulse);
+            
             body.AddForce(new Vector3(body.linearVelocity.x, 0, body.linearVelocity.z).normalized * abilityManager.stats.dashFormula(), ForceMode.Impulse);
+            Debug.Log("Who is you?" + new Vector2(body.linearVelocity.x, body.linearVelocity.z));
+            Debug.Log("Is this what I'd expect? " + transform.InverseTransformDirection(new Vector3(body.linearVelocity.x,0, body.linearVelocity.z)));
+            Vector3 localDirection = transform.InverseTransformDirection(new Vector3(body.linearVelocity.x, 0, body.linearVelocity.z));
+            Vector2 newDirection = new Vector2(localDirection.x, localDirection.z);
+            animator.DashingState(true, newDirection);
+            Tween.Delay(dashDuration / 2, () => { animator.DashingState(false, newDirection); });
+
         }
 
     }
