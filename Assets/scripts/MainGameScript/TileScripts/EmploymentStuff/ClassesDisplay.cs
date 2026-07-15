@@ -18,6 +18,7 @@ public class ClassesDisplay : MonoBehaviour
 
     private List<GameObject> displayedGameObjects = new List<GameObject>();
     [SerializeField] private TextMeshProUGUI displayText;
+    public ClassProgressDisplay progressDisplay;
 
 
     private void Start()
@@ -43,6 +44,7 @@ public class ClassesDisplay : MonoBehaviour
 
             AddEvent(obj, EventTriggerType.Select, delegate { displayText.SetText(NetworkData.Instance.classDataBase.GetItem[tempId].classDescription); });
             AddEvent(obj, EventTriggerType.PointerEnter, delegate { displayText.SetText(NetworkData.Instance.classDataBase.GetItem[tempId].classDescription); });
+            AddEvent(obj, EventTriggerType.PointerEnter, delegate { progressDisplay.UpdateClassDisplay(tempId); });
 
             //UnityAction<GameObject> action = new UnityAction<GameObject>(delegate { inventory.container[tempId].item.ItemInfoCheck(NetworkData.Instance.currentPlayer, inventory.container[tempId].Id); });
             //UnityEventTools.AddObjectPersistentListener<GameObject>(obj.GetComponent<Button>().onClick, action, obj);

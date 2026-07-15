@@ -61,7 +61,67 @@ public class AllyViewNetwork : NetworkBehaviour
 
     }
 
+    public void HealAlly()
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        if (!NetworkData.Instance.ContainsHealingItem(NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][0])) { return; }
 
+        HealAllyRpc();
+
+    }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void HealAllyRpc()
+    {
+        var ally = NetworkData.Instance.GetCurrentPlayer().partyMembers[currentAllyIndex];
+        var itemInv = NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][0];
+        
+        ItemBase chosenItem = itemInv.container[0].item;
+        int allyMissingHp = ally.stats[Attributes.MaxHealth] - ally.stats[Attributes.Health];
+
+        foreach (var slot in itemInv.container)
+        {
+            if(chosenItem is not FoodItem) { chosenItem = slot.item; continue; }
+            if(slot.item is not FoodItem) { continue; }
+
+            if(!IsHealingItem(chosenItem as FoodItem)) { chosenItem = slot.item; continue; }
+            if(!IsHealingItem(slot.item as FoodItem)) { continue; }
+
+            FoodItem chosenFood = chosenItem as FoodItem;
+            FoodItem otherFood = slot.item as FoodItem;
+
+            int chosenFoodHealing = chosenFood.HealingAmount();
+            int otherFoodHealing = otherFood.HealingAmount();
+
+            if(chosenFoodHealing > otherFoodHealing)
+            {
+                if(otherFoodHealing >= allyMissingHp)
+                {
+                    chosenItem = slot.item; 
+                }
+            }
+            else
+            {
+                if(chosenFoodHealing < allyMissingHp)
+                {
+                    chosenItem = slot.item;
+                }
+            }
+
+        }
+        FoodItem theFood = chosenItem as FoodItem;
+        theFood.PerformItemEffect(NetworkData.Instance.currentPlayer, itemInv);
+        ExitAllyStateMenu();
+    }
+    private bool IsHealingItem(FoodItem item)
+    {
+        bool canHeal = false;
+        foreach (var buff in (item as FoodItem).buffs)
+        {
+            if (buff.attribute == Attributes.Health) { canHeal = true; break; }
+        }
+        return canHeal;
+    }
     public void ReturnToOwner()
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }

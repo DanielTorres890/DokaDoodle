@@ -17,7 +17,8 @@ MonoBehaviour:
   attackName: Mocking Shout
   startUp: 1
   attackDuration: 0
-  endLag: 0.5
+  endLag: 0.2
+  startCooldown: 0
   cooldown: 7
   lifespan: 5
   energyDrain: 1
@@ -65,6 +66,7 @@ MonoBehaviour:
   attackAnimation: {fileID: 7400000, guid: 601848516adb0e24b9a25624628b3853, type: 2}
   animationSpeed: 1
   LevelRequirements: []
+  startUpNoise: {fileID: 0}
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
   onHitEffects:
@@ -73,3 +75,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   conditions: []
+  colorByWeapon: 0
+  parentToPlayer: 0

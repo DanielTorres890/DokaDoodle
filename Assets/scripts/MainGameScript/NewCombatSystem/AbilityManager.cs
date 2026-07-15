@@ -462,6 +462,11 @@ public class AbilityManager : NetworkBehaviour
         NewCombatManager.instance.cameras.Add(cam);
         
     }
+    public void UpdateUI()
+    {
+        nameText.UpdateText();
+        hpText.UpdateText();
+    }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void UpdateStatsRpc(int combatantNum)
     {

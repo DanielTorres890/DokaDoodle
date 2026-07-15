@@ -188,8 +188,10 @@ public class NewCombatManager : NetworkBehaviour
     {
         foreach(var combatant in PlayerCombatManager.Instance.combatants)
         {
+
             if(!contributions.ContainsKey(combatant))
             contributions.Add(combatant, 0);
+            Debug.Log("This entity can contribute " + combatant.name);
         }
     }
 
@@ -324,21 +326,29 @@ public class NewCombatManager : NetworkBehaviour
 
     public void KILL(AbilityManager whoded)
     {
+        if(fricku.Contains(whoded.gameObject))
         fricku.Remove(whoded.gameObject);
+
+
         if (whoded.stats is EnemyCombat)
         {
             EnemyCombat info = (EnemyCombat)whoded.stats;
             info.isDead = true;
-            xpHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].droppedXp;
-            moneyHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].GetDroppedMoney();
 
-            if (IsServer)
+            if(!whoded.TryGetComponent(out SummonDespawn issummoned))
             {
-                int dropnum = PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].rollItem();
-                if (dropnum >= 0) { ItemDroppedRpc(dropnum, info.enemyId); }
+                xpHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].droppedXp;
+                moneyHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].GetDroppedMoney();
 
-                
+                if (IsServer)
+                {
+                    int dropnum = PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].rollItem();
+                    if (dropnum >= 0) { ItemDroppedRpc(dropnum, info.enemyId); }
+
+
+                }
             }
+            
             var rigid = whoded.GetComponent<Rigidbody>();
             rigid.constraints = RigidbodyConstraints.None;
             rigid.isKinematic = false;
@@ -1038,6 +1048,7 @@ public class NewCombatManager : NetworkBehaviour
     }
     public void AddContribution(EntityStats who, int amount)
     {
+
         if(contributions.ContainsKey(who))
         {
             

@@ -17,12 +17,16 @@ public abstract class PlayerClassBase : ScriptableObject
     public int[] inventorySizes;
     public int ClassActionCD;
 
+
+    public string classActionName;
     [TextArea(15, 5)]
     public string actionUseText;
+    public ClassAbilityType actionType;
 
     public AttackBase combatAbility;
     public AttackBase basicAttackAbility;
 
+    
     public int[] classXpRequirements;
 
     public int baseSalary;
@@ -36,4 +40,11 @@ public abstract class PlayerClassBase : ScriptableObject
         if (NetworkData.Instance.IsHost) { ClientChecks.Instance.CompleteClassAbilityRpc(); }
     }
     public virtual bool UnlockCondition(playerData player) { return true; }
+}
+
+public enum ClassAbilityType
+{
+    Combat,
+    Movement,
+    Other
 }

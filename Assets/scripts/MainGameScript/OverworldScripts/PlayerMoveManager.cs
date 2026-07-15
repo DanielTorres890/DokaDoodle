@@ -399,8 +399,9 @@ public class PlayerMoveManager : NetworkBehaviour
         ClientChecks.Instance.rollNum.transform.parent.gameObject.SetActive(true);
         MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].players.Add(NetworkData.Instance.currentPlayer);
         
-        if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds.Count > 0 && IsServer)
+        if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].trapIds.Count > 0)
         {
+            if(IsServer)
             ClientChecks.Instance.ActivateTrapsRpc();
         }
         else 
@@ -920,11 +921,7 @@ public class PlayerMoveManager : NetworkBehaviour
         {
             if (member.boardMovementState != PlayerFollowingStates.WithOwner || member.curMap != mapNumber) { continue; }
 
-            MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Remove(member);
-            member.curTileId = NetworkData.Instance.GetCurrentPlayer().curTileId;
-            MapTileSpecialEvents.Instance.mapTiles[mapNumber][member.curTileId].partyMembers.Add(member);
-            
-            
+            member.TeleportMember(NetworkData.Instance.GetCurrentPlayer().curTileId, NetworkData.Instance.GetCurrentPlayer().curMap);
 
         }
 

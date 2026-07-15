@@ -21,7 +21,7 @@ public abstract class AbilityBase : NetworkBehaviour
     public bool destroyOnWallCollide;
 
     public GameObject hitGameObject;
-    public AudioSource AudioSource;
+    public AudioSource audioSource;
 
     public bool stickInOpponent = false;
    
@@ -30,7 +30,7 @@ public abstract class AbilityBase : NetworkBehaviour
     private void Awake()
     {
         lifetimer = 0f;
-        TryGetComponent(out AudioSource);
+        TryGetComponent(out AudioSource audioSource);
         
        
     }
@@ -78,8 +78,7 @@ public abstract class AbilityBase : NetworkBehaviour
 
         
         totalDamge *= (1 - defender.postStatusDmgReduction[attackType]/100f);
-        Debug.Log("but im charged for how long here? " + chargedDuration);
-        Debug.Log("and the calcs are off " + attackInfo.ChargeMultiplier(ownerStats, chargedDuration));
+        
         totalDamge *= Mathf.Clamp(attackInfo.ChargeMultiplier(ownerStats, chargedDuration) * (attackInfo.maxChargeAtkBuff - 1) + 1, 1, 99999);
         if (totalDamge < 0)
             return 0;
@@ -120,7 +119,7 @@ public abstract class AbilityBase : NetworkBehaviour
                 buffIds[i] = NetworkData.Instance.buffDataBase.GetId[attackInfo.onHitEffects[i]];
             }
             hitby.IGainedBuffRpc(buffIds);
-            if (AudioSource && attackInfo.onHitSound)
+            if (audioSource && attackInfo.onHitSound)
             {
                 if(ownerStats is playerData)
                 PlayHitSoundRpc(NetworkData.Instance.audioDataBase.GetId[attackInfo.onHitSound], RpcTarget.Single((ulong)NetworkData.Instance.PlayerNumToClientId((ownerStats as playerData).playerNumber), RpcTargetUse.Temp));

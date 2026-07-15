@@ -120,7 +120,7 @@ public abstract class AttackBase : ScriptableObject
         info.lifespan = lifespan - (time - NetworkManager.Singleton.ServerTime.TimeAsFloat);
 
         info.chargedDuration = chargedDuration;
-        Debug.Log("You are charged for this long " + info.chargedDuration);
+       
 
         info.ownerStats = casterManager;
 

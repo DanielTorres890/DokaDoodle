@@ -9,17 +9,8 @@ public class SFXManager : MonoBehaviour
 
     public void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-            sfxPlayer = GetComponent<AudioSource>();
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-
+        Instance = this;
+        sfxPlayer = GetComponent<AudioSource>();
     }
 
 

@@ -120,12 +120,16 @@ public class DataPersistenceManager : MonoBehaviour
 
         Debug.Log("I shouldnt be loading from here...");
          gameData = JsonConvert.DeserializeObject<GameData>(jsonString);
+
+        this.dataPersistances = FindAllDataPersistanceObjects();
         if (this.gameData == null)
         {
             Debug.Log("No Data was found...");
         }
+        
         foreach (IDataPersistance persistance in dataPersistances)
         {
+            Debug.Log("i had a guy to load to here ");
             persistance.LoadData(gameData);
 
         }

@@ -364,6 +364,14 @@ public class playerData : EntityStats
     public void TeleportPlayer(int targetMap, int targetTile)
     {
         bool success = MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Remove(playerNumber);
+        foreach(var partyMember in partyMembers)
+        {
+            if(partyMember.boardMovementState == PlayerFollowingStates.WithOwner)
+            {
+                partyMember.TeleportMember(targetMap, targetTile);
+            }
+        }
+
 
         this.curTileId = targetTile;
         this.curMap = targetMap;

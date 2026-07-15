@@ -46,7 +46,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
 
     public float globalShopMultiplier = 1;
-    private List<bool> readyPlayers = new List<bool>();
+    public List<bool> readyPlayers = new List<bool>();
 
     public EventBase currentEvent;
     public UnityEvent onStatusProgress;
@@ -83,14 +83,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     private StringBuilder recievedGameData = new StringBuilder();
     public void Awake()
     {
-        var previousNetwork = Instance;
-        if(previousNetwork != null)
-        {
-            Destroy(previousNetwork);
-            Destroy(previousNetwork.gameObject);
-            
-        }
-        
+
         NetworkData.Instance = this;
 
         readyPlayers.Add(false);
@@ -131,6 +124,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     {
         if(Instance == this)
         Debug.Log("Did i get called twice? ");
+        Debug.Log("Did i catch network data? ");
         players = data.players;
         maxPlayers = data.maxPlayers;
         LoadedIn = true;
@@ -451,7 +445,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         {
             if(!IsHost)
             DataPersistenceManager.instance.LoadDataFromString(recievedGameData.ToString());
-
+            Debug.Log("did i pick up the data ? ");
             for (int i = 0; i < players.Count; i++)
             {
                 playerPreviews[i].SetActive(true);
@@ -517,7 +511,16 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
         }
     }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void RemoveOrderRpc( ulong clientId)
+    {
+        int playerNum = ClientNumToPlayerNum(clientId);
+        clientOrder[playerNum] = -1;
+        readyPlayers[playerNum] = false;
+        
 
+
+    }
     public void startGame()
     {
 
@@ -551,7 +554,11 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         if (!IsHost)
             NetworkManager.Singleton.DisconnectClient(NetworkManager.Singleton.LocalClientId);
         else
+        {
             NetworkManager.Singleton.Shutdown();
+            SceneManager.LoadScene("MainMenu");
+        }
+            
         
     }
     public bool IsAllowed(int playerNum, ulong playerId)
@@ -729,5 +736,26 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
         }
         return playerOrder;
+    }
+
+    public bool ContainsHealingItem(InventoryObject inventory)
+    {
+        bool hasHealing = false;
+
+        foreach (var slot in inventory.container)
+        {
+            if (slot.item is FoodItem)
+            {
+                foreach (var buff in (slot.item as FoodItem).buffs)
+                {
+                    if (buff.attribute == Attributes.Health)
+                    {
+                        hasHealing = true; break;
+                    }
+                }
+            }
+        }
+
+        return hasHealing;
     }
 }

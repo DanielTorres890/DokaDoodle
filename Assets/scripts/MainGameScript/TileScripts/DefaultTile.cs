@@ -25,7 +25,7 @@ public class DefaultTile : TileScript
         bool enemyAlly = false;
         foreach( var enemy in currentTile.partyMembers )
         {
-            if(enemy.allyOwner != NetworkData.Instance.GetCurrentPlayer().playerNumber) { enemyAlly = true; break;}
+            if(enemy.allyOwner != NetworkData.Instance.GetCurrentPlayer().playerNumber && canFight) { enemyAlly = true; break;}
         }
         bool enemyPlayer = false;
         foreach( var enemy in currentTile.players)

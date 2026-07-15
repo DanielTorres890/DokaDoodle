@@ -15,15 +15,8 @@ public class MapTileSpecialEvents : NetworkBehaviour, IDataPersistance
     // Start is called before the first frame update
     public void Awake()
     {
-        if(Instance == null)       
         Instance = this;
-        else
-        {
-            Destroy(Instance);
-            Destroy(Instance.gameObject);
-            Instance = this;
-        }
-            this.mapTiles = new SpecialTileEventHold[10][];
+        this.mapTiles = new SpecialTileEventHold[10][];
     }
     public override void OnNetworkSpawn()
     {

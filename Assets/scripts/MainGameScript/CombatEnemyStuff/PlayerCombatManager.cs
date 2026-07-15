@@ -21,10 +21,7 @@ public class PlayerCombatManager : MonoBehaviour
     public float spawnRadius;//this is a weird way to get information to newcombnatmanager
     private void Awake()
     {
-        if (Instance != null) 
-        {
-            Destroy(gameObject);
-            return; }
+       
         Instance = this;
     }
 
@@ -45,10 +42,13 @@ public class PlayerCombatManager : MonoBehaviour
         
         foreach (var players in NetworkData.Instance.players)
         {
-            if(players.curMap != NetworkData.Instance.GetCurrentPlayer().curMap || players.curMap != NetworkData.Instance.GetCurrentPlayer().curTileId) { continue; }
+            if(players.curMap != NetworkData.Instance.GetCurrentPlayer().curMap || players.curTileId != NetworkData.Instance.GetCurrentPlayer().curTileId) { continue; }
+
+            if(NetworkData.Instance.players[NetworkData.Instance.currentPlayer] == players) { continue; }
 
             if ((PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight || isRaid))
             {
+
                 Debug.Log("added player " + players.name);
                 PlayerCombatManager.Instance.combatants.Add(players);
                 players.setCombatActions();

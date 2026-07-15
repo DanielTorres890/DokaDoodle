@@ -270,6 +270,14 @@ public class PartyMember : EntityStats
             }
         }
     }
+
+    public void TeleportMember(int tileId, int mapId)
+    {
+        MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].partyMembers.Remove(this);
+        curTileId = tileId;
+        curMap = mapId;
+        MapTileSpecialEvents.Instance.mapTiles[mapId][tileId].partyMembers.Add(this);
+    }
 }
 public enum PlayerFollowingStates
 {

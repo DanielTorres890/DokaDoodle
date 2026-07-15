@@ -37,13 +37,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     private void Awake()
     {
 
-        if (Instance == null)
-            Instance = this;
-        else
-        {
-            Destroy(Instance.gameObject);
-            Instance = this;
-        }
+        Instance = this;
 
 
     }
@@ -119,7 +113,9 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
                 int totalWeight = 0;
                 foreach(var weighted in randomEvents)
                 {
+                    if(weighted.worldEvent.MainQuestCondition == null || weighted.worldEvent.MainQuestCondition.CanBeginQuest())
                     totalWeight += weighted.weight;
+
                 }
                 
                 int randomWeight = Random.Range(0, totalWeight);
@@ -237,4 +233,5 @@ public class WorldAndWeight
 {
     public WorldEventBase worldEvent;
     public int weight;
+
 }

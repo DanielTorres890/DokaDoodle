@@ -43,4 +43,15 @@ public class FoodItem : ItemBase
         
         
     }
+    public int HealingAmount()
+    {
+        foreach(var attrib in buffs)
+        {
+            if(attrib.attribute == Attributes.Health)
+            {
+                return attrib.value;
+            }
+        }
+        return 0;
+    }
 }

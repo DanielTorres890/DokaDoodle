@@ -33,7 +33,7 @@ public class UIStatUpdate : MonoBehaviour
         if (attribute != Attributes.Health && attribute != Attributes.MaxHealth && NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attribute] < NetworkData.Instance.players[NetworkData.Instance.currentPlayer].stats[attribute])
             color = "<color=red>";
 
-        Debug.Log("You should have updated ");
+
         textMeshProUGUI.text = statName + " "+color+NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attribute]+"</color>";
         if(statName.Equals("LVL"))
         {

@@ -19,7 +19,7 @@ public class PopUpManager : MonoBehaviour, IDataPersistance
 
     public void Awake()
     {
-        if (Instance != null) { Destroy(this); Destroy(this.gameObject); return; }
+        
         Instance = this;
     }
 

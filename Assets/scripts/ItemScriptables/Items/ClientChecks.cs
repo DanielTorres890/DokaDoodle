@@ -735,7 +735,7 @@ public class ClientChecks : NetworkBehaviour
 
         WorldEventManager.Instance.eventsToActivate[0].OnActivate();
         WorldEventManager.Instance.eventsToActivate.RemoveAt(0);
-        if (WorldEventManager.Instance.currentCutscene != null) { }
+        if (WorldEventManager.Instance.currentCutscene != null || PlayerCombatManager.Instance.isRaid) { }
 
         else if (WorldEventManager.Instance.eventsToActivate.Count > 0) { StartCoroutine(displayActivateEvent()); }
 
@@ -770,7 +770,7 @@ public class ClientChecks : NetworkBehaviour
         //we pray for no desync 
         WorldEventManager.Instance.eventsToDeactivate[0].OnDeactivate();
         WorldEventManager.Instance.eventsToDeactivate.RemoveAt(0);
-        if(WorldEventManager.Instance.currentCutscene != null) {  }
+        if(WorldEventManager.Instance.currentCutscene != null ) {  }
         else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0) { StartCoroutine(displayDeactivateEvent()); }
         else { TurnStartChecks(); }
     }

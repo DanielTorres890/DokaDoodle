@@ -13,7 +13,8 @@ public class ResetOnEndNetwork : NetworkBehaviour
     private void OnClientDisconnected(ulong clientId)
     {
         Debug.Log("did i attempt a reset? ");
-        if(NetworkManager.Singleton.LocalClientId == clientId)
+        NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnected;
+        if(NetworkManager.Singleton.LocalClientId == clientId && gameObject)
         Destroy(gameObject);
 
     }

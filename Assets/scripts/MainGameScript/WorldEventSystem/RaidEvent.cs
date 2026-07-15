@@ -34,8 +34,8 @@ public class RaidEvent : WorldEventBase
                 player.progressDeath();
             }
             player.TeleportPlayer(raids[raidIndex].mapId, raids[raidIndex].tileId);
-
-
+            player.stats[Attributes.Health] = player.stats[Attributes.MaxHealth];
+            Debug.Log("Added this player to raid " + player);
         }
         
         if(NetworkManager.Singleton.IsHost)

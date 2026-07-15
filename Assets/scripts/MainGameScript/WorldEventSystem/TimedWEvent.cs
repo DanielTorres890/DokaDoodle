@@ -5,6 +5,10 @@ public class TimedWEvent : WorldEventBase
     [Tooltip("In days")]
     public int duration;
 
+    [TextArea(2, 5)]
+    public string eventToolTip;
+
+    public Sprite eventIcon;
     public override void OnActivate()
     {
         
