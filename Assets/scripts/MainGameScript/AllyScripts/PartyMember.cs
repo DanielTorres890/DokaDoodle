@@ -273,9 +273,25 @@ public class PartyMember : EntityStats
 
     public void TeleportMember(int tileId, int mapId)
     {
-        MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].partyMembers.Remove(this);
+        int indexToRemove = -1;
+
+        foreach(var member in MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].partyMembers)
+        {
+            indexToRemove += 1;
+            if(member.name == name && member.allyOwner == allyOwner && allyInfo[PlayerInfo.xp] == member.allyInfo[PlayerInfo.xp]) 
+            {
+                break;
+            }
+        }
+        
+        if(indexToRemove != -1)
+        {
+            MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].partyMembers.RemoveAt(indexToRemove);
+        }
+
         curTileId = tileId;
         curMap = mapId;
+  
         MapTileSpecialEvents.Instance.mapTiles[mapId][tileId].partyMembers.Add(this);
     }
 }

@@ -95,6 +95,10 @@ public class SmarterMeleeEnemy : BaseEnemyBehavior
                 MDefault rangedAtk = (myManager.stats.attacks[i] as MDefault);
                 attackRanges[i] += rangedAtk.speed * (rangedAtk.lifespan / 3);
             }
+            if(targetManager && targetManager.TryGetComponent(out BoxCollider collider))
+            {
+                attackRanges[i] += (collider.size.z) / 2.5f;
+            }
             if (myManager.stats.attacks[i] is BuffAbility)
             {
                 attackRanges[i] = 100f;

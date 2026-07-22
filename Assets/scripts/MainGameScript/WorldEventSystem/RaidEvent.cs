@@ -1,3 +1,4 @@
+using PrimeTween;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -20,6 +21,10 @@ public class RaidEvent : WorldEventBase
                 else if( stat.Key != Attributes.Health)
                     statTotal += stat.Value;
             }
+            foreach(var member in player.partyMembers)
+            {
+                member.loyaltyTags.Add("Raid");
+            }
 
         }
         float normalized = Mathf.InverseLerp(0, 25, statTotal);
@@ -27,6 +32,7 @@ public class RaidEvent : WorldEventBase
         normalized = Mathf.Clamp(0, raids.Length - 1, normalized);
         int raidIndex = Mathf.FloorToInt(normalized);
 
+     
         foreach (var player in NetworkData.Instance.players)
         {
             while(player.isDead)
@@ -35,11 +41,14 @@ public class RaidEvent : WorldEventBase
             }
             player.TeleportPlayer(raids[raidIndex].mapId, raids[raidIndex].tileId);
             player.stats[Attributes.Health] = player.stats[Attributes.MaxHealth];
-            Debug.Log("Added this player to raid " + player);
+         
+        }
+        PlayerCombatManager.Instance.isRaid = true;
+        if(NetworkManager.Singleton.IsHost)
+        {
+            Tween.Delay(0.25f, delegate { ClientChecks.Instance.SyncEnemyRpc(PlayerCombatManager.Instance.EnemyEncounterDataBase.GetId[raids[raidIndex].enemyEncounter]); });
         }
         
-        if(NetworkManager.Singleton.IsHost)
-        ClientChecks.Instance.SyncEnemyRpc(PlayerCombatManager.Instance.EnemyEncounterDataBase.GetId[raids[raidIndex].enemyEncounter]);
 
 
         base.OnActivate();
@@ -50,6 +59,10 @@ public class RaidEvent : WorldEventBase
         foreach (var player in NetworkData.Instance.players)
         {
             player.loyaltyTags.Remove("Raid");
+            foreach (var member in player.partyMembers)
+            {
+                member.loyaltyTags.Remove("Raid");
+            }
         }
             base.OnDeactivate();
     }

@@ -21,7 +21,7 @@ public abstract class AbilityBase : NetworkBehaviour
     public bool destroyOnWallCollide;
 
     public GameObject hitGameObject;
-    public AudioSource audioSource;
+
 
     public bool stickInOpponent = false;
    
@@ -30,7 +30,7 @@ public abstract class AbilityBase : NetworkBehaviour
     private void Awake()
     {
         lifetimer = 0f;
-        TryGetComponent(out AudioSource audioSource);
+
         
        
     }
@@ -119,7 +119,7 @@ public abstract class AbilityBase : NetworkBehaviour
                 buffIds[i] = NetworkData.Instance.buffDataBase.GetId[attackInfo.onHitEffects[i]];
             }
             hitby.IGainedBuffRpc(buffIds);
-            if (audioSource && attackInfo.onHitSound)
+            if (attackInfo.onHitSound)
             {
                 if(ownerStats is playerData)
                 PlayHitSoundRpc(NetworkData.Instance.audioDataBase.GetId[attackInfo.onHitSound], RpcTarget.Single((ulong)NetworkData.Instance.PlayerNumToClientId((ownerStats as playerData).playerNumber), RpcTargetUse.Temp));

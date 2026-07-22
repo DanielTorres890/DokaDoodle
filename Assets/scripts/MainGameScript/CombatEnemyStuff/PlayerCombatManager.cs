@@ -27,14 +27,20 @@ public class PlayerCombatManager : MonoBehaviour
 
     public string BattleSetUp(int encounterId)
     {
+        Debug.Log("Did i set up the battle??");
+        var currentPlayer = NetworkData.Instance.players[NetworkData.Instance.currentPlayer];
+        var currentTile = MapTileSpecialEvents.Instance.mapTiles[currentPlayer.curMap][currentPlayer.curTileId];
+        currentPlayer.setCombatActions();
+
+
         PlayerCombatManager.Instance.combatants.Clear();
-        PlayerCombatManager.Instance.combatants.Add(NetworkData.Instance.players[NetworkData.Instance.currentPlayer]);
+        PlayerCombatManager.Instance.combatants.Add(currentPlayer);
+
+
         string encounterName = "";
         PlayerCombatManager.Instance.currentEncounter = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId];
 
-        NetworkData.Instance.players[NetworkData.Instance.currentPlayer].setCombatActions();
 
-        var currentTile = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
         bool rumble = false; //is there another player that we fight
 
         isRaid = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounterId].isRaid;
@@ -42,11 +48,12 @@ public class PlayerCombatManager : MonoBehaviour
         
         foreach (var players in NetworkData.Instance.players)
         {
-            if(players.curMap != NetworkData.Instance.GetCurrentPlayer().curMap || players.curTileId != NetworkData.Instance.GetCurrentPlayer().curTileId) { continue; }
+            
+            if(players.curMap != currentPlayer.curMap || players.curTileId != currentPlayer.curTileId) { continue; }
 
-            if(NetworkData.Instance.players[NetworkData.Instance.currentPlayer] == players) { continue; }
+            if(currentPlayer == players) { continue; }
 
-            if ((PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight || isRaid))
+            if ((PlayerMoveManager.Instance.mapTiles[currentPlayer.curTileId].canFight || isRaid))
             {
 
                 Debug.Log("added player " + players.name);
@@ -57,6 +64,7 @@ public class PlayerCombatManager : MonoBehaviour
             }
 
         }
+
 
         //Pretty much everything that isn't these two is stuff from the old system
         List<EntityStats> potentialEnemies = new List<EntityStats>(currentTile.tileEnemy);
@@ -69,13 +77,14 @@ public class PlayerCombatManager : MonoBehaviour
 
         foreach (var ally in currentTile.partyMembers)
         {
+            Debug.Log("Looked at this ally");
             if (ally.allyOwner == NetworkData.Instance.currentPlayer) { continue; }
-
+            Debug.Log("Added this ally to combat" + ally.name);
             potentialEnemies.Add(ally);
             ally.setCombatActions();
         }
 
-        if (potentialEnemies.Count == 0)
+        if (potentialEnemies.Count == 0 || isRaid)
         {
             if (!rumble || isRaid)
             {
@@ -125,12 +134,24 @@ public class PlayerCombatManager : MonoBehaviour
 
         if (potentialEnemies.Count > 1)
         {
-            encounterName = "More than 1 guy";
+            EntityStats strongest = potentialEnemies[0];
+            foreach(var enemy in potentialEnemies)
+            {
+                if (strongest.stats[Attributes.MaxHealth] < enemy.stats[Attributes.MaxHealth])
+                {
+                    strongest = enemy;
+                }
+            }
+
+            encounterName = strongest.name;
         }
 
         foreach (var ally in currentTile.partyMembers)
         {
+            Debug.Log("Looking at this ally " + ally.name);
             if (ally.allyOwner != NetworkData.Instance.currentPlayer) { continue; }
+
+            Debug.Log("Added this ally to combat" + ally.name);
             PlayerCombatManager.Instance.combatants.Add(ally);
             ally.setCombatActions();
         }
@@ -143,6 +164,8 @@ public class PlayerCombatManager : MonoBehaviour
             NetworkData.Instance.seenEnemies.Add((combatant as EnemyCombat).enemyId);
 
        }
+
+
         return encounterName;
     }
 }

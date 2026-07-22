@@ -364,17 +364,20 @@ public class playerData : EntityStats
     public void TeleportPlayer(int targetMap, int targetTile)
     {
         bool success = MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].players.Remove(playerNumber);
-        foreach(var partyMember in partyMembers)
+        this.curTileId = targetTile;
+        this.curMap = targetMap;
+        foreach (var partyMember in partyMembers)
         {
+            Debug.Log("Attempting teleport of " + partyMember.name);
             if(partyMember.boardMovementState == PlayerFollowingStates.WithOwner)
             {
+                Debug.Log("Successful teleport of " + partyMember.name);
                 partyMember.TeleportMember(targetMap, targetTile);
             }
         }
 
 
-        this.curTileId = targetTile;
-        this.curMap = targetMap;
+        
         MapTileSpecialEvents.Instance.mapTiles[targetMap][targetTile].players.Add(playerNumber);
     }
 }

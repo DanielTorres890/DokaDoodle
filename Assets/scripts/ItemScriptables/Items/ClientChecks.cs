@@ -159,7 +159,7 @@ public class ClientChecks : NetworkBehaviour
             return;
         }
 
-
+        Debug.Log("how many map tiles are there? " + MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber]);
         var curTile = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
         foreach (var players in curTile.players)
         {
@@ -570,7 +570,7 @@ public class ClientChecks : NetworkBehaviour
         combatPreview.SetActive(true);
         yield return new WaitForSecondsRealtime(5f);
         if(IsHost)
-        SceneChanger.Instance.loadClientScenesServerRpc(PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.GetCurrentPlayer().curTileId].battleEnvironment);
+            SceneChanger.Instance.loadClientScenesServerRpc(MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.GetCurrentPlayer().curMap][NetworkData.Instance.GetCurrentPlayer().curTileId].battleArea);
 
     }
     private IEnumerator TrapActivates()
@@ -735,7 +735,7 @@ public class ClientChecks : NetworkBehaviour
 
         WorldEventManager.Instance.eventsToActivate[0].OnActivate();
         WorldEventManager.Instance.eventsToActivate.RemoveAt(0);
-        if (WorldEventManager.Instance.currentCutscene != null || PlayerCombatManager.Instance.isRaid) { }
+        if (WorldEventManager.Instance.currentCutscene != null || PlayerCombatManager.Instance.isRaid) { Debug.Log("STOP THE COUNT"); }
 
         else if (WorldEventManager.Instance.eventsToActivate.Count > 0) { StartCoroutine(displayActivateEvent()); }
 

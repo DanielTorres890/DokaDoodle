@@ -1,6 +1,7 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class SpawnEvent : MonoBehaviour
+public class SpawnEvent : NetworkBehaviour
 {
     [SerializeField]private GameObject spawnedObject;
     public void SpawnObject(AnimationEvent bello)
@@ -22,10 +23,15 @@ public class SpawnEvent : MonoBehaviour
     }
     public void DestroySpawnedObject()
     {
+        if(IsHost) { DestroySpawnedObjectRpc(); }
+    }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void DestroySpawnedObjectRpc()
+    {
         if (spawnedObject != null)
         {
             Destroy(spawnedObject);
         }
-       
     }
 }

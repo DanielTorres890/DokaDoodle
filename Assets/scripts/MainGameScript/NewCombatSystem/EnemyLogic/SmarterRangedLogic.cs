@@ -61,6 +61,7 @@ public class SmarterRangedLogic : RangedEnemyBehavior
                 float speedCalc = (key as MDefault).speed * Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position) / 10;
                 thisScore += Mathf.Clamp(speedCalc,0,100000) * 2;
             }
+
             if(key is BuffAbility)
             {
                 thisScore = 10000;
@@ -93,6 +94,7 @@ public class SmarterRangedLogic : RangedEnemyBehavior
             {
                 return true;
             }
+
         }
         return false;
     }
@@ -110,6 +112,10 @@ public class SmarterRangedLogic : RangedEnemyBehavior
                 MDefault rangedAtk = (myManager.stats.attacks[i] as MDefault);
                 //i needed something such that lifespan does matter for early values but loses value quickly over time im not trying to be cringe by using log
                 attackRanges[i] += rangedAtk.speed * Mathf.Log(rangedAtk.lifespan / 3);
+            }
+            if (targetManager && targetManager.TryGetComponent(out BoxCollider collider))
+            {
+                attackRanges[i] += (collider.size.z) / 2.5f;
             }
             if (myManager.stats.attacks[i] is BuffAbility)
             {

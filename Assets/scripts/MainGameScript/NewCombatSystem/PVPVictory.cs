@@ -158,12 +158,12 @@ public class PVPVictory : NetworkBehaviour
     {
         confirmPrank.SetActive(false);
         confirmMoneySteal.SetActive(false);
-        dialogueBox.endEvent.RemoveAllListeners();
-        dialogueBox.endEvent.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc(dialogueBox.nextScene); });
-        dialogueBox.lines.Clear();
-        dialogueBox.lines.Add("Well that happpened ");
-        dialogueBox.gameObject.SetActive(true);
-        dialogueBox.startDialogue();
+        //dialogueBox.endEvent.RemoveAllListeners();
+        //dialogueBox.endEvent.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc(dialogueBox.nextScene); });
+        //dialogueBox.lines.Clear();
+        //dialogueBox.lines.Add("Well that happpened ");
+        //dialogueBox.gameObject.SetActive(true);
+        //dialogueBox.startDialogue();
         
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]

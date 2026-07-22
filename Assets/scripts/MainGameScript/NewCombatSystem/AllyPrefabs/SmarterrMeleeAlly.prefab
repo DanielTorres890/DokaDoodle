@@ -1659,7 +1659,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.57
+  m_Radius: 0.75
   m_Height: 5.93
   m_Direction: 1
   m_Center: {x: 0, y: 1.43, z: 0}
@@ -2164,6 +2164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb7fed2f6bf43649ab1aba4c1980656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnEvent
+  ShowTopMostFoldoutHeaderGroup: 1
   spawnedObject: {fileID: 0}
 --- !u!195 &1866336549448998315
 NavMeshAgent:
@@ -2221,6 +2222,7 @@ MonoBehaviour:
   timeToHold: 0
   baseMoveSpeed: 4
   rb: {fileID: 0}
+  source: {fileID: 0}
   minimumRange: 2
   spawnedWeapon: {fileID: 0}
   WeaponTransform: {fileID: 3490191080601003723}

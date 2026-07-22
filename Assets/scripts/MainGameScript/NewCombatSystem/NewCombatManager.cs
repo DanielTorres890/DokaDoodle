@@ -85,6 +85,8 @@ public class NewCombatManager : NetworkBehaviour
 
     private CinemachineBrain mainCam;
     private float musicDelay = .5f;
+
+    public List<Action> fightEndQueue;
     private void Awake()
     {
         AudioSource = GetComponent<AudioSource>();
@@ -343,7 +345,23 @@ public class NewCombatManager : NetworkBehaviour
                 if (IsServer)
                 {
                     int dropnum = PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].rollItem();
-                    if (dropnum >= 0) { ItemDroppedRpc(dropnum, info.enemyId); }
+                    
+                    if(dropnum >= 0 && itemsPicked.Count > 0)
+                    {
+                       
+                        int roll = UnityEngine.Random.Range(0, 100);
+                        roll /= itemsPicked.Count;
+                        if(roll > 20 || PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].probability[dropnum] >= 100)
+                        {
+                            ItemDroppedRpc(dropnum, info.enemyId);
+                        }
+
+                    }
+                    else
+                    {
+                        if (dropnum >= 0) { ItemDroppedRpc(dropnum, info.enemyId); }
+                    }
+                    
 
 
                 }
@@ -605,7 +623,7 @@ public class NewCombatManager : NetworkBehaviour
             endBattleInfo.lines.Add(player.name + " has gained <color=blue>" + (totalXpToGain) + "</color> xp ");
             if (cache.partyMembers.Count > 0) { endBattleInfo.lines[endBattleInfo.lines.Count - 1] += "(split between you and your allies)"; }
 
-
+            
             if (leveledUp)
             {
                 endBattleInfo.lines[endBattleInfo.lines.Count - 1] += " and they've leveled up <color=blue>" + levels + "</color> times";
@@ -655,52 +673,32 @@ public class NewCombatManager : NetworkBehaviour
 
             //LEMME MAKE THIS REAL CLEAR I KNOW I COULD IMPLEMENT SOME KIND OF QUEUE BUT LORD THAT SOUNDS LIKE A LOT OF THINKING
             //AND ITS 4 AM AND IM TIRED ANDF THISLL DO FRICK U
+
+            fightEndQueue = new List<Action>();
             if (leveledUp || isFull || pvpWin)
             {
                 endBattleInfo.endEvent.RemoveAllListeners();
                 endBattleInfo.endEvent.AddListener(delegate { endBattleInfo.gameObject.SetActive(false); });
+                endBattleInfo.endEvent.AddListener(delegate { BattleEndEvents(); });
+
             }
             if (leveledUp)
             {
+                fightEndQueue.Add(delegate { levelUpUI.Setup(); });
+                levelUpUI.onFinishLevelUp.AddListener(BattleEndEvents);
 
-                endBattleInfo.endEvent.AddListener(delegate { levelUpUI.Setup(); });
-                levelUpUI.onFinishLevelUp.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI"); });
             }
             if (isFull)
             {
-                if (leveledUp)
-                {
-                    levelUpUI.onFinishLevelUp.RemoveAllListeners();
-                    if (IsHost)
-                        levelUpUI.onFinishLevelUp.AddListener(delegate { dropItem.SetUp(player.playerNumber, itemType); });
+                fightEndQueue.Add(delegate { dropItem.SetUp(player.playerNumber, itemType); });
+                dropItem.finishLose.AddListener(BattleEndEvents);
 
-                }
-                else
-                {
-                    if (IsHost)
-                        endBattleInfo.endEvent.AddListener(delegate { dropItem.SetUp(player.playerNumber, itemType); });
-                }
-                dropItem.finishLose.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI"); });
+              
             }
             if (pvpWin)
             {
-                //this strongly suggests i should fix my flow of things but man do i not want to
-                if (isFull)
-                {
-                    dropItem.finishLose.RemoveAllListeners();
-                    dropItem.finishLose.AddListener(delegate { pvpVictory.SetUp(deadPlayers[0], player.playerNumber); });
-
-                }
-                else if (leveledUp)
-                {
-                    levelUpUI.onFinishLevelUp.RemoveAllListeners();
-                    levelUpUI.onFinishLevelUp.AddListener(delegate { pvpVictory.SetUp(deadPlayers[0], player.playerNumber); });
-
-                }
-                else
-                {
-                    endBattleInfo.endEvent.AddListener(delegate { pvpVictory.SetUp(deadPlayers[0], player.playerNumber); });
-                }
+                fightEndQueue.Add(delegate { pvpVictory.SetUp(deadPlayers[0], player.playerNumber); });
+                dropItem.finishLose.AddListener(BattleEndEvents);
 
             }
 
@@ -758,7 +756,20 @@ public class NewCombatManager : NetworkBehaviour
         cache.moneyOnTile = 0;
 
     }
+    public void BattleEndEvents()
+    {
+        if(fightEndQueue.Count > 0)
+        {
+            fightEndQueue[0].Invoke();
+            fightEndQueue.RemoveAt(0);
+        }
+        else
+        {
+            if(IsHost)
+            SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI");
+        }
 
+    }
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void EarlyEndCombatRpc()
