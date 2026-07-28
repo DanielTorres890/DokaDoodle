@@ -39,6 +39,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 1, y: 1, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
+  lockRotation: 0
   baseDamage: 10
   multipliers:
   - attribute: 2
@@ -74,7 +75,8 @@ MonoBehaviour:
     m_Bits: 0
   conditions: []
   colorByWeapon: 0
+  parentToPlayer: 0
   speed: 20
   pierceCount: 0
-  burstLifespan: 1
+  burstLifespan: 0.2
   burstSize: {x: 1.5, y: 1.5, z: 1.5}

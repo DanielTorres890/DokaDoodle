@@ -642,6 +642,7 @@ public class ClientChecks : NetworkBehaviour
             yield return null;
         }
 
+        if(IsHost)
         PlayerMoveManager.Instance.NextTurnRpc();
 
 
@@ -675,7 +676,7 @@ public class ClientChecks : NetworkBehaviour
             yield return null;
         }
 
-        Debug.Log("am i showing early?");
+      
         display.transform.parent.gameObject.SetActive(true);
         display.gameObject.SetActive(true);
 

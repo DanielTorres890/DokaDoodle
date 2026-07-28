@@ -18,7 +18,7 @@ public class PartyMember : EntityStats
     public int allyOwner;
 
     public int targetTile;
-
+    public int skillsToGain;
     private int GainMoveLevel = 3;
 
     public PlayerFollowingStates boardMovementState; 
@@ -77,7 +77,7 @@ public class PartyMember : EntityStats
         var randomItem = NetworkData.Instance.classDataBase.GetItem[allyClass].recommendedItems[selected];
         if(randomItem.determineType() == 1) { weaponsInventory.Add(NetworkData.Instance.playerInventories[0][1].database.GetId[randomItem]); }
         else { magicInventory.Add(NetworkData.Instance.playerInventories[0][2].database.GetId[randomItem]); }
-
+        skillsToGain -= 1;
         setCombatActions();
     }
 
@@ -143,9 +143,9 @@ public class PartyMember : EntityStats
                     if (member == this) { break; }
                     counter++;
                 }
-
-                if (NetworkData.Instance.IsHost)
-                    NetworkData.Instance.AddItemToAllyRpc(allyOwner, counter, Random.Range(0, NetworkData.Instance.classDataBase.GetItem[allyClass].recommendedItems.Length));
+                skillsToGain += 1;
+                //if (NetworkData.Instance.IsHost)
+                //    NetworkData.Instance.AddItemToAllyRpc(allyOwner, counter, Random.Range(0, NetworkData.Instance.classDataBase.GetItem[allyClass].recommendedItems.Length));
             }
             levelsGained++;
             foreach (var stat in NetworkData.Instance.classDataBase.GetItem[this.allyClass].levelUpStats)

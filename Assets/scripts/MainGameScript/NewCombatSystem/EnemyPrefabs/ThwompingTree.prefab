@@ -1280,12 +1280,24 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 453788864148207181, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1090975797935040750, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1201768740570306502, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1427251880356378898, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3171772232210343518, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3725137572382692352, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
@@ -1299,6 +1311,10 @@ PrefabInstance:
     - target: {fileID: 5137427445999551678, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: m_LocalPosition.z
       value: -20.4605
+      objectReference: {fileID: 0}
+    - target: {fileID: 5807740251707301414, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6056675833493310472, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -1316,6 +1332,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4bba314f34298fe43ad0bcfee220e4dd, type: 2}
+    - target: {fileID: 6855438303258636042, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7219282781567435366, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
@@ -1323,6 +1343,10 @@ PrefabInstance:
     - target: {fileID: 7479503514201466774, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: m_Name
       value: ThwompingTree
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635976686476836817, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7820316575989497132, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1367,6 +1391,30 @@ PrefabInstance:
     - target: {fileID: 7820316575989497132, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8203133696417584997, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639212002161372499, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655356708608278137, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834640946610136258, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845128363144473774, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8858884278805243784, guid: 4d3ab60fc9854534cb80a32af5aa5de0, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1672,6 +1720,7 @@ MonoBehaviour:
     onStatusProgress:
       m_PersistentCalls:
         m_Calls: []
+    stunImmune: 0
     attacks: []
     defenses: []
   combatantstate: 5
@@ -1826,10 +1875,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 94
   m_CollisionDetection: 0
 --- !u!210 &-7128470321392012826
 SortingGroup:

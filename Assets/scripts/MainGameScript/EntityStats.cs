@@ -18,6 +18,8 @@ public class EntityStats
 
     [JsonIgnore] public UnityEvent onStatusProgress = new UnityEvent();
 
+    public bool stunImmune;
+
     public Dictionary<Attributes, int> stats = new Dictionary<Attributes, int>
     {
         {Attributes.MaxHealth, 0 },

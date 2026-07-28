@@ -28,7 +28,7 @@ public class NewCombatManager : NetworkBehaviour
 
     [SerializeField] private PlayerUIManager playerUI;
     [SerializeField] private StatUIDisplay statUI;
-    
+    [SerializeField] private AllySkillSelectUI skillSelectUI;
     private int xpHarvested;
     private int moneyHarvested;
 
@@ -701,14 +701,22 @@ public class NewCombatManager : NetworkBehaviour
                 dropItem.finishLose.AddListener(BattleEndEvents);
 
             }
+            for (int i = 0; i < player.partyMembers.Count; i ++)
+            {
+                if (player.partyMembers[i].skillsToGain > 0)
+                {
+                    fightEndQueue.Add(delegate { skillSelectUI.SetUp(player.playerNumber); });
+                    skillSelectUI.onFinished.AddListener(BattleEndEvents);
+                    break;
+                }
+            }
 
 
 
 
 
 
-
-            endBattleInfo.gameObject.SetActive(true);
+                endBattleInfo.gameObject.SetActive(true);
             endBattleInfo.startDialogue();
             endBattleInfo.whoInControl = player.playerNumber;
 

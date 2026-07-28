@@ -137,7 +137,7 @@ public class PlayerCombatManager : MonoBehaviour
             EntityStats strongest = potentialEnemies[0];
             foreach(var enemy in potentialEnemies)
             {
-                if (strongest.stats[Attributes.MaxHealth] < enemy.stats[Attributes.MaxHealth])
+                if (strongest.stats[Attributes.MaxHealth] > enemy.stats[Attributes.MaxHealth])
                 {
                     strongest = enemy;
                 }

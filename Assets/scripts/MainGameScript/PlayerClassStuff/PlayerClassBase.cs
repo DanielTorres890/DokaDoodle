@@ -31,7 +31,7 @@ public abstract class PlayerClassBase : ScriptableObject
 
     public int baseSalary;
 
-    public ItemBase[] recommendedItems;
+    public WeaponItem[] recommendedItems;
 
     public PartyAITypes AIType;
     public virtual void ClassAction(playerData player, int randomNum)

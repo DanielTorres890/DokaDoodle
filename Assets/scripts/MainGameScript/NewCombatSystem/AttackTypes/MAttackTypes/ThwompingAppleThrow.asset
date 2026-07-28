@@ -39,10 +39,10 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 1, y: 1, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
-  baseDamage: 15
+  baseDamage: 5
   multipliers:
   - attribute: 4
-    mult: 2
+    mult: 1.6
   defenseMult:
   - attribute: 3
     mult: 1
@@ -74,6 +74,7 @@ MonoBehaviour:
     m_Bits: 0
   conditions: []
   colorByWeapon: 0
+  parentToPlayer: 0
   attacksPerBurst: 25
   totalBursts: 1
   individualAttack: {fileID: 4958144232811764369, guid: 7136fb6ff143f9f49a7172ce29484c86, type: 3}

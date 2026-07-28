@@ -50,6 +50,7 @@ public abstract class AttackBase : ScriptableObject
     public Vector3 offset = Vector3.zero;
     public Vector3 ablitySize = Vector3.one;
     public Vector3 visualRoation = Vector3.zero;
+    public bool lockRotation;
 
     [Header("Damage info")]
     public int baseDamage;
@@ -83,7 +84,8 @@ public abstract class AttackBase : ScriptableObject
         var attack = Instantiate(attackPrefab);
        
         attack.transform.position = caster.transform.position + caster.transform.TransformDirection(offset);
-        attack.transform.rotation = caster.transform.rotation;
+        if (!lockRotation)
+            attack.transform.rotation = caster.transform.rotation;
         attack.transform.localScale = ablitySize;
         
         var info = attack.GetComponent<AbilityBase>();
@@ -110,7 +112,9 @@ public abstract class AttackBase : ScriptableObject
         
 
         attack.transform.position = whereiscaster +  Quaternion.Euler(casterLooking) * offset;
+        if(!lockRotation)
         attack.transform.rotation = caster.transform.rotation;
+
         attack.transform.localScale = Mathf.Clamp(ChargeMultiplier(manager.stats, chargedDuration) * (maxChargeSizeBuff - 1) + 1, 1, 99999) * ablitySize;
 
 
