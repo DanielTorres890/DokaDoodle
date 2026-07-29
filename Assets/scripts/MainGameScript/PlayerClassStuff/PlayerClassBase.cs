@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class PlayerClassBase : ScriptableObject
 {
     public string className;
-
+    public int classTier;
     [TextArea(1, 5)] public string classDescription;
     [TextArea(1, 5)] public string overworldAbilityDescription;
 
@@ -32,6 +32,7 @@ public abstract class PlayerClassBase : ScriptableObject
     public int baseSalary;
 
     public WeaponItem[] recommendedItems;
+    public PlayerClassBase[] allyClassUpgrades;
 
     public PartyAITypes AIType;
     public virtual void ClassAction(playerData player, int randomNum)
@@ -40,6 +41,9 @@ public abstract class PlayerClassBase : ScriptableObject
         if (NetworkData.Instance.IsHost) { ClientChecks.Instance.CompleteClassAbilityRpc(); }
     }
     public virtual bool UnlockCondition(playerData player) { return true; }
+
+    public virtual bool AllyUnlockCondition(PartyMember ally) { return ally.allyInfo[PlayerInfo.level] > classTier * 10; }
+
 }
 
 public enum ClassAbilityType

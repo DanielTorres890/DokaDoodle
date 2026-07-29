@@ -21,6 +21,7 @@ public class EmploymentEventManager : NetworkBehaviour
     public GameObject PartyMemberPurchase;
     public GameObject MainMenu;
     public GameObject confirmAllyBuy;
+    public GameObject allyPromote;
 
     public GameObject confirmClassSwap;
     private int currentClassLook;
@@ -53,6 +54,7 @@ public class EmploymentEventManager : NetworkBehaviour
     private int numOfAllies = 5;
     private int currentAllyBuy;
     public AllyDisplay allyDisplay;
+    public AllyPromoteDisplay allyPromoteDisplay;
     public TextMeshProUGUI displayText;
     public UIStatUpdate moneyDisplay;
 
@@ -130,7 +132,23 @@ public class EmploymentEventManager : NetworkBehaviour
     {
         MainMenu.SetActive(toBe);
     }
+    public void SetAllyPromoteActive(bool toBe)
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
+        if(NetworkData.Instance.GetCurrentPlayer().partyMembers.Count <= 0) { return; }
+        SetAllyPromoteActiveRpc(toBe);
 
+    }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void SetAllyPromoteActiveRpc(bool toBe)
+    {
+        allyPromote.SetActive(toBe);
+        if(toBe)
+        {
+            allyPromoteDisplay.CreateDisplay(NetworkData.Instance.GetCurrentPlayer().partyMembers);
+        }
+    }
     public void ChangePlayerClass(int classId)
     {
         if(!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
