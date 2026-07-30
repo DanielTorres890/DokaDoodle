@@ -34,6 +34,9 @@ public abstract class PlayerClassBase : ScriptableObject
     public WeaponItem[] recommendedItems;
     public PlayerClassBase[] allyClassUpgrades;
 
+    [TextArea(3,6)]
+    public string allyUnlockTips;
+
     public PartyAITypes AIType;
     public virtual void ClassAction(playerData player, int randomNum)
     {

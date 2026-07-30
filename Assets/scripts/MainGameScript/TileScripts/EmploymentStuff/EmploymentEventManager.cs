@@ -1,5 +1,5 @@
+
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
@@ -20,8 +20,11 @@ public class EmploymentEventManager : NetworkBehaviour
     public GameObject JobChangeObject;
     public GameObject PartyMemberPurchase;
     public GameObject MainMenu;
+
     public GameObject confirmAllyBuy;
+    
     public GameObject allyPromote;
+    public GameObject confirmAllyPromote;
 
     public GameObject confirmClassSwap;
     private int currentClassLook;
@@ -53,6 +56,7 @@ public class EmploymentEventManager : NetworkBehaviour
     public SpriteLibraryAsset spriteLibrary;
     private int numOfAllies = 5;
     private int currentAllyBuy;
+    private int promoteClassId;
     public AllyDisplay allyDisplay;
     public AllyPromoteDisplay allyPromoteDisplay;
     public TextMeshProUGUI displayText;
@@ -147,6 +151,8 @@ public class EmploymentEventManager : NetworkBehaviour
         if(toBe)
         {
             allyPromoteDisplay.CreateDisplay(NetworkData.Instance.GetCurrentPlayer().partyMembers);
+            if (IsHost)
+                SetMainMenuChangeActive(false);
         }
     }
     public void ChangePlayerClass(int classId)
@@ -305,8 +311,51 @@ public class EmploymentEventManager : NetworkBehaviour
         PartyMemberPurchase.SetActive(false);
 
     }
+    public void SelectPromoteAlly(int index, int classId)
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
+        if (!NetworkData.Instance.classDataBase.GetItem[classId].AllyUnlockCondition(NetworkData.Instance.GetCurrentPlayer().partyMembers[index])) { return; }
+        SelectPromoteAllyRpc(index, classId);
+    }
 
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void SelectPromoteAllyRpc(int index, int classId)
+    {
+        currentAllyBuy = index;
+        promoteClassId = classId;
+        confirmAllyPromote.SetActive(true);
+        allyPromote.SetActive(false);
+       
 
+    }
+
+    public void ConfirmPromoteAlly()
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
+        ConfirmPromoteAllyRpc();
+    }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void ConfirmPromoteAllyRpc()
+    {
+        NetworkData.Instance.GetCurrentPlayer().partyMembers[currentAllyBuy].allyClass = promoteClassId;
+        confirmAllyPromote.SetActive(false);
+        allyPromote.SetActive(true);
+        allyPromoteDisplay.SetAllyVisuals(currentAllyBuy);
+    }
+
+    public void DontPromoteAlly()
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
+        DontPromoteAllyRpc();
+    }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void DontPromoteAllyRpc()
+    {
+        confirmAllyPromote.SetActive(false);
+        allyPromote.SetActive(true);
+
+    }
     public void DontBuyAlly()
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }

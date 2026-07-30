@@ -10,13 +10,14 @@ public class AllyPromoteDisplay : MonoBehaviour
     [SerializeField] private GameObject itemPrefab;
 
     private List<GameObject> displayedGameObjects = new List<GameObject>();
-   
+    private List<GameObject> displayedGameObjectsPromoteOptions = new List<GameObject>();
     public characterEditor allyEditor;
 
     private List<PartyMember> currentValues;
-
+    public Transform classButtonParent;
     public TextMeshProUGUI allyTextDisplay;
 
+    public TextMeshProUGUI unlockConditions;
     private void Start()
     {
 
@@ -30,6 +31,11 @@ public class AllyPromoteDisplay : MonoBehaviour
         SetAllyVisuals(0);
         var classDictionary = NetworkData.Instance.GetCurrentPlayer().playerClassProgress;
         int i = 0;
+        foreach(var spawned in displayedGameObjects)
+        {
+            Destroy(spawned);
+        }
+        displayedGameObjects.Clear();
         foreach (var entity in currentValues)
         {
             //This makes even less sense i IS NOT THE ITERATOR BUT SINCE IT WAS DECLARED OUTSIDE OF THE LOOP IT MEANS DELEGATES PASS THE LAST VALUE IT HAS BEFORE ITS DEALLOCATED(?)
@@ -47,8 +53,8 @@ public class AllyPromoteDisplay : MonoBehaviour
             AddEvent(obj, EventTriggerType.Select, delegate { SetAllyVisuals(yofyoungl); });
             AddEvent(obj, EventTriggerType.PointerEnter, delegate { SetAllyVisuals(yofyoungl); });
 
-            AddEvent(obj, EventTriggerType.Select, delegate { SetAllyStatsDisplay(yofyoungl); });
-            AddEvent(obj, EventTriggerType.PointerEnter, delegate { SetAllyStatsDisplay(yofyoungl); });
+            AddEvent(obj, EventTriggerType.Select, delegate { CreateDisplay(yofyoungl); });
+            AddEvent(obj, EventTriggerType.PointerEnter, delegate { CreateDisplay(yofyoungl); });
 
 
             obj.GetComponentInChildren<TextMeshProUGUI>().text = entity.name;
@@ -75,7 +81,7 @@ public class AllyPromoteDisplay : MonoBehaviour
 
     }
    
-    private void SetAllyVisuals(int allyIndex)
+    public void SetAllyVisuals(int allyIndex)
     {
       
         allyEditor.setClass(currentValues[allyIndex].allyClass);
@@ -91,4 +97,44 @@ public class AllyPromoteDisplay : MonoBehaviour
             allyTextDisplay.text += NetworkData.Instance.attributeStrings[stat.Key] + ": " + stat.Value + "\n";
         }
     }
+
+    public void CreateDisplay(int allyIndex)
+    {
+        var thisAlly = NetworkData.Instance.GetCurrentPlayer().partyMembers[allyIndex];
+        var AllyClass = NetworkData.Instance.classDataBase.GetItem[thisAlly.allyClass];
+        int i = 0;
+        foreach (var spawned in displayedGameObjectsPromoteOptions)
+        {
+            Destroy(spawned);
+        }
+        displayedGameObjectsPromoteOptions.Clear();
+        foreach (var possibleClass in AllyClass.allyClassUpgrades)
+        {
+            //This makes even less sense i IS NOT THE ITERATOR BUT SINCE IT WAS DECLARED OUTSIDE OF THE LOOP IT MEANS DELEGATES PASS THE LAST VALUE IT HAS BEFORE ITS DEALLOCATED(?)
+            int yofyoungl = i;
+
+            var obj = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, classButtonParent);
+
+
+
+            obj.GetComponent<Button>().onClick.AddListener(delegate { EmploymentEventManager.instance.SelectPromoteAlly(allyIndex, thisAlly.allyClass); });
+
+            //AddEvent(obj, EventTriggerType.Select, delegate { displayText.SetText(NetworkData.Instance.classDataBase.GetItem[entity.allyClass].classDescription); });
+            //AddEvent(obj, EventTriggerType.PointerEnter, delegate { displayText.SetText(NetworkData.Instance.classDataBase.GetItem[entity.allyClass].classDescription); });
+
+            AddEvent(obj, EventTriggerType.Select, delegate { SetUnlockCondition(thisAlly.allyClass); });
+            AddEvent(obj, EventTriggerType.PointerEnter, delegate { SetUnlockCondition(thisAlly.allyClass); });
+
+            obj.GetComponentInChildren<TextMeshProUGUI>().text = possibleClass.className;
+            displayedGameObjectsPromoteOptions.Add(obj);
+            i++;
+        }
+    }
+    private void SetUnlockCondition(int classId)
+    {
+        string info = NetworkData.Instance.classDataBase.GetItem[classId].allyUnlockTips;
+        unlockConditions.text = "Minimum Level " + (NetworkData.Instance.classDataBase.GetItem[classId].classTier * 10).ToString();
+        unlockConditions.text += info;
+    }
+    
 }
