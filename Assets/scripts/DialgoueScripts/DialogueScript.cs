@@ -8,20 +8,21 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using UnityEngine.Events;
+using PrimeTween;
 
 public class DialogueScript : NetworkBehaviour
 {
     [SerializeField] private TextMeshProUGUI textComponent;
     [SerializeField] private Image background;
     [SerializeField] public List<string> lines;
-
+    [SerializeField] public List<float> delays;
     public string nextScene = "Fake";
     [DoNotSerialize]public int whoInControl = 0;
 
     [SerializeField] float textSpeed;
     [SerializeField] bool startShown;
     public UnityEvent endEvent;
-
+    public UnityEvent<int> onLineFinish;
     private int index;
 
     //if you're wondering what this is about its bc if make the string visible 1 at a time it excludes color codes </color=blue>
@@ -115,28 +116,37 @@ public class DialogueScript : NetworkBehaviour
 
     void NextLine()
     {
+        onLineFinish.Invoke(index);
+        if(delays.Count > index && delays[index] > 0) 
+        { 
+            Tween.Delay(delays[index], BeginLine);
+            Tween.Delay(Mathf.Clamp(delays[index] - 0.05f, 0 , 9999), delegate { gameObject.SetActive(true); });
+            gameObject.SetActive(false);
+            return;
+        }
 
-        if (index < lines.Count -1)
+
+        BeginLine();
+    }
+    void BeginLine()
+    {
+        if (index < lines.Count - 1)
         {
             index++;
             textComponent.text = lines[index];
             textComponent.maxVisibleCharacters = 0;
             charsToIgnore = 0;
             StartCoroutine(TypeLine());
-        } 
+        }
         else
         {
-            
-            //once again fmcl
-            
-            
+
 
             if (NetworkData.Instance.IsAllowed(whoInControl, NetworkManager.Singleton.LocalClientId))
                 EndEventRpc();
-            
+
         }
     }
-
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void EndEventRpc()
     {

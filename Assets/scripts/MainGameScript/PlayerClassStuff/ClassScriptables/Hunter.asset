@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hunter
   m_EditorClassIdentifier: Assembly-CSharp::Hunter
   className: Hunter
-  classTier: 2
+  classTier: 1
   classDescription: 'Not so much of a fighter, but a specialist in trapping and debilitating
     enemies with traps, while outmaneuvering them to avoid direct confrontation. '
   overworldAbilityDescription: Deploys a trap on a tile of your choosing, dealing
@@ -57,6 +57,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f42ef165537cdbe48a4f93fd11007eb1, type: 2}
   - {fileID: 11400000, guid: cc2b8a03763c2fd4cb690c7c5c2dce64, type: 2}
   allyClassUpgrades: []
+  allyUnlockTips: 
   AIType: 0
   HunterTrap: {fileID: 11400000, guid: 49e3b97ee3dbb364c89882624d247d8c, type: 2}
   prerequisiteClass: {fileID: 11400000, guid: 37c4370512a62b74e805ed377d578269, type: 2}

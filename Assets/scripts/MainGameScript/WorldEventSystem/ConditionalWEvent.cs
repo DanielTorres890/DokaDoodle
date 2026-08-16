@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class ConditionalWEvent : WorldEventBase
 {
-    public override void OnActivate()
+    public override void OnActivate(int randomNum)
     {
         throw new System.NotImplementedException();
     }

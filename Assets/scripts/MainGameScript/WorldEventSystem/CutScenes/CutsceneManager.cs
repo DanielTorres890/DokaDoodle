@@ -7,7 +7,7 @@ public class CutsceneManager : NetworkBehaviour
 {
 
     public DialogueScript dialogueBox;
-
+  
 
     public override void OnNetworkSpawn()
     {
@@ -22,8 +22,16 @@ public class CutsceneManager : NetworkBehaviour
         BGMManager.instance.PlaySound(WorldEventManager.Instance.currentCutscene.backgroundMusic);
         WorldEventManager.Instance.days -= 1;
         dialogueBox.whoInControl = NetworkData.Instance.currentPlayer;
-        Instantiate(WorldEventManager.Instance.currentCutscene.cutsceneBackground);
+        GameObject background = Instantiate(WorldEventManager.Instance.currentCutscene.cutsceneBackground);
+
+        //not my favorite work around but like it is what it is
+        if(background.TryGetComponent(out NetworkObject component))
+        {
+            if(IsHost)
+            component.Spawn();
+        }
         dialogueBox.lines = new List<string>(WorldEventManager.Instance.currentCutscene.dialogue);
+        dialogueBox.delays = new List<float>(WorldEventManager.Instance.currentCutscene.delays);
         WorldEventManager.Instance.currentCutscene = null;
         dialogueBox.gameObject.SetActive(true);
         dialogueBox.startDialogue();

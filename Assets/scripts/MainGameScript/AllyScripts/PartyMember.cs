@@ -19,7 +19,7 @@ public class PartyMember : EntityStats
 
     public int targetTile;
     public int skillsToGain;
-    private int GainMoveLevel = 3;
+    private int GainMoveLevel = 5;
 
     public PlayerFollowingStates boardMovementState; 
 

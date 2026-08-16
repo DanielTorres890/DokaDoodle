@@ -152,7 +152,7 @@ public class EmploymentEventManager : NetworkBehaviour
         {
             allyPromoteDisplay.CreateDisplay(NetworkData.Instance.GetCurrentPlayer().partyMembers);
             if (IsHost)
-                SetMainMenuChangeActive(false);
+                SetMainMenuChangeActiveRpc(false);
         }
     }
     public void ChangePlayerClass(int classId)
@@ -314,6 +314,7 @@ public class EmploymentEventManager : NetworkBehaviour
     public void SelectPromoteAlly(int index, int classId)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
+        Debug.Log("what am i? " + NetworkData.Instance.classDataBase.GetItem[classId].AllyUnlockCondition(NetworkData.Instance.GetCurrentPlayer().partyMembers[index]));
         if (!NetworkData.Instance.classDataBase.GetItem[classId].AllyUnlockCondition(NetworkData.Instance.GetCurrentPlayer().partyMembers[index])) { return; }
         SelectPromoteAllyRpc(index, classId);
     }
@@ -321,6 +322,7 @@ public class EmploymentEventManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void SelectPromoteAllyRpc(int index, int classId)
     {
+        Debug.Log("Am i here?");
         currentAllyBuy = index;
         promoteClassId = classId;
         confirmAllyPromote.SetActive(true);

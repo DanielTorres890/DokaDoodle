@@ -4,10 +4,10 @@ using UnityEngine;
 public class GlobalMoneyEvent : TimedWEvent
 {
     public float multiplier;
-    public override void OnActivate()
+    public override void OnActivate(int randomNum)
     {
         NetworkData.Instance.globalShopMultiplier *= multiplier;
-        base.OnActivate();
+        base.OnActivate(randomNum);
     }
     public override void OnDeactivate()
     {

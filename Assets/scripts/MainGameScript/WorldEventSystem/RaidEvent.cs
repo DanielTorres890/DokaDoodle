@@ -6,7 +6,7 @@ using UnityEngine;
 public class RaidEvent : WorldEventBase
 {
     public RaidInfo[] raids;
-    public override void OnActivate()
+    public override void OnActivate(int randomNum)
     {
         
 
@@ -51,7 +51,7 @@ public class RaidEvent : WorldEventBase
         
 
 
-        base.OnActivate();
+        base.OnActivate(randomNum);
     }
     public override void OnDeactivate()
     {

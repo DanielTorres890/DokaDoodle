@@ -116,14 +116,14 @@ public class AllyPromoteDisplay : MonoBehaviour
             var obj = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity, classButtonParent);
 
 
-
-            obj.GetComponent<Button>().onClick.AddListener(delegate { EmploymentEventManager.instance.SelectPromoteAlly(allyIndex, thisAlly.allyClass); });
+            int classId = NetworkData.Instance.classDataBase.GetId[possibleClass];
+            obj.GetComponent<Button>().onClick.AddListener(delegate { EmploymentEventManager.instance.SelectPromoteAlly(allyIndex, classId); });
 
             //AddEvent(obj, EventTriggerType.Select, delegate { displayText.SetText(NetworkData.Instance.classDataBase.GetItem[entity.allyClass].classDescription); });
             //AddEvent(obj, EventTriggerType.PointerEnter, delegate { displayText.SetText(NetworkData.Instance.classDataBase.GetItem[entity.allyClass].classDescription); });
 
-            AddEvent(obj, EventTriggerType.Select, delegate { SetUnlockCondition(thisAlly.allyClass); });
-            AddEvent(obj, EventTriggerType.PointerEnter, delegate { SetUnlockCondition(thisAlly.allyClass); });
+            AddEvent(obj, EventTriggerType.Select, delegate { SetUnlockCondition(classId); });
+            AddEvent(obj, EventTriggerType.PointerEnter, delegate { SetUnlockCondition(classId); });
 
             obj.GetComponentInChildren<TextMeshProUGUI>().text = possibleClass.className;
             displayedGameObjectsPromoteOptions.Add(obj);
@@ -133,8 +133,8 @@ public class AllyPromoteDisplay : MonoBehaviour
     private void SetUnlockCondition(int classId)
     {
         string info = NetworkData.Instance.classDataBase.GetItem[classId].allyUnlockTips;
-        unlockConditions.text = "Minimum Level " + (NetworkData.Instance.classDataBase.GetItem[classId].classTier * 10).ToString();
-        unlockConditions.text += info;
+        //unlockConditions.text = "Minimum Level " + (NetworkData.Instance.classDataBase.GetItem[classId].classTier * 10).ToString();
+        unlockConditions.text = NetworkData.Instance.classDataBase.GetItem[classId].className + ": " + info;
     }
     
 }

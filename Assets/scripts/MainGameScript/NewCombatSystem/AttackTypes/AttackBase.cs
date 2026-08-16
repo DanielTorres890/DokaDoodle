@@ -83,9 +83,14 @@ public abstract class AttackBase : ScriptableObject
        
         var attack = Instantiate(attackPrefab);
        
+        
         attack.transform.position = caster.transform.position + caster.transform.TransformDirection(offset);
         if (!lockRotation)
+        {
+        
             attack.transform.rotation = caster.transform.rotation;
+        }
+           
         attack.transform.localScale = ablitySize;
         
         var info = attack.GetComponent<AbilityBase>();
@@ -109,11 +114,14 @@ public abstract class AttackBase : ScriptableObject
         var casterManager = caster.GetComponent<AbilityManager>().stats;
 
 
-        
+     
 
         attack.transform.position = whereiscaster +  Quaternion.Euler(casterLooking) * offset;
-        if(!lockRotation)
-        attack.transform.rotation = caster.transform.rotation;
+        if (!lockRotation)
+        {
+           
+            attack.transform.rotation = caster.transform.rotation;
+        }
 
         attack.transform.localScale = Mathf.Clamp(ChargeMultiplier(manager.stats, chargedDuration) * (maxChargeSizeBuff - 1) + 1, 1, 99999) * ablitySize;
 
@@ -138,8 +146,10 @@ public abstract class AttackBase : ScriptableObject
         {
             var fx = Instantiate(spawnFx);
             fx.transform.position = caster.transform.position;
-            fx.transform.rotation = caster.transform.rotation;
             fx.transform.localScale = Mathf.Clamp(ChargeMultiplier(manager.stats, chargedDuration) * (maxChargeSizeBuff - 1) + 1, 1, 99999) * ablitySize;
+            fx.transform.rotation = attack.transform.rotation;
+            
+            
             fx.GetComponent<NetworkObject>().Spawn(true);
         }
         
@@ -152,8 +162,8 @@ public abstract class AttackBase : ScriptableObject
         {
             childColor.WeaponColor();
         }
-        
 
+        
 
         return attack;
     }

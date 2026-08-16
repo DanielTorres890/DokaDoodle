@@ -9,9 +9,9 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
     [Tooltip("How much it'll look around to find an open area \nthink of it like 1 meaning itll turn 1 degree until it finds an open area to run to")]
     public float Precision = 1f;
     public float StopKitingDistance;
-
     
-    private int failedEscapeCounter;
+    
+    [SerializeField]private int failedEscapeCounter;
 
     [Tooltip("How many times the enemy will kite attempt to kite away before attacking anyways")]
     public int failedEscapeAmount;
@@ -47,18 +47,23 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
             
         }
         selectAttack();
-        if (myManager.stateManager[selectedAttack].cooldown > 0)
+        if (myManager.stateManager.Count > 0 && myManager.stateManager[selectedAttack].cooldown > 0)
         {
             failedEscapeCounter = 0;
         }
-        
+        //not a big fan of this fix but if they aren't capable of attacking then they should probably only run away
+        if(myManager.stateManager.Count <= 0)
+        {
+            failedEscapeCounter = 0;
+            return;
+        } 
         base.Update();
     }
 
     
     public override void selectAttack()
     {
-       
+        if(myManager.stats.attacks.Count <= 0) { return; }
         selectedAttack = myManager.stats.attacks[0];
         foreach (var key in myManager.stateManager.Keys)
         {
@@ -103,6 +108,7 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
 
     private void kiteFinish()
     {
+     
         if (avoiding && Vector3.Distance(gameObject.transform.position, agent.destination) < StopKitingDistance)
         {
 

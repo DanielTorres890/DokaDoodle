@@ -136,7 +136,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
         if (IsHost && (eventsToActivate.Count > 0 || eventsToDeactivate.Count > 0))
         {
-            ClientChecks.Instance.WorldEventRpc();
+            ClientChecks.Instance.WorldEventRpc(Random.Range(0, 100));
         }
         else if (IsHost)
         {
@@ -173,6 +173,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void SyncStartCutsceneRpc(int eventId)
     {
+      
         currentCutscene = worldDatabase.GetItem[eventId].startCutscene;
         if (IsHost) { SceneChanger.Instance.loadClientScenesServerRpc("Cutscene Scene"); }
     }

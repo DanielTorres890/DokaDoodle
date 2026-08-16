@@ -23,7 +23,7 @@ public class MonsterEvent : WorldEventBase
         return true;
     }
 
-    public override void OnActivate()
+    public override void OnActivate(int randomNum)
     {
         var enemyspawn = new EnemyCombat(enemy);
         enemyspawn.persistant = true;
@@ -39,7 +39,7 @@ public class MonsterEvent : WorldEventBase
 
         }
         
-        base.OnActivate();
+        base.OnActivate(randomNum);
         //maybe add another check but im p sure events should only occur on the overworld
     }
 

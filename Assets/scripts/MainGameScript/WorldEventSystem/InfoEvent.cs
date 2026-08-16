@@ -7,7 +7,7 @@ public class InfoEvent : WorldEventBase
         throw new System.NotImplementedException();
     }
 
-    public override void OnActivate()
+    public override void OnActivate(int randomNum)
     {
         throw new System.NotImplementedException();
     }

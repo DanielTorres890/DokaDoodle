@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wizard
   m_EditorClassIdentifier: Assembly-CSharp::Wizard
   className: Wizard
-  classTier: 2
+  classTier: 1
   classDescription: A more experienced spellcaster that allows them more versatility.
     Out of combat they can perform a special spell that will give them a random buff.
     In combat their special attack can stun enemies
@@ -57,6 +57,7 @@ MonoBehaviour:
   baseSalary: 500
   recommendedItems: []
   allyClassUpgrades: []
+  allyUnlockTips: 
   AIType: 1
   prerequisiteClass: {fileID: 11400000, guid: 404d7d52c43f2c3469d9d3c8c3e57b3e, type: 2}
   possibleBuffs:

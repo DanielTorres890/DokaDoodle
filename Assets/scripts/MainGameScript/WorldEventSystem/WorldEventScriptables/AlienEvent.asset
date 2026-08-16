@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 265b3d1264c0a514db8efc52db305511, type: 3}
+  m_Name: AlienEvent
+  m_EditorClassIdentifier: Assembly-CSharp::TemporaryAreaEvent
+  ActivateText:
+  - OOOOOHH ALLIEENNSS NOOOOO
+  DeactivateText: The aliens sent back whoever was taken
+  eventDisplay: {fileID: 21300000, guid: db2f21da2e9dd4b4597f45663336ce56, type: 3}
+  startCutscene: {fileID: 11400000, guid: 4db1250780b672c4fa37df1aa3b6f4eb, type: 2}
+  finishCutscene: {fileID: 0}
+  MainQuestCondition: {fileID: 11400000, guid: c6394c2a1bade9a4c821f3792b4ca8b9, type: 2}
+  eventDuration: 14
+  mapId: 4
+  tileId: 0

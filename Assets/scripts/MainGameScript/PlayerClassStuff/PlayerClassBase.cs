@@ -45,7 +45,7 @@ public abstract class PlayerClassBase : ScriptableObject
     }
     public virtual bool UnlockCondition(playerData player) { return true; }
 
-    public virtual bool AllyUnlockCondition(PartyMember ally) { return ally.allyInfo[PlayerInfo.level] > classTier * 10; }
+    public virtual bool AllyUnlockCondition(PartyMember ally) { return ally.allyInfo[PlayerInfo.level] >= (classTier * 10); }
 
 }
 

@@ -80,7 +80,10 @@ public class AllySkillSelectUI : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void SetUpRpc(int playerId, int[] skillSelection)
     {
-        foreach(var button in spawnedPrefabs)
+
+        confirmButtons.SetActive(false);
+        allySkillDisplay.transform.parent.gameObject.SetActive(true);
+        foreach (var button in spawnedPrefabs)
         {
             Destroy(button);
         }

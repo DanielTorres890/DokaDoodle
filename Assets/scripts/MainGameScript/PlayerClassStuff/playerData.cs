@@ -368,10 +368,10 @@ public class playerData : EntityStats
         this.curMap = targetMap;
         foreach (var partyMember in partyMembers)
         {
-            Debug.Log("Attempting teleport of " + partyMember.name);
+          
             if(partyMember.boardMovementState == PlayerFollowingStates.WithOwner)
             {
-                Debug.Log("Successful teleport of " + partyMember.name);
+            
                 partyMember.TeleportMember(targetMap, targetTile);
             }
         }

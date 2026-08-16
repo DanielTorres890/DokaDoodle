@@ -457,10 +457,10 @@ public class ClientChecks : NetworkBehaviour
     }
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    public void WorldEventRpc()
+    public void WorldEventRpc(int randomNum)
     {
         Debug.Log("Step 3");
-        if (WorldEventManager.Instance.eventsToActivate.Count > 0) { StartCoroutine(displayActivateEvent()); }
+        if (WorldEventManager.Instance.eventsToActivate.Count > 0) { StartCoroutine(displayActivateEvent(randomNum)); }
         else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0) { StartCoroutine(displayDeactivateEvent()); }
 
     }
@@ -714,7 +714,7 @@ public class ClientChecks : NetworkBehaviour
         mainMenuButtons.SetActive(true);
     }
 
-    private IEnumerator displayActivateEvent()
+    private IEnumerator displayActivateEvent(int randomNum)
     {
    
         displayText.lines.Clear();
@@ -734,11 +734,11 @@ public class ClientChecks : NetworkBehaviour
         }
         worldEventImage.gameObject.SetActive(false);
 
-        WorldEventManager.Instance.eventsToActivate[0].OnActivate();
+        WorldEventManager.Instance.eventsToActivate[0].OnActivate(randomNum);
         WorldEventManager.Instance.eventsToActivate.RemoveAt(0);
         if (WorldEventManager.Instance.currentCutscene != null || PlayerCombatManager.Instance.isRaid) { Debug.Log("STOP THE COUNT"); }
 
-        else if (WorldEventManager.Instance.eventsToActivate.Count > 0) { StartCoroutine(displayActivateEvent()); }
+        else if (WorldEventManager.Instance.eventsToActivate.Count > 0) { StartCoroutine(displayActivateEvent(randomNum)); }
 
         else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0 ) {  StartCoroutine(displayDeactivateEvent()); }
 

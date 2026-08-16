@@ -8,7 +8,7 @@ public class TimedMonsterEvent : TimedWEvent
     public int mapToSpawn;
     public int tileIdToSpawn;
     public int fameToAward;
-    public override void OnActivate()
+    public override void OnActivate(int randomNum)
     {
         var enemyspawn = new EnemyCombat(enemy);
         enemyspawn.persistant = true;
@@ -24,7 +24,7 @@ public class TimedMonsterEvent : TimedWEvent
 
         }
 
-        base.OnActivate();
+        base.OnActivate(randomNum);
         //maybe add another check but im p sure events should only occur on the overworld
     }
 

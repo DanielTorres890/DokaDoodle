@@ -9,7 +9,7 @@ public class TimedWEvent : WorldEventBase
     public string eventToolTip;
 
     public Sprite eventIcon;
-    public override void OnActivate()
+    public override void OnActivate(int randomNum)
     {
         
     }
