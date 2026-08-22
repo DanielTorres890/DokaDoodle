@@ -361,7 +361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804880954259114146}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -2.93, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
@@ -369,7 +369,7 @@ Transform:
   - {fileID: 7900466442200814045}
   - {fileID: 1254295538535811348}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &5486278205602431814
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -702,7 +702,7 @@ MonoBehaviour:
   baseMoveSpeed: 4
   rb: {fileID: 0}
   source: {fileID: 0}
-  kiteRange: 10
+  kiteRange: 15
   kiteAmount: 10
   Precision: 10
   StopKitingDistance: 4

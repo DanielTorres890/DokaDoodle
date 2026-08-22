@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42e542e6897b1b49a5085f063ea70bd, type: 3}
+  m_Name: Malding Slime
+  m_EditorClassIdentifier: 
+  enemyName: M. Slime
+  enemyPrefab: {fileID: 1804880954259114146, guid: 390613fa444670f4aa4069c1399fe7bc, type: 3}
+  enemyNonCombatPrefab: {fileID: 2107133108188379058, guid: dd531175d64edc549bcdf744f2dd91c4, type: 3}
+  Stats:
+  - attribute: 0
+    value: 150
+  - attribute: 1
+    value: 150
+  - attribute: 2
+    value: 10
+  - attribute: 3
+    value: 5
+  - attribute: 4
+    value: 3
+  - attribute: 5
+    value: 5
+  - attribute: 6
+    value: 0
+  loyaltyTags:
+  - Slime
+  Attackss:
+  - {fileID: 11400000, guid: 058ad898bb76e40478b5321434182828, type: 2}
+  Defendss: []
+  DroppedItems:
+  - {fileID: 11400000, guid: 072be48f03b7c9044a51fd7a66a732b1, type: 2}
+  - {fileID: 11400000, guid: a9b93fcac5e86da48a315e89c55b7d70, type: 2}
+  probability: 3200000019000000
+  enemyLevel: 5
+  droppedXp: 75
+  droppedMoney: 200
+  droppedFame: 0
+  scalingMoney: 0
+  flee: 0
+  SpecialMusic: {fileID: 0}

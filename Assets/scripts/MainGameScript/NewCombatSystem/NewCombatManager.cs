@@ -819,8 +819,8 @@ public class NewCombatManager : NetworkBehaviour
 
         for(int i = tilereadCache.tileEnemy.Count - 1; i >= 0; i--)
         {
-            
-            if (tilereadCache.tileEnemy[i].isDead || (combatOver && !tilereadCache.tileEnemy[i].persistant))
+            EnemyBase enemyInfo = PlayerCombatManager.Instance.EnemyDataBase.GetItem[tilereadCache.tileEnemy[i].enemyId];
+            if (tilereadCache.tileEnemy[i].isDead || (combatOver && !tilereadCache.tileEnemy[i].persistant) || enemyInfo.flee)
             {
                 tilereadCache.tileEnemy.RemoveAt(i);
             }

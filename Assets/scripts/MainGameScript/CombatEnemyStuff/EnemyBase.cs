@@ -26,6 +26,11 @@ public class EnemyBase : ScriptableObject, ISerializationCallbackReceiver
     public int droppedMoney;
     public int droppedFame;
     public bool scalingMoney = false;
+
+    [Tooltip("If true an enemy wont persist if combat ends early")]
+    public bool flee = false;
+
+
     [Tooltip("If the enemy should override the bgm insert this")]
     public AudioClip SpecialMusic;
     public void OnAfterDeserialize()

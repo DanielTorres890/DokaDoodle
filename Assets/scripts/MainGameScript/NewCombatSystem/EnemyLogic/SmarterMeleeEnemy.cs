@@ -81,7 +81,7 @@ public class SmarterMeleeEnemy : BaseEnemyBehavior
     private void CalculateAttackRanges()
     {
         if(myManager.stats.attacks.Count <= 0) { return; }
-
+        if(attackRanges != null && attackRanges.Length > 0) { return; }
 
         attackRanges = new float[myManager.stats.attacks.Count];
         
