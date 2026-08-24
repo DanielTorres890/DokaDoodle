@@ -24,7 +24,8 @@ public class StatBuffEvent : EventBase
            
             foreach (ItemBuff buff in buffs)
             {
-                NetworkData.Instance.players[NetworkData.Instance.currentPlayer].stats[buff.attribute] += buff.value;
+                NetworkData.Instance.players[NetworkData.Instance.currentPlayer].ChangeBaseStat(buff.attribute, buff.value);
+          
                 textToAdd += buff.value + " " + NetworkData.Instance.attributeStrings[buff.attribute];
                 if (buff != buffs[buffs.Length - 1])
                 {

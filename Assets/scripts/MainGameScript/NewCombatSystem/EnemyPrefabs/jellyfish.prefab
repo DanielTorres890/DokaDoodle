@@ -317,8 +317,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 7, z: 0.5}
-  m_Center: {x: -0.2, y: 2.27, z: 0}
+  m_Size: {x: 8, y: 7, z: 0.5}
+  m_Center: {x: -0.2, y: 1.2, z: 0}
 --- !u!114 &1951428160628325734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,7 +539,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.4
-  m_Speed: 4
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -548,7 +548,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 7.18
-  m_BaseOffset: 0.96
+  m_BaseOffset: 2.3
   m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!114 &-8106719395968188378
@@ -575,19 +575,20 @@ MonoBehaviour:
   myManager: {fileID: 3257693015704149352}
   selectedAttack: {fileID: 0}
   attackRanges:
-  - 5
+  - 7
   InAttackRange: 0
   animator: {fileID: 0}
   overrideController: {fileID: 0}
   walkingAnimation: {fileID: 7400000, guid: 577885a8aa0bc2d45ac80fb0e423fb32, type: 2}
+  walkingAnimSpeed: 0.5
   victoryAnimation: {fileID: 0}
   attackAnimations:
-  - startUp: {fileID: 7400000, guid: 4dbd41581e9e68a4ab2116722306c9ad, type: 2}
-    attack: {fileID: 7400000, guid: c4bf9fb35026a744e9611687abba746c, type: 2}
+  - startUp: {fileID: 7400000, guid: 85b4dc1da07ee3644804d4aef22da2de, type: 2}
+    attack: {fileID: 7400000, guid: bce89f38b3265404ea287b419edc3ac7, type: 2}
     animationSpeed: 0.75
   releaseTimer: 0
   timeToHold: 0
-  baseMoveSpeed: 4
+  baseMoveSpeed: 1
   rb: {fileID: 0}
   source: {fileID: 0}
 --- !u!95 &-2458163416096458169
@@ -1743,6 +1744,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2236017468188408875}
     m_Modifications:
+    - target: {fileID: 4427189580246449752, guid: e3e2057ea9c07334a87c0fe7ff4c7815, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4427189580246449752, guid: e3e2057ea9c07334a87c0fe7ff4c7815, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5563320768704154896, guid: e3e2057ea9c07334a87c0fe7ff4c7815, type: 3}
       propertyPath: m_Name
       value: jellyfish

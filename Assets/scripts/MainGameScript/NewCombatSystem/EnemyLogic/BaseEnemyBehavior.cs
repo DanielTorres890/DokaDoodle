@@ -26,6 +26,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     [DoNotSerialize]public AnimatorOverrideController overrideController;
 
     public AnimationClip walkingAnimation;
+    public float walkingAnimSpeed = 1;
     public AnimationClip victoryAnimation;
 
     [Tooltip("This array works under the assumption that every attack has both a startUp and attack Animation")]
@@ -174,7 +175,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
             animator.SetBool("Attacking", false);
             animator.SetBool("StartUp", false);
             animator.SetBool("Walking", true);
-            animator.SetFloat("AnimSpeed", 1);
+            animator.SetFloat("AnimSpeed", walkingAnimSpeed);
         }
         
         myManager.stateManager[myManager.stats.attacks[0]].pressed = false;

@@ -377,7 +377,7 @@ public class playerData : EntityStats
         }
 
 
-        
+        if (MapTileSpecialEvents.Instance.mapTiles[targetMap] != null)
         MapTileSpecialEvents.Instance.mapTiles[targetMap][targetTile].players.Add(playerNumber);
     }
 }

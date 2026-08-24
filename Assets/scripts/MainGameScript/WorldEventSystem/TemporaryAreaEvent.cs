@@ -11,6 +11,11 @@ public class TemporaryAreaEvent : WorldEventBase
     {
 
         int playerToSend = randomNum % NetworkData.Instance.players.Count;
+        if (MapTileSpecialEvents.Instance.mapTiles[mapId] == null)
+        {
+
+        }
+
 
         NetworkData.Instance.players[playerToSend].TeleportPlayer(mapId, tileId);
   

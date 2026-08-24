@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42e542e6897b1b49a5085f063ea70bd, type: 3}
+  m_Name: Jellyfish
+  m_EditorClassIdentifier: 
+  enemyName: Jellalien
+  enemyPrefab: {fileID: 1804880954259114146, guid: ce318ccf030c1f74ababa01088f4a6ff, type: 3}
+  enemyNonCombatPrefab: {fileID: 5563320768704154896, guid: e3e2057ea9c07334a87c0fe7ff4c7815, type: 3}
+  Stats:
+  - attribute: 0
+    value: 120
+  - attribute: 1
+    value: 120
+  - attribute: 2
+    value: 2
+  - attribute: 3
+    value: 5
+  - attribute: 4
+    value: 12
+  - attribute: 5
+    value: 10
+  - attribute: 6
+    value: 2
+  loyaltyTags:
+  - Monster
+  Attackss:
+  - {fileID: 11400000, guid: ba7982f7694d9504b9b7ad7ffa8fae27, type: 2}
+  Defendss: []
+  DroppedItems:
+  - {fileID: 11400000, guid: 072be48f03b7c9044a51fd7a66a732b1, type: 2}
+  - {fileID: 11400000, guid: 0006303e41bb71145a45bcf48f42b3cb, type: 2}
+  probability: 3200000019000000
+  enemyLevel: 4
+  droppedXp: 50
+  droppedMoney: 120
+  droppedFame: 0
+  scalingMoney: 0
+  flee: 0
+  SpecialMusic: {fileID: 0}

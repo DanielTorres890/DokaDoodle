@@ -120,7 +120,6 @@ public class DialogueScript : NetworkBehaviour
         if(delays.Count > index && delays[index] > 0) 
         { 
             Tween.Delay(delays[index], BeginLine);
-            Tween.Delay(Mathf.Clamp(delays[index] - 0.05f, 0 , 9999), delegate { gameObject.SetActive(true); });
             gameObject.SetActive(false);
             return;
         }
@@ -130,8 +129,10 @@ public class DialogueScript : NetworkBehaviour
     }
     void BeginLine()
     {
+        
         if (index < lines.Count - 1)
         {
+            gameObject.SetActive(true);
             index++;
             textComponent.text = lines[index];
             textComponent.maxVisibleCharacters = 0;
