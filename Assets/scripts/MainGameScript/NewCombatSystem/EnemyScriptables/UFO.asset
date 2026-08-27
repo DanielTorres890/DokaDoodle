@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42e542e6897b1b49a5085f063ea70bd, type: 3}
+  m_Name: UFO
+  m_EditorClassIdentifier: 
+  enemyName: UFO
+  enemyPrefab: {fileID: 1804880954259114146, guid: 33fb063ace33f724eb156637fead2946, type: 3}
+  enemyNonCombatPrefab: {fileID: 8883604859629089864, guid: 8d0803b4c8ffbdf44a91b16a6c3d9312, type: 3}
+  Stats:
+  - attribute: 0
+    value: 400
+  - attribute: 1
+    value: 400
+  - attribute: 2
+    value: 15
+  - attribute: 3
+    value: 15
+  - attribute: 4
+    value: 0
+  - attribute: 5
+    value: 15
+  - attribute: 6
+    value: 20
+  loyaltyTags:
+  - Alien
+  Attackss:
+  - {fileID: 11400000, guid: c1fcbd112dc2e144796e069f124b394a, type: 2}
+  Defendss: []
+  DroppedItems:
+  - {fileID: 11400000, guid: f72db857df721f74bb9121c652ab0661, type: 2}
+  probability: 64000000
+  enemyLevel: 10
+  droppedXp: 500
+  droppedMoney: 1000
+  droppedFame: 0
+  scalingMoney: 0
+  flee: 0
+  SpecialMusic: {fileID: 8300000, guid: 1ca9d9a1a75a83e459dbd45a05080523, type: 3}

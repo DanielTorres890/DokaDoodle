@@ -129,7 +129,7 @@ public class ThwompingTreeLogic : BaseEnemyBehavior
         if (!IsServer) { return; }
         if (myManager.CanAct())
         {
-            Debug.Log("I AM ATTACKING");
+          
             FindEnemy();
 
             if(targetManager)
