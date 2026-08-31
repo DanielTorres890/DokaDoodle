@@ -8,7 +8,7 @@ public class RangedBurstAbility : RangedAbility
 
     public override void OnHit()
     {
-        Debug.Log("BRUH IM HITTING FRICK U");
+        
         if(alreadyExploded) { return; }
 
         alreadyExploded = true;
@@ -16,7 +16,7 @@ public class RangedBurstAbility : RangedAbility
         burst.transform.position = gameObject.transform.position;
 
         var cash = burst.GetComponent<AbilityBase>();
-        Debug.Log("bru who is this " + attackInfo.attackName);
+      
         var burstattack = (attackInfo as BurstAtk);
         cash.owner = owner;
         cash.ownerStats = ownerStats;

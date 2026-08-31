@@ -7,13 +7,32 @@ public class TemporaryAreaEvent : WorldEventBase
     public int mapId;
     public int tileId;
 
+    public EnemyBase bossEnemy;
+    public int bossTileId;
     public override void OnActivate(int randomNum)
     {
 
         int playerToSend = randomNum % NetworkData.Instance.players.Count;
-        if (MapTileSpecialEvents.Instance.mapTiles[mapId] == null)
+        if (MapTileSpecialEvents.Instance.mapTiles[mapId] != null)
         {
+            bool hasBoss = false;
+            var tileEnemies = MapTileSpecialEvents.Instance.mapTiles[mapId][bossTileId].tileEnemy;
+            for (int i = 0; i < tileEnemies.Count; i++)
+            {
+                if (tileEnemies[i].enemyId == PlayerCombatManager.Instance.EnemyDataBase.GetId[bossEnemy])
+                {
+                    hasBoss = true;
+                    break;
+                }
+            }
 
+            if (!hasBoss)
+            {
+                var enemystats = new EnemyCombat(bossEnemy);
+                enemystats.persistant = true;
+                tileEnemies.Add(enemystats);
+
+            }
         }
 
 

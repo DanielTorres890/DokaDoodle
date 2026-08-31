@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MultiBurst
   description: 
   attackName: Apple Throws
-  startUp: 1.5
+  startUp: 0.5
   attackDuration: 0
   endLag: 0.1
   startCooldown: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
   ablitySize: {x: 1, y: 1, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
   lockRotation: 0
-  baseDamage: 5
+  baseDamage: 0
   multipliers:
   - attribute: 4
     mult: 1.5
@@ -82,7 +82,7 @@ MonoBehaviour:
   interval: 0.05
   intervalRotation: 5
   attackInfo: {fileID: 11400000, guid: ce22653769522b14a9502d3852722cb3, type: 2}
-  attackOffset: {x: 0, y: 8, z: 0}
+  attackOffset: {x: 0, y: 0, z: 0}
   attackRadius: 0
   individualAttackSound: {fileID: 0}
-  targetMode: 1
+  targetMode: 0

@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class UFOBehavior : BaseEnemyBehavior
 {
     public float cooldownBetweenAttacks;
+    public float cooldownBetweenLasers;
     [SerializeField] private float stateCooldown;
 
     
@@ -14,13 +15,15 @@ public class UFOBehavior : BaseEnemyBehavior
     public float MoveDistance;
     [Tooltip("How random will the UFOS movement be")]
     public float UFOMoveVariance;
+    public float MinUFOHeight = 3;
     public float MaxUFOHeight;
     public UFOStates currentState;
-    private int attackCount = 0;
+    public int attackCount = 0;
    
     private UnityAction halfHealth;
     private Vector3 destination;
     private int previousAttack = -1;
+    [SerializeField] private int dashesPerRest = 2;
     // Update is called once per frame
     public void Start()
     {
@@ -66,25 +69,43 @@ public class UFOBehavior : BaseEnemyBehavior
         stateCooldown -= Time.deltaTime;
         if (stateCooldown < 0)
         {
-            if(currentState == UFOStates.None)
+            
+            if (currentState == UFOStates.None)
             {
                 currentState = UFOStates.Attacking;
-                stateCooldown = cooldownBetweenAttacks;
+                stateCooldown = cooldownBetweenLasers;
                 AttackPlayer();
-
+                Debug.Log("Attack");
             }
             else if(currentState == UFOStates.Attacking)
             {
+                
+
                 currentState = UFOStates.Moving;
-                stateCooldown = cooldownBetweenAttacks;
+                stateCooldown = cooldownBetweenLasers;
                 PickDestination();
+                Debug.Log("Strafe");
 
             }
             else
             {
-                stateCooldown = cooldownBetweenAttacks;
+                stateCooldown = cooldownBetweenLasers;
                 currentState = UFOStates.None;
+                attackCount += 1;
+                Debug.Log("Await Attack");
+                //for now 2 is the amount of lasers it'll do before stopping
+                if (attackCount > dashesPerRest)
+                {
+                    stateCooldown = cooldownBetweenAttacks;
+                    currentState = UFOStates.Moving;
+                    attackCount = -1;
+                    GoToFloor();
+                    Debug.Log("Break");
+                }
+               
+
             }
+          
         }
         else if (selectedAttack)
         {
@@ -94,6 +115,7 @@ public class UFOBehavior : BaseEnemyBehavior
         {
             transform.position = Vector3.MoveTowards(transform.position, destination, baseMoveSpeed * Time.deltaTime);
         }
+        transform.LookAt(targetManager.transform);
     }
     public override void selectAttack()
     {
@@ -114,25 +136,13 @@ public class UFOBehavior : BaseEnemyBehavior
 
             if (targetManager)
             {
-                var prevRotation = transform.rotation;
                 transform.LookAt(targetManager.transform);
-                transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
-                Vector3 newTarget = transform.localEulerAngles;
-                transform.rotation = prevRotation;
-                Tween.LocalRotation(transform, newTarget, 1f);
-
-
             }
 
 
 
             selectAttack();
-            stateCooldown = cooldownBetweenAttacks + selectedAttack.startUp;
-            if (selectedAttack is MultiBurst)
-            {
-                var cachedAtk = (selectedAttack as MultiBurst);
-                stateCooldown += cachedAtk.interval * (cachedAtk.totalBursts - 1);
-            }
+          
             for (int i = 0; i < myManager.stats.attacks.Count; i++)
             {
                 if (myManager.stats.attacks[i] == selectedAttack)
@@ -150,19 +160,14 @@ public class UFOBehavior : BaseEnemyBehavior
     }
     public void PickDestination()
     {
-        if (!agent.enabled)
-        {
-
-            agent.enabled = true;
-        }
-
+        
         Quaternion NOJANK = gameObject.transform.rotation;
         SetAttackingAnim(false);
         SetStartUpAnim(false);
         SetWalkingAnim(true);
         agent.speed = myManager.stats.speedFormula() + baseMoveSpeed;
         gameObject.transform.LookAt(gameObject.transform.position + 
-        new Vector3(Random.Range(-UFOMoveVariance, UFOMoveVariance),Mathf.Clamp(gameObject.transform.position.y + Random.Range(-UFOMoveVariance, UFOMoveVariance), 0, MaxUFOHeight), Random.Range(-UFOMoveVariance, UFOMoveVariance)));
+        new Vector3(Random.Range(-UFOMoveVariance, UFOMoveVariance),Mathf.Clamp(gameObject.transform.position.y + Random.Range(-UFOMoveVariance, UFOMoveVariance), MinUFOHeight, MaxUFOHeight), Random.Range(-UFOMoveVariance, UFOMoveVariance)));
         
         
         gameObject.transform.Rotate(Vector3.up, -Precision);
@@ -174,9 +179,23 @@ public class UFOBehavior : BaseEnemyBehavior
         }
 
 
-        agent.SetDestination(gameObject.transform.TransformDirection(Vector3.forward) * MoveDistance);
+        //agent.SetDestination(gameObject.transform.TransformDirection(Vector3.forward) * MoveDistance);
         destination = gameObject.transform.TransformDirection(Vector3.forward) * MoveDistance;
+        destination = new Vector3(destination.x, Mathf.Clamp(destination.y, MinUFOHeight, MaxUFOHeight), destination.z);
         gameObject.transform.rotation = NOJANK;
+    }
+    private void GoToFloor()
+    {
+        destination = new Vector3(transform.position.x, MinUFOHeight, transform.position.z);
+    }
+    private void FaceTarget()
+    {
+        var prevRotation = transform.rotation;
+
+        transform.LookAt(targetManager.transform);
+        Vector3 newTarget = transform.localEulerAngles;
+        transform.rotation = prevRotation;
+        Tween.LocalRotation(transform, newTarget, 0.5f);
     }
 }
 public enum UFOStates
