@@ -9,7 +9,9 @@ public class MultiBurst : AttackBase
     [Header("Burst info")]
     public int attacksPerBurst;
     public int totalBursts;
-    
+
+    [Tooltip("How much to rotate the y axis from the initial spawn (may not always matter)")]
+    public float startingRotationOffset;
 
     [Tooltip("If during a burst 20 things come out this is that single thing")]
     public GameObject individualAttack;
@@ -31,4 +33,11 @@ public class MultiBurst : AttackBase
     public AudioClip individualAttackSound;
 
     public BurstTargetMode targetMode = BurstTargetMode.Circle;
+
+    public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargedDuration, Vector3 origin, Vector3 direction)
+    {
+        var spawnedObj =  base.WeaponEffect(caster, time, whereiscaster, casterLooking, chargedDuration, origin, direction);
+        spawnedObj.transform.Rotate(Vector3.up * startingRotationOffset);
+        return spawnedObj;
+    }
 }

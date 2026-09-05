@@ -10,30 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d42e542e6897b1b49a5085f063ea70bd, type: 3}
-  m_Name: Bunga
+  m_Name: Shooting Star
   m_EditorClassIdentifier: 
-  enemyName: Bunga
-  enemyPrefab: {fileID: 1804880954259114146, guid: 6fb0bfaf7da33ab4aad66dac7f1fde57, type: 3}
-  enemyNonCombatPrefab: {fileID: 5321021961389390782, guid: 7905fde2503a53b4e8af9db3757c0ba8, type: 3}
+  enemyName: Shooting Star
+  enemyPrefab: {fileID: 1804880954259114146, guid: b579f4635a193284b97a6db07e1f5ebd, type: 3}
+  enemyNonCombatPrefab: {fileID: 8272177222288105748, guid: 0c989a967c45e9d4f9ee7b070169f3ae, type: 3}
   Stats:
   - attribute: 0
-    value: 40
+    value: 200
   - attribute: 1
-    value: 40
+    value: 200
   - attribute: 2
     value: 3
   - attribute: 3
-    value: 3
+    value: 6
   - attribute: 4
-    value: 1
+    value: 12
   - attribute: 5
-    value: 4
+    value: 7
   - attribute: 6
-    value: 3
+    value: 8
   loyaltyTags:
-  - Bunga
+  - Star
   Attackss:
-  - {fileID: 11400000, guid: 624f23ed2bf8f504eb4aa48a590b999f, type: 2}
+  - {fileID: 11400000, guid: cc1eb89cb197a24469228b6d2842edf6, type: 2}
   Defendss:
   - {fileID: 0}
   - {fileID: 11400000, guid: 06cc93f9a8465e9499eff7bb9c2e0268, type: 2}
@@ -42,9 +42,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ec8bc0525fbdc9f408970bfd20fc9713, type: 2}
   - {fileID: 11400000, guid: a9b93fcac5e86da48a315e89c55b7d70, type: 2}
   probability: 1e0000000a0000000a000000
-  enemyLevel: 1
-  droppedXp: 30
-  droppedMoney: 100
+  enemyLevel: 10
+  droppedXp: 100
+  droppedMoney: 500
   droppedFame: 0
   scalingMoney: 0
   flee: 0

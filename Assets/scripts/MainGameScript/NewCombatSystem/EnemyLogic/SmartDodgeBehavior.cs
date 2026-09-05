@@ -7,13 +7,20 @@ public class SmartDodgeBehavior : SmarterMeleeEnemy
     public float dashCost;
     [Tooltip("Chance of dodging away after an attack")]
     public int dodgeAwayChance;
+    [Tooltip("An additional random modifier when dodging")]
+    public float dodgeVariance;
     private float timeToChaseDashTimer;
-
+    private bool recentlyDashed = false;
+    
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
         if(!IsServer) { return; }
-        myManager.onEndAttack.AddListener(DashBack);
+        myManager.onEndAttack.AddListener(delegate {
+            
+            if(myManager.combatantstate != combatantStates.Free || recentlyDashed) { return; }
+            DashBack();
+        });
     }
 
     public override void ChasePlayer()
@@ -24,7 +31,10 @@ public class SmartDodgeBehavior : SmarterMeleeEnemy
         timeToChaseDashTimer += Time.deltaTime;
         if (timeToChaseDashTimer > timeToChaseDash)
         {
+            //var prevRotation = transform.rotation;
+            //transform.Rotate(Vector3.up * Random.Range(-dodgeVariance, dodgeVariance));
             Dash(transform.forward);
+            //transform.rotation = prevRotation;
             return;
         }
 
@@ -33,6 +43,7 @@ public class SmartDodgeBehavior : SmarterMeleeEnemy
     }
     public override void AttackPlayer()
     {
+        recentlyDashed = false;
         timeToChaseDashTimer = 0;
         base.AttackPlayer();
     }
@@ -40,7 +51,9 @@ public class SmartDodgeBehavior : SmarterMeleeEnemy
     {
 
         timeToChaseDashTimer = 0;
+        recentlyDashed = true;
         if (myManager.currentEnergy < dashCost) { return; }
+
         
         myManager.currentEnergy -= dashCost;
         myManager.combatantstate = combatantStates.Dashing;
@@ -51,9 +64,13 @@ public class SmartDodgeBehavior : SmarterMeleeEnemy
     }
     public void DashBack()
     {
+     
         if(Random.Range(0,101) < dodgeAwayChance)
         {
+            var prevRotation = transform.rotation;
+            transform.Rotate(Vector3.up * Random.Range(-dodgeVariance, dodgeVariance));
             Dash(transform.TransformDirection(Vector3.back));
+            transform.rotation = prevRotation;
         }
     }
 

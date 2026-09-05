@@ -57,7 +57,7 @@ public class SmarterMeleeEnemy : BaseEnemyBehavior
                 bestScore = thisScore;
                 bestAttack = key;
             }
-            Debug.Log("The weight of this attack: " + key.attackName + " was " + thisScore);
+           
             
         }
        

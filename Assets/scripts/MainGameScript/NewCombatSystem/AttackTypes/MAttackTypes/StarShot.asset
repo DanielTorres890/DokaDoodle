@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88423fa34ea4c3b4d8d7661c8e38dca6, type: 3}
+  m_Name: StarShot
+  m_EditorClassIdentifier: 
+  description: Fires an attack that homes on enemies
+  attackName: Star Shot
+  startUp: 1
+  attackDuration: 0
+  endLag: 0.1
+  startCooldown: 0
+  cooldown: 7
+  lifespan: 12
+  energyDrain: 7
+  initialEnergyCost: 0
+  maxChargeAtkBuff: 1.4
+  maxChargeSizeBuff: 1.6
+  maxChargeSpeedBuff: 1.1
+  maxChargeDuration: 2.5
+  requiredPotency: 0
+  dmgPotencyEffect: 2
+  sizePotencyEffect: 2
+  stateToBe: 0
+  chargeable: 1
+  attackPrefab: {fileID: 4958144232811764369, guid: 304059e6613954341ad1d1e5fe2c836c, type: 3}
+  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
+  spawnFx: {fileID: 0}
+  offset: {x: 0, y: 2, z: 0}
+  ablitySize: {x: 0.5, y: 0.5, z: 1}
+  visualRoation: {x: 0, y: 0, z: 0}
+  lockRotation: 0
+  baseDamage: 3
+  multipliers:
+  - attribute: 4
+    mult: 1
+  defenseMult:
+  - attribute: 5
+    mult: 1
+  antiGuardMultipliers:
+  - attribute: 0
+    mult: 1
+  - attribute: 1
+    mult: 1
+  - attribute: 2
+    mult: 1
+  - attribute: 3
+    mult: 1
+  - attribute: 4
+    mult: 1
+  - attribute: 5
+    mult: 1
+  - attribute: 6
+    mult: 1
+  startUpAnimation: {fileID: 7400000, guid: 0e0b45186657694438ec8c32bdc00552, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 9d86687d1b83a2d4580f364ebcc217f5, type: 2}
+  animationSpeed: 1
+  LevelRequirements: []
+  startUpNoise: {fileID: 8300000, guid: 404dd756e9ce6dd499cde96e9de35e7d, type: 3}
+  attackSound: {fileID: 8300000, guid: f25a327ac15456a4a84f118c0ae58eda, type: 3}
+  onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
+  onHitEffects: []
+  targets:
+    serializedVersion: 2
+    m_Bits: 72
+  conditions: []
+  colorByWeapon: 0
+  parentToPlayer: 0
+  speed: 25
+  pierceCount: 0
+  burstLifespan: 0.1
+  burstSize: {x: 1.25, y: 1.25, z: 1.25}

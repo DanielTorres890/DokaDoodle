@@ -222,8 +222,10 @@ public class AbilityManager : NetworkBehaviour
             }
             else
             {
-                onEndAttack.Invoke();
                 combatantstate = combatantStates.Free;
+                onEndAttack.Invoke();
+                
+                
             }
         }
         
