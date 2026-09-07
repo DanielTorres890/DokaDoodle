@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b29463ce1cc31604db7be0b2d0174bec, type: 3}
-  m_Name: 24 Karat Bunga
-  m_EditorClassIdentifier: 
+  m_Script: {fileID: 11500000, guid: 8b773743e46f13b47b35f1c54262bb63, type: 3}
+  m_Name: 24KaratBungaEvent
+  m_EditorClassIdentifier: Assembly-CSharp::GlobalEnemyEvent
   ActivateText:
   - 24 Karat Bungas have been spotted running around
   - Defeat them to get a nice bonus
@@ -19,9 +19,11 @@ MonoBehaviour:
   eventDisplay: {fileID: 21300000, guid: db2f21da2e9dd4b4597f45663336ce56, type: 3}
   startCutscene: {fileID: 0}
   finishCutscene: {fileID: 0}
-  MainQuestCondition: {fileID: 0}
+  MainQuestCondition: {fileID: 11400000, guid: c6394c2a1bade9a4c821f3792b4ca8b9, type: 2}
   duration: 5
   eventToolTip: 24 Karat bungas are running around, there's a chance to find one
     on any space where there's combat
-  eventIcon: {fileID: 21300000, guid: ae10311c72d2269498fb50ba09ce3ae0, type: 3}
-  multiplier: 1
+  eventIcon: {fileID: 21300000, guid: db2f21da2e9dd4b4597f45663336ce56, type: 3}
+  encounter:
+    encounter: {fileID: 11400000, guid: 38fedf6230845c54693ec17e95caa5b8, type: 2}
+    weight: 2000

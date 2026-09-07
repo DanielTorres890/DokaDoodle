@@ -88,6 +88,13 @@ public class DefaultTile : TileScript
             {
                 combinedEncounter.Add(encounter);
             }
+            foreach(var encounter in WorldEventManager.Instance.globalEncounterTable)
+            {
+                var tempWrapper = new EncounterWrapper();
+                tempWrapper.encounter = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetItem[encounter.encounterId];
+                tempWrapper.weight = encounter.weight;
+                combinedEncounter.Add(tempWrapper);
+            }
 
             foreach (var encounter in conditionalCombats)
             {

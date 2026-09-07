@@ -15,6 +15,7 @@ public class GameData
 
     public List<int> seenEnemies = new List<int>();
 
+    public List<EncounterAndWeight> globalEncounterIds = new List<EncounterAndWeight>();
     public int currentPlayer = 0;
     public int maxPlayers = 4;
     public int turns = 0;

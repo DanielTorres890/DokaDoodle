@@ -19,6 +19,8 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
     public List<WorldEventBase> completeWorldEvents = new List<WorldEventBase>();
 
+    public List<EncounterAndWeight> globalEncounterTable = new List<EncounterAndWeight>();
+    
     public static WorldEventManager Instance;
 
     public UnityEvent onDayChange; //once again im not a huge fan but better than some alternatives
@@ -28,6 +30,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
     public int daysPerWeek;
     public bool firstTime = false; //im a bum so im sticking duct tape to fix this
+
 
     public CutSceneInfo currentCutscene;
     public AudioClip roundStartClip;
@@ -122,6 +125,8 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
                 int currentWeight = 0;
                 foreach(var weighted in randomEvents)
                 {
+                    if(weighted.worldEvent.MainQuestCondition && !weighted.worldEvent.MainQuestCondition.CanBeginQuest()) { continue; }
+
                     currentWeight += weighted.weight;
                     if(randomWeight < currentWeight)
                     {
@@ -211,7 +216,13 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
         foreach(var id in data.completedEvents)
         {
             completeWorldEvents.Add(worldDatabase.GetItem[id]);
+            
         }
+        foreach(var id in data.globalEncounterIds)
+        {
+            globalEncounterTable = new List<EncounterAndWeight>(data.globalEncounterIds);   
+        }
+        
     }
 
     public void SaveData(ref GameData data)
@@ -225,6 +236,10 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
         {
             data.completedEvents.Add(worldDatabase.GetId[completedEvent]);
         }
+        foreach(var encounter in globalEncounterTable)
+        {
+            data.globalEncounterIds = globalEncounterTable;
+        }
     }
 
 
@@ -235,4 +250,15 @@ public class WorldAndWeight
     public WorldEventBase worldEvent;
     public int weight;
 
+}
+[System.Serializable]
+public class EncounterAndWeight
+{
+    public EncounterAndWeight(EncounterWrapper info)
+    {
+        encounterId = PlayerCombatManager.Instance.EnemyEncounterDataBase.GetId[info.encounter];
+        weight = info.weight;
+    }
+    public int encounterId;
+    public int weight;
 }
