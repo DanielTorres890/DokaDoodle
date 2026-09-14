@@ -114,15 +114,15 @@ ScriptedImporter:
       height: 183
     spriteID: bd384cbc82617af42804257a6540ab75
     spriteBone:
-    - name: LowerRightArm
-      guid: 295cf28f1e4dfbb40b9e836a8cb2e116
-      position: {x: -14.262268, y: 106.82648, z: 0}
-      rotation: {x: 0, y: 0, z: -0.30063707, w: 0.95373863}
-      length: 40.172943
+    - name: WeaponJoint
+      guid: cc7db125e64ca6740adaa301f40f0a81
+      position: {x: 24.047607, y: 80.239655, z: 0}
+      rotation: {x: 0, y: 0, z: -0.32201198, w: 0.9467357}
+      length: 6.5848145
       parentId: -1
       color:
         serializedVersion: 2
-        rgba: 4294967040
+        rgba: 4294901888
     spriteOutline: []
     vertices:
     - position: {x: 38.125, y: 22.995003}
@@ -197,8 +197,8 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 57.52, y: 137.351}
       boneWeight:
-        weight0: 1
-        weight1: 0
+        weight0: 0
+        weight1: 1
         weight2: 0
         weight3: 0
         boneIndex0: 0
@@ -207,8 +207,8 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 57.572, y: 159.375}
       boneWeight:
-        weight0: 1
-        weight1: 0
+        weight0: 0
+        weight1: 1
         weight2: 0
         weight3: 0
         boneIndex0: 0
@@ -217,8 +217,8 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 55.798, y: 171.8}
       boneWeight:
-        weight0: 1
-        weight1: 0
+        weight0: 0
+        weight1: 1
         weight2: 0
         weight3: 0
         boneIndex0: 0
@@ -227,8 +227,8 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 36.897, y: 180.001}
       boneWeight:
-        weight0: 1
-        weight1: 0
+        weight0: 0
+        weight1: 1
         weight2: 0
         weight3: 0
         boneIndex0: 0
@@ -237,8 +237,8 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 30.875, y: 183}
       boneWeight:
-        weight0: 1
-        weight1: 0
+        weight0: 0
+        weight1: 1
         weight2: 0
         weight3: 0
         boneIndex0: 0
@@ -247,8 +247,8 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 20, y: 183}
       boneWeight:
-        weight0: 1
-        weight1: 0
+        weight0: 0
+        weight1: 1
         weight2: 0
         weight3: 0
         boneIndex0: 0
@@ -257,8 +257,8 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 4.8640003, y: 175.218}
       boneWeight:
-        weight0: 1
-        weight1: 0
+        weight0: 0
+        weight1: 1
         weight2: 0
         weight3: 0
         boneIndex0: 0
@@ -267,8 +267,8 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 0.32699966, y: 165.913}
       boneWeight:
-        weight0: 1
-        weight1: 0
+        weight0: 0
+        weight1: 1
         weight2: 0
         weight3: 0
         boneIndex0: 0
@@ -287,8 +287,8 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 6.4939995, y: 126.428}
       boneWeight:
-        weight0: 1
-        weight1: 0
+        weight0: 0
+        weight1: 1
         weight2: 0
         weight3: 0
         boneIndex0: 0
@@ -367,7 +367,7 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 28, y: 3}
       boneWeight:
-        weight0: 1
+        weight0: 0
         weight1: 0
         weight2: 0
         weight3: 0
@@ -377,7 +377,7 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 23, y: 3}
       boneWeight:
-        weight0: 1
+        weight0: 0
         weight1: 0
         weight2: 0
         weight3: 0
@@ -387,7 +387,7 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 22, y: 0}
       boneWeight:
-        weight0: 1
+        weight0: 0
         weight1: 0
         weight2: 0
         weight3: 0
@@ -397,7 +397,7 @@ ScriptedImporter:
         boneIndex3: 0
     - position: {x: 29, y: 0}
       boneWeight:
-        weight0: 1
+        weight0: 0
         weight1: 0
         weight2: 0
         weight3: 0
@@ -406,7 +406,7 @@ ScriptedImporter:
         boneIndex2: 0
         boneIndex3: 0
     spritePhysicsOutline: []
-    indices: 0000000016000000010000000c0000000e0000000d0000000a0000000f0000000e0000000a0000000e0000000c0000000a0000000c0000000b000000080000000f0000000a000000080000000a0000000900000007000000100000000f000000070000000f00000008000000060000001100000010000000060000001000000007000000050000001200000011000000050000001100000006000000040000001300000012000000040000001200000005000000030000001400000013000000030000001300000004000000020000001500000014000000020000001400000003000000010000001600000015000000010000001500000002000000000000001700000016000000180000001a00000019000000180000001b0000001a000000
+    indices: 000000001600000001000000000000001700000016000000010000001500000002000000010000001600000015000000020000001400000003000000020000001500000014000000030000001300000004000000030000001400000013000000040000001200000005000000040000001300000012000000050000001100000006000000050000001200000011000000060000001000000007000000060000001100000010000000070000000f0000000800000007000000100000000f000000080000000a00000009000000080000000f0000000a0000000a0000000c0000000b0000000a0000000e0000000c0000000a0000000f0000000e0000000c0000000e0000000d000000180000001a00000019000000180000001b0000001a000000
     edges:
     - {x: 0, y: 1}
     - {x: 0, y: 23}
@@ -535,6 +535,15 @@ ScriptedImporter:
       color:
         serializedVersion: 2
         rgba: 4294934528
+    - name: WeaponJoint
+      guid: cc7db125e64ca6740adaa301f40f0a81
+      position: {x: 46.631203, y: 0.18826759, z: 0}
+      rotation: {x: 0, y: 0, z: -0.022491436, w: 0.99974704}
+      length: 6.584815
+      parentId: 3
+      color:
+        serializedVersion: 2
+        rgba: 4294901888
     parts:
     - spritePosition:
         x: 978
@@ -542,7 +551,7 @@ ScriptedImporter:
         width: 58
         height: 183
       spriteId: bd384cbc82617af42804257a6540ab75
-      bones: 03000000
+      bones: 0a000000
       parentGroup: 0
       order: 0
     dimension: {x: 0, y: 0}
@@ -600,7 +609,7 @@ ScriptedImporter:
   tileTemplate: {instanceID: 0}
   padding: 4
   spriteSizeExpand: 0
-  skeletonAssetReferenceID: 91c6d182a4633be4e93094fa04cb0ae8
+  skeletonAssetReferenceID: c61e0acf6ddd4c441884fedc0247e978
   pipeline: {instanceID: 0}
   pipelineVersion: 
   spriteCategoryList:

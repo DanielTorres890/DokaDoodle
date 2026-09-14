@@ -920,6 +920,7 @@ MonoBehaviour:
     onStatusProgress:
       m_PersistentCalls:
         m_Calls: []
+    stunImmune: 0
     attacks: []
     defenses:
     - {fileID: 0}
@@ -1198,6 +1199,18 @@ MonoBehaviour:
       NameHash: -1090111034
       Synchronize: 1
       ParameterType: 4
+    - name: Dashing
+      NameHash: -1043442331
+      Synchronize: 1
+      ParameterType: 4
+    - name: VerticalDirection
+      NameHash: -330024648
+      Synchronize: 1
+      ParameterType: 1
+    - name: HorizontalDirection
+      NameHash: -1277717585
+      Synchronize: 1
+      ParameterType: 1
   AnimatorParametersExpanded: 0
 --- !u!114 &2651429450716657545
 MonoBehaviour:
@@ -1341,6 +1354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb7fed2f6bf43649ab1aba4c1980656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnEvent
+  ShowTopMostFoldoutHeaderGroup: 1
   spawnedObject: {fileID: 0}
 --- !u!1 &1882975009477618213
 GameObject:
@@ -1581,6 +1595,37 @@ MonoBehaviour:
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
+--- !u!1 &2636973476696095442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4834403473782697425}
+  m_Layer: 0
+  m_Name: WeaponJoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4834403473782697425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2636973476696095442}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0.022491498, w: 0.9997471}
+  m_LocalPosition: {x: 0.54, y: 0, z: -0.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3490191080601003723}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3073823916168679405
 GameObject:
   m_ObjectHideFlags: 0
@@ -3457,7 +3502,8 @@ Transform:
   m_LocalPosition: {x: 0.6006595, y: 0.00000019214997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4834403473782697425}
   m_Father: {fileID: 1047350171467046347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8875458806201614304
@@ -3591,7 +3637,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1720156522686376238
 Transform:
   m_ObjectHideFlags: 0
@@ -3656,7 +3702,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 9
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 6874559867087444188, guid: c61e0acf6ddd4c441884fedc0247e978, type: 3}
+  m_Sprite: {fileID: 6370000691409128642, guid: 180622995aa1a9149a6a5b954f06f6ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3680,12 +3726,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteSkin
   m_RootBone: {fileID: 204523565734630779}
   m_BoneTransforms:
-  - {fileID: 3490191080601003723}
+  - {fileID: 4834403473782697425}
   m_Bounds:
     m_Center: {x: 10.17, y: 4.925, z: 0}
     m_Extent: {x: 0.26000023, y: 0.23500013, z: 0}
   m_AlwaysUpdate: 1
-  m_AutoRebind: 0
+  m_AutoRebind: 1
 --- !u!1 &9112568851630858828
 GameObject:
   m_ObjectHideFlags: 0

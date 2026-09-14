@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88423fa34ea4c3b4d8d7661c8e38dca6, type: 3}
   m_Name: AppleThrow
   m_EditorClassIdentifier: 
-  description: throw rock
+  description: Throws an apple that bounces, dealing a small splash when it hits
+    an enemy and/or the ground
   attackName: Rock Throw
-  startUp: 2
+  startUp: 0.3
   attackDuration: 0
-  endLag: 1
+  endLag: 0.05
   startCooldown: 0
-  cooldown: 4
+  cooldown: 5
   lifespan: 5
   energyDrain: 2
   initialEnergyCost: 0
@@ -36,17 +37,21 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0.5, z: 0}
   ablitySize: {x: 1, y: 1, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
   lockRotation: 0
   baseDamage: 10
   multipliers:
   - attribute: 2
-    mult: 1.5
+    mult: 1
+  - attribute: 4
+    mult: 1
   defenseMult:
   - attribute: 5
-    mult: 1
+    mult: 0.5
+  - attribute: 3
+    mult: 0.5
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -62,8 +67,8 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 0}
-  attackAnimation: {fileID: 0}
+  startUpAnimation: {fileID: 7400000, guid: 776bb0be48ba05841b747ab2f95be283, type: 2}
+  attackAnimation: {fileID: 7400000, guid: f0dc2ccfa69762d48b304c263d46bea3, type: 2}
   animationSpeed: 1
   LevelRequirements: []
   startUpNoise: {fileID: 0}
