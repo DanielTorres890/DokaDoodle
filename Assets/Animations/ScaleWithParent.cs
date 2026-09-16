@@ -9,6 +9,7 @@ public class ScaleWithParent : MonoBehaviour
     public UnityEvent visualFinish;
 
     public bool scaleSize = true;
+    public float delayTime = 0.05f;
     void Start()
     {
         
@@ -24,7 +25,7 @@ public class ScaleWithParent : MonoBehaviour
     }
     public void beginPoints()
     {
-        Tween.Delay(0.05f, AddAdditionalPoint);
+        Tween.Delay(delayTime, AddAdditionalPoint);
     }
     private void AddAdditionalPoint()
     {

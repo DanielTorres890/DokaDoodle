@@ -52,6 +52,7 @@ public class DelayedActive : AbilityBase
     }
     public void OnStrike()
     {
+        Debug.Log("Im striking ");
         if (hitGameObject)
         {
             var fx = Instantiate(hitGameObject);
@@ -59,8 +60,11 @@ public class DelayedActive : AbilityBase
             fx.transform.localScale = transform.localScale;
            
         }
+
+        
         foreach (var collider in myColliders)
         {
+            Debug.Log("Im enabling the collider");
             collider.enabled = true;
         }
     }
