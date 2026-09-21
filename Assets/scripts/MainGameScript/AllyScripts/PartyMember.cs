@@ -1,3 +1,4 @@
+using NUnit.Framework.Internal.Filters;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
@@ -293,6 +294,21 @@ public class PartyMember : EntityStats
         curMap = mapId;
   
         MapTileSpecialEvents.Instance.mapTiles[mapId][tileId].partyMembers.Add(this);
+    }
+    public void ChangeClass(int classId)
+    {
+        var classToChangeTo = NetworkData.Instance.classDataBase.GetItem[classId];
+        var currentClass = NetworkData.Instance.classDataBase.GetItem[allyClass];
+
+        foreach(var stat in currentClass.stats)
+        {
+            stats[stat.attribute] -= stat.value;
+        }
+        foreach(var stat in classToChangeTo.stats)
+        {
+            stats[stat.attribute] += stat.value;    
+        }
+        PostStatusStatCalc();
     }
 }
 public enum PlayerFollowingStates
