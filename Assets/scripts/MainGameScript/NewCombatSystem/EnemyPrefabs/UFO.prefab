@@ -273,6 +273,7 @@ GameObject:
   - component: {fileID: -4653431707481497001}
   - component: {fileID: -253906939805158559}
   - component: {fileID: 5565983205574346693}
+  - component: {fileID: 3905275193549480542}
   m_Layer: 6
   m_Name: UFO
   m_TagString: Untagged
@@ -384,22 +385,10 @@ MonoBehaviour:
   onAttack:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BaseEnemyBehavior, Assembly-CSharp
+      - m_Target: {fileID: 5565983205574346693}
+        m_TargetAssemblyTypeName: UFOBehavior, Assembly-CSharp
         m_MethodName: SetStartUpAnim
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BaseEnemyBehavior, Assembly-CSharp
-        m_MethodName: PlayAttackSound
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -411,8 +400,20 @@ MonoBehaviour:
   onSpawnAttack:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BaseEnemyBehavior, Assembly-CSharp
+      - m_Target: {fileID: 5565983205574346693}
+        m_TargetAssemblyTypeName: UFOBehavior, Assembly-CSharp
+        m_MethodName: SetStartUpAnim
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5565983205574346693}
+        m_TargetAssemblyTypeName: UFOBehavior, Assembly-CSharp
         m_MethodName: SetAttackingAnim
         m_Mode: 6
         m_Arguments:
@@ -742,8 +743,11 @@ MonoBehaviour:
   walkingAnimSpeed: 1
   victoryAnimation: {fileID: 0}
   attackAnimations:
-  - startUp: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
-    attack: {fileID: 7400000, guid: 945bdb3d0c8f1494899ffe32ec5fb188, type: 2}
+  - startUp: {fileID: 7400000, guid: 4596f38d475f7fb49801eb9f8f958c36, type: 2}
+    attack: {fileID: 7400000, guid: d52a40b7bc3958b49b831b751c5ad9b4, type: 2}
+    animationSpeed: 1
+  - startUp: {fileID: 7400000, guid: c6d264bc5493f8c4d92b1a3e3c39ac54, type: 2}
+    attack: {fileID: 7400000, guid: 0822b45cc08d9bd4c91071be741b1916, type: 2}
     animationSpeed: 1
   releaseTimer: 0
   timeToHold: 0
@@ -761,6 +765,20 @@ MonoBehaviour:
   currentState: 0
   attackCount: 0
   dashesPerRest: 3
+--- !u!114 &3905275193549480542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804880954259114146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fb7fed2f6bf43649ab1aba4c1980656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnEvent
+  ShowTopMostFoldoutHeaderGroup: 1
+  spawnedObject: {fileID: 0}
 --- !u!1 &1985773246293574916
 GameObject:
   m_ObjectHideFlags: 0
@@ -1794,6 +1812,10 @@ PrefabInstance:
     - target: {fileID: 888964427721460905, guid: 700e58167cd430e4592d8f024c33f052, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 888964427721460905, guid: 700e58167cd430e4592d8f024c33f052, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5323859074379059412, guid: 700e58167cd430e4592d8f024c33f052, type: 3}
       propertyPath: m_Name

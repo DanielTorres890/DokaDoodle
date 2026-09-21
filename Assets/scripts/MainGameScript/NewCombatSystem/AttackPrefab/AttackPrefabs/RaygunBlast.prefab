@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -1555188018097761370}
   - component: {fileID: 4530846087990267634}
   - component: {fileID: -6438572769219840035}
+  - component: {fileID: 4794363735509229293}
   m_Layer: 0
   m_Name: RaygunBlast
   m_TagString: Untagged
@@ -373,3 +374,17 @@ MonoBehaviour:
   pierceCounter: 0
   body: {fileID: 7537594205642929553}
   burstHitbox: {fileID: 2566779757777240371, guid: 84a2f44ab20caeb42b34d1f04dcb43a7, type: 3}
+--- !u!114 &4794363735509229293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958144232811764369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b53e1120af857340958554686991c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackSoundPlayer
+  ShowTopMostFoldoutHeaderGroup: 1
+  audioSource: {fileID: 4530846087990267634}

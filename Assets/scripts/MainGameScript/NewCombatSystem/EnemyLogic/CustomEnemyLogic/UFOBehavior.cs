@@ -22,7 +22,7 @@ public class UFOBehavior : BaseEnemyBehavior
    
     private UnityAction halfHealth;
     private Vector3 destination;
-    private int previousAttack = -1;
+    private int laserCount = -1;
     [SerializeField] private int dashesPerRest = 2;
     // Update is called once per frame
     public void Start()
@@ -122,8 +122,14 @@ public class UFOBehavior : BaseEnemyBehavior
        
         int attackIndex = 0;
 
-        
-        previousAttack = attackIndex;
+
+        laserCount += 1;
+        if(laserCount > 2)
+        {
+            attackIndex = 1;
+            laserCount = 0;
+            stateCooldown *= 3;
+        }
         selectedAttack = myManager.stats.attacks[attackIndex];
     }
     public override void AttackPlayer()

@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd2ed02f6724d90478468751439f3776, type: 3}
-  m_Name: UFOLasers
-  m_EditorClassIdentifier: Assembly-CSharp::MultiBurst
-  description: 
-  attackName: Multilasers
-  startUp: 1
+  m_Script: {fileID: 11500000, guid: e1b47e846fecebc48b8df7bd633dae51, type: 3}
+  m_Name: Vertical Beam
+  m_EditorClassIdentifier: 
+  description: A ufo laser blast
+  attackName: Laser
+  startUp: 1.25
   attackDuration: 0
-  endLag: 0.1
+  endLag: 1
   startCooldown: 0
-  cooldown: 0
-  lifespan: 3
+  cooldown: 3
+  lifespan: 1.5
   energyDrain: 1
   initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
@@ -30,23 +30,23 @@ MonoBehaviour:
   dmgPotencyEffect: 2
   sizePotencyEffect: 2
   stateToBe: 0
-  chargeable: 0
-  attackPrefab: {fileID: 2566779757777240371, guid: bb8ef4c0e7602c243a1240413e704080, type: 3}
+  chargeable: 1
+  attackPrefab: {fileID: 2566779757777240371, guid: 58b0fd6abe5a991428e8b4f4cb74a757, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   weaponPrefab: {fileID: 0}
-  weaponPosition: {x: 0, y: 0, z: 0}
+  weaponPosition: {x: 0.541, y: 0.277, z: 0}
   spawnFx: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
-  ablitySize: {x: 1, y: 1, z: 1}
+  offset: {x: -0.5, y: 2, z: 3}
+  ablitySize: {x: 2, y: 2, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
   lockRotation: 0
-  baseDamage: 0
+  baseDamage: 10
   multipliers:
   - attribute: 4
-    mult: 1.5
+    mult: 2
   defenseMult:
   - attribute: 3
-    mult: 1
+    mult: 0.8
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -62,28 +62,17 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 0}
-  attackAnimation: {fileID: 0}
-  animationSpeed: 1
+  startUpAnimation: {fileID: 7400000, guid: 514e643ef2a4b0f4aa20d6d19c931656, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 3b18a4dbecf09eb4db4f0a343bf95866, type: 2}
+  animationSpeed: 1.2
   LevelRequirements: []
-  startUpNoise: {fileID: 0}
-  attackSound: {fileID: 0}
-  onHitSound: {fileID: 0}
+  startUpNoise: {fileID: 8300000, guid: a18b6cad4962cab4eb1d4bd5cdc19a0d, type: 3}
+  attackSound: {fileID: 8300000, guid: 27b4194d4713e9e4fad7217497226166, type: 3}
+  onHitSound: {fileID: 8300000, guid: fd57dea2003a26744954854993a44824, type: 3}
   onHitEffects: []
   targets:
     serializedVersion: 2
     m_Bits: 0
   conditions: []
-  colorByWeapon: 0
+  colorByWeapon: 1
   parentToPlayer: 0
-  attacksPerBurst: 1
-  totalBursts: 8
-  startingRotationOffset: -15
-  individualAttack: {fileID: 4958144232811764369, guid: ca10edf18d1f9e946aa6dab8a4df1f6c, type: 3}
-  interval: 0.05
-  intervalRotation: 5
-  attackInfo: {fileID: 11400000, guid: ce22653769522b14a9502d3852722cb3, type: 2}
-  attackOffset: {x: 0, y: 0, z: 0}
-  attackRadius: 0
-  individualAttackSound: {fileID: 8300000, guid: 27b4194d4713e9e4fad7217497226166, type: 3}
-  targetMode: 0

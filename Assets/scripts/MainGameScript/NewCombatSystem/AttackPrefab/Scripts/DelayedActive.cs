@@ -19,7 +19,7 @@ public class DelayedActive : AbilityBase
         if(prewarmDuration < prewarmTimer && !activated)
         {
             int soundId = -1;
-            if (NetworkData.Instance.audioDataBase.items.Contains((attackInfo as PlacedAttack).activatedSound))
+            if (attackInfo is PlacedAttack && NetworkData.Instance.audioDataBase.items.Contains((attackInfo as PlacedAttack).activatedSound))
             {
                 soundId = NetworkData.Instance.audioDataBase.GetId[(attackInfo as PlacedAttack).activatedSound];
             }

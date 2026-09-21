@@ -139,7 +139,7 @@ public class EmploymentEventManager : NetworkBehaviour
     public void SetAllyPromoteActive(bool toBe)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
-        if(NetworkData.Instance.GetCurrentPlayer().partyMembers.Count <= 0) { return; }
+        //if(NetworkData.Instance.GetCurrentPlayer().partyMembers.Count <= 0) { return; }
         SetAllyPromoteActiveRpc(toBe);
 
     }
@@ -148,6 +148,10 @@ public class EmploymentEventManager : NetworkBehaviour
     private void SetAllyPromoteActiveRpc(bool toBe)
     {
         allyPromote.SetActive(toBe);
+        if(NetworkData.Instance.GetCurrentPlayer().partyMembers.Count <= 0)
+        {
+            displayText.text = "If you had any allies to promote their info would be here ";
+        }
         if(toBe)
         {
             allyPromoteDisplay.CreateDisplay(NetworkData.Instance.GetCurrentPlayer().partyMembers);
@@ -315,7 +319,12 @@ public class EmploymentEventManager : NetworkBehaviour
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.LocalClientId)) { return; }
         Debug.Log("what am i? " + NetworkData.Instance.classDataBase.GetItem[classId].AllyUnlockCondition(NetworkData.Instance.GetCurrentPlayer().partyMembers[index]));
-        if (!NetworkData.Instance.classDataBase.GetItem[classId].AllyUnlockCondition(NetworkData.Instance.GetCurrentPlayer().partyMembers[index])) { return; }
+        if (!NetworkData.Instance.classDataBase.GetItem[classId].AllyUnlockCondition(NetworkData.Instance.GetCurrentPlayer().partyMembers[index])) 
+        {
+            allyPromoteDisplay.unlockConditions.text = "Your ally doesn't meet the promotion requirement ";
+            return; 
+        }
+
         SelectPromoteAllyRpc(index, classId);
     }
 
@@ -341,6 +350,7 @@ public class EmploymentEventManager : NetworkBehaviour
     {
         NetworkData.Instance.GetCurrentPlayer().partyMembers[currentAllyBuy].allyClass = promoteClassId;
         confirmAllyPromote.SetActive(false);
+        displayText.transform.parent.gameObject.SetActive(false);
         allyPromote.SetActive(true);
         allyPromoteDisplay.SetAllyVisuals(currentAllyBuy);
     }
@@ -356,7 +366,7 @@ public class EmploymentEventManager : NetworkBehaviour
     {
         confirmAllyPromote.SetActive(false);
         allyPromote.SetActive(true);
-
+        displayText.transform.parent.gameObject.SetActive(true);
     }
     public void DontBuyAlly()
     {

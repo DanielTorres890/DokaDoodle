@@ -16,8 +16,9 @@ public class AllyPromoteDisplay : MonoBehaviour
     private List<PartyMember> currentValues;
     public Transform classButtonParent;
     public TextMeshProUGUI allyTextDisplay;
-
+    public GameObject AllyView;
     public TextMeshProUGUI unlockConditions;
+    public TextMeshProUGUI allyNameText;
     private void Start()
     {
 
@@ -26,9 +27,10 @@ public class AllyPromoteDisplay : MonoBehaviour
     public void CreateDisplay(List<PartyMember> displayedAllies)
     {
         currentValues = displayedAllies;
-        if(currentValues.Count <= 0) { return; }
-        //CONTINUE MF
         SetAllyVisuals(0);
+        if (currentValues.Count <= 0) { return; }
+        //CONTINUE MF
+        
         var classDictionary = NetworkData.Instance.GetCurrentPlayer().playerClassProgress;
         int i = 0;
         foreach(var spawned in displayedGameObjects)
@@ -50,11 +52,10 @@ public class AllyPromoteDisplay : MonoBehaviour
             //AddEvent(obj, EventTriggerType.Select, delegate { displayText.SetText(NetworkData.Instance.classDataBase.GetItem[entity.allyClass].classDescription); });
             //AddEvent(obj, EventTriggerType.PointerEnter, delegate { displayText.SetText(NetworkData.Instance.classDataBase.GetItem[entity.allyClass].classDescription); });
 
-            AddEvent(obj, EventTriggerType.Select, delegate { SetAllyVisuals(yofyoungl); });
-            AddEvent(obj, EventTriggerType.PointerEnter, delegate { SetAllyVisuals(yofyoungl); });
+            AddEvent(obj, EventTriggerType.PointerClick, delegate { SetAllyVisuals(yofyoungl); });
 
-            AddEvent(obj, EventTriggerType.Select, delegate { CreateDisplay(yofyoungl); });
-            AddEvent(obj, EventTriggerType.PointerEnter, delegate { CreateDisplay(yofyoungl); });
+            AddEvent(obj, EventTriggerType.PointerClick, delegate { CreateDisplay(yofyoungl); });
+           
 
 
             obj.GetComponentInChildren<TextMeshProUGUI>().text = entity.name;
@@ -84,17 +85,35 @@ public class AllyPromoteDisplay : MonoBehaviour
     public void SetAllyVisuals(int allyIndex)
     {
       
+        if(currentValues.Count <= 0)
+        {
+            unlockConditions.text = "If you had any allies they would show up here ";
+            AllyView.SetActive(false);
+            return;
+        }
+
+        allyNameText.text = currentValues[allyIndex].name;
+        AllyView.SetActive(true);
         allyEditor.setClass(currentValues[allyIndex].allyClass);
         allyEditor.setHair(currentValues[allyIndex].allyHair);
         allyEditor.setFace(currentValues[allyIndex].allyFace);
 
+        SetAllyStatsDisplay(allyIndex);
+
+
+
     }
     private void SetAllyStatsDisplay(int allyIndex)
     {
-        allyTextDisplay.text = "";
+        allyTextDisplay.text =
+           NetworkData.Instance.attributeStrings[Attributes.Health] + ": " +
+           currentValues[allyIndex].stats[Attributes.Health].ToString() + "/" +
+           currentValues[allyIndex].stats[Attributes.MaxHealth].ToString() + "\n";
+
         foreach (var stat in currentValues[allyIndex].stats)
         {
-            allyTextDisplay.text += NetworkData.Instance.attributeStrings[stat.Key] + ": " + stat.Value + "\n";
+            if (stat.Key == Attributes.Health || stat.Key == Attributes.MaxHealth) { continue; }
+            allyTextDisplay.text += NetworkData.Instance.attributeStrings[stat.Key] + ": " + stat.Value.ToString() + "\n";
         }
     }
 
