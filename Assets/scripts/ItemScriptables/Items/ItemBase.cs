@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -45,9 +46,13 @@ public abstract class ItemBase : ScriptableObject
     public ItemBuff[] buffs;
 
     public bool battleItem = false;
+    [Tooltip("only needs to be filled in if its usable in combat")]
+    public AttackBase inCombatAttack;
+
+
     public bool overworldItem = true;
     public AudioClip useClip;
-
+    
     public bool interrupt = false;
     public abstract void ItemInfoCheck(int player, int itemId);
     public virtual void PerformItemEffect(int player, InventoryObject inventory)
@@ -67,15 +72,16 @@ public abstract class ItemBase : ScriptableObject
     }
     public int determineType ()
     {
-        if (this.type == ItemType.Food) {return 0; }
+       
 
         if (this.type == ItemType.PhysicalAbility || this.type == ItemType.Shield) { return 1; }
 
-        if (this.type == ItemType.Magic ) { return 2; }
+        else if (this.type == ItemType.Magic ) { return 2; }
 
-        if (this.type == ItemType.Equipment) { return 3; }
+        else if (this.type == ItemType.Equipment) { return 3; }
 
-        return -1;
+        else { return 0; }
+        
     }
     public virtual bool CanUse(int player)
     {
@@ -83,7 +89,11 @@ public abstract class ItemBase : ScriptableObject
     }
     public virtual void InCombatAction(AbilityManager user)
     {
+        if (!NetworkManager.Singleton.IsHost) { return; }
+        if(!inCombatAttack) { return; }
 
+        Debug.Log("did i attempt an action? ");
+        inCombatAttack.WeaponEffect(user.gameObject, Time.time, user.transform.position, user.transform.eulerAngles, 0f, user.transform.position, user.transform.eulerAngles);
     }
 }
 [System.Serializable]

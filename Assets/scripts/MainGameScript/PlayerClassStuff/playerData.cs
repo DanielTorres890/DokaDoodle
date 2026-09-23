@@ -105,7 +105,15 @@ public class playerData : EntityStats
     {
         this.attacks.Clear();
         //bool hasOffense = false;
-     
+        foreach(var item in NetworkData.Instance.playerInventories[playerNumber][0].container)
+        {
+            if(item.item.battleItem)
+            {
+                battleSlotItemId = NetworkData.Instance.playerInventories[playerNumber][0].database.GetId[item.item];
+                break;
+            }
+        }
+
         this.attacks.Add(NetworkData.Instance.classDataBase.GetItem[playerClass].basicAttackAbility);
         if (equipItems[ItemType.Equipment] != -1)
         {

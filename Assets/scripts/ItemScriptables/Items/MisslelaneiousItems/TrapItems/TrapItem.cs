@@ -8,7 +8,7 @@ public class TrapItem : ItemBase
 {
     public BaseTrap trap;
 
-    public AttackBase inCombatAttack;
+    
 
     public override void ItemInfoCheck(int player, int itemId)
     {
@@ -37,11 +37,7 @@ public class TrapItem : ItemBase
         base.PerformItemEffect(player, inventory);
         Debug.Log("we got here so thats pretty cool"); //the reason why we don't deploy the trap here is bc we don't actually wanna use the trap unless the event gets invoked
     }
-    public override void InCombatAction(AbilityManager user)
-    {
-        if(!NetworkManager.Singleton.IsHost) { return; }
-        inCombatAttack.WeaponEffect(user.gameObject, Time.time, user.transform.position, user.transform.eulerAngles, 0f, user.transform.position, user.transform.eulerAngles);
-    }
+
     private void Subscribe(int player, int itemId)
     {
         FreeMover.Instance.FreeCamera();
