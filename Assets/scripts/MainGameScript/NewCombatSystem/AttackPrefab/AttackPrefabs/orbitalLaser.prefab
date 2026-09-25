@@ -302,6 +302,8 @@ MonoBehaviour:
   destroyOnWallCollide: 0
   hitGameObject: {fileID: 6234742567996364231, guid: f14ab3986d70e8b489ab9086a114d4a5, type: 3}
   stickInOpponent: 0
+  continuousDamage: 1
+  damageFrequency: 0.1
   prewarmDuration: 3
   myColliders:
   - {fileID: 4130751179687581138}
@@ -572,7 +574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LaserFireVisual
   growingObject: {fileID: 4647816008803511063}
   growthDirection: {x: 1, y: 0, z: 1}
-  growthSpeed: 0.025
+  growthSpeed: 0.05
   growthDuration: 0.75
   shrinkSpeed: 0.01
   shrinkDirection: {x: 1, y: 0, z: 1}

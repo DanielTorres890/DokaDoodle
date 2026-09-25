@@ -13,9 +13,9 @@ public abstract class AbilityBase : NetworkBehaviour
 
     public EntityStats ownerStats;
     public AttackTypes attackType;
-    
+
     public float lifespan;
-    [DoNotSerialize]public float lifetimer;
+    [DoNotSerialize] public float lifetimer;
     public float chargedDuration;
 
     public bool destroyOnWallCollide;
@@ -24,27 +24,32 @@ public abstract class AbilityBase : NetworkBehaviour
 
 
     public bool stickInOpponent = false;
-   
+
     private bool weaponsHot = true; //whether its still an active hitbox
     private List<GameObject> hitEntities = new List<GameObject>();
+    private List<AbilityManager> targetsInRange = new List<AbilityManager>();
+
+    [Tooltip("Whether the attack should keep damaging things in range")]
+    public bool continuousDamage;
+    public float damageFrequency;
+    private float damageTimer = 0;
     private void Awake()
     {
         lifetimer = 0f;
 
-        
-       
+
+
     }
     public override void OnNetworkSpawn()
     {
-        if(!IsServer) { return; }
+        if (!IsServer) { return; }
         NewCombatManager.instance.onCombatEnd.AddListener(delegate { Destroy(gameObject); });
         if (attackInfo.parentToPlayer)
-        NetworkObject.TrySetParent(owner);
+            NetworkObject.TrySetParent(owner);
 
     }
     public virtual void Update()
     {
-
         AbilityAction();
     }
     public virtual void OnHit()
@@ -52,15 +57,15 @@ public abstract class AbilityBase : NetworkBehaviour
 
         if (hitGameObject)
         {
-          
+
             var fx = Instantiate(hitGameObject);
             fx.transform.position = transform.position;
             fx.transform.localScale = transform.localScale;
             fx.GetComponent<NetworkObject>().Spawn();
         }
-        if(!stickInOpponent) { Destroy(gameObject); }
-        
-        
+        if (!stickInOpponent) { Destroy(gameObject); }
+
+
     }
     public int DamageCalculator(EntityStats defender)
     {
@@ -68,7 +73,7 @@ public abstract class AbilityBase : NetworkBehaviour
 
         foreach (var offense in attackInfo.multipliers)
         {
- 
+
             totalDamge += offense.mult * ownerStats.postStatusStats[offense.attribute];
         }
         foreach (var defense in attackInfo.defenseMult)
@@ -76,9 +81,9 @@ public abstract class AbilityBase : NetworkBehaviour
             totalDamge -= defense.mult * defender.postStatusStats[defense.attribute];
         }
 
-        
-        totalDamge *= (1 - defender.postStatusDmgReduction[attackType]/100f);
-        
+
+        totalDamge *= (1 - defender.postStatusDmgReduction[attackType] / 100f);
+
         totalDamge *= Mathf.Clamp(attackInfo.ChargeMultiplier(ownerStats, chargedDuration) * (attackInfo.maxChargeAtkBuff - 1) + 1, 1, 99999);
         if (totalDamge < 0)
             return 0;
@@ -88,30 +93,31 @@ public abstract class AbilityBase : NetworkBehaviour
     }
     public virtual void OnTriggerEnter(Collider other)
     {
-        
-        if(!IsServer || other.gameObject == owner) { return; }
-        if(!weaponsHot) { return; }
+
+        if (!IsServer || other.gameObject == owner) { return; }
+        if (!weaponsHot) { return; }
 
         bool isEntity = false;
-        
+
         if (other.gameObject.TryGetComponent(out AbilityManager hitby))
         {
-           
-            isEntity = true;
-            if(NewCombatManager.instance && NewCombatManager.instance.fightOver) { return; }
 
-            if(hitby.stats.loyaltyTags.Intersect(ownerStats.loyaltyTags).Any())
+            isEntity = true;
+            if (NewCombatManager.instance && NewCombatManager.instance.fightOver) { return; }
+
+            if (hitby.stats.loyaltyTags.Intersect(ownerStats.loyaltyTags).Any())
             {
                 return;
             }
-           
-            if(hitEntities.Contains(other.gameObject)) { return; }
-           
+
+            if (hitEntities.Contains(other.gameObject)) { return; }
+
 
             hitEntities.Add(other.gameObject);
+            targetsInRange.Add(hitby);
             NewCombatManager.instance.AddContribution(ownerStats, DamageCalculator(hitby.stats));
-            
-            
+
+
             hitby.ImHitRpc(DamageCalculator(hitby.stats));
             int[] buffIds = new int[attackInfo.onHitEffects.Length];
             for (int i = 0; i < attackInfo.onHitEffects.Length; i++)
@@ -121,24 +127,24 @@ public abstract class AbilityBase : NetworkBehaviour
             hitby.IGainedBuffRpc(buffIds);
             if (attackInfo.onHitSound)
             {
-                if(ownerStats is playerData)
-                PlayHitSoundRpc(NetworkData.Instance.audioDataBase.GetId[attackInfo.onHitSound], RpcTarget.Single((ulong)NetworkData.Instance.PlayerNumToClientId((ownerStats as playerData).playerNumber), RpcTargetUse.Temp));
-                
+                if (ownerStats is playerData)
+                    PlayHitSoundRpc(NetworkData.Instance.audioDataBase.GetId[attackInfo.onHitSound], RpcTarget.Single((ulong)NetworkData.Instance.PlayerNumToClientId((ownerStats as playerData).playerNumber), RpcTargetUse.Temp));
+
             }
             else
             {
                 Debug.LogWarning(attackInfo.attackName + " Does not contain a hit SFX if you even care.... \nor this ability prefab doesn't contain an AudioSource");
             }
         }
-        if(isEntity || destroyOnWallCollide)
+        if (isEntity || destroyOnWallCollide)
         {
-            if(stickInOpponent)
+            if (stickInOpponent)
             {
                 StartCoroutine(delay());
                 NetworkObject networkedPart = GetComponent<NetworkObject>();
                 networkedPart.TrySetParent(other.transform);
-                
-                if(networkedPart.TryGetComponent(out NetworkTransform component))
+
+                if (networkedPart.TryGetComponent(out NetworkTransform component))
                 {
                     component.enabled = false;
                 }
@@ -146,13 +152,25 @@ public abstract class AbilityBase : NetworkBehaviour
             }
             OnHit();
         }
-        
-    }
 
+    }
+    public virtual void OnTriggerExit(Collider other)
+    {
+        if (!IsServer || other.gameObject == owner) { return; }
+        if (!weaponsHot) { return; }
+
+       
+
+        if (other.gameObject.TryGetComponent(out AbilityManager hitby))
+        {
+         
+            targetsInRange.Remove(hitby);
+        }
+    }
     [Rpc(SendTo.SpecifiedInParams, InvokePermission = RpcInvokePermission.Owner)]
     private void PlayHitSoundRpc(int soundId, RpcParams rpcsend)
     {
-        
+
         AudioSource.PlayClipAtPoint(NetworkData.Instance.audioDataBase.GetItem[soundId], transform.position, SettingsManager.instance.SFXVolume);
 
     }
@@ -166,6 +184,14 @@ public abstract class AbilityBase : NetworkBehaviour
 
         }
         lifetimer += Time.deltaTime;
+
+        if(!continuousDamage) { return; }
+        damageTimer += Time.deltaTime;
+        if (damageTimer > damageFrequency)
+        {
+            damageTimer = 0;
+            HitAllTargets();
+        }
     }
 
     private IEnumerator delay()
@@ -173,6 +199,33 @@ public abstract class AbilityBase : NetworkBehaviour
         yield return new WaitForSeconds(.15f);
         GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
     }
+
+    private void HitAllTargets()
+    {
+        foreach (var target in targetsInRange)
+        {
+            Debug.Log("Im hitting everyone");
+            NewCombatManager.instance.AddContribution(ownerStats, DamageCalculator(target.stats));
+            target.ImHitRpc(DamageCalculator(target.stats));
+            int[] buffIds = new int[attackInfo.onHitEffects.Length];
+            for (int i = 0; i < attackInfo.onHitEffects.Length; i++)
+            {
+                buffIds[i] = NetworkData.Instance.buffDataBase.GetId[attackInfo.onHitEffects[i]];
+            }
+            target.IGainedBuffRpc(buffIds);
+            if (attackInfo.onHitSound)
+            {
+                if (ownerStats is playerData)
+                    PlayHitSoundRpc(NetworkData.Instance.audioDataBase.GetId[attackInfo.onHitSound], RpcTarget.Single((ulong)NetworkData.Instance.PlayerNumToClientId((ownerStats as playerData).playerNumber), RpcTargetUse.Temp));
+
+            }
+            else
+            {
+                Debug.LogWarning(attackInfo.attackName + " Does not contain a hit SFX if you even care.... \nor this ability prefab doesn't contain an AudioSource");
+            }
+        }
+    }
+
 }
 public enum AttackTypes
 {
