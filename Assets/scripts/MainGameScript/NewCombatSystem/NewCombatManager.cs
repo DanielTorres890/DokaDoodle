@@ -407,7 +407,7 @@ public class NewCombatManager : NetworkBehaviour
             rigid.constraints = RigidbodyConstraints.None;
             rigid.isKinematic = false;
             rigid.AddForce(rigid.transform.TransformDirection(Vector3.back) * 10, ForceMode.Impulse);
-
+            Debug.Log("I have died how many are on tile? " + MapTileSpecialEvents.Instance.GetCurrentTile().partyMembers.Count);
         }
 
         CleanUpCams();
@@ -578,8 +578,8 @@ public class NewCombatManager : NetworkBehaviour
 
 
         //if player win any dead allies should survive at 1 and vice versa
-        
 
+        Debug.Log("Count of party members 1" + cache.partyMembers.Count);
         List<int> deadPlayers = RemoveDeadEntities();
         if (victor.stats is playerData)
         {
@@ -698,7 +698,7 @@ public class NewCombatManager : NetworkBehaviour
             if (pvpWin)
             {
                 fightEndQueue.Add(delegate { pvpVictory.SetUp(deadPlayers[0], player.playerNumber); });
-                dropItem.finishLose.AddListener(BattleEndEvents);
+                pvpVictory.finishEvent.AddListener(BattleEndEvents);
 
             }
             for (int i = 0; i < player.partyMembers.Count; i ++)
@@ -811,7 +811,7 @@ public class NewCombatManager : NetworkBehaviour
     private List<int> RemoveDeadEntities(bool combatOver = true) //Removes them from the database that stores all enemy info (it probably shouldn't be accessible all the time but fml
     {
         var tilereadCache = MapTileSpecialEvents.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curMap][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
-
+        Debug.Log("Count of party members 2" + tilereadCache.partyMembers.Count);
         tilereadCache.xpOnTile += xpHarvested;
         tilereadCache.moneyOnTile += moneyHarvested;
 
@@ -825,6 +825,15 @@ public class NewCombatManager : NetworkBehaviour
                 tilereadCache.tileEnemy.RemoveAt(i);
             }
 
+        }
+        for (int i = tilereadCache.partyMembers.Count - 1; i >= 0; i--)
+        {
+
+            if (tilereadCache.partyMembers[i].isDead)
+            {
+                tilereadCache.partyMembers[i].Die();
+
+            }
         }
         List<int> deadPlayer = new List<int>();
         for (int i = tilereadCache.players.Count - 1; i >= 0; i--)
@@ -852,14 +861,9 @@ public class NewCombatManager : NetworkBehaviour
                 }
             }
         }
-
-        for (int i = tilereadCache.partyMembers.Count - 1; i >= 0; i--)
-        {
-            if (tilereadCache.partyMembers[i].isDead)
-            {
-                tilereadCache.partyMembers[i].Die();
-            }
-        }
+        
+        
+        
         return deadPlayer;
     }
     

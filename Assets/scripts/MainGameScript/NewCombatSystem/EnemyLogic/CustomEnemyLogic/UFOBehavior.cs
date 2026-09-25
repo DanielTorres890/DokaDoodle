@@ -84,7 +84,7 @@ public class UFOBehavior : BaseEnemyBehavior
                 currentState = UFOStates.Moving;
                 stateCooldown = cooldownBetweenLasers;
                 PickDestination();
-                Debug.Log("Strafe");
+     
 
             }
             else
@@ -92,7 +92,7 @@ public class UFOBehavior : BaseEnemyBehavior
                 stateCooldown = cooldownBetweenLasers;
                 currentState = UFOStates.None;
                 attackCount += 1;
-                Debug.Log("Await Attack");
+         
                 //for now 2 is the amount of lasers it'll do before stopping
                 if (attackCount > dashesPerRest)
                 {
@@ -100,7 +100,7 @@ public class UFOBehavior : BaseEnemyBehavior
                     currentState = UFOStates.Moving;
                     attackCount = -1;
                     GoToFloor();
-                    Debug.Log("Break");
+             
                 }
                
 

@@ -55,7 +55,7 @@ public class PlayerCombatManager : MonoBehaviour
 
             if(currentPlayer == players) { continue; }
 
-            if ((PlayerMoveManager.Instance.mapTiles[currentPlayer.curTileId].canFight || isRaid))
+            if ((PlayerMoveManager.Instance.mapTiles[currentPlayer.curTileId].canFight || isRaid || currentTile.tileEnemy.Count > 0))
             {
 
                 Debug.Log("added player " + players.name);
@@ -148,11 +148,12 @@ public class PlayerCombatManager : MonoBehaviour
             encounterName = strongest.name;
         }
 
+        
         foreach (var ally in currentTile.partyMembers)
         {
             Debug.Log("Looking at this ally " + ally.name);
             if (ally.allyOwner != NetworkData.Instance.currentPlayer) { continue; }
-
+            if (ally.boardMovementState == PlayerFollowingStates.KnockedOut || ally.isDead) { continue; }
             Debug.Log("Added this ally to combat" + ally.name);
             PlayerCombatManager.Instance.combatants.Add(ally);
             ally.setCombatActions();

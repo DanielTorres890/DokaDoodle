@@ -72,6 +72,11 @@ public class CastleEventManager : NetworkBehaviour
        
 
         NetworkData.Instance.GetCurrentPlayer().healHp(99999);
+        foreach(var ally in NetworkData.Instance.GetCurrentPlayer().partyMembers)
+        {
+            ally.Revive();
+            ally.healHp(9999);
+        }
         MainMenu.SetActive(false);
         RestMenu.SetActive(false);
         textObject.SetActive(false);

@@ -121,9 +121,22 @@ public class PartyMember : EntityStats
     }
     public void Die()
     {
-        NetworkData.Instance.players[allyOwner].partyMembers.Remove(this);
-        MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].partyMembers.Remove(this);
+        SetFollowingState(PlayerFollowingStates.KnockedOut);
+        TeleportMember(NetworkData.Instance.players[allyOwner].curTileId, NetworkData.Instance.players[allyOwner].curMap);
+        //NetworkData.Instance.players[allyOwner].partyMembers.Remove(this);
+        //MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].partyMembers.Remove(this);
         
+    }
+    public void Revive()
+    {
+        if(boardMovementState != PlayerFollowingStates.KnockedOut) { return; }
+
+
+        SetFollowingState(PlayerFollowingStates.WithOwner);
+        curMap = NetworkData.Instance.players[allyOwner].curMap;
+        curTileId = NetworkData.Instance.players[allyOwner].curTileId;
+        isDead = false;
+
     }
     public int gainXp(int xp)
     {
@@ -246,9 +259,9 @@ public class PartyMember : EntityStats
 
     public void SetFollowingState(PlayerFollowingStates toBe)
     {
-
+        Debug.Log("state was changed to " + toBe);
         boardMovementState = toBe;
-        if(boardMovementState == PlayerFollowingStates.WithOwner)
+        if(boardMovementState == PlayerFollowingStates.WithOwner || boardMovementState == PlayerFollowingStates.KnockedOut)
         {
             foreach(var status in NetworkData.Instance.players[allyOwner].statuses)
             {
@@ -259,7 +272,7 @@ public class PartyMember : EntityStats
                 }
             }
         }
-        if (boardMovementState != PlayerFollowingStates.WithOwner)
+        else if (boardMovementState != PlayerFollowingStates.WithOwner)
         {
             foreach (var status in NetworkData.Instance.players[allyOwner].statuses)
             {
@@ -316,7 +329,7 @@ public enum PlayerFollowingStates
     WithOwner,
     FollowingOwner,
     HoldTile,
-   
+    KnockedOut
 
 }
 

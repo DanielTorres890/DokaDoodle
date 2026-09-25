@@ -57,7 +57,7 @@ public class AllyMainViewer : MonoBehaviour
             if(entity.boardMovementState == PlayerFollowingStates.FollowingOwner) { stateChild.text += "<color=yellow>Going to you</color>"; }
             if(entity.boardMovementState == PlayerFollowingStates.HoldTile) { stateChild.text += "<color=yellow>Going to tile</color>"; }
             if(entity.boardMovementState == PlayerFollowingStates.HoldTile && entity.curTileId == entity.targetTile) { stateChild.text += "<color=green>Holding tile</color>"; }
-
+            if (entity.boardMovementState == PlayerFollowingStates.KnockedOut) { stateChild.text += "<color=red>Knocked out</color>"; }
             int childCounter = 4;
             Attributes[] orderedAttributes = new Attributes[] {Attributes.Health,Attributes.Attack, Attributes.Defense, Attributes.Magic, Attributes.MDefense, Attributes.Dexterity};
             foreach(var stat in orderedAttributes)

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PVPVictory : NetworkBehaviour
 {
@@ -13,6 +14,7 @@ public class PVPVictory : NetworkBehaviour
     public DialogueScript dialogueBox;
     public int winner;
     public int loser;
+    public UnityEvent finishEvent;
 
     //im not a huge fan but i started with the sprite library so i gotta ride with it i fear
     public List<int> prankHairIds;
@@ -158,6 +160,7 @@ public class PVPVictory : NetworkBehaviour
     {
         confirmPrank.SetActive(false);
         confirmMoneySteal.SetActive(false);
+        finishEvent.Invoke();
         //dialogueBox.endEvent.RemoveAllListeners();
         //dialogueBox.endEvent.AddListener(delegate { SceneChanger.Instance.loadClientScenesServerRpc(dialogueBox.nextScene); });
         //dialogueBox.lines.Clear();

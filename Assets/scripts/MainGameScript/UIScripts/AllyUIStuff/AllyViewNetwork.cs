@@ -32,6 +32,8 @@ public class AllyViewNetwork : NetworkBehaviour
     public void EnterAllyStateMenu(int allyIndex)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        if (NetworkData.Instance.GetCurrentPlayer().partyMembers[allyIndex].boardMovementState == PlayerFollowingStates.KnockedOut) { return; }
+
         EnterAllyStateMenuRpc(allyIndex);
 
     }

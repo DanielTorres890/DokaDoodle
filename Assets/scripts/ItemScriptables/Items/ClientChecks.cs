@@ -175,7 +175,7 @@ public class ClientChecks : NetworkBehaviour
         List<EntityStats> potentialCombatants = new List<EntityStats>(curTile.tileEnemy);
         foreach(var ally in curTile.partyMembers)
         {
-            if(ally.allyOwner == NetworkData.Instance.GetCurrentPlayer().playerNumber) { continue; }
+            if(ally.allyOwner == NetworkData.Instance.GetCurrentPlayer().playerNumber || !PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight) { continue; }
             potentialCombatants.Add(ally);
         }
         

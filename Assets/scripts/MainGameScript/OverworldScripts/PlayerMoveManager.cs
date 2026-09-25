@@ -903,7 +903,7 @@ public class PlayerMoveManager : NetworkBehaviour
             Dictionary<PartyMember, GameObject> allyGameObjects = new Dictionary<PartyMember, GameObject>();
             foreach (var member in NetworkData.Instance.players[i].partyMembers)
             {
-                if (member.curMap != mapNumber) { continue; }
+                if (member.curMap != mapNumber || member.boardMovementState == PlayerFollowingStates.KnockedOut) { continue; }
                 GameObject allyGameObject = Instantiate(allyPrefab);
                 member.SetPrefab(allyGameObject);
                 allyGameObjects.Add(member, allyGameObject);
@@ -919,7 +919,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
         foreach (var member in NetworkData.Instance.GetCurrentPlayer().partyMembers)
         {
-            if (member.boardMovementState != PlayerFollowingStates.WithOwner || member.curMap != mapNumber) { continue; }
+            if ((member.boardMovementState != PlayerFollowingStates.WithOwner || member.curMap != mapNumber) && member.boardMovementState != PlayerFollowingStates.KnockedOut) { continue; }
 
             member.TeleportMember(NetworkData.Instance.GetCurrentPlayer().curTileId, NetworkData.Instance.GetCurrentPlayer().curMap);
 
@@ -933,7 +933,7 @@ public class PlayerMoveManager : NetworkBehaviour
         foreach (var member in NetworkData.Instance.GetCurrentPlayer().partyMembers)
         {
        
-            if (member.boardMovementState == PlayerFollowingStates.WithOwner || member.curMap != mapNumber) { continue; }
+            if (member.boardMovementState == PlayerFollowingStates.WithOwner || member.curMap != mapNumber || member.boardMovementState == PlayerFollowingStates.KnockedOut) { continue; }
 
        
             int targetTileId = member.targetTile;
@@ -973,7 +973,7 @@ public class PlayerMoveManager : NetworkBehaviour
         {
             var member = NetworkData.Instance.GetCurrentPlayer().partyMembers[i];
 
-            if (member.boardMovementState == PlayerFollowingStates.WithOwner || member.curMap != mapNumber) { continue; }
+            if (member.boardMovementState == PlayerFollowingStates.WithOwner || member.curMap != mapNumber || member.boardMovementState == PlayerFollowingStates.KnockedOut) { continue; }
             
 
             if (mapTiles[member.curTileId] is not DefaultTile && mapTiles[member.curTileId] is not TownTile) { continue; }
