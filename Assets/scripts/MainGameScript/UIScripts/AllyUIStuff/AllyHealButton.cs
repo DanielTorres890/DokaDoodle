@@ -19,7 +19,7 @@ public class AllyHealButton : MonoBehaviour
     {
         if (NetworkData.Instance.ContainsHealingItem(NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][0]))
         {
-            buttonText.color = Color.white;
+            buttonText.color = Color.black;
         }
         else
         {

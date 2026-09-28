@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Hunter
   className: Hunter
   classTier: 1
-  classDescription: 'Not so much of a fighter, but a specialist in trapping and debilitating
+  classDescription: 'Not as much of a fighter, but a specialist in trapping and debilitating
     enemies with traps, while outmaneuvering them to avoid direct confrontation. '
   overworldAbilityDescription: Deploys a trap on a tile of your choosing, dealing
     damage to enemy players who land on it
@@ -34,16 +34,14 @@ MonoBehaviour:
   - attribute: 6
     value: 7
   levelUpStats:
-  - attribute: 0
-    value: 10
-  - attribute: 1
-    value: 10
   - attribute: 2
-    value: 2
+    value: 1
   - attribute: 3
     value: 1
   - attribute: 6
     value: 2
+  - attribute: 4
+    value: 1
   inventorySizes: 06000000030000000300000003000000
   ClassActionCD: 3
   classActionName: Deploy Trap

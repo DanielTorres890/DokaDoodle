@@ -357,7 +357,18 @@ public class ClientChecks : NetworkBehaviour
         onItemUse.Invoke();
         changeScript.ResetDisplay();
     }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void HealAllyDisplayRpc(int amount, string allyName)
+    {
+        
+        displayText.lines.Clear();
 
+        displayText.lines.Add("Healed " + allyName + " by <color=green>" + amount.ToString() + "</color>");
+        displayText.gameObject.SetActive(true);
+        displayText.whoInControl = NetworkData.Instance.currentPlayer;
+        displayText.startDialogue();
+
+    }
 
     public void SlotBattleItem()
     {

@@ -8,8 +8,10 @@ public class AllyViewNetwork : NetworkBehaviour
 
     public GameObject allyStateMenu;
     public GameObject allyView;
-
+    public GameObject healItemView;
     public int currentAllyIndex;
+
+    public DisplayHealItems healItemDisplay;
     public override void OnNetworkSpawn()
     {
        
@@ -62,58 +64,65 @@ public class AllyViewNetwork : NetworkBehaviour
         display.UpdateDisplay(NetworkData.Instance.GetCurrentPlayer().partyMembers);
 
     }
+    public void ShowHealingItems()
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        if (!NetworkData.Instance.ContainsHealingItem(NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][0])) { return; }
+        ShowHealingItemsRpc();
+    }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void ShowHealingItemsRpc()
+    {
+        healItemDisplay.CreateDisplay(NetworkData.Instance.currentPlayer);
+        allyStateMenu.SetActive(false);
+        healItemView.gameObject.SetActive(true);
 
-    public void HealAlly()
+    }
+    public void ReturnFromHealingItem()
+    {
+        if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
+        ReturnFromHealingItemRpc();
+    }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void ReturnFromHealingItemRpc()
+    {
+        allyStateMenu.SetActive(true);
+        healItemView.SetActive(false);
+
+    }
+    public void HealAlly(int itemIndex)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
         if (!NetworkData.Instance.ContainsHealingItem(NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][0])) { return; }
 
-        HealAllyRpc();
+        HealAllyRpc(itemIndex);
 
     }
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    private void HealAllyRpc()
+    private void HealAllyRpc(int itemIndex)
     {
         var ally = NetworkData.Instance.GetCurrentPlayer().partyMembers[currentAllyIndex];
         var itemInv = NetworkData.Instance.playerInventories[NetworkData.Instance.currentPlayer][0];
         
-        ItemBase chosenItem = itemInv.container[0].item;
-        int allyMissingHp = ally.stats[Attributes.MaxHealth] - ally.stats[Attributes.Health];
-
-        foreach (var slot in itemInv.container)
-        {
-            if(chosenItem is not FoodItem) { chosenItem = slot.item; continue; }
-            if(slot.item is not FoodItem) { continue; }
-
-            if(!IsHealingItem(chosenItem as FoodItem)) { chosenItem = slot.item; continue; }
-            if(!IsHealingItem(slot.item as FoodItem)) { continue; }
-
-            FoodItem chosenFood = chosenItem as FoodItem;
-            FoodItem otherFood = slot.item as FoodItem;
-
-            int chosenFoodHealing = chosenFood.HealingAmount();
-            int otherFoodHealing = otherFood.HealingAmount();
-
-            if(chosenFoodHealing > otherFoodHealing)
-            {
-                if(otherFoodHealing >= allyMissingHp)
-                {
-                    chosenItem = slot.item; 
-                }
-            }
-            else
-            {
-                if(chosenFoodHealing < allyMissingHp)
-                {
-                    chosenItem = slot.item;
-                }
-            }
-
-        }
+        ItemBase chosenItem = itemInv.container[itemIndex].item;
         FoodItem theFood = chosenItem as FoodItem;
-        theFood.PerformItemEffect(NetworkData.Instance.currentPlayer, itemInv);
-        ExitAllyStateMenu();
+
+        int healedAmount = ally.stats[Attributes.Health];
+        ally.healHp(theFood.buffs[0].value);
+        healedAmount = ally.stats[Attributes.Health] - healedAmount;
+
+        ClientChecks.Instance.HealAllyDisplayRpc(healedAmount, ally.name);
+        allyStateMenu.SetActive(false);
+        healItemView.SetActive(false);
+        ClientChecks.Instance.displayText.endEvent.AddListener(delegate
+        {
+            
+            allyView.SetActive(true);
+            display.UpdateDisplay(NetworkData.Instance.GetCurrentPlayer().partyMembers);
+        });
+
+        
     }
     private bool IsHealingItem(FoodItem item)
     {

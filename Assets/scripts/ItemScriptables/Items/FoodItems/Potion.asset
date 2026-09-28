@@ -17,14 +17,14 @@ MonoBehaviour:
   itemValue: 100
   description: 'A basic healing potion, heals 40 health
 
-    Also heals any allies
-    currently with you'
+'
   useText: Healed 40 health
   itemName: Potion
   buffs:
   - attribute: 1
     value: 40
   battleItem: 0
+  inCombatAttack: {fileID: 0}
   overworldItem: 1
   useClip: {fileID: 0}
   interrupt: 0

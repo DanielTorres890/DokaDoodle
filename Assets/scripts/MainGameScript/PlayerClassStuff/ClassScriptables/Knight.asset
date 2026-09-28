@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad04081261c5e048b1942adb7f57f89, type: 3}
+  m_Name: Knight
+  m_EditorClassIdentifier: Assembly-CSharp::Knight
+  className: Knight
+  classTier: 1
+  classDescription: 'A class that specializes in heftier defenses and staying in
+    the fight longer. Out of combat they can heal themselves up with some bandages.
+    In combat they can fortify their defenses to reduce damage taken '
+  overworldAbilityDescription: Restores 200 HP free of charge
+  stats:
+  - attribute: 0
+    value: 70
+  - attribute: 1
+    value: 70
+  - attribute: 2
+    value: 6
+  - attribute: 3
+    value: 5
+  - attribute: 4
+    value: 1
+  - attribute: 5
+    value: 5
+  - attribute: 6
+    value: 3
+  levelUpStats:
+  - attribute: 0
+    value: 10
+  - attribute: 1
+    value: 10
+  - attribute: 2
+    value: 2
+  - attribute: 3
+    value: 1
+  - attribute: 5
+    value: 1
+  inventorySizes: 04000000040000000200000003000000
+  ClassActionCD: 4
+  classActionName: Bandage
+  actionUseText: You wrap your injuries (if you had any) with bandages
+  actionType: 0
+  combatAbility: {fileID: 11400000, guid: 535d4a7f9bcc7fc4cac2de537e2e0453, type: 2}
+  basicAttackAbility: {fileID: 11400000, guid: 624f23ed2bf8f504eb4aa48a590b999f, type: 2}
+  classXpRequirements: 64000000c80000002c010000
+  baseSalary: 500
+  recommendedItems: []
+  allyClassUpgrades: []
+  allyUnlockTips: Your Ally needs to be at least level 10
+  AIType: 0
+  healAmount: 200
+  prerequisiteClass: {fileID: 11400000, guid: 73d6fad618e10aa4bbdd1d9b14a09771, type: 2}
