@@ -37,6 +37,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
 
     public float baseMoveSpeed = 4f;
 
+    public float distanceToGround = 1f;
     [DoNotSerialize] public Rigidbody rb;
     [DoNotSerialize] public AudioSource source;
     public override void OnNetworkSpawn()
@@ -107,12 +108,12 @@ public class BaseEnemyBehavior : NetworkBehaviour
     {
         
         if(myManager.stats.isDead) { agent.enabled = false; return; }
-        if(myManager.CanWalk() && rb.linearVelocity.y == 0) { agent.enabled = true; rb.isKinematic = true; }
+        if(myManager.CanWalk() && (rb.linearVelocity.y == 0 || (rb.linearVelocity.y < 0 && Mathf.Abs(rb.position.y - targetManager.transform.position.y) < distanceToGround))) { agent.enabled = true; rb.isKinematic = true; }
         else { agent.enabled = false; }
         if (!agent.isOnNavMesh) { agent.enabled = false; }
         
 
-
+        
 
 
         if (!IsServer) { return; }

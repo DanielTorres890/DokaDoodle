@@ -1607,6 +1607,7 @@ MonoBehaviour:
     onStatusProgress:
       m_PersistentCalls:
         m_Calls: []
+    stunImmune: 0
     attacks:
     - {fileID: 0}
     defenses:
@@ -1918,6 +1919,7 @@ MonoBehaviour:
   animator: {fileID: -2458163416096458169}
   overrideController: {fileID: 0}
   walkingAnimation: {fileID: 7400000, guid: df4c2d9c4c815ce46b1b280ac51ab45d, type: 2}
+  walkingAnimSpeed: 1
   victoryAnimation: {fileID: 7400000, guid: df4c2d9c4c815ce46b1b280ac51ab45d, type: 2}
   attackAnimations:
   - startUp: {fileID: 7400000, guid: df4c2d9c4c815ce46b1b280ac51ab45d, type: 2}
@@ -1926,12 +1928,14 @@ MonoBehaviour:
   releaseTimer: 0
   timeToHold: 0
   baseMoveSpeed: 4
+  distanceToGround: 1
   rb: {fileID: 0}
   source: {fileID: 0}
   kiteRange: 6
   kiteAmount: 0
   Precision: 15
   StopKitingDistance: 8
+  failedEscapeCounter: 0
   failedEscapeAmount: 1
   inKiteRange: 0
   avoiding: 0
@@ -2084,7 +2088,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: maldingmoth
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1292352649259652232, guid: f7fd20855a4568f4cbf989fafe864b53, type: 3}
+    - {fileID: 8620484887751540125, guid: f7fd20855a4568f4cbf989fafe864b53, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

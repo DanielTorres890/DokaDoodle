@@ -16,7 +16,7 @@ MonoBehaviour:
   attackName: Upper Cut
   startUp: 0.4
   attackDuration: 0
-  endLag: 0.1
+  endLag: 0.2
   startCooldown: 0
   cooldown: 5
   lifespan: 0.3
@@ -36,7 +36,7 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0.541, y: 0.277, z: 0}
   spawnFx: {fileID: 0}
-  offset: {x: -0.5, y: 1, z: 0}
+  offset: {x: -0.5, y: 0, z: 0}
   ablitySize: {x: 2, y: 5, z: 8}
   visualRoation: {x: 0, y: 0, z: 0}
   lockRotation: 0
@@ -62,8 +62,8 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 7400000, guid: 836925fd811debc40b010fe1eec1b0ff, type: 2}
-  attackAnimation: {fileID: 7400000, guid: 8aa42edf052753d4fb20486f9bb57159, type: 2}
+  startUpAnimation: {fileID: 7400000, guid: 012dae2659aa0d043932a1eaa983e4cf, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 793f6b9b70018ac4485ac07f7e92d227, type: 2}
   animationSpeed: 1.2
   LevelRequirements: []
   startUpNoise: {fileID: 0}

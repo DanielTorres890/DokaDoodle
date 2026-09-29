@@ -1635,6 +1635,7 @@ MonoBehaviour:
     onStatusProgress:
       m_PersistentCalls:
         m_Calls: []
+    stunImmune: 0
     attacks:
     - {fileID: 0}
     defenses:
@@ -1859,7 +1860,8 @@ MonoBehaviour:
   InAttackRange: 0
   animator: {fileID: 0}
   overrideController: {fileID: 0}
-  walkingAnimation: {fileID: 7400000, guid: 9311ee3863c3bf8419660a5c8146bf5d, type: 2}
+  walkingAnimation: {fileID: 7400000, guid: 43806e93d47f4b747ab76d6f26760938, type: 2}
+  walkingAnimSpeed: 1
   victoryAnimation: {fileID: 7400000, guid: acf3ca9e5a6cb554889c6bc115dafbc1, type: 2}
   attackAnimations:
   - startUp: {fileID: 7400000, guid: f95a85aa6eb3d5b46b675476b693fe1d, type: 2}
@@ -1868,6 +1870,7 @@ MonoBehaviour:
   releaseTimer: 0
   timeToHold: 0
   baseMoveSpeed: 4
+  distanceToGround: 1
   rb: {fileID: 0}
   source: {fileID: 0}
 --- !u!95 &-2458163416096458169

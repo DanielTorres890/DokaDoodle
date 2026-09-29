@@ -17,7 +17,9 @@ public abstract class WorldEventBase : ScriptableObject
 
     [Tooltip("IF this is a quest with a specific condition to occur (ex: quest activating after 10 days) then add a scriptable for it")]
     public QuestCondition MainQuestCondition;
- 
+
+    [Tooltip("An array of actions to perform when an event is complete")]
+    public WorldEventComplete[] performOnComplete;
 
     //I dont like making literally everything take a random number but i'm reallllyyy not sure where i'd even want to generate it since everywhere feels like a bad place
     public virtual void OnActivate(int randomNum)
@@ -32,6 +34,10 @@ public abstract class WorldEventBase : ScriptableObject
 
     public virtual void OnDeactivate()
     {
+        foreach(var action in performOnComplete)
+        {
+            action.CompleteAction();
+        }
         if(finishCutscene) 
         { 
             WorldEventManager.Instance.currentCutscene = finishCutscene;
