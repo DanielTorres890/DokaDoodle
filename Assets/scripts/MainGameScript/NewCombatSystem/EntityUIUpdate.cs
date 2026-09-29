@@ -13,6 +13,11 @@ public class EntityUIUpdate : MonoBehaviour
     public Attributes attributeToWhom;
 
     public bool faceTowards = false;
+
+    public void Start()
+    {
+        AbilityManager.onHit.AddListener(UpdateText);
+    }
     public void UpdateText()
     {
        

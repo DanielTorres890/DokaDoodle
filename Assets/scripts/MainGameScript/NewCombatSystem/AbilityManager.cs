@@ -34,7 +34,7 @@ public class AbilityManager : NetworkBehaviour
     [SerializeField] private EntityUIUpdate nameText;
     [SerializeField] private EntityUIUpdate hpText;
     [SerializeField] private GameObject myHealthbar;
-    [SerializeField] private GameObject damageNumber;
+    [SerializeField] public GameObject damageNumber;
     public UnityEvent onStatus;
     public UnityEvent onAttack;
     public UnityEvent onSpawnAttack; //bc im dumb and dont feel like changing the labels rn
@@ -84,7 +84,7 @@ public class AbilityManager : NetworkBehaviour
         
     }
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         if(NewCombatManager.instance.fightOver || stats.isDead)
         {
@@ -362,8 +362,9 @@ public class AbilityManager : NetworkBehaviour
    */
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    public void ImHitRpc(int damageAmt)
+    public virtual void ImHitRpc(int damageAmt)
     {
+       
         stats.stats[Attributes.Health] -= damageAmt;
 
         NewCombatManager.instance.AddContribution(stats, damageAmt / stats.stats[Attributes.MaxHealth] * 10);
@@ -388,7 +389,8 @@ public class AbilityManager : NetworkBehaviour
                 break;
             }
         }
-        hpText.UpdateText();
+
+        
         if (stats.stats[Attributes.Health] <= 0 && !stats.isDead)
         {
             stats.isDead = true;

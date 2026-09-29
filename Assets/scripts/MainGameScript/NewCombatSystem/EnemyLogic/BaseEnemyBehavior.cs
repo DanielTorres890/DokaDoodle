@@ -107,7 +107,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     {
         
         if(myManager.stats.isDead) { agent.enabled = false; return; }
-        if(myManager.CanWalk()) { agent.enabled = true; rb.isKinematic = true; }
+        if(myManager.CanWalk() && rb.linearVelocity.y == 0) { agent.enabled = true; rb.isKinematic = true; }
         else { agent.enabled = false; }
         if (!agent.isOnNavMesh) { agent.enabled = false; }
         
@@ -165,6 +165,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
         if (myManager.combatantstate == combatantStates.Free ||  myManager.combatantstate == combatantStates.StartUpFree)
 
         agent.speed = myManager.stats.speedFormula() + baseMoveSpeed;
+        if(agent.enabled)
         agent.SetDestination(targetManager.gameObject.transform.position);
        
 

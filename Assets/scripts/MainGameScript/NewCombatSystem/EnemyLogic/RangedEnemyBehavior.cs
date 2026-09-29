@@ -25,7 +25,7 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
     {
         
         if (myManager.stats.isDead || NewCombatManager.instance.fightOver) { agent.enabled = false; return; }
-        if (myManager.CanWalk()) { agent.enabled = true; rb.isKinematic = true; }
+        if (myManager.CanWalk() && rb.linearVelocity.y == 0) { agent.enabled = true; rb.isKinematic = true; }
         else { agent.enabled = false; }
         if (!agent.isOnNavMesh) { agent.enabled = false; }
         if (!IsServer) { return; }
