@@ -86,7 +86,7 @@ public class DialogueScript : NetworkBehaviour
     public void startDialogue ()
     {
         StopAllCoroutines();
-
+        onLineFinish.Invoke(-1);
         textComponent.text = lines[0];
         textComponent.maxVisibleCharacters = 0;
         charsToIgnore = 0;
