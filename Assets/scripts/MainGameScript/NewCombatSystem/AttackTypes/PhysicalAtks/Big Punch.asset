@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c70905539cf5dbf419736cae7168ff11, type: 3}
-  m_Name: SlimeHop
+  m_Script: {fileID: 11500000, guid: e1b47e846fecebc48b8df7bd633dae51, type: 3}
+  m_Name: Big Punch
   m_EditorClassIdentifier: 
-  description: Slime HippityHoppity
-  attackName: Slime Hop
-  startUp: 0.133
-  attackDuration: 0.8
-  endLag: 0.167
-  startCooldown: 1
-  cooldown: 1.5
-  lifespan: 0.8
+  description: A big wind up for a big damage punch
+  attackName: Big Punch
+  startUp: 1.5
+  attackDuration: 0
+  endLag: 0
+  startCooldown: 0
+  cooldown: 0.1
+  lifespan: 0.267
   energyDrain: 1
   initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
@@ -29,24 +29,36 @@ MonoBehaviour:
   requiredPotency: 0
   dmgPotencyEffect: 2
   sizePotencyEffect: 2
-  stateToBe: 0
+  stateToBe: 1
   chargeable: 1
-  attackPrefab: {fileID: 2566779757777240371, guid: 16c01d7fe5d54894da5177ffa795d602, type: 3}
+  attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
-  ablitySize: {x: 3, y: 5, z: 3}
+  offset: {x: -0.5, y: 2, z: 1.5}
+  ablitySize: {x: 4, y: 0.6, z: 10}
   visualRoation: {x: 0, y: 0, z: 0}
   lockRotation: 0
-  baseDamage: 3
+  baseDamage: 5
   multipliers:
+  - attribute: 0
+    mult: 0
+  - attribute: 1
+    mult: 0
   - attribute: 2
-    mult: 1
+    mult: 2
+  - attribute: 3
+    mult: 0
+  - attribute: 4
+    mult: 0
+  - attribute: 5
+    mult: 0
+  - attribute: 6
+    mult: 0
   defenseMult:
   - attribute: 3
-    mult: 0.3
+    mult: 0.7
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -62,19 +74,17 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 7400000, guid: 23c420185eff56a45abdc443b9130555, type: 2}
-  attackAnimation: {fileID: 7400000, guid: e5831ea24ef2b3f43901843ece4d8af5, type: 2}
+  startUpAnimation: {fileID: 7400000, guid: 351ae011892a70a459c0ce3310837173, type: 2}
+  attackAnimation: {fileID: 7400000, guid: dac540ec14cddcc46a65f97cfee004ad, type: 2}
   animationSpeed: 1
   LevelRequirements: []
   startUpNoise: {fileID: 0}
-  attackSound: {fileID: 0}
-  onHitSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 51465924abc41df428febd7bbcd57111, type: 3}
+  onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
   onHitEffects: []
   targets:
     serializedVersion: 2
     m_Bits: 0
   conditions: []
-  colorByWeapon: 1
+  colorByWeapon: 0
   parentToPlayer: 1
-  dashDirection: {x: 0, y: 0.2, z: 1}
-  dashSpeed: 25
