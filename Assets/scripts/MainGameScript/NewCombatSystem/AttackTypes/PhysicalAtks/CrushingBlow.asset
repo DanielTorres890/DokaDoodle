@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b47e846fecebc48b8df7bd633dae51, type: 3}
+  m_Name: CrushingBlow
+  m_EditorClassIdentifier: 
+  description: A hefty attack that reduces enemy defense by 50%
+  attackName: Crushing Blow
+  startUp: 0.4
+  attackDuration: 0
+  endLag: 0.2
+  startCooldown: 0
+  cooldown: 5
+  lifespan: 0.3
+  energyDrain: 1
+  initialEnergyCost: 0
+  maxChargeAtkBuff: 1.2
+  maxChargeSizeBuff: 1.2
+  maxChargeSpeedBuff: 1.1
+  maxChargeDuration: 3
+  requiredPotency: 0
+  dmgPotencyEffect: 2
+  sizePotencyEffect: 2
+  stateToBe: 0
+  chargeable: 0
+  attackPrefab: {fileID: 2566779757777240371, guid: 134229625ba75a04f933b484ee348267, type: 3}
+  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0.541, y: 0.277, z: 0}
+  spawnFx: {fileID: 2566779757777240371, guid: a5301b9e9a3c6d5429845f7fa9758fa3, type: 3}
+  offset: {x: -0.5, y: 0, z: 4.5}
+  ablitySize: {x: 2, y: 5, z: 10}
+  visualRoation: {x: 0, y: 0, z: 0}
+  lockRotation: 0
+  baseDamage: 5
+  multipliers:
+  - attribute: 2
+    mult: 1.5
+  defenseMult:
+  - attribute: 3
+    mult: 1
+  antiGuardMultipliers:
+  - attribute: 0
+    mult: 1
+  - attribute: 1
+    mult: 1
+  - attribute: 2
+    mult: 1
+  - attribute: 3
+    mult: 1
+  - attribute: 4
+    mult: 1
+  - attribute: 5
+    mult: 1
+  - attribute: 6
+    mult: 1
+  startUpAnimation: {fileID: 7400000, guid: 942a8f7bb4cb51f4fa9431799def6cc0, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 0b53b682aa49c7a42874092f15b443c4, type: 2}
+  animationSpeed: 1
+  LevelRequirements: []
+  startUpNoise: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 4b8b871b340e9b344828226840dd32cb, type: 3}
+  onHitSound: {fileID: 8300000, guid: fd57dea2003a26744954854993a44824, type: 3}
+  onHitEffects:
+  - {fileID: 11400000, guid: 59ed16c0d3a9f8b49b76fa58c9f95e58, type: 2}
+  targets:
+    serializedVersion: 2
+    m_Bits: 0
+  conditions: []
+  colorByWeapon: 0
+  parentToPlayer: 1

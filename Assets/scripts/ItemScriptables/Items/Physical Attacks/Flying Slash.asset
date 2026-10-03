@@ -20,13 +20,12 @@ MonoBehaviour:
     Swing with enough force to send a slash flying
     through the air
 
-    Requires: 12 ATK'
+    Requires: 20 ATK'
   useText: You equip the wooden sword
   itemName: Flying Slash
-  buffs:
-  - attribute: 2
-    value: 10
+  buffs: []
   battleItem: 0
+  inCombatAttack: {fileID: 0}
   overworldItem: 0
   useClip: {fileID: 0}
   interrupt: 0
@@ -34,7 +33,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bed26ac80a853e540a6be19304275f80, type: 2}
   skillRequirements:
   - attribute: 2
-    value: 12
+    value: 20
   inHandSprite: {fileID: 0}
   onEquipBuffs: []
   weaponColor: {r: 0, g: 0, b: 0, a: 0}

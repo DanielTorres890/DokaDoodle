@@ -20,13 +20,14 @@ MonoBehaviour:
     Performs an attack that dashes forward cutting
     anything you pass through dealing light damage
 
-    Requires: 13 ATK'
+    Requires: 13 ATK 5 DEX'
   useText: Weapon Equipped
   itemName: Sword Draw
   buffs:
   - attribute: 2
     value: 10
   battleItem: 0
+  inCombatAttack: {fileID: 0}
   overworldItem: 0
   useClip: {fileID: 0}
   interrupt: 0
@@ -35,6 +36,8 @@ MonoBehaviour:
   skillRequirements:
   - attribute: 2
     value: 13
+  - attribute: 6
+    value: 5
   inHandSprite: {fileID: 0}
   onEquipBuffs: []
   weaponColor: {r: 0, g: 0, b: 0, a: 0}
