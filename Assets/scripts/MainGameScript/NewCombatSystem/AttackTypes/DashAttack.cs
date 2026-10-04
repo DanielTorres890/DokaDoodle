@@ -16,7 +16,7 @@ public class DashAttack : AttackBase
     public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargeDuration, Vector3 origin, Vector3 direction)
     {
         var attack = base.WeaponEffect(caster, time, whereiscaster, casterLooking, chargeDuration, origin, direction);
-        attack.transform.SetParent(caster.transform); //im sure only good things can happen
+         
         return attack;
     }
 

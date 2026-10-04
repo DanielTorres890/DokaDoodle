@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
-  m_Name: Meteor Shower
+  m_Name: Furious Strikes
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 21300000, guid: 5387d20b2ae5db649b2e713ff3f7604c, type: 3}
-  type: 5
-  itemValue: 3000
-  description: '(MAGIC ABILITY)
+  itemSprite: {fileID: 21300000, guid: db1dfcea11c347b4da447fc300a54fbf, type: 3}
+  type: 3
+  itemValue: 2000
+  description: '(PHYSICAL ABILITY)
 
-    Allows you to summon a meteor shower on your
-    location doing heavy damage to anyone hit
+    Strike multiple times in quick succession
 
-    REQ: 20 MAG'
-  useText: 
-  itemName: Meteor Shower
+    REQ:
+    15 ATK'
+  useText: You equip the wooden sword
+  itemName: Furious Strikes
   buffs: []
   battleItem: 0
   inCombatAttack: {fileID: 0}
@@ -30,10 +30,10 @@ MonoBehaviour:
   useClip: {fileID: 0}
   interrupt: 0
   attack:
-  - {fileID: 11400000, guid: 8bec3afc25eaf064ab10931aba6d9284, type: 2}
+  - {fileID: 11400000, guid: edfc132b07c55a649909195d603bbf7a, type: 2}
   skillRequirements:
-  - attribute: 4
-    value: 20
+  - attribute: 2
+    value: 15
   inHandSprite: {fileID: 0}
   onEquipBuffs: []
-  weaponColor: {r: 0, g: 0, b: 0, a: 0}
+  weaponColor: {r: 1, g: 1, b: 1, a: 0}

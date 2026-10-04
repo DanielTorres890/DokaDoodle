@@ -34,6 +34,8 @@ public class MultiBurst : AttackBase
 
     public BurstTargetMode targetMode = BurstTargetMode.Circle;
 
+    [Tooltip("Only applies if mode is pingpong, how many bursts before it changes direction")]
+    public int pingpongCount;
     public override GameObject WeaponEffect(GameObject caster, float time, Vector3 whereiscaster, Vector3 casterLooking, float chargedDuration, Vector3 origin, Vector3 direction)
     {
         var spawnedObj =  base.WeaponEffect(caster, time, whereiscaster, casterLooking, chargedDuration, origin, direction);

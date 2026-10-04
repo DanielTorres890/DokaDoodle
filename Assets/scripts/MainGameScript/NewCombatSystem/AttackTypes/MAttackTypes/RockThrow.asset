@@ -12,14 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88423fa34ea4c3b4d8d7661c8e38dca6, type: 3}
   m_Name: RockThrow
   m_EditorClassIdentifier: 
-  description: throw rock
+  description: 'Throw Rock
+
+'
   attackName: Rock Throw
-  startUp: 1.5
+  startUp: 0.6
   attackDuration: 0
-  endLag: 1
+  endLag: 0.1
+  startCooldown: 0
   cooldown: 0
   lifespan: 12
   energyDrain: 2
+  initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -29,18 +33,22 @@ MonoBehaviour:
   sizePotencyEffect: 2
   stateToBe: 0
   chargeable: 1
-  attackPrefab: {fileID: 4958144232811764369, guid: 4668d625169cc90448d3030b4cde0002, type: 3}
+  attackPrefab: {fileID: 4958144232811764369, guid: 23b6276578151cf4cac7e090f6442a96, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
-  ablitySize: {x: 1, y: 1, z: 1}
+  offset: {x: 0, y: 3, z: 2}
+  ablitySize: {x: 2, y: 2, z: 2}
+  visualRoation: {x: 0, y: 0, z: 0}
+  lockRotation: 0
   baseDamage: 10
   multipliers:
   - attribute: 2
-    mult: 1.8
+    mult: 2
   defenseMult:
   - attribute: 5
-    mult: 0.5
+    mult: 0.75
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -56,16 +64,21 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 0}
-  attackAnimation: {fileID: 0}
+  startUpAnimation: {fileID: 7400000, guid: 6714484de2d644441850d03ca9a0a223, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 516d7771e496e0c4ba2bda07a8d3607b, type: 2}
   animationSpeed: 1
   LevelRequirements: []
+  startUpNoise: {fileID: 0}
   attackSound: {fileID: 0}
   onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
   onHitEffects: []
   targets:
     serializedVersion: 2
     m_Bits: 0
-  speed: 12
+  conditions: []
+  colorByWeapon: 0
+  parentToPlayer: 0
+  speed: 20
+  pierceCount: 0
   burstLifespan: 1
-  burstSize: {x: 2, y: 2, z: 2}
+  burstSize: {x: 3, y: 3, z: 3}

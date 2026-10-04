@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -3449963724059602138}
   - component: {fileID: 3893951003391152421}
   - component: {fileID: 4928155443056925180}
+  - component: {fileID: -2210608987707792547}
   m_Layer: 0
   m_Name: poke
   m_TagString: Untagged
@@ -210,6 +211,7 @@ MonoBehaviour:
     onStatusProgress:
       m_PersistentCalls:
         m_Calls: []
+    stunImmune: 0
     attacks: []
     defenses:
     - {fileID: 0}
@@ -222,8 +224,9 @@ MonoBehaviour:
   chargedDuration: 0
   destroyOnWallCollide: 0
   hitGameObject: {fileID: 0}
-  AudioSource: {fileID: 0}
   stickInOpponent: 0
+  continuousDamage: 0
+  damageFrequency: 0
 --- !u!82 &4928155443056925180
 AudioSource:
   m_ObjectHideFlags: 0
@@ -321,6 +324,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-2210608987707792547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566779757777240371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b53e1120af857340958554686991c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackSoundPlayer
+  ShowTopMostFoldoutHeaderGroup: 1
+  audioSource: {fileID: 4928155443056925180}
 --- !u!1 &6280009128921261832
 GameObject:
   m_ObjectHideFlags: 0

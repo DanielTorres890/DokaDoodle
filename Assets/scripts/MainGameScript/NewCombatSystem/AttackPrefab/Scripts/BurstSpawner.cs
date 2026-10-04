@@ -9,6 +9,10 @@ public class BurstSpawner : NonDamage
 
     public bool instaSpawn = false;
     private bool spawned = false;
+
+    private int direction = 1;
+
+    
     public override void AbilityAction()
     {
         if (!IsServer) { return; }
@@ -44,7 +48,7 @@ public class BurstSpawner : NonDamage
 
             }
             
-            if(burstInfo.targetMode == BurstTargetMode.Circle)
+            if(burstInfo.targetMode == BurstTargetMode.Circle || burstInfo.targetMode == BurstTargetMode.PingPong)
             {
                 for (int i = 0; i < burstInfo.attacksPerBurst; i++)
                 {
@@ -66,7 +70,12 @@ public class BurstSpawner : NonDamage
 
             lifetimer = 0;
             spawnedBursts += 1;
-            transform.Rotate(Vector3.up * burstInfo.intervalRotation);
+            transform.Rotate(Vector3.up * burstInfo.intervalRotation * direction);
+            if(spawnedBursts % burstInfo.pingpongCount == 0 && burstInfo.targetMode == BurstTargetMode.PingPong)
+            {
+                direction *= -1;
+            }
+
             if (spawnedBursts >= burstInfo.totalBursts)
             {
                 Destroy(gameObject);
@@ -95,6 +104,7 @@ public class BurstSpawner : NonDamage
     public enum BurstTargetMode
     {
         Circle,
-        TargetEntities
+        TargetEntities,
+        PingPong
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class MeleeAbility : AbilityBase
@@ -11,7 +12,14 @@ public class MeleeAbility : AbilityBase
     }
     public override void OnHit()
     {
-        
+        if (hitGameObject)
+        {
+
+            var fx = Instantiate(hitGameObject);
+            fx.transform.position = transform.position;
+            fx.transform.localScale = transform.localScale;
+            fx.GetComponent<NetworkObject>().Spawn();
+        }
     }
     /*public void OnTriggerEnter(Collider other)
     {

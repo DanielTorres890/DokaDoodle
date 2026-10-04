@@ -17,11 +17,12 @@ MonoBehaviour:
   itemValue: 1000
   description: "(PHYSICAL ABILITY)\nThrows countless swords into the air landing
     across the battle field. Pick up swords to make follow up attacks available.
-    \nRequires: 8 ATK, 8 DEX"
+    \nRequires: 25 ATK"
   useText: Weapon Equipped
   itemName: Infinite Sword Style
   buffs: []
   battleItem: 0
+  inCombatAttack: {fileID: 0}
   overworldItem: 0
   useClip: {fileID: 0}
   interrupt: 0
@@ -31,8 +32,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aa9d2ecf097a34b469fce761d9a2e87b, type: 2}
   skillRequirements:
   - attribute: 2
-    value: 8
-  - attribute: 6
-    value: 8
+    value: 25
   inHandSprite: {fileID: 0}
   onEquipBuffs: []
+  weaponColor: {r: 0, g: 0, b: 0, a: 0}

@@ -187,7 +187,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     public virtual void AttackPlayer()
     {
         
-        transform.LookAt(new Vector3(targetManager.gameObject.transform.position.x, transform.position.y , targetManager.gameObject.transform.position.z));
+        
         if(!IsServer) { return; }
 
         
@@ -197,6 +197,8 @@ public class BaseEnemyBehavior : NetworkBehaviour
             
             selectAttack();
             if (myManager.stateManager[selectedAttack].cooldown > 0) { return; }
+
+            transform.LookAt(new Vector3(targetManager.gameObject.transform.position.x, transform.position.y, targetManager.gameObject.transform.position.z));
             for (int i = 0; i < myManager.stats.attacks.Count; i++)
             {
                 if (myManager.stats.attacks[i] == selectedAttack)

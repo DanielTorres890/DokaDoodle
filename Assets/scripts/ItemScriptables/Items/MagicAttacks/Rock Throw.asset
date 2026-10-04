@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26954a8446a6f8b4d84398d09937eb3b, type: 3}
-  m_Name: Meteor Shower
+  m_Name: Rock Throw
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 21300000, guid: 5387d20b2ae5db649b2e713ff3f7604c, type: 3}
   type: 5
-  itemValue: 3000
+  itemValue: 500
   description: '(MAGIC ABILITY)
 
-    Allows you to summon a meteor shower on your
-    location doing heavy damage to anyone hit
+    Fires a hefty rock which is affected by gravity
 
-    REQ: 20 MAG'
+    REQ:
+    15 MAG'
   useText: 
-  itemName: Meteor Shower
+  itemName: Rock Throw
   buffs: []
   battleItem: 0
   inCombatAttack: {fileID: 0}
@@ -30,10 +30,10 @@ MonoBehaviour:
   useClip: {fileID: 0}
   interrupt: 0
   attack:
-  - {fileID: 11400000, guid: 8bec3afc25eaf064ab10931aba6d9284, type: 2}
+  - {fileID: 11400000, guid: 80b0465243276e44d8f41530c81ac4b0, type: 2}
   skillRequirements:
   - attribute: 4
-    value: 20
+    value: 15
   inHandSprite: {fileID: 0}
   onEquipBuffs: []
   weaponColor: {r: 0, g: 0, b: 0, a: 0}

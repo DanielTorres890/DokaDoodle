@@ -222,7 +222,7 @@ MonoBehaviour:
   lifetimer: 0
   chargedDuration: 0
   destroyOnWallCollide: 0
-  hitGameObject: {fileID: 0}
+  hitGameObject: {fileID: 2566779757777240371, guid: a5301b9e9a3c6d5429845f7fa9758fa3, type: 3}
   stickInOpponent: 0
   continuousDamage: 0
   damageFrequency: 0
@@ -352,7 +352,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.74086964, w: 0.6716489}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.5811}
+  m_LocalScale: {x: 1, y: 3.507579, z: 0.5811}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8101303593615582343}
@@ -365,7 +365,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6280009128921261832}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: a6521d3c131121e4aaeeca5774ec718f, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: f8446690e9edd8741aad3e128fa88e95, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -374,7 +374,10 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 6.17
+        m_Name: Voronoi Scale
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -388,7 +391,59 @@ VisualEffect:
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
-      m_Array: []
+      m_Array:
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: -0.0029182434
+            value: -45
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.7
+            value: 45
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: ZOverTime
+        m_Overridden: 1
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: -1.2
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1.5
+            value: 15
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: VoronoiOverTime
+        m_Overridden: 1
     m_Gradient:
       m_Array: []
     m_NamedObject:

@@ -20,9 +20,9 @@ MonoBehaviour:
     Perform a longer wind up to do a big punch,
     you can move while winding up though
 
-    REQ: 12 ATK'
+    REQ: 15 ATK'
   useText: You equip the wooden sword
-  itemName: Spin
+  itemName: Big Punch
   buffs: []
   battleItem: 0
   inCombatAttack: {fileID: 0}
@@ -30,10 +30,10 @@ MonoBehaviour:
   useClip: {fileID: 0}
   interrupt: 0
   attack:
-  - {fileID: 11400000, guid: b4a28674452c61347896807a96ddb8be, type: 2}
+  - {fileID: 11400000, guid: d31090d66230d124896cf09c58353753, type: 2}
   skillRequirements:
   - attribute: 2
-    value: 12
+    value: 15
   inHandSprite: {fileID: 0}
   onEquipBuffs: []
   weaponColor: {r: 1, g: 1, b: 1, a: 0}

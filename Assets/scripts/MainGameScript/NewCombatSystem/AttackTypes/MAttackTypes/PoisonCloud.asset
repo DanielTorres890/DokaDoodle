@@ -39,11 +39,14 @@ MonoBehaviour:
   offset: {x: -0.5, y: 2, z: 5}
   ablitySize: {x: 5, y: 5, z: 5}
   visualRoation: {x: 0, y: 0, z: 0}
+  lockRotation: 0
   baseDamage: 2
-  multipliers: []
+  multipliers:
+  - attribute: 4
+    mult: 1
   defenseMult:
   - attribute: 5
-    mult: 1
+    mult: 0.75
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -73,3 +76,4 @@ MonoBehaviour:
     m_Bits: 0
   conditions: []
   colorByWeapon: 1
+  parentToPlayer: 0

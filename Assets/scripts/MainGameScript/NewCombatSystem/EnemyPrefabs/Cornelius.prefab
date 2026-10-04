@@ -439,6 +439,7 @@ MonoBehaviour:
     onStatusProgress:
       m_PersistentCalls:
         m_Calls: []
+    stunImmune: 0
     attacks:
     - {fileID: 0}
     defenses:
@@ -688,6 +689,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   overrideController: {fileID: 0}
   walkingAnimation: {fileID: 7400000, guid: 87ef01ed74677884b83e86342408194f, type: 2}
+  walkingAnimSpeed: 1
   victoryAnimation: {fileID: 7400000, guid: acf3ca9e5a6cb554889c6bc115dafbc1, type: 2}
   attackAnimations:
   - startUp: {fileID: 7400000, guid: 48d29d842b63ef24d84271071415e3f1, type: 2}
@@ -696,12 +698,14 @@ MonoBehaviour:
   releaseTimer: 0
   timeToHold: 1
   baseMoveSpeed: 4
+  distanceToGround: 1
   rb: {fileID: 0}
   source: {fileID: 0}
-  kiteRange: 100
-  kiteAmount: 15
+  kiteRange: 15
+  kiteAmount: 10
   Precision: 10
   StopKitingDistance: 4
+  failedEscapeCounter: 0
   failedEscapeAmount: 1
   inKiteRange: 0
   avoiding: 0

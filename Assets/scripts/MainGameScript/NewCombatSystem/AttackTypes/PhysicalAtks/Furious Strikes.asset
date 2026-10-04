@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c70905539cf5dbf419736cae7168ff11, type: 3}
-  m_Name: Sword Draw
-  m_EditorClassIdentifier: 
+  m_Script: {fileID: 11500000, guid: cd2ed02f6724d90478468751439f3776, type: 3}
+  m_Name: Furious Strikes
+  m_EditorClassIdentifier: Assembly-CSharp::MultiBurst
   description: 
-  attackName: Sword Draw
-  startUp: 0.4
-  attackDuration: 0.2
-  endLag: 0.2
+  attackName: Furious Strikes
+  startUp: 0.25
+  attackDuration: 0
+  endLag: 0.55
   startCooldown: 0
   cooldown: 12
-  lifespan: 0.2
+  lifespan: 3
   energyDrain: 1
   initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
@@ -30,23 +30,23 @@ MonoBehaviour:
   dmgPotencyEffect: 2
   sizePotencyEffect: 2
   stateToBe: 0
-  chargeable: 1
-  attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
+  chargeable: 0
+  attackPrefab: {fileID: 2566779757777240371, guid: bb8ef4c0e7602c243a1240413e704080, type: 3}
   startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
-  ablitySize: {x: 3, y: 5, z: 5}
+  ablitySize: {x: 1, y: 1, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
   lockRotation: 0
-  baseDamage: 5
+  baseDamage: 3
   multipliers:
   - attribute: 2
-    mult: 1.2
+    mult: 0.5
   defenseMult:
   - attribute: 3
-    mult: 0.8
+    mult: 0.25
   antiGuardMultipliers:
   - attribute: 0
     mult: 1
@@ -62,19 +62,29 @@ MonoBehaviour:
     mult: 1
   - attribute: 6
     mult: 1
-  startUpAnimation: {fileID: 7400000, guid: 15f649ebeebc69e458789d975740b8fc, type: 2}
-  attackAnimation: {fileID: 7400000, guid: 523031559021b814b8afc2bbba3bf9c8, type: 2}
-  animationSpeed: 1
+  startUpAnimation: {fileID: 7400000, guid: 50b1d89fbae1ce941a0bb848afe7285c, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 38c994e3732e25649b191143ba640491, type: 2}
+  animationSpeed: 1.25
   LevelRequirements: []
   startUpNoise: {fileID: 0}
-  attackSound: {fileID: 8300000, guid: e137a57f645ec3346bb7b8539ae31da7, type: 3}
-  onHitSound: {fileID: 8300000, guid: fd57dea2003a26744954854993a44824, type: 3}
+  attackSound: {fileID: 0}
+  onHitSound: {fileID: 0}
   onHitEffects: []
   targets:
     serializedVersion: 2
     m_Bits: 0
   conditions: []
-  colorByWeapon: 1
-  parentToPlayer: 1
-  dashDirection: {x: 0, y: 0, z: 1}
-  dashSpeed: 200
+  colorByWeapon: 0
+  parentToPlayer: 0
+  attacksPerBurst: 1
+  totalBursts: 5
+  startingRotationOffset: -15
+  individualAttack: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
+  interval: 0.1
+  intervalRotation: 30
+  attackInfo: {fileID: 11400000, guid: 624f23ed2bf8f504eb4aa48a590b999f, type: 2}
+  attackOffset: {x: 0, y: 2, z: 1}
+  attackRadius: 0.5
+  individualAttackSound: {fileID: 8300000, guid: 51465924abc41df428febd7bbcd57111, type: 3}
+  targetMode: 2
+  pingpongCount: 2
