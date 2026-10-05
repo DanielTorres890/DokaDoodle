@@ -757,6 +757,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 113.655
       objectReference: {fileID: 0}
+    - target: {fileID: 3484416673085817871, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3484416673085817871, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3484416673085817871, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3484416673085817871, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3484416673085817871, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4006590542507659146, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
       propertyPath: m_SortingOrder
       value: 1
@@ -833,6 +853,18 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8674716619949507667, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+      propertyPath: m_BoneTransforms.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8674716619949507667, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+      propertyPath: 'm_BoneTransforms.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1680000384}
+    - target: {fileID: 8674716619949507667, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+      propertyPath: 'm_BoneTransforms.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1680000383}
     m_RemovedComponents:
     - {fileID: 407611006977272786, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
     - {fileID: -8830778879610621627, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
@@ -868,6 +900,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayAnimationOnLine
   animInfo: []
   myAnimator: {fileID: 1680000381}
+--- !u!4 &1680000383 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2342827142536118031, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+  m_PrefabInstance: {fileID: 1680000379}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1680000384 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7080671651785012141, guid: 82231b2f4a3793b4e829f1f9a2231a4a, type: 3}
+  m_PrefabInstance: {fileID: 1680000379}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3488376408046497567
 PrefabInstance:
   m_ObjectHideFlags: 0
