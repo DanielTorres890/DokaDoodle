@@ -17,7 +17,7 @@ public class FirstTimeUse : MonoBehaviour
     {
         if (!PopUpManager.Instance.tutorialState[stateToCheck])
         {
-            text.color = new Color((Mathf.Sin(flashSpeed * Time.time) + 1)/2, (Mathf.Sin(flashSpeed * Time.time) + 1)/2, 0);
+            text.color = new Color(0, (Mathf.Sin(flashSpeed * Time.time) + 1)/2, (Mathf.Sin(flashSpeed * Time.time) + 1) / 2);
         }
         else
         {

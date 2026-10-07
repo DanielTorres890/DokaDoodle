@@ -9,6 +9,7 @@ using Unity.Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using static UnityEngine.EventSystems.EventTrigger;
 
 public class PlayerMoveManager : NetworkBehaviour
@@ -67,6 +68,7 @@ public class PlayerMoveManager : NetworkBehaviour
     public void Awake()
     {
         mapTiles.Clear();
+        
         for (int i = 0; i < mapTileParent.childCount; i++)
         {
             mapTiles.Add(mapTileParent.GetChild(i).gameObject.GetComponent<TileScript>());
@@ -502,6 +504,10 @@ public class PlayerMoveManager : NetworkBehaviour
                 {
                     thisTile.townId = -1;
                 }
+            }
+            foreach(var player in NetworkData.Instance.players)
+            {
+                player.TeleportPlayer(player.curMap, player.curTileId);
             }
         }
 

@@ -7,6 +7,7 @@ public class AreaEnterCondition : QuestCondition
 
     public override bool CanBeginQuest()
     {
+       
         return MapTileSpecialEvents.Instance.mapTiles[mapNum] != null;
     }
 }

@@ -140,13 +140,12 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 8389534975030586136}
   - {fileID: 7802617329169419557}
-  - {fileID: 4490313970675825287}
   - {fileID: 3353082322271568263}
   m_Bounds:
     m_Center: {x: 9.075, y: 4.79, z: 0}
     m_Extent: {x: 0.08500004, y: 1.3399999, z: 0}
   m_AlwaysUpdate: 1
-  m_AutoRebind: 0
+  m_AutoRebind: 1
 --- !u!1 &518041670135589704
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteSkin
   m_RootBone: {fileID: 204523565734630779}
   m_BoneTransforms:
+  - {fileID: 4834403473782697425}
   - {fileID: 3490191080601003723}
   - {fileID: 1047350171467046347}
   - {fileID: 7802617329169419557}
@@ -260,7 +260,7 @@ MonoBehaviour:
     m_Center: {x: 9.555, y: 5.1447554, z: 0}
     m_Extent: {x: 0.5249996, y: 0.3735752, z: 0}
   m_AlwaysUpdate: 1
-  m_AutoRebind: 0
+  m_AutoRebind: 1
 --- !u!1 &624278476773826246
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +374,7 @@ MonoBehaviour:
     m_Center: {x: 8.599999, y: 5.0750003, z: 0}
     m_Extent: {x: 0.52000046, y: 0.47500038, z: 0}
   m_AlwaysUpdate: 1
-  m_AutoRebind: 0
+  m_AutoRebind: 1
 --- !u!1 &949910862117850722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1769,7 +1769,7 @@ MonoBehaviour:
     m_Center: {x: 9.038185, y: 7.545415, z: 0}
     m_Extent: {x: 0.86818504, y: 0.443815, z: 0}
   m_AlwaysUpdate: 1
-  m_AutoRebind: 0
+  m_AutoRebind: 1
 --- !u!1 &4076497286351289017
 GameObject:
   m_ObjectHideFlags: 0
@@ -1910,11 +1910,12 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 5706890417849096620}
   - {fileID: 3353082322271568263}
+  - {fileID: 7802617329169419557}
   m_Bounds:
     m_Center: {x: 8.74, y: 2.85024, z: 0}
     m_Extent: {x: 0.40999985, y: 0.72593, z: 0}
   m_AlwaysUpdate: 1
-  m_AutoRebind: 0
+  m_AutoRebind: 1
 --- !u!1 &4635895870489500111
 GameObject:
   m_ObjectHideFlags: 0
@@ -2761,7 +2762,7 @@ MonoBehaviour:
     m_Center: {x: 9.075, y: 6.904995, z: 0}
     m_Extent: {x: 0.9449997, y: 0.96499467, z: 0}
   m_AlwaysUpdate: 1
-  m_AutoRebind: 0
+  m_AutoRebind: 1
 --- !u!1 &7538342870750632079
 GameObject:
   m_ObjectHideFlags: 0
@@ -3085,7 +3086,7 @@ MonoBehaviour:
     m_Center: {x: 9.055111, y: 6.715, z: 0}
     m_Extent: {x: 0.44364023, y: 0.41499996, z: 0}
   m_AlwaysUpdate: 1
-  m_AutoRebind: 0
+  m_AutoRebind: 1
 --- !u!1 &8259012642605071450
 GameObject:
   m_ObjectHideFlags: 0
@@ -3375,11 +3376,12 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 6441343568547881660}
   - {fileID: 8389534975030586136}
+  - {fileID: 7802617329169419557}
   m_Bounds:
     m_Center: {x: 9.565821, y: 2.87, z: 0}
     m_Extent: {x: 0.5027995, y: 0.74, z: 0}
   m_AlwaysUpdate: 1
-  m_AutoRebind: 0
+  m_AutoRebind: 1
 --- !u!1 &8671889668594590810
 GameObject:
   m_ObjectHideFlags: 0
@@ -3612,8 +3614,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteSkin
   m_RootBone: {fileID: 204523565734630779}
   m_BoneTransforms:
+  - {fileID: 8389534975030586136}
+  - {fileID: 3353082322271568263}
   - {fileID: 7802617329169419557}
   - {fileID: 1047350171467046347}
+  - {fileID: 3490191080601003723}
   - {fileID: 2480581485641352570}
   m_Bounds:
     m_Center: {x: 9.100256, y: 4.54, z: 0}

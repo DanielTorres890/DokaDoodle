@@ -87,7 +87,10 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
             {
                 if (qEvent.MainQuestCondition != null && qEvent.MainQuestCondition.CanBeginQuest() && !AlreadyActive(qEvent) && !AlreadyComplete(qEvent))
                 {
-                    eventsToActivate.Add(qEvent);
+                    //protect against potential desync
+                    if(IsHost)
+                    AddEventRpc(worldDatabase.GetId[qEvent]);
+                   
                 }
 
             }

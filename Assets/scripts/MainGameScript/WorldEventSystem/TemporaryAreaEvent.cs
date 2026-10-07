@@ -7,15 +7,26 @@ public class TemporaryAreaEvent : WorldEventBase
     public int mapId;
     public int tileId;
 
+    [Tooltip("There doesn't have to be a boss to work")]
     public EnemyBase bossEnemy;
     public int bossTileId;
+
+    public bool teleportAllPlayers = false;
+
+
+    [Tooltip("Should the players be sent back? ")]
+    public bool returnPlayer = true;
+    public int mapToReturn;
+    public int tileToReturn;
+    
     public override void OnActivate(int randomNum)
     {
 
         int playerToSend = randomNum % NetworkData.Instance.players.Count;
-        if (MapTileSpecialEvents.Instance.mapTiles[mapId] != null)
+        if (MapTileSpecialEvents.Instance.mapTiles[mapId] != null && bossEnemy)
         {
-            bool hasBoss = false;
+           
+             bool hasBoss = false;
             var tileEnemies = MapTileSpecialEvents.Instance.mapTiles[mapId][bossTileId].tileEnemy;
             for (int i = 0; i < tileEnemies.Count; i++)
             {
@@ -35,9 +46,17 @@ public class TemporaryAreaEvent : WorldEventBase
             }
         }
 
-
+        if(!teleportAllPlayers)
         NetworkData.Instance.players[playerToSend].TeleportPlayer(mapId, tileId);
-  
+        else
+        {
+       
+            foreach(var player in NetworkData.Instance.players)
+            {
+                player.TeleportPlayer(mapId, tileId);
+            }
+        }
+
         base.OnActivate(randomNum);
     }
     public override bool Condition(int turns)
@@ -46,16 +65,19 @@ public class TemporaryAreaEvent : WorldEventBase
     }
     public override void OnDeactivate()
     {
-        Debug.Log("did i deactivate? ");
+        if(!returnPlayer) { base.OnDeactivate(); return; }
+
+
         foreach (var player in NetworkData.Instance.players)
         {
             if (player.curMap == mapId)
             {
-                player.curMap = 0;
-                player.curTileId = 0;
+                player.curMap = mapToReturn;
+                player.curTileId = tileToReturn;
 
             }
         }
+
         base.OnDeactivate();
     }
 

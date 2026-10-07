@@ -1874,7 +1874,7 @@ MonoBehaviour:
   rollNum: {fileID: 0}
   takenPath: []
   playerSticks: []
-  mapNumber: 0
+  mapNumber: 1
   playerCam: {fileID: 1333493769}
   gameMenu: {fileID: 0}
   canMove: 0
@@ -3546,7 +3546,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -6587754183726193978, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
       propertyPath: mapGoTo
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -6587754183726193978, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
       propertyPath: downTile
@@ -11170,6 +11170,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 333774127}
     m_Modifications:
+    - target: {fileID: -6587754183726193978, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
+      propertyPath: mapGoTo
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -6587754183726193978, guid: ec5254b76327e27478acc8fd0c1e46a9, type: 3}
       propertyPath: downTile
       value: 

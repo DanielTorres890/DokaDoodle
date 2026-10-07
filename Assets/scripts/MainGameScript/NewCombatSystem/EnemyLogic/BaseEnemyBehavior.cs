@@ -1,3 +1,4 @@
+using PrimeTween;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -190,7 +191,6 @@ public class BaseEnemyBehavior : NetworkBehaviour
         
         if(!IsServer) { return; }
 
-        
 
         if ( myManager.CanAct())
         {
@@ -198,7 +198,12 @@ public class BaseEnemyBehavior : NetworkBehaviour
             selectAttack();
             if (myManager.stateManager[selectedAttack].cooldown > 0) { return; }
 
+            var oldRotation = transform.rotation;
             transform.LookAt(new Vector3(targetManager.gameObject.transform.position.x, transform.position.y, targetManager.gameObject.transform.position.z));
+            var newTarget = transform.rotation;
+            transform.rotation = oldRotation;
+            Tween.RotationAtSpeed(transform, newTarget, 360f);
+
             for (int i = 0; i < myManager.stats.attacks.Count; i++)
             {
                 if (myManager.stats.attacks[i] == selectedAttack)
@@ -258,7 +263,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
     }
     public void AttackHold()
     {
-        if (!myManager.CanMove() && selectedAttack)
+        if (myManager.combatantstate != combatantStates.Free && selectedAttack)
         {
             releaseTimer += Time.deltaTime;
            
