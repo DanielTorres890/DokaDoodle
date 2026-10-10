@@ -18,11 +18,12 @@ MonoBehaviour:
   description: 'Drinking this will give u big strong, but also make u drunk(i dont
     make the rules i simply follow them)
 
-    Can be used in combat slot'
+'
   useText: This tastes like some buns... ooh wait there it is
   itemName: Sake
   buffs: []
-  battleItem: 1
+  battleItem: 0
+  inCombatAttack: {fileID: 0}
   overworldItem: 1
   useClip: {fileID: 8300000, guid: 4e796c53f38d90646a159ccf24058c90, type: 3}
   interrupt: 0

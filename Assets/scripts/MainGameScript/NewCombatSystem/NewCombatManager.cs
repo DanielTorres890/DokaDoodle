@@ -675,13 +675,9 @@ public class NewCombatManager : NetworkBehaviour
             //AND ITS 4 AM AND IM TIRED ANDF THISLL DO FRICK U
 
             fightEndQueue = new List<Action>();
-            if (leveledUp || isFull || pvpWin)
-            {
-                endBattleInfo.endEvent.RemoveAllListeners();
-                endBattleInfo.endEvent.AddListener(delegate { endBattleInfo.gameObject.SetActive(false); });
-                endBattleInfo.endEvent.AddListener(delegate { BattleEndEvents(); });
-
-            }
+            endBattleInfo.endEvent.RemoveAllListeners();
+            endBattleInfo.endEvent.AddListener(delegate { endBattleInfo.gameObject.SetActive(false); });
+            endBattleInfo.endEvent.AddListener(delegate { BattleEndEvents(); });
             if (leveledUp)
             {
                 fightEndQueue.Add(delegate { levelUpUI.Setup(); });
@@ -716,7 +712,7 @@ public class NewCombatManager : NetworkBehaviour
 
 
 
-                endBattleInfo.gameObject.SetActive(true);
+            endBattleInfo.gameObject.SetActive(true);
             endBattleInfo.startDialogue();
             endBattleInfo.whoInControl = player.playerNumber;
 

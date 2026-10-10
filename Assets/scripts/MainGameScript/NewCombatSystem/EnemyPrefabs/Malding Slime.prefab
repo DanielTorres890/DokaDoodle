@@ -539,7 +539,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!210 &-7128470321392012826
 SortingGroup:
@@ -614,6 +614,7 @@ MonoBehaviour:
   releaseTimer: 0
   timeToHold: 0
   baseMoveSpeed: 0
+  distanceToGround: 1
   rb: {fileID: 0}
   source: {fileID: 0}
 --- !u!95 &-2458163416096458169

@@ -30,6 +30,7 @@ public class WeeklyEventDisplay : MonoBehaviour
                 display.text = currentEvent.name;
                 toolTipText.text = (currentEvent as TimedWEvent).eventToolTip;
                 displayIcon.sprite = (currentEvent as TimedWEvent).eventIcon;
+                displayIcon.gameObject.SetActive(true);
                 return;
             }
         }

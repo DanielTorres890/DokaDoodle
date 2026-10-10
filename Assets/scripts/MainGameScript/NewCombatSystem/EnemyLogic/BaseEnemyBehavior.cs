@@ -202,7 +202,7 @@ public class BaseEnemyBehavior : NetworkBehaviour
             transform.LookAt(new Vector3(targetManager.gameObject.transform.position.x, transform.position.y, targetManager.gameObject.transform.position.z));
             var newTarget = transform.rotation;
             transform.rotation = oldRotation;
-            Tween.RotationAtSpeed(transform, newTarget, 360f);
+            Tween.RotationAtSpeed(transform, newTarget, 360f / Mathf.Clamp(selectedAttack.startUp, .01f, 50));
 
             for (int i = 0; i < myManager.stats.attacks.Count; i++)
             {

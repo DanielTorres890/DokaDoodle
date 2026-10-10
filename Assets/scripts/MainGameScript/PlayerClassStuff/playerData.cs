@@ -105,6 +105,7 @@ public class playerData : EntityStats
     {
         this.attacks.Clear();
         //bool hasOffense = false;
+        battleSlotItemId = -1;
         foreach(var item in NetworkData.Instance.playerInventories[playerNumber][0].container)
         {
             if(item.item.battleItem)
