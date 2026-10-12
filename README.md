@@ -9,3 +9,5 @@ The google drive link contains a build as recent as 10/10/2026
 https://drive.google.com/drive/folders/17YqqFmk2n-dy0dT2g0WibdvIgzJQ-T1P?usp=sharing
 
 After downloading the files (You should download them all together) extract the zip and double click the Application with the black and brown icon called from the top
+
+If you've got any feedback LMK (if you're seeing this you probably know me personally if not my email is danieltorres258006@gmail.com)
