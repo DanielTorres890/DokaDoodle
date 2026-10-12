@@ -7,10 +7,7 @@ public class DOTBuff : BuffBase
     [Header("Dot values should be between 0 - 1")]
     public float percentDamageOnTurn;
     public float percentDamagePerSecond;
-    public override void BuffEffect(EntityStats whoWon)
-    {
-        
-    }
+ 
 
 
 

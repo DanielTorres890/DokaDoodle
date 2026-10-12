@@ -4,10 +4,7 @@ using UnityEngine;
 public class StatStatusEffect : BuffBase
 {
     public ItemBuff[] stats;
-    public override void BuffEffect(EntityStats whoWon)
-    {
-        
-    }
+   
 
     public override void OnApply(EntityStats stats)
     {

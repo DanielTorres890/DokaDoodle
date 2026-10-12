@@ -5,10 +5,7 @@ public class StunDebuff : BuffBase
 {
     //honestly its kinda weird bc the way buffs/debuffs are set up theres no good way to track if someone should be stunned
     //other than by name
-    public override void BuffEffect(EntityStats whoWon)
-    {
-       
-    }
+  
 
     public override void OnApply(EntityStats stats)
     {

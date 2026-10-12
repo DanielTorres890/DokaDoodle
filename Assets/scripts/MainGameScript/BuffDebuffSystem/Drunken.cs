@@ -7,11 +7,7 @@ public class Drunken : BuffBase
 {
     [Tooltip("How strong the drunk effect is ")]
     public float strength;
-    public override void BuffEffect(EntityStats whoWon)
-    {
-        
-    }
-
+    
     public override void OnApply(EntityStats stats)
     {
         //yo ngl this is some bs with how i did this icl

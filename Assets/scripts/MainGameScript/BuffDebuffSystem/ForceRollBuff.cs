@@ -4,8 +4,5 @@ using UnityEngine;
 public class ForceRollBuff : BuffBase
 {
     public int forcedNumber;
-    public override void BuffEffect(EntityStats whoWon)
-    {
-
-    }
+   
 }

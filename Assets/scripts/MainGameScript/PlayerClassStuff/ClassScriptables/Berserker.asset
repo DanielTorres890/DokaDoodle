@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Berserker
   m_EditorClassIdentifier: Assembly-CSharp::Berserker
   className: Berserker
-  classTier: 1
+  classTier: 2
   classDescription: A combatant who's only concern is do damage. Hit hard and only
     attack. After all the best defense is a good offense.... i think? Their loud
     shout can make enemies uneasy and weak
@@ -50,13 +50,14 @@ MonoBehaviour:
   classActionName: Full Offense
   actionUseText: RRAAAHHHHHHHHHH
   actionType: 0
-  combatAbility: {fileID: 11400000, guid: aec077cd26d7db044bd7225887407bac, type: 2}
+  combatAbility: {fileID: 11400000, guid: d2e2f70ee9a675046955e9c537f7d74d, type: 2}
   basicAttackAbility: {fileID: 11400000, guid: 624f23ed2bf8f504eb4aa48a590b999f, type: 2}
   classXpRequirements: 960000002c010000c2010000
   baseSalary: 500
   recommendedItems: []
   allyClassUpgrades: []
-  allyUnlockTips: Your Ally needs to be at least level 10
+  allyUnlockTips: Your Ally needs to be at least level 20
   AIType: 0
-  prerequisiteClass: {fileID: 11400000, guid: 73d6fad618e10aa4bbdd1d9b14a09771, type: 2}
+  prerequisiteClass: {fileID: 11400000, guid: b8585a3f4677bdf4293b39d3501cc959, type: 2}
   classBuff: {fileID: 11400000, guid: 91694230c7ee32d48abd7583109a353f, type: 2}
+  resistDeath: {fileID: 11400000, guid: b112f22e7aea49d4caa8f4eda1e716f2, type: 2}

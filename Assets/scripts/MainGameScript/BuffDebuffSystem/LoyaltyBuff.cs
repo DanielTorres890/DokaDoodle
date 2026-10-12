@@ -4,11 +4,7 @@ using UnityEngine;
 public class LoyaltyBuff : BuffBase
 {
     public string LoyaltyTag;
-    public override void BuffEffect(EntityStats whoWon)
-    {
-      
-
-    }
+   
 
     public override void OnApply(EntityStats stats)
     {

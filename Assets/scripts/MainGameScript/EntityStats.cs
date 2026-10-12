@@ -20,6 +20,9 @@ public class EntityStats
 
     public bool stunImmune;
 
+
+    public int resistDeath;
+
     public Dictionary<Attributes, int> stats = new Dictionary<Attributes, int>
     {
         {Attributes.MaxHealth, 0 },

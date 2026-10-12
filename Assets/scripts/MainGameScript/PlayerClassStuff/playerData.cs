@@ -339,6 +339,7 @@ public class playerData : EntityStats
 
         Debug.Log("who tf " + tileInfo.townId);
         Debug.Log("what be this " + tileInfo.townMoneyLevel + tileInfo.unitLevel + tileInfo.defenseLevel);
+        if(ownedTowns.ContainsKey(tileInfo.townId)) { return; }
         ownedTowns.Add(tileInfo.townId, TileId);
         playerInfo[PlayerInfo.fame] += NetworkData.Instance.TownInfoDataBase.GetItem[tileInfo.townId].baseFame;
         playerInfo[PlayerInfo.fame] += tileInfo.townMoneyLevel + tileInfo.unitLevel + tileInfo.defenseLevel;

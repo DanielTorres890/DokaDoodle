@@ -5,10 +5,7 @@ public class Inspire : BuffBase
 {
     public BuffBase[] buffs;
 
-    public override void BuffEffect(EntityStats whoWon)
-    {
-        
-    }
+  
 
     public override void OnApply(EntityStats stats)
     {

@@ -84,7 +84,7 @@ public abstract class BuffBase : ScriptableObject
             }
         }
     }
-    public abstract void BuffEffect(EntityStats whoWon);
+  
 
     public virtual void OnEveryTick(AbilityManager stats) { }
     public virtual void OnEverySecond(AbilityManager whom) { }

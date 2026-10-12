@@ -47,6 +47,8 @@ public abstract class PlayerClassBase : ScriptableObject
 
     public virtual bool AllyUnlockCondition(PartyMember ally) { return ally.allyInfo[PlayerInfo.level] >= (classTier * 10); }
 
+    public virtual void OnCombatStart(AbilityManager myManager) { }
+
 }
 
 public enum ClassAbilityType

@@ -5,10 +5,7 @@ public class Release :  BuffBase
 {
 
     public BuffBase sunshine;
-    public override void BuffEffect(EntityStats whoWon)
-    {
-        
-    }
+ 
 
     public override void OnApply(EntityStats stats)
     {

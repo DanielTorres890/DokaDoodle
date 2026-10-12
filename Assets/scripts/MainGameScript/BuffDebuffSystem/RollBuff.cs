@@ -4,10 +4,7 @@ using UnityEngine;
 public class RollBuff : BuffBase
 {
     public int rollMultiplier;
-    public override void BuffEffect(EntityStats whoWon)
-    {
-        
-    }
+   
 
    
 }

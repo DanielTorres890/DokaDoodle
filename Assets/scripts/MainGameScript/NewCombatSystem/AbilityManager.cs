@@ -393,10 +393,20 @@ public class AbilityManager : NetworkBehaviour
         
         if (stats.stats[Attributes.Health] <= 0 && !stats.isDead)
         {
-            stats.isDead = true;
-            stats.stats[Attributes.Health] = 0;
-            if(NewCombatManager.instance.allCombatants.Contains(this))
-            NewCombatManager.instance.KILL(this);
+            if(stats.resistDeath > 0)
+            {
+                Debug.Log("I RESISTED DEATH!!!");
+                stats.resistDeath--;
+                stats.stats[Attributes.Health] = 1;
+            }
+            else
+            {
+                stats.isDead = true;
+                stats.stats[Attributes.Health] = 0;
+                if (NewCombatManager.instance.allCombatants.Contains(this))
+                    NewCombatManager.instance.KILL(this);
+            }
+                
         }
         onHit.Invoke();
         GameObject dmgNum = Instantiate(damageNumber);
@@ -495,6 +505,17 @@ public class AbilityManager : NetworkBehaviour
             myHealthbar.SetActive(false);
             nameText.gameObject.SetActive(false);
             
+        }
+
+        if (stats is playerData)
+        {
+            var playerclass = NetworkData.Instance.classDataBase.GetItem[(stats as playerData).playerClass];
+            playerclass.OnCombatStart(this);
+        }
+        if (stats is PartyMember)
+        {
+            var playerclass = NetworkData.Instance.classDataBase.GetItem[(stats as PartyMember).allyClass];
+            playerclass.OnCombatStart(this);
         }
 
         foreach (var status in stats.statuses)
