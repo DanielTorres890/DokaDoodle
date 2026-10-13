@@ -1249,6 +1249,18 @@ PrefabInstance:
       propertyPath: m_PixelsPerUnitMultiplier
       value: 0.49
       objectReference: {fileID: 0}
+    - target: {fileID: 1709136450550026045, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1709136450550026045, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1709136450550026045, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 181
+      objectReference: {fileID: 0}
     - target: {fileID: 1719111245264205569, guid: 5345491ea0e3c824eb3f971ec076da70, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1841,8 +1853,6 @@ MonoBehaviour:
   inventoryToolTips: []
   mouseOverText: {fileID: 0}
   sizeText: {fileID: 0}
-  battleSlotImage: {fileID: 0}
-  battleSlotText: {fileID: 0}
   whomsInventory: 0
   whoInControl: 0
 --- !u!114 &1627102216 stripped

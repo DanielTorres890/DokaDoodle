@@ -600,7 +600,7 @@ public class NewCombatManager : NetworkBehaviour
             player.GainMoney(moneyHarvested + cache.moneyOnTile);
 
 
-            if (cache.townId != -1 && cache.tileOwner != player.playerNumber)
+            if (cache.tileOwner != player.playerNumber)
             {
 
                 NetworkData.Instance.players[player.playerNumber].GainTown(cache);

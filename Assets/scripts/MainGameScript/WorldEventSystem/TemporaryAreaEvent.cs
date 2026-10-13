@@ -12,10 +12,12 @@ public class TemporaryAreaEvent : WorldEventBase
     public int bossTileId;
 
     public bool teleportAllPlayers = false;
-
+    [Tooltip("Should their spawn be set when they go")]
+    public bool setSpawnOnTeleport = false;
 
     [Tooltip("Should the players be sent back? ")]
     public bool returnPlayer = true;
+    
     public int mapToReturn;
     public int tileToReturn;
     
@@ -47,13 +49,20 @@ public class TemporaryAreaEvent : WorldEventBase
         }
 
         if(!teleportAllPlayers)
-        NetworkData.Instance.players[playerToSend].TeleportPlayer(mapId, tileId);
+        {
+            NetworkData.Instance.players[playerToSend].TeleportPlayer(mapId, tileId);
+            if(setSpawnOnTeleport)
+            NetworkData.Instance.players[playerToSend].SetSpawnPoint(mapId, tileId);
+        }
+        
         else
         {
        
             foreach(var player in NetworkData.Instance.players)
             {
                 player.TeleportPlayer(mapId, tileId);
+                if (setSpawnOnTeleport)
+                    player.SetSpawnPoint(mapId, tileId);
             }
         }
 

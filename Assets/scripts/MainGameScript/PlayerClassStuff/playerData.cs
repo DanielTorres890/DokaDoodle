@@ -327,11 +327,13 @@ public class playerData : EntityStats
         }
         int TileId = -1;
         //id like to say that for the record this depresses me
-        for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[0].Length; i++)
+        if (MapTileSpecialEvents.Instance.mapTiles[1] == null) { return; }
+        for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[1].Length; i++)
         {
-            if (MapTileSpecialEvents.Instance.mapTiles[0][i] == tileInfo)
+            if (MapTileSpecialEvents.Instance.mapTiles[1][i] == tileInfo)
             {
-                MapTileSpecialEvents.Instance.mapTiles[0][i].tileOwner = playerNumber;
+                Debug.Log("did i find this out? ");
+                MapTileSpecialEvents.Instance.mapTiles[1][i].tileOwner = playerNumber;
                 TileId = i;
                 break;
             }
@@ -340,6 +342,8 @@ public class playerData : EntityStats
         Debug.Log("who tf " + tileInfo.townId);
         Debug.Log("what be this " + tileInfo.townMoneyLevel + tileInfo.unitLevel + tileInfo.defenseLevel);
         if(ownedTowns.ContainsKey(tileInfo.townId)) { return; }
+        if(tileInfo.townId == -1) { return; }
+
         ownedTowns.Add(tileInfo.townId, TileId);
         playerInfo[PlayerInfo.fame] += NetworkData.Instance.TownInfoDataBase.GetItem[tileInfo.townId].baseFame;
         playerInfo[PlayerInfo.fame] += tileInfo.townMoneyLevel + tileInfo.unitLevel + tileInfo.defenseLevel;
@@ -390,6 +394,11 @@ public class playerData : EntityStats
 
         if (MapTileSpecialEvents.Instance.mapTiles[targetMap] != null)
         MapTileSpecialEvents.Instance.mapTiles[targetMap][targetTile].players.Add(playerNumber);
+    }
+    public void SetSpawnPoint(int targetMap, int targetTile)
+    {
+        playerSpawnMap = targetMap;
+        playerSpawnTile = targetTile;
     }
 }
 public enum PlayerInfo

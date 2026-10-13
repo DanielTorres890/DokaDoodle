@@ -17,8 +17,7 @@ public class InventoryChangeScript : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI mouseOverText;
     [SerializeField] private TextMeshProUGUI sizeText;
 
-    [SerializeField] private Image battleSlotImage;
-    [SerializeField] private TextMeshProUGUI battleSlotText;
+
     public int whomsInventory;
     public int whoInControl;
 
@@ -50,18 +49,7 @@ public class InventoryChangeScript : NetworkBehaviour
         if(sizeText)
         sizeText.text = inventoryDisplay.inventory.container.Count.ToString() + "/" + inventoryDisplay.inventory.MAXSIZE.ToString();
 
-        int battleItemId = NetworkData.Instance.players[whomsInventory].battleSlotItemId;
-        if (battleItemId != -1)
-        {
-            var battleItem = NetworkData.Instance.playerInventories[whomsInventory][0].database.GetItem[battleItemId];
-            battleSlotImage.sprite = battleItem.itemSprite;
-            battleSlotText.text = battleItem.itemName;
-        }
-        else
-        {
-            battleSlotImage.sprite = null;
-            battleSlotText.text = "Empty Slot";
-        }
+       
     }
 
     //for some god forsaken reason my button keeps forcing itself to subscribe to inventory forward which makes 0 sense

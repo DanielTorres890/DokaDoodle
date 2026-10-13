@@ -440,6 +440,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
     stunImmune: 0
+    resistDeath: 0
     attacks:
     - {fileID: 0}
     defenses:
@@ -702,7 +703,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   source: {fileID: 0}
   kiteRange: 15
-  kiteAmount: 10
+  kiteAmount: 5
   Precision: 10
   StopKitingDistance: 4
   failedEscapeCounter: 0

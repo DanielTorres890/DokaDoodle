@@ -52,7 +52,7 @@ public class DefaultTile : TileScript
         {
             ClientChecks.Instance.NoEnemiesToFightRpc(tileId);
         }
-        else if ((Random.Range(1, 11) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly && !enemyPlayer) || forceEvent)
+        else if (events.Length > 0 && (Random.Range(1, 11) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly && !enemyPlayer) || forceEvent)
         {
             EventBase selectedEvent = events[0].tileEvent;
             int totalWeight = 0;
