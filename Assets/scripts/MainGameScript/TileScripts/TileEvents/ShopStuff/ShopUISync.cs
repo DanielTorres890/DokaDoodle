@@ -82,7 +82,7 @@ public class ShopUISync : NetworkBehaviour
 
     public void setUpBuy(int itemNum)
     {
-        if ((!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) || NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money] < curEvent.itemsSold[itemNum].itemValue) { return; }
+        if ((!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) || NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money] < curEvent.itemsSold[itemNum].itemValue * NetworkData.Instance.globalShopMultiplier) { return; }
         setUpBuyRpc(itemNum);
     }
 

@@ -31,7 +31,7 @@ public class TileInfoDisplay : MonoBehaviour
             var thisEnemy = PlayerCombatManager.Instance.EnemyDataBase.GetItem[thisTile.tileEnemy[i].enemyId];
             GameObject instance =  Instantiate(enemyText, textParent);
 
-            instance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "LVL " + thisEnemy.enemyLevel + ": " + thisEnemy.enemyName;
+            instance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "LVL " + thisEnemy.enemyLevel.ToString() + ": " + thisEnemy.enemyName;
 
 
             

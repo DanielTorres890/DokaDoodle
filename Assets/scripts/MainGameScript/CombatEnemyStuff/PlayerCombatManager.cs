@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,6 +22,9 @@ public class PlayerCombatManager : MonoBehaviour
 
     public bool isRaid;
     public float spawnRadius;//this is a weird way to get information to newcombnatmanager
+
+    public int AvgLevel;
+
     private void Awake()
     {
        
@@ -137,15 +141,37 @@ public class PlayerCombatManager : MonoBehaviour
         if (potentialEnemies.Count > 1)
         {
             EntityStats strongest = potentialEnemies[0];
-            foreach(var enemy in potentialEnemies)
+            foreach (var enemy in potentialEnemies)
             {
                 if (strongest.stats[Attributes.MaxHealth] > enemy.stats[Attributes.MaxHealth])
                 {
                     strongest = enemy;
                 }
             }
-
             encounterName = strongest.name;
+
+            if (PlayerMoveManager.Instance.mapTiles[currentPlayer.curTileId].defaultTileEnemies != null)
+            {
+                bool isMatching = true;
+                foreach(var enemy in PlayerMoveManager.Instance.mapTiles[currentPlayer.curTileId].defaultTileEnemies.enemies)
+                {
+
+                    foreach(var spawnedEnemy in potentialEnemies)
+                    {
+                        if(spawnedEnemy is EnemyCombat && (spawnedEnemy as EnemyCombat).enemyId != PlayerCombatManager.Instance.EnemyDataBase.GetId[enemy])
+                        {
+                            isMatching = false;
+                            break;
+                        }
+                    }
+                    if(!isMatching) { break; }
+                }
+                if(isMatching)
+                {
+                    encounterName = PlayerMoveManager.Instance.mapTiles[currentPlayer.curTileId].defaultTileEnemies.EncounterName;
+                }
+            }
+            
         }
 
         
@@ -167,8 +193,31 @@ public class PlayerCombatManager : MonoBehaviour
             NetworkData.Instance.seenEnemies.Add((combatant as EnemyCombat).enemyId);
 
        }
+        int enemyCount = 0;
+        int totalLevel = 0;
+        foreach (var combatant in PlayerCombatManager.Instance.combatants)
+        {
+            if(combatant.loyaltyTags.Intersect(currentPlayer.loyaltyTags).Any()) { continue; }
+            enemyCount++;
+            if(combatant is EnemyCombat)
+            {
+                var enemy = (EnemyCombat)combatant;
+                totalLevel += PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemy.enemyId].enemyLevel;
+            }
+            if(combatant is playerData)
+            {
+                var player = (playerData)combatant;
+                totalLevel += player.playerInfo[PlayerInfo.level];
+            }
+            if(combatant is PartyMember)
+            {
+                var part = (PartyMember)combatant;
+                totalLevel += part.allyInfo[PlayerInfo.level];
+            }
+        }
 
-
+        AvgLevel = totalLevel / enemyCount;
+        
         return encounterName;
     }
 }

@@ -21,7 +21,7 @@ public class EnemyBase : ScriptableObject, ISerializationCallbackReceiver
 
     public int[] probability;
 
-    public string enemyLevel = "1";
+    public int enemyLevel = 1;
     public int droppedXp;
     public int droppedMoney;
     public int droppedFame;

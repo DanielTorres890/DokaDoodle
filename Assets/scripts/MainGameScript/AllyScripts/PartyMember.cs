@@ -144,7 +144,7 @@ public class PartyMember : EntityStats
         
         int levelsGained = 0;
         this.allyInfo[PlayerInfo.xp] += xp;
-        while (this.allyInfo[PlayerInfo.xp] > 24 * Mathf.Pow((float)this.allyInfo[PlayerInfo.level], 2f))
+        while (this.allyInfo[PlayerInfo.xp] > 24 * Mathf.Pow((float)this.allyInfo[PlayerInfo.level], 1.75f))
         {
             this.allyInfo[PlayerInfo.level] += 1;
            

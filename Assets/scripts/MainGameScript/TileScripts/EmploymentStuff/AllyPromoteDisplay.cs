@@ -19,6 +19,7 @@ public class AllyPromoteDisplay : MonoBehaviour
     public GameObject AllyView;
     public TextMeshProUGUI unlockConditions;
     public TextMeshProUGUI allyNameText;
+    public TextMeshProUGUI allyLevel;
     private void Start()
     {
 
@@ -97,7 +98,7 @@ public class AllyPromoteDisplay : MonoBehaviour
         allyEditor.setClass(currentValues[allyIndex].allyClass);
         allyEditor.setHair(currentValues[allyIndex].allyHair);
         allyEditor.setFace(currentValues[allyIndex].allyFace);
-
+        allyLevel.text = "Level: " + currentValues[allyIndex].allyInfo[PlayerInfo.level].ToString();
         SetAllyStatsDisplay(allyIndex);
 
 

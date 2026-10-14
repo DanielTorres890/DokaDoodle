@@ -238,7 +238,7 @@ public class EmploymentEventManager : NetworkBehaviour
     private void DontLeaveRpc()
     {
         confirmLeave.SetActive(false );
-        displayText.transform.parent.gameObject.SetActive(true);
+        
     }
 
 

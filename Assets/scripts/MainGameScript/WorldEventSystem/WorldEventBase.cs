@@ -11,6 +11,11 @@ public abstract class WorldEventBase : ScriptableObject
 
     public Sprite eventDisplay;
 
+    public Sprite eventIcon;
+
+    [TextArea(2, 5)]
+    public string eventToolTip;
+
     [Tooltip("Not required but if it contains will occur")]
     public CutSceneInfo startCutscene;
     public CutSceneInfo finishCutscene;

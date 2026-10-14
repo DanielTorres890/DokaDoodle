@@ -363,7 +363,7 @@ public class ClientChecks : NetworkBehaviour
         
         displayText.lines.Clear();
 
-        displayText.lines.Add("Healed " + allyName + " by <color=green>" + amount.ToString() + "</color>");
+        displayText.lines.Add("Healed " + allyName + " by <color=green>" + amount.ToString() + "</color> hp");
         displayText.gameObject.SetActive(true);
         displayText.whoInControl = NetworkData.Instance.currentPlayer;
         displayText.startDialogue();
@@ -440,13 +440,13 @@ public class ClientChecks : NetworkBehaviour
     {
 
         string encounterName = PlayerCombatManager.Instance.BattleSetUp(encounterId);
-        combatPreview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();
-       
-        
-        combatPreview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = encounterName;
-              
-      
-        
+        combatPreview.transform.GetChild(0).GetChild(0).GetComponent< TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();
+        combatPreview.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Lv. " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.level].ToString();
+
+        combatPreview.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = encounterName;
+        combatPreview.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Lv. " + PlayerCombatManager.Instance.AvgLevel.ToString();
+
+
         StartCoroutine(previewFight());
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]

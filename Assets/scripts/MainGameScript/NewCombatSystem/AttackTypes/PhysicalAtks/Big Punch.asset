@@ -32,12 +32,12 @@ MonoBehaviour:
   stateToBe: 1
   chargeable: 1
   attackPrefab: {fileID: 2566779757777240371, guid: 11e466750e8adef42bf9c4938d0ce96a, type: 3}
-  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  startUpPrefab: {fileID: 319089739322008515, guid: 5fe3d5979b8df0c479bd7118c5a31e00, type: 3}
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: -0.5, y: 2, z: 1.5}
-  ablitySize: {x: 4, y: 0.6, z: 10}
+  ablitySize: {x: 4, y: 0.6, z: 14}
   visualRoation: {x: 0, y: 0, z: 0}
   lockRotation: 0
   baseDamage: 5
@@ -76,10 +76,10 @@ MonoBehaviour:
     mult: 1
   startUpAnimation: {fileID: 7400000, guid: 351ae011892a70a459c0ce3310837173, type: 2}
   attackAnimation: {fileID: 7400000, guid: dac540ec14cddcc46a65f97cfee004ad, type: 2}
-  animationSpeed: 1
+  animationSpeed: 0.8
   LevelRequirements: []
-  startUpNoise: {fileID: 0}
-  attackSound: {fileID: 8300000, guid: 51465924abc41df428febd7bbcd57111, type: 3}
+  startUpNoise: {fileID: 8300000, guid: 269649ff047080f4aaa5f88e76be2f63, type: 3}
+  attackSound: {fileID: 8300000, guid: 4b8b871b340e9b344828226840dd32cb, type: 3}
   onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
   onHitEffects: []
   targets:

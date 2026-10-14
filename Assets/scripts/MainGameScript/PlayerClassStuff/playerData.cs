@@ -235,7 +235,7 @@ public class playerData : EntityStats
         int levelsGained = 0;
         this.playerInfo[PlayerInfo.xp] += xp;
 
-        while (this.playerInfo[PlayerInfo.xp] > 25 * Mathf.Pow((float)this.playerInfo[PlayerInfo.level], 2f)) 
+        while (this.playerInfo[PlayerInfo.xp] > 25 * Mathf.Pow((float)this.playerInfo[PlayerInfo.level], 1.75f)) 
         {
             this.playerInfo[PlayerInfo.level] += 1;
             levelsGained++;
@@ -352,6 +352,8 @@ public class playerData : EntityStats
     public void LoseTown(SpecialTileEventHold tileInfo)
     {
         Debug.Log("I should be removed ? ");
+        if(tileInfo.townId == -1) { return; }
+
         ownedTowns.Remove(tileInfo.townId);
         playerInfo[PlayerInfo.fame] -= NetworkData.Instance.TownInfoDataBase.GetItem[tileInfo.townId].baseFame;
         playerInfo[PlayerInfo.fame] -= tileInfo.townMoneyLevel + tileInfo.unitLevel + tileInfo.defenseLevel;
@@ -386,8 +388,7 @@ public class playerData : EntityStats
           
             if(partyMember.boardMovementState == PlayerFollowingStates.WithOwner)
             {
-            
-                partyMember.TeleportMember(targetMap, targetTile);
+                partyMember.TeleportMember(targetTile, targetMap);
             }
         }
 
