@@ -17,9 +17,11 @@ MonoBehaviour:
   startUp: 2
   attackDuration: 0.1
   endLag: 0.2
+  startCooldown: 0
   cooldown: 20
   lifespan: 200
   energyDrain: 1
+  initialEnergyCost: 0
   maxChargeAtkBuff: 1.2
   maxChargeSizeBuff: 1.2
   maxChargeSpeedBuff: 1.1
@@ -30,11 +32,14 @@ MonoBehaviour:
   stateToBe: 0
   chargeable: 0
   attackPrefab: {fileID: 2566779757777240371, guid: bea8b2ee432e61c4f8291893153acdb1, type: 3}
-  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  startUpPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 2, y: 2, z: 2}
   visualRoation: {x: 0, y: 0, z: 0}
+  lockRotation: 0
   baseDamage: 10
   multipliers:
   - attribute: 4
@@ -61,6 +66,7 @@ MonoBehaviour:
   attackAnimation: {fileID: 7400000, guid: ce0ba82f428534e4fbf7d38aec46f815, type: 2}
   animationSpeed: 1
   LevelRequirements: []
+  startUpNoise: {fileID: 0}
   attackSound: {fileID: 0}
   onHitSound: {fileID: 0}
   onHitEffects: []
@@ -68,6 +74,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   conditions: []
+  colorByWeapon: 0
+  parentToPlayer: 0
   meteorCount: 50
   meteor: {fileID: 4958144232811764369, guid: 4cd5b4fe029e82546b92024f6eab68eb, type: 3}
   interval: 0.3

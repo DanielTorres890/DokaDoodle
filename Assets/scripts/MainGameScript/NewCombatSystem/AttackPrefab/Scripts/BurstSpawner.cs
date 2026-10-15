@@ -71,7 +71,7 @@ public class BurstSpawner : NonDamage
             lifetimer = 0;
             spawnedBursts += 1;
             transform.Rotate(Vector3.up * burstInfo.intervalRotation * direction);
-            if(spawnedBursts % burstInfo.pingpongCount == 0 && burstInfo.targetMode == BurstTargetMode.PingPong)
+            if(burstInfo.targetMode == BurstTargetMode.PingPong && spawnedBursts % burstInfo.pingpongCount == 0)
             {
                 direction *= -1;
             }

@@ -32,13 +32,14 @@ MonoBehaviour:
   stateToBe: 0
   chargeable: 1
   attackPrefab: {fileID: 2566779757777240371, guid: fec7783ef5d50b54fa813aca5121b2f8, type: 3}
-  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  startUpPrefab: {fileID: 0}
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   ablitySize: {x: 6, y: 6, z: 6}
   visualRoation: {x: 0, y: 0, z: 0}
+  lockRotation: 0
   baseDamage: 15
   multipliers:
   - attribute: 4
@@ -74,6 +75,7 @@ MonoBehaviour:
     m_Bits: 8
   conditions: []
   colorByWeapon: 0
+  parentToPlayer: 0
   timeTillActive: 2
   activatedSound: {fileID: 8300000, guid: eeb59cded7d09aa4aac960bc29bff620, type: 3}
   temporaryPosition: {x: 0, y: 0, z: 0}

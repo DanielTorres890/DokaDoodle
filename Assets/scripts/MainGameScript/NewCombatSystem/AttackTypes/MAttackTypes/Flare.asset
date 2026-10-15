@@ -33,13 +33,14 @@ MonoBehaviour:
   stateToBe: 0
   chargeable: 1
   attackPrefab: {fileID: 4958144232811764369, guid: 0ca348514c8fedd4fb7b7113318befd3, type: 3}
-  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  startUpPrefab: {fileID: 0}
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0, y: 0, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: 0, y: 2, z: 0}
   ablitySize: {x: 1, y: 1, z: 1}
   visualRoation: {x: 0, y: 0, z: 0}
+  lockRotation: 0
   baseDamage: 7
   multipliers:
   - attribute: 4
@@ -63,7 +64,7 @@ MonoBehaviour:
   - attribute: 6
     mult: 1
   startUpAnimation: {fileID: 7400000, guid: 6714484de2d644441850d03ca9a0a223, type: 2}
-  attackAnimation: {fileID: 7400000, guid: 516d7771e496e0c4ba2bda07a8d3607b, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 0d70d39b369ccaf438db1998dadbf560, type: 2}
   animationSpeed: 1
   LevelRequirements: []
   startUpNoise: {fileID: 0}
@@ -75,6 +76,7 @@ MonoBehaviour:
     m_Bits: 72
   conditions: []
   colorByWeapon: 0
+  parentToPlayer: 0
   speed: 25
   pierceCount: 0
   burstLifespan: 0.1

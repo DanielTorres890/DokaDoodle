@@ -170,10 +170,11 @@ public class AbilityManager : NetworkBehaviour
                 combatantstate = atk.stateToBe;
                 stateDuration = currentAttack.startUp;
                 
-                if (currentAttack.startUpPrefab != null && startUpEffects == null)
-                {
-                    SpawnStartFabUpRpc(GetCurrentAtkNum());
-                }
+                //if (currentAttack.startUpPrefab != null && startUpEffects == null)
+                //{
+                //    SpawnStartFabUpRpc(GetCurrentAtkNum());
+                //}
+                SpawnStartFabUpRpc(GetCurrentAtkNum());
             }
         }
 

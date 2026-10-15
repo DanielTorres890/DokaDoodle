@@ -32,18 +32,18 @@ MonoBehaviour:
   stateToBe: 0
   chargeable: 0
   attackPrefab: {fileID: 2566779757777240371, guid: a36a30108b091ea438dcb6f4ab0ef94a, type: 3}
-  startUpPrefab: {fileID: 319089739322008515, guid: a1ba402a4fe4fb340ac61523e8e8f7b0, type: 3}
+  startUpPrefab: {fileID: 319089739322008515, guid: 5fe3d5979b8df0c479bd7118c5a31e00, type: 3}
   weaponPrefab: {fileID: 0}
   weaponPosition: {x: 0.541, y: 0.277, z: 0}
   spawnFx: {fileID: 0}
   offset: {x: -0.5, y: 0, z: 0}
-  ablitySize: {x: 2, y: 5, z: 10}
+  ablitySize: {x: 2, y: 8, z: 10}
   visualRoation: {x: 0, y: 0, z: 0}
   lockRotation: 0
   baseDamage: 5
   multipliers:
   - attribute: 2
-    mult: 1.5
+    mult: 1.75
   defenseMult:
   - attribute: 3
     mult: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
   LevelRequirements: []
   startUpNoise: {fileID: 0}
   attackSound: {fileID: 8300000, guid: 51465924abc41df428febd7bbcd57111, type: 3}
-  onHitSound: {fileID: 8300000, guid: fd57dea2003a26744954854993a44824, type: 3}
+  onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
   onHitEffects:
   - {fileID: 11400000, guid: 0467320fe04ad0d4d9c062f1decabe81, type: 2}
   targets:

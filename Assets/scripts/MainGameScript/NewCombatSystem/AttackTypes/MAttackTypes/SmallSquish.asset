@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbba4ab3dd06e7f40adc52594909bc56, type: 3}
+  m_Name: SmallSquish
+  m_EditorClassIdentifier: 
+  description: Squish someone with your imagination (because you don't know any actual
+    magic)
+  attackName: Squish
+  startUp: 1
+  attackDuration: 0
+  endLag: 0.1
+  startCooldown: 0
+  cooldown: 3
+  lifespan: 5
+  energyDrain: 10
+  initialEnergyCost: 0
+  maxChargeAtkBuff: 1.5
+  maxChargeSizeBuff: 3
+  maxChargeSpeedBuff: 1.1
+  maxChargeDuration: 2.5
+  requiredPotency: 0
+  dmgPotencyEffect: 2
+  sizePotencyEffect: 2
+  stateToBe: 0
+  chargeable: 1
+  attackPrefab: {fileID: 4958144232811764369, guid: 07ef62aac639ab244b16d4857df2888f, type: 3}
+  startUpPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 0}
+  weaponPosition: {x: 0, y: 0, z: 0}
+  spawnFx: {fileID: 0}
+  offset: {x: 0, y: 1.5, z: 0.5}
+  ablitySize: {x: 0.6, y: 0.6, z: 0.9}
+  visualRoation: {x: 0, y: 0, z: 0}
+  lockRotation: 0
+  baseDamage: 3
+  multipliers:
+  - attribute: 4
+    mult: 0.8
+  defenseMult:
+  - attribute: 5
+    mult: 0.6
+  antiGuardMultipliers:
+  - attribute: 0
+    mult: 1
+  - attribute: 1
+    mult: 1
+  - attribute: 2
+    mult: 1
+  - attribute: 3
+    mult: 1
+  - attribute: 4
+    mult: 1
+  - attribute: 5
+    mult: 1
+  - attribute: 6
+    mult: 1
+  startUpAnimation: {fileID: 7400000, guid: 1ec7acfd85869694d875f8336f0ff19e, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 3e62947b840ca624daeb0ec60a4fa90e, type: 2}
+  animationSpeed: 1
+  LevelRequirements: []
+  startUpNoise: {fileID: 0}
+  attackSound: {fileID: 0}
+  onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
+  onHitEffects: []
+  targets:
+    serializedVersion: 2
+    m_Bits: 72
+  conditions: []
+  colorByWeapon: 0
+  parentToPlayer: 0
+  speed: 30
+  pierceCount: 0
