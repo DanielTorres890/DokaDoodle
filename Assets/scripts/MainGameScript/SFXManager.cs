@@ -32,7 +32,10 @@ public class SFXManager : MonoBehaviour
         sfxPlayer.Play();
        
     }
-    
+    public void PlaySFXAtPoint(AudioClip clip, Vector3 position)
+    {
+        AudioSource.PlayClipAtPoint(clip, position, sfxPlayer.volume);
+    }
     public void PlaySfxDeplayed(AudioClip clip, float delay)
     {
         sfxPlayer.clip = clip;

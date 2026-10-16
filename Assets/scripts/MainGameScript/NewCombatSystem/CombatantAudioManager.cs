@@ -15,6 +15,7 @@ public class CombatantAudioManager : MonoBehaviour
     {
         
         audioSource.resource = abilityManager.currentAttack.attackSound;
+        audioSource.pitch = 1 + Random.Range(-0.05f, 0.05f);
         UpdateVolume();
         audioSource.Play();
     }

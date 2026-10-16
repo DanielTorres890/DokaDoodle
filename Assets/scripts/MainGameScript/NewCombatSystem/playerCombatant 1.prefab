@@ -614,7 +614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2884901355
+  GlobalObjectIdHash: 3075552288
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -659,6 +659,8 @@ MonoBehaviour:
   dashCd: 1
   DashDexRequirement: 20
   DashEnergyCost: 20
+  dashVFX: {fileID: 129268808875878963, guid: 4ba1ca8eca1b5f643b88a42c58eda1d3, type: 3}
+  dashSFX: {fileID: 8300000, guid: 51465924abc41df428febd7bbcd57111, type: 3}
   grounded: 1
   gravityMult: 15
   minZoomIn: -30
@@ -921,6 +923,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
     stunImmune: 0
+    resistDeath: 0
     attacks: []
     defenses:
     - {fileID: 0}

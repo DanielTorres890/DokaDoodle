@@ -32,6 +32,9 @@ public class CombatantMovement : NetworkBehaviour
     [SerializeField] public float dashCd;
     [SerializeField] public int DashDexRequirement;
     [SerializeField] private float DashEnergyCost = 10f;
+
+    [SerializeField] private GameObject dashVFX;
+    [SerializeField] private AudioClip dashSFX;
     //private Camera camcomponent;
 
     //All states are in the ability manager bc honestly it makes more sense there
@@ -133,7 +136,7 @@ public class CombatantMovement : NetworkBehaviour
     //}
     public void Dash(InputAction.CallbackContext action)
     {
-        
+        if(!IsOwner) { return; }
         if(abilityManager.stats.isDead) {  return; }
         if (dashCdTimer < dashCd) { return; }
 
@@ -163,8 +166,16 @@ public class CombatantMovement : NetworkBehaviour
             Vector2 newDirection = new Vector2(localDirection.x, localDirection.z);
             animator.DashingState(true, newDirection);
             Tween.Delay(dashDuration / 2, () => { animator.DashingState(false, newDirection); });
-
+            DashFxRpc();
         }
+
+    }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void DashFxRpc()
+    {
+        var fx = Instantiate(dashVFX,transform);
+        fx.transform.position = transform.position;
+        SFXManager.Instance.PlaySFX(dashSFX);
 
     }
     public override void OnNetworkSpawn()
