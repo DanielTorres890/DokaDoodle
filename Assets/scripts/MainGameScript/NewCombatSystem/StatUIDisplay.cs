@@ -28,7 +28,7 @@ public class StatUIDisplay : MonoBehaviour
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
 
 
-            var display = obj.GetComponent<EntityUIUpdate>();
+            var display = obj.GetComponentInChildren<EntityUIUpdate>();
             display.AbilityManager = abilityManager;
             display.attributeToWhom = stat;    
             display.UpdateText();
