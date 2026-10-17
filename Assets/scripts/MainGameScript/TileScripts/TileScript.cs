@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class TileScript : MonoBehaviour 
 {
+    public TileTypes tileType;
     public GameObject upTile;
     public GameObject downTile;
     public GameObject rightTile;
@@ -111,4 +112,13 @@ public abstract class TileScript : MonoBehaviour
         if (direction == "up") { player.transform.position = Vector3.MoveTowards(player.transform.position, upTile.transform.position, 3 * Time.deltaTime) }
     }
     */
+}
+public enum TileTypes
+{
+    Default,
+    Money,
+    Item,
+    Town,
+    Event,
+
 }

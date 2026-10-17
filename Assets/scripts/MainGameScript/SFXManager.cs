@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SFXManager : MonoBehaviour
 {
@@ -34,7 +35,22 @@ public class SFXManager : MonoBehaviour
     }
     public void PlaySFXAtPoint(AudioClip clip, Vector3 position)
     {
-        AudioSource.PlayClipAtPoint(clip, position, sfxPlayer.volume);
+        GameObject tempGO = new GameObject("TempAudioPool");
+        tempGO.transform.position = position;
+
+      
+        AudioSource aSource = tempGO.AddComponent<AudioSource>();
+        aSource.clip = clip;
+        aSource.volume = sfxPlayer.volume;
+        
+
+       
+        aSource.spatialBlend = 1.0f;
+        aSource.rolloffMode = AudioRolloffMode.Logarithmic;
+        aSource.minDistance = 1f;
+        aSource.maxDistance = 50f;
+        aSource.Play();
+        Destroy(tempGO, clip.length);
     }
     public void PlaySfxDeplayed(AudioClip clip, float delay)
     {

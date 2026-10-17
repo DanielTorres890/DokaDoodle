@@ -1,22 +1,36 @@
 
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TileInfoDisplay : MonoBehaviour
 {
 
     public TextMeshProUGUI tileDescription;
+    public TextMeshProUGUI tileType;
 
     public GameObject enemyText;
 
     public Transform textParent;
 
     public List<GameObject> spawnedChildren;
+
+    public Dictionary<TileTypes, string> tileTypetoName = new Dictionary<TileTypes, string>
+    {
+        { TileTypes.Default, "Default Tile" },
+        { TileTypes.Item, "Item Tile" },
+        { TileTypes.Town, "Town Tile" },
+        { TileTypes.Event, "Event Tile" },
+        { TileTypes.Money, "Money Tile" },
+
+    };
     public void UpdateText(TileScript lookedAtTile)
     {
         tileDescription.text = lookedAtTile.tileDescription;
-        
+        tileType.text = tileTypetoName[lookedAtTile.tileType];
+
         for(int i = spawnedChildren.Count - 1 ; i >= 0; i--)
         {
             Destroy(spawnedChildren[i]);
@@ -102,5 +116,8 @@ public class TileInfoDisplay : MonoBehaviour
 
             spawnedChildren.Add(instance);
         }
+
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(transform.GetChild(0) as RectTransform);
     }
 }

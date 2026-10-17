@@ -171,7 +171,7 @@ public abstract class AbilityBase : NetworkBehaviour
     private void PlayHitSoundRpc(int soundId, RpcParams rpcsend)
     {
 
-        AudioSource.PlayClipAtPoint(NetworkData.Instance.audioDataBase.GetItem[soundId], transform.position, SettingsManager.instance.SFXVolume);
+        SFXManager.Instance.PlaySFXAtPoint(NetworkData.Instance.audioDataBase.GetItem[soundId], owner.transform.position);
 
     }
 
