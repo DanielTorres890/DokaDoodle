@@ -1,3 +1,4 @@
+using PrimeTween;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -149,7 +150,7 @@ public class ClientChecks : NetworkBehaviour
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
         //at some point im probably gonna have to make this a different event but frick u
         onRoundStart.Invoke();
-
+        PlayerMoveManager.Instance.playerCam.Follow = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
         
         if (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
         {
@@ -734,6 +735,10 @@ public class ClientChecks : NetworkBehaviour
         worldEventImage.gameObject.SetActive(true);
         
         displayText.gameObject.SetActive(true);
+
+        PlayerMoveManager.Instance.playerCam.Follow = null;
+        Tween.Position(PlayerMoveManager.Instance.playerCam.transform, WorldEventManager.Instance.eventsToActivate[0].cameraPos, 3f);
+        
         displayText.whoInControl = NetworkData.Instance.currentPlayer;
         WorldEventManager.Instance.activeWorldEvents.Add(new WorldEventWrapper(WorldEventManager.Instance.worldDatabase.GetId[WorldEventManager.Instance.eventsToActivate[0]]));
         displayText.Awake();

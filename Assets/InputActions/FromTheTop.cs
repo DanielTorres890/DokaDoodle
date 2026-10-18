@@ -708,6 +708,15 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenChat"",
+                    ""type"": ""Button"",
+                    ""id"": ""806bc361-b589-4703-a3fa-33a7e7127400"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1150,6 +1159,17 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""action"": ""Inspect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9873d392-dcaa-4e53-aabc-e6e3378286b6"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenChat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1349,6 +1369,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         m_UI_MovingCamera = m_UI.FindAction("MovingCamera", throwIfNotFound: true);
         m_UI_UndoCamera = m_UI.FindAction("UndoCamera", throwIfNotFound: true);
         m_UI_Settings = m_UI.FindAction("Settings", throwIfNotFound: true);
+        m_UI_OpenChat = m_UI.FindAction("OpenChat", throwIfNotFound: true);
         // Spectating
         m_Spectating = asset.FindActionMap("Spectating", throwIfNotFound: true);
         m_Spectating_LeftCameraSwitch = m_Spectating.FindAction("LeftCameraSwitch", throwIfNotFound: true);
@@ -1704,6 +1725,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_MovingCamera;
     private readonly InputAction m_UI_UndoCamera;
     private readonly InputAction m_UI_Settings;
+    private readonly InputAction m_UI_OpenChat;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -1780,6 +1802,10 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Settings => m_Wrapper.m_UI_Settings;
         /// <summary>
+        /// Provides access to the underlying input action "UI/OpenChat".
+        /// </summary>
+        public InputAction @OpenChat => m_Wrapper.m_UI_OpenChat;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_UI; }
@@ -1853,6 +1879,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @Settings.started += instance.OnSettings;
             @Settings.performed += instance.OnSettings;
             @Settings.canceled += instance.OnSettings;
+            @OpenChat.started += instance.OnOpenChat;
+            @OpenChat.performed += instance.OnOpenChat;
+            @OpenChat.canceled += instance.OnOpenChat;
         }
 
         /// <summary>
@@ -1912,6 +1941,9 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @Settings.started -= instance.OnSettings;
             @Settings.performed -= instance.OnSettings;
             @Settings.canceled -= instance.OnSettings;
+            @OpenChat.started -= instance.OnOpenChat;
+            @OpenChat.performed -= instance.OnOpenChat;
+            @OpenChat.canceled -= instance.OnOpenChat;
         }
 
         /// <summary>
@@ -2330,6 +2362,13 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSettings(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OpenChat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOpenChat(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Spectating" which allows adding and removing callbacks.

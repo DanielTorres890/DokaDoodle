@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class SFXManager : MonoBehaviour
 {
@@ -32,6 +33,17 @@ public class SFXManager : MonoBehaviour
         sfxPlayer.clip = clip;
         sfxPlayer.Play();
        
+    }
+    public void PlaySFXSeperate(AudioClip clip)
+    {
+        GameObject tempGO = new GameObject("TempAudioPool"); 
+        AudioSource aSource = tempGO.AddComponent<AudioSource>();
+        aSource.clip = clip;
+        aSource.volume = sfxPlayer.volume;
+        aSource.spatialBlend = 0;
+        aSource.Play();
+
+        Destroy(tempGO, clip.length);
     }
     public void PlaySFXAtPoint(AudioClip clip, Vector3 position)
     {

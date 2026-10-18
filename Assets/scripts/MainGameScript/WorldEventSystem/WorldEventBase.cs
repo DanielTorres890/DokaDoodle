@@ -26,6 +26,7 @@ public abstract class WorldEventBase : ScriptableObject
     [Tooltip("An array of actions to perform when an event is complete")]
     public WorldEventComplete[] performOnComplete;
 
+    public Vector3 cameraPos = new Vector3(0, 11, 0);
     //I dont like making literally everything take a random number but i'm reallllyyy not sure where i'd even want to generate it since everywhere feels like a bad place
     public virtual void OnActivate(int randomNum)
     {

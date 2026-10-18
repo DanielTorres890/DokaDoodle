@@ -99,7 +99,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
         if(NetworkData.Instance.IsAllowed())
         {
-            SFXManager.Instance.PlaySFX(roundStartClip);
+            SFXManager.Instance.PlaySFXSeperate(roundStartClip);
         }
         
 
