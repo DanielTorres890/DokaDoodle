@@ -27,6 +27,7 @@ public abstract class WorldEventBase : ScriptableObject
     public WorldEventComplete[] performOnComplete;
 
     public Vector3 cameraPos = new Vector3(0, 11, 0);
+    public float panDuration = 0f;
     //I dont like making literally everything take a random number but i'm reallllyyy not sure where i'd even want to generate it since everywhere feels like a bad place
     public virtual void OnActivate(int randomNum)
     {

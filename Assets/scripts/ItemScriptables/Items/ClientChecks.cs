@@ -97,6 +97,7 @@ public class ClientChecks : NetworkBehaviour
                 if(WorldEventManager.Instance.eventsToActivate.Count > 0 || WorldEventManager.Instance.eventsToDeactivate.Count > 0)
                 {
                     SceneChanger.Instance.loadClientScenesAddidtiveRpc(mapNames[1], true);
+                    //NetworkManager.SceneManager.OnLoadEventCompleted += PositionCamera;
                 }
                 else
                 {
@@ -107,6 +108,23 @@ public class ClientChecks : NetworkBehaviour
         }
         
         loadedIn = true;
+    }
+    private void PositionCamera(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    {
+        NetworkManager.SceneManager.OnLoadEventCompleted -= PositionCamera;
+        if (IsHost)
+            PositionCameraRpc();
+    }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void PositionCameraRpc()
+    {
+        PlayerMoveManager.Instance.playerCam.Follow = null;
+        if (WorldEventManager.Instance.eventsToActivate.Count > 0)
+            Tween.Position(PlayerMoveManager.Instance.playerCam.transform, WorldEventManager.Instance.eventsToActivate[0].cameraPos, 2f);
+        else
+            Tween.Position(PlayerMoveManager.Instance.playerCam.transform, WorldEventManager.Instance.eventsToDeactivate[0].cameraPos, 2f);
+
     }
     //silly name bc it only exists for this
     private void McChickenWrapper(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
@@ -759,17 +777,31 @@ public class ClientChecks : NetworkBehaviour
 
     private IEnumerator displayActivateEvent(int randomNum)
     {
-   
+
+        while (PlayerMoveManager.Instance == null)
+        {
+            yield return null;
+            
+        }
+        var thisEvent = WorldEventManager.Instance.eventsToActivate[0];
+
         displayText.lines.Clear();
-        displayText.lines = new List<string>(WorldEventManager.Instance.eventsToActivate[0].ActivateText);
-        worldEventImage.sprite = WorldEventManager.Instance.eventsToActivate[0].eventDisplay;
-        worldEventImage.gameObject.SetActive(true);
+        displayText.lines = new List<string>(thisEvent.ActivateText);
+        worldEventImage.sprite = thisEvent.eventDisplay;
         
-        displayText.gameObject.SetActive(true);
+
+        PlayerMoveManager.Instance.playerCam.Follow = null;
+        Tween.Position(PlayerMoveManager.Instance.playerCam.transform, thisEvent.cameraPos, thisEvent.panDuration);
+
+        
 
        
         displayText.whoInControl = NetworkData.Instance.currentPlayer;
-        WorldEventManager.Instance.activeWorldEvents.Add(new WorldEventWrapper(WorldEventManager.Instance.worldDatabase.GetId[WorldEventManager.Instance.eventsToActivate[0]]));
+        WorldEventManager.Instance.activeWorldEvents.Add(new WorldEventWrapper(WorldEventManager.Instance.worldDatabase.GetId[thisEvent]));
+        yield return new WaitForSecondsRealtime(thisEvent.panDuration + 0.5f);
+
+        worldEventImage.gameObject.SetActive(true);
+        displayText.gameObject.SetActive(true);
         displayText.Awake();
 
         
@@ -779,7 +811,7 @@ public class ClientChecks : NetworkBehaviour
         }
         worldEventImage.gameObject.SetActive(false);
 
-        WorldEventManager.Instance.eventsToActivate[0].OnActivate(randomNum);
+        thisEvent.OnActivate(randomNum);
         WorldEventManager.Instance.eventsToActivate.RemoveAt(0);
         if (WorldEventManager.Instance.currentCutscene != null || PlayerCombatManager.Instance.isRaid) { Debug.Log("STOP THE COUNT"); }
 
@@ -806,6 +838,11 @@ public class ClientChecks : NetworkBehaviour
         displayText.whoInControl = NetworkData.Instance.currentPlayer;
         
         displayText.Awake();
+        if (PlayerMoveManager.Instance != null)
+        {
+            PlayerMoveManager.Instance.playerCam.Follow = null;
+            Tween.Position(PlayerMoveManager.Instance.playerCam.transform, WorldEventManager.Instance.eventsToDeactivate[0].cameraPos, 2f);
+        }
         for (int i = WorldEventManager.Instance.activeWorldEvents.Count - 1; i >= 0; i--)
         {
             if (WorldEventManager.Instance.activeWorldEvents[i].eventId == WorldEventManager.Instance.worldDatabase.GetId[WorldEventManager.Instance.eventsToDeactivate[0]])
