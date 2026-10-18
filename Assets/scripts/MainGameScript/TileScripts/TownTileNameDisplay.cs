@@ -12,7 +12,7 @@ public class TownTileNameDisplay : MonoBehaviour
 
     public void UpdateText()
     {
-        
+        if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber] == null) { text.text = ""; return; }
         text.text = TownTile.Info.TownName;
         var tileOwnerId = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][TownTile.tileId].tileOwner;
         if (tileOwnerId > -1)

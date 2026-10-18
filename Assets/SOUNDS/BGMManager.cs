@@ -33,8 +33,9 @@ public class BGMManager : MonoBehaviour
     }
     public void PlaySound(AudioClip soundClip)
     {
-       
+        if(BGMSource.resource == soundClip) { return; }
         BGMSource.resource = soundClip;
+        
         BGMSource.Play();
     }
     public void PlaySoundDelayed(AudioClip soundClip, float delay)

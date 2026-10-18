@@ -97,10 +97,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
 
         }
 
-        if(NetworkData.Instance.IsAllowed())
-        {
-            SFXManager.Instance.PlaySFXSeperate(roundStartClip);
-        }
+        
         
 
         if (days >= daysPerWeek)

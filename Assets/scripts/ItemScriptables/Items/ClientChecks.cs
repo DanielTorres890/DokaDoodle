@@ -73,27 +73,36 @@ public class ClientChecks : NetworkBehaviour
     public void Start()
     {
        
-        if (IsHost)
-        {
-
-            StartCoroutine(WaitUntilAllLoaded());
-        }
+        
+        StartCoroutine(WaitUntilAllLoaded());
+        
     }
     private void SceneStart()
     {
         
         loadedIn = false;
         //THIS SHOULD CHANGE THIS IS ONLY FOR NOW
-        
+
 
         //kind of a mickey mouse manuever but its okay i hope
-        if(!loadedIn)
+        onRoundStart.Invoke();
+        Debug.Log("Did i get here?");
+        WorldEventManager.Instance.ProgressDay();
+        if (!loadedIn)
         {   
             
             if(IsHost)
             {
-                NetworkManager.SceneManager.OnLoadEventCompleted += McChickenWrapper;
-                SceneChanger.Instance.loadClientScenesAddidtiveRpc(mapNames[NetworkData.Instance.GetCurrentPlayer().curMap]);
+
+                if(WorldEventManager.Instance.eventsToActivate.Count > 0 || WorldEventManager.Instance.eventsToDeactivate.Count > 0)
+                {
+                    SceneChanger.Instance.loadClientScenesAddidtiveRpc(mapNames[1], true);
+                }
+                else
+                {
+                    SceneChanger.Instance.loadClientScenesAddidtiveRpc(mapNames[NetworkData.Instance.GetCurrentPlayer().curMap], false);
+                    NetworkManager.SceneManager.OnLoadEventCompleted += ReadyToGo;
+                }
             }
         }
         
@@ -119,10 +128,9 @@ public class ClientChecks : NetworkBehaviour
         //im really not sure if this is the best way, its basically saying maps dont exist until someone sees them but surely that cant be good
 
         NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
-
-        
         onRoundStart.Invoke();
-        WorldEventManager.Instance.ProgressDay();
+        Debug.Log("Did i get here?");
+
         
 
 
@@ -143,15 +151,39 @@ public class ClientChecks : NetworkBehaviour
     public void TurnStartChecks()
     {
         //i dont like this much but it is what it is
-        if(PlayerCombatManager.Instance.isRaid) { return; }
         
+        
+        
+    }
+    private void LoadWorld(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    {
+        if(IsHost)
+        {
+            NetworkManager.Singleton.SceneManager.OnUnloadEventCompleted -= LoadWorld;
+            SceneChanger.Instance.loadClientScenesAddidtiveRpc(mapNames[NetworkData.Instance.GetCurrentPlayer().curMap]);
+            NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += ReadyToGo;
+        }    
+    }
+    private void ReadyToGo(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    {
+        NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= ReadyToGo;
+        ReadyToGoRpc();
+    }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void ReadyToGoRpc()
+    {
+        PlayerMoveManager.Instance.RoundStart();
         NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
         bool rumble = false;
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
         //at some point im probably gonna have to make this a different event but frick u
         onRoundStart.Invoke();
-        PlayerMoveManager.Instance.playerCam.Follow = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
-        
+        if (NetworkData.Instance.IsAllowed())
+        {
+            SFXManager.Instance.PlaySFXSeperate(WorldEventManager.Instance.roundStartClip);
+        }
+
         if (NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
         {
             mainMenuButtons.SetActive(false);
@@ -174,48 +206,48 @@ public class ClientChecks : NetworkBehaviour
 
 
         List<EntityStats> potentialCombatants = new List<EntityStats>(curTile.tileEnemy);
-        foreach(var ally in curTile.partyMembers)
+        foreach (var ally in curTile.partyMembers)
         {
-            if(ally.allyOwner == NetworkData.Instance.GetCurrentPlayer().playerNumber || !PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight) { continue; }
+            if (ally.allyOwner == NetworkData.Instance.GetCurrentPlayer().playerNumber || !PlayerMoveManager.Instance.mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId].canFight) { continue; }
             potentialCombatants.Add(ally);
         }
-        
+
 
 
         if ((potentialCombatants.Count == 0 && !rumble) && !NetworkData.Instance.players[NetworkData.Instance.currentPlayer].isDead)
         {
 
-           
-            
+
+
             PlayerMoveManager.Instance.playerCam.Follow = PlayerMoveManager.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
 
 
-            
+
             int initialPopUp = 0;
             int dashUnlockPopUp = 2;
             PopUpManager.Instance.PerformPopUp(initialPopUp);
-            if (NetworkData.Instance.GetCurrentPlayer().stats[Attributes.Dexterity] >= NetworkData.Instance.dashDexReq) { PopUpManager.Instance.PerformPopUp(dashUnlockPopUp, true, true);}
+            if (NetworkData.Instance.GetCurrentPlayer().stats[Attributes.Dexterity] >= NetworkData.Instance.dashDexReq) { PopUpManager.Instance.PerformPopUp(dashUnlockPopUp, true, true); }
 
             var unlockedClassId = NetworkData.Instance.checkUnlockedClass(NetworkData.Instance.currentPlayer);
-            if(unlockedClassId == -1)
+            if (unlockedClassId == -1)
             {
-           
+
                 onRoundStart.Invoke();
                 mainMenuButtons.SetActive(true);
                 rollNum.gameObject.transform.parent.gameObject.SetActive(false);
             }
             else
             {
-                if(IsHost) { DisplayGainedClassRpc(unlockedClassId); }
+                if (IsHost) { DisplayGainedClassRpc(unlockedClassId); }
             }
 
-            
+
         }
 
         else
         {
 
-            
+
 
 
             mainMenuButtons.SetActive(false);
@@ -224,7 +256,6 @@ public class ClientChecks : NetworkBehaviour
 
         }
     }
-
     public void SpawnDiceVisual()
     {
         if (!NetworkData.Instance.IsAllowed()) { return; }
@@ -736,9 +767,7 @@ public class ClientChecks : NetworkBehaviour
         
         displayText.gameObject.SetActive(true);
 
-        PlayerMoveManager.Instance.playerCam.Follow = null;
-        Tween.Position(PlayerMoveManager.Instance.playerCam.transform, WorldEventManager.Instance.eventsToActivate[0].cameraPos, 3f);
-        
+       
         displayText.whoInControl = NetworkData.Instance.currentPlayer;
         WorldEventManager.Instance.activeWorldEvents.Add(new WorldEventWrapper(WorldEventManager.Instance.worldDatabase.GetId[WorldEventManager.Instance.eventsToActivate[0]]));
         displayText.Awake();
@@ -758,9 +787,17 @@ public class ClientChecks : NetworkBehaviour
 
         else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0 ) {  StartCoroutine(displayDeactivateEvent()); }
 
-        else { TurnStartChecks(); }
+        else { FinishCutscenes(); }
     }
-
+    private void FinishCutscenes()
+    {
+        if (IsHost)
+        {
+            Debug.Log("Did i at least try?");
+            SceneChanger.Instance.UnloadClientScenesRpc(mapNames[1], true);
+            NetworkManager.Singleton.SceneManager.OnUnloadEventCompleted += LoadWorld;
+        }
+    }
     private IEnumerator displayDeactivateEvent()
     {
         displayText.lines.Clear();
@@ -789,7 +826,7 @@ public class ClientChecks : NetworkBehaviour
         WorldEventManager.Instance.eventsToDeactivate.RemoveAt(0);
         if(WorldEventManager.Instance.currentCutscene != null ) {  }
         else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0) { StartCoroutine(displayDeactivateEvent()); }
-        else { TurnStartChecks(); }
+        else { FinishCutscenes(); }
     }
 
     private IEnumerator WaitUntilAllLoaded()
@@ -827,12 +864,7 @@ public class ClientChecks : NetworkBehaviour
         while (PlayerMoveManager.Instance == null)
             yield return null;
 
-        while (PlayerMoveManager.Instance.mapNumber >=MapTileSpecialEvents.Instance.mapTiles.Length)
-            yield return null;
-
-        while (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber] == null)
-            yield return null;
-
+       
         PreturnStuff();
     }
 

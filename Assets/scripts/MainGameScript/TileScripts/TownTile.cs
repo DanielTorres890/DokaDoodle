@@ -10,6 +10,8 @@ public class TownTile : EventTIle
 
     public override void Start()
     {
+        if (MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber] == null) { return; }
+
         var tileInfo = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][tileId];
         if (tileInfo.tileOwner > -1)
         {

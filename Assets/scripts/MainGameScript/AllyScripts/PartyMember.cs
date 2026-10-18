@@ -300,13 +300,15 @@ public class PartyMember : EntityStats
         
         if(indexToRemove != -1)
         {
-            MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].partyMembers.RemoveAt(indexToRemove);
+            if (MapTileSpecialEvents.Instance.mapTiles[mapId] != null)
+                MapTileSpecialEvents.Instance.mapTiles[curMap][curTileId].partyMembers.RemoveAt(indexToRemove);
         }
 
         curTileId = tileId;
         curMap = mapId;
-  
-        MapTileSpecialEvents.Instance.mapTiles[mapId][tileId].partyMembers.Add(this);
+
+        if (MapTileSpecialEvents.Instance.mapTiles[mapId] != null)
+            MapTileSpecialEvents.Instance.mapTiles[mapId][tileId].partyMembers.Add(this);
     }
     public void ChangeClass(int classId)
     {

@@ -35,15 +35,19 @@ public class SceneChanger : NetworkBehaviour
         
     }
     [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
-    public void loadClientScenesAddidtiveRpc(string sceneName)
+    public void loadClientScenesAddidtiveRpc(string sceneName, bool fadeIn = false)
     {
         if (sceneName == "Fake") { return; }
 
        
         LoadComplete = false;
         
- 
-        ResetYoStuffAddRpc(sceneName);
+        if(fadeIn)
+        {
+            ResetYoStuffAddRpc(sceneName);
+            return;
+        }
+       
         status = NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
         if (status != SceneEventProgressStatus.Started)
         {
@@ -54,11 +58,22 @@ public class SceneChanger : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
-    public void UnloadClientScenesRpc(string sceneName)
+    public void UnloadClientScenesRpc(string sceneName , bool fadeIn = false)
     {
-        
-        NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(sceneName));
+        if(fadeIn)
+            FadeInUnloadRpc(sceneName);
+        else
+        {
+            NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(sceneName));
+        }
     }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    private void FadeInUnloadRpc(string sceneName)
+    {
+        StartCoroutine(FadeInUnload(sceneName));
+    }
+
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ResetYoStuffRpc(string scenename)
     {
@@ -70,7 +85,7 @@ public class SceneChanger : NetworkBehaviour
     private void ResetYoStuffAddRpc(string scenename)
     {
 
-        
+        StartCoroutine(FadeInAdd(scenename, LoadSceneMode.Additive));
     }
 
     public override void OnNetworkSpawn()
@@ -97,7 +112,7 @@ public class SceneChanger : NetworkBehaviour
         LoadComplete = true;
         status = SceneEventProgressStatus.None;
 
-        if(loadSceneMode != LoadSceneMode.Additive)
+        
         FadeOutRpc();
 
     }
@@ -135,6 +150,45 @@ public class SceneChanger : NetworkBehaviour
                 Debug.LogWarning($"Failed to load {sceneName} " +
                       $"with a {nameof(SceneEventProgressStatus)}: {status}");
             }
+        }
+    }
+    IEnumerator FadeInAdd(string sceneName, LoadSceneMode loadmode)
+    {
+        yield return new WaitForSeconds(0);
+        
+        float t = 0f;
+        Color c = fadeInOut.color;
+        while (t < fadeInTime)
+        {
+            t += Time.deltaTime;
+            fadeInOut.color = new Color(fadeInOut.color.r, fadeInOut.color.g, fadeInOut.color.b, 1);
+            yield return null;
+        }
+
+        if (IsHost)
+        {
+            var status = NetworkManager.Singleton.SceneManager.LoadScene(sceneName, loadmode);
+            if (status != SceneEventProgressStatus.Started)
+            {
+                Debug.LogWarning($"Failed to load {sceneName} " +
+                      $"with a {nameof(SceneEventProgressStatus)}: {status}");
+            }
+        }
+    }
+    IEnumerator FadeInUnload(string sceneName)
+    {
+        float t = 0f;
+        Color c = fadeInOut.color;
+        while (t < fadeInTime)
+        {
+            t += Time.deltaTime;
+            c.a = t / fadeOutTime;
+            fadeInOut.color = c;
+            yield return null;
+        }
+        if (IsHost)
+        {
+            NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(sceneName));
         }
     }
     IEnumerator FadeOut()

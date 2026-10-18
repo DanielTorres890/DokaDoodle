@@ -67,18 +67,35 @@ public class PlayerMoveManager : NetworkBehaviour
 
     public void Awake()
     {
+        Instance = this;
+
+        if (BGM) { BGMManager.instance.PlaySound(BGM); }
+
         mapTiles.Clear();
-        
         for (int i = 0; i < mapTileParent.childCount; i++)
         {
             mapTiles.Add(mapTileParent.GetChild(i).gameObject.GetComponent<TileScript>());
             mapTiles[i].tileId = i;
         }
-      
-        Instance = this;
 
-        if (BGM) { BGMManager.instance.PlaySound(BGM); }
+        playerSticks = GameObject.FindGameObjectWithTag("Data").GetComponent<NetworkData>().playerSticks;
+        if (MapTileSpecialEvents.Instance.mapTiles[mapNumber] == null)
+        {
+            Debug.Log("i couldnt put them in their proper spots");
+            foreach (var playerStick in playerSticks)
+            {
+                playerStick.transform.position += Vector3.down * -200;
+            }
+        }
+        else
+        {
+            StickPlacer();
+        }
 
+    }
+    public void RoundStart()
+    {
+        
 
 
 
@@ -95,9 +112,7 @@ public class PlayerMoveManager : NetworkBehaviour
         playerCam.Follow = playerSticks[NetworkData.Instance.currentPlayer].transform;
         FreeMover.Instance.playerCam = playerCam;
 
-
     }
-
     private void Update()
     {
     }
