@@ -47,7 +47,7 @@ public class DisplayCombatContributions : MonoBehaviour
 
             if (combatant.stats is PartyMember)
             {
-                combatantIcon.texture = playerTextures[(combatant.stats as PartyMember).allyOwner];
+                combatantIcon.texture = combatant.GetComponent<TempRenderTexture>().tempRenderTexture;
             }
         }
     }

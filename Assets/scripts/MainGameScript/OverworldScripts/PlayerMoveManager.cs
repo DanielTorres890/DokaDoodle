@@ -62,7 +62,7 @@ public class PlayerMoveManager : NetworkBehaviour
     public float AllyDistance;
 
     //DICTIONARIES SOLVE EVERYTHING HOLYYY
-    private List<Dictionary<PartyMember, GameObject>> playerAllies = new List<Dictionary<PartyMember, GameObject>>();
+    public List<Dictionary<PartyMember, GameObject>> playerAllies = new List<Dictionary<PartyMember, GameObject>>();
     private Coroutine activeRoutine;
 
     public void Awake()

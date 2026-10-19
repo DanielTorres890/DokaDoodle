@@ -511,7 +511,21 @@ public class ClientChecks : NetworkBehaviour
             {
                 combatPreview.transform.GetChild(1).GetChild(2).GetComponent<RawImage>().texture = PlayerCombatManager.Instance.EnemyDataBase.GetItem[(enemyCombatants as EnemyCombat).enemyId].enemyIcon;
             }
+            if(enemyCombatants is PartyMember)
+            {
+                PartyMember enemyMember = (PartyMember)enemyCombatants;
+                if(enemyMember.allyOwner == NetworkData.Instance.GetCurrentPlayer().playerNumber) { continue; }
 
+                foreach(var allyGroup in PlayerMoveManager.Instance.playerAllies)
+                {
+                    if(allyGroup.ContainsKey(enemyMember))
+                    {
+                        combatPreview.transform.GetChild(1).GetChild(2).GetComponent<RawImage>().texture = allyGroup[enemyMember].GetComponent<TempRenderTexture>().tempRenderTexture;
+                        break;
+                    }
+                }
+                
+            }
         }
 
         StartCoroutine(previewFight());

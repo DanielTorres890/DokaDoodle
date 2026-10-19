@@ -491,7 +491,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8100087860321223524}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999793
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -752,7 +752,8 @@ MonoBehaviour:
     /save [fileNumber] -
     Saves the current game to the specified file number
 
-'
+    /fix - attemps to fix
+    the game by reloading the main scene(fixes most things but not everything)s'
   unknownCommand: Unknown Command
   helpSaveText: Incorrect usage of /save - Example usage, "/save 1" saves to file
     1
@@ -1035,7 +1036,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 290.49994, y: -212.34067}
+  m_AnchoredPosition: {x: 290.49994, y: -212.34106}
   m_SizeDelta: {x: 581, y: 0}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &7809375808429872509
@@ -1372,6 +1373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DraggableUI
   myTransform: {fileID: 8225700727990023218}
   dragOnSurfaces: 1
+  prevMousePos: {x: 0, y: 0}
 --- !u!1 &8072286940037100266
 GameObject:
   m_ObjectHideFlags: 0

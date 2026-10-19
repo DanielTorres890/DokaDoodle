@@ -54,7 +54,7 @@ public class SmarterRangedLogic : RangedEnemyBehavior
             float thisScore = 0;
             thisScore += CalculateDamage(key, myManager.stats) * Mathf.Clamp(10 - Vector3.Distance(gameObject.transform.position, targetManager.gameObject.transform.position),0, 1000000f);
 
-            Debug.Log("How much was damage favored " +  thisScore);
+          
             thisScore += (key.ablitySize.x + key.ablitySize.y + key.ablitySize.z) * 3;
             if (key is MDefault)
             {
@@ -75,7 +75,7 @@ public class SmarterRangedLogic : RangedEnemyBehavior
                 bestScore = thisScore;
                 bestAttack = key;
             }
-            Debug.Log("The weight of this attack: " + key.attackName + " was " + thisScore);
+          
             
         }
        

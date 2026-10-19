@@ -35,18 +35,16 @@ public class ChatBoxCommands : MonoBehaviour
             UnknownCommand();
             return;
         }
-        if (textInput.Length <= 4) 
+        if (textInput.Length > 3 && textInput[..4] == "/fix")
         {
-            UnknownCommand();
-            return;
+            SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI");
         }
-
-        if (textInput[..5] == "/help")
+        else if (textInput.Length > 4 && textInput[..5] == "/help")
         {
             CreateText(helpText);
           
         }
-        else if (textInput[..5] == "/save")
+        else if (textInput.Length > 4 && textInput[..5] == "/save")
         {
             if(textInput.Length <= 6)
             {
@@ -74,7 +72,7 @@ public class ChatBoxCommands : MonoBehaviour
             }
 
         }
-
+        
         else
         {
             UnknownCommand();

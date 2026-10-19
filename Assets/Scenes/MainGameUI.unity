@@ -5886,6 +5886,7 @@ GameObject:
   - component: {fileID: 481410155}
   - component: {fileID: 481410154}
   - component: {fileID: 481410153}
+  - component: {fileID: 481410157}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5994,6 +5995,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!81 &481410157
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481410152}
+  m_Enabled: 1
 --- !u!1 &486043220
 GameObject:
   m_ObjectHideFlags: 0
@@ -24689,7 +24698,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1363785390949686150, guid: 747dc9d692362804c993c33bad7d271c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -212.34099
+      value: -212.34026
       objectReference: {fileID: 0}
     - target: {fileID: 3036091057128104075, guid: 747dc9d692362804c993c33bad7d271c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -24846,7 +24855,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1602749651094713678, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 132.69315
+      value: 132.69368
       objectReference: {fileID: 0}
     - target: {fileID: 2071873206483609822, guid: 361076249cffac240b01cdd54bcf3c9c, type: 3}
       propertyPath: Y_Start
