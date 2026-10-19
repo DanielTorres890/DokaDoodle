@@ -20,8 +20,10 @@ public class ObstacleManager : AbilityManager
 
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    public override void ImHitRpc(int damageAmt)
+    public override void ImHitRpc(int damageAmt, int ByWho)
     {
+        //bywho could potentially bse useful later
+
         GameObject dmgNum = Instantiate(damageNumber);
         dmgNum.transform.position = transform.position;
         dmgNum.transform.position += new Vector3(UnityEngine.Random.Range(-.5f, .5f), UnityEngine.Random.Range(-.5f, .5f), UnityEngine.Random.Range(-.5f, .5f));

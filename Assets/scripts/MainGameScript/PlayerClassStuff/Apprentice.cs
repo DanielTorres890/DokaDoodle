@@ -10,7 +10,7 @@ public class Apprentice : PlayerClassBase
 
     public override void ClassAction(playerData player, int randomNum)
     {
-        player.GainStatus(classBuff);
+        player.GainStatus(classBuff, player);
         player.playerInfo[PlayerInfo.classCd] = ClassActionCD;
         base.ClassAction(player, randomNum);
     }

@@ -19,7 +19,7 @@ public class Inspire : BuffBase
                 foreach(var buff in buffs)
                 {
                     
-                    ally.GainStatus(buff);
+                    ally.GainStatus(buff, stats);
                 }
                 
             }

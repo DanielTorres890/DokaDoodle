@@ -31,6 +31,7 @@ public class ClientChecks : NetworkBehaviour
     public TextMeshProUGUI rollNum;
     public UnityEvent onRoundStart;
     public GameObject combatPreview;
+    public RenderTexture[] playerHeadshots;
     public UnityEvent onItemUse;//i'd like to say that im not that happy about whats going on here but this has to be better than updating stat UI every frame
     public UnityEvent onClassAbilityUse;
 
@@ -492,10 +493,26 @@ public class ClientChecks : NetworkBehaviour
         string encounterName = PlayerCombatManager.Instance.BattleSetUp(encounterId);
         combatPreview.transform.GetChild(0).GetChild(0).GetComponent< TextMeshProUGUI>().text = NetworkData.Instance.players[NetworkData.Instance.currentPlayer].name.ToString();
         combatPreview.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Lv. " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.level].ToString();
+        combatPreview.transform.GetChild(0).GetChild(2).GetComponent<RawImage>().texture = playerHeadshots[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerNumber];
 
         combatPreview.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = encounterName;
         combatPreview.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Lv. " + PlayerCombatManager.Instance.AvgLevel.ToString();
+        foreach(var enemyCombatants in PlayerCombatManager.Instance.combatants)
+        {
+            if(enemyCombatants == NetworkData.Instance.GetCurrentPlayer()) { continue; }
 
+            if(enemyCombatants is playerData)
+            {
+                combatPreview.transform.GetChild(1).GetChild(2).GetComponent<RawImage>().texture = playerHeadshots[(enemyCombatants as playerData).playerNumber];
+                break;
+            }
+
+            if(enemyCombatants is EnemyCombat && PlayerCombatManager.Instance.EnemyDataBase.GetItem[(enemyCombatants as EnemyCombat).enemyId].enemyIcon != null)
+            {
+                combatPreview.transform.GetChild(1).GetChild(2).GetComponent<RawImage>().texture = PlayerCombatManager.Instance.EnemyDataBase.GetItem[(enemyCombatants as EnemyCombat).enemyId].enemyIcon;
+            }
+
+        }
 
         StartCoroutine(previewFight());
     }

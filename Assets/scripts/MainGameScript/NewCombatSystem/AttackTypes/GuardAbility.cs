@@ -12,9 +12,9 @@ public class GuardAbility : AttackBase
     {
         var stats = caster.GetComponent<AbilityManager>();
         Debug.Log("I should have gained buff ");
-        foreach(var status in  gainStatus)
+        foreach(var status in gainStatus)
         {
-            stats.stats.GainStatus(status);
+            stats.stats.GainStatus(status, stats.stats);
         }
         
     }

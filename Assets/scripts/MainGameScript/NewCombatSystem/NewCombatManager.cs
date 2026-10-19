@@ -29,6 +29,7 @@ public class NewCombatManager : NetworkBehaviour
     [SerializeField] private PlayerUIManager playerUI;
     [SerializeField] private StatUIDisplay statUI;
     [SerializeField] private AllySkillSelectUI skillSelectUI;
+    [SerializeField] private DisplayCombatContributions contributionsDisplay;
     private int xpHarvested;
     private int moneyHarvested;
 
@@ -38,7 +39,10 @@ public class NewCombatManager : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
 
 
-    public Dictionary<EntityStats, int> contributions = new Dictionary<EntityStats, int>();
+    public Dictionary<EntityStats, int> damageDealt = new Dictionary<EntityStats, int>();
+    public Dictionary<EntityStats, int> damageTaken = new Dictionary<EntityStats, int>();
+
+
 
     [DoNotSerialize] public bool fightOver = false;
 
@@ -191,9 +195,10 @@ public class NewCombatManager : NetworkBehaviour
         foreach(var combatant in PlayerCombatManager.Instance.combatants)
         {
 
-            if(!contributions.ContainsKey(combatant))
-            contributions.Add(combatant, 0);
-            Debug.Log("This entity can contribute " + combatant.name);
+            if(!damageDealt.ContainsKey(combatant))
+                damageDealt.Add(combatant, 0);
+            if (!damageTaken.ContainsKey(combatant))
+                damageTaken.Add(combatant, 0);
         }
     }
 
@@ -466,10 +471,10 @@ public class NewCombatManager : NetworkBehaviour
             if (enemy.stats.isDead) { enemy = allCombatants[i]; }
             if (!allCombatants[i].stats.isDead)
             {
-                if(!contributions.ContainsKey(enemy.stats) || !contributions.ContainsKey(allCombatants[i].stats)) { continue; }
+                if(!damageDealt.ContainsKey(enemy.stats) || !damageDealt.ContainsKey(allCombatants[i].stats)) { continue; }
 
                 
-                if (contributions[allCombatants[i].stats] > contributions[enemy.stats])
+                if (damageDealt[allCombatants[i].stats] + damageTaken[allCombatants[i].stats] > damageDealt[enemy.stats] + damageTaken[enemy.stats])
                 {
                     enemy = allCombatants[i];
                 }
@@ -587,14 +592,25 @@ public class NewCombatManager : NetworkBehaviour
 
             List<int> partyLevelsGained = new List<int>();
             //its implied that if combat ends the only ones left would be your allies
-            int totalXpToGain = Mathf.CeilToInt(cache.xpOnTile * (1 + ((float)cache.partyMembers.Count/(cache.partyMembers.Count + 1))   ));
+
+            int myPartyMemberCount = 0;
+            foreach(var member in cache.partyMembers)
+            {
+                if(member.isDead) { continue; }
+                if(member.allyOwner != player.playerNumber) { continue; }
+                myPartyMemberCount += 1;
+            }
+            int totalXpToGain = Mathf.CeilToInt(cache.xpOnTile * (1 + ((float)myPartyMemberCount / (myPartyMemberCount + 1))   ));
             
             foreach (var partyMember in cache.partyMembers)
             {
-                int levelsGained = partyMember.gainXp(totalXpToGain / (cache.partyMembers.Count + 1));
+                if (partyMember.isDead) { continue; }
+                if (partyMember.allyOwner != player.playerNumber) { continue; }
+
+                int levelsGained = partyMember.gainXp(totalXpToGain / (myPartyMemberCount + 1));
                 partyLevelsGained.Add(levelsGained);
             }
-            int levels = player.gainXp(totalXpToGain / (cache.partyMembers.Count + 1));
+            int levels = player.gainXp(totalXpToGain / (myPartyMemberCount + 1));
             bool gainedClassLevel = player.gainClassXp(cache.xpOnTile) > 0;
 
             player.GainMoney(moneyHarvested + cache.moneyOnTile);
@@ -621,7 +637,7 @@ public class NewCombatManager : NetworkBehaviour
             }
 
             endBattleInfo.lines.Add(player.name + " has gained <color=blue>" + (totalXpToGain) + "</color> xp ");
-            if (cache.partyMembers.Count > 0) { endBattleInfo.lines[endBattleInfo.lines.Count - 1] += "(split between you and your allies)"; }
+            if (myPartyMemberCount > 0) { endBattleInfo.lines[endBattleInfo.lines.Count - 1] += "(split between you and your allies)"; }
 
             
             if (leveledUp)
@@ -678,6 +694,7 @@ public class NewCombatManager : NetworkBehaviour
             endBattleInfo.endEvent.RemoveAllListeners();
             endBattleInfo.endEvent.AddListener(delegate { endBattleInfo.gameObject.SetActive(false); });
             endBattleInfo.endEvent.AddListener(delegate { BattleEndEvents(); });
+            endBattleInfo.endEvent.AddListener(delegate { contributionsDisplay.gameObject.SetActive(false); });
             if (leveledUp)
             {
                 fightEndQueue.Add(delegate { levelUpUI.Setup(); });
@@ -1065,13 +1082,13 @@ public class NewCombatManager : NetworkBehaviour
 
         BattleOverCalculations(victor);
     }
-    public void AddContribution(EntityStats who, int amount)
+    public void AddContributionDamage(EntityStats who, int amount)
     {
 
-        if(contributions.ContainsKey(who))
+        if(damageDealt.ContainsKey(who))
         {
             
-            contributions[who] += amount;
+            damageDealt[who] += amount;
             
         }
         else
@@ -1084,9 +1101,39 @@ public class NewCombatManager : NetworkBehaviour
                     if (allCombatants[i].TryGetComponent(out SummonDespawn summon))
                     {
                        
-                        contributions[summon.ownerStats] += amount;
+                        damageDealt[summon.ownerStats] += amount;
                         
                     }    
+
+                }
+
+            }
+
+        }
+
+    }
+    public void AddContributionDamageTaken(EntityStats who, int amount)
+    {
+
+        if (damageTaken.ContainsKey(who))
+        {
+
+            damageTaken[who] += amount;
+
+        }
+        else
+        {
+
+            for (int i = 0; i < allCombatants.Count; i++)
+            {
+                if (allCombatants[i].stats == who)
+                {
+                    if (allCombatants[i].TryGetComponent(out SummonDespawn summon))
+                    {
+
+                        damageTaken[summon.ownerStats] += amount;
+
+                    }
 
                 }
 

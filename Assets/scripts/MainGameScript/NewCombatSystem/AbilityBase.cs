@@ -115,16 +115,16 @@ public abstract class AbilityBase : NetworkBehaviour
 
             hitEntities.Add(other.gameObject);
             targetsInRange.Add(hitby);
-            NewCombatManager.instance.AddContribution(ownerStats, DamageCalculator(hitby.stats));
+            
 
-
-            hitby.ImHitRpc(DamageCalculator(hitby.stats));
+            int entityIndex = NewCombatManager.instance.allCombatants.IndexOf(owner.GetComponent<AbilityManager>());
+            hitby.ImHitRpc(DamageCalculator(hitby.stats), entityIndex);
             int[] buffIds = new int[attackInfo.onHitEffects.Length];
             for (int i = 0; i < attackInfo.onHitEffects.Length; i++)
             {
                 buffIds[i] = NetworkData.Instance.buffDataBase.GetId[attackInfo.onHitEffects[i]];
             }
-            hitby.IGainedBuffRpc(buffIds);
+            hitby.IGainedBuffRpc(buffIds, entityIndex);
             if (attackInfo.onHitSound)
             {
                 if (ownerStats is playerData)
@@ -204,15 +204,16 @@ public abstract class AbilityBase : NetworkBehaviour
     {
         foreach (var target in targetsInRange)
         {
-            Debug.Log("Im hitting everyone");
-            NewCombatManager.instance.AddContribution(ownerStats, DamageCalculator(target.stats));
-            target.ImHitRpc(DamageCalculator(target.stats));
+           
+            
+            int entityIndex = NewCombatManager.instance.allCombatants.IndexOf(owner.GetComponent<AbilityManager>());
+            target.ImHitRpc(DamageCalculator(target.stats), entityIndex);
             int[] buffIds = new int[attackInfo.onHitEffects.Length];
             for (int i = 0; i < attackInfo.onHitEffects.Length; i++)
             {
                 buffIds[i] = NetworkData.Instance.buffDataBase.GetId[attackInfo.onHitEffects[i]];
             }
-            target.IGainedBuffRpc(buffIds);
+            target.IGainedBuffRpc(buffIds, entityIndex);
             if (attackInfo.onHitSound)
             {
                 if (ownerStats is playerData)

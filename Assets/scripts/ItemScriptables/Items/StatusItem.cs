@@ -20,7 +20,7 @@ public class StatusItem : ItemBase
 
         foreach(var buff in StatusEffects)
         {
-            NetworkData.Instance.players[player].GainStatus(buff);
+            NetworkData.Instance.players[player].GainStatus(buff, NetworkData.Instance.players[player]);
         }
 
         base.PerformItemEffect(player, inventory);
@@ -53,6 +53,7 @@ public class StatusItem : ItemBase
             buffids[i] = NetworkData.Instance.buffDataBase.GetId[StatusEffects[i]];
         }
 
-        user.IGainedBuffRpc(buffids);
+        int whoDid = NewCombatManager.instance.allCombatants.IndexOf(user);
+        user.IGainedBuffRpc(buffids, whoDid);
     }
 }

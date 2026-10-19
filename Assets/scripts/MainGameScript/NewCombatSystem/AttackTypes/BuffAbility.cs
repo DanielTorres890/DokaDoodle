@@ -17,7 +17,8 @@ public class BuffAbility : AttackBase
             buffids[i] = NetworkData.Instance.buffDataBase.GetId[StatusEffects[i]];
         }
 
-        caster.GetComponent<AbilityManager>().IGainedBuffRpc(buffids);
+        int indexOfCaster = NewCombatManager.instance.allCombatants.IndexOf(caster.GetComponent<AbilityManager>());
+        caster.GetComponent<AbilityManager>().IGainedBuffRpc(buffids, indexOfCaster);
         return base.WeaponEffect(caster, time, whereiscaster, casterLooking, chargeDuration, origin, direction);
         
     }

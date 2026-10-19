@@ -9,6 +9,7 @@ public class EnemyBase : ScriptableObject, ISerializationCallbackReceiver
 {
 
     public string enemyName;
+    public Texture enemyIcon;
     public GameObject enemyPrefab;
     public GameObject enemyNonCombatPrefab;
     public ItemBuff[] Stats = new ItemBuff[7];
@@ -30,7 +31,7 @@ public class EnemyBase : ScriptableObject, ISerializationCallbackReceiver
     [Tooltip("If true an enemy wont persist if combat ends early")]
     public bool flee = false;
 
-
+    
     [Tooltip("If the enemy should override the bgm insert this")]
     public AudioClip SpecialMusic;
     public void OnAfterDeserialize()

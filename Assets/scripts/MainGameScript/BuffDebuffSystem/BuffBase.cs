@@ -87,7 +87,7 @@ public abstract class BuffBase : ScriptableObject
   
 
     public virtual void OnEveryTick(AbilityManager stats) { }
-    public virtual void OnEverySecond(AbilityManager whom) { }
+    public virtual void OnEverySecond(AbilityManager whom, AbilityManager whomApplied) { }
 
     public virtual float GetDuration(EntityStats stats) { return duration; }
 }

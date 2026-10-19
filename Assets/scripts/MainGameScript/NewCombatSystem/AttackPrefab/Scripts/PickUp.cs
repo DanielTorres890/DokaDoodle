@@ -49,7 +49,8 @@ public class PickUp : AbilityBase
             onHitIds[counter] = NetworkData.Instance.buffDataBase.GetId[status];
             
         }
-        owner.GetComponent<AbilityManager>().IGainedBuffRpc(onHitIds);
+        int indexOfOwner = NewCombatManager.instance.allCombatants.IndexOf(owner.GetComponent<AbilityManager>());
+        owner.GetComponent<AbilityManager>().IGainedBuffRpc(onHitIds, indexOfOwner);
         base.OnHit();
     }
     public override void OnTriggerEnter(Collider other)

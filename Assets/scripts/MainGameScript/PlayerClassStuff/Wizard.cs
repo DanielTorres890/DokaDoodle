@@ -8,7 +8,7 @@ public class Wizard : PlayerClassBase
     public BuffBase[] possibleBuffs;
     public override void ClassAction(playerData player, int randomNum)
     {
-        player.GainStatus(possibleBuffs[randomNum % possibleBuffs.Length]);
+        player.GainStatus(possibleBuffs[randomNum % possibleBuffs.Length], player);
 
         base.ClassAction(player, randomNum);
     }

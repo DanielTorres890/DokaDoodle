@@ -61,7 +61,7 @@ public class WeaponItem : ItemBase
         }
         foreach (var status in onEquipBuffs)
         {
-            thisPlayer.GainStatus(status);
+            thisPlayer.GainStatus(status, thisPlayer);
         }
 
         thisPlayer.equipItems[this.type] = inventory.database.GetId[this];

@@ -87,7 +87,7 @@ public class EntityStats
         stats[attr] = amt;
         PostStatusStatCalc();
     }
-    public void GainStatus(BuffBase status)
+    public void GainStatus(BuffBase status, EntityStats byWho)
     {
         bool alreadyAfflicted = false;
         foreach (var stati in statuses)
@@ -102,7 +102,7 @@ public class EntityStats
         }
         if(!alreadyAfflicted)
         {
-            statuses.Add(new BuffHolder(status.GetDuration(this), NetworkData.Instance.buffDataBase.GetId[status]));
+            statuses.Add(new BuffHolder(status.GetDuration(this), NetworkData.Instance.buffDataBase.GetId[status], byWho));
             status.OnApply(this);
         }
 
@@ -229,6 +229,9 @@ public class EntityStats
         onStatusProgress.Invoke();
         PostStatusStatCalc();
     }
+
+   
+  
 }
 
 

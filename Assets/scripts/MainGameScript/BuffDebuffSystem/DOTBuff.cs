@@ -11,13 +11,17 @@ public class DOTBuff : BuffBase
 
 
 
-    public override void OnEverySecond(AbilityManager whom)
+    public override void OnEverySecond(AbilityManager whom, AbilityManager whomApplied)
     {
         if (NewCombatManager.instance == null) { return; }
-        base.OnEverySecond(whom);
+        base.OnEverySecond(whom, whomApplied);
         
         if(NetworkManager.Singleton.IsServer)
-        whom.ImHitRpc(Mathf.Clamp(Mathf.RoundToInt(percentDamagePerSecond * whom.stats.stats[Attributes.MaxHealth]), 1 , 9999));
+        {
+            int applierIndex = NewCombatManager.instance.allCombatants.IndexOf(whomApplied);
+            whom.ImHitRpc(Mathf.Clamp(Mathf.RoundToInt(percentDamagePerSecond * whom.stats.stats[Attributes.MaxHealth]), 1, 9999), applierIndex);
+        }
+       
       
 
     }

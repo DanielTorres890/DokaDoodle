@@ -109,7 +109,12 @@ public class AbilityManager : NetworkBehaviour
             onEverySecondTimer = 1;
             foreach(var status in stats.statuses)
             {
-                NetworkData.Instance.buffDataBase.GetItem[status.buffId].OnEverySecond(this);
+                AbilityManager whoApplied = null;
+                foreach(var combatant in NewCombatManager.instance.allCombatants)
+                {
+                    if(combatant.stats == status.whoAppliedThis) {  whoApplied = combatant; break; }
+                }
+                NetworkData.Instance.buffDataBase.GetItem[status.buffId].OnEverySecond(this, whoApplied);
             }
 
         }
@@ -344,31 +349,37 @@ public class AbilityManager : NetworkBehaviour
             stateManager[stats.attacks[i]].cooldown = stats.attacks[i].startCooldown;
         }
     }
-   /* 
-    public void OnTriggerEnter(Collider other)
-    {
-        
-        if (!IsServer) { return; }
-        
-        if (other.gameObject.TryGetComponent(out AbilityBase hitby))
-        {
-            if (gameObject == hitby.owner) { return; }
-            hitby.OnHit();
-            Debug.Log("ERRRR" + other.GetType());
-            
-            ImHitRpc(hitby.DamageCalculator(stats));
-        }
+    /* 
+     public void OnTriggerEnter(Collider other)
+     {
 
-    }
-   */
+         if (!IsServer) { return; }
+
+         if (other.gameObject.TryGetComponent(out AbilityBase hitby))
+         {
+             if (gameObject == hitby.owner) { return; }
+             hitby.OnHit();
+             Debug.Log("ERRRR" + other.GetType());
+
+             ImHitRpc(hitby.DamageCalculator(stats));
+         }
+
+     }
+    */
+   
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    public virtual void ImHitRpc(int damageAmt)
+    public virtual void ImHitRpc(int damageAmt, int ByWho)
     {
        
         stats.stats[Attributes.Health] -= damageAmt;
 
-        NewCombatManager.instance.AddContribution(stats, damageAmt / stats.stats[Attributes.MaxHealth] * 10);
+   
+
+        NewCombatManager.instance.AddContributionDamageTaken(stats, damageAmt);
+
+        if(ByWho != -1)
+        NewCombatManager.instance.AddContributionDamage(NewCombatManager.instance.allCombatants[ByWho].stats, damageAmt);
 
         stats.PostStatusStatCalc();
 
@@ -424,12 +435,12 @@ public class AbilityManager : NetworkBehaviour
         
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    public void IGainedBuffRpc(int[] buffId)
+    public void IGainedBuffRpc(int[] buffId, int byWho)
     {
         
         foreach(int i in buffId)
         {
-            stats.GainStatus(NetworkData.Instance.buffDataBase.GetItem[i]);
+            stats.GainStatus(NetworkData.Instance.buffDataBase.GetItem[i], NewCombatManager.instance.allCombatants[byWho].stats);
         }
        
         stats.PostStatusStatCalc();
