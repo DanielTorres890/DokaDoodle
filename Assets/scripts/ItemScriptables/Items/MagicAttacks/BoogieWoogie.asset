@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 21300000, guid: 1534d47b4ea45db4eb18f984676b9b11, type: 3}
   type: 5
-  itemValue: 1000
+  itemValue: 3000
   description: 'Perform a quick clap, swapping locations with whoever you''re looking
     at. If you aren''t looking at anyone it wont swap
 
-    REQ: 6 MAG, 6 DEX
+    REQ: 15 MAG, 10 DEX
 
     (Cmon
     son we all know what this one does already)'
@@ -26,6 +26,7 @@ MonoBehaviour:
   itemName: Boogie Woogie
   buffs: []
   battleItem: 0
+  inCombatAttack: {fileID: 0}
   overworldItem: 0
   useClip: {fileID: 0}
   interrupt: 0
@@ -33,9 +34,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cc057eedc187aac4ca2fdce6ecd619ac, type: 2}
   skillRequirements:
   - attribute: 4
-    value: 6
+    value: 15
   - attribute: 6
-    value: 6
+    value: 10
   inHandSprite: {fileID: 0}
   onEquipBuffs: []
   weaponColor: {r: 0, g: 0, b: 0, a: 0}
