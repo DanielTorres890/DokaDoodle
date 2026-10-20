@@ -16,6 +16,8 @@ public class SceneChanger : NetworkBehaviour
     public float fadeOutTime;
     public SceneEventProgressStatus status;
     public static SceneChanger Instance { get; set; }
+
+    public bool fadedIn = true;
     private void Awake()
     {
         Instance = this;
@@ -47,7 +49,7 @@ public class SceneChanger : NetworkBehaviour
             ResetYoStuffAddRpc(sceneName);
             return;
         }
-       
+        Debug.Log("did i tried to load without a fade ");
         status = NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
         if (status != SceneEventProgressStatus.Started)
         {
@@ -112,9 +114,10 @@ public class SceneChanger : NetworkBehaviour
         LoadComplete = true;
         status = SceneEventProgressStatus.None;
 
-        
+        if(fadedIn)
         FadeOutRpc();
 
+        fadedIn = false;
     }
 
 
@@ -151,6 +154,7 @@ public class SceneChanger : NetworkBehaviour
                       $"with a {nameof(SceneEventProgressStatus)}: {status}");
             }
         }
+        fadedIn = true;
     }
     IEnumerator FadeInAdd(string sceneName, LoadSceneMode loadmode)
     {
@@ -174,6 +178,7 @@ public class SceneChanger : NetworkBehaviour
                       $"with a {nameof(SceneEventProgressStatus)}: {status}");
             }
         }
+        fadedIn = true;
     }
     IEnumerator FadeInUnload(string sceneName)
     {
@@ -190,6 +195,7 @@ public class SceneChanger : NetworkBehaviour
         {
             NetworkManager.Singleton.SceneManager.UnloadScene(SceneManager.GetSceneByName(sceneName));
         }
+        fadedIn = true;
     }
     IEnumerator FadeOut()
     {

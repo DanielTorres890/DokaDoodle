@@ -118,6 +118,11 @@ public class TileInfoDisplay : MonoBehaviour
         }
 
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(transform.GetChild(0) as RectTransform);
+        
+       
+        //LayoutRebuilder.ForceRebuildLayoutImmediate(transform.GetChild(0).GetChild(0) as RectTransform);
+        //LayoutRebuilder.ForceRebuildLayoutImmediate(transform.GetChild(0).GetChild(1) as RectTransform);
+        //LayoutRebuilder.ForceRebuildLayoutImmediate(transform.GetChild(0) as RectTransform);
+        //Canvas.ForceUpdateCanvases();
     }
 }

@@ -683,6 +683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4522dce7348f88d4dbc2d9ff24586b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileType: 4
   upTile: {fileID: 0}
   downTile: {fileID: 0}
   rightTile: {fileID: 0}
@@ -702,7 +703,9 @@ MonoBehaviour:
     pose
   enemies: []
   events:
-  - {fileID: 11400000, guid: 098cf9e94bf78954f9ce56231ec20ac0, type: 2}
+  - tileEvent: {fileID: 0}
+    weight: 0
+  conditionalCombats: []
 --- !u!65 &5705220310492287758
 BoxCollider:
   m_ObjectHideFlags: 0

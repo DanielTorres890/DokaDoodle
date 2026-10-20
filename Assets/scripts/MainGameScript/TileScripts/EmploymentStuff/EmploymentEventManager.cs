@@ -305,9 +305,10 @@ public class EmploymentEventManager : NetworkBehaviour
             displayText.text = "You can't afford this mf ";
             return;
         }
-        if(NetworkData.Instance.GetCurrentPlayer().ownedTowns.Count + 1 <= NetworkData.Instance.GetCurrentPlayer().partyMembers.Count) 
+
+        if(NetworkData.Instance.GetCurrentPlayer().maxPartyMembers <= NetworkData.Instance.GetCurrentPlayer().partyMembers.Count) 
         {
-            displayText.text = "Your ally slots are full (each town lets you hold 1 more ally) ";
+            displayText.text = "Your ally slots are full (certain main quests and events can increase the max) ";
             return;
 
         }
@@ -432,8 +433,8 @@ public class EmploymentEventManager : NetworkBehaviour
     private void UpdateMaxAllyDisplay()
     {
 
-        maxAllyDisplay.text = NetworkData.Instance.GetCurrentPlayer().partyMembers.Count.ToString() + "/" + (NetworkData.Instance.GetCurrentPlayer().ownedTowns.Count + 1).ToString();
-        if(NetworkData.Instance.GetCurrentPlayer().partyMembers.Count >= NetworkData.Instance.GetCurrentPlayer().ownedTowns.Count + 1)
+        maxAllyDisplay.text = NetworkData.Instance.GetCurrentPlayer().partyMembers.Count.ToString() + "/" + (NetworkData.Instance.GetCurrentPlayer().maxPartyMembers).ToString();
+        if(NetworkData.Instance.GetCurrentPlayer().partyMembers.Count >= NetworkData.Instance.GetCurrentPlayer().maxPartyMembers)
         {
             maxAllyDisplay.text = "<color=red>" + NetworkData.Instance.GetCurrentPlayer().partyMembers.Count.ToString() + "/" + (NetworkData.Instance.GetCurrentPlayer().ownedTowns.Count + 1).ToString() + "</color>";
         }

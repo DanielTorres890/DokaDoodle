@@ -75,6 +75,7 @@ public class playerData : EntityStats
 
 
     public List<PartyMember> partyMembers = new List<PartyMember>();
+    public int maxPartyMembers = 1;
 
     public playerData()
     {

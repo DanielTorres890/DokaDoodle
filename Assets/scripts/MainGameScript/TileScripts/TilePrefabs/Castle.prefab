@@ -775,6 +775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4522dce7348f88d4dbc2d9ff24586b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileType: 4
   upTile: {fileID: 0}
   downTile: {fileID: 0}
   rightTile: {fileID: 0}
@@ -793,7 +794,9 @@ MonoBehaviour:
   tileDescription: The castle where you can heal and set your spawn point
   enemies: []
   events:
-  - {fileID: 11400000, guid: c47dbd9e0d0984846b25dd4ea58a78cb, type: 2}
+  - tileEvent: {fileID: 0}
+    weight: 0
+  conditionalCombats: []
 --- !u!65 &5705220310492287758
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -447,7 +447,7 @@ public class PlayerMoveManager : NetworkBehaviour
         int curPlayerIndex = NetworkData.Instance.currentPlayer;
    
         
-        while (Vector3.Distance(playerSticks[curPlayerIndex].transform.position, mapTiles[tildId].gameObject.transform.position) > 3.1f)
+        while (Vector3.Distance(playerSticks[curPlayerIndex].transform.position, mapTiles[tildId].gameObject.transform.position) > 1.61f)
         {
             
             var tilePos = mapTiles[tildId].gameObject.transform.position;
@@ -455,7 +455,7 @@ public class PlayerMoveManager : NetworkBehaviour
 
             playerSticks[NetworkData.Instance.currentPlayer].transform.position =
 
-        Vector3.MoveTowards(playerSticks[curPlayerIndex].transform.position, new Vector3(tilePos.x, tilePos.y + 3, tilePos.z) , speed * Time.deltaTime);
+        Vector3.MoveTowards(playerSticks[curPlayerIndex].transform.position, new Vector3(tilePos.x, tilePos.y + 1.6f, tilePos.z) , speed * Time.deltaTime);
         
             SetFollowingMembersToCurTile();
             int memberCount = 0;
@@ -885,7 +885,7 @@ public class PlayerMoveManager : NetworkBehaviour
             if(intIndex > 1) { stagger = -1; }
             
             playerSticks[i].transform.position = mapTiles[NetworkData.Instance.players[i].curTileId].transform.position;
-            playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + intIndex % 2, playerSticks[i].transform.position.y + 1.5f, playerSticks[i].transform.position.z - 2 + 1f * stagger);
+            playerSticks[i].transform.position = new Vector3(playerSticks[i].transform.position.x + intIndex % 2, playerSticks[i].transform.position.y + 1.6f, playerSticks[i].transform.position.z - 2 + 1f * stagger);
             if (i != NetworkData.Instance.currentPlayer && NetworkData.Instance.GetCurrentPlayer().curTileId == NetworkData.Instance.players[i].curTileId)
             {
                 playerSticks[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);

@@ -17,7 +17,7 @@ public class EndOfWeek : MonoBehaviour
             player.GainMoney(madeMoneySalary);
             foreach (var townid in player.ownedTowns)
             {
-                var curTile = MapTileSpecialEvents.Instance.mapTiles[0][townid.Value];
+                var curTile = MapTileSpecialEvents.Instance.mapTiles[1][townid.Value];
                 
                 madeMoney += (curTile.townMoneyLevel + 1) * NetworkData.Instance.TownInfoDataBase.GetItem[townid.Key].baseMoneyGeneration;
                 player.GainMoney(madeMoney);

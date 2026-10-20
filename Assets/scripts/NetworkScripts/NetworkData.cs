@@ -37,7 +37,7 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     public int maxPlayers = 4;
     public int currentPlayer = 0;
     public int[] clientOrder = new int[4];
-
+    
     public Dictionary<ulong,string> clientIdToGuid = new Dictionary<ulong,string>();
     public Dictionary<string, ulong> GuidToClientId = new Dictionary<string, ulong>();
 
