@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: Gremlin
   m_EditorClassIdentifier: 
   enemyName: Gremlin
+  enemyIcon: {fileID: 0}
   enemyPrefab: {fileID: 1804880954259114146, guid: 26a3e978a640df04781171661274c712, type: 3}
   enemyNonCombatPrefab: {fileID: 6457392848719385595, guid: 1c2d19cf46bc7f143a2ff1e327f08f8b, type: 3}
   Stats:
   - attribute: 0
-    value: 75
+    value: 100
   - attribute: 1
-    value: 75
+    value: 100
   - attribute: 2
-    value: 6
+    value: 10
   - attribute: 3
     value: 4
   - attribute: 4
@@ -40,7 +41,8 @@ MonoBehaviour:
   probability: 0a000000
   enemyLevel: 4
   droppedXp: 60
-  droppedMoney: 100
+  droppedMoney: 300
   droppedFame: 0
   scalingMoney: 0
+  flee: 0
   SpecialMusic: {fileID: 0}

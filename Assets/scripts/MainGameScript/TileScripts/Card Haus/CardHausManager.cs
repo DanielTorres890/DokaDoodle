@@ -364,7 +364,7 @@ public class CardHausManager : NetworkBehaviour
     private bool DetermineRewards()
     {
         List<string> spoilsDetails = new();
-        int gainedMoney = Mathf.RoundToInt(bet * (1 + (remainingGuesses * remainingGuesses) / (float)totalGuesses)) * (WorldEventManager.Instance.weeks + 1);
+        int gainedMoney = Mathf.RoundToInt(bet * (1 + (remainingGuesses / (float)totalGuesses)) * (WorldEventManager.Instance.weeks / 5.0f + 1)) ;
         NetworkData.Instance.GetCurrentPlayer().GainMoney(gainedMoney);
         spoilsDetails.Add("You won " + gainedMoney.ToString() + " money congrats");
         
@@ -386,7 +386,7 @@ public class CardHausManager : NetworkBehaviour
 
 
 
-        int itemIndex = Mathf.CeilToInt(remainingGuesses / ((float)totalGuesses/bonusRewards.Length)) - 1;
+        int itemIndex = Mathf.Clamp(Mathf.CeilToInt(remainingGuesses / ((float)totalGuesses/bonusRewards.Length)) - 1, 0 , bonusRewards.Length);
         string[] possibleEnds = new string[] {"good!", "extra good", "GREAT", "AMAZING ", "PERFECT"};
 
         bool shouldDrop = NetworkData.Instance.AddItemToInventory(NetworkData.Instance.currentPlayer, bonusRewards[itemIndex]);
