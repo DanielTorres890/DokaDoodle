@@ -98,7 +98,7 @@ public class AllyDisplay : MonoBehaviour
         allyTextDisplay.text = "";
         foreach (var stat in currentValues[allyIndex].stats)
         {
-            allyTextDisplay.text += "<color=" + NetworkData.Instance.attributeColorCodes[stat.Key] + ">" + NetworkData.Instance.attributeStrings[stat.Key] + "</color>" + ": " + stat.Value + "\n";
+            allyTextDisplay.text += "<color=#" + NetworkData.Instance.attributeColorCodes[stat.Key] + ">" + NetworkData.Instance.attributeStrings[stat.Key] + "</color>" + ": " + stat.Value + "\n";
         }
     }
 }

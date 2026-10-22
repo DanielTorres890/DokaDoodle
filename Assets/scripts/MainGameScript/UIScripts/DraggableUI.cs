@@ -10,7 +10,12 @@ public class DraggableUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if (transform.parent.name.Equals("CommandArea"))
+        {
+            myTransform.position = new Vector3(PlayerPrefs.GetFloat("CommandAreaX", myTransform.position.x), PlayerPrefs.GetFloat("CommandAreaY", myTransform.position.y), PlayerPrefs.GetFloat("CommandAreaZ", myTransform.position.z));
+            
+           
+        }
     }
 
     // Update is called once per frame
@@ -34,7 +39,12 @@ public class DraggableUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        
+        if(transform.parent.name.Equals("CommandArea"))
+        {
+            PlayerPrefs.SetFloat("CommandAreaX", myTransform.position.x);
+            PlayerPrefs.SetFloat("CommandAreaY", myTransform.position.y);
+            PlayerPrefs.SetFloat("CommandAreaZ", myTransform.position.z);
+        }
     }
 
 

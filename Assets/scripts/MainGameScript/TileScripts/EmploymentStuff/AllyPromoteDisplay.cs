@@ -114,7 +114,7 @@ public class AllyPromoteDisplay : MonoBehaviour
         foreach (var stat in currentValues[allyIndex].stats)
         {
             if (stat.Key == Attributes.Health || stat.Key == Attributes.MaxHealth) { continue; }
-            allyTextDisplay.text += NetworkData.Instance.attributeStrings[stat.Key] + ": " + stat.Value.ToString() + "\n";
+            allyTextDisplay.text += $"<color=#{NetworkData.Instance.attributeColorCodes[stat.Key]}>{NetworkData.Instance.attributeStrings[stat.Key]}</color>{stat.Value,4}\n";
         }
     }
 

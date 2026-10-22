@@ -344,7 +344,20 @@ public class NewCombatManager : NetworkBehaviour
 
             if(!whoded.TryGetComponent(out SummonDespawn issummoned))
             {
-                xpHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].droppedXp;
+                int enemyCombatCount = 0;
+                float exponentialFactor = 0.5f;
+                foreach(var enemy in NewCombatManager.instance.allCombatants)
+                {
+                    if(enemy.stats is EnemyCombat) { enemyCombatCount++; }
+                }
+
+                
+                xpHarvested += Mathf.RoundToInt
+                    (PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].droppedXp * 
+                    ( 1 + ((enemyCombatCount - 1f) / (1f + exponentialFactor * (enemyCombatCount - 1f))) )
+                    / enemyCombatCount
+                    );
+
                 moneyHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].GetDroppedMoney();
 
                 if (IsServer)
@@ -404,7 +417,7 @@ public class NewCombatManager : NetworkBehaviour
         {
             PartyMember info = (PartyMember)whoded.stats;
             info.isDead = true;
-            xpHarvested += info.allyInfo[PlayerInfo.xp];
+            //xpHarvested += info.allyInfo[PlayerInfo.xp];
             whoded.GetComponent<NavMeshAgent>().enabled = false;
 
 
