@@ -112,7 +112,7 @@ public class AbilityManager : NetworkBehaviour
                 AbilityManager whoApplied = null;
                 foreach(var combatant in NewCombatManager.instance.allCombatants)
                 {
-                    if(combatant.stats == status.whoAppliedThis) {  whoApplied = combatant; break; }
+                    if(combatant.stats is playerData && (combatant.stats as playerData).playerNumber == status.whoAppliedId) {  whoApplied = combatant; break; }
                 }
                 NetworkData.Instance.buffDataBase.GetItem[status.buffId].OnEverySecond(this, whoApplied);
             }
