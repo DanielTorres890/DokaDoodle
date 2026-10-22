@@ -56,11 +56,11 @@ public class TileInfoDisplay : MonoBehaviour
             {
 
                 instance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "HP: " + enemyAttributes[Attributes.Health].ToString() + "/" + enemyAttributes[Attributes.MaxHealth].ToString();
-                instance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "ATK: " + enemyAttributes[Attributes.Attack].ToString();
-                instance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "DEF: " + enemyAttributes[Attributes.Defense].ToString();
-                instance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "MAG: " + enemyAttributes[Attributes.Magic].ToString();
-                instance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "MDEF: " + enemyAttributes[Attributes.MDefense].ToString();
-                instance.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = "DEX: " + enemyAttributes[Attributes.Dexterity].ToString();
+                instance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "ATK: <color=black>" + enemyAttributes[Attributes.Attack].ToString() + "</color>";
+                instance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "DEF: <color=black>" + enemyAttributes[Attributes.Defense].ToString() + "</color>";
+                instance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "MAG: <color=black>" + enemyAttributes[Attributes.Magic].ToString() + "</color>";
+                instance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "MDEF: <color=black>" + enemyAttributes[Attributes.MDefense].ToString() + "</color>";
+                instance.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = "DEX: <color=black>" + enemyAttributes[Attributes.Dexterity].ToString() + "</color>";
 
             }
 
@@ -122,6 +122,8 @@ public class TileInfoDisplay : MonoBehaviour
        
         //LayoutRebuilder.ForceRebuildLayoutImmediate(transform.GetChild(0).GetChild(0) as RectTransform);
         //LayoutRebuilder.ForceRebuildLayoutImmediate(transform.GetChild(0).GetChild(1) as RectTransform);
+        //LayoutRebuilder.ForceRebuildLayoutImmediate(transform.GetChild(0) as RectTransform);
+        
         //LayoutRebuilder.ForceRebuildLayoutImmediate(transform.GetChild(0) as RectTransform);
         //Canvas.ForceUpdateCanvases();
     }

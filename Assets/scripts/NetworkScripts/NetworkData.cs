@@ -74,6 +74,17 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         
 
     };
+    public Dictionary<Attributes, string> attributeColorCodes = new Dictionary<Attributes, string> 
+    {
+        { Attributes.MaxHealth, "000000" },
+        { Attributes.Health, "000000" },
+        { Attributes.Attack, "C02C2C" },
+        { Attributes.Defense, "35C596" },
+        { Attributes.Magic, "3E9CC5" },
+        { Attributes.MDefense, "B943B9" },
+        { Attributes.Dexterity, "BEBA3A" },
+
+    };
     public List<int> seenEnemies = new List<int>();
 
     public int statsPerLevel = 2;

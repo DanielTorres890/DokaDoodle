@@ -62,7 +62,7 @@ public class AllyMainViewer : MonoBehaviour
             Attributes[] orderedAttributes = new Attributes[] {Attributes.Health,Attributes.Attack, Attributes.Defense, Attributes.Magic, Attributes.MDefense, Attributes.Dexterity};
             foreach(var stat in orderedAttributes)
             {
-                obj.transform.GetChild(childCounter).GetComponent<TextMeshProUGUI>().text = $"{NetworkData.Instance.attributeStrings[stat]} {entity.stats[stat],4}";
+                obj.transform.GetChild(childCounter).GetComponent<TextMeshProUGUI>().text = $"<color=#{NetworkData.Instance.attributeColorCodes[stat]}>{NetworkData.Instance.attributeStrings[stat]}</color> {entity.stats[stat],4}";
                 if(stat == Attributes.Health)
                 {
                     obj.transform.GetChild(childCounter).GetComponent<TextMeshProUGUI>().text = $"{NetworkData.Instance.attributeStrings[stat]} {entity.stats[stat]}/{entity.stats[Attributes.MaxHealth]}";

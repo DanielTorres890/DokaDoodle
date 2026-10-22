@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ThwompingTree
   m_EditorClassIdentifier: 
   enemyName: ThwompIng
+  enemyIcon: {fileID: 0}
   enemyPrefab: {fileID: 1804880954259114146, guid: 51b5dc5afaf8ddd45aee62fc3763636e, type: 3}
   enemyNonCombatPrefab: {fileID: 9140810368346960469, guid: f7fd20855a4568f4cbf989fafe864b53, type: 3}
   Stats:
@@ -21,7 +22,7 @@ MonoBehaviour:
   - attribute: 1
     value: 1000
   - attribute: 2
-    value: 30
+    value: 20
   - attribute: 3
     value: 25
   - attribute: 4
@@ -49,4 +50,5 @@ MonoBehaviour:
   droppedMoney: 0
   droppedFame: 10
   scalingMoney: 0
+  flee: 0
   SpecialMusic: {fileID: 0}

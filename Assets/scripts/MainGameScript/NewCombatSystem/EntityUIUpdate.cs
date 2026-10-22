@@ -42,7 +42,7 @@ public class EntityUIUpdate : MonoBehaviour
                 color = "<color=red>";
 
 
-            textMeshProUGUI.text = NetworkData.Instance.attributeStrings[attributeToWhom] + " " + color + AbilityManager.stats.postStatusStats[attributeToWhom] + "</color>";
+            textMeshProUGUI.text = "<color=#" + NetworkData.Instance.attributeColorCodes[attributeToWhom] + ">" + NetworkData.Instance.attributeStrings[attributeToWhom] + "</color> " + color + AbilityManager.stats.postStatusStats[attributeToWhom] + "</color>";
         }
     }
     private void Update()

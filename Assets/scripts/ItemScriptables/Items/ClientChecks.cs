@@ -87,7 +87,7 @@ public class ClientChecks : NetworkBehaviour
 
         //kind of a mickey mouse manuever but its okay i hope
         onRoundStart.Invoke();
-        Debug.Log("Did i get here?");
+        
         WorldEventManager.Instance.ProgressDay();
         if (!loadedIn)
         {   
@@ -146,7 +146,7 @@ public class ClientChecks : NetworkBehaviour
     {
         //im really not sure if this is the best way, its basically saying maps dont exist until someone sees them but surely that cant be good
 
-        NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
+       
         onRoundStart.Invoke();
         Debug.Log("Did i get here?");
 
@@ -194,6 +194,7 @@ public class ClientChecks : NetworkBehaviour
     {
         PlayerMoveManager.Instance.RoundStart();
         NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
+        NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
         bool rumble = false;
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].progressDeath();
         //at some point im probably gonna have to make this a different event but frick u

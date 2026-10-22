@@ -22,7 +22,7 @@ public class EndOfWeek : MonoBehaviour
                 madeMoney += (curTile.townMoneyLevel + 1) * NetworkData.Instance.TownInfoDataBase.GetItem[townid.Key].baseMoneyGeneration;
                 player.GainMoney(madeMoney);
                 
-                Debug.Log("Gained Money from town");
+          
             }
             popUpString += madeMoney.ToString();
             popUpString += "</color> money from their towns " + "\n";
