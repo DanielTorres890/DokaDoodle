@@ -20,6 +20,7 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
     public bool inKiteRange;
 
     public bool avoiding;
+    public bool wandering;
 
     public override void Update()
     {
@@ -50,11 +51,29 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
         if (myManager.stateManager.Count > 0 && myManager.stateManager[selectedAttack].cooldown > 0)
         {
             failedEscapeCounter = 0;
+            if (!wandering)
+                RandomDestination();
+
+            var reachedDestination = Vector3.Distance(transform.position, agent.destination);
+            if (reachedDestination < 2f)
+            {
+                wandering = false;
+            }
+            return;
+
         }
         //not a big fan of this fix but if they aren't capable of attacking then they should probably only run away
         if(myManager.stateManager.Count <= 0)
         {
             failedEscapeCounter = 0;
+            if(!wandering)
+            RandomDestination();
+
+            var reachedDestination = Vector3.Distance(transform.position, agent.destination);
+            if (reachedDestination < 2f)
+            {
+                wandering = false;
+            }
             return;
         } 
         base.Update();
@@ -105,7 +124,34 @@ public class RangedEnemyBehavior : BaseEnemyBehavior
         avoiding = true;
         gameObject.transform.rotation = NOJANK;
     }
+    public void RandomDestination()
+    {
+        if (!agent.enabled)
+        {
 
+            agent.enabled = true;
+        }
+
+        Quaternion NOJANK = gameObject.transform.rotation;
+        SetAttackingAnim(false);
+        SetStartUpAnim(false);
+        SetWalkingAnim(true);
+        agent.speed = myManager.stats.speedFormula() + baseMoveSpeed;
+        gameObject.transform.LookAt(new Vector3(Random.Range(-15,15), 0, Random.Range(-15, 15)));
+        gameObject.transform.Rotate(Vector3.up, -Precision);
+        bool freeme = true;
+        while (freeme)
+        {
+            gameObject.transform.Rotate(Vector3.up, Precision);
+            freeme = NavMesh.Raycast(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.back) * kiteAmount, out NavMeshHit hit, NavMesh.AllAreas);
+        }
+
+
+        agent.SetDestination(gameObject.transform.TransformDirection(Vector3.back) * kiteAmount);
+        wandering = true;
+        gameObject.transform.rotation = NOJANK;
+
+    }
     private void kiteFinish()
     {
      

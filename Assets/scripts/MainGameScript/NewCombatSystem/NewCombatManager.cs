@@ -199,6 +199,24 @@ public class NewCombatManager : NetworkBehaviour
                 damageDealt.Add(combatant, 0);
             if (!damageTaken.ContainsKey(combatant))
                 damageTaken.Add(combatant, 0);
+    
+            foreach(var status in combatant.statuses)
+            {
+                EntityStats whoApplied = null;
+                if(status.whoAppliedId != -1)
+                {
+                    foreach(var player in NetworkData.Instance.players)
+                    {
+                        if(player.playerNumber == status.whoAppliedId)
+                        {
+                            whoApplied = player;
+                            break;
+                        }
+                    }
+                }
+
+                NetworkData.Instance.buffDataBase.GetItem[status.buffId].OnCombatBegin(combatant, whoApplied);
+            }
         }
     }
 
@@ -865,9 +883,11 @@ public class NewCombatManager : NetworkBehaviour
         for (int i = tilereadCache.players.Count - 1; i >= 0; i--)
         {
             
-            if(combatOver || NetworkData.Instance.players[tilereadCache.players[i]].isDead)
-            NetworkData.Instance.players[tilereadCache.players[i]].ClearCombatStatuses();
-
+            if(combatOver)
+                NetworkData.Instance.players[tilereadCache.players[i]].ClearCombatStatuses();
+            
+            if(NetworkData.Instance.players[tilereadCache.players[i]].isDead)
+                NetworkData.Instance.players[tilereadCache.players[i]].ClearDeathStatuses();
 
             if (NetworkData.Instance.players[tilereadCache.players[i]].isDead)
             {

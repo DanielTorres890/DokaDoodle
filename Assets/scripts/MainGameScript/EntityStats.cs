@@ -114,7 +114,11 @@ public class EntityStats
         {
             if (statuses[i].ProgressStatus(timePassed))
             {
-                NetworkData.Instance.buffDataBase.GetItem[statuses[i].buffId].OnRemove(this);
+                EntityStats whoapplied = null;
+                if (statuses[i].whoAppliedId != -1) { whoapplied = NetworkData.Instance.players[statuses[i].whoAppliedId]; }
+
+                NetworkData.Instance.buffDataBase.GetItem[statuses[i].buffId].OnRemove(this, whoapplied);
+                
                 statuses.RemoveAt(i);
                 
             }
@@ -129,7 +133,10 @@ public class EntityStats
         {
             if (statuses[i].buffId == statusId)
             {
-                NetworkData.Instance.buffDataBase.GetItem[statuses[i].buffId].OnRemove(this);
+                EntityStats whoapplied = null;
+                if (statuses[i].whoAppliedId != -1) { whoapplied = NetworkData.Instance.players[statuses[i].whoAppliedId]; }
+
+                NetworkData.Instance.buffDataBase.GetItem[statuses[i].buffId].OnRemove(this, whoapplied);
                 statuses.RemoveAt(i);
                 PostStatusStatCalc();
                 break;
@@ -222,16 +229,29 @@ public class EntityStats
             if (NetworkData.Instance.buffDataBase.GetItem[status.buffId].combatOnly)
             {
                 
-                NetworkData.Instance.buffDataBase.GetItem[status.buffId].OnRemove(this);
-                statuses.RemoveAt(i);
+                RemoveStatus(status.buffId);
             }
         }
         onStatusProgress.Invoke();
         PostStatusStatCalc();
     }
 
-   
-  
+    public void ClearDeathStatuses()
+    {
+        for (int i = statuses.Count - 1; i >= 0; i--)
+        {
+            var status = statuses[i];
+
+            if (NetworkData.Instance.buffDataBase.GetItem[status.buffId].removeOnDeath)
+            {
+
+                RemoveStatus(status.buffId);
+            }
+        }
+        onStatusProgress.Invoke();
+        PostStatusStatCalc();
+    }
+
 }
 
 

@@ -4,9 +4,17 @@ using UnityEngine;
 public abstract class BuffBase : ScriptableObject
 {
     public float duration;
+
+    public bool progressInCombat = true;
     public bool combatOnly = false;
     public bool stackable = false;
+    public bool removeOnDeath = false;
     public GameObject buffFx;
+
+    public Sprite displayIcon;
+
+    [TextArea(3, 5)]
+    public string buffDescription;
     public virtual void OnApply(EntityStats stats)
     {
 
@@ -14,7 +22,7 @@ public abstract class BuffBase : ScriptableObject
 
     }
 
-    public virtual void OnRemove(EntityStats stats)
+    public virtual void OnRemove(EntityStats stats, EntityStats applier)
     {
 
       
@@ -86,8 +94,22 @@ public abstract class BuffBase : ScriptableObject
     }
   
 
+
     public virtual void OnEveryTick(AbilityManager stats) { }
     public virtual void OnEverySecond(AbilityManager whom, AbilityManager whomApplied) { }
 
     public virtual float GetDuration(EntityStats stats) { return duration; }
+
+    public virtual string GetDescription(EntityStats stats, EntityStats applier) 
+    {
+        string description = new(buffDescription);
+
+        if(applier != null)
+            description = description.Replace("<applierName>", applier.name);
+        if(stats != null)
+            description = description.Replace("<buffOwner>", stats.name);
+
+        return description; 
+    }
+    public virtual void OnCombatBegin(EntityStats stats, EntityStats applier) { }
 }

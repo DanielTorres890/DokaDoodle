@@ -21,9 +21,9 @@ public class Drunken : BuffBase
 
   
 
-    public override void OnRemove(EntityStats stats)
+    public override void OnRemove(EntityStats stats, EntityStats applier)
     {
-        base.OnRemove(stats);
+        base.OnRemove(stats, applier);
     }
 
     public override void OnEveryTick(AbilityManager manager)

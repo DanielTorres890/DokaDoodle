@@ -29,7 +29,7 @@ public class Inspire : BuffBase
         base.OnApply(stats);
     }
 
-    public override void OnRemove(EntityStats stats)
+    public override void OnRemove(EntityStats stats, EntityStats applier)
     {
         if (stats is playerData)
         {
@@ -44,6 +44,6 @@ public class Inspire : BuffBase
 
             }
         }
-        base.OnRemove(stats);
+        base.OnRemove(stats, applier);
     }
 }

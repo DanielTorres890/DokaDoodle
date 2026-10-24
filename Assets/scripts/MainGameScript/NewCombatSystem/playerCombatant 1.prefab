@@ -894,6 +894,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e418b02e-38f9-4a5b-8bb5-e33e10b0e4bd
     m_ActionName: 'UI/Inspect[/Keyboard/i]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 806bc361-b589-4703-a3fa-33a7e7127400
+    m_ActionName: 'UI/OpenChat[/Keyboard/t]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1026,6 +1030,7 @@ MonoBehaviour:
   energyRegen: 1
   chargeDuration: 0
   visualsParent: {fileID: 7064847337312370435}
+  gettingHitSFX: {fileID: 8300000, guid: c25c0f094b1412e4bb00e8852b31f922, type: 3}
 --- !u!114 &-7575021645446966744
 MonoBehaviour:
   m_ObjectHideFlags: 0

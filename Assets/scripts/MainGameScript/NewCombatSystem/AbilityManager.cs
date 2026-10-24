@@ -53,7 +53,8 @@ public class AbilityManager : NetworkBehaviour
 
     public GameObject visualsParent;
 
-    
+    public AudioClip gettingHitSFX;
+
     private float updateStatsTimer = 0f;
 
 
@@ -98,6 +99,7 @@ public class AbilityManager : NetworkBehaviour
         for (int i = stats.statuses.Count - 1; i >= 0; i--)
         {
             var status = stats.statuses[i];
+            if(!NetworkData.Instance.buffDataBase.GetItem[status.buffId].progressInCombat) { continue; }
             stats.ProgressStatuses(Time.deltaTime);
             NetworkData.Instance.buffDataBase.GetItem[status.buffId].OnEveryTick(this);
             
@@ -109,6 +111,8 @@ public class AbilityManager : NetworkBehaviour
             onEverySecondTimer = 1;
             foreach(var status in stats.statuses)
             {
+                if (!NetworkData.Instance.buffDataBase.GetItem[status.buffId].progressInCombat) { continue; }
+
                 AbilityManager whoApplied = null;
                 foreach(var combatant in NewCombatManager.instance.allCombatants)
                 {
@@ -382,7 +386,7 @@ public class AbilityManager : NetworkBehaviour
         NewCombatManager.instance.AddContributionDamage(NewCombatManager.instance.allCombatants[ByWho].stats, damageAmt);
 
         stats.PostStatusStatCalc();
-
+        
         for(int i = 0; i < stats.statuses.Count; i++)
         {
             BuffBase currentBuff = NetworkData.Instance.buffDataBase.GetItem[stats.statuses[i].buffId];
@@ -401,7 +405,10 @@ public class AbilityManager : NetworkBehaviour
                 break;
             }
         }
-
+        if(IsOwner && stats is playerData)
+        {
+            SFXManager.Instance.PlaySFXSeperate(gettingHitSFX);
+        }
         
         if (stats.stats[Attributes.Health] <= 0 && !stats.isDead)
         {

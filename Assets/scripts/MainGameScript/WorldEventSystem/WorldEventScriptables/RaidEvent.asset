@@ -14,17 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RaidEvent
   ActivateText:
   - ITSSS TIMMEE FOR A RAIIIDDDDD
-  - Everyones gotta work together to fight against a big boss
-  - The person with the highest contribution gets the special drop, but everyone
-    gets a reward
-  - BUT you have to win if you lose NO ONE gets anything
+  - There'll be a big powerful boss that will take all of you working together to
+    stand a chance
+  - Whoever is the last one standing takes all, so you can still fight each other
+  - If everyone dies NO one gets anything, so try and get along before punching out
   DeactivateText: THE RAID HAS FINISHED
   eventDisplay: {fileID: 21300000, guid: db2f21da2e9dd4b4597f45663336ce56, type: 3}
+  eventIcon: {fileID: 0}
+  eventToolTip: 
   startCutscene: {fileID: 0}
   finishCutscene: {fileID: 0}
   MainQuestCondition: {fileID: 11400000, guid: 286220a6e67f057438c12be5e4a45488, type: 2}
   performOnComplete: []
+  cameraPos: {x: 0, y: 11, z: 0}
+  panDuration: 0
   raids:
   - tileId: 0
-    mapId: 0
+    mapId: 1
     enemyEncounter: {fileID: 11400000, guid: e0d9660e4a1c6264a9f8fdb66e2d81f9, type: 2}

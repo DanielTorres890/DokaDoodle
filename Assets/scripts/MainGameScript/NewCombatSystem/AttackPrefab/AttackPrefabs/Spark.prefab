@@ -241,6 +241,8 @@ MonoBehaviour:
     onStatusProgress:
       m_PersistentCalls:
         m_Calls: []
+    stunImmune: 0
+    resistDeath: 0
     attacks: []
     defenses:
     - {fileID: 0}
@@ -252,9 +254,10 @@ MonoBehaviour:
   lifetimer: 0
   chargedDuration: 0
   destroyOnWallCollide: 1
-  hitGameObject: {fileID: 0}
-  AudioSource: {fileID: 7227854483512577326}
+  hitGameObject: {fileID: 6234742567996364231, guid: 5e7134454e3aed14b91163bc85fe8a41, type: 3}
   stickInOpponent: 0
+  continuousDamage: 0
+  damageFrequency: 0
   pierceCounter: 0
   body: {fileID: 0}
 --- !u!198 &-304944850639772182

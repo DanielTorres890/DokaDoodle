@@ -11,9 +11,9 @@ public class LoyaltyBuff : BuffBase
         stats.loyaltyTags.Add(LoyaltyTag);
         base.OnApply(stats);
     }
-    public override void OnRemove(EntityStats stats)
+    public override void OnRemove(EntityStats stats, EntityStats applier)
     {
         stats.loyaltyTags.Remove(LoyaltyTag);
-        base.OnRemove(stats);
+        base.OnRemove(stats, applier);
     }
 }

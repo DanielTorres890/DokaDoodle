@@ -12,7 +12,7 @@ public class DefaultTile : TileScript
 
     public ConditionalCombat[] conditionalCombats;
 
-    private static bool forceEvent = false;
+    private static bool forceEvent = true;
     public override void TileEvent()
     {
         
@@ -52,12 +52,13 @@ public class DefaultTile : TileScript
         {
             ClientChecks.Instance.NoEnemiesToFightRpc(tileId);
         }
-        else if (events.Length > 0 && (Random.Range(1, 11) == 1 && currentTile.tileEnemy.Count == 0 && !enemyAlly && !enemyPlayer) || forceEvent)
+        else if (events.Length > 0 && (Random.Range(1, 11) == 1 || forceEvent) && currentTile.tileEnemy.Count == 0 && !enemyAlly && !enemyPlayer )
         {
             EventBase selectedEvent = events[0].tileEvent;
             int totalWeight = 0;
             foreach (var weighted in events)
             {
+                if(weighted.condition && !weighted.condition) { continue; }
                 totalWeight += weighted.weight;
             }
 
@@ -66,6 +67,7 @@ public class DefaultTile : TileScript
             int eventIndex = 0;
             foreach (var weighted in events)
             {
+                if (weighted.condition && !weighted.condition) { continue; }
                 currentWeight += weighted.weight;
                 if (randomWeight < currentWeight)
                 {
@@ -142,6 +144,7 @@ public class DefaultTile : TileScript
 public class EventWrapper
 {
     public EventBase tileEvent;
+    public QuestCondition condition;
     public int weight;
 }
 

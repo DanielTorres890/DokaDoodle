@@ -21,9 +21,9 @@ public class StatStatusEffect : BuffBase
         return stats;
     }
 
-    public override void OnRemove(EntityStats stats)
+    public override void OnRemove(EntityStats stats, EntityStats applier)
     {
         //its kinda weird but its implied(?) since itll be removed in some other way
-        base.OnRemove(stats);
+        base.OnRemove(stats, applier);
     }
 }

@@ -14,17 +14,17 @@ public class RaidEvent : WorldEventBase
         foreach(var player in NetworkData.Instance.players)
         {
 
-            player.loyaltyTags.Add("Raid");
+            //player.loyaltyTags.Add("Raid");
             foreach(var stat in player.stats)
             {
                 if(stat.Key == Attributes.MaxHealth) { statTotal += stat.Value / 10; }
                 else if( stat.Key != Attributes.Health)
                     statTotal += stat.Value;
             }
-            foreach(var member in player.partyMembers)
-            {
-                member.loyaltyTags.Add("Raid");
-            }
+            //foreach(var member in player.partyMembers)
+            //{
+            //    member.loyaltyTags.Add("Raid");
+            //}
 
         }
         float normalized = Mathf.InverseLerp(0, 25, statTotal);
@@ -58,11 +58,11 @@ public class RaidEvent : WorldEventBase
         PlayerCombatManager.Instance.isRaid = false;
         foreach (var player in NetworkData.Instance.players)
         {
-            player.loyaltyTags.Remove("Raid");
-            foreach (var member in player.partyMembers)
-            {
-                member.loyaltyTags.Remove("Raid");
-            }
+            //player.loyaltyTags.Remove("Raid");
+            //foreach (var member in player.partyMembers)
+            //{
+            //    member.loyaltyTags.Remove("Raid");
+            //}
         }
             base.OnDeactivate();
     }

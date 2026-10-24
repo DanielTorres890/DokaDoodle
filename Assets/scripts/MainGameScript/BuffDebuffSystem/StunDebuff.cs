@@ -27,9 +27,9 @@ public class StunDebuff : BuffBase
         
     }
 
-    public override void OnRemove(EntityStats stats)
+    public override void OnRemove(EntityStats stats, EntityStats applier)
     {
-        base.OnRemove(stats);
+        base.OnRemove(stats, applier);
         if (NewCombatManager.instance)
         {
             foreach (var combatant in NewCombatManager.instance.allCombatants)

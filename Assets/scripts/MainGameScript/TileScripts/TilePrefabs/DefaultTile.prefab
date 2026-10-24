@@ -685,6 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8689756fc52dd44b9fdb163035e2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileType: 0
   upTile: {fileID: 0}
   downTile: {fileID: 0}
   rightTile: {fileID: 0}
@@ -707,9 +708,14 @@ MonoBehaviour:
     weight: 25
   events:
   - tileEvent: {fileID: 11400000, guid: 0ac6f7f3cf76c894e956db167295538c, type: 2}
+    condition: {fileID: 0}
     weight: 25
   - tileEvent: {fileID: 11400000, guid: 610245ded8046074db7453fcfca6f6a8, type: 2}
+    condition: {fileID: 0}
     weight: 25
+  - tileEvent: {fileID: 11400000, guid: 973a8514866490e4ea90f26f29a85ba1, type: 2}
+    condition: {fileID: 11400000, guid: 91c585c52053e314d934f97e470bfa27, type: 2}
+    weight: 5
   conditionalCombats: []
 --- !u!65 &8911332467590070977
 BoxCollider:
