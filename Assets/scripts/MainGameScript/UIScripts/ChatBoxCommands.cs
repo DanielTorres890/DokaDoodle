@@ -8,6 +8,9 @@ public class ChatBoxCommands : MonoBehaviour
     public Transform textArea;
     public GameObject textGameObject;
 
+    public GameObject hideButton;
+    public GameObject showButton;
+    public GameObject textView;
     [TextArea(3,6)]
     public string helpText;
 
@@ -21,6 +24,15 @@ public class ChatBoxCommands : MonoBehaviour
     {
         if(!NetworkManager.Singleton.IsHost) { gameObject.SetActive(false); }
 
+        int boxState = PlayerPrefs.GetInt("BoxState", 0);
+        bool stateToBe = false;
+        if(boxState == 1)
+        {
+            stateToBe = true;
+        }
+        textView.SetActive(stateToBe);
+        hideButton.SetActive(stateToBe);
+        showButton.SetActive(!stateToBe);
     }
 
     
@@ -96,5 +108,17 @@ public class ChatBoxCommands : MonoBehaviour
         CreateText(unknownCommand);
         CreateText(helpText);
         LayoutRebuilder.ForceRebuildLayoutImmediate(textArea as RectTransform);
+    }
+
+    public void SetState(bool state)
+    {
+        textView.SetActive(state);
+        hideButton.SetActive(state);
+        showButton.SetActive(!state);
+
+        int savedInt = 1;
+        if(!state) { savedInt = 0; }
+        PlayerPrefs.SetInt("BoxState",savedInt);
+
     }
 }

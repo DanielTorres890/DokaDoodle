@@ -491,7 +491,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8100087860321223524}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9162099
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -747,6 +747,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChatBoxCommands
   textArea: {fileID: 1363785390949686150}
   textGameObject: {fileID: 2541397465449634219, guid: 8bc88bc84ed94644e9fb758aca622eb2, type: 3}
+  hideButton: {fileID: 5022973143288359946}
+  showButton: {fileID: 8072286940037100266}
+  textView: {fileID: 1889448952336382302}
   helpText: '/help - Lets you see this list of commands
 
     /save [fileNumber] -
@@ -878,33 +881,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5022973143288359946}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8072286940037100266}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1889448952336382302}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
+      - m_Target: {fileID: 4905038342068414518}
+        m_TargetAssemblyTypeName: ChatBoxCommands, Assembly-CSharp
+        m_MethodName: SetState
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1036,7 +1015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 290.49994, y: -197.23126}
+  m_AnchoredPosition: {x: 290.49994, y: -212.34041}
   m_SizeDelta: {x: 581, y: 0}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &7809375808429872509
@@ -1495,33 +1474,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5022973143288359946}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 8072286940037100266}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1889448952336382302}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
+      - m_Target: {fileID: 4905038342068414518}
+        m_TargetAssemblyTypeName: ChatBoxCommands, Assembly-CSharp
+        m_MethodName: SetState
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
