@@ -30,12 +30,12 @@ public class GoldOrNot : TwoChoiceEvent
         if (TileEventManager.Instance.rando == 0)
         {
             TileEventManager.Instance.dialogueScript.lines = new List<string>(failDoDialogue);
-            NetworkData.Instance.GetCurrentPlayer().GainMoney(-MoneyToChange);
+            NetworkData.Instance.GetCurrentPlayer().GainMoney(-MoneyToChange * (WorldEventManager.Instance.weeks + 1));
         }
         else
         {
             TileEventManager.Instance.dialogueScript.lines = new List<string>(base.DoDialogue);
-            NetworkData.Instance.GetCurrentPlayer().GainMoney(MoneyToChange);
+            NetworkData.Instance.GetCurrentPlayer().GainMoney(MoneyToChange * (WorldEventManager.Instance.weeks + 1));
         }
         TileEventManager.Instance.EndEvent();
     }

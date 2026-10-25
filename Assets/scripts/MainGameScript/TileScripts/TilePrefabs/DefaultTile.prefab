@@ -712,10 +712,13 @@ MonoBehaviour:
     weight: 25
   - tileEvent: {fileID: 11400000, guid: 610245ded8046074db7453fcfca6f6a8, type: 2}
     condition: {fileID: 0}
-    weight: 25
+    weight: 15
   - tileEvent: {fileID: 11400000, guid: 973a8514866490e4ea90f26f29a85ba1, type: 2}
     condition: {fileID: 11400000, guid: 91c585c52053e314d934f97e470bfa27, type: 2}
     weight: 5
+  - tileEvent: {fileID: 11400000, guid: 1b9a0874b8bcb9d4a914ed631a9c4d6d, type: 2}
+    condition: {fileID: 11400000, guid: 91c585c52053e314d934f97e470bfa27, type: 2}
+    weight: 20
   conditionalCombats: []
 --- !u!65 &8911332467590070977
 BoxCollider:
