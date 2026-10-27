@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 6887878772243670750}
   - component: {fileID: 6740259957187553614}
   - component: {fileID: 434653855538401175}
+  - component: {fileID: 8284406587525727247}
   m_Layer: 5
   m_Name: ButtonPrefab
   m_TagString: Untagged
@@ -401,9 +402,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6519373829783628134}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
-        m_MethodName: Select
+      - m_Target: {fileID: 8284406587525727247}
+        m_TargetAssemblyTypeName: ForceSelect, Assembly-CSharp
+        m_MethodName: SelectThis
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -496,3 +497,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayQuickSFX
   sfx: {fileID: 8300000, guid: de434a15ca693ed4cbc73c02033200a4, type: 3}
+--- !u!114 &8284406587525727247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6447512085850514135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a1db85969dd5eb4cbefe40a883fcc56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ForceSelect

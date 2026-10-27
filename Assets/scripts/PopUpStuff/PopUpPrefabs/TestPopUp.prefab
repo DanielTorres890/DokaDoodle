@@ -180,8 +180,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.7561035, y: 0}
+  m_SizeDelta: {x: -19.6589, y: -21.171}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9206413578385292681
 CanvasRenderer:
@@ -211,21 +211,22 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'There''s only one main goal of this demo and thats to SLAY MALDING MOLE
-    (assuming nothing breaks before then)
+  m_text: 'Welcome to DokaDoodle
 
 
-    If you''re ever confused/want to
-    know more you can hover over most things to learn more (or yell at me if you
-    think something should be hoverable)
+    The first 5 days are chill so you get a handle
+    on combat and moving
 
 
-    Once you''re ready click on this pop
-    up to make it go away (keep in mind only whoevers turn it is can make the pop
-    up go away)'
+    So use the time to FIGHT get STRONG and prepare for
+    whats to come...
+
+
+    Once you''re ready click on this pop up to make it go
+    away (keep in mind only whoevers turn it is can make the pop up go away)'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b6d5ec70c5325c84db20563dbc15332b, type: 2}
+  m_sharedMaterial: {fileID: 6576096574371221715, guid: b6d5ec70c5325c84db20563dbc15332b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -249,12 +250,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.9
+  m_fontSize: 31.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 70
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -329,8 +330,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 10.0707, y: -2.2379}
-  m_SizeDelta: {x: -78.3269, y: -67.1374}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -227.3212, y: -147.171}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &196388890680071158
 CanvasRenderer:
@@ -353,14 +354,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -369,4 +370,4 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.75
