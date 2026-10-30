@@ -95,16 +95,17 @@ public class SceneChanger : NetworkBehaviour
         base.OnNetworkSpawn();
         if(IsHost)
         NetworkManager.SceneManager.OnLoadEventCompleted += OnSceneLoaded;
-        NetworkManager.Singleton.OnClientDisconnectCallback += destroyself;
+        //NetworkManager.Singleton.OnClientDisconnectCallback += destroyself;
 
     }
     
 
-    private void destroyself(ulong id)
-    {
-        NetworkManager.Singleton.OnClientDisconnectCallback -= destroyself;
-        Destroy(gameObject);
-    }
+    //private void destroyself(ulong id)
+    //{
+    //    if(id != 0 && NetworkData.Instance.IsHost) { return; }
+    //    NetworkManager.Singleton.OnClientDisconnectCallback -= destroyself;
+    //    Destroy(gameObject);
+    //}
     private void OnSceneLoaded(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
         Debug.Log("I finished loading this scene " +sceneName);

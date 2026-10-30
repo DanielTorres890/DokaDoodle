@@ -48,16 +48,17 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     {
         
     }
-    public override void OnNetworkSpawn()
-    {
-        NetworkManager.Singleton.OnClientDisconnectCallback += destroyself;
-    }
+    //public override void OnNetworkSpawn()
+    //{
+    //    NetworkManager.Singleton.OnClientDisconnectCallback += destroyself;
+    //}
 
-    private void destroyself(ulong id)
-    {
-        NetworkManager.Singleton.OnClientDisconnectCallback -= destroyself;
-        Destroy(gameObject);
-    }
+    //private void destroyself(ulong id)
+    //{
+    //    if (id != 0 && NetworkData.Instance.IsHost) { return; }
+    //    NetworkManager.Singleton.OnClientDisconnectCallback -= destroyself;
+    //    Destroy(gameObject);
+    //}
     // Update is called once per frame
     void Update()
     {

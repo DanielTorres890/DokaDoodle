@@ -18,16 +18,16 @@ public class MapTileSpecialEvents : NetworkBehaviour, IDataPersistance
         Instance = this;
         this.mapTiles = new SpecialTileEventHold[10][];
     }
-    public override void OnNetworkSpawn()
-    {
-        NetworkManager.Singleton.OnClientDisconnectCallback += destroyself;
-    }
+    //public override void OnNetworkSpawn()
+    //{
+    //    NetworkManager.Singleton.OnClientDisconnectCallback += destroyself;
+    //}
 
-    private void destroyself(ulong id)
-    {
-        NetworkManager.Singleton.OnClientDisconnectCallback -= destroyself;
-        Destroy(gameObject);
-    }
+    //private void destroyself(ulong id)
+    //{
+    //    NetworkManager.Singleton.OnClientDisconnectCallback -= destroyself;
+    //    Destroy(gameObject);
+    //}
     public SpecialTileEventHold GetCurrentTile()
     {
         return mapTiles[NetworkData.Instance.GetCurrentPlayer().curMap][NetworkData.Instance.GetCurrentPlayer().curTileId];

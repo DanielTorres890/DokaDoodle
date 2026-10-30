@@ -371,6 +371,17 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
 
     }
+    public void Unready()
+    {
+        UnreadyRpc(new RpcParams());
+    }
+
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+    private void UnreadyRpc(RpcParams serverRpcParams)
+    {
+        int playerId = ClientNumToPlayerNum(serverRpcParams.Receive.SenderClientId);
+        readyPlayers[playerId] = false;
+    }
 
     //This function actually removes players if i wanted to readd players/add ai i gotta do somethin diffy but until then
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
@@ -536,14 +547,20 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     {
 
         
-        for (int i = 0; i < players.Count; i++)
+        for (int i = 0; i < playerCount + 1; i++)
         {
             
             bool ready = readyPlayers[i];
             if (!ready) { return; }
 
         }
-       
+        if(IsHost)
+        {
+            for(int i = players.Count - 1; i >= playerCount + 1; i--)
+            {
+                fillPlayerServerRpc(i);
+            }
+        }
         if(!started)
         {
             if(!LoadedIn)
@@ -560,10 +577,11 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         }
         
     }
+
     public void ResetGame()
     {
         if (!IsHost)
-            NetworkManager.Singleton.DisconnectClient(NetworkManager.Singleton.LocalClientId);
+            DCPlayerRpc(NetworkManager.Singleton.LocalClientId);
         else
         {
             NetworkManager.Singleton.Shutdown();
@@ -571,6 +589,11 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         }
             
         
+    }
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+    private void DCPlayerRpc(ulong clientId)
+    {
+        NetworkManager.Singleton.DisconnectClient(clientId);
     }
     public bool IsAllowed(int playerNum, ulong playerId)
     {
