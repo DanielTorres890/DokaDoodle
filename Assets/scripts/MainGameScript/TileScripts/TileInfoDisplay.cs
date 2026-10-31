@@ -48,20 +48,34 @@ public class TileInfoDisplay : MonoBehaviour
             instance.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "LVL " + thisEnemy.enemyLevel.ToString() + ": " + thisEnemy.enemyName;
 
 
-            
-            var enemyAttributes = thisTile.tileEnemy[i].stats;
+            var baseEnemyAttributes = thisTile.tileEnemy[i].stats;
+            var enemyAttributes = thisTile.tileEnemy[i].postStatusStats;
             
             //i could probably figture out some loop with ordered attributes but it aint worth it to me personally
             if(NetworkData.Instance.seenEnemies.Contains(thisTile.tileEnemy[i].enemyId))
             {
 
                 instance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "HP: " + enemyAttributes[Attributes.Health].ToString() + "/" + enemyAttributes[Attributes.MaxHealth].ToString();
-                instance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "ATK: <color=black>" + enemyAttributes[Attributes.Attack].ToString() + "</color>";
-                instance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "DEF: <color=black>" + enemyAttributes[Attributes.Defense].ToString() + "</color>";
-                instance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "MAG: <color=black>" + enemyAttributes[Attributes.Magic].ToString() + "</color>";
-                instance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "MDEF: <color=black>" + enemyAttributes[Attributes.MDefense].ToString() + "</color>";
-                instance.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = "DEX: <color=black>" + enemyAttributes[Attributes.Dexterity].ToString() + "</color>";
+                Attributes[] orderedAttributes = {Attributes.Attack, Attributes.Defense, Attributes.Magic, Attributes.MDefense, Attributes.Dexterity};
+                int index = 2;
+                foreach(var attrib in orderedAttributes)
+                {
+                    if (baseEnemyAttributes[attrib] < enemyAttributes[attrib])
+                    {
+                        instance.transform.GetChild(index).GetComponent<TextMeshProUGUI>().text = "ATK: <color=green>" + enemyAttributes[attrib].ToString() + "</color>";
+                    }
+                    else if (baseEnemyAttributes[attrib] > enemyAttributes[attrib])
+                    {
+                        instance.transform.GetChild(index).GetComponent<TextMeshProUGUI>().text = "ATK: <color=red>" + enemyAttributes[attrib].ToString() + "</color>";
+                    }
+                    else
+                    {
+                        instance.transform.GetChild(index).GetComponent<TextMeshProUGUI>().text = "ATK: <color=black>" + enemyAttributes[attrib].ToString() + "</color>";
 
+                    }
+                    index++;
+                }
+          
             }
 
             spawnedChildren.Add(instance);

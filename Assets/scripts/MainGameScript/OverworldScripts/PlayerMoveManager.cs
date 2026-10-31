@@ -63,6 +63,8 @@ public class PlayerMoveManager : NetworkBehaviour
 
     //DICTIONARIES SOLVE EVERYTHING HOLYYY
     public List<Dictionary<PartyMember, GameObject>> playerAllies = new List<Dictionary<PartyMember, GameObject>>();
+    public Dictionary<EnemyCombat, GameObject> spawnedEnemies = new Dictionary<EnemyCombat, GameObject>();
+    public List<EnemyCombat> orderedEnemies = new List<EnemyCombat>();
     private Coroutine activeRoutine;
 
     public void Awake()
@@ -546,7 +548,8 @@ public class PlayerMoveManager : NetworkBehaviour
             var enemy = Instantiate(PlayerCombatManager.Instance.EnemyDataBase.GetItem[enemies[i].enemyId].enemyNonCombatPrefab);
             enemy.transform.position = mapTiles[tileId].transform.position;
             enemy.transform.position = new Vector3(enemy.transform.position.x + (enemyDistance.x * (i % Mathf.CeilToInt(Mathf.Sqrt(enemies.Count)))) - 1f, enemy.transform.position.y + 1.5f, enemy.transform.position.z + (-enemyDistance.y * (i / Mathf.CeilToInt(Mathf.Sqrt(enemies.Count)))) + 1.5f);
-
+            spawnedEnemies.Add(enemies[i], enemy);
+            orderedEnemies.Add(enemies[i]);
         }
 
     }

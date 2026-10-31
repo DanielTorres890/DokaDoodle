@@ -196,7 +196,7 @@ public class EntityStats
         foreach (var attrib in StatusMultipliers.Keys)
         {
             
-            postStatusStats[attrib] = Mathf.RoundToInt(stats[attrib] * (1 + StatusMultipliers[attrib]));
+            postStatusStats[attrib] = Mathf.FloorToInt(stats[attrib] * (1 + StatusMultipliers[attrib]));
         }
         foreach(var attrib in GuardMultipliers.Keys)
         {

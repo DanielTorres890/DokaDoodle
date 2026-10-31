@@ -738,8 +738,16 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
     {
         players[playerNum].partyMembers[allyNum].AddAbility(itemNum);
     }
-    
-
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void AddStatusToAllyRpc(int playerNum, int allyNum, int statusId)
+    {
+        players[playerNum].partyMembers[allyNum].GainStatus(NetworkData.Instance.buffDataBase.GetItem[statusId], null);
+    }
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void AddStatusToPlayerRpc(int playerNum, int statusId)
+    {
+        players[playerNum].GainStatus(NetworkData.Instance.buffDataBase.GetItem[statusId], null);
+    }
     public int[] GetPlayerPlaceOrder()
     {
         int[] playerOrder = new int[maxPlayers];

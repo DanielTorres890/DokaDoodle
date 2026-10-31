@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcb569ca7c8d1084cb6c6ee6d9f1a173, type: 3}
-  m_Name: DEFDOWN
-  m_EditorClassIdentifier: Assembly-CSharp::StatStatusEffect
-  duration: 10
+  m_Name: MAGDOWN
+  m_EditorClassIdentifier: 
+  duration: 14
+  progressInCombat: 1
   combatOnly: 1
   stackable: 0
-  buffFx: {fileID: 5232324863387366882, guid: fc21b646d3da9c84abe3f898ad1ff2cf, type: 3}
+  removeOnDeath: 0
+  buffFx: {fileID: 5232324863387366882, guid: 1eb252532bd5b8c48956b993e25286d2, type: 3}
+  displayIcon: {fileID: 0}
+  buffDescription: 
   stats:
-  - attribute: 3
-    value: -50
+  - attribute: 4
+    value: -25

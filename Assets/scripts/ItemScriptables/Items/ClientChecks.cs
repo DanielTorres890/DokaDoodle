@@ -394,7 +394,7 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void ConfirmBuffRpc(int player, int itemId, int inventoryNum)
     {
-
+        
         NetworkData.Instance.playerInventories[player][inventoryNum].database.GetItem[itemId].PerformItemEffect(player, NetworkData.Instance.playerInventories[player][inventoryNum]);
         displayText.lines.Clear();
 
@@ -598,6 +598,12 @@ public class ClientChecks : NetworkBehaviour
     public void DeployTrapRpc(int tileId, int trapId)
     {
         MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][tileId].trapIds.Add(trapId);
+    }
+
+    [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
+    public void BuffEnemyRpc(int enemyId, int buffId)
+    {
+        PlayerMoveManager.Instance.orderedEnemies[enemyId].GainStatus(NetworkData.Instance.buffDataBase.GetItem[buffId], null);
     }
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]

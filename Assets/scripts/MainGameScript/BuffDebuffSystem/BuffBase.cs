@@ -63,6 +63,47 @@ public abstract class BuffBase : ScriptableObject
             }
 
         }
+        if(PlayerMoveManager.Instance != null)
+        {
+            if (stats is EnemyCombat)
+            {
+                var enemyCombat = (EnemyCombat)stats;
+                foreach(var spawned in PlayerMoveManager.Instance.spawnedEnemies)
+                {
+
+                    if(spawned.Key == enemyCombat)
+                    {
+                        
+                        var fx = Instantiate(buffFx, spawned.Value.transform);
+
+                        enemyCombat.onStatusProgress.AddListener(delegate
+                        {
+
+
+                            if (!buffFx) { return; }
+
+
+
+                            foreach (var status in enemyCombat.statuses)
+                            {
+                                if (status.buffId == NetworkData.Instance.buffDataBase.GetId[this])
+                                {
+
+                                    return;
+                                }
+                            }
+
+                            Destroy(fx);
+
+                        });
+                        break;
+
+                    }
+
+                }
+            }
+        }
+        
 
         if (NewCombatManager.instance)
         {

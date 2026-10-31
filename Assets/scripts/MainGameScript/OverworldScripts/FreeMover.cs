@@ -1,3 +1,5 @@
+using System.Data;
+using System.Linq;
 using Unity.Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
@@ -117,15 +119,15 @@ public class FreeMover : NetworkBehaviour
     }
 
 
-    public void FreeCamera()
+    public void FreeCamera(TileArrowRules rule = TileArrowRules.None)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
 
-        FreeCameraRpc();
+        FreeCameraRpc(rule);
     }
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    private void FreeCameraRpc(RpcParams paramys = default)
+    private void FreeCameraRpc(TileArrowRules rule, RpcParams paramys = default)
     {
         gameObject.SetActive(true);
         ClientChecks.Instance.mainMenuButtons.SetActive(false);
@@ -140,13 +142,47 @@ public class FreeMover : NetworkBehaviour
         {
             gameObject.GetComponent<NetworkObject>().ChangeOwnership(paramys.Receive.SenderClientId);
         }
-
+        if(rule == TileArrowRules.None) { return; }
+        if(rule == TileArrowRules.AllEnemies) 
+        {
+            int index = 0;
+            foreach(var tile in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber])
+            {
+                foreach(var enemy in tile.tileEnemy)
+                {
+                    if (!enemy.loyaltyTags.Intersect(NetworkData.Instance.GetCurrentPlayer().loyaltyTags).Any())
+                    {
+                        PlayerMoveManager.Instance.mapTiles[index].ArrowChange(true);
+                        break;
+                    }
+                }
+                foreach(var player in tile.players)
+                {
+                    var enemy = NetworkData.Instance.players[player];
+                    if (!enemy.loyaltyTags.Intersect(NetworkData.Instance.GetCurrentPlayer().loyaltyTags).Any())
+                    {
+                        PlayerMoveManager.Instance.mapTiles[index].ArrowChange(true);
+                        break;
+                    }
+                }
+                foreach (var enemy in tile.partyMembers)
+                {
+                    if (!enemy.loyaltyTags.Intersect(NetworkData.Instance.GetCurrentPlayer().loyaltyTags).Any())
+                    {
+                        PlayerMoveManager.Instance.mapTiles[index].ArrowChange(true);
+                        break;
+                    }
+                }
+                index++;
+            }
+            
+        }
     }
 
-    public void EndFreeCamera()
+    public void EndFreeCamera(TileArrowRules rule = TileArrowRules.None)
     {
         if (!NetworkData.Instance.IsAllowed(NetworkData.Instance.currentPlayer, NetworkManager.Singleton.LocalClientId)) { return; }
-        EndFreeCameraRpc();
+        EndFreeCameraRpc(rule);
     }
     public void EndFreeCamera(InputAction.CallbackContext action)
     {
@@ -155,9 +191,9 @@ public class FreeMover : NetworkBehaviour
         EndFreeCameraRpc();
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    private void EndFreeCameraRpc(RpcParams paramys = default)
+    private void EndFreeCameraRpc(TileArrowRules rule = TileArrowRules.None, RpcParams paramys = default)
     {
-        
+
         gameObject.SetActive(false);
         ClientChecks.Instance.cameraControlDisplay.SetActive(false);
         onUndoFree.Invoke();
@@ -166,12 +202,52 @@ public class FreeMover : NetworkBehaviour
         playerCam.Follow = NetworkData.Instance.playerSticks[NetworkData.Instance.currentPlayer].transform;
 
         playerCam.GetComponent<CinemachineFollow>().FollowOffset -= followOffset;
-       
+
         if (IsServer)
         {
             gameObject.GetComponent<NetworkObject>().ChangeOwnership(0);
         }
+        if (rule == TileArrowRules.None) { return; }
+        if (rule == TileArrowRules.AllEnemies)
+        {
+            int index = 0;
+            foreach (var tile in MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber])
+            {
+                foreach (var enemy in tile.tileEnemy)
+                {
+                    if (!enemy.loyaltyTags.Intersect(NetworkData.Instance.GetCurrentPlayer().loyaltyTags).Any())
+                    {
+                        PlayerMoveManager.Instance.mapTiles[index].ArrowChange(false);
+                        break;
+                    }
+                }
+                foreach (var player in tile.players)
+                {
+                    var enemy = NetworkData.Instance.players[player];
+                    if (!enemy.loyaltyTags.Intersect(NetworkData.Instance.GetCurrentPlayer().loyaltyTags).Any())
+                    {
+                        PlayerMoveManager.Instance.mapTiles[index].ArrowChange(false);
+                        break;
+                    }
+                }
+                foreach (var enemy in tile.partyMembers)
+                {
+                    if (!enemy.loyaltyTags.Intersect(NetworkData.Instance.GetCurrentPlayer().loyaltyTags).Any())
+                    {
+                        PlayerMoveManager.Instance.mapTiles[index].ArrowChange(false);
+                        break;
+                    }
+                }
+                index++;
+            }
+        }
     }
 
+}
+
+public enum TileArrowRules
+{
+    None,
+    AllEnemies
 
 }
