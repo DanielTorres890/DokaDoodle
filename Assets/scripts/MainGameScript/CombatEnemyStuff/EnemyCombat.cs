@@ -18,7 +18,7 @@ public class EnemyCombat : EntityStats
     {
         foreach ( var temp in EnemyInfo.Stats)
         {
-            base.stats[temp.attribute] = temp.value;
+            base.stats[temp.attribute] = Mathf.CeilToInt(temp.value * NetworkData.Instance.globalEnemyMultiplier);
             enemyId = PlayerCombatManager.Instance.EnemyDataBase.GetId[EnemyInfo];
             base.name = EnemyInfo.enemyName;
         }

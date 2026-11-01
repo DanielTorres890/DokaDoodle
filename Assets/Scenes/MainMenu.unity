@@ -371,6 +371,8 @@ MonoBehaviour:
   - 
   globalShopMultiplier: 1
   globalEnemyMultiplier: 1
+  globalEnemyMoneyDrop: 1
+  globalEnemyXpDrop: 1
   readyPlayers: 
   currentEvent: {fileID: 0}
   onStatusProgress:
@@ -4677,6 +4679,7 @@ MonoBehaviour:
   - worldEvent: {fileID: 11400000, guid: 23b705d67689c094282459f521e4fac2, type: 2}
     weight: 5
   questEvents:
+  - {fileID: 11400000, guid: 7a7116411b432b445ad088dd00e2c9fe, type: 2}
   - {fileID: 11400000, guid: 0b0b706af1edd6147b4e30a99006e119, type: 2}
   - {fileID: 11400000, guid: 58af29bb9363f034591c0c9171d438d3, type: 2}
   - {fileID: 11400000, guid: d367d73bc23f13f4581cd6575dddeb42, type: 2}

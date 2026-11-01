@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490ba646d1763b94ab85d67ddbfe9c5e, type: 3}
+  m_Name: Blood Moon Event
+  m_EditorClassIdentifier: Assembly-CSharp::BloodMoonEvent
+  ActivateText:
+  - The moon runs red with blood....
+  - Enemies will be stronger during the blood moon
+  DeactivateText: The moon has left, to come back another day
+  eventDisplay: {fileID: 21300000, guid: ee8efc658db1fc84e84ad992b707b0c5, type: 3}
+  eventIcon: {fileID: 21300000, guid: 5ebc10ef8aa3804488b5754bf629bbed, type: 3}
+  eventToolTip: A blood moon is going on, making all enemies encountered stronger
+  startCutscene: {fileID: 0}
+  finishCutscene: {fileID: 0}
+  MainQuestCondition: {fileID: 11400000, guid: c6394c2a1bade9a4c821f3792b4ca8b9, type: 2}
+  performOnComplete: []
+  cameraPos: {x: 0, y: 11, z: 0}
+  panDuration: 0
+  duration: 7
+  monsterMultiplier: 1.5
+  monsterGoldMultiplier: 1
+  monsterXpMultiplier: 1

@@ -47,6 +47,9 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
 
     public float globalShopMultiplier = 1;
     public float globalEnemyMultiplier = 1;
+    public float globalEnemyMoneyDrop = 1;
+    public float globalEnemyXpDrop = 1;
+
     public List<bool> readyPlayers = new List<bool>();
 
     public EventBase currentEvent;
