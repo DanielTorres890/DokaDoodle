@@ -93,8 +93,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: efda9bdbae0c71b46a12b1bcd62ea44a, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -14930,6 +14930,9 @@ MonoBehaviour:
   onClassAbilityUse:
     m_PersistentCalls:
       m_Calls: []
+  onEventActivate:
+    m_PersistentCalls:
+      m_Calls: []
   worldEventImage: {fileID: 2000756986}
   randomItemPickup: {fileID: 1896124179}
   diceParent: {fileID: 425365416}
@@ -25772,7 +25775,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1363785390949686150, guid: 747dc9d692362804c993c33bad7d271c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -212.34116
+      value: -212.34093
       objectReference: {fileID: 0}
     - target: {fileID: 3036091057128104075, guid: 747dc9d692362804c993c33bad7d271c, type: 3}
       propertyPath: m_AnchorMax.x

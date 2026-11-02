@@ -215,6 +215,7 @@ MonoBehaviour:
   enemies: []
   events:
   - tileEvent: {fileID: 11400000, guid: 8c219fff7a677d54fab6cb0d5d69108f, type: 2}
+    condition: {fileID: 0}
     weight: 1
   conditionalCombats: []
 --- !u!65 &509740007359940375
@@ -580,7 +581,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: -876546973899608171, guid: c5384909772e561429b79f0e9ba1466f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

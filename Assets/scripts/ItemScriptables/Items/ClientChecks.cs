@@ -34,6 +34,7 @@ public class ClientChecks : NetworkBehaviour
     public RenderTexture[] playerHeadshots;
     public UnityEvent onItemUse;//i'd like to say that im not that happy about whats going on here but this has to be better than updating stat UI every frame
     public UnityEvent onClassAbilityUse;
+    public UnityEvent<int> onEventActivate;
 
     public Image worldEventImage;
     private bool loadedIn = false;
@@ -841,8 +842,9 @@ public class ClientChecks : NetworkBehaviour
         worldEventImage.gameObject.SetActive(true);
         displayText.gameObject.SetActive(true);
         displayText.Awake();
+        onEventActivate.Invoke(WorldEventManager.Instance.worldDatabase.GetId[thisEvent]);
 
-        
+
         while (displayText.gameObject.activeSelf)
         {
             yield return null;

@@ -371,12 +371,13 @@ public class NewCombatManager : NetworkBehaviour
 
                 
                 xpHarvested += Mathf.RoundToInt
-                    (PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].droppedXp * 
+                    ( NetworkData.Instance.globalEnemyXpDrop *
+                      PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].droppedXp * 
                     ( 1 + ((enemyCombatCount - 1f) / (1f + exponentialFactor * (enemyCombatCount - 1f))) )
                     / enemyCombatCount
                     );
 
-                moneyHarvested += PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].GetDroppedMoney();
+                moneyHarvested += Mathf.RoundToInt(PlayerCombatManager.Instance.EnemyDataBase.GetItem[info.enemyId].GetDroppedMoney() * NetworkData.Instance.globalEnemyMoneyDrop);
 
                 if (IsServer)
                 {

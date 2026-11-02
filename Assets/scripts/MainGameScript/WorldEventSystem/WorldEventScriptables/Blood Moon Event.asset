@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BloodMoonEvent
   ActivateText:
   - The moon runs red with blood....
-  - Enemies will be stronger during the blood moon
+  - Enemies will be stronger during the blood moon, but you'll get more loot
   DeactivateText: The moon has left, to come back another day
   eventDisplay: {fileID: 21300000, guid: ee8efc658db1fc84e84ad992b707b0c5, type: 3}
   eventIcon: {fileID: 21300000, guid: 5ebc10ef8aa3804488b5754bf629bbed, type: 3}
   eventToolTip: A blood moon is going on, making all enemies encountered stronger
   startCutscene: {fileID: 0}
   finishCutscene: {fileID: 0}
-  MainQuestCondition: {fileID: 11400000, guid: c6394c2a1bade9a4c821f3792b4ca8b9, type: 2}
+  MainQuestCondition: {fileID: 11400000, guid: 38aed0e863acf274a8c2e357216e5925, type: 2}
   performOnComplete: []
   cameraPos: {x: 0, y: 11, z: 0}
   panDuration: 0
   duration: 7
   monsterMultiplier: 1.5
-  monsterGoldMultiplier: 1
-  monsterXpMultiplier: 1
+  monsterGoldMultiplier: 1.25
+  monsterXpMultiplier: 1.25
