@@ -1,8 +1,12 @@
 # Dokadoodle
-Dokadoodle is a multiplayer game where you play against other players in a race to complete map objectives
-It features board game style movement to move around the map
-Contains core JRPG elements like stats, xp/levels, items and classes and party members
-Combat follows a 3D arena fighter format to really show individual players getting stronger
+Dokadoodle is a multiplayer game where you play against other players in a race to complete map objectives  
+
+It features board game style movement to move around the map  
+
+Contains core JRPG elements like stats, xp/levels, items and classes and party members  
+
+Combat follows a 3D arena fighter format to really show individual players getting stronger  
+
 # Stack
 Utilizes Unity 6 and Unity solutions such as Relay and NGO for all aspects of the game from Multiplayer to saving and loading data
 # Recent Build
