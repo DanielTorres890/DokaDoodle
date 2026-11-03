@@ -20,7 +20,10 @@ public class InventoryChangeScript : NetworkBehaviour
 
     public int whomsInventory;
     public int whoInControl;
-
+    public void OnEnable()
+    {
+        
+    }
     public override void OnNetworkSpawn()
     {
 
@@ -45,6 +48,11 @@ public class InventoryChangeScript : NetworkBehaviour
 
         
         inventoryDisplay.CreateDisplay(whomsInventory, currentInventory);
+
+        if (nameText)
+        nameText.text = inventoryNames[currentInventory];
+
+        if (mouseOverText)
         mouseOverText.text = "";
         if(sizeText)
         sizeText.text = inventoryDisplay.inventory.container.Count.ToString() + "/" + inventoryDisplay.inventory.MAXSIZE.ToString();

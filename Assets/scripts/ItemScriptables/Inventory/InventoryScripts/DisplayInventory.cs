@@ -100,13 +100,14 @@ public class DisplayInventory : MonoBehaviour
             {
                 obj.GetComponent<Button>().onClick.AddListener(delegate { ShopUISync.instance.setUpSell(tempId, inventoryType); });
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0, -13} {1}", inventory.container[tempId].item.name, inventory.container[tempId].item.itemValue / 2);
-                AddEvent(obj, EventTriggerType.PointerExit, delegate { displayText.SetText("Pick an item tpo drop lil guy your inventory full \n(green items are the items you just picked up)"); });
+                
 
             }
             else if(displayType == InvDisplayType.DropItem)
             {
                 obj.GetComponent<Button>().onClick.AddListener(delegate { LoseItemManager.instance.LoseItem(tempId, inventoryType); });
                 obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[i].item.name;
+                AddEvent(obj, EventTriggerType.PointerExit, delegate { displayText.SetText("Pick an item to drop lil guy your inventory full \n(green items are the items you just picked up)"); });
             }
             else if(displayType == InvDisplayType.StealItem)
             {

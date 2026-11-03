@@ -13,6 +13,8 @@ public class ShopUISync : NetworkBehaviour
     [SerializeField] private List<GameObject> buyDontButtons;
     [SerializeField] private List<GameObject> sellDontButtons;
     [SerializeField] private DisplayInventory sellUIManager;
+    [SerializeField] private InventoryChangeScript inventoryChange;
+
     [SerializeField] private UIStatUpdate moneyDisplay;
     private ShopEvent curEvent;
     public static ShopUISync instance;
@@ -53,7 +55,9 @@ public class ShopUISync : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void ShowSellRpc()
     {
-        sellUIManager.CreateDisplay(NetworkData.Instance.currentPlayer);
+        
+        
+        inventoryChange.ResetDisplay();
         sellShop.SetActive(true);
         hideMenuButtons(mainMenuButtons);
     }
@@ -178,7 +182,7 @@ public class ShopUISync : NetworkBehaviour
     private void setUpSellRpc(int itemNum, int inventoryNum)
     {
 
-        Debug.Log("SELLING BUTTONS SHOULD BE ACTIVE");
+        
         sellShop.SetActive(false);
         sellDontButtons[0].SetActive(true);
         sellDontButtons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Sell";

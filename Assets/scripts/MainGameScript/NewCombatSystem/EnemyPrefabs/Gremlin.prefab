@@ -367,6 +367,8 @@ MonoBehaviour:
     onStatusProgress:
       m_PersistentCalls:
         m_Calls: []
+    stunImmune: 0
+    resistDeath: 0
     attacks: []
     defenses:
     - {fileID: 0}
@@ -478,6 +480,7 @@ MonoBehaviour:
   energyRegen: 1
   chargeDuration: 0
   visualsParent: {fileID: 4165645849881084928}
+  gettingHitSFX: {fileID: 0}
 --- !u!114 &-7284265792361973657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -676,6 +679,7 @@ MonoBehaviour:
   animator: {fileID: -2458163416096458169}
   overrideController: {fileID: 0}
   walkingAnimation: {fileID: 7400000, guid: 300f5a21cc15f104bb2f81c72fd6ab68, type: 2}
+  walkingAnimSpeed: 1
   victoryAnimation: {fileID: 0}
   attackAnimations:
   - startUp: {fileID: 7400000, guid: 772938f06302a0a49a84b5c16ba93079, type: 2}
@@ -684,13 +688,15 @@ MonoBehaviour:
   releaseTimer: 0
   timeToHold: 0
   baseMoveSpeed: 4
+  distanceToGround: 1
   rb: {fileID: -1730922337866841109}
   source: {fileID: 0}
   minimumRange: 3
   dashDuration: 0.25
   timeToChaseDash: 6
   dashCost: 30
-  dodgeAwayChance: 25
+  dodgeAwayChance: 75
+  dodgeVariance: 15
 --- !u!82 &7637299146424832059
 AudioSource:
   m_ObjectHideFlags: 0

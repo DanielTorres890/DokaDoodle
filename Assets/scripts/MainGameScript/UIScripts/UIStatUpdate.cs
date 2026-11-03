@@ -37,11 +37,11 @@ public class UIStatUpdate : MonoBehaviour
         textMeshProUGUI.text = statName + " "+color+NetworkData.Instance.players[NetworkData.Instance.currentPlayer].postStatusStats[attribute]+"</color>";
         if(statName.Equals("LVL"))
         {
-            textMeshProUGUI.text = statName + " " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.level];
+            textMeshProUGUI.text = statName + color + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.level] +"</color>";
         }
         if(statName.Equals("Money"))
         {
-            textMeshProUGUI.text = "G:" + " " + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money];
+            textMeshProUGUI.text = "G: " + color + NetworkData.Instance.players[NetworkData.Instance.currentPlayer].playerInfo[PlayerInfo.money] + "</color>";
         }
     }
 }

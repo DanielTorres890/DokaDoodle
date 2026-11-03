@@ -194,6 +194,12 @@ public class ClientChecks : NetworkBehaviour
     public void ReadyToGoRpc()
     {
         PlayerMoveManager.Instance.RoundStart();
+
+        if(WorldEventManager.Instance.days == 0 && WorldEventManager.Instance.weeks > 0)
+        {
+            //pop up one is the weekly paycheckS
+            PopUpManager.Instance.PerformPopUp(1, true);
+        }
         NetworkData.Instance.ProgressStatus(NetworkData.Instance.currentPlayer);
         NetworkData.Instance.GetCurrentPlayer().playerInfo[PlayerInfo.classCd] -= 1;
         bool rumble = false;
