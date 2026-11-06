@@ -7,8 +7,9 @@ public class ClassProgressDisplay : MonoBehaviour
     public Image[] stars;
     public TextMeshProUGUI className;
     public int currentClass;
-
-
+    public TextMeshProUGUI itemInvSize;
+    public TextMeshProUGUI physInvSize;
+    public TextMeshProUGUI magicInvSize;
     public void OnEnable()
     {
         UpdateClassDisplay(NetworkData.Instance.GetCurrentPlayer().playerClass);
@@ -31,9 +32,14 @@ public class ClassProgressDisplay : MonoBehaviour
                 stars[i].color = Color.grey;
             }
         }
-        className.text = NetworkData.Instance.classDataBase.GetItem[currentClass].className;
+        var thisClass = NetworkData.Instance.classDataBase.GetItem[currentClass];
+        className.text = thisClass.className;
+        itemInvSize.text = thisClass.inventorySizes[0].ToString();
+        physInvSize.text = thisClass.inventorySizes[1].ToString();
+        magicInvSize.text = thisClass.inventorySizes[2].ToString();
 
-        
+
+
 
 
     }
