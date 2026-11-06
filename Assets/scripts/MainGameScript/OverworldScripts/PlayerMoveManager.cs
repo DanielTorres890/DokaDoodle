@@ -7,6 +7,7 @@ using TMPro;
 using Unity.Cinemachine;
 
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -61,16 +62,18 @@ public class PlayerMoveManager : NetworkBehaviour
     public GameObject allyPrefab;
     public float AllyDistance;
 
+
     //DICTIONARIES SOLVE EVERYTHING HOLYYY
     public List<Dictionary<PartyMember, GameObject>> playerAllies = new List<Dictionary<PartyMember, GameObject>>();
     public Dictionary<EnemyCombat, GameObject> spawnedEnemies = new Dictionary<EnemyCombat, GameObject>();
     public List<EnemyCombat> orderedEnemies = new List<EnemyCombat>();
     private Coroutine activeRoutine;
 
+    public LineRenderer walkingTrail;
     public void Awake()
     {
         Instance = this;
-
+        walkingTrail = GetComponent<LineRenderer>();
         if (BGM) { BGMManager.instance.PlaySound(BGM); }
 
         mapTiles.Clear();
@@ -190,14 +193,27 @@ public class PlayerMoveManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void AddPathRpc(int tileId)
     {
+
+        if (takenPath.Count > 0  && Vector3.Distance(playerSticks[NetworkData.Instance.currentPlayer].transform.position, takenPath[takenPath.Count - 1].transform.position) > 1.61f)
+        {
+            walkingTrail.SetPosition(walkingTrail.positionCount - 1, takenPath[takenPath.Count - 1].transform.position + Vector3.up * 1.6f);
+        }
         takenPath.Add(mapTiles[tileId].gameObject);
+        walkingTrail.positionCount = takenPath.Count;
+        walkingTrail.SetPosition(walkingTrail.positionCount - 1, mapTiles[tileId].transform.position + Vector3.up * 1.6f);
         NetworkData.Instance.GetCurrentPlayer().curTileId = tileId;
         SetFollowingMembersToCurTile();
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     private void RemovePathRpc()
     {
+        if(Vector3.Distance(playerSticks[NetworkData.Instance.currentPlayer].transform.position, takenPath[takenPath.Count - 1].transform.position) > 1.61f)
+        {
+            walkingTrail.positionCount--;
+        }
+        walkingTrail.positionCount = takenPath.Count;
         takenPath.RemoveAt(takenPath.Count - 1);
+        
         NetworkData.Instance.GetCurrentPlayer().curTileId = takenPath[takenPath.Count - 1].GetComponent<TileScript>().tileId;
     }
 
@@ -208,6 +224,8 @@ public class PlayerMoveManager : NetworkBehaviour
         stickAnimators[NetworkData.Instance.currentPlayer].SetBool("Walking", true);
         SetAllyAnimator(true);
 
+        
+        
         diceRoll = num;
 
         var curTile = MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber][NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
@@ -239,7 +257,7 @@ public class PlayerMoveManager : NetworkBehaviour
         curTile.players.Remove(NetworkData.Instance.currentPlayer);
         //id like to say that while this is not the most beautiful thing in the world i cant hate it
         ClientChecks.Instance.rollNum.text = diceRoll.ToString();
-
+        
         if(NetworkData.Instance.IsAllowed())
         Tween.Delay(1.25f, delegate { canMove = true; });
 
@@ -280,7 +298,7 @@ public class PlayerMoveManager : NetworkBehaviour
         var curTile = mapTiles[NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId];
         var thisMapSpecial = MapTileSpecialEvents.Instance.mapTiles[mapNumber];
 
-        
+        int num = diceRoll;
         if (direction == Vector2.up && mapTiles[curTile.tileId].upTile != null && thisMapSpecial[mapTiles[curTile.tileId].upTile.GetComponent<TileScript>().tileId].passable)
         {
 
@@ -356,6 +374,7 @@ public class PlayerMoveManager : NetworkBehaviour
             NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = curTile.leftTile.GetComponent<TileScript>().tileId;
         }
 
+        
         SyncDiceRollServerRpc(diceRoll);
         ClientChecks.Instance.rollNum.text = diceRoll.ToString();
         StopAllCoroutines();
@@ -371,6 +390,7 @@ public class PlayerMoveManager : NetworkBehaviour
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = takenPath[takenPath.Count - 2].GetComponent<TileScript>().tileId;
 
         diceRoll++;
+       
         RemovePathRpc();
         SyncDiceRollServerRpc(diceRoll);
         ClientChecks.Instance.rollNum.text = diceRoll.ToString();
@@ -390,7 +410,7 @@ public class PlayerMoveManager : NetworkBehaviour
         }
         NetworkData.Instance.players[NetworkData.Instance.currentPlayer].curTileId = id;
         SetFollowingMembersToCurTile();
-
+        walkingTrail.positionCount = 0;
     }
 
 
@@ -447,7 +467,7 @@ public class PlayerMoveManager : NetworkBehaviour
         var currentPartyMembers = NetworkData.Instance.GetCurrentPlayer().partyMembers;
 
         int curPlayerIndex = NetworkData.Instance.currentPlayer;
-   
+        walkingTrail.SetPosition(walkingTrail.positionCount - 1, playerSticks[curPlayerIndex].transform.position);
         
         while (Vector3.Distance(playerSticks[curPlayerIndex].transform.position, mapTiles[tildId].gameObject.transform.position) > 1.61f)
         {
@@ -458,7 +478,7 @@ public class PlayerMoveManager : NetworkBehaviour
             playerSticks[NetworkData.Instance.currentPlayer].transform.position =
 
         Vector3.MoveTowards(playerSticks[curPlayerIndex].transform.position, new Vector3(tilePos.x, tilePos.y + 1.6f, tilePos.z) , speed * Time.deltaTime);
-        
+            walkingTrail.SetPosition(walkingTrail.positionCount - 1, playerSticks[curPlayerIndex].transform.position);
             SetFollowingMembersToCurTile();
             int memberCount = 0;
             for(int i = 0; i < currentPartyMembers.Count; i++)
@@ -469,6 +489,11 @@ public class PlayerMoveManager : NetworkBehaviour
                 memberCount++;
             }
             yield return null;
+        }
+
+        if (walkingTrail.positionCount > 1 && Vector3.Distance(walkingTrail.GetPosition(walkingTrail.positionCount - 1), walkingTrail.GetPosition(walkingTrail.positionCount - 2) ) < .25f)
+        {
+            walkingTrail.positionCount -= 1;
         }
    
     }
