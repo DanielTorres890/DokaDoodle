@@ -10,6 +10,7 @@ public class Maplighting : MonoBehaviour
     void Start()
     {
         CheckLighting();
+        if(ClientChecks.Instance != null) 
         ClientChecks.Instance.onEventActivate.AddListener(CheckLightingActivate);
     }
     public void CheckLighting()

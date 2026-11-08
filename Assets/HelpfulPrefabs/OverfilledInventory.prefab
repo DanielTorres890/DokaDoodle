@@ -560,7 +560,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7404270106153859511}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -847,7 +847,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -530.5, y: -255.5589}
+  m_AnchoredPosition: {x: -530.5, y: -0.00045776367}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &879206447537434074
@@ -2235,16 +2235,8 @@ PrefabInstance:
       value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 5119833263235265773, guid: 2da3d847d9de90d4da05122544b913ea, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 036c043dffb49864785e0332007d9082, type: 3}
-    - target: {fileID: 5119833263235265773, guid: 2da3d847d9de90d4da05122544b913ea, type: 3}
       propertyPath: m_EditorClassIdentifier
       value: UnityEngine.UI::UnityEngine.UI.Image
-      objectReference: {fileID: 0}
-    - target: {fileID: 5119833263235265773, guid: 2da3d847d9de90d4da05122544b913ea, type: 3}
-      propertyPath: m_PixelsPerUnitMultiplier
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5165019541408023060, guid: 2da3d847d9de90d4da05122544b913ea, type: 3}
       propertyPath: m_Pivot.x
@@ -2485,16 +2477,8 @@ PrefabInstance:
       value: -9.999999
       objectReference: {fileID: 0}
     - target: {fileID: 5119833263235265773, guid: 2da3d847d9de90d4da05122544b913ea, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 036c043dffb49864785e0332007d9082, type: 3}
-    - target: {fileID: 5119833263235265773, guid: 2da3d847d9de90d4da05122544b913ea, type: 3}
       propertyPath: m_EditorClassIdentifier
       value: UnityEngine.UI::UnityEngine.UI.Image
-      objectReference: {fileID: 0}
-    - target: {fileID: 5119833263235265773, guid: 2da3d847d9de90d4da05122544b913ea, type: 3}
-      propertyPath: m_PixelsPerUnitMultiplier
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5165019541408023060, guid: 2da3d847d9de90d4da05122544b913ea, type: 3}
       propertyPath: m_Pivot.x

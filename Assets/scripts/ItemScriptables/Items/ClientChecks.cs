@@ -195,7 +195,7 @@ public class ClientChecks : NetworkBehaviour
     {
         PlayerMoveManager.Instance.RoundStart();
 
-        if(WorldEventManager.Instance.days == 0 && WorldEventManager.Instance.weeks > 0)
+        if(WorldEventManager.Instance.days == 0 && WorldEventManager.Instance.turns == 0 && WorldEventManager.Instance.weeks > 0)
         {
             //pop up one is the weekly paycheckS
             PopUpManager.Instance.PerformPopUp(1, true);
