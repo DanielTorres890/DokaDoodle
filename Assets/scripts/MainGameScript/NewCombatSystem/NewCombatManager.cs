@@ -1091,16 +1091,17 @@ public class NewCombatManager : NetworkBehaviour
             for (int i = tilereadCache.partyMembers.Count - 1; i >= 0; i--)
             {
                 if (!tilereadCache.partyMembers[i].isDead) { continue; }
-                if (tilereadCache.partyMembers[i].allyOwner == partyWinner.playerNumber)
-                {
-                    tilereadCache.partyMembers[i].stats[Attributes.Health] = 1;
-                    tilereadCache.partyMembers[i].isDead = false;
+                tilereadCache.partyMembers[i].Die();
+                //if (tilereadCache.partyMembers[i].allyOwner == partyWinner.playerNumber)
+                //{
+                //    tilereadCache.partyMembers[i].stats[Attributes.Health] = 1;
+                //    tilereadCache.partyMembers[i].isDead = false;
 
-                }
-                else
-                {
-                    tilereadCache.partyMembers[i].Die();
-                }
+                //}
+                //else
+                //{
+                //    tilereadCache.partyMembers[i].Die();
+                //}
 
 
             }

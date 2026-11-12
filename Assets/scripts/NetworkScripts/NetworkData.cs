@@ -567,17 +567,23 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         }
         if(!started)
         {
-            if(!LoadedIn)
-            PlayerClassStatsRpc();
+            started = true;
+            if (!LoadedIn)
+            {
+                PlayerClassStatsRpc();
+                SceneChanger.Instance.loadClientScenesServerRpc("PregameCutScene");
+            }
+            
             else
             {
                 for(int i = 0;i < players.Count;i++)
                 {
                     //players[i].playerNumber = clientOrder[i];
                 }
+                SceneChanger.Instance.loadClientScenesServerRpc("MainGameUI");
             }
-                started = true;
-            SceneChanger.Instance.loadClientScenesServerRpc("PregameCutScene");
+                
+            
         }
         
     }

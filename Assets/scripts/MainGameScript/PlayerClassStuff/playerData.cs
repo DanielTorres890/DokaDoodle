@@ -200,6 +200,10 @@ public class playerData : EntityStats
     {
         this.isDead = true;
         this.tillRevive = turnsDead;
+        if(WorldEventManager.Instance.weeks <= 0)
+        {
+            this.tillRevive = 0;
+        }
         this.stats[Attributes.Health] = 0;
         
         if (backToBase)

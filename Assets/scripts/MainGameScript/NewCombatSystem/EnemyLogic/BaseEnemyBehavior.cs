@@ -107,8 +107,8 @@ public class BaseEnemyBehavior : NetworkBehaviour
     }
     public virtual void Update()
     {
-        
-        if(myManager.stats.isDead) { agent.enabled = false; return; }
+     
+        if (myManager.stats.isDead) { agent.enabled = false; return; }
         if(myManager.CanWalk() && (rb.linearVelocity.y == 0 || (rb.linearVelocity.y < 0 && Mathf.Abs(rb.position.y - targetManager.transform.position.y) < distanceToGround))) { agent.enabled = true; rb.isKinematic = true; }
         else { agent.enabled = false; }
         if (!agent.isOnNavMesh) { agent.enabled = false; }
