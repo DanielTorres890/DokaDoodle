@@ -10,10 +10,16 @@ public class PickRandomIdle : MonoBehaviour
     private float timer;
 
     public int[] animationWeights;
+
+    [Tooltip("Play an animation immediately?")]
+    public bool initialAnimation = false;
+
+    public bool dontStackActions = false;
     void Start()
     {
         animator = GetComponent<Animator>();
         timer = Random.Range(0, idleFrequency * 2);
+        if(initialAnimation) { timer = 0; }
     }
 
     // Update is called once per frame
@@ -22,6 +28,7 @@ public class PickRandomIdle : MonoBehaviour
         timer -= Time.deltaTime;
         if( timer < 0)
         {
+            if (dontStackActions && !animator.GetCurrentAnimatorStateInfo(0).IsName("default")) { return; }
             timer = idleFrequency + Random.Range(-idleVariance, idleVariance);
             
             animator.SetTrigger("action" + (pickAnimationFromWeight() + 1).ToString());
