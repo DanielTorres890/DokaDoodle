@@ -193,9 +193,14 @@ public class ClientChecks : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void ReadyToGoRpc()
     {
+        StartCoroutine(EndOfFrameFirst());
+    }
+    private void RoundStart()
+    {
+        WorldEventManager.Instance.playedTurn = true;
         PlayerMoveManager.Instance.RoundStart();
 
-        if(WorldEventManager.Instance.days == 0 && WorldEventManager.Instance.turns == 0 && WorldEventManager.Instance.weeks > 0)
+        if (WorldEventManager.Instance.days == 0 && WorldEventManager.Instance.turns == 0 && WorldEventManager.Instance.weeks > 0)
         {
             //pop up one is the weekly paycheckS
             PopUpManager.Instance.PerformPopUp(1, true);
@@ -865,7 +870,11 @@ public class ClientChecks : NetworkBehaviour
 
         else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0 ) {  StartCoroutine(displayDeactivateEvent()); }
 
-        else { FinishCutscenes(); }
+        else 
+        {
+            yield return new WaitForEndOfFrame();
+            FinishCutscenes(); 
+        }
     }
     private void FinishCutscenes()
     {
@@ -903,13 +912,17 @@ public class ClientChecks : NetworkBehaviour
         while (displayText.gameObject.activeSelf)
         {
             yield return null;
-        }
+        }   
         //we pray for no desync 
         WorldEventManager.Instance.eventsToDeactivate[0].OnDeactivate();
         WorldEventManager.Instance.eventsToDeactivate.RemoveAt(0);
         if(WorldEventManager.Instance.currentCutscene != null ) {  }
         else if (WorldEventManager.Instance.eventsToDeactivate.Count > 0) { StartCoroutine(displayDeactivateEvent()); }
-        else { FinishCutscenes(); }
+        else 
+        {
+            yield return new WaitForEndOfFrame(); 
+            FinishCutscenes(); 
+        }
     }
 
     private IEnumerator WaitUntilAllLoaded()
@@ -950,7 +963,12 @@ public class ClientChecks : NetworkBehaviour
        
         PreturnStuff();
     }
+    private IEnumerator EndOfFrameFirst()
+    {
+        yield return new WaitForEndOfFrame();
 
+        RoundStart();
+    }
     //specifically for undoing finder
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
     public void UndoItemUseRpc()

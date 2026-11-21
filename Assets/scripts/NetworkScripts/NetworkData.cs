@@ -84,8 +84,8 @@ public class NetworkData : NetworkBehaviour, IDataPersistance
         { Attributes.Health, "000000" },
         { Attributes.Attack, "C02C2C" },
         { Attributes.Defense, "35C596" },
-        { Attributes.Magic, "3E9CC5" },
-        { Attributes.MDefense, "B943B9" },
+        { Attributes.Magic, "4EBAE9" },
+        { Attributes.MDefense, "9F349F" },
         { Attributes.Dexterity, "BEBA3A" },
 
     };

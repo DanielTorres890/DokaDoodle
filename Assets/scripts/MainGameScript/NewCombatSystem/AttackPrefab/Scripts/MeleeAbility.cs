@@ -10,17 +10,7 @@ public class MeleeAbility : AbilityBase
     {
         base.Update();
     }
-    public override void OnHit()
-    {
-        if (hitGameObject)
-        {
-
-            var fx = Instantiate(hitGameObject);
-            fx.transform.position = transform.position;
-            fx.transform.localScale = transform.localScale;
-            fx.GetComponent<NetworkObject>().Spawn();
-        }
-    }
+   
     /*public void OnTriggerEnter(Collider other)
     {
         if (!(other.gameObject.CompareTag("damageable") && other.gameObject != base.owner)) 

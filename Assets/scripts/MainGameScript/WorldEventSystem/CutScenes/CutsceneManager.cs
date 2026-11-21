@@ -20,7 +20,6 @@ public class CutsceneManager : NetworkBehaviour
     {
         if(WorldEventManager.Instance.currentCutscene.backgroundMusic)
         BGMManager.instance.PlaySound(WorldEventManager.Instance.currentCutscene.backgroundMusic);
-        WorldEventManager.Instance.days -= 1;
         dialogueBox.whoInControl = NetworkData.Instance.currentPlayer;
         GameObject background = Instantiate(WorldEventManager.Instance.currentCutscene.cutsceneBackground);
 

@@ -33,6 +33,7 @@ public abstract class AbilityBase : NetworkBehaviour
     public bool continuousDamage;
     public float damageFrequency;
     private float damageTimer = 0;
+    
     private void Awake()
     {
         lifetimer = 0f;
@@ -62,6 +63,12 @@ public abstract class AbilityBase : NetworkBehaviour
             fx.transform.position = transform.position;
             fx.transform.localScale = transform.localScale;
             fx.GetComponent<NetworkObject>().Spawn();
+            Debug.Log("But what is it here bru " + hitEntities.Count);
+            if(hitEntities.Count > 0)
+            {
+                Debug.Log("I found someone else ");
+                fx.transform.position = hitEntities[0].transform.position;
+            }
         }
         if (!stickInOpponent) { Destroy(gameObject); }
 
@@ -114,6 +121,7 @@ public abstract class AbilityBase : NetworkBehaviour
 
 
             hitEntities.Add(other.gameObject);
+            
             targetsInRange.Add(hitby);
             
 
@@ -154,6 +162,7 @@ public abstract class AbilityBase : NetworkBehaviour
         }
 
     }
+    
     public virtual void OnTriggerExit(Collider other)
     {
         if (!IsServer || other.gameObject == owner) { return; }

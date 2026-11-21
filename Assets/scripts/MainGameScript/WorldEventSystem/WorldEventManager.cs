@@ -29,7 +29,7 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     public int weeks;
 
     public int daysPerWeek;
-    public bool firstTime = false; //im a bum so im sticking duct tape to fix this
+    public bool playedTurn = false; //im a bum so im sticking duct tape to fix this
 
 
     public CutSceneInfo currentCutscene;
@@ -66,12 +66,13 @@ public class WorldEventManager : NetworkBehaviour, IDataPersistance
     }
     public void ProgressDay()
     {
-        if(!firstTime) 
-        { 
-            firstTime = true;
+        if(!playedTurn) 
+        {
+            
             ClientChecks.Instance.TurnStartChecks();
             return;
         }
+        playedTurn = false;
         turns++;
         foreach (var events in activeWorldEvents)
         {

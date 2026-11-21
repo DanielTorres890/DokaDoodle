@@ -153,19 +153,23 @@ public class PlayerCombatManager : MonoBehaviour
             if (PlayerMoveManager.Instance.mapTiles[currentPlayer.curTileId].defaultTileEnemies != null)
             {
                 bool isMatching = true;
-                foreach(var enemy in PlayerMoveManager.Instance.mapTiles[currentPlayer.curTileId].defaultTileEnemies.enemies)
+                
+                foreach(var spawnedEnemy in potentialEnemies)
                 {
-
-                    foreach(var spawnedEnemy in potentialEnemies)
+                    bool wasInEncounter = false;
+                    foreach (var enemy in PlayerMoveManager.Instance.mapTiles[currentPlayer.curTileId].defaultTileEnemies.enemies)
                     {
-                        if(spawnedEnemy is EnemyCombat && (spawnedEnemy as EnemyCombat).enemyId != PlayerCombatManager.Instance.EnemyDataBase.GetId[enemy])
+                        if (spawnedEnemy is EnemyCombat && (spawnedEnemy as EnemyCombat).enemyId == PlayerCombatManager.Instance.EnemyDataBase.GetId[enemy])
                         {
-                            isMatching = false;
+                            wasInEncounter = true;
                             break;
+
                         }
                     }
-                    if(!isMatching) { break; }
+                    if(!wasInEncounter) { isMatching = false; break; }
                 }
+                    
+                
                 if(isMatching)
                 {
                     encounterName = PlayerMoveManager.Instance.mapTiles[currentPlayer.curTileId].defaultTileEnemies.EncounterName;

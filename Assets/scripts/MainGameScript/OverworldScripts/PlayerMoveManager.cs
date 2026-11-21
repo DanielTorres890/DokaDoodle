@@ -96,7 +96,7 @@ public class PlayerMoveManager : NetworkBehaviour
         {
             StickPlacer();
         }
-
+        StartCoroutine(SpawnEnemyVisuals());
     }
     public void RoundStart()
     {
@@ -112,8 +112,7 @@ public class PlayerMoveManager : NetworkBehaviour
         {
             stickAnimators.Add(playerSticks[i].GetComponent<Animator>());
         }
-        StickPlacer();
-        PartyMemberSpawner();
+        
         playerCam.Follow = playerSticks[NetworkData.Instance.currentPlayer].transform;
         FreeMover.Instance.playerCam = playerCam;
 
@@ -553,6 +552,17 @@ public class PlayerMoveManager : NetworkBehaviour
             }
         }
 
+       
+
+    }
+    private IEnumerator SpawnEnemyVisuals()
+    {
+        while(MapTileSpecialEvents.Instance.mapTiles[PlayerMoveManager.Instance.mapNumber] == null)
+        {
+            yield return null;
+        }
+        yield return new WaitForEndOfFrame();
+
         for (int i = 0; i < MapTileSpecialEvents.Instance.mapTiles[mapNumber].Length; i++)
         {
             if (MapTileSpecialEvents.Instance.mapTiles[mapNumber][i].tileEnemy.Count != 0)
@@ -562,9 +572,8 @@ public class PlayerMoveManager : NetworkBehaviour
             }
 
         }
-
+        PartyMemberSpawner();
     }
-
     public void spawnEnemyOverworld(int tileId, List<EnemyCombat> enemies)
     {
 

@@ -54,10 +54,10 @@ public class TileInfoDisplay : MonoBehaviour
             //i could probably figture out some loop with ordered attributes but it aint worth it to me personally
             if(NetworkData.Instance.seenEnemies.Contains(thisTile.tileEnemy[i].enemyId))
             {
-
-                instance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "HP: " + enemyAttributes[Attributes.Health].ToString() + "/" + enemyAttributes[Attributes.MaxHealth].ToString();
+                instance.transform.GetChild(1).GetComponent<Slider>().value = (float)enemyAttributes[Attributes.Health] / enemyAttributes[Attributes.MaxHealth];
+                instance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "HP: " + enemyAttributes[Attributes.Health].ToString() + "/" + enemyAttributes[Attributes.MaxHealth].ToString();
                 Attributes[] orderedAttributes = {Attributes.Attack, Attributes.Defense, Attributes.Magic, Attributes.MDefense, Attributes.Dexterity};
-                int index = 2;
+                int index = 3;
                 foreach(var attrib in orderedAttributes)
                 {
                     if (baseEnemyAttributes[attrib] < enemyAttributes[attrib])
@@ -93,13 +93,13 @@ public class TileInfoDisplay : MonoBehaviour
 
             var enemyAttributes = thisPlayer.stats;
 
-            
-            instance.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "HP: " + enemyAttributes[Attributes.Health].ToString() + "/" + enemyAttributes[Attributes.MaxHealth].ToString();
-            instance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "ATK: " + enemyAttributes[Attributes.Attack].ToString();
-            instance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "DEF: " + enemyAttributes[Attributes.Defense].ToString();
-            instance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "MAG: " + enemyAttributes[Attributes.Magic].ToString();
-            instance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "MDEF: " + enemyAttributes[Attributes.MDefense].ToString();
-            instance.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = "DEX: " + enemyAttributes[Attributes.Dexterity].ToString();
+            instance.transform.GetChild(1).GetComponent<Slider>().value = (float)enemyAttributes[Attributes.Health] / enemyAttributes[Attributes.MaxHealth];
+            instance.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "HP: " + enemyAttributes[Attributes.Health].ToString() + "/" + enemyAttributes[Attributes.MaxHealth].ToString();
+            instance.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "ATK: " + enemyAttributes[Attributes.Attack].ToString();
+            instance.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "DEF: " + enemyAttributes[Attributes.Defense].ToString();
+            instance.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "MAG: " + enemyAttributes[Attributes.Magic].ToString();
+            instance.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = "MDEF: " + enemyAttributes[Attributes.MDefense].ToString();
+            instance.transform.GetChild(7).GetComponent<TextMeshProUGUI>().text = "DEX: " + enemyAttributes[Attributes.Dexterity].ToString();
 
             
 
