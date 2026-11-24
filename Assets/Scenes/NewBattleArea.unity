@@ -4236,19 +4236,25 @@ PrefabInstance:
     - target: {fileID: 3588070724742875768, guid: de82f8dcfc1c9a249a66b939a2983c03, type: 3}
       propertyPath: m_text
       value: 'DEX makes you walk/dash faster and unlocks special movement options
-        (like Dashing at high enough DEX) '
+        (like Dashing at high enough DEX)
+
+        Also Increases Crit Chance'
       objectReference: {fileID: 0}
     - target: {fileID: 3588070724742875768, guid: de82f8dcfc1c9a249a66b939a2983c03, type: 3}
       propertyPath: m_fontSize
-      value: 27.9
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 3588070724742875768, guid: de82f8dcfc1c9a249a66b939a2983c03, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: b6d5ec70c5325c84db20563dbc15332b, type: 2}
     - target: {fileID: 3588070724742875768, guid: de82f8dcfc1c9a249a66b939a2983c03, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 6576096574371221715, guid: b6d5ec70c5325c84db20563dbc15332b, type: 2}
+    - target: {fileID: 3588070724742875768, guid: de82f8dcfc1c9a249a66b939a2983c03, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6923332928797948387, guid: de82f8dcfc1c9a249a66b939a2983c03, type: 3}
       propertyPath: m_Pivot.x
@@ -7237,6 +7243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryChangeScript
   ShowTopMostFoldoutHeaderGroup: 1
   inventoryDisplay: {fileID: 1252512783}
+  invSlotsDisplay: {fileID: 0}
   inventoryNames:
   - Item
   - Physicals
@@ -11342,6 +11349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryChangeScript
   ShowTopMostFoldoutHeaderGroup: 1
   inventoryDisplay: {fileID: 2071873207154647085}
+  invSlotsDisplay: {fileID: 0}
   inventoryNames: []
   nameText: {fileID: 0}
   inventoryToolTips: []
@@ -11709,7 +11717,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5730783073344226212}
   m_HandleRect: {fileID: 7015598941243253903}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
