@@ -251,7 +251,12 @@ public class EntityStats
         onStatusProgress.Invoke();
         PostStatusStatCalc();
     }
-
+    public float CritChance()
+    {
+        float critChance = 0f;
+        critChance = stats[Attributes.Dexterity] / 2f;
+        return critChance;
+    }
 }
 
 

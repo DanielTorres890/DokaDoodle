@@ -20,16 +20,24 @@ public class ObstacleManager : AbilityManager
 
     }
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    public override void ImHitRpc(int damageAmt, int ByWho)
+    public override void ImHitRpc(int damageAmt, int ByWho, int random)
     {
         //bywho could potentially bse useful later
+        bool didCrit = random <= NewCombatManager.instance.allCombatants[ByWho].stats.CritChance();
+
+        float dmgMultiplier = 1;
+        if (didCrit) { dmgMultiplier = 2; }
+
 
         GameObject dmgNum = Instantiate(damageNumber);
-        dmgNum.transform.position = transform.position;
-        dmgNum.transform.position += new Vector3(UnityEngine.Random.Range(-.5f, .5f), UnityEngine.Random.Range(-.5f, .5f), UnityEngine.Random.Range(-.5f, .5f));
-        var textComponent = dmgNum.GetComponent<TextMeshPro>();
-        textComponent.text = damageAmt.ToString();
-        textComponent.fontSize = Mathf.Clamp(100f * damageAmt / stats.stats[Attributes.MaxHealth], minFontSize, maxFontSize);
+        dmgNum.GetComponent<DamageNumber>().SetUp(this, Mathf.RoundToInt(damageAmt * dmgMultiplier), didCrit);
+
+        //dmgNum.transform.position = transform.position;
+        //dmgNum.transform.position += new Vector3(UnityEngine.Random.Range(-.5f, .5f), UnityEngine.Random.Range(-.5f, .5f), UnityEngine.Random.Range(-.5f, .5f));
+        //var textComponent = dmgNum.GetComponent<TextMeshPro>();
+        //textComponent.text = damageAmt.ToString();
+        //textComponent.fontSize = Mathf.Clamp(100f * damageAmt / stats.stats[Attributes.MaxHealth], minFontSize, maxFontSize);
+
         hp -= damageAmt;
         if(hp < 0 && !stats.isDead)
         {

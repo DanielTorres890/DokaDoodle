@@ -126,17 +126,29 @@ public abstract class AbilityBase : NetworkBehaviour
             
 
             int entityIndex = NewCombatManager.instance.allCombatants.IndexOf(owner.GetComponent<AbilityManager>());
-            hitby.ImHitRpc(DamageCalculator(hitby.stats), entityIndex);
+            int randomNum = Random.Range(0, 101);
+            bool wasCrit = randomNum <= owner.GetComponent<AbilityManager>().stats.CritChance();
+            
+            hitby.ImHitRpc(DamageCalculator(hitby.stats), entityIndex, randomNum);
+
             int[] buffIds = new int[attackInfo.onHitEffects.Length];
             for (int i = 0; i < attackInfo.onHitEffects.Length; i++)
             {
                 buffIds[i] = NetworkData.Instance.buffDataBase.GetId[attackInfo.onHitEffects[i]];
             }
             hitby.IGainedBuffRpc(buffIds, entityIndex);
-            if (attackInfo.onHitSound)
+            
+
+            if (attackInfo.onHitSound && !wasCrit)
             {
                 if (ownerStats is playerData)
                     PlayHitSoundRpc(NetworkData.Instance.audioDataBase.GetId[attackInfo.onHitSound], RpcTarget.Single((ulong)NetworkData.Instance.PlayerNumToClientId((ownerStats as playerData).playerNumber), RpcTargetUse.Temp));
+
+            }
+            else if (attackInfo.onCritSound && wasCrit)
+            {
+                if(ownerStats is playerData)
+                    PlayHitSoundRpc(NetworkData.Instance.audioDataBase.GetId[attackInfo.onCritSound], RpcTarget.Single((ulong)NetworkData.Instance.PlayerNumToClientId((ownerStats as playerData).playerNumber), RpcTargetUse.Temp));
 
             }
             else
@@ -216,7 +228,7 @@ public abstract class AbilityBase : NetworkBehaviour
            
             
             int entityIndex = NewCombatManager.instance.allCombatants.IndexOf(owner.GetComponent<AbilityManager>());
-            target.ImHitRpc(DamageCalculator(target.stats), entityIndex);
+            target.ImHitRpc(DamageCalculator(target.stats), entityIndex, Random.Range(0, 101));
             int[] buffIds = new int[attackInfo.onHitEffects.Length];
             for (int i = 0; i < attackInfo.onHitEffects.Length; i++)
             {

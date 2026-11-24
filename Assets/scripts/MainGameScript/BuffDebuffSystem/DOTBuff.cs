@@ -19,7 +19,7 @@ public class DOTBuff : BuffBase
         if(NetworkManager.Singleton.IsServer)
         {
             int applierIndex = NewCombatManager.instance.allCombatants.IndexOf(whomApplied);
-            whom.ImHitRpc(Mathf.Clamp(Mathf.RoundToInt(percentDamagePerSecond * whom.stats.stats[Attributes.MaxHealth]), 1, 9999), applierIndex);
+            whom.ImHitRpc(Mathf.Clamp(Mathf.RoundToInt(percentDamagePerSecond * whom.stats.stats[Attributes.MaxHealth]), 1, 9999), applierIndex, 0);
         }
        
       

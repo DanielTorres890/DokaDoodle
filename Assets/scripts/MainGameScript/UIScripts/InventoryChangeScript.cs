@@ -9,7 +9,7 @@ public class InventoryChangeScript : NetworkBehaviour
 {
     private int currentInventory = 0;
     [SerializeField] public DisplayInventory inventoryDisplay;
-
+    [SerializeField] private InvSlotsDisplay invSlotsDisplay;
     [SerializeField] private string[] inventoryNames;
     [SerializeField] private TextMeshProUGUI nameText;
     [TextArea(3,12)]
@@ -48,7 +48,7 @@ public class InventoryChangeScript : NetworkBehaviour
 
         
         inventoryDisplay.CreateDisplay(whomsInventory, currentInventory);
-
+        invSlotsDisplay.CreateDisplay(whomsInventory, currentInventory);
         if (nameText)
         nameText.text = inventoryNames[currentInventory];
 
@@ -88,6 +88,7 @@ public class InventoryChangeScript : NetworkBehaviour
         }
         
         inventoryDisplay.CreateDisplay( whomsInventory, currentInventory);
+        invSlotsDisplay.CreateDisplay(whomsInventory, currentInventory);
         if (sizeText)
             sizeText.text = inventoryDisplay.inventory.container.Count.ToString() + "/" + inventoryDisplay.inventory.MAXSIZE.ToString();
     }
@@ -124,6 +125,7 @@ public class InventoryChangeScript : NetworkBehaviour
         }
 
         inventoryDisplay.CreateDisplay(whomsInventory, currentInventory);
+        invSlotsDisplay.CreateDisplay(whomsInventory, currentInventory);
         if (sizeText)
             sizeText.text = inventoryDisplay.inventory.container.Count.ToString() + "/" + inventoryDisplay.inventory.MAXSIZE.ToString();
     }

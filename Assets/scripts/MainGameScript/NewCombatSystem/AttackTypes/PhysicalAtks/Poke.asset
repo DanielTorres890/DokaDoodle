@@ -39,6 +39,7 @@ MonoBehaviour:
   offset: {x: -0.5, y: 2, z: 1.5}
   ablitySize: {x: 2, y: 0.3, z: 7}
   visualRoation: {x: 0, y: 0, z: 0}
+  lockRotation: 0
   baseDamage: 3
   multipliers:
   - attribute: 2
@@ -70,6 +71,7 @@ MonoBehaviour:
   startUpNoise: {fileID: 0}
   attackSound: {fileID: 8300000, guid: f8e04c0f92914e34da11e1e75e61e638, type: 3}
   onHitSound: {fileID: 8300000, guid: 8a01f98032021c24aa917273428d10fb, type: 3}
+  onCritSound: {fileID: 8300000, guid: 949827e4494b58d40907bec26137830e, type: 3}
   onHitEffects: []
   targets:
     serializedVersion: 2

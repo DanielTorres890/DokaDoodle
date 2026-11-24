@@ -115,7 +115,7 @@ public class PlayerMoveManager : NetworkBehaviour
         
         playerCam.Follow = playerSticks[NetworkData.Instance.currentPlayer].transform;
         FreeMover.Instance.playerCam = playerCam;
-
+        StickPlacer();
     }
     private void Update()
     {

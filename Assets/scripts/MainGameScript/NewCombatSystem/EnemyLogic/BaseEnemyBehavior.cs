@@ -191,6 +191,14 @@ public class BaseEnemyBehavior : NetworkBehaviour
         
         if(!IsServer) { return; }
 
+        if(selectedAttack)
+        {
+            var lookPos = targetManager.transform.position - transform.position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, Time.deltaTime * 360f / Mathf.Clamp(selectedAttack.startUp, .01f, 50));
+
+        }
 
         if ( myManager.CanAct())
         {
@@ -198,11 +206,12 @@ public class BaseEnemyBehavior : NetworkBehaviour
             selectAttack();
             if (myManager.stateManager[selectedAttack].cooldown > 0) { return; }
 
-            var oldRotation = transform.rotation;
-            transform.LookAt(new Vector3(targetManager.gameObject.transform.position.x, transform.position.y, targetManager.gameObject.transform.position.z));
-            var newTarget = transform.rotation;
-            transform.rotation = oldRotation;
-            Tween.RotationAtSpeed(transform, newTarget, 360f / Mathf.Clamp(selectedAttack.startUp, .01f, 50));
+            //var oldRotation = transform.rotation;
+            //transform.LookAt(new Vector3(targetManager.gameObject.transform.position.x, transform.position.y, targetManager.gameObject.transform.position.z));
+            //var newTarget = transform.rotation;
+            //transform.rotation = oldRotation;
+            
+            //Tween.RotationAtSpeed(transform, newTarget, 360f / Mathf.Clamp(selectedAttack.startUp, .01f, 50));
 
             for (int i = 0; i < myManager.stats.attacks.Count; i++)
             {

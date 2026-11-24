@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1635730549701905730}
   - component: {fileID: 3361834416582508326}
   - component: {fileID: 5599447514463552548}
-  - component: {fileID: -4554388472023173103}
+  - component: {fileID: 5577635339252679734}
   m_Layer: 0
   m_Name: DmgNumber
   m_TagString: Untagged
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelfDestruct
   whenToDestroy: 2
---- !u!114 &-4554388472023173103
+--- !u!114 &5577635339252679734
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,9 +218,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4463619591557501442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4078db66e83c6d43aa4c524a9a2eca4, type: 3}
+  m_Script: {fileID: 11500000, guid: 0202d24f0209b694badabd995bf30c1c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FloatAndShrink
-  text: {fileID: 1635730549701905730}
-  speed: 5
-  shrinkSpeed: 0.75
+  m_EditorClassIdentifier: Assembly-CSharp::DamageNumber
+  dmgText: {fileID: 1635730549701905730}
+  minFontSize: 5
+  maxFontSize: 40
+  lifeTime: 2
+  yIncrease: 5
+  duration: 2

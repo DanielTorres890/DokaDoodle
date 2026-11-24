@@ -16,6 +16,7 @@ public class ClientChecks : NetworkBehaviour
 {
     [SerializeField] private DisplayInventory display;
     [SerializeField] private InventoryChangeScript changeScript;
+
     [SerializeField] private GameObject confirmButtons;
 
     public static ClientChecks Instance { get; private set; }

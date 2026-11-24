@@ -61,8 +61,6 @@ public class AbilityManager : NetworkBehaviour
     private float whenToUpdate = 1f;
 
     private float onEverySecondTimer = 1f;
-    private float minFontSize = 5;
-    private float maxFontSize = 30;
     
     private void Awake()
     {
@@ -373,17 +371,20 @@ public class AbilityManager : NetworkBehaviour
    
 
     [Rpc(SendTo.ClientsAndHost, InvokePermission = RpcInvokePermission.Everyone)]
-    public virtual void ImHitRpc(int damageAmt, int ByWho)
+    public virtual void ImHitRpc(int damageAmt, int ByWho, int random)
     {
-       
-        stats.stats[Attributes.Health] -= damageAmt;
+        bool didCrit = random <= NewCombatManager.instance.allCombatants[ByWho].stats.CritChance();
+        
+        float dmgMultiplier = 1;
+        if(didCrit) { dmgMultiplier = 2; }
 
-   
+        
+        stats.stats[Attributes.Health] -= Mathf.RoundToInt(damageAmt * dmgMultiplier);
+        NewCombatManager.instance.AddContributionDamageTaken(stats, Mathf.RoundToInt(damageAmt * dmgMultiplier));
 
-        NewCombatManager.instance.AddContributionDamageTaken(stats, damageAmt);
 
         if(ByWho != -1)
-        NewCombatManager.instance.AddContributionDamage(NewCombatManager.instance.allCombatants[ByWho].stats, damageAmt);
+        NewCombatManager.instance.AddContributionDamage(NewCombatManager.instance.allCombatants[ByWho].stats, Mathf.RoundToInt(damageAmt * dmgMultiplier));
 
         stats.PostStatusStatCalc();
         
@@ -429,15 +430,17 @@ public class AbilityManager : NetworkBehaviour
         }
         onHit.Invoke();
         GameObject dmgNum = Instantiate(damageNumber);
-        dmgNum.transform.position = transform.position;
-        dmgNum.transform.position += new Vector3(UnityEngine.Random.Range(-.5f, .5f), UnityEngine.Random.Range(-.5f, .5f), UnityEngine.Random.Range(-.5f, .5f));
-        var textComponent = dmgNum.GetComponent<TextMeshPro>();
-        textComponent.text = damageAmt.ToString();
-        textComponent.fontSize = Mathf.Clamp(100f * damageAmt / stats.stats[Attributes.MaxHealth], minFontSize, maxFontSize);
-        if(NetworkData.Instance.players[NetworkData.Instance.ClientNumToPlayerNum(NetworkManager.Singleton.LocalClientId)] == stats)
-        {
-            textComponent.color = Color.red;
-        }
+        dmgNum.GetComponent<DamageNumber>().SetUp(this, Mathf.RoundToInt(damageAmt * dmgMultiplier), didCrit);
+
+        //dmgNum.transform.position = transform.position;
+        //dmgNum.transform.position += new Vector3(UnityEngine.Random.Range(-.5f, .5f), UnityEngine.Random.Range(-.5f, .5f), UnityEngine.Random.Range(-.5f, .5f));
+        //var textComponent = dmgNum.GetComponent<TextMeshPro>();
+        //textComponent.text = damageAmt.ToString();
+        //textComponent.fontSize = Mathf.Clamp(100f * Mathf.RoundToInt(damageAmt * dmgMultiplier) / stats.stats[Attributes.MaxHealth], minFontSize, maxFontSize);
+        //if(NetworkData.Instance.players[NetworkData.Instance.ClientNumToPlayerNum(NetworkManager.Singleton.LocalClientId)] == stats)
+        //{
+        //    textComponent.color = Color.red;
+        //}
         
         
     }
